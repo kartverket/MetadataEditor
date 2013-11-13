@@ -9,11 +9,44 @@ namespace Kartverket.MetadataEditor.Controllers
 {
     public class MetadataController : Controller
     {
-        public ActionResult Index()
+        private MetadataService _metadataService;
+
+        public MetadataController()
         {
+            _metadataService = new MetadataService();
+        }
+
+
+        public ActionResult Index(MetadataMessages? message)
+        {
+            ViewBag.StatusMessage =
+                message == MetadataMessages.InvalidUuid ? Resources.UI.Error_InvalidUuid
+                : "";
+
             var model = new MetadataIndexViewModel();
-            model.MetadataItems = new MetadataService().GetMyMetadata("Kartverket");
+            model.MetadataItems = _metadataService.GetMyMetadata("Kartverket");
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult Edit(string uuid)
+        {
+            if (string.IsNullOrWhiteSpace(uuid))
+             //   return RedirectToAction("Index", new { message = MetadataMessages.InvalidUuid });
+                return HttpNotFound();
+
+
+            MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
+
+            return View(model);
+        }
+
+
+
 	}
+
+    public enum MetadataMessages
+    {
+        InvalidUuid
+    }
 }

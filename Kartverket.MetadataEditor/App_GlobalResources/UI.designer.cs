@@ -70,6 +70,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rediger metadata.
+        /// </summary>
+        internal static string EditMetadata {
+            get {
+                return ResourceManager.GetString("EditMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ugyldig uuid.
+        /// </summary>
+        internal static string Error_InvalidUuid {
+            get {
+                return ResourceManager.GetString("Error_InvalidUuid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organisasjon.
         /// </summary>
         internal static string Metadata_Organization {

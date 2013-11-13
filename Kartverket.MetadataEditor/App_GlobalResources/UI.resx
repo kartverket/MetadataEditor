@@ -120,6 +120,12 @@
   <data name="AppPageTitle" xml:space="preserve">
     <value>GeoNorge</value>
   </data>
+  <data name="EditMetadata" xml:space="preserve">
+    <value>Rediger metadata</value>
+  </data>
+  <data name="Error_InvalidUuid" xml:space="preserve">
+    <value>Ugyldig uuid</value>
+  </data>
   <data name="Metadata_Organization" xml:space="preserve">
     <value>Organisasjon</value>
   </data>

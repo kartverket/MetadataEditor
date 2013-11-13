@@ -2,6 +2,16 @@
 
 <h1>@Resources.UI.MyMetadata_Label</h1>
 
+@if (!string.IsNullOrWhiteSpace(ViewBag.StatusMessage))
+{
+    <div class="col-sm-offset-2 col-sm-7">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Feilmelding</div>
+            <div class="panel-body">@ViewBag.StatusMessage</div>
+        </div>
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>

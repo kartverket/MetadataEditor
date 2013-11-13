@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using www.opengis.net;
+using GeoNorgeAPI;
 
 namespace Kartverket.MetadataEditor.Models
 {
     public class MetadataService
     {
+        private GeoNorge _geoNorge;
+
+        public MetadataService()
+        {
+            _geoNorge = new GeoNorge();
+        }
+
         public List<MetadataItemViewModel> GetMyMetadata(string organizationName)
         {
-            var geonorge = new GeoNorgeAPI.GeoNorge();
-            SearchResultsType results = geonorge.SearchWithOrganisationName(organizationName);
+            SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName);
 
             var metadata = new List<MetadataItemViewModel>();
 
@@ -41,5 +48,17 @@ namespace Kartverket.MetadataEditor.Models
             return metadata;
         }
 
+
+        public MetadataViewModel GetMetadataModel(string uuid)
+        {
+            MD_Metadata_Type metadata = _geoNorge.GetRecordByUuid(uuid);
+
+            return new MetadataViewModel() { 
+                Uuid = uuid, 
+                Title = metadata.identificationInfo[0].AbstractMD_Identification.citation.CI_Citation.title.CharacterString,
+                HierarchyLevel = metadata.hierarchyLevel[0].MD_ScopeCode.codeListValue
+            };
+
+        }
     }
 }
