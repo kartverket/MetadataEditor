@@ -7,8 +7,8 @@
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#home" data-toggle="tab">Om datasettet</a></li>
-<!--
     <li><a href="#contact" data-toggle="tab">Kontaktinformasjon</a></li>
+    <!--
     <li><a href="#keywords" data-toggle="tab">Nøkkelord</a></li>
     <li><a href="#distribution" data-toggle="tab">Distribusjon</a></li>
     <li><a href="#extent" data-toggle="tab">Utstrekning</a></li>
@@ -16,8 +16,10 @@
 
 </ul>
 
-<form class="form-horizontal" role="form">
-    <div class="tab-content">
+<form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form">
+    @Html.HiddenFor(m => m.Uuid)
+   
+     <div class="tab-content">
         <div class="tab-pane active" id="home">
 
             <div class="form-group">
@@ -42,6 +44,88 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="purpose" class="col-sm-2 control-label">Formål</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.Purpose, new { @class ="form-control", cols="", rows="3" })
+                    <div class="help-block panel panel-success hidden" id="help-block-purpose">
+                        <div class="panel-body">
+                            Dette er hjelpeteksten
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-block-id="help-block-purpose" class="badge help-block-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="abstract" class="col-sm-2 control-label">Sammendrag</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
+                    <div class="help-block panel panel-success hidden" id="help-block-abstract">
+                        <div class="panel-body">
+                            Dette er hjelpeteksten
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-block-id="help-block-abstract" class="badge help-block-toggle">?</a>
+                    </p>    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="supplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
+                    <div class="help-block panel panel-success hidden" id="help-block-supplementalDescription">
+                        <div class="panel-body">
+                            Dette er hjelpeteksten
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-block-id="help-block-supplementalDescription" class="badge help-block-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="usage" class="col-sm-2 control-label">Bruksområde</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.Usage, new { @class = "form-control", cols = "", rows = "3" })
+                    <div class="help-block panel panel-success hidden" id="help-block-usage">
+                        <div class="panel-body">
+                            Dette er hjelpeteksten
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-block-id="help-block-usage" class="badge help-block-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+<!-- /home -->
+
+        <div class="tab-pane" id="contact">
+            kontaktinformasjon...
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary">Lagre</button>
+        </div>
+    </div>
+
+
 </form>

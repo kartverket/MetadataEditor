@@ -41,8 +41,13 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
-
-
+        [HttpPost]
+        public ActionResult Edit(MetadataViewModel model)
+        {
+            _metadataService.SaveMetadataModel(model);
+            return RedirectToAction("Index");
+        }
+        
 	}
 
     public enum MetadataMessages

@@ -13,7 +13,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public MetadataService()
         {
-            _geoNorge = new GeoNorge();
+            _geoNorge = new GeoNorge("","","http://beta.geonorge.no/geonetwork/");
         }
 
         public List<MetadataItemViewModel> GetMyMetadata(string organizationName)
@@ -53,12 +53,26 @@ namespace Kartverket.MetadataEditor.Models
         {
             MD_Metadata_Type metadata = _geoNorge.GetRecordByUuid(uuid);
 
+            var identificationInfo = metadata.identificationInfo[0].AbstractMD_Identification;
             return new MetadataViewModel() { 
                 Uuid = uuid, 
-                Title = metadata.identificationInfo[0].AbstractMD_Identification.citation.CI_Citation.title.CharacterString,
-                HierarchyLevel = metadata.hierarchyLevel[0].MD_ScopeCode.codeListValue
+                Title = identificationInfo.citation.CI_Citation.title.CharacterString,
+                HierarchyLevel = metadata.hierarchyLevel[0].MD_ScopeCode.codeListValue,
+                Abstract = identificationInfo.@abstract.CharacterString,
+                Purpose = identificationInfo.purpose.CharacterString               
             };
 
         }
+
+        public void SaveMetadataModel(MetadataViewModel model)
+        {
+            MD_Metadata_Type metadata = _geoNorge.GetRecordByUuid(model.Uuid);
+
+            metadata.identificationInfo[0].AbstractMD_Identification.citation.CI_Citation.title.CharacterString = model.Title;
+
+            _geoNorge.MetadataUpdate(metadata);
+
+        }
+
     }
 }

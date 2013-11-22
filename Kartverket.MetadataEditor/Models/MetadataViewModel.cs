@@ -10,5 +10,14 @@ namespace Kartverket.MetadataEditor.Models
         public string Uuid { get; set; }
         public string HierarchyLevel { get; set; }
         public string Title { get; set; }
+        public string Purpose { get; set; }
+        public string Abstract { get; set; }
+        
+        public string Usage { get; set; }
+
+
+        /* dataset only */
+        public string SupplementalDescription { get; set; }
+
     }
 }
