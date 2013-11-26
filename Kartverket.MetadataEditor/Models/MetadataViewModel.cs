@@ -13,11 +13,13 @@ namespace Kartverket.MetadataEditor.Models
         public string Purpose { get; set; }
         public string Abstract { get; set; }
         
-        public string Usage { get; set; }
 
 
         /* dataset only */
         public string SupplementalDescription { get; set; }
+        public string SpecificUsage { get; set; }  // bruksområde
+        public string ResourceIdentifierName { get; set; }  // teknisk navn
+        
 
     }
 }

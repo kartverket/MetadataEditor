@@ -13,7 +13,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public MetadataService()
         {
-            _geoNorge = new GeoNorge("","","http://beta.geonorge.no/geonetwork/");
+            _geoNorge = new GeoNorge();
         }
 
         public List<MetadataItemViewModel> GetMyMetadata(string organizationName)
@@ -51,26 +51,28 @@ namespace Kartverket.MetadataEditor.Models
 
         public MetadataViewModel GetMetadataModel(string uuid)
         {
-            MD_Metadata_Type metadata = _geoNorge.GetRecordByUuid(uuid);
+            SimpleMetadata metadata = _geoNorge.GetRecordByUuidSimple(uuid);
 
-            var identificationInfo = metadata.identificationInfo[0].AbstractMD_Identification;
+
             return new MetadataViewModel() { 
-                Uuid = uuid, 
-                Title = identificationInfo.citation.CI_Citation.title.CharacterString,
-                HierarchyLevel = metadata.hierarchyLevel[0].MD_ScopeCode.codeListValue,
-                Abstract = identificationInfo.@abstract.CharacterString,
-                Purpose = identificationInfo.purpose.CharacterString               
+                Uuid = metadata.Uuid,
+                Title = metadata.Title,
+                HierarchyLevel = metadata.HierarchyLevel,
+                Abstract = metadata.Abstract,
+                Purpose = metadata.Purpose
             };
 
         }
 
         public void SaveMetadataModel(MetadataViewModel model)
         {
-            MD_Metadata_Type metadata = _geoNorge.GetRecordByUuid(model.Uuid);
+            SimpleMetadata metadata = _geoNorge.GetRecordByUuidSimple(model.Uuid);
 
-            metadata.identificationInfo[0].AbstractMD_Identification.citation.CI_Citation.title.CharacterString = model.Title;
+            metadata.Title = model.Title;
+            metadata.Abstract = model.Abstract;
+            metadata.Purpose = model.Purpose;
 
-            _geoNorge.MetadataUpdate(metadata);
+            _geoNorge.MetadataUpdate(metadata.GetMetadata());
 
         }
 
