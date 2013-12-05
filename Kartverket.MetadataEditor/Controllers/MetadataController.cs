@@ -9,6 +9,9 @@ namespace Kartverket.MetadataEditor.Controllers
 {
     public class MetadataController : Controller
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
         private MetadataService _metadataService;
 
         public MetadataController()
@@ -24,6 +27,21 @@ namespace Kartverket.MetadataEditor.Controllers
                 : "";
 
             var model = new MetadataIndexViewModel();
+
+            string organization = "Skog og landskap";
+            /*
+            if (User.Identity.IsAuthenticated)
+            {
+                foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                {
+                    Log.Info(string.Format("Claim type={0}, value={1}", claim.Type, claim.Value));
+                    if (claim.Type == "organization" && !string.IsNullOrWhiteSpace(claim.Value))
+                    {
+                        organization = claim.Value;
+                    }
+                }
+            }*/
+
             model.MetadataItems = _metadataService.GetMyMetadata("Kartverket");
             return View(model);
         }

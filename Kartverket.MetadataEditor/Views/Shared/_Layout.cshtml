@@ -36,6 +36,38 @@
         @RenderBody()
         <hr />
         <footer>
+            <div class="panel panel-success">
+                
+                @if (!User.Identity.IsAuthenticated)
+                {
+                <div class="panel-heading">
+                    Du er ikke innlogget. <a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")">Logg inn</a>.
+                    </div>
+                }
+                else
+                {
+                    <div class="panel-heading">
+                        Du er innlogget. <a href="@Url.Action("SignOut", "AuthServices")">Logg ut</a>.
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Claim Type</th>
+                                <th>Claim Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                            {
+                                <tr>
+                                    <td>@c.Type</td>
+                                    <td>@c.Value</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
             <p>&copy; @DateTime.Now.Year - Kartverket</p>
         </footer>
     </div>
