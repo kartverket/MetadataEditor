@@ -11,17 +11,17 @@ namespace Kartverket.MetadataEditor.Models
     {
         private GeoNorge _geoNorge;
 
-        public MetadataService()
+        public MetadataService(GeoNorge geonorge)
         {
-            _geoNorge = new GeoNorge();
+            _geoNorge = geonorge;
         }
 
-        public List<MetadataItemViewModel> GetMyMetadata(string organizationName)
+        public MetadataIndexViewModel GetMyMetadata(string organizationName, int offset = 1, int limit = 20)
         {
-            SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName);
+            SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit);
 
+            var model = new MetadataIndexViewModel();
             var metadata = new List<MetadataItemViewModel>();
-
             if (results.Items != null)
             {
                 foreach (var item in results.Items)
@@ -46,9 +46,15 @@ namespace Kartverket.MetadataEditor.Models
                     }
                     metadata.Add(new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization });
                 }
+                model.MetadataItems = metadata;
+                model.Limit = limit;
+                model.Offset = offset;
+                model.NumberOfRecordsReturned = int.Parse(results.numberOfRecordsReturned);
+                model.TotalNumberOfRecords = int.Parse(results.numberOfRecordsMatched);
             }
+            
 
-            return metadata;
+            return model;
         }
 
 

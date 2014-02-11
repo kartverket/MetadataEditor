@@ -1,12 +1,15 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
+    background-color: rgb(237, 237, 237);
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    background-color: white;
+    margin-top: 20px;
     padding-left: 15px;
     padding-right: 15px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
 }
 
 /* styles for validation helpers */
@@ -33,3 +36,47 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+
+.navbar {
+    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#ffffff), to(#f8f8f8));
+    background-image: -webkit-linear-gradient(top, #ffffff, 0%, #f8f8f8, 100%);
+    background-image: -moz-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
+    background-image: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
+    background-repeat: repeat-x;
+    border-radius: 4px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        padding-top: 20px;
+    }
+    .nav > li > a {
+        padding-left: 30px;
+    }
+}
+
+.navbar > .container { padding: 8px; }
+
+
+/*
+.navbar-default {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        border-radius: 4px;
+    }
+}
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+*/

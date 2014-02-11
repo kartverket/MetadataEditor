@@ -15,7 +15,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,31 +23,47 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink(@Resources.UI.AppPageTitle, "Index", "Metadata", null, new { @class = "navbar-brand" })
+                <a href="@Url.Action("Index", "Metadata")">
+                    <img src="@Url.Content("~/Content/logo_kartverket_norgedigitalt.png")" height="63" alt="Logo Kartverket og Norge Digitalt" />
+                </a>
+                
             </div>
+            
+            <div class="nav navbar-nav pull-right" >
+                <ul class="nav navbar-nav">
+                    <li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <div><a href="@Url.Action("SignOut", "AuthServices")" class="btn btn-default btn-sm" style="margin-top: 10px;"><span class="glyphicon glyphicon-user"></span> Logg ut</a></div>
+                        }
+                        else
+                        {
+                            <div><a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")" class="btn btn-default btn-sm" style="margin-top: 10px;"><span class="glyphicon glyphicon-user"></span> Logg inn</a></div>
+                        }
+
+                    </li>
+                </ul>
+            </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">@Html.ActionLink(@Resources.UI.MyMetadata_Label, "Index", "Metadata")</li>
+                    <li class="active"><a href="http://validering.geonorge.no">Validering</a></li>
                 </ul>
             </div>
+
+            
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
+            @if (User.Identity.IsAuthenticated)
+            {
             <div class="panel panel-success">
-                
-                @if (!User.Identity.IsAuthenticated)
-                {
-                <div class="panel-heading">
-                    Du er ikke innlogget. <a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")">Logg inn</a>.
-                    </div>
-                }
-                else
-                {
                     <div class="panel-heading">
-                        Du er innlogget. <a href="@Url.Action("SignOut", "AuthServices")">Logg ut</a>.
+                        Du er innlogget.
                     </div>
                     <table class="table">
                         <thead>
@@ -66,8 +82,8 @@
                             }
                         </tbody>
                     </table>
-                }
             </div>
+            }
             <p>&copy; @DateTime.Now.Year - Kartverket</p>
         </footer>
     </div>

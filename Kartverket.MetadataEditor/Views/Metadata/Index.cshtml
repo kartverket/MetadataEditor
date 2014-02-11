@@ -12,20 +12,19 @@
     </div>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Resources.UI.Metadata_Title</th>
-            <th>@Resources.UI.Metadata_Organization</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var metadata in Model.MetadataItems)
-        {
-            <tr>
-                <td><a href="@Url.Action("Edit", new { uuid=@metadata.Uuid })">@metadata.Title</a></td>
-                <td>@metadata.Organization</td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (Model.MetadataItems.Count > 0) { 
+    @Html.Partial("_MetadataList", Model.MetadataItems)
+    <div class="clearfix">
+        <p class="text-right">
+            Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
+        </p>
+        <div class="pull-right btn-group">
+            <a href="@Url.Action("Index")?offset=@Model.OffsetPrevious()" class="btn btn-default btn-sm @Model.OffsetPreviousState()">Forrige</a>
+            <a href="@Url.Action("Index")?offset=@Model.OffsetNext()" class="btn btn-default btn-sm @Model.OffsetNextState()">Neste</a>
+        </div>
+    </div>
+}
+else
+{
+    <p style="font-style: italic">Ingen metadata tilgjengelig.</p>
+}

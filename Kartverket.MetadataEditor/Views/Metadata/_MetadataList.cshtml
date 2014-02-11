@@ -1,0 +1,21 @@
+﻿@model List<Kartverket.MetadataEditor.Models.MetadataItemViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Resources.UI.Metadata_Title</th>
+            <th>@Resources.UI.Metadata_Organization</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var metadata in Model)
+        {
+            <tr>
+                <td><a href="@Url.Action("Edit", new { uuid=@metadata.Uuid })">@metadata.Title</a></td>
+                <td>@metadata.Organization</td>
+                <td><a href="http://www.geonorge.no/geonetwork/?uuid=@metadata.Uuid" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-share-alt"></span> GeoNetwork</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

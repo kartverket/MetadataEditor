@@ -16,11 +16,11 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public MetadataController()
         {
-            _metadataService = new MetadataService();
+            _metadataService = new MetadataService(new GeoNorgeAPI.GeoNorge("", "", "https://www.geonorge.no/geonetworkbeta/"));
         }
 
 
-        public ActionResult Index(MetadataMessages? message)
+        public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 10)
         {
             ViewBag.StatusMessage =
                 message == MetadataMessages.InvalidUuid ? Resources.UI.Error_InvalidUuid
@@ -28,10 +28,9 @@ namespace Kartverket.MetadataEditor.Controllers
 
             var model = new MetadataIndexViewModel();
 
-            string organization = "Skog og landskap";
-            /*
             if (User.Identity.IsAuthenticated)
             {
+                string organization = "";
                 foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
                 {
                     Log.Info(string.Format("Claim type={0}, value={1}", claim.Type, claim.Value));
@@ -40,9 +39,22 @@ namespace Kartverket.MetadataEditor.Controllers
                         organization = claim.Value;
                     }
                 }
-            }*/
-
-            model.MetadataItems = _metadataService.GetMyMetadata("Kartverket");
+                if (!string.IsNullOrWhiteSpace(organization))
+                {
+                    model = _metadataService.GetMyMetadata(organization, offset, limit);
+                }
+            }
+            
+            /*
+            if (User.Identity.IsAuthenticated)
+            {
+                model.MetadataItems = _metadataService.GetMyMetadata("Kartverket");
+            }
+            else
+            {
+                model.MetadataItems = new List<MetadataItemViewModel>();
+            }
+            */
             return View(model);
         }
 
