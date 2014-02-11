@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lenker.
+        /// </summary>
+        public static string Metadata_Links {
+            get {
+                return ResourceManager.GetString("Metadata_Links", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organisasjon.
         /// </summary>
         public static string Metadata_Organization {
@@ -102,6 +111,15 @@ namespace Resources {
         public static string Metadata_Title {
             get {
                 return ResourceManager.GetString("Metadata_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validation.
+        /// </summary>
+        public static string Metadata_Validation {
+            get {
+                return ResourceManager.GetString("Metadata_Validation", resourceCulture);
             }
         }
         

@@ -126,11 +126,17 @@
   <data name="Error_InvalidUuid" xml:space="preserve">
     <value>Ugyldig uuid</value>
   </data>
+  <data name="Metadata_Links" xml:space="preserve">
+    <value>Lenker</value>
+  </data>
   <data name="Metadata_Organization" xml:space="preserve">
     <value>Organisasjon</value>
   </data>
   <data name="Metadata_Title" xml:space="preserve">
     <value>Tittel</value>
+  </data>
+  <data name="Metadata_Validation" xml:space="preserve">
+    <value>Validering</value>
   </data>
   <data name="MyMetadata_Label" xml:space="preserve">
     <value>Mine metadata</value>
