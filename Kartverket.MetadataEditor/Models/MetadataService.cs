@@ -60,7 +60,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public MetadataViewModel GetMetadataModel(string uuid)
         {
-            SimpleMetadata metadata = _geoNorge.GetRecordByUuidSimple(uuid);
+            SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
 
             return new MetadataViewModel() { 
                 Uuid = metadata.Uuid,
@@ -68,19 +68,24 @@ namespace Kartverket.MetadataEditor.Models
                 HierarchyLevel = metadata.HierarchyLevel,
                 Abstract = metadata.Abstract,
                 Purpose = metadata.Purpose,
-                SupplementalDescription = metadata.SupplementalDescription
+
+                SupplementalDescription = metadata.SupplementalDescription,
+                ContactPointOfContact = new Contact(metadata.ContactPointOfContact, "pointOfContact"),
+                ContactPublisher = new Contact(metadata.ContactPublisher, "publisher")
             };
 
         }
 
         public void SaveMetadataModel(MetadataViewModel model)
         {
-            SimpleMetadata metadata = _geoNorge.GetRecordByUuidSimple(model.Uuid);
+            SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(model.Uuid));
 
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
             metadata.Purpose = model.Purpose;
             metadata.SupplementalDescription = model.SupplementalDescription;
+            metadata.ContactPointOfContact = model.ContactPointOfContact.ToSimpleContact();
+            metadata.ContactPublisher = model.ContactPublisher.ToSimpleContact();
 
             _geoNorge.MetadataUpdate(metadata.GetMetadata());
         }

@@ -16,7 +16,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public MetadataController()
         {
-            _metadataService = new MetadataService(new GeoNorgeAPI.GeoNorge("", "", "https://www.geonorge.no/geonetworkbeta/"));
+            _metadataService = new MetadataService(new GeoNorgeAPI.GeoNorge("arkitektum", "geoportal3800", "https://www.geonorge.no/geonetworkbeta/"));
         }
 
 

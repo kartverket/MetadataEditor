@@ -126,6 +126,12 @@
   <data name="Error_InvalidUuid" xml:space="preserve">
     <value>Ugyldig uuid</value>
   </data>
+  <data name="Metadata_Edit_DatasetFields" xml:space="preserve">
+    <value>Detaljer om datasett</value>
+  </data>
+  <data name="Metadata_Edit_ServiceFields" xml:space="preserve">
+    <value>Detaljer om tjeneste</value>
+  </data>
   <data name="Metadata_Links" xml:space="preserve">
     <value>Lenker</value>
   </data>
@@ -135,10 +141,19 @@
   <data name="Metadata_Title" xml:space="preserve">
     <value>Tittel</value>
   </data>
+  <data name="Metadata_Type_Dataset" xml:space="preserve">
+    <value>Datasett</value>
+  </data>
+  <data name="Metadata_Type_Service" xml:space="preserve">
+    <value>Tjeneste</value>
+  </data>
   <data name="Metadata_Validation" xml:space="preserve">
     <value>Validering</value>
   </data>
   <data name="MyMetadata_Label" xml:space="preserve">
     <value>Mine metadata</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organisasjon</value>
   </data>
 </root>

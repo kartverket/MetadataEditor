@@ -93,12 +93,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kartverket.MetadataEditor\Kartverket.MetadataEditor.csproj">
-      <Project>{8FA82E09-1933-40E3-84DA-5577ACA9E442}</Project>
-      <Name>Kartverket.MetadataEditor</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

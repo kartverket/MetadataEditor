@@ -88,6 +88,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detaljer om datasett.
+        /// </summary>
+        public static string Metadata_Edit_DatasetFields {
+            get {
+                return ResourceManager.GetString("Metadata_Edit_DatasetFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detaljer om tjeneste.
+        /// </summary>
+        public static string Metadata_Edit_ServiceFields {
+            get {
+                return ResourceManager.GetString("Metadata_Edit_ServiceFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lenker.
         /// </summary>
         public static string Metadata_Links {
@@ -115,7 +133,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validation.
+        ///   Looks up a localized string similar to Datasett.
+        /// </summary>
+        public static string Metadata_Type_Dataset {
+            get {
+                return ResourceManager.GetString("Metadata_Type_Dataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tjeneste.
+        /// </summary>
+        public static string Metadata_Type_Service {
+            get {
+                return ResourceManager.GetString("Metadata_Type_Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validering.
         /// </summary>
         public static string Metadata_Validation {
             get {
@@ -129,6 +165,15 @@ namespace Resources {
         public static string MyMetadata_Label {
             get {
                 return ResourceManager.GetString("MyMetadata_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organisasjon.
+        /// </summary>
+        public static string Organization {
+            get {
+                return ResourceManager.GetString("Organization", resourceCulture);
             }
         }
     }

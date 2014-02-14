@@ -1,4 +1,5 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@using Resources
 @{
     ViewBag.Title = @Resources.UI.EditMetadata;
 }
@@ -18,8 +19,8 @@
 
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form">
     @Html.HiddenFor(m => m.Uuid)
-   
-     <div class="tab-content">
+
+    <div class="tab-content">
         <div class="tab-pane active" id="home">
 
             <div class="form-group">
@@ -47,7 +48,7 @@
             <div class="form-group">
                 <label for="purpose" class="col-sm-2 control-label">Formål</label>
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(m => m.Purpose, new { @class ="form-control", cols="", rows="3" })
+                    @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
                     <div class="help-block panel panel-success hidden" id="help-block-purpose">
                         <div class="panel-body">
                             Dette er hjelpeteksten
@@ -74,50 +75,135 @@
                 <div class="col-sm-1">
                     <p class="form-control-static">
                         <a href="#" data-help-block-id="help-block-abstract" class="badge help-block-toggle">?</a>
-                    </p>    
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="supplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
-                <div class="col-sm-9">
-                    @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
-                    <div class="help-block panel panel-success hidden" id="help-block-supplementalDescription">
-                        <div class="panel-body">
-                            Dette er hjelpeteksten
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                    <p class="form-control-static">
-                        <a href="#" data-help-block-id="help-block-supplementalDescription" class="badge help-block-toggle">?</a>
                     </p>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="usage" class="col-sm-2 control-label">Bruksområde</label>
+                <label for="metadata-type" class="col-sm-2 control-label">Metadata type:</label>
                 <div class="col-sm-9">
-                    @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
-                    <div class="help-block panel panel-success hidden" id="help-block-usage">
-                        <div class="panel-body">
-                            Dette er hjelpeteksten
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                    <p class="form-control-static">
-                        <a href="#" data-help-block-id="help-block-usage" class="badge help-block-toggle">?</a>
-                    </p>
+                    <label class="radio-inline">
+                        <input type="radio" name="metadata-type" id="metadata-type-dataset" value="option1" checked>
+                        @Resources.UI.Metadata_Type_Dataset
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="metadata-type" id="metadata-type-service" value="option2">
+                        @Resources.UI.Metadata_Type_Service
+                    </label>
                 </div>
             </div>
 
+            <div class="fields-dataset panel panel-info">
 
-        </div>
-<!-- /home -->
+                <div class="panel-heading">
+                    @Resources.UI.Metadata_Edit_DatasetFields
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="supplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
+                        <div class="col-sm-9">
+                            @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
+                            <div class="help-block panel panel-success hidden" id="help-block-supplementalDescription">
+                                <div class="panel-body">
+                                    Dette er hjelpeteksten
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <p class="form-control-static">
+                                <a href="#" data-help-block-id="help-block-supplementalDescription" class="badge help-block-toggle">?</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="usage" class="col-sm-2 control-label">Bruksområde</label>
+                        <div class="col-sm-9">
+                            @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
+                            <div class="help-block panel panel-success hidden" id="help-block-usage">
+                                <div class="panel-body">
+                                    Dette er hjelpeteksten
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <p class="form-control-static">
+                                <a href="#" data-help-block-id="help-block-usage" class="badge help-block-toggle">?</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- fields-dataset-->
+
+            <div class="fields-dataset panel panel-info">
+
+                <div class="panel-heading">
+                    @Resources.UI.Metadata_Edit_ServiceFields
+                </div>
+                <div class="panel-body">
+                    test
+                </div>
+
+            </div><!-- fields-service-->
+
+        </div><!-- /home -->
 
         <div class="tab-pane" id="contact">
-            kontaktinformasjon...
+            <br />
+            
+            <div class="panel panel-info">
+                <div class="panel-heading">Kontakt (pointOfContact)</div>
+                <div class="panel-body">
+                    @Html.HiddenFor(m => Model.ContactPointOfContact.Role)
+                    <div class="form-group">
+                        <label for="abstract" class="col-sm-2 control-label">Navn</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => Model.ContactPointOfContact.Name, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => Model.ContactPointOfContact.Organization, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="abstract" class="col-sm-2 control-label">Epost</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => Model.ContactPointOfContact.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- pointOfContact -->
+
+            <div class="panel panel-info">
+                <div class="panel-heading">Utgiver (publisher)</div>
+                <div class="panel-body">
+                    @Html.HiddenFor(m => Model.ContactPublisher.Role)
+                    <div class="form-group">
+                        <label for="abstract" class="col-sm-2 control-label">Navn</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => Model.ContactPublisher.Name, new { @class="form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => Model.ContactPublisher.Organization, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="abstract" class="col-sm-2 control-label">Epost</label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => Model.ContactPublisher.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- publisher-->
+
+
+
         </div>
     </div>
 
