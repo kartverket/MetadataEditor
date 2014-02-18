@@ -52,8 +52,6 @@ namespace Kartverket.MetadataEditor.Models
                 model.NumberOfRecordsReturned = int.Parse(results.numberOfRecordsReturned);
                 model.TotalNumberOfRecords = int.Parse(results.numberOfRecordsMatched);
             }
-            
-
             return model;
         }
 
@@ -69,9 +67,14 @@ namespace Kartverket.MetadataEditor.Models
                 Abstract = metadata.Abstract,
                 Purpose = metadata.Purpose,
 
-                SupplementalDescription = metadata.SupplementalDescription,
                 ContactPointOfContact = new Contact(metadata.ContactPointOfContact, "pointOfContact"),
-                ContactPublisher = new Contact(metadata.ContactPublisher, "publisher")
+                ContactPublisher = new Contact(metadata.ContactPublisher, "publisher"),
+
+                Keywords = Keyword.CreateDictionary(metadata.Keywords),
+
+
+                SupplementalDescription = metadata.SupplementalDescription,
+                
             };
 
         }

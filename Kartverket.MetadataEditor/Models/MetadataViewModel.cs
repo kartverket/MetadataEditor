@@ -19,6 +19,8 @@ namespace Kartverket.MetadataEditor.Models
         public Contact ContactAuthor { get; set; }
         public List<Contact> ContactOthers { get; set; }
 
+        public Dictionary<string, List<Keyword>> Keywords { get; set; }
+
 
         /* dataset only */
         public string SupplementalDescription { get; set; }
@@ -60,6 +62,64 @@ namespace Kartverket.MetadataEditor.Models
                 Email = Email,
                 Role = Role
             };
+        }
+    }
+
+
+    public class Keyword
+    {
+        public string Value { get; set; }
+        public string Type { get; set; }
+        public string Thesaurus { get; set; }
+
+        internal static Dictionary<string, List<Keyword>> CreateDictionary(List<SimpleKeyword> incoming)
+        {
+            Dictionary<string, List<Keyword>> output = new Dictionary<string, List<Keyword>>();
+
+            if (incoming != null)
+            {
+                foreach (var keyword in incoming)
+                {
+                    List<Keyword> list = null;
+
+                    if (!string.IsNullOrWhiteSpace(keyword.Type))
+                    {
+                        list = output.ContainsKey(keyword.Type) ? output[keyword.Type] : null;
+                        if (list == null)
+                        {
+                            list = new List<Keyword>();
+                            output[keyword.Type] = list;
+                        }
+                    }
+                    else if (!string.IsNullOrWhiteSpace(keyword.Thesaurus))
+                    {
+                        list = output.ContainsKey(keyword.Thesaurus) ? output[keyword.Thesaurus] : null;
+                        if (list == null)
+                        {
+                            list = new List<Keyword>();
+                            output[keyword.Thesaurus] = list;
+                        }
+                    }
+                    else
+                    {
+                        list = output.ContainsKey("other") ? output["other"] : null;
+                        if (list == null)
+                        {
+                            list = new List<Keyword>();
+                            output["other"] = list;
+                        }
+                    }
+                    
+                    list.Add(new Keyword
+                    {
+                        Value = keyword.Keyword,
+                        Thesaurus = keyword.Thesaurus,
+                        Type = keyword.Type
+                    });
+                }
+            }
+
+            return output;
         }
     }
 

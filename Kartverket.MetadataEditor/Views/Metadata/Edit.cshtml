@@ -80,6 +80,31 @@
             </div>
 
             <div class="form-group">
+                <label for="keywords" class="col-sm-2 control-label">Nøkkelord</label>
+                <div class="col-sm-9">
+                        @foreach (var key in Model.Keywords.Keys)
+                        {
+                            <div class="col-sm-4">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h5>@key</h5>
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul>
+                                            @foreach (var element in Model.Keywords[key])
+                                            {
+                                                <li><span class="label label-info">@element.Value</span></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+
+
+            <div class="form-group">
                 <label for="metadata-type" class="col-sm-2 control-label">Metadata type:</label>
                 <div class="col-sm-9">
                     <label class="radio-inline">
