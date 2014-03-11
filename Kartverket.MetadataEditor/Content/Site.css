@@ -61,7 +61,7 @@ input[type="checkbox"].input-validation-error {
 
 .navbar > .container { padding: 8px; }
 
-
+.tab-pane {margin-top: 20px;}
 /*
 .navbar-default {
     background-color: #f8f8f8;

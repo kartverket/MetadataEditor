@@ -9,9 +9,11 @@
 <ul class="nav nav-tabs">
     <li class="active"><a href="#home" data-toggle="tab">Om datasettet</a></li>
     <li><a href="#contact" data-toggle="tab">Kontaktinformasjon</a></li>
+    <li><a href="#distribution" data-toggle="tab">Distribusjon</a></li>
+    <li><a href="#documents" data-toggle="tab">Dokumenter</a></li>
     <!--
     <li><a href="#keywords" data-toggle="tab">Nøkkelord</a></li>
-    <li><a href="#distribution" data-toggle="tab">Distribusjon</a></li>
+    
     <li><a href="#extent" data-toggle="tab">Utstrekning</a></li>
 -->
 
@@ -101,6 +103,13 @@
                             </div>
                         }
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="abstract" class="col-sm-2 control-label">Tematisk hovedkategori</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.TopicCategory, new { htmlAttributes = new { @class = "form-control"} })
+                </div>                
             </div>
 
 
@@ -230,7 +239,85 @@
 
 
         </div>
-    </div>
+
+        <div class="tab-pane" id="distribution">
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Representasjonsform</label>
+                <div class="col-sm-9">
+                    <select class="form-control">
+                        <option>Vektor</option>
+                        <option>Raster</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Format</label>
+                <div class="col-sm-9">
+                    <select class="form-control">
+                        <option>WGS 84</option>
+                        <option>EPSG</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Protokoll</label>
+                <div class="col-sm-9">
+                    <select class="form-control">
+                        <option>File for download</option>
+                        <option>Web address</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">URL</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+
+
+        </div> <!-- /tab-pane distribution -->
+
+        <div class="tab-pane" id="documents">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Grafisk bilde (URL)</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" />
+                    
+                </div>
+                <div class="col-sm-4">
+                    <input type="file" value="last opp" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Produktspesifikasjon (URL)</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ProductSpecificationUrl, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Faktaark (URL)</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ProductSheetUrl, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Tegneregler (URL)</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.LegendDescriptionUrl, new { htmlAttributes = new { @class = "form-control" } })                
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Produktside (URL)</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.ProductPageUrl, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div> <!-- /tab-pane documents -->
+
+        </div>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-4">
@@ -240,3 +327,21 @@
 
 
 </form>
+
+@section scripts {
+    <script>
+$(function() {
+  //for bootstrap 3 use 'shown.bs.tab' instead of 'shown' in the next line
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    //save the latest tab; use cookies if you like 'em better:
+    localStorage.setItem('lastTab', $(e.target).attr('id'));
+  });
+
+  //go to the latest tab, if it exists:
+  var lastTab = localStorage.getItem('lastTab');
+  if (lastTab) {
+      $('#'+lastTab).tab('show');
+  }
+});
+    </script>
+}
