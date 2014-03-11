@@ -20,13 +20,18 @@ namespace Kartverket.MetadataEditor.Models
         public List<Contact> ContactOthers { get; set; }
 
         public Dictionary<string, List<Keyword>> Keywords { get; set; }
+        
 
+        public string LegendDescriptionUrl { get; set; }
+        public string ProductPageUrl { get; set; }
+        public string ProductSheetUrl { get; set; }
+        public string ProductSpecificationUrl { get; set; }
 
         /* dataset only */
         public string SupplementalDescription { get; set; }
         public string SpecificUsage { get; set; }  // bruksområde
         public string ResourceIdentifierName { get; set; }  // teknisk navn
-        
+        public string TopicCategory { get; set; } 
 
     }
 

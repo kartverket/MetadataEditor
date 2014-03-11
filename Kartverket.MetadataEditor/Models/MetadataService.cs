@@ -72,9 +72,15 @@ namespace Kartverket.MetadataEditor.Models
 
                 Keywords = Keyword.CreateDictionary(metadata.Keywords),
 
-
+                TopicCategory = metadata.TopicCategory,
                 SupplementalDescription = metadata.SupplementalDescription,
                 
+                ProductPageUrl = metadata.ProductPageUrl,
+                ProductSheetUrl = metadata.ProductSheetUrl,
+                ProductSpecificationUrl = metadata.ProductSpecificationUrl,
+                LegendDescriptionUrl = metadata.LegendDescriptionUrl,
+                
+
             };
 
         }
@@ -89,6 +95,10 @@ namespace Kartverket.MetadataEditor.Models
             metadata.SupplementalDescription = model.SupplementalDescription;
             metadata.ContactPointOfContact = model.ContactPointOfContact.ToSimpleContact();
             metadata.ContactPublisher = model.ContactPublisher.ToSimpleContact();
+            metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
+            metadata.ProductSheetUrl = model.ProductSheetUrl;
+            metadata.ProductPageUrl = model.ProductPageUrl;
+            metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
 
             _geoNorge.MetadataUpdate(metadata.GetMetadata());
         }
