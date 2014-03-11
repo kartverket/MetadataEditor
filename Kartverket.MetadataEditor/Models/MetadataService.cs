@@ -46,7 +46,8 @@ namespace Kartverket.MetadataEditor.Models
                     }
                     metadata.Add(new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization });
                 }
-                model.MetadataItems = metadata;
+
+                model.MetadataItems = metadata.OrderBy(m => m.Title).ToList();
                 model.Limit = limit;
                 model.Offset = offset;
                 model.NumberOfRecordsReturned = int.Parse(results.numberOfRecordsReturned);
@@ -60,7 +61,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
 
-            return new MetadataViewModel() { 
+            var model = new MetadataViewModel() { 
                 Uuid = metadata.Uuid,
                 Title = metadata.Title,
                 HierarchyLevel = metadata.HierarchyLevel,
@@ -80,9 +81,12 @@ namespace Kartverket.MetadataEditor.Models
                 ProductSpecificationUrl = metadata.ProductSpecificationUrl,
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
                 
+                Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails)
 
             };
 
+            model.FixThumbnailUrls();
+            return model;
         }
 
         public void SaveMetadataModel(MetadataViewModel model)

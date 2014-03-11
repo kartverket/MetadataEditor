@@ -20,7 +20,7 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
 
-        public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 10)
+        public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 200)
         {
             ViewBag.StatusMessage =
                 message == MetadataMessages.InvalidUuid ? Resources.UI.Error_InvalidUuid
@@ -41,6 +41,9 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
                 if (!string.IsNullOrWhiteSpace(organization))
                 {
+                    if (organization == "Statens kartverk")
+                        organization = "Kartverket";
+
                     model = _metadataService.GetMyMetadata(organization, offset, limit);
                 }
             }

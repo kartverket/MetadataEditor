@@ -1,0 +1,65 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Produktspesifikasjon (URL)</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.ProductSpecificationUrl, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Faktaark (URL)</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.ProductSheetUrl, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Tegneregler (URL)</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.LegendDescriptionUrl, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Produktside (URL)</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.ProductPageUrl, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">Grafisk bilde</div>
+    <div class="panel-body">
+
+        
+        @foreach (var thumbnail in Model.Thumbnails)
+        {
+            <div class="thumbnail clearfix">
+                <img src="@thumbnail.URL" width="200" class="pull-left" style="margin-right: 10px;" />
+                <p><strong>Type:</strong> @thumbnail.Type</p>
+                <p><strong>URL:</strong> <small>@thumbnail.URL</small></p>
+            </div>
+        }
+    
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">URL</label>
+            <div class="col-sm-3">
+                <input name="Thumbnails[0].URL" type="text" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <select name="Thumbnails[0].Type" class="form-control">
+                    <option>large_thumbnail</option>
+                    <option>thumbnail</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <input type="file" value="last opp" class="form-control" />
+            </div>  
+            <div class="col-sm-1">
+                <button class="btn btn-default">Last opp</button>
+            </div>  
+        </div>
+
+    </div>
+</div>
+

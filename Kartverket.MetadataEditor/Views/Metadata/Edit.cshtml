@@ -280,42 +280,8 @@
         </div> <!-- /tab-pane distribution -->
 
         <div class="tab-pane" id="documents">
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Grafisk bilde (URL)</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" />
-                    
-                </div>
-                <div class="col-sm-4">
-                    <input type="file" value="last opp" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Produktspesifikasjon (URL)</label>
-                <div class="col-sm-9">
-                    @Html.EditorFor(m => m.ProductSpecificationUrl, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Faktaark (URL)</label>
-                <div class="col-sm-9">
-                    @Html.EditorFor(m => m.ProductSheetUrl, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Tegneregler (URL)</label>
-                <div class="col-sm-9">
-                    @Html.EditorFor(m => m.LegendDescriptionUrl, new { htmlAttributes = new { @class = "form-control" } })                
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Produktside (URL)</label>
-                <div class="col-sm-9">
-                    @Html.EditorFor(m => m.ProductPageUrl, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-        </div> <!-- /tab-pane documents -->
+            @Html.Partial("_Documents", Model)
+        </div>
 
         </div>
 

@@ -27,12 +27,25 @@ namespace Kartverket.MetadataEditor.Models
         public string ProductSheetUrl { get; set; }
         public string ProductSpecificationUrl { get; set; }
 
+        public List<Thumbnail> Thumbnails { get; set; }
+
         /* dataset only */
         public string SupplementalDescription { get; set; }
         public string SpecificUsage { get; set; }  // bruksområde
         public string ResourceIdentifierName { get; set; }  // teknisk navn
-        public string TopicCategory { get; set; } 
+        public string TopicCategory { get; set; }
 
+
+        internal void FixThumbnailUrls()
+        {
+            foreach (var thumbnail in Thumbnails)
+            {
+                if (!thumbnail.URL.StartsWith("http"))
+                {
+                    thumbnail.URL = "https://www.geonorge.no/geonetworkbeta/srv/eng/resources.get?uuid=" + Uuid + "&access=public&fname=" + thumbnail.URL;
+                }
+            }
+        }
     }
 
     public class Contact
@@ -128,4 +141,26 @@ namespace Kartverket.MetadataEditor.Models
         }
     }
 
+
+    public class Thumbnail
+    {
+        public string URL { get; set; }
+        public string Type { get; set; }
+
+        public static List<Thumbnail> CreateFromList(List<SimpleThumbnail> input)
+        {
+            List<Thumbnail> thumbnails = new List<Thumbnail>();
+
+            foreach (var simpleThumbnail in input)
+            {
+                thumbnails.Add(new Thumbnail
+                {
+                    Type = simpleThumbnail.Type,
+                    URL = simpleThumbnail.URL
+                });
+            }
+
+            return thumbnails;
+        }
+    }
 }
