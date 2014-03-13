@@ -31,6 +31,7 @@ namespace Kartverket.MetadataEditor.Models
                     string title = null;
                     string uuid = null;
                     string organization = null;
+                    string type = null;
 
                     for (int i = 0; i < record.ItemsElementName.Length; i++)
                     {
@@ -43,8 +44,10 @@ namespace Kartverket.MetadataEditor.Models
                             uuid = value;
                         else if (name == ItemsChoiceType24.creator)
                             organization = value;
+                        else if (name == ItemsChoiceType24.type)
+                            type = value;
                     }
-                    metadata.Add(new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization });
+                    metadata.Add(new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization, Type = type });
                 }
 
                 model.MetadataItems = metadata.OrderBy(m => m.Title).ToList();

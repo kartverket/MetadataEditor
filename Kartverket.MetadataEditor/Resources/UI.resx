@@ -141,6 +141,9 @@
   <data name="Metadata_Title" xml:space="preserve">
     <value>Tittel</value>
   </data>
+  <data name="Metadata_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
   <data name="Metadata_Type_Dataset" xml:space="preserve">
     <value>Datasett</value>
   </data>

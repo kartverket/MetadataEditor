@@ -5,6 +5,7 @@
         <tr>
             <th>@Resources.UI.Metadata_Title</th>
             <th>@Resources.UI.Metadata_Organization</th>
+            <th>@Resources.UI.Metadata_Type</th>
             <th>@Resources.UI.Metadata_Validation</th>
             <th class="text-center" style="width: 20%">@Resources.UI.Metadata_Links</th>
         </tr>
@@ -19,6 +20,19 @@
                     </a>
                 </td>
                 <td>@metadata.Organization</td>
+                <th>
+                    @if (metadata.Type == "service") {
+                        <span class="label label-info">@Resources.UI.Metadata_Type_Service</span>
+                    }
+                    else if (metadata.Type == "dataset")
+                    {
+                        <span class="label label-success">@Resources.UI.Metadata_Type_Dataset</span>
+                    }
+                    else
+                    {
+                        <span class="label label-warning">@metadata.Type</span>
+                    }
+                </th>
                 <th>
                     @if (metadata.Uuid == "5ca4add53a09a6b7bb96ace195a936d4daa412b8")
                     {

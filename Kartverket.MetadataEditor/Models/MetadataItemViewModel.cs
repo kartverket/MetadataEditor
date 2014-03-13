@@ -10,5 +10,6 @@ namespace Kartverket.MetadataEditor.Models
         public string Uuid { get; set; }
         public string Title { get; set; }
         public string Organization { get; set; }
+        public string Type { get; set; }
     }
 }
