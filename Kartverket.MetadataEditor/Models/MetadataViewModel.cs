@@ -8,6 +8,8 @@ namespace Kartverket.MetadataEditor.Models
 {
     public class MetadataViewModel
     {
+        
+        
         public string Uuid { get; set; }
         public string HierarchyLevel { get; set; }
         public string Title { get; set; }
@@ -34,7 +36,14 @@ namespace Kartverket.MetadataEditor.Models
         public string SpecificUsage { get; set; }  // bruksområde
         public string ResourceIdentifierName { get; set; }  // teknisk navn
         public string TopicCategory { get; set; }
+        public string SpatialRepresentation { get; set; }
 
+        public string DistributionFormatName { get; set; }
+        public string DistributionFormatVersion { get; set; }
+        public string DistributionUrl { get; set; }
+        public string DistributionProtocol { get; set; }
+        public string ReferenceSystemCoordinateSystem { get; set; }
+        public string ReferenceSystemNamespace { get; set; }
 
         internal void FixThumbnailUrls()
         {
@@ -163,4 +172,5 @@ namespace Kartverket.MetadataEditor.Models
             return thumbnails;
         }
     }
+
 }

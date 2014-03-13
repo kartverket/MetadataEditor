@@ -224,49 +224,12 @@
                 </div>
             </div> <!-- publisher-->
 
-
-
         </div>
 
         <div class="tab-pane" id="distribution">
-            
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Representasjonsform</label>
-                <div class="col-sm-9">
-                    <select class="form-control">
-                        <option>Vektor</option>
-                        <option>Raster</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Format</label>
-                <div class="col-sm-9">
-                    <select class="form-control">
-                        <option>WGS 84</option>
-                        <option>EPSG</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Protokoll</label>
-                <div class="col-sm-9">
-                    <select class="form-control">
-                        <option>File for download</option>
-                        <option>Web address</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">URL</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" />
-                </div>
-            </div>
-
-
-        </div> <!-- /tab-pane distribution -->
-
+            @Html.Partial("_Distribution", Model)
+        </div>
+        
         <div class="tab-pane" id="documents">
             @Html.Partial("_Documents", Model)
         </div>
@@ -284,18 +247,21 @@
 
 @section scripts {
     <script>
-$(function() {
-  //for bootstrap 3 use 'shown.bs.tab' instead of 'shown' in the next line
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    //save the latest tab; use cookies if you like 'em better:
-    localStorage.setItem('lastTab', $(e.target).attr('id'));
-  });
+        /*
+    $(function() {
+        var hash = document.location.hash;
+        var prefix = "tab_";
+        if (hash) {
+            var l = hash.replace(prefix, "");
+            console.log("l = " + l);
+            //$().tab('show');
+        }
 
-  //go to the latest tab, if it exists:
-  var lastTab = localStorage.getItem('lastTab');
-  if (lastTab) {
-      $('#'+lastTab).tab('show');
-  }
-});
+        // Change hash for page-reload
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            window.location.hash = e.target.hash.replace("#", "#" + prefix);
+        });
+    });
+        */
     </script>
 }

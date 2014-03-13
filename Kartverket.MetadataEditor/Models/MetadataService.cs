@@ -81,8 +81,15 @@ namespace Kartverket.MetadataEditor.Models
                 ProductSpecificationUrl = metadata.ProductSpecificationUrl,
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
                 
-                Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails)
+                Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails),
 
+                SpatialRepresentation = metadata.SpatialRepresentation,
+                DistributionFormatName = metadata.DistributionFormat != null ? metadata.DistributionFormat.Name : null,
+                DistributionFormatVersion = metadata.DistributionFormat != null ? metadata.DistributionFormat.Version : null,
+                DistributionUrl = metadata.DistributionDetails != null ? metadata.DistributionDetails.URL : null,
+                DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
+                ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
+                ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace: null,
             };
 
             model.FixThumbnailUrls();
@@ -99,10 +106,30 @@ namespace Kartverket.MetadataEditor.Models
             metadata.SupplementalDescription = model.SupplementalDescription;
             metadata.ContactPointOfContact = model.ContactPointOfContact.ToSimpleContact();
             metadata.ContactPublisher = model.ContactPublisher.ToSimpleContact();
+
+            // documents
             metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
             metadata.ProductSheetUrl = model.ProductSheetUrl;
             metadata.ProductPageUrl = model.ProductPageUrl;
             metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
+
+            // distribution
+            metadata.SpatialRepresentation = model.SpatialRepresentation;
+            metadata.ReferenceSystem = new SimpleReferenceSystem
+            {
+                CoordinateSystem = model.ReferenceSystemCoordinateSystem,
+                Namespace = model.ReferenceSystemNamespace
+            };
+            metadata.DistributionFormat = new SimpleDistributionFormat 
+            { 
+                Name = model.DistributionFormatName,
+                Version = model.DistributionFormatVersion
+            };
+            metadata.DistributionDetails = new SimpleDistributionDetails
+            {
+                URL = model.DistributionUrl,
+                Protocol = model.DistributionProtocol
+            };
 
             _geoNorge.MetadataUpdate(metadata.GetMetadata());
         }

@@ -1,0 +1,31 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Representasjonsform</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.SpatialRepresentation)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Format</label>
+    <div class="col-sm-3">
+        @Html.EditorFor(m => m.DistributionFormatName)
+    </div>
+    <label class="col-sm-2 control-label">Versjon</label>
+    <div class="col-sm-4">
+        @Html.EditorFor(m => m.DistributionFormatVersion)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Protokoll</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.DistributionProtocol)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">URL</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.DistributionUrl)
+    </div>
+</div>
+
