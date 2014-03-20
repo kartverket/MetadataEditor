@@ -45,6 +45,17 @@ namespace Kartverket.MetadataEditor.Models
         public string ReferenceSystemCoordinateSystem { get; set; }
         public string ReferenceSystemNamespace { get; set; }
 
+
+        // quality
+        public string QualitySpecificationDate { get; set; }
+        public string QualitySpecificationDateType { get; set; }
+        public string QualitySpecificationExplanation { get; set; }
+        public bool QualitySpecificationResult { get; set; }
+        public string QualitySpecificationTitle { get; set; }
+        public string ProcessHistory { get; set; }
+        public string MaintenanceFrequency { get; set; }
+        public string ResolutionScale { get; set; }
+
         internal void FixThumbnailUrls()
         {
             foreach (var thumbnail in Thumbnails)

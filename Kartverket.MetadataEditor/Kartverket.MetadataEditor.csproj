@@ -54,15 +54,15 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=2.0.1.27107, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GeoNorgeAPI, Version=2.0.2.15340, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GeoNorgeAPI.2.0.1.27107\lib\net45\GeoNorgeAPI.dll</HintPath>
+      <HintPath>..\packages\GeoNorgeAPI.2.0.2.15340\lib\net45\GeoNorgeAPI.dll</HintPath>
     </Reference>
     <Reference Include="Kentor.AuthServices, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -214,6 +214,7 @@
     <Content Include="Views\Metadata\_Documents.cshtml" />
     <Content Include="Views\Metadata\_Distribution.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Metadata\_Quality.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

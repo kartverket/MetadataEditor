@@ -93,6 +93,16 @@ namespace Kartverket.MetadataEditor.Models
                 DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace: null,
+
+
+                QualitySpecificationDate = metadata.QualitySpecification != null ? metadata.QualitySpecification.Date : null,
+                QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
+                QualitySpecificationExplanation = metadata.QualitySpecification != null ? metadata.QualitySpecification.Explanation : null,
+                QualitySpecificationResult = metadata.QualitySpecification != null ? metadata.QualitySpecification.Result : false,
+                QualitySpecificationTitle = metadata.QualitySpecification != null ? metadata.QualitySpecification.Title : null,
+                ProcessHistory = metadata.ProcessHistory,
+                MaintenanceFrequency = metadata.MaintenanceFrequency,
+                ResolutionScale = metadata.ResolutionScale,
             };
 
             model.FixThumbnailUrls();
@@ -133,6 +143,21 @@ namespace Kartverket.MetadataEditor.Models
                 URL = model.DistributionUrl,
                 Protocol = model.DistributionProtocol
             };
+
+            // quality
+            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle)) {
+                metadata.QualitySpecification = new SimpleQualitySpecification
+                {
+                    Title = model.QualitySpecificationTitle,
+                    Date = model.QualitySpecificationDate,
+                    DateType = model.QualitySpecificationDateType,
+                    Explanation = model.QualitySpecificationExplanation,
+                    Result = model.QualitySpecificationResult
+                };
+            }
+            metadata.ProcessHistory = model.ProcessHistory;
+            metadata.MaintenanceFrequency = model.MaintenanceFrequency;
+            metadata.ResolutionScale = model.ResolutionScale;
 
             _geoNorge.MetadataUpdate(metadata.GetMetadata());
         }

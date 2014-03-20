@@ -47,17 +47,6 @@ namespace Kartverket.MetadataEditor.Controllers
                     model = _metadataService.GetMyMetadata(organization, offset, limit);
                 }
             }
-            
-            /*
-            if (User.Identity.IsAuthenticated)
-            {
-                model.MetadataItems = _metadataService.GetMyMetadata("Kartverket");
-            }
-            else
-            {
-                model.MetadataItems = new List<MetadataItemViewModel>();
-            }
-            */
             return View(model);
         }
 
@@ -65,7 +54,6 @@ namespace Kartverket.MetadataEditor.Controllers
         public ActionResult Edit(string uuid)
         {
             if (string.IsNullOrWhiteSpace(uuid))
-             //   return RedirectToAction("Index", new { message = MetadataMessages.InvalidUuid });
                 return HttpNotFound();
 
 
