@@ -34,11 +34,22 @@
                     <li>
                         @if (Request.IsAuthenticated)
                         {
-                            <div><a href="@Url.Action("SignOut", "AuthServices")" class="btn btn-default btn-sm" style="margin-top: 10px;"><span class="glyphicon glyphicon-user"></span> Logg ut</a></div>
+                            <div style="margin-top: 10px">
+                                @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                                {
+                                    if (c.Type == "urn:oid:0.9.2342.19200300.100.1.1" || c.Type == "username")
+                                    { 
+                                    <span>Pålogget: @c.Value</span>
+                                    }
+                                 }
+                                 <a href="@Url.Action("SignOut", "AuthServices")" class="btn btn-default btn-sm" ><span class="glyphicon glyphicon-user"></span> Logg ut</a>
+                            </div>
                         }
                         else
                         {
-                            <div><a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")" class="btn btn-default btn-sm" style="margin-top: 10px;"><span class="glyphicon glyphicon-user"></span> Logg inn</a></div>
+                            <div style="margin-top: 10px;">
+                                <a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg inn</a>
+                            </div>
                         }
 
                     </li>
@@ -59,31 +70,15 @@
         @RenderBody()
         <hr />
         <footer>
+            <!--
             @if (User.Identity.IsAuthenticated)
             {
-            <div class="panel panel-success">
-                    <div class="panel-heading">
-                        Du er innlogget.
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Claim Type</th>
-                                <th>Claim Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-                            {
-                                <tr>
-                                    <td>@c.Type</td>
-                                    <td>@c.Value</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-            </div>
+                foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                {
+                    <p>@c.Type = @c.Value</p>
+                }
             }
+            -->
             <p>&copy; @DateTime.Now.Year - Kartverket</p>
         </footer>
     </div>
