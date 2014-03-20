@@ -16,7 +16,7 @@ namespace Kartverket.MetadataEditor.Models
             _geoNorge = geonorge;
         }
 
-        public MetadataIndexViewModel GetMyMetadata(string organizationName, int offset = 1, int limit = 20)
+        public MetadataIndexViewModel GetMyMetadata(string organizationName, int offset, int limit)
         {
             SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit);
 
@@ -103,6 +103,11 @@ namespace Kartverket.MetadataEditor.Models
                 ProcessHistory = metadata.ProcessHistory,
                 MaintenanceFrequency = metadata.MaintenanceFrequency,
                 ResolutionScale = metadata.ResolutionScale,
+
+                DateCreated = metadata.DateCreated,
+                DatePublished = metadata.DatePublished,
+                DateUpdated = metadata.DateUpdated,
+                DateMetadataUpdated = metadata.DateMetadataUpdated
             };
 
             model.FixThumbnailUrls();
@@ -158,6 +163,12 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ProcessHistory = model.ProcessHistory;
             metadata.MaintenanceFrequency = model.MaintenanceFrequency;
             metadata.ResolutionScale = model.ResolutionScale;
+
+            metadata.DateCreated = model.DateCreated;
+            metadata.DatePublished = model.DatePublished;
+            metadata.DateUpdated = model.DateUpdated;
+
+            metadata.DateMetadataUpdated = DateTime.Now;
 
             _geoNorge.MetadataUpdate(metadata.GetMetadata());
         }

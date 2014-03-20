@@ -1,0 +1,11 @@
+﻿@model DateTime?
+@{
+    var values = ViewData.ModelMetadata.AdditionalValues;
+
+    string cssClass = "";
+    if (ViewData.ContainsKey("cssClass"))
+    {
+        cssClass = (string)ViewData["cssClass"];
+    }
+}
+@Html.TextBox("", String.Format("{0:d}", Model.HasValue ? Model : null), new { @class = "form-control " + cssClass })

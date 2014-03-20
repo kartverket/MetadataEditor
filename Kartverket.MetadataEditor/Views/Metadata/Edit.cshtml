@@ -26,6 +26,8 @@
     <div class="tab-content">
         <div class="tab-pane active" id="home">
 
+            <div class="text-right"><small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small></div>
+
             <div class="form-group">
                 <label for="uuid" class="col-sm-2 control-label">UUID</label>
                 <div class="col-sm-4">
@@ -109,8 +111,23 @@
             <div class="form-group">
                 <label for="abstract" class="col-sm-2 control-label">Tematisk hovedkategori</label>
                 <div class="col-sm-9">
-                    @Html.EditorFor(m => m.TopicCategory, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.EditorFor(m => m.TopicCategory)
                 </div>                
+            </div>
+
+            <div class="form-group">
+                <label for="abstract" class="col-sm-2 control-label">Opprettet dato</label>
+                <div class="col-sm-2">
+                    @Html.EditorFor(m => m.DateCreated)
+                </div>
+                <label for="abstract" class="col-sm-2 control-label">Publiseringsdato</label>
+                <div class="col-sm-2">
+                    @Html.EditorFor(m => m.DatePublished)
+                </div>
+                <label for="abstract" class="col-sm-2 control-label">Dato sist oppdatert</label>
+                <div class="col-sm-2">
+                    @Html.EditorFor(m => m.DateUpdated)
+                </div>
             </div>
 
         @if (Model.HierarchyLevel == "dataset")

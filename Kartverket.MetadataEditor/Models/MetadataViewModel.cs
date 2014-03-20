@@ -56,6 +56,12 @@ namespace Kartverket.MetadataEditor.Models
         public string MaintenanceFrequency { get; set; }
         public string ResolutionScale { get; set; }
 
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DatePublished { get; set; }
+        public DateTime? DateUpdated { get; set; }
+
+        public DateTime? DateMetadataUpdated { get; set; }
+
         internal void FixThumbnailUrls()
         {
             foreach (var thumbnail in Thumbnails)
