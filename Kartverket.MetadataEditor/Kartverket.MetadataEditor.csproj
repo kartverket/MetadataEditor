@@ -217,6 +217,9 @@
     <Content Include="Views\Metadata\_Quality.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Metadata\_Contact.cshtml" />
+    <Content Include="Views\Metadata\_Dataset.cshtml" />
+    <Content Include="Views\Metadata\_Service.cshtml" />
+    <Content Include="Views\Metadata\_Basic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

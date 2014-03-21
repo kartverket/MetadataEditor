@@ -1,0 +1,96 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+<div class="form-group">
+    <label for="title" class="col-sm-2 control-label">Navn</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.Title)
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="purpose" class="col-sm-2 control-label">Formål</label>
+    <div class="col-sm-9">
+        @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
+        <div class="help-block panel panel-success hidden" id="help-block-purpose">
+            <div class="panel-body">
+                Dette er hjelpeteksten
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-block-id="help-block-purpose" class="badge help-block-toggle">?</a>
+        </p>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="abstract" class="col-sm-2 control-label">Sammendrag</label>
+    <div class="col-sm-9">
+        @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
+        <div class="help-block panel panel-success hidden" id="help-block-abstract">
+            <div class="panel-body">
+                Dette er hjelpeteksten
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-block-id="help-block-abstract" class="badge help-block-toggle">?</a>
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <label for="abstract" class="col-sm-2 control-label">Opprettet dato</label>
+    <div class="col-sm-2">
+        @Html.EditorFor(m => m.DateCreated)
+    </div>
+    <label for="abstract" class="col-sm-2 control-label">Publiseringsdato</label>
+    <div class="col-sm-2">
+        @Html.EditorFor(m => m.DatePublished)
+    </div>
+</div>
+<div class="form-group">
+    <label for="abstract" class="col-sm-2 control-label">Dato sist oppdatert</label>
+    <div class="col-sm-2">
+        @Html.EditorFor(m => m.DateUpdated)
+    </div>
+</div>
+<div class="form-group">
+    <label for="keywords" class="col-sm-2 control-label">Nøkkelord</label>
+    <div class="col-sm-9">
+        @foreach (var key in Model.Keywords.Keys)
+        {
+            <div class="col-sm-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h5>@key</h5>
+
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            @foreach (var element in Model.Keywords[key])
+                            {
+                                <li>
+                                    <span class="label label-success">@element.Value</span>
+                                    <a href=""><small>Slett</small></a>
+                                    <input type="hidden" name="Keywords[@key]" value="@element.Value" />
+                                </li>
+                            }
+                        </ul>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <select class="input-sm form-control"><option>nøkkelord ditt og datt</option><option>nøkkelord 2</option></select>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-default btn-sm">Legg til</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

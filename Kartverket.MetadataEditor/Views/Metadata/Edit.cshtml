@@ -3,11 +3,26 @@
 @{
     ViewBag.Title = @Resources.UI.EditMetadata;
 }
+<div class="pull-right">
+    <p><small>UUID: @Model.Uuid</p>
+    <p class="text-right"><small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small></p>
+    
+</div>
 
-<h2>@ViewBag.Title for @Model.Title</h2>
+<h3>@ViewBag.Title</h3>
+<h2>@Model.Title</h2>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#home" data-toggle="tab">Om datasettet</a></li>
+
+<ul class="nav nav-tabs" style="clear:both">
+    <li class="active"><a href="#home" data-toggle="tab">Grunnleggende</a></li>
+@if (Model.HierarchyLevel == "dataset")
+{
+    <li><a href="#dataset" data-toggle="tab">Detaljer om datasett</a></li>
+}
+@if (Model.HierarchyLevel == "service")
+{
+    <li><a href="#service" data-toggle="tab">Detaljer om tjeneste</a></li>
+}
     <li><a href="#contact" data-toggle="tab">Kontaktinformasjon</a></li>
     <li><a href="#distribution" data-toggle="tab">Distribusjon</a></li>
     <li><a href="#documents" data-toggle="tab">Dokumenter</a></li>
@@ -19,166 +34,23 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="home">
-
-            <div class="text-right"><small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small></div>
-
-            <div class="form-group">
-                <label for="uuid" class="col-sm-2 control-label">UUID</label>
-                <div class="col-sm-4">
-                    <p class="form-control-static" id="uuid">@Model.Uuid</p>
-                </div>
-                <label for="title" class="col-sm-2 control-label">Hierarchy level</label>
-                <div class="col-sm-3">
-                    <p class="form-control-static">@Model.HierarchyLevel</p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="title" class="col-sm-2 control-label">Navn</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.Title)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="purpose" class="col-sm-2 control-label">Formål</label>
-                <div class="col-sm-9">
-                    @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
-                    <div class="help-block panel panel-success hidden" id="help-block-purpose">
-                        <div class="panel-body">
-                            Dette er hjelpeteksten
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                    <p class="form-control-static">
-                        <a href="#" data-help-block-id="help-block-purpose" class="badge help-block-toggle">?</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="abstract" class="col-sm-2 control-label">Sammendrag</label>
-                <div class="col-sm-9">
-                    @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
-                    <div class="help-block panel panel-success hidden" id="help-block-abstract">
-                        <div class="panel-body">
-                            Dette er hjelpeteksten
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                    <p class="form-control-static">
-                        <a href="#" data-help-block-id="help-block-abstract" class="badge help-block-toggle">?</a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="keywords" class="col-sm-2 control-label">Nøkkelord</label>
-                <div class="col-sm-9">
-                        @foreach (var key in Model.Keywords.Keys)
-                        {
-                            <div class="col-sm-4">
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        <h5>@key</h5>
-                                    </div>
-                                    <div class="panel-body">
-                                        <ul>
-                                            @foreach (var element in Model.Keywords[key])
-                                            {
-                                                <li><span class="label label-info">@element.Value</span></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                </div>
-            </div>
-
-
-
-            <div class="form-group">
-                <label for="abstract" class="col-sm-2 control-label">Opprettet dato</label>
-                <div class="col-sm-2">
-                    @Html.EditorFor(m => m.DateCreated)
-                </div>
-                <label for="abstract" class="col-sm-2 control-label">Publiseringsdato</label>
-                <div class="col-sm-2">
-                    @Html.EditorFor(m => m.DatePublished)
-                </div>
-                <label for="abstract" class="col-sm-2 control-label">Dato sist oppdatert</label>
-                <div class="col-sm-2">
-                    @Html.EditorFor(m => m.DateUpdated)
-                </div>
-            </div>
+            @Html.Partial("_Basic", Model)
+        </div>
 
         @if (Model.HierarchyLevel == "dataset")
         {
-            <div class="fields-dataset panel panel-info">
-                <div class="panel-heading">
-                    @Resources.UI.Metadata_Edit_DatasetFields
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Tematisk hovedkategori</label>
-                        <div class="col-sm-9">
-                            @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="supplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
-                        <div class="col-sm-9">
-                            @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
-                            <div class="help-block panel panel-success hidden" id="help-block-supplementalDescription">
-                                <div class="panel-body">
-                                    Dette er hjelpeteksten
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-1">
-                            <p class="form-control-static">
-                                <a href="#" data-help-block-id="help-block-supplementalDescription" class="badge help-block-toggle">?</a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="usage" class="col-sm-2 control-label">Bruksområde</label>
-                        <div class="col-sm-9">
-                            @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
-                            <div class="help-block panel panel-success hidden" id="help-block-usage">
-                                <div class="panel-body">
-                                    Dette er hjelpeteksten
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-1">
-                            <p class="form-control-static">
-                                <a href="#" data-help-block-id="help-block-usage" class="badge help-block-toggle">?</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div><!-- fields-dataset-->
+            <div class="tab-pane" id="dataset">
+                @Html.Partial("_Dataset", Model)
+            </div>
         }
 
-        @if (Model.HierarchyLevel == "service") { 
-            <div class="fields-dataset panel panel-info">
-                <div class="panel-heading">
-                    @Resources.UI.Metadata_Edit_ServiceFields
-                </div>
-                <div class="panel-body">
-                    test
-                </div>
-            </div><!-- fields-service-->
+        @if (Model.HierarchyLevel == "service")
+        {
+            <div class="tab-pane" id="service">
+                @Html.Partial("_Service", Model)
+            </div>
         }
-        </div><!-- /home -->
-
+        
         <div class="tab-pane" id="contact">
             @Html.Partial("_Contact", Model)
 
