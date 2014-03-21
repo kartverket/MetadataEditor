@@ -111,7 +111,7 @@
             <div class="form-group">
                 <label for="abstract" class="col-sm-2 control-label">Tematisk hovedkategori</label>
                 <div class="col-sm-9">
-                    @Html.EditorFor(m => m.TopicCategory)
+                    @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
                 </div>                
             </div>
 

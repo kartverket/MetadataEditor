@@ -168,7 +168,11 @@ namespace Kartverket.MetadataEditor.Models
             metadata.DatePublished = model.DatePublished;
             metadata.DateUpdated = model.DateUpdated;
 
+            // hardcoding values
             metadata.DateMetadataUpdated = DateTime.Now;
+            metadata.MetadataStandard = "ISO19139";
+            metadata.MetadataStandardVersion = "1.0";
+            metadata.MetadataLanguage = "nor";
 
             _geoNorge.MetadataUpdate(metadata.GetMetadata());
         }

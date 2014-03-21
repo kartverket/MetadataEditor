@@ -59,6 +59,8 @@ namespace Kartverket.MetadataEditor.Controllers
 
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
+            ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
+
             return View(model);
         }
 
@@ -68,7 +70,56 @@ namespace Kartverket.MetadataEditor.Controllers
             _metadataService.SaveMetadataModel(model);
             return RedirectToAction("Index");
         }
-        
+
+
+        public Dictionary<string, string> GetListOfTopicCategories()
+        {
+            return new Dictionary<string, string> 
+            {
+                {"farming", "farming"}, 
+                {"biota", "biota"},
+                {"boundaries", "boundaries"},
+                {"climatologyMeteorologyAtmosphere","climatologyMeteorologyAtmosphere"},
+                {"economy","economy"},
+                {"elevation","elevation"},
+                {"environment","environment"},
+                {"geoscientificInformation","geoscientificInformation"},
+                {"health","health"},
+                {"imageryBaseMapsEarthCover","imageryBaseMapsEarthCover"},
+                {"intelligenceMilitary","intelligenceMilitary"},
+                {"inlandWaters","inlandWaters"},
+                {"location","location"},
+                {"oceans","oceans"},
+                {"planningCadastre","planningCadastre"},
+                {"society","society"},
+                {"structure","structure"},
+                {"transportation","transportation"},
+                {"utilitiesCommunication","utilitiesCommunication"},
+            };
+            /*
+farming
+biota
+boundaries
+climatologyMeteorologyAtmosphere
+economy
+elevation
+environment
+geoscientificInformation
+health
+imageryBaseMapsEarthCover
+intelligenceMilitary
+inlandWaters
+location
+oceans
+planningCadastre
+society
+structure
+transportation
+utilitiesCommunication
+            */
+        }
+
+
 	}
 
     public enum MetadataMessages
