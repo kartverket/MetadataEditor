@@ -61,7 +61,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
-
+            ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
 
             return View(model);
         }
@@ -131,6 +131,25 @@ utilitiesCommunication
                 {"tin", "tin"}, 
                 {"stereoModel", "stereoModel"}, 
                 {"video", "video"}, 
+            };
+        }
+
+        public Dictionary<string, string> GetListOfMaintenanceFrequencyValues()
+        {
+            return new Dictionary<string, string>
+            {
+                {"continual", "Kontinuerlig"},
+                {"daily", "Daglig"},
+                {"weekly", "Ukentlig"},
+                {"fortnightly", "Annenhver uke"},
+                {"monthly", "Månedlig"},
+                {"quarterly", "Hvert kvartal"},
+                {"biannually", "Hvert halvår"},
+                {"annually", "Årlig"},
+                {"asNeeded", "Etter behov"},
+                {"irregular", "Ujevnt"},
+                {"notPlanned", "Ikke planlagt"},
+                {"unknown", "Ukjent"},
             };
         }
 	}
