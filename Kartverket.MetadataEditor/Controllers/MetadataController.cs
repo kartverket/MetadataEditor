@@ -60,6 +60,8 @@ namespace Kartverket.MetadataEditor.Controllers
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
+            ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
+
 
             return View(model);
         }
@@ -119,7 +121,18 @@ utilitiesCommunication
             */
         }
 
-
+        public Dictionary<string, string> GetListOfSpatialRepresentations()
+        {
+            return new Dictionary<string, string> 
+            {
+                {"vector", "vector"}, 
+                {"grid", "grid"}, 
+                {"textTable", "textTable"}, 
+                {"tin", "tin"}, 
+                {"stereoModel", "stereoModel"}, 
+                {"video", "video"}, 
+            };
+        }
 	}
 
     public enum MetadataMessages
