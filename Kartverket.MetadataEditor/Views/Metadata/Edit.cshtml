@@ -269,6 +269,26 @@
 
 @section scripts {
     <script>
+        $(function () {
+            $("button#prefillConformityInspire").click(function (event) {
+                event.preventDefault();
+                $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
+                $("#QualitySpecificationDate").val("2010-12-08");
+                $("#QualitySpecificationDateType").val("publication");
+                $("#QualitySpecificationExplanation").val("See the referenced specification");
+                $("#QualitySpecificationResult").prop('checked', true);
+            });
+            $("button#prefillConformitySosi").click(function (event) {
+                event.preventDefault();
+                $("#QualitySpecificationTitle").val("SOSI-fagområde");
+                $("#QualitySpecificationDate").val("2014-01-01");
+                $("#QualitySpecificationDateType").val("publication");
+                $("#QualitySpecificationExplanation").val("See the referenced specification");
+                $("#QualitySpecificationResult").prop('checked', true);
+            });
+        });
+
+
         /*
     $(function() {
         var hash = document.location.hash;
