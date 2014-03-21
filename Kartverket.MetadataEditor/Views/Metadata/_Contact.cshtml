@@ -1,0 +1,51 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+<div class="panel panel-info">
+    <div class="panel-heading">Kontakt (pointOfContact)</div>
+    <div class="panel-body">
+        @Html.HiddenFor(m => Model.ContactPointOfContact.Role)
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Navn</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactPointOfContact.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactPointOfContact.Organization, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Epost</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactPointOfContact.Email, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div> <!-- pointOfContact -->
+
+<div class="panel panel-info">
+    <div class="panel-heading">Utgiver (publisher)</div>
+    <div class="panel-body">
+        @Html.HiddenFor(m => Model.ContactPublisher.Role)
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Navn</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactPublisher.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactPublisher.Organization, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Epost</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactPublisher.Email, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div> <!-- publisher-->

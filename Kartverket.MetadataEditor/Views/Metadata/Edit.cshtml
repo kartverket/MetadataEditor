@@ -4,7 +4,7 @@
     ViewBag.Title = @Resources.UI.EditMetadata;
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@ViewBag.Title for @Model.Title</h2>
 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#home" data-toggle="tab">Om datasettet</a></li>
@@ -12,12 +12,6 @@
     <li><a href="#distribution" data-toggle="tab">Distribusjon</a></li>
     <li><a href="#documents" data-toggle="tab">Dokumenter</a></li>
     <li><a href="#quality" data-toggle="tab">Kvalitet</a></li>
-    <!--
-    <li><a href="#keywords" data-toggle="tab">Nøkkelord</a></li>
-    
-    <li><a href="#extent" data-toggle="tab">Utstrekning</a></li>
--->
-
 </ul>
 
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form">
@@ -42,11 +36,7 @@
             <div class="form-group">
                 <label for="title" class="col-sm-2 control-label">Navn</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="title" value="@Model.Title">
-                </div>
-                <label for="titleTechnical" class="col-sm-2 control-label">Teknisk navn</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" name="titleTechnical" value="">
+                    @Html.EditorFor(m => m.Title)
                 </div>
             </div>
 
@@ -108,12 +98,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="abstract" class="col-sm-2 control-label">Tematisk hovedkategori</label>
-                <div class="col-sm-9">
-                    @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
-                </div>                
-            </div>
+
 
             <div class="form-group">
                 <label for="abstract" class="col-sm-2 control-label">Opprettet dato</label>
@@ -132,13 +117,18 @@
 
         @if (Model.HierarchyLevel == "dataset")
         {
-            
-        
             <div class="fields-dataset panel panel-info">
                 <div class="panel-heading">
                     @Resources.UI.Metadata_Edit_DatasetFields
                 </div>
                 <div class="panel-body">
+                    <div class="form-group">
+                        <label for="abstract" class="col-sm-2 control-label">Tematisk hovedkategori</label>
+                        <div class="col-sm-9">
+                            @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="supplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
                         <div class="col-sm-9">
@@ -190,57 +180,7 @@
         </div><!-- /home -->
 
         <div class="tab-pane" id="contact">
-            <br />
-            
-            <div class="panel panel-info">
-                <div class="panel-heading">Kontakt (pointOfContact)</div>
-                <div class="panel-body">
-                    @Html.HiddenFor(m => Model.ContactPointOfContact.Role)
-                    <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Navn</label>
-                        <div class="col-sm-9">
-                            @Html.TextBoxFor(m => Model.ContactPointOfContact.Name, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
-                        <div class="col-sm-9">
-                            @Html.TextBoxFor(m => Model.ContactPointOfContact.Organization, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Epost</label>
-                        <div class="col-sm-9">
-                            @Html.TextBoxFor(m => Model.ContactPointOfContact.Email, new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- pointOfContact -->
-
-            <div class="panel panel-info">
-                <div class="panel-heading">Utgiver (publisher)</div>
-                <div class="panel-body">
-                    @Html.HiddenFor(m => Model.ContactPublisher.Role)
-                    <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Navn</label>
-                        <div class="col-sm-9">
-                            @Html.TextBoxFor(m => Model.ContactPublisher.Name, new { @class="form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
-                        <div class="col-sm-9">
-                            @Html.TextBoxFor(m => Model.ContactPublisher.Organization, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Epost</label>
-                        <div class="col-sm-9">
-                            @Html.TextBoxFor(m => Model.ContactPublisher.Email, new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- publisher-->
+            @Html.Partial("_Contact", Model)
 
         </div>
 
