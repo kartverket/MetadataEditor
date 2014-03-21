@@ -170,8 +170,8 @@ namespace Kartverket.MetadataEditor.Models
 
             // hardcoding values
             metadata.DateMetadataUpdated = DateTime.Now;
-            metadata.MetadataStandard = "ISO19139";
-            metadata.MetadataStandardVersion = "1.0";
+            metadata.MetadataStandard = "ISO19115";
+            metadata.MetadataStandardVersion = "2003";
             metadata.MetadataLanguage = "nor";
 
             _geoNorge.MetadataUpdate(metadata.GetMetadata());
