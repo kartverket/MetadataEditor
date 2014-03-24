@@ -62,6 +62,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
             ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
+            ViewBag.StatusValues = new SelectList(GetListOfStatusValues(), "Key", "Value", model.Status);
 
             return View(model);
         }
@@ -150,6 +151,20 @@ utilitiesCommunication
                 {"irregular", "Ujevnt"},
                 {"notPlanned", "Ikke planlagt"},
                 {"unknown", "Ukjent"},
+            };
+        }
+
+        public Dictionary<string, string> GetListOfStatusValues()
+        {
+            return new Dictionary<string, string>
+            {
+                {"completed", "Fullført"},
+                {"historicalArchive", "Arkivert"},
+                {"obsolete", "Utdatert"},
+                {"onGoing", "Kontinuerlig oppdatert"},
+                {"planned", "Planlagt"},
+                {"required", "Må oppdateres"},
+                {"underDevelopment", "Under arbeid"},
             };
         }
 	}

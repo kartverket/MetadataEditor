@@ -107,7 +107,9 @@ namespace Kartverket.MetadataEditor.Models
                 DateCreated = metadata.DateCreated,
                 DatePublished = metadata.DatePublished,
                 DateUpdated = metadata.DateUpdated,
-                DateMetadataUpdated = metadata.DateMetadataUpdated
+                DateMetadataUpdated = metadata.DateMetadataUpdated,
+
+                Status = metadata.Status
             };
 
             model.FixThumbnailUrls();

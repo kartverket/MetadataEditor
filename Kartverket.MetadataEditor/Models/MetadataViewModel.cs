@@ -31,6 +31,8 @@ namespace Kartverket.MetadataEditor.Models
 
         public List<Thumbnail> Thumbnails { get; set; }
 
+        public string Status { get; set; }
+
         /* dataset only */
         public string SupplementalDescription { get; set; }
         public string SpecificUsage { get; set; }  // bruksområde
@@ -72,6 +74,8 @@ namespace Kartverket.MetadataEditor.Models
                 }
             }
         }
+
+        
     }
 
     public class Contact
