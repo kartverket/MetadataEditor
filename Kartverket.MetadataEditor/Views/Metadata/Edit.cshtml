@@ -97,6 +97,30 @@
                 $("#QualitySpecificationExplanation").val("See the referenced specification");
                 $("#QualitySpecificationResult").prop('checked', true);
             });
+
+
+            var $states = $('select#bboxState');
+            var $counties = $('select#bboxCounty');
+
+            var $countyList = $counties.find('option').clone();
+
+            $states.change(function () {
+                var $selectedStateNumber = $(this).find('option:selected').data('statenumber');
+                var regex = new RegExp("^" + $selectedStateNumber);
+                $counties.html($countyList.filter(function () {
+                    return regex.test($(this).attr('data-countynumber'));
+                }));
+            }).change();
+
+
+            $("button#bboxPrefill").click(function (event) {
+                event.preventDefault();
+                var $selectedCounty = $counties.find('option:selected');
+                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+            });
         });
 
 
@@ -116,5 +140,6 @@
         });
     });
         */
+
     </script>
 }

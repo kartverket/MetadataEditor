@@ -94,7 +94,6 @@ namespace Kartverket.MetadataEditor.Models
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace: null,
 
-
                 QualitySpecificationDate = metadata.QualitySpecification != null ? metadata.QualitySpecification.Date : null,
                 QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
                 QualitySpecificationExplanation = metadata.QualitySpecification != null ? metadata.QualitySpecification.Explanation : null,
@@ -109,7 +108,12 @@ namespace Kartverket.MetadataEditor.Models
                 DateUpdated = metadata.DateUpdated,
                 DateMetadataUpdated = metadata.DateMetadataUpdated,
 
-                Status = metadata.Status
+                Status = metadata.Status,
+
+                BoundingBoxEast = metadata.BoundingBox != null ? metadata.BoundingBox.EastBoundLongitude : null,
+                BoundingBoxWest = metadata.BoundingBox != null ? metadata.BoundingBox.WestBoundLongitude : null,
+                BoundingBoxNorth = metadata.BoundingBox != null ? metadata.BoundingBox.NorthBoundLatitude : null,
+                BoundingBoxSouth = metadata.BoundingBox != null ? metadata.BoundingBox.SouthBoundLatitude : null,
             };
 
             model.FixThumbnailUrls();
@@ -169,6 +173,17 @@ namespace Kartverket.MetadataEditor.Models
             metadata.DateCreated = model.DateCreated;
             metadata.DatePublished = model.DatePublished;
             metadata.DateUpdated = model.DateUpdated;
+
+            if (!string.IsNullOrWhiteSpace(model.BoundingBoxEast))
+            {
+                metadata.BoundingBox = new SimpleBoundingBox
+                {
+                    EastBoundLongitude = model.BoundingBoxEast,
+                    WestBoundLongitude = model.BoundingBoxWest,
+                    NorthBoundLatitude = model.BoundingBoxNorth,
+                    SouthBoundLatitude = model.BoundingBoxSouth
+                };
+            }
 
             // hardcoding values
             metadata.DateMetadataUpdated = DateTime.Now;

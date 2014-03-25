@@ -33,6 +33,11 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Status { get; set; }
 
+        public string BoundingBoxEast { get; set; }
+        public string BoundingBoxWest { get; set; }
+        public string BoundingBoxNorth { get; set; }
+        public string BoundingBoxSouth { get; set; }
+
         /* dataset only */
         public string SupplementalDescription { get; set; }
         public string SpecificUsage { get; set; }  // bruksområde
