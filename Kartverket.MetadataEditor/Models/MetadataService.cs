@@ -103,6 +103,12 @@ namespace Kartverket.MetadataEditor.Models
                 MaintenanceFrequency = metadata.MaintenanceFrequency,
                 ResolutionScale = metadata.ResolutionScale,
 
+                UseLimitations = metadata.Constraints != null ? metadata.Constraints.UseLimitations : null,
+                UseConstraints = metadata.Constraints != null ? metadata.Constraints.UseConstraints : null,
+                AccessConstraints = metadata.Constraints != null ? metadata.Constraints.AccessConstraints : null,
+                SecurityConstraints = metadata.Constraints != null ? metadata.Constraints.SecurityConstraints : null,
+                OtherConstraints = metadata.Constraints != null ? metadata.Constraints.OtherConstraints : null,
+
                 DateCreated = metadata.DateCreated,
                 DatePublished = metadata.DatePublished,
                 DateUpdated = metadata.DateUpdated,
@@ -184,6 +190,15 @@ namespace Kartverket.MetadataEditor.Models
                     SouthBoundLatitude = model.BoundingBoxSouth
                 };
             }
+
+            metadata.Constraints = new SimpleConstraints
+            {
+                AccessConstraints = model.AccessConstraints,
+                OtherConstraints = model.OtherConstraints,
+                SecurityConstraints = model.SecurityConstraints,
+                UseConstraints = model.UseConstraints,
+                UseLimitations = model.UseLimitations
+            };
 
             // hardcoding values
             metadata.DateMetadataUpdated = DateTime.Now;

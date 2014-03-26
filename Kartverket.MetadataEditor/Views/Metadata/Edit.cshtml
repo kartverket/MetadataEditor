@@ -25,6 +25,7 @@
     <li><a href="#contact" data-toggle="tab">Kontaktinformasjon</a></li>
     <li><a href="#distribution" data-toggle="tab">Distribusjon</a></li>
     <li><a href="#documents" data-toggle="tab">Dokumenter</a></li>
+    <li><a href="#constraints" data-toggle="tab">Restriksjoner</a></li>
     <li><a href="#quality" data-toggle="tab">Kvalitet</a></li>
 </ul>
 
@@ -61,6 +62,10 @@
         
         <div class="tab-pane" id="documents">
             @Html.Partial("_Documents", Model)
+        </div>
+
+        <div class="tab-pane" id="constraints">
+            @Html.Partial("_Constraints", Model)
         </div>
 
         <div class="tab-pane" id="quality">

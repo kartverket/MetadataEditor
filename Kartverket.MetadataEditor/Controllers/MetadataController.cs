@@ -16,7 +16,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public MetadataController()
         {
-            _metadataService = new MetadataService(new GeoNorgeAPI.GeoNorge("arkitektum", "gis2014", "https://www.geonorge.no/geonetworkbeta/"));
+            _metadataService = new MetadataService(new GeoNorgeAPI.GeoNorge("", "", "https://www.geonorge.no/geonetworkbeta/"));
         }
 
 
@@ -56,13 +56,15 @@ namespace Kartverket.MetadataEditor.Controllers
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
 
-
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
             ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
             ViewBag.StatusValues = new SelectList(GetListOfStatusValues(), "Key", "Value", model.Status);
+            ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(), "Key", "Value", model.SecurityConstraints);
+            ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.UseConstraints);
+            ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.AccessConstraints);
 
             return View(model);
         }
@@ -73,7 +75,6 @@ namespace Kartverket.MetadataEditor.Controllers
             _metadataService.SaveMetadataModel(model);
             return RedirectToAction("Index");
         }
-
 
         public Dictionary<string, string> GetListOfTopicCategories()
         {
@@ -99,27 +100,6 @@ namespace Kartverket.MetadataEditor.Controllers
                 {"transportation","transportation"},
                 {"utilitiesCommunication","utilitiesCommunication"},
             };
-            /*
-farming
-biota
-boundaries
-climatologyMeteorologyAtmosphere
-economy
-elevation
-environment
-geoscientificInformation
-health
-imageryBaseMapsEarthCover
-intelligenceMilitary
-inlandWaters
-location
-oceans
-planningCadastre
-society
-structure
-transportation
-utilitiesCommunication
-            */
         }
 
         public Dictionary<string, string> GetListOfSpatialRepresentations()
@@ -167,6 +147,33 @@ utilitiesCommunication
                 {"underDevelopment", "Under arbeid"},
             };
         }
+
+        public Dictionary<string, string> GetListOfClassificationValues()
+        {
+            return new Dictionary<string, string>
+            {
+                {"unclassified", "unclassified"},
+                {"restricted", "restricted"},
+                {"confidential", "confidential"},
+                {"secret", "secret"},
+                {"topSecret", "topSecret"},
+            };
+        }
+
+        public Dictionary<string, string> GetListOfRestrictionValues()
+        {
+            return new Dictionary<string, string>
+            {
+                {"copyright", "copyright"},
+                {"patent", "patent"},
+                {"patentPending", "patentPending"},
+                {"trademark", "trademark"},
+                {"license", "license"},
+                {"restricted", "restricted"},
+                {"otherRestrictions", "otherRestrictions"},
+            };
+        }
+
 	}
 
     public enum MetadataMessages

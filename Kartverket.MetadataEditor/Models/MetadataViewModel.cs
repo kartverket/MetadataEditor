@@ -51,8 +51,7 @@ namespace Kartverket.MetadataEditor.Models
         public string DistributionProtocol { get; set; }
         public string ReferenceSystemCoordinateSystem { get; set; }
         public string ReferenceSystemNamespace { get; set; }
-
-
+        
         // quality
         public string QualitySpecificationDate { get; set; }
         public string QualitySpecificationDateType { get; set; }
@@ -62,6 +61,13 @@ namespace Kartverket.MetadataEditor.Models
         public string ProcessHistory { get; set; }
         public string MaintenanceFrequency { get; set; }
         public string ResolutionScale { get; set; }
+
+        // constraints
+        public string UseLimitations { get; set; }
+        public string AccessConstraints { get; set; }
+        public string UseConstraints { get; set; }
+        public string OtherConstraints { get; set; }
+        public string SecurityConstraints { get; set; }
 
         public DateTime? DateCreated { get; set; }
         public DateTime? DatePublished { get; set; }
@@ -78,9 +84,7 @@ namespace Kartverket.MetadataEditor.Models
                     thumbnail.URL = "https://www.geonorge.no/geonetworkbeta/srv/eng/resources.get?uuid=" + Uuid + "&access=public&fname=" + thumbnail.URL;
                 }
             }
-        }
-
-        
+        }       
     }
 
     public class Contact
