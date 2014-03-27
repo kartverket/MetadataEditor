@@ -126,6 +126,48 @@
                 $("input#BoundingBoxEast").val($selectedCounty.data('east'));
                 $("input#BoundingBoxWest").val($selectedCounty.data('west'));
             });
+
+
+            function addKeyword(selectorPrefix, inputName) {
+                var $keywordTextBox = $('input#' + selectorPrefix + '-text');
+                var newKeyword = $keywordTextBox.val();
+
+                var elementId = $('ul#' + selectorPrefix + ' li').length;
+
+                var listItemId = selectorPrefix + "-" + elementId;
+                var li = $('<li />', { "id": listItemId });
+                li.append($('<span />', { "class": "label label-success", text: newKeyword }));
+                li.append('&nbsp;');
+                var link = $('<a />', { "href": "", "class": "keyword-delete", "data-delete": listItemId });
+                link.append("<small>Slett</small>");
+                li.append(link);
+                li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
+                
+                $('ul#' + selectorPrefix).append(li);
+
+                $keywordTextBox.val('');
+            };
+
+            $('button#keywords-theme-add').click(function (event) {
+                event.preventDefault();
+                addKeyword('keywords-theme', "KeywordsTheme");
+            });
+
+            $('button#keywords-place-add').click(function (event) {
+                event.preventDefault();
+                addKeyword('keywords-place', "KeywordsPlace");
+            });
+
+            // use a delegated event handler to bind to all existing and future delete links
+            $('body').on("click", "a.keyword-delete", function (event) { 
+                event.preventDefault();
+
+                if (confirm('Er du sikker på at du vil slette nøkkelordet?')) {
+                    var deleteId = $(this).data('delete');
+                    $('li#' + deleteId).remove();
+                }
+            });
+
         });
 
 

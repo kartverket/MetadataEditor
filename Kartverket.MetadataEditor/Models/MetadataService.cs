@@ -76,6 +76,9 @@ namespace Kartverket.MetadataEditor.Models
 
                 Keywords = Keyword.CreateDictionary(metadata.Keywords),
 
+                KeywordsTheme = Keyword.FilterKeywords(metadata.Keywords, "theme", null),
+                KeywordsPlace = Keyword.FilterKeywords(metadata.Keywords, "place", null),
+
                 TopicCategory = metadata.TopicCategory,
                 SupplementalDescription = metadata.SupplementalDescription,
                 

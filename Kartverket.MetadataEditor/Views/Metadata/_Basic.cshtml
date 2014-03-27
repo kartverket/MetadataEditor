@@ -60,6 +60,58 @@
 <div class="form-group">
     <label for="keywords" class="col-sm-2 control-label">Nøkkelord</label>
     <div class="col-sm-9">
+
+        <div class="col-sm-6">
+            <p class="keyword-header">Tema</p>
+            <ul id="keywords-theme">
+                @for (int i = 0; i < Model.KeywordsTheme.Count; i++)
+                {
+                    var keyword = Model.KeywordsTheme[i];
+                    <li id="keywords-theme-@i">
+                        <span class="label label-success">@keyword.Value</span>
+                        <a href="" class="keyword-delete" data-delete="keywords-theme-@i"><small>Slett</small></a>
+                        <input type="hidden" name="KeywordsTheme[@i]" value="@keyword.Value" />
+                    </li>
+                }
+            </ul>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" id="keywords-theme-text" class="form-control"/>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default btn-sm" id="keywords-theme-add">Legg til</button>
+                </div>
+            </div>
+        </div>
+               
+        <div class="col-sm-6">
+            <p class="keyword-header">Sted</p>
+            <ul id="keywords-place">
+                @for (int i = 0; i < Model.KeywordsPlace.Count; i++)
+                {
+                    var keyword = Model.KeywordsPlace[i];
+                    <li id="keywords-theme-@i">
+                        <span class="label label-success">@keyword.Value</span>
+                        <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>Slett</small></a>
+                        <input type="hidden" name="KeywordsPlace[@i]" value="@keyword.Value" />
+                    </li>
+                }
+            </ul>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" id="keywords-place-text" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default btn-sm" id="keywords-place-add">Legg til</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!--
+
         @foreach (var key in Model.Keywords.Keys)
         {
             <div class="col-sm-6">
@@ -93,6 +145,7 @@
                 </div>
             </div>
         }
+            -->
     </div>
 </div>
 

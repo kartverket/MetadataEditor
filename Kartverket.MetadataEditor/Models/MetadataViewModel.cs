@@ -22,7 +22,12 @@ namespace Kartverket.MetadataEditor.Models
         public List<Contact> ContactOthers { get; set; }
 
         public Dictionary<string, List<Keyword>> Keywords { get; set; }
-        
+
+        public List<Keyword> KeywordsTheme { get; set; }
+        public List<Keyword> KeywordsPlace { get; set; }
+        public List<Keyword> KeywordsInspire { get; set; }
+        public List<Keyword> KeywordsServiceTaxonomy { get; set; }
+        public List<Keyword> KeywordsNationalInitiative { get; set; }
 
         public string LegendDescriptionUrl { get; set; }
         public string ProductPageUrl { get; set; }
@@ -128,6 +133,40 @@ namespace Kartverket.MetadataEditor.Models
         public string Value { get; set; }
         public string Type { get; set; }
         public string Thesaurus { get; set; }
+
+        public Keyword() { }
+
+        public Keyword(SimpleKeyword simple)
+        {
+            Value = simple.Keyword;
+            Thesaurus = simple.Thesaurus;
+            Type = simple.Type;
+        }
+
+        internal static List<Keyword> FilterKeywords(List<SimpleKeyword> allKeywords, string type, string thesaurus)
+        {
+            List<Keyword> filteredList = new List<Keyword>();
+
+            bool filterOnType = !string.IsNullOrWhiteSpace(type);
+            bool filterOnThesaurus = !string.IsNullOrWhiteSpace(thesaurus);
+
+            foreach (SimpleKeyword simpleKeyword in allKeywords)
+            {
+                if (filterOnType && simpleKeyword.Type.Equals(type))
+                {
+                    filteredList.Add(new Keyword(simpleKeyword));
+                }
+                else if (filterOnThesaurus && simpleKeyword.Thesaurus.Equals(thesaurus))
+                {
+                    filteredList.Add(new Keyword(simpleKeyword));
+                }
+                else if (!filterOnType && !filterOnThesaurus)
+                {
+                    filteredList.Add(new Keyword(simpleKeyword));
+                }
+            }
+            return filteredList;
+        }
 
         internal static Dictionary<string, List<Keyword>> CreateDictionary(List<SimpleKeyword> incoming)
         {

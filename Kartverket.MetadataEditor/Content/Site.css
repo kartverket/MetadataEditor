@@ -62,21 +62,8 @@ input[type="checkbox"].input-validation-error {
 .navbar > .container { padding: 8px; }
 
 .tab-pane {margin-top: 20px;}
-/*
-.navbar-default {
-    background-color: #f8f8f8;
-    border-color: #e7e7e7;
-}
 
-@media (min-width: 768px) {
-    .navbar {
-        border-radius: 4px;
-    }
+p.keyword-header {
+    width: 60%;
+    border-bottom: solid 1px black;
 }
-.navbar {
-    position: relative;
-    min-height: 50px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-}
-*/
