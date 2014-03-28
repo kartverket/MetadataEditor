@@ -128,34 +128,68 @@
             });
 
 
-            function addKeyword(selectorPrefix, inputName) {
-                var $keywordTextBox = $('input#' + selectorPrefix + '-text');
-                var newKeyword = $keywordTextBox.val();
+            function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
+                var deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
+
+                var $keywordInput = $('#' + selectorPrefix + '-text');
+
+                var newKeyword = $keywordInput.val();
 
                 var elementId = $('ul#' + selectorPrefix + ' li').length;
 
                 var listItemId = selectorPrefix + "-" + elementId;
+
                 var li = $('<li />', { "id": listItemId });
                 li.append($('<span />', { "class": "label label-success", text: newKeyword }));
                 li.append('&nbsp;');
-                var link = $('<a />', { "href": "", "class": "keyword-delete", "data-delete": listItemId });
+
+                var link = $('<a />', {
+                    "href": "",
+                    "class": "keyword-delete",
+                    "data-delete": listItemId,
+                    "data-list": selectorPrefix + '-text',
+                    "data-list-value": newKeyword
+                });
                 link.append("<small>Slett</small>");
+
                 li.append(link);
                 li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
                 
                 $('ul#' + selectorPrefix).append(li);
 
-                $keywordTextBox.val('');
+                return $keywordInput;
             };
+
+            function addKeywordFromCodeList(selectorPrefix, inputName) {
+                $keywordInput = addKeyword(selectorPrefix, inputName);
+                var $selected = $keywordInput.find("option:selected");
+                $selected.attr("disabled", "disabled");
+                $selected.removeAttr("selected");
+            };
+
+            function addKeywordFromTextbox(selectorPrefix, inputName) {
+                $keywordInput = addKeyword(selectorPrefix, inputName);
+                $keywordInput.val('');
+            }
 
             $('button#keywords-theme-add').click(function (event) {
                 event.preventDefault();
-                addKeyword('keywords-theme', "KeywordsTheme");
+                addKeywordFromTextbox('keywords-theme', "KeywordsTheme");
             });
 
             $('button#keywords-place-add').click(function (event) {
                 event.preventDefault();
-                addKeyword('keywords-place', "KeywordsPlace");
+                addKeywordFromTextbox('keywords-place', "KeywordsPlace");
+            });
+                        
+            $('button#keywords-national-initiative-add').click(function (event) {
+                event.preventDefault();
+                addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
+            });
+
+            $('button#keywords-inspire-add').click(function (event) {
+                event.preventDefault();
+                addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
             });
 
             // use a delegated event handler to bind to all existing and future delete links
@@ -164,6 +198,14 @@
 
                 if (confirm('Er du sikker på at du vil slette nøkkelordet?')) {
                     var deleteId = $(this).data('delete');
+
+                   var $selectCodeList = $("select#" + $(this).data('list'));
+                    if ($selectCodeList !== undefined) {
+                        var selector = 'option:contains("' + $(this).data('list-value') + '")';
+                        var option = $selectCodeList.children(selector);
+                        option.removeAttr('disabled');
+                    }
+                    
                     $('li#' + deleteId).remove();
                 }
             });

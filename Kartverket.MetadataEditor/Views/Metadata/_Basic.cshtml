@@ -68,9 +68,9 @@
                 {
                     var keyword = Model.KeywordsTheme[i];
                     <li id="keywords-theme-@i">
-                        <span class="label label-success">@keyword.Value</span>
+                        <span class="label label-success">@keyword</span>
                         <a href="" class="keyword-delete" data-delete="keywords-theme-@i"><small>Slett</small></a>
-                        <input type="hidden" name="KeywordsTheme[@i]" value="@keyword.Value" />
+                        <input type="hidden" name="KeywordsTheme[@i]" value="@keyword" />
                     </li>
                 }
             </ul>
@@ -90,10 +90,10 @@
                 @for (int i = 0; i < Model.KeywordsPlace.Count; i++)
                 {
                     var keyword = Model.KeywordsPlace[i];
-                    <li id="keywords-theme-@i">
-                        <span class="label label-success">@keyword.Value</span>
+                    <li id="keywords-place-@i">
+                        <span class="label label-success">@keyword</span>
                         <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>Slett</small></a>
-                        <input type="hidden" name="KeywordsPlace[@i]" value="@keyword.Value" />
+                        <input type="hidden" name="KeywordsPlace[@i]" value="@keyword" />
                     </li>
                 }
             </ul>
@@ -107,7 +107,67 @@
             </div>
         </div>
 
+        <div class="col-sm-6">
+            <p class="keyword-header">Initiativ/tilhørighet</p>
+            <ul id="keywords-national-initiative">
+                @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
+                {
+                    var keyword = Model.KeywordsNationalInitiative[i];
+                    <li id="keywords-national-initiative-@i">
+                        <span class="label label-success">@keyword</span>
+                        <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i"><small>Slett</small></a>
+                        <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
+                    </li>
+                }
+            </ul>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <select class="input-sm form-control" id="keywords-national-initiative-text">
+                        <option></option>
+                        <option>Inspire</option>
+                        <option>Det offentlige kartgrunnlaget</option>
+                        <option>Barentswatch</option>
+                        <option>Norge digitalt</option>
+                        <option>European Location Framework</option>
+                        <option>Arctic SDI</option>
+                        <option>Åpne data</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-sm-6">
+            <p class="keyword-header">INSPIRE</p>
+            <ul id="keywords-inspire">
+                @for (int i = 0; i < Model.KeywordsInspire.Count; i++)
+                {
+                    var keyword = Model.KeywordsInspire[i];
+                    <li id="keywords-inspire-@i">
+                        <span class="label label-success">@keyword</span>
+                        <a href="" class="keyword-delete" data-delete="keywords-inspire-@i"><small>Slett</small></a>
+                        <input type="hidden" name="KeywordsInspire[@i]" value="@keyword" />
+                    </li>
+                }
+            </ul>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <select class="input-sm form-control" id="keywords-inspire-text">
+                        <option></option>
+                        <option>Addresses</option>
+                        <option>Administrative units</option>
+                        <option>Agricultural and aquaculture facilities</option>
+                        <option>Area management/restriction/regulation zones and reporting units</option>
+                        <option>Atmospheric conditions</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default btn-sm" id="keywords-inspire-add">Legg til</button>
+                </div>
+            </div>
+        </div>
 
 
         <!--

@@ -76,8 +76,11 @@ namespace Kartverket.MetadataEditor.Models
 
                 Keywords = Keyword.CreateDictionary(metadata.Keywords),
 
-                KeywordsTheme = Keyword.FilterKeywords(metadata.Keywords, "theme", null),
-                KeywordsPlace = Keyword.FilterKeywords(metadata.Keywords, "place", null),
+                KeywordsTheme = Keyword.FilterKeywords(metadata.Keywords, SimpleKeyword.TYPE_THEME, null),
+                KeywordsPlace = Keyword.FilterKeywords(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null),
+                KeywordsNationalInitiative = Keyword.FilterKeywords(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE),
+                KeywordsInspire = Keyword.FilterKeywords(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1),
+                KeywordsServiceTaxonomy = Keyword.FilterKeywords(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY),
 
                 TopicCategory = metadata.TopicCategory,
                 SupplementalDescription = metadata.SupplementalDescription,
@@ -202,6 +205,8 @@ namespace Kartverket.MetadataEditor.Models
                 UseConstraints = model.UseConstraints,
                 UseLimitations = model.UseLimitations
             };
+
+            metadata.Keywords = model.GetAllKeywords();
 
             // hardcoding values
             metadata.DateMetadataUpdated = DateTime.Now;
