@@ -222,6 +222,8 @@
     <Content Include="Views\Metadata\_Basic.cshtml" />
     <Content Include="Views\Metadata\_OptionsCountyList.cshtml" />
     <Content Include="Views\Metadata\_Constraints.cshtml" />
+    <Content Include="settings.config" />
+    <Content Include="settings.config.default" />
     <None Include="Web.KartverketRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

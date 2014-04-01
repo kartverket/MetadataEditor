@@ -16,9 +16,12 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public MetadataController()
         {
-            _metadataService = new MetadataService(new GeoNorgeAPI.GeoNorge("", "", "https://www.geonorge.no/geonetworkbeta/"));
+            System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
+            string server = settings["GeoNetworkServer"];
+            string username = settings["GeoNetworkUsername"];
+            string password = settings["GeoNetworkPassword"];
+            _metadataService = new MetadataService(new GeoNorgeAPI.GeoNorge(username, password, server));
         }
-
 
         public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 200)
         {
