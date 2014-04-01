@@ -145,6 +145,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\MetadataController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,6 +153,9 @@
     <Compile Include="Models\MetadataItemViewModel.cs" />
     <Compile Include="Models\MetadataService.cs" />
     <Compile Include="Models\MetadataViewModel.cs" />
+    <Compile Include="Models\ServiceLayerViewModel.cs" />
+    <Compile Include="Models\WmsLayerViewModel.cs" />
+    <Compile Include="Models\WmsServiceParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\UI.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -224,6 +228,7 @@
     <Content Include="Views\Metadata\_Constraints.cshtml" />
     <Content Include="settings.config" />
     <Content Include="settings.config.default" />
+    <Content Include="Views\Service\Index.cshtml" />
     <None Include="Web.KartverketRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

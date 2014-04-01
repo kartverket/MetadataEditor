@@ -16,11 +16,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public MetadataController()
         {
-            System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
-            string server = settings["GeoNetworkServer"];
-            string username = settings["GeoNetworkUsername"];
-            string password = settings["GeoNetworkPassword"];
-            _metadataService = new MetadataService(new GeoNorgeAPI.GeoNorge(username, password, server));
+            _metadataService = new MetadataService();
         }
 
         public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 200)

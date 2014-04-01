@@ -16,6 +16,15 @@ namespace Kartverket.MetadataEditor.Models
             _geoNorge = geonorge;
         }
 
+        public MetadataService()
+        {
+            System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
+            string server = settings["GeoNetworkServer"];
+            string username = settings["GeoNetworkUsername"];
+            string password = settings["GeoNetworkPassword"];
+            _geoNorge = new GeoNorgeAPI.GeoNorge(username, password, server);
+        }
+
         public MetadataIndexViewModel GetMyMetadata(string organizationName, int offset, int limit)
         {
             SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit);

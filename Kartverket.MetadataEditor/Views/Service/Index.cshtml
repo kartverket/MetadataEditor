@@ -1,0 +1,54 @@
+﻿@model Kartverket.MetadataEditor.Models.ServiceLayerViewModel
+
+<h4>Tjeneste:</h4>
+<h1>@Model.Metadata.Title</h1>
+
+<form action="@Url.Action("Index")" method="get" class="form-horizontal">
+    <input type="hidden" name="uuid" value="@Model.Metadata.Uuid" />
+    <div class="form-group">
+        <label for="urlWms" class="col-sm-3 control-label">URL til WMS-tjenesten:</label>
+        <div class="col-sm-6">
+            <input type="text" value="@Model.Metadata.DistributionUrl" name="wmsUrl" class="form-control" /> 
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary">Hent laginformasjon</button>
+        </div>
+    </div>
+    
+</form>
+
+<hr/>
+
+<h4>Informasjon om lagene fra GetCapabilities</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tittel</th>
+            <th>Lagnavn</th>
+            <th colspan="4">Geografisk utstrekning</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Nord</th>
+            <th>Sør</th>
+            <th>Øst</th>
+            <th>Vest</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var layer in Model.Layers)
+{
+        <tr>
+            <td>@layer.Title</td>
+            <td>@layer.Name</td>
+            <td>@layer.BoundingBoxNorth</td>
+            <td>@layer.BoundingBoxSouth</td>
+            <td>@layer.BoundingBoxEast</td>
+            <td>@layer.BoundingBoxWest</td>
+        </tr>
+}
+    </tbody>
+</table>
+
