@@ -33,10 +33,38 @@ namespace Kartverket.MetadataEditor.Controllers
             ServiceLayerViewModel model = new ServiceLayerViewModel
             {
                 Metadata = metadata,
-                Layers = layers
+                Layers = layers,
+                WmsUrl = wmsUrl,
             };
 
             return View(model);
+        }
+
+        public ActionResult CreateMetadataForLayers(string uuid, string wmsUrl, String[] selectedLayers)
+        {
+            MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+
+            List<WmsLayerViewModel> layersFromService = _wmsServiceParser.GetLayers(wmsUrl);
+
+            List<WmsLayerViewModel> createMetadataForLayers = new List<WmsLayerViewModel>();
+            foreach (var layer in layersFromService)
+            {
+                if (selectedLayers.Contains(layer.Name))
+                {
+                    createMetadataForLayers.Add(layer);
+                }
+            }
+
+            List<WmsLayerViewModel> newlyCreatedLayerMetadata = _metadataService.CreateMetadataForLayers(uuid, createMetadataForLayers);
+            
+            ServiceLayerViewModel model = new ServiceLayerViewModel
+            {
+                Metadata = metadata,
+                Layers = newlyCreatedLayerMetadata,
+                WmsUrl = wmsUrl,
+            };
+
+            return View("LayersCreated", model);
         }
 
 	}

@@ -226,5 +226,41 @@ namespace Kartverket.MetadataEditor.Models
             _geoNorge.MetadataUpdate(metadata.GetMetadata());
         }
 
+
+        internal List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers)
+        {
+
+            SimpleMetadata parentMetadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
+
+            List<string> layerIdentifiers = new List<string>();
+            foreach(WmsLayerViewModel layer in layers) {
+                createDuplicateOfMetadata(parentMetadata, layer);
+                layerIdentifiers.Add(layer.Uuid);
+            }
+
+            parentMetadata.OperatesOn = layerIdentifiers;
+
+            _geoNorge.MetadataUpdate(parentMetadata.GetMetadata());
+
+            return layers;
+        }
+
+        private void createDuplicateOfMetadata(SimpleMetadata parentMetadata, WmsLayerViewModel layerModel)
+        {
+            MD_Metadata_Type parent = parentMetadata.GetMetadata();
+
+            MD_Metadata_Type layer = parent.Copy();
+            layer.parentIdentifier = new CharacterString_PropertyType { CharacterString = parent.fileIdentifier.CharacterString };
+            layer.fileIdentifier = new CharacterString_PropertyType { CharacterString = Guid.NewGuid().ToString() };
+
+            SimpleMetadata simpleLayer = new SimpleMetadata(layer);
+            simpleLayer.Title = parentMetadata.Title + " - " + layerModel.Title;
+
+            MetadataTransaction transaction = _geoNorge.MetadataInsert(layer);
+            if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
+            {
+                layerModel.Uuid = transaction.Identifiers[0];
+            }
+        }
     }
 }

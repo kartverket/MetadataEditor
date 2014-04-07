@@ -9,5 +9,7 @@ namespace Kartverket.MetadataEditor.Models
     {
         public MetadataViewModel Metadata { get; set; }
         public List<WmsLayerViewModel> Layers { get; set; }
+
+        public string WmsUrl { get; set; }
     }
 }

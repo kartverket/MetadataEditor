@@ -8,7 +8,7 @@
     <div class="form-group">
         <label for="urlWms" class="col-sm-3 control-label">URL til WMS-tjenesten:</label>
         <div class="col-sm-6">
-            <input type="text" value="@Model.Metadata.DistributionUrl" name="wmsUrl" class="form-control" /> 
+            <input type="text" value="@Model.WmsUrl" name="wmsUrl" class="form-control" /> 
         </div>
         <div class="col-sm-2">
             <button class="btn btn-primary">Hent laginformasjon</button>
@@ -20,35 +20,25 @@
 <hr/>
 
 <h4>Informasjon om lagene fra GetCapabilities</h4>
+<form method="post" action="@Url.Action("CreateMetadataForLayers")">
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Tittel</th>
-            <th>Lagnavn</th>
-            <th colspan="4">Geografisk utstrekning</th>
-        </tr>
-        <tr>
-            <th></th>
-            <th></th>
-            <th>Nord</th>
-            <th>Sør</th>
-            <th>Øst</th>
-            <th>Vest</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var layer in Model.Layers)
-{
-        <tr>
-            <td>@layer.Title</td>
-            <td>@layer.Name</td>
-            <td>@layer.BoundingBoxNorth</td>
-            <td>@layer.BoundingBoxSouth</td>
-            <td>@layer.BoundingBoxEast</td>
-            <td>@layer.BoundingBoxWest</td>
-        </tr>
-}
-    </tbody>
-</table>
+    <input type="hidden" name="uuid" value="@Model.Metadata.Uuid" />
+    <input type="hidden" name="wmsUrl" value="@Model.WmsUrl" />
 
+    @foreach (var layer in Model.Layers)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @layer.Title
+                <div class="pull-right">
+                    <label><input type="checkbox" name="selectedLayers" value="@layer.Name" checked="checked" /> Opprett metadata</label>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p><strong>WMS lagnavn:</strong> @layer.Name</p>
+                <p><strong>Geografisk utstrekning:</strong> Nord: @layer.BoundingBoxNorth, Sør: @layer.BoundingBoxSouth, Øst: @layer.BoundingBoxEast, Vest: @layer.BoundingBoxWest</p>
+            </div>
+        </div>
+    }
+    <button class="btn btn-primary">Opprett metadata for alle lag</button>
+</form>
