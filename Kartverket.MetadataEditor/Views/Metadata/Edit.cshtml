@@ -11,6 +11,14 @@
 <h3>@ViewBag.Title</h3>
 <h2>@Model.Title</h2>
 
+@if (Model.HierarchyLevel == "service")
+{
+    <div class="text-right">
+        <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-default btn-xs">
+            Opprett metadata for WMS-lag
+        </a>
+    </div>
+}
 
 <ul class="nav nav-tabs" style="clear:both">
     <li class="active"><a href="#home" data-toggle="tab">Grunnleggende</a></li>

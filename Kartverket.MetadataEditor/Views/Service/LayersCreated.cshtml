@@ -8,6 +8,6 @@
 <ul>
     @foreach (var layer in Model.Layers)
     {
-        <li><a href="@Url.Action("Edit", new { uuid=@layer.Uuid })" target="_blank">@layer.Title <span class="glyphicon glyphicon-pencil"></span></a></li>
+        <li><a href="@Url.Action("Edit", "Metadata", new { uuid=@layer.Uuid })" target="_blank">@layer.Title <span class="glyphicon glyphicon-pencil"></span></a></li>
     }
 </ul>

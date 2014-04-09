@@ -255,7 +255,7 @@ namespace Kartverket.MetadataEditor.Models
 
             SimpleMetadata simpleLayer = new SimpleMetadata(layer);
             simpleLayer.Title = parentMetadata.Title + " - " + layerModel.Title;
-
+     
             MetadataTransaction transaction = _geoNorge.MetadataInsert(layer);
             if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
             {
