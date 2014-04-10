@@ -19,7 +19,7 @@ namespace Kartverket.MetadataEditor.Controllers
             _metadataService = new MetadataService();
         }
 
-        public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 200)
+        public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 50)
         {
             ViewBag.StatusMessage =
                 message == MetadataMessages.InvalidUuid ? Resources.UI.Error_InvalidUuid
