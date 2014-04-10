@@ -30,7 +30,10 @@ namespace Kartverket.MetadataEditor.Models
             SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit);
 
             var model = new MetadataIndexViewModel();
-            var metadata = new List<MetadataItemViewModel>();
+            var metadata = new Dictionary<string, MetadataItemViewModel>();
+
+            var relations = new Dictionary<string, List<MetadataItemViewModel>>();
+
             if (results.Items != null)
             {
                 foreach (var item in results.Items)
@@ -41,6 +44,7 @@ namespace Kartverket.MetadataEditor.Models
                     string uuid = null;
                     string organization = null;
                     string type = null;
+                    string relation = null;
 
                     for (int i = 0; i < record.ItemsElementName.Length; i++)
                     {
@@ -55,11 +59,44 @@ namespace Kartverket.MetadataEditor.Models
                             organization = value;
                         else if (name == ItemsChoiceType24.type)
                             type = value;
+                        else if (name == ItemsChoiceType24.relation)
+                            relation = value;
                     }
-                    metadata.Add(new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization, Type = type });
+
+                    var metadataItem = new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization, Type = type };
+                    if (!string.IsNullOrWhiteSpace(relation))
+                    {
+                        if (relations.ContainsKey(relation))
+                        {
+                            relations[relation].Add(metadataItem);
+                        }
+                        else
+                        {
+                            relations.Add(relation, new List<MetadataItemViewModel> { metadataItem });
+                        }
+                    } else {
+                        metadata.Add(uuid, metadataItem);
+                    }
                 }
 
-                model.MetadataItems = metadata.OrderBy(m => m.Title).ToList();
+                foreach (string uuid in relations.Keys)
+                {
+                    List<MetadataItemViewModel> orderedValues = relations[uuid].OrderBy(m => m.Title).ToList();
+
+                    foreach (MetadataItemViewModel item in orderedValues)
+                    {
+                        if (metadata.ContainsKey(uuid))
+                        {
+                            metadata[uuid].Relations.Add(item);
+                        }
+                        else
+                        {
+                            metadata.Add(item.Uuid, item);
+                        }
+                    }
+                }
+
+                model.MetadataItems = metadata.Values.OrderBy(m => m.Title).ToList();
                 model.Limit = limit;
                 model.Offset = offset;
                 model.NumberOfRecordsReturned = int.Parse(results.numberOfRecordsReturned);
@@ -83,13 +120,12 @@ namespace Kartverket.MetadataEditor.Models
                 ContactPointOfContact = new Contact(metadata.ContactPointOfContact, "pointOfContact"),
                 ContactPublisher = new Contact(metadata.ContactPublisher, "publisher"),
 
-                Keywords = Keyword.CreateDictionary(metadata.Keywords),
-
-                KeywordsTheme = Keyword.FilterKeywords(metadata.Keywords, SimpleKeyword.TYPE_THEME, null),
-                KeywordsPlace = Keyword.FilterKeywords(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null),
-                KeywordsNationalInitiative = Keyword.FilterKeywords(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE),
-                KeywordsInspire = Keyword.FilterKeywords(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1),
-                KeywordsServiceTaxonomy = Keyword.FilterKeywords(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY),
+                KeywordsTheme = SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_THEME, null),
+                KeywordsPlace = SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null),
+                KeywordsNationalInitiative = SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE),
+                KeywordsInspire = SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1),
+                KeywordsServiceTaxonomy = SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY),
+                KeywordsOther = SimpleKeyword.Filter(metadata.Keywords, null, null),
 
                 TopicCategory = metadata.TopicCategory,
                 SupplementalDescription = metadata.SupplementalDescription,
@@ -254,8 +290,50 @@ namespace Kartverket.MetadataEditor.Models
             layer.fileIdentifier = new CharacterString_PropertyType { CharacterString = Guid.NewGuid().ToString() };
 
             SimpleMetadata simpleLayer = new SimpleMetadata(layer);
-            simpleLayer.Title = parentMetadata.Title + " - " + layerModel.Title;
-     
+
+            string title = layerModel.Title;
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                title = layerModel.Name;
+            }
+
+            simpleLayer.Title = title;
+            
+            if (!string.IsNullOrWhiteSpace(layerModel.Abstract))
+            {
+                simpleLayer.Abstract = layerModel.Abstract;
+            }
+
+            if (layerModel.Keywords.Count > 0)
+            {
+                var existingKeywords = simpleLayer.Keywords;
+                foreach (var keyword in layerModel.Keywords)
+                {
+                    existingKeywords.Add(new SimpleKeyword
+                    {
+                        Keyword = keyword
+                    });
+                }
+            }
+
+            simpleLayer.DistributionDetails = new SimpleDistributionDetails
+            {
+                Name = layerModel.Name
+            };
+            
+            if (!string.IsNullOrWhiteSpace(layerModel.BoundingBoxEast))
+            {
+                simpleLayer.BoundingBox = new SimpleBoundingBox
+                {
+                    EastBoundLongitude = layerModel.BoundingBoxEast,
+                    WestBoundLongitude = layerModel.BoundingBoxWest,
+                    NorthBoundLatitude = layerModel.BoundingBoxNorth,
+                    SouthBoundLatitude = layerModel.BoundingBoxSouth
+                };
+            }
+            
+
+
             MetadataTransaction transaction = _geoNorge.MetadataInsert(layer);
             if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
             {

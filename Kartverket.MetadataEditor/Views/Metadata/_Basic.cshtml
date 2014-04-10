@@ -168,44 +168,6 @@
                 </div>
             </div>
         </div>
-
-
-        <!--
-
-        @foreach (var key in Model.Keywords.Keys)
-        {
-            <div class="col-sm-6">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h5>@key</h5>
-
-                    </div>
-                    <div class="panel-body">
-                        <ul>
-                            @foreach (var element in Model.Keywords[key])
-                            {
-                                <li>
-                                    <span class="label label-success">@element.Value</span>
-                                    <a href=""><small>Slett</small></a>
-                                    <input type="hidden" name="Keywords[@key]" value="@element.Value" />
-                                </li>
-                            }
-                        </ul>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <select class="input-sm form-control"><option>nøkkelord ditt og datt</option><option>nøkkelord 2</option></select>
-                            </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-default btn-sm">Legg til</button>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        }
-            -->
     </div>
 </div>
 

@@ -14,7 +14,57 @@
             <button class="btn btn-primary">Hent laginformasjon</button>
         </div>
     </div>
+    <h3>Nøkkelord på tjeneste</h3>
+    <p>Sjekk at nøkkelordene på tjenesten er tilfredstillende <i>før</i> du oppretter metadata for lagene. Alle nøkkelord fra tjenesten blir kopiert ned på lagnivå.</p>
     
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <p class="keyword-header">Tema</p>
+            <ul>
+                @foreach (var k in Model.Metadata.KeywordsTheme)
+                {
+                    <li>@k</li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <p class="keyword-header">Nasjonale intiativ</p>
+            <ul>
+                @foreach (var k in Model.Metadata.KeywordsNationalInitiative)
+                {
+                    <li>@k</li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <p class="keyword-header">Inspire</p>
+            <ul>
+                @foreach (var k in Model.Metadata.KeywordsInspire)
+                {
+                    <li>@k</li>
+                }
+            </ul>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+            <p class="keyword-header">Sted</p>
+            <ul>
+                @foreach (var k in Model.Metadata.KeywordsPlace)
+                {
+                    <li>@k</li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <p class="keyword-header">Annet</p>
+            <ul>
+                @foreach (var k in Model.Metadata.KeywordsOther)
+                {
+                    <li>@k</li>
+                }
+            </ul>
+        </div>
+    </div>
 </form>
 
 <hr/>
@@ -36,6 +86,16 @@
             </div>
             <div class="panel-body">
                 <p><strong>WMS lagnavn:</strong> @layer.Name</p>
+                <p><strong>Sammendrag:</strong> @layer.Abstract</p>
+                <p>
+                    <strong>Nøkkelord:</strong>
+                    <ul>
+                        @foreach (var keyword in layer.Keywords)
+                        {
+                            <li>@keyword</li>
+                        }
+                    </ul>
+                </p>
                 <p><strong>Geografisk utstrekning:</strong> Nord: @layer.BoundingBoxNorth, Sør: @layer.BoundingBoxSouth, Øst: @layer.BoundingBoxEast, Vest: @layer.BoundingBoxWest</p>
             </div>
         </div>

@@ -13,48 +13,7 @@
     <tbody>
         @foreach (var metadata in Model)
         {
-            <tr>
-                <td>
-                    <a href="@Url.Action("Edit", new { uuid=@metadata.Uuid })">
-                        @metadata.Title
-                    </a>
-                </td>
-                <td>@metadata.Organization</td>
-                <th>
-                    @if (metadata.Type == "service") {
-                        <span class="label label-info">@Resources.UI.Metadata_Type_Service</span>
-                    }
-                    else if (metadata.Type == "dataset")
-                    {
-                        <span class="label label-success">@Resources.UI.Metadata_Type_Dataset</span>
-                    }
-                    else
-                    {
-                        <span class="label label-warning">@metadata.Type</span>
-                    }
-                </th>
-                <th>
-                    @if (metadata.Uuid == "5ca4add53a09a6b7bb96ace195a936d4daa412b8")
-                    {
-                        <span class="glyphicon glyphicon-exclamation-sign" style="color: orange"></span>
-                        <a href=""><span style="font-size: x-small">Vis detaljer</span></a>
-                    }
-                    else
-                    {
-                        <span class="glyphicon glyphicon-ok-sign" style="color: green"></span>    
-                    }
-                </th>
-                <td class="text-right btn-toolbar">
-                    <div class="btn-group">
-                        <a href="http://www.geonorge.no/geonetwork/srv/eng/xml_iso19139?uuid=@metadata.Uuid" target="_blank" class="btn btn-default btn-xs">
-                            <i class="glyphicon glyphicon-file"></i> Last ned XML
-                        </a>
-                        <a href="http://www.geonorge.no/geonetwork/?uuid=@metadata.Uuid" target="_blank" class="btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
-                        </a>
-                    </div>
-                </td>
-            </tr>
+            @Html.Partial("_MetadataItem", metadata)
         }
     </tbody>
 </table>

@@ -21,13 +21,12 @@ namespace Kartverket.MetadataEditor.Models
         public Contact ContactAuthor { get; set; }
         public List<Contact> ContactOthers { get; set; }
 
-        public Dictionary<string, List<Keyword>> Keywords { get; set; }
-
         public List<String> KeywordsTheme { get; set; }
         public List<String> KeywordsPlace { get; set; }
         public List<String> KeywordsInspire { get; set; }
         public List<String> KeywordsServiceTaxonomy { get; set; }
         public List<String> KeywordsNationalInitiative { get; set; }
+        public List<String> KeywordsOther { get; set; }
 
         public string LegendDescriptionUrl { get; set; }
         public string ProductPageUrl { get; set; }
@@ -91,71 +90,31 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+        internal void AddKeywordsToList(List<SimpleKeyword> outputList, List<string> inputList, string type = null, string thesaurus = null)
+        {
+            if (inputList != null)
+            {
+                foreach (var keyword in inputList)
+                {
+                    outputList.Add(new SimpleKeyword
+                    {
+                        Keyword = keyword,
+                        Thesaurus = thesaurus,
+                        Type = type
+                    });
+                }
+            }
+        }
+
         internal List<SimpleKeyword> GetAllKeywords()
         {
-
             List<SimpleKeyword> allKeywords = new List<SimpleKeyword>();
-
-            if (KeywordsInspire != null)
-            {
-                foreach (var keyword in KeywordsInspire)
-                {
-                    allKeywords.Add(new SimpleKeyword
-                    {
-                        Keyword = keyword,
-                        Thesaurus = SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1
-                    });
-                }
-            }
-
-            if (KeywordsNationalInitiative != null)
-            {
-                foreach (var keyword in KeywordsNationalInitiative)
-                {
-                    allKeywords.Add(new SimpleKeyword
-                    {
-                        Keyword = keyword,
-                        Thesaurus = SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE
-                    });
-                }
-            }
-
-            if (KeywordsServiceTaxonomy != null)
-            {
-                foreach (var keyword in KeywordsServiceTaxonomy)
-                {
-                    allKeywords.Add(new SimpleKeyword
-                    {
-                        Keyword = keyword,
-                        Thesaurus = SimpleKeyword.THESAURUS_SERVICES_TAXONOMY
-                    });
-                }
-            }
-
-            if (KeywordsPlace != null)
-            {
-                foreach (var keyword in KeywordsPlace)
-                {
-                    allKeywords.Add(new SimpleKeyword
-                    {
-                        Keyword = keyword,
-                        Type = SimpleKeyword.TYPE_PLACE
-                    });
-                }
-            }
-
-            if (KeywordsTheme != null)
-            {
-                foreach (var keyword in KeywordsTheme)
-                {
-                    allKeywords.Add(new SimpleKeyword
-                    {
-                        Keyword = keyword,
-                        Type = SimpleKeyword.TYPE_THEME
-                    });
-                }
-            }
-
+            AddKeywordsToList(allKeywords, KeywordsInspire, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1);
+            AddKeywordsToList(allKeywords, KeywordsNationalInitiative, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE);
+            AddKeywordsToList(allKeywords, KeywordsServiceTaxonomy, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY);
+            AddKeywordsToList(allKeywords, KeywordsPlace, SimpleKeyword.TYPE_PLACE, null);
+            AddKeywordsToList(allKeywords, KeywordsTheme, SimpleKeyword.TYPE_THEME, null);
+            AddKeywordsToList(allKeywords, KeywordsOther, null, null);
             return allKeywords;
         }
     }
@@ -209,31 +168,6 @@ namespace Kartverket.MetadataEditor.Models
             Value = simple.Keyword;
             Thesaurus = simple.Thesaurus;
             Type = simple.Type;
-        }
-
-        internal static List<String> FilterKeywords(List<SimpleKeyword> allKeywords, string type, string thesaurus)
-        {
-            List<String> filteredList = new List<String>();
-
-            bool filterOnType = !string.IsNullOrWhiteSpace(type);
-            bool filterOnThesaurus = !string.IsNullOrWhiteSpace(thesaurus);
-
-            foreach (SimpleKeyword simpleKeyword in allKeywords)
-            {
-                if (filterOnType && !string.IsNullOrWhiteSpace(simpleKeyword.Type) && simpleKeyword.Type.Equals(type))
-                {
-                    filteredList.Add(simpleKeyword.Keyword);
-                }
-                else if (filterOnThesaurus && !string.IsNullOrWhiteSpace(simpleKeyword.Thesaurus) && simpleKeyword.Thesaurus.Equals(thesaurus))
-                {
-                    filteredList.Add(simpleKeyword.Keyword);
-                }
-                else if (!filterOnType && !filterOnThesaurus)
-                {
-                    filteredList.Add(simpleKeyword.Keyword);
-                }
-            }
-            return filteredList;
         }
 
         internal static Dictionary<string, List<Keyword>> CreateDictionary(List<SimpleKeyword> incoming)
