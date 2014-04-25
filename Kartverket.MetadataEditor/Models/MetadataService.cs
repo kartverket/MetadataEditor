@@ -42,6 +42,8 @@ namespace Kartverket.MetadataEditor.Models
 
                     string title = null;
                     string uuid = null;
+                    string publisher = null;
+                    string creator = null;
                     string organization = null;
                     string type = null;
                     string relation = null;
@@ -56,11 +58,22 @@ namespace Kartverket.MetadataEditor.Models
                         else if (name == ItemsChoiceType24.identifier)
                             uuid = value;
                         else if (name == ItemsChoiceType24.creator)
-                            organization = value;
+                            creator = value;
+                        else if (name == ItemsChoiceType24.publisher)
+                            publisher = value;
                         else if (name == ItemsChoiceType24.type)
                             type = value;
                         else if (name == ItemsChoiceType24.relation)
                             relation = value;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(publisher))
+                    {
+                        organization = publisher;
+                    }
+                    else
+                    {
+                        organization = creator;
                     }
 
                     var metadataItem = new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization, Type = type };
