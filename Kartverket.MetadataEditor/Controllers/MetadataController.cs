@@ -50,7 +50,7 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(string uuid)
+        public ActionResult Edit(string uuid, bool saved = false)
         {
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
@@ -64,6 +64,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(), "Key", "Value", model.SecurityConstraints);
             ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.UseConstraints);
             ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.AccessConstraints);
+            ViewBag.Saved = saved;
 
             return View(model);
         }
@@ -72,7 +73,7 @@ namespace Kartverket.MetadataEditor.Controllers
         public ActionResult Edit(MetadataViewModel model)
         {
             _metadataService.SaveMetadataModel(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", new { uuid = model.Uuid, saved = true});
         }
 
         public Dictionary<string, string> GetListOfTopicCategories()

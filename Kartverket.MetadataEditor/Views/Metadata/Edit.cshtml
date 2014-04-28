@@ -11,6 +11,13 @@
 <h3>@ViewBag.Title</h3>
 <h2>@Model.Title</h2>
 
+@if (ViewBag.Saved == true)
+{
+    <div class="alert alert-success">
+        Metadata ble lagret.
+    </div>
+}
+
 @if (Model.HierarchyLevel == "service")
 {
     <div class="text-right">
