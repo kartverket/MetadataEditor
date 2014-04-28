@@ -79,6 +79,9 @@ namespace Kartverket.MetadataEditor.Models
 
         public DateTime? DateMetadataUpdated { get; set; }
 
+        public string EnglishTitle { get; set; }
+        public string EnglishAbstract { get; set; }
+
         internal void FixThumbnailUrls()
         {
             foreach (var thumbnail in Thumbnails)

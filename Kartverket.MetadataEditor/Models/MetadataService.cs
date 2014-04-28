@@ -184,6 +184,9 @@ namespace Kartverket.MetadataEditor.Models
                 BoundingBoxWest = metadata.BoundingBox != null ? metadata.BoundingBox.WestBoundLongitude : null,
                 BoundingBoxNorth = metadata.BoundingBox != null ? metadata.BoundingBox.NorthBoundLatitude : null,
                 BoundingBoxSouth = metadata.BoundingBox != null ? metadata.BoundingBox.SouthBoundLatitude : null,
+                
+                EnglishTitle = metadata.EnglishTitle,
+                EnglishAbstract = metadata.EnglishAbstract,
             };
 
             model.FixThumbnailUrls();
@@ -265,6 +268,22 @@ namespace Kartverket.MetadataEditor.Models
             };
 
             metadata.Keywords = model.GetAllKeywords();
+
+            bool hasEnglishFields = false;
+            // don't create PT_FreeText fields if it isn't necessary
+            if (!string.IsNullOrWhiteSpace(model.EnglishTitle)) 
+            {
+                metadata.EnglishTitle = model.EnglishTitle;
+                hasEnglishFields = true;
+            }
+            if (!string.IsNullOrWhiteSpace(model.EnglishAbstract))
+            {
+                metadata.EnglishAbstract = model.EnglishAbstract;
+                hasEnglishFields = true;
+            }
+
+            if (hasEnglishFields) 
+                metadata.SetLocale(SimpleMetadata.LOCALE_ENG);
 
             // hardcoding values
             metadata.DateMetadataUpdated = DateTime.Now;

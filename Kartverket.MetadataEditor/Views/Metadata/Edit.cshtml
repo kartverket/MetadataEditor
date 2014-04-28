@@ -35,6 +35,7 @@
     <li><a href="#documents" data-toggle="tab">Dokumenter</a></li>
     <li><a href="#constraints" data-toggle="tab">Restriksjoner</a></li>
     <li><a href="#quality" data-toggle="tab">Kvalitet</a></li>
+    <li><a href="#english" data-toggle="tab">Engelsk</a></li>
 </ul>
 
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form">
@@ -78,6 +79,10 @@
 
         <div class="tab-pane" id="quality">
             @Html.Partial("_Quality", Model)
+        </div>
+        
+        <div class="tab-pane" id="english">
+            @Html.Partial("_English", Model)
         </div>
 
         </div>
