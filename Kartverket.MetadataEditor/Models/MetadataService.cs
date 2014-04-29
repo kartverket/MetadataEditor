@@ -130,8 +130,9 @@ namespace Kartverket.MetadataEditor.Models
                 Abstract = metadata.Abstract,
                 Purpose = metadata.Purpose,
 
-                ContactPointOfContact = new Contact(metadata.ContactPointOfContact, "pointOfContact"),
+                ContactMetadata = new Contact(metadata.ContactMetadata, "pointOfContact"),
                 ContactPublisher = new Contact(metadata.ContactPublisher, "publisher"),
+                ContactOwner = new Contact(metadata.ContactOwner, "owner"),
 
                 KeywordsTheme = SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_THEME, null),
                 KeywordsPlace = SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null),
@@ -201,8 +202,10 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Abstract = model.Abstract;
             metadata.Purpose = model.Purpose;
             metadata.SupplementalDescription = model.SupplementalDescription;
-            metadata.ContactPointOfContact = model.ContactPointOfContact.ToSimpleContact();
+
+            metadata.ContactMetadata = model.ContactMetadata.ToSimpleContact();
             metadata.ContactPublisher = model.ContactPublisher.ToSimpleContact();
+            metadata.ContactOwner = model.ContactOwner.ToSimpleContact();
 
             // documents
             metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;

@@ -1,32 +1,32 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
-<div class="panel panel-info">
-    <div class="panel-heading">Kontakt (pointOfContact)</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Metadatakontakt</div>
     <div class="panel-body">
-        @Html.HiddenFor(m => Model.ContactPointOfContact.Role)
+        @Html.HiddenFor(m => Model.ContactMetadata.Role)
         <div class="form-group">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
             <div class="col-sm-9">
-                @Html.TextBoxFor(m => Model.ContactPointOfContact.Name, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
-            <div class="col-sm-9">
-                @Html.TextBoxFor(m => Model.ContactPointOfContact.Organization, new { @class = "form-control" })
+                @Html.TextBoxFor(m => Model.ContactMetadata.Name, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
             <label for="abstract" class="col-sm-2 control-label">Epost</label>
             <div class="col-sm-9">
-                @Html.TextBoxFor(m => Model.ContactPointOfContact.Email, new { @class = "form-control" })
+                @Html.TextBoxFor(m => Model.ContactMetadata.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactMetadata.Organization, new { @class = "form-control" })
             </div>
         </div>
     </div>
-</div> <!-- pointOfContact -->
+</div>
 
-<div class="panel panel-info">
-    <div class="panel-heading">Utgiver (publisher)</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Teknisk kontakt</div>
     <div class="panel-body">
         @Html.HiddenFor(m => Model.ContactPublisher.Role)
         <div class="form-group">
@@ -36,16 +36,41 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
-            <div class="col-sm-9">
-                @Html.TextBoxFor(m => Model.ContactPublisher.Organization, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
             <label for="abstract" class="col-sm-2 control-label">Epost</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactPublisher.Email, new { @class = "form-control" })
             </div>
         </div>
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactPublisher.Organization, new { @class = "form-control" })
+            </div>
+        </div>
     </div>
-</div> <!-- publisher-->
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Faglig kontakt</div>
+    <div class="panel-body">
+        @Html.HiddenFor(m => Model.ContactOwner.Role)
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Navn</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactOwner.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Epost</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactOwner.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
+            <div class="col-sm-9">
+                @Html.TextBoxFor(m => Model.ContactOwner.Organization, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>

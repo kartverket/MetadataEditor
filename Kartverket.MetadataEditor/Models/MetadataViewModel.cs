@@ -16,10 +16,9 @@ namespace Kartverket.MetadataEditor.Models
         public string Purpose { get; set; }
         public string Abstract { get; set; }
 
+        public Contact ContactMetadata { get; set; }
         public Contact ContactPublisher { get; set; }
-        public Contact ContactPointOfContact { get; set; }
-        public Contact ContactAuthor { get; set; }
-        public List<Contact> ContactOthers { get; set; }
+        public Contact ContactOwner { get; set; }
 
         public List<String> KeywordsTheme { get; set; }
         public List<String> KeywordsPlace { get; set; }
