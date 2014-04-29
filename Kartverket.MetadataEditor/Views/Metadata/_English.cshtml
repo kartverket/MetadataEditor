@@ -3,12 +3,15 @@
     Oversetting av utvalgte felter til engelsk. Merk at de norske tekstene er de som sist er lagret i databasen.
 </p>
 <div class="form-group">
+    <div class="col-sm-5 col-sm-offset-7"><b>Norske tekster:</b></div>
+</div>
+<div class="form-group">
     <label class="col-sm-2 control-label">Tittel</label>
     <div class="col-sm-5">
         @Html.EditorFor(m => m.EnglishTitle)
     </div>
     <div class="col-sm-5 control-text">
-        <b>Norsk:</b> @Html.DisplayFor(m => m.Title)
+        @Html.DisplayFor(m => m.Title)
     </div>
 </div>
 <div class="form-group">
@@ -17,6 +20,6 @@
         @Html.EditorFor(m => m.EnglishAbstract)
     </div>
     <div class="col-sm-5 control-text">
-        <b>Norsk:</b> @Html.DisplayFor(m => m.Abstract)
+        @Html.DisplayFor(m => m.Abstract)
     </div>
 </div>
