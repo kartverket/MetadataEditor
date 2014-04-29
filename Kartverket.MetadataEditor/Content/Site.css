@@ -54,9 +54,10 @@ input[type="checkbox"].input-validation-error {
     .navbar-nav > li > a {
         padding-top: 20px;
     }
-    .nav > li > a {
+/*    .nav > li > a {
         padding-left: 30px;
     }
+    */
 }
 
 .navbar > .container { padding: 8px; }
