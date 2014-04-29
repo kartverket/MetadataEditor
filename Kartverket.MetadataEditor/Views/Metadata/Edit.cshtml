@@ -28,21 +28,21 @@
 }
 
 <ul class="nav nav-tabs" style="clear:both">
-    <li class="active"><a href="#home" data-toggle="tab">Grunnleggende</a></li>
+    <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
 @if (Model.HierarchyLevel == "dataset")
 {
-    <li><a href="#dataset" data-toggle="tab">Detaljer om datasett</a></li>
+    <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om datasett</a></li>
 }
 @if (Model.HierarchyLevel == "service")
 {
-    <li><a href="#service" data-toggle="tab">Detaljer om tjeneste</a></li>
+    <li><a href="#service" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om tjeneste</a></li>
 }
-    <li><a href="#contact" data-toggle="tab">Kontaktinformasjon</a></li>
-    <li><a href="#distribution" data-toggle="tab">Distribusjon</a></li>
-    <li><a href="#documents" data-toggle="tab">Dokumenter</a></li>
-    <li><a href="#constraints" data-toggle="tab">Restriksjoner</a></li>
-    <li><a href="#quality" data-toggle="tab">Kvalitet</a></li>
-    <li><a href="#english" data-toggle="tab">Engelsk</a></li>
+    <li><a href="#contact" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
+    <li><a href="#distribution" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
+    <li><a href="#documents" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumenter</a></li>
+    <li><a href="#constraints" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
+    <li><a href="#quality" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
+    <li><a href="#english" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
 </ul>
 
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form">
