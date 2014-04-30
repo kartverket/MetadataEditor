@@ -309,13 +309,17 @@ namespace Kartverket.MetadataEditor.Models
             if (hasEnglishFields) 
                 metadata.SetLocale(SimpleMetadata.LOCALE_ENG);
 
-            // hardcoding values
+            SetDefaultValuesOnMetadata(metadata);
+
+            _geoNorge.MetadataUpdate(metadata.GetMetadata());
+        }
+
+        private void SetDefaultValuesOnMetadata(SimpleMetadata metadata)
+        {
             metadata.DateMetadataUpdated = DateTime.Now;
             metadata.MetadataStandard = "ISO19115";
             metadata.MetadataStandardVersion = "2003";
             metadata.MetadataLanguage = "nor";
-
-            _geoNorge.MetadataUpdate(metadata.GetMetadata());
         }
 
 
@@ -395,6 +399,55 @@ namespace Kartverket.MetadataEditor.Models
             {
                 layerModel.Uuid = transaction.Identifiers[0];
             }
+        }
+
+        internal string CreateMetadata(MetadataCreateViewModel model)
+        {
+            SimpleMetadata metadata = null;
+            if (model.Type.Equals("service"))
+            {
+                metadata = SimpleMetadata.CreateService();
+            }
+            else
+            {
+                metadata = SimpleMetadata.CreateDataset();
+            }
+
+            metadata.Title = model.Title;
+            metadata.Abstract = "...";
+            metadata.ContactMetadata = new SimpleContact
+            {
+                Name = model.MetadataContactName,
+                Email = model.MetadataContactEmail,
+                Organization = model.MetadataContactOrganization,
+                Role = "pointOfContact"
+            };
+            
+            metadata.ContactPublisher = new SimpleContact
+            {
+                Name = model.MetadataContactName,
+                Email = model.MetadataContactEmail,
+                Organization = model.MetadataContactOrganization,
+                Role = "publisher"
+            };
+            metadata.ContactOwner = new SimpleContact
+            {
+                Name = model.MetadataContactName,
+                Email = model.MetadataContactEmail,
+                Organization = model.MetadataContactOrganization,
+                Role = "owner"
+            };
+
+            DateTime now = DateTime.Now;
+            metadata.DateCreated = now;
+            metadata.DatePublished = now;
+            metadata.DateUpdated = now;
+
+            SetDefaultValuesOnMetadata(metadata);
+
+            _geoNorge.MetadataInsert(metadata.GetMetadata());
+
+            return metadata.Uuid;
         }
     }
 }

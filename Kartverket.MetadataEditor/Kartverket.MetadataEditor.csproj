@@ -60,9 +60,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=2.2.11.25599, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GeoNorgeAPI, Version=2.2.16.27997, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GeoNorgeAPI.2.2.11.25599\lib\net45\GeoNorgeAPI.dll</HintPath>
+      <HintPath>..\packages\GeoNorgeAPI.2.2.16.27997\lib\net45\GeoNorgeAPI.dll</HintPath>
     </Reference>
     <Reference Include="Kentor.AuthServices, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -149,6 +149,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MetadataCreateViewModel.cs" />
     <Compile Include="Models\MetadataIndexViewModel.cs" />
     <Compile Include="Models\MetadataItemViewModel.cs" />
     <Compile Include="Models\MetadataService.cs" />
@@ -235,6 +236,7 @@
     <Content Include="Views\Service\LayersCreated.cshtml" />
     <Content Include="Views\Metadata\_MetadataItem.cshtml" />
     <Content Include="Views\Metadata\_English.cshtml" />
+    <Content Include="Views\Metadata\Create.cshtml" />
     <None Include="Web.KartverketRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

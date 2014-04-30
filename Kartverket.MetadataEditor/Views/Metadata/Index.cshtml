@@ -1,6 +1,9 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataIndexViewModel
 
 <h1>@Resources.UI.MyMetadata_Label</h1>
+<p class="text-right">
+    <a href="@Url.Action("Create","Metadata")" class="btn btn-primary btn-xs">Opprett ny metadata</a>
+</p>
 
 @if (!string.IsNullOrWhiteSpace(ViewBag.StatusMessage))
 {

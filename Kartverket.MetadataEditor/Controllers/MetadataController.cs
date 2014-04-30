@@ -19,6 +19,32 @@ namespace Kartverket.MetadataEditor.Controllers
             _metadataService = new MetadataService();
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            MetadataCreateViewModel model = new MetadataCreateViewModel
+            {
+                MetadataContactName = GetSecurityClaim("urn:oid:1.3.6.1.4.1.5923.1.1.1.6"),
+                MetadataContactOrganization = GetSecurityClaim("organization"),
+                MetadataContactEmail = GetSecurityClaim("urn:oid:1.2.840.113549.1.9.1"),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Create(MetadataCreateViewModel model)
+        {
+            model.MetadataContactOrganization = GetSecurityClaim("organization");
+            if (ModelState.IsValid)
+            {
+                string uuid = _metadataService.CreateMetadata(model);
+
+                return RedirectToAction("Edit", new { uuid = uuid });
+            }
+            return View(model);
+        }
+
         public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 50)
         {
             ViewBag.StatusMessage =
@@ -29,25 +55,33 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                string organization = "";
-                foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-                {
-                    Log.Info(string.Format("Claim type={0}, value={1}", claim.Type, claim.Value));
-                    if (claim.Type == "organization" && !string.IsNullOrWhiteSpace(claim.Value))
-                    {
-                        organization = claim.Value;
-                    }
-                }
-                if (!string.IsNullOrWhiteSpace(organization))
-                {
-                    if (organization == "Statens kartverk")
-                        organization = "Kartverket";
-
-                    model = _metadataService.GetMyMetadata(organization, offset, limit);
-                }
+                string organization = GetSecurityClaim("organization");
+                model = _metadataService.GetMyMetadata(organization, offset, limit);
             }
             return View(model);
         }
+
+        private string GetSecurityClaim(string type)
+        {
+            string result = null;
+            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+            {
+                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
+                {
+                    result = claim.Value;
+                    break;
+                }
+            }
+            
+            // bad hack, must fix BAAT
+            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
+            {
+                result = "Kartverket";
+            }
+
+            return result;
+        }
+
 
         [HttpGet]
         public ActionResult Edit(string uuid, bool saved = false)
