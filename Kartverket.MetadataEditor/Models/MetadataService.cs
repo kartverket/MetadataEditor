@@ -27,7 +27,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public MetadataIndexViewModel GetMyMetadata(string organizationName, int offset, int limit)
         {
-            SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit);
+            SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit, true);
 
             var model = new MetadataIndexViewModel();
             var metadata = new Dictionary<string, MetadataItemViewModel>();
@@ -109,7 +109,8 @@ namespace Kartverket.MetadataEditor.Models
                     }
                 }
 
-                model.MetadataItems = metadata.Values.OrderBy(m => m.Title).ToList();
+                //model.MetadataItems = metadata.Values.OrderBy(m => m.Title).ToList();
+                model.MetadataItems = metadata.Values.ToList();
                 model.Limit = limit;
                 model.Offset = offset;
                 model.NumberOfRecordsReturned = int.Parse(results.numberOfRecordsReturned);
@@ -188,6 +189,9 @@ namespace Kartverket.MetadataEditor.Models
                 
                 EnglishTitle = metadata.EnglishTitle,
                 EnglishAbstract = metadata.EnglishAbstract,
+                EnglishContactMetadataOrganization = metadata.ContactMetadata != null ? metadata.ContactMetadata.OrganizationEnglish : null,
+                EnglishContactPublisherOrganization = metadata.ContactPublisher != null ? metadata.ContactPublisher.OrganizationEnglish : null,
+                EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
 
             model.FixThumbnailUrls();
@@ -203,9 +207,26 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Purpose = model.Purpose;
             metadata.SupplementalDescription = model.SupplementalDescription;
 
-            metadata.ContactMetadata = model.ContactMetadata.ToSimpleContact();
-            metadata.ContactPublisher = model.ContactPublisher.ToSimpleContact();
-            metadata.ContactOwner = model.ContactOwner.ToSimpleContact();
+            var contactMetadata = model.ContactMetadata.ToSimpleContact();
+            if (!string.IsNullOrWhiteSpace(model.EnglishContactMetadataOrganization))
+            {
+                contactMetadata.OrganizationEnglish = model.EnglishContactMetadataOrganization;
+            }
+            metadata.ContactMetadata = contactMetadata;
+
+            var contactPublisher = model.ContactPublisher.ToSimpleContact();
+            if (!string.IsNullOrWhiteSpace(model.EnglishContactPublisherOrganization))
+            {
+                contactPublisher.OrganizationEnglish = model.EnglishContactPublisherOrganization;
+            }
+            metadata.ContactPublisher = contactPublisher;
+
+            var contactOwner = model.ContactOwner.ToSimpleContact();
+            if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
+            {
+                contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
+            }
+            metadata.ContactOwner = contactOwner;
 
             // documents
             metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;

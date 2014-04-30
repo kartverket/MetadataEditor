@@ -23,3 +23,39 @@
         @Html.DisplayFor(m => m.Abstract)
     </div>
 </div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Organisasjonsnavn - Metadatakontakt</label>
+    <div class="col-sm-5">
+        @Html.EditorFor(m => m.EnglishContactMetadataOrganization)
+    </div>
+    <div class="col-sm-5 control-text">
+        @if (Model.ContactMetadata != null)
+        {
+            @Html.DisplayFor(m => m.ContactMetadata.Organization)    
+        }
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Organisasjonsnavn - Teknisk kontakt</label>
+    <div class="col-sm-5">
+        @Html.EditorFor(m => m.EnglishContactPublisherOrganization)
+    </div>
+    <div class="col-sm-5 control-text">
+        @if (Model.ContactPublisher != null)
+        {
+            @Html.DisplayFor(m => m.ContactPublisher.Organization)
+        }        
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Organisasjonsnavn - Faglig kontakt</label>
+    <div class="col-sm-5">
+        @Html.EditorFor(m => m.EnglishContactOwnerOrganization)
+    </div>
+    <div class="col-sm-5 control-text">
+        @if (Model.ContactOwner != null)
+        {
+            @Html.DisplayFor(m => m.ContactOwner.Organization)
+        }
+    </div>
+</div>
