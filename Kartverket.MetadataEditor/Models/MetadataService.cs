@@ -166,6 +166,8 @@ namespace Kartverket.MetadataEditor.Models
                 DistributionFormatVersion = metadata.DistributionFormat != null ? metadata.DistributionFormat.Version : null,
                 DistributionUrl = metadata.DistributionDetails != null ? metadata.DistributionDetails.URL : null,
                 DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
+                DistributionName = metadata.DistributionDetails != null ? metadata.DistributionDetails.Name : null,
+
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace: null,
 
@@ -258,7 +260,8 @@ namespace Kartverket.MetadataEditor.Models
             metadata.DistributionDetails = new SimpleDistributionDetails
             {
                 URL = model.DistributionUrl,
-                Protocol = model.DistributionProtocol
+                Protocol = model.DistributionProtocol,
+                Name = model.DistributionName
             };
 
             // quality

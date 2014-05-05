@@ -52,6 +52,8 @@ namespace Kartverket.MetadataEditor.Models
         public string DistributionFormatVersion { get; set; }
         public string DistributionUrl { get; set; }
         public string DistributionProtocol { get; set; }
+        public string DistributionName { get; set; }
+
         public string ReferenceSystemCoordinateSystem { get; set; }
         public string ReferenceSystemNamespace { get; set; }
         
@@ -123,6 +125,8 @@ namespace Kartverket.MetadataEditor.Models
             AddKeywordsToList(allKeywords, KeywordsOther, null, null);
             return allKeywords;
         }
+
+        
     }
 
     public class Contact
