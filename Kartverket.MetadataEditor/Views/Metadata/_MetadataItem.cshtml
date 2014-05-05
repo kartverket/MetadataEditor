@@ -15,6 +15,10 @@
         <a href="@Url.Action("Edit", new { uuid=@Model.Uuid })">
             @Model.Title
         </a>
+        @if (!string.IsNullOrWhiteSpace(Model.Relation) && Model.Type == "service")
+{
+    <small>[<a href="@Url.Action("Edit", new { uuid = @Model.Relation})">Lenke til tjenesten</a>]</small>
+}
     </td>
     <td>@Model.Organization</td>
     <th>
@@ -30,16 +34,9 @@
         {
             <span class="label label-warning">@Model.Type</span>
         }
-    </th>
-    <th>
-        @if (Model.Uuid == "5ca4add53a09a6b7bb96ace195a936d4daa412b8")
+        @if (!string.IsNullOrWhiteSpace(Model.Relation) && Model.Type == "service")
         {
-            <span class="glyphicon glyphicon-exclamation-sign" style="color: orange"></span>
-            <a href=""><span style="font-size: x-small">Vis detaljer</span></a>
-        }
-        else
-        {
-            <span class="glyphicon glyphicon-ok-sign" style="color: green"></span>
+            <span class="label label-info">WMS-Lag</span>
         }
     </th>
     <td class="text-right btn-toolbar">
@@ -53,11 +50,3 @@
         </div>
     </td>
 </tr>
-
-@if (Model.Relations.Count > 0)
-{
-    foreach (var relation in Model.Relations)
-    {
-        @Html.Partial("_MetadataItem", relation, new ViewDataDictionary(this.ViewData) { { "relation", true } })    
-    }
-}

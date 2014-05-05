@@ -45,18 +45,29 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
-        public ActionResult Index(MetadataMessages? message, int offset = 1, int limit = 50)
+        public ActionResult Index(MetadataMessages? message, string organization = "", string searchString = "", int offset = 1, int limit = 50)
         {
             ViewBag.StatusMessage =
                 message == MetadataMessages.InvalidUuid ? Resources.UI.Error_InvalidUuid
                 : "";
 
-            var model = new MetadataIndexViewModel();
-
+            MetadataIndexViewModel model = new MetadataIndexViewModel();
+            
             if (User.Identity.IsAuthenticated)
             {
-                string organization = GetSecurityClaim("organization");
-                model = _metadataService.GetMyMetadata(organization, offset, limit);
+                string userOrganization = GetSecurityClaim("organization");
+                string role = GetSecurityClaim("role");
+                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                {
+                    model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
+                    model.UserIsAdmin = true;
+                }
+                else
+                {
+                    model = _metadataService.SearchMetadata(userOrganization, null, offset, limit);
+                }
+
+                model.UserOrganization = userOrganization;
             }
             return View(model);
         }

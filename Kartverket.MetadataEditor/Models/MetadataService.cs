@@ -28,11 +28,48 @@ namespace Kartverket.MetadataEditor.Models
         public MetadataIndexViewModel GetMyMetadata(string organizationName, int offset, int limit)
         {
             SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit, true);
-         
+
+            return ParseSearchResults(offset, limit, results);
+        }
+        
+        public MetadataIndexViewModel SearchMetadata(string organizationName, string searchString, int offset, int limit)
+        {
+            SearchResultsType results = null;
+            if (!string.IsNullOrWhiteSpace(organizationName))
+            {
+                if (!string.IsNullOrWhiteSpace(searchString))
+                {
+                    results = _geoNorge.SearchFreeTextWithOrganisationName(searchString, organizationName, offset, limit);
+                }
+                else
+                {
+                    results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit, true);
+                }
+            }
+            else
+            {
+                results = _geoNorge.Search(searchString, offset, limit, true);
+            }
+            var model = ParseSearchResults(offset, limit, results);
+            model.SearchOrganization = organizationName;
+            model.SearchString = searchString;
+
+            return model;
+        }
+        
+
+        public MetadataIndexViewModel GetAllMetadata(string searchString, int offset, int limit)
+        {
+            SearchResultsType results = _geoNorge.Search(searchString, offset, limit, true);
+            var model = ParseSearchResults(offset, limit, results);
+            model.SearchString = searchString;
+            return model;
+        }
+
+        private static MetadataIndexViewModel ParseSearchResults(int offset, int limit, SearchResultsType results)
+        {
             var model = new MetadataIndexViewModel();
             var metadata = new Dictionary<string, MetadataItemViewModel>();
-
-            var relations = new Dictionary<string, List<MetadataItemViewModel>>();
 
             if (results.Items != null)
             {
@@ -76,45 +113,13 @@ namespace Kartverket.MetadataEditor.Models
                         organization = creator;
                     }
 
-
-                    var metadataItem = new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization, Type = type };
+                    var metadataItem = new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization, Type = type, Relation = relation };
 
                     metadata.Add(uuid, metadataItem);
-                    
-                    /*
-                    if (!string.IsNullOrWhiteSpace(relation))
-                    {
-                        if (relations.ContainsKey(relation))
-                        {
-                            relations[relation].Add(metadataItem);
-                        }
-                        else
-                        {
-                            relations.Add(relation, new List<MetadataItemViewModel> { metadataItem });
-                        }
-                    } else {
-                        
-                    }*/
+
+
                 }
-                /*
-                foreach (string uuid in relations.Keys)
-                {
-                    List<MetadataItemViewModel> orderedValues = relations[uuid].OrderBy(m => m.Title).ToList();
 
-                    foreach (MetadataItemViewModel item in orderedValues)
-                    {
-                        if (metadata.ContainsKey(uuid))
-                        {
-                            metadata[uuid].Relations.Add(item);
-                        }
-                        else
-                        {
-                            metadata.Add(item.Uuid, item);
-                        }
-                    }
-                }*/
-
-                //model.MetadataItems = metadata.Values.OrderBy(m => m.Title).ToList();
                 model.MetadataItems = metadata.Values.ToList();
                 model.Limit = limit;
                 model.Offset = offset;
@@ -123,7 +128,6 @@ namespace Kartverket.MetadataEditor.Models
             }
             return model;
         }
-
 
         public MetadataViewModel GetMetadataModel(string uuid)
         {
@@ -454,5 +458,7 @@ namespace Kartverket.MetadataEditor.Models
 
             return metadata.Uuid;
         }
+
+       
     }
 }
