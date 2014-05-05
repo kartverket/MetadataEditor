@@ -387,7 +387,9 @@ namespace Kartverket.MetadataEditor.Models
 
             simpleLayer.DistributionDetails = new SimpleDistributionDetails
             {
-                Name = layerModel.Name
+                Name = layerModel.Name,
+                Protocol = parentMetadata.DistributionDetails.Protocol,
+                URL = parentMetadata.DistributionDetails.URL
             };
             
             if (!string.IsNullOrWhiteSpace(layerModel.BoundingBoxEast))
