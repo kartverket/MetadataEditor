@@ -28,7 +28,7 @@ namespace Kartverket.MetadataEditor.Models
         public MetadataIndexViewModel GetMyMetadata(string organizationName, int offset, int limit)
         {
             SearchResultsType results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit, true);
-
+         
             var model = new MetadataIndexViewModel();
             var metadata = new Dictionary<string, MetadataItemViewModel>();
 
@@ -76,7 +76,12 @@ namespace Kartverket.MetadataEditor.Models
                         organization = creator;
                     }
 
+
                     var metadataItem = new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization, Type = type };
+
+                    metadata.Add(uuid, metadataItem);
+                    
+                    /*
                     if (!string.IsNullOrWhiteSpace(relation))
                     {
                         if (relations.ContainsKey(relation))
@@ -88,10 +93,10 @@ namespace Kartverket.MetadataEditor.Models
                             relations.Add(relation, new List<MetadataItemViewModel> { metadataItem });
                         }
                     } else {
-                        metadata.Add(uuid, metadataItem);
-                    }
+                        
+                    }*/
                 }
-
+                /*
                 foreach (string uuid in relations.Keys)
                 {
                     List<MetadataItemViewModel> orderedValues = relations[uuid].OrderBy(m => m.Title).ToList();
@@ -107,7 +112,7 @@ namespace Kartverket.MetadataEditor.Models
                             metadata.Add(item.Uuid, item);
                         }
                     }
-                }
+                }*/
 
                 //model.MetadataItems = metadata.Values.OrderBy(m => m.Title).ToList();
                 model.MetadataItems = metadata.Values.ToList();
