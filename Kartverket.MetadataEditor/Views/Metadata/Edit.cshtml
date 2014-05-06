@@ -106,6 +106,16 @@
 @section scripts {
     <script>
         $(function () {
+
+            $("a.help-text-toggle").click(function (event) {
+                event.preventDefault();
+                var helpTextId = $(this).data("help-text-id");
+                $("#" + helpTextId).toggle();
+            });
+
+            // add help icon to each help text paragraph
+            $(".help-text").prepend("<span class=\"badge\">?</span> ");
+
             $("button#prefillConformityInspire").click(function (event) {
                 event.preventDefault();
                 $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");

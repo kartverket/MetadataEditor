@@ -4,6 +4,14 @@
     <label for="title" class="col-sm-2 control-label">Navn</label>
     <div class="col-sm-9">
         @Html.EditorFor(m => m.Title)
+        <p class="help-text bg-success" id="help-text-name" style="display: none">
+            Offisiell tittel (navn). Navnet skal være konsist, beskrive tjenesten/datasettet best mulig og baseres på norsk rettskriving.  Navnet skal være identisk med det som blir brukt i nedlastningsløsninger og på etatens hjemmesider. Navnet kan også inneholde årstall og geografisk område.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-name" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 
@@ -11,15 +19,13 @@
     <label for="purpose" class="col-sm-2 control-label">Formål</label>
     <div class="col-sm-9">
         @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
-        <div class="help-block panel panel-success hidden" id="help-block-purpose">
-            <div class="panel-body">
-                Dette er hjelpeteksten
-            </div>
-        </div>
+        <p class="help-text bg-success" id="help-text-purpose" style="display: none">
+            Kortfattet tekst om hva som er formålet med tjenesten / datasettet / datasettserien.
+        </p>
     </div>
     <div class="col-sm-1">
         <p class="form-control-static">
-            <a href="#" data-help-block-id="help-block-purpose" class="badge help-block-toggle">?</a>
+            <a href="#" data-help-text-id="help-text-purpose" class="badge help-text-toggle">?</a>
         </p>
     </div>
 </div>
@@ -28,15 +34,13 @@
     <label for="abstract" class="col-sm-2 control-label">Sammendrag</label>
     <div class="col-sm-9">
         @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
-        <div class="help-block panel panel-success hidden" id="help-block-abstract">
-            <div class="panel-body">
-                Dette er hjelpeteksten
-            </div>
-        </div>
+        <p class="help-text bg-success" id="help-text-abstract" style="display: none">
+            Kortfattet tekst om hva som er innholdet i tjenesten/datasettet.
+        </p>
     </div>
     <div class="col-sm-1">
         <p class="form-control-static">
-            <a href="#" data-help-block-id="help-block-abstract" class="badge help-block-toggle">?</a>
+            <a href="#" data-help-text-id="help-text-abstract" class="badge help-text-toggle">?</a>
         </p>
     </div>
 </div>
@@ -46,15 +50,28 @@
     <div class="col-sm-2">
         @Html.EditorFor(m => m.DateCreated)
     </div>
-    <label for="abstract" class="col-sm-2 control-label">Publiseringsdato</label>
-    <div class="col-sm-2">
-        @Html.EditorFor(m => m.DatePublished)
+    <div class="col-sm-7">
+        <p class="help-text bg-success" id="help-text-date" style="display: none">
+            Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes.
+        </p>
     </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-date" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    
 </div>
 <div class="form-group">
     <label for="abstract" class="col-sm-2 control-label">Dato sist oppdatert</label>
     <div class="col-sm-2">
         @Html.EditorFor(m => m.DateUpdated)
+    </div>
+    <label for="abstract" class="col-sm-2 control-label">Publiseringsdato</label>
+    <div class="col-sm-2">
+        @Html.EditorFor(m => m.DatePublished)
     </div>
 </div>
 <div class="form-group">
@@ -108,7 +125,7 @@
         </div>
 
         <div class="col-sm-6">
-            <p class="keyword-header">Initiativ/tilhørighet</p>
+            <p class="keyword-header">Samarbeid og lover</p>
             <ul id="keywords-national-initiative">
                 @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
                 {
@@ -140,7 +157,7 @@
         </div>
 
         <div class="col-sm-6">
-            <p class="keyword-header">INSPIRE</p>
+            <p class="keyword-header">Inspire</p>
             <ul id="keywords-inspire">
                 @for (int i = 0; i < Model.KeywordsInspire.Count; i++)
                 {
@@ -168,11 +185,41 @@
                 </div>
             </div>
         </div>
+        
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-keyword" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-9">
+        <div class="help-text bg-success" id="help-text-keyword" style="display: none">
+            <b>Velkjente ord og begreper brukt som søkeord</b>
+
+            <p>
+                <b>Tema</b><br>
+                Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.
+            </p>
+            <p>
+                <b>Sted</b><br>
+                Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasett dekker og ikke hva det ikke dekker
+            </p>
+            <p>
+                <b>Inspire:</b><br>
+                Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste).
+            </p>
+            <p>
+                <b>Samarbeid og lover</b><br>
+                Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)
+            </p>
+        </div>
     </div>
 </div>
 
 
-<div class="panel panel-info" >
+<div class="panel panel-default" >
     <div class="panel-heading">Geografisk utstrekning</div>
     <div class="panel-body">
 
@@ -198,7 +245,7 @@
             </div>
         </div>
 
-        <p>Bruk de forhåndsdefinerte verdiene nedenfor dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune.</p>
+        <p>Skriv inn koordinatverdier for utstrekning, eller bruk de forhåndsdefinerte verdiene nedenfor dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune.</p>
         <div class="form-group">
             <label for="state" class="control-label col-sm-3">Fylke:</label>
             <div class="col-sm-2">
