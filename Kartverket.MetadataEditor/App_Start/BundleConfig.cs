@@ -25,6 +25,7 @@ namespace Kartverket.MetadataEditor
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/geonorge-default.css",
                       "~/Content/site.css"));
         }
     }

@@ -38,6 +38,7 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+/*
 .navbar {
     background-image: -webkit-linear-gradient(#fff,#eee 50%,#e4e4e4);
     background-image: linear-gradient(#fff,#eee 50%,#e4e4e4);
@@ -48,7 +49,7 @@ input[type="checkbox"].input-validation-error {
     text-shadow: 0 1px 0 rgba(255,255,255,.3);
 }
 
-/*
+
 .navbar {
     background-image: -webkit-gradient(linear, left 0%, left 100%, from(#ffffff), to(#f8f8f8));
     background-image: -webkit-linear-gradient(top, #ffffff, 0%, #f8f8f8, 100%);
@@ -61,17 +62,19 @@ input[type="checkbox"].input-validation-error {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
 }
     */
+/* 
 @media (min-width: 768px) {
     .navbar-nav > li > a {
         padding-top: 20px;
     }
-/*    .nav > li > a {
+   .nav > li > a {
         padding-left: 30px;
     }
-    */
+    
 }
 
 .navbar > .container { padding: 8px; }
+*/
 
 .tab-pane {margin-top: 20px;}
 

@@ -1,9 +1,13 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataIndexViewModel
 
 <h1>@Resources.UI.MyMetadata_Label</h1>
-<p class="text-right">
-    <a href="@Url.Action("Create","Metadata")" class="btn btn-primary btn-xs">Opprett ny metadata</a>
-</p>
+
+@if (Request.IsAuthenticated)
+{
+    <p class="text-right">
+        <a href="@Url.Action("Create","Metadata")" class="btn btn-primary btn-xs">Opprett ny metadata</a>
+    </p>
+}
 
 @if (!string.IsNullOrWhiteSpace(ViewBag.StatusMessage))
 {
@@ -53,5 +57,5 @@
 }
 else
 {
-    <p style="font-style: italic">Ingen metadata tilgjengelig.</p>
+    <p style="font-style: italic">Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata.</p>
 }

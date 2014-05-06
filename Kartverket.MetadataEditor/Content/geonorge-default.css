@@ -1,0 +1,56 @@
+﻿/* begin geoNorge default layout */
+.navbar {
+    background-image: -webkit-linear-gradient(#fff,#eee 50%,#e4e4e4);
+    background-image: linear-gradient(#fff,#eee 50%,#e4e4e4);
+    background-repeat: no-repeat;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe4e4e4',GradientType=0);
+    filter: none;
+    border: 1px solid #d5d5d5;
+    border-radius: 0;
+    text-shadow: 0 1px 0 rgba(255,255,255,.3);
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    background-color: #2571b2;
+    color: white;
+    background-image: -webkit-linear-gradient(#4b8bc2, #0058a3);
+    background-image: -moz-linear-gradient(#4b8bc2, #0058a3);
+    background-image: -ms-linear-gradient(#4b8bc2, #0058a3);
+    background-image: -o-linear-gradient(#4b8bc2, #0058a3);
+    background-image: linear-gradient(#4b8bc2, #0058a3);
+}
+
+a {
+    color: #0058a3;
+    text-decoration: none;
+}
+body {
+    color: #565656;
+}
+
+.logo {
+    height : 52px;
+    vertical-align:middle;
+    margin-bottom: 20px;
+}
+
+.navbar {
+    min-height: 90px;
+}
+.navbar-brand {
+    height: 90px;
+}
+
+.navbar-nav > li > a {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    font-size: 19px;
+    -webkit-font-smoothing: antialiased;
+}
+.navbar-form {
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+/* end geoNorge default layout */
