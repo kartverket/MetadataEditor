@@ -56,6 +56,7 @@
         @if (Model.HierarchyLevel == "dataset")
         {
             <div class="tab-pane" id="dataset">
+                @Html.Partial("_Extent", Model)
                 @Html.Partial("_Dataset", Model)
             </div>
         }
@@ -63,6 +64,7 @@
         @if (Model.HierarchyLevel == "service")
         {
             <div class="tab-pane" id="service">
+                @Html.Partial("_Extent", Model)
                 @Html.Partial("_Service", Model)
             </div>
         }
