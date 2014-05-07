@@ -1,37 +1,53 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
 <div class="form-group">
-    <label class="col-sm-2 control-label">Representasjonsform</label>
+    <label for="SpatialRepresentation" class="col-sm-2 control-label">Representasjonsform</label>
     <div class="col-sm-9">
         @Html.DropDownList("SpatialRepresentation", ViewBag.SpatialRepresentationValues as SelectList, String.Empty, new { @class = "form-control" })
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Format</label>
+    <label for="DistributionFormatName" class="col-sm-2 control-label">Format</label>
     <div class="col-sm-3">
         @Html.EditorFor(m => m.DistributionFormatName)
     </div>
-    <label class="col-sm-2 control-label">Versjon</label>
+    <label for="DistributionFormatVersion" class="col-sm-2 control-label">Versjon</label>
     <div class="col-sm-4">
         @Html.EditorFor(m => m.DistributionFormatVersion)
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Protokoll</label>
+    <label for="DistributionProtocol" class="col-sm-2 control-label">Protokoll</label>
     <div class="col-sm-9">
         @Html.EditorFor(m => m.DistributionProtocol)
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">URL</label>
+    <label for="DistributionUrl" class="col-sm-2 control-label">URL</label>
     <div class="col-sm-9">
         @Html.EditorFor(m => m.DistributionUrl)
+        <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
+            Fyll adresse til nedlastningsside/webside eller tjeneste.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-DistributionUrl" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Lagnavn</label>
+    <label for="DistributionName" class="col-sm-2 control-label">Lagnavn</label>
     <div class="col-sm-9">
         @Html.EditorFor(m => m.DistributionName)
+        <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
+            Fylles bare ut for tjenester, og kun hvis metadataene kun gjelder et lag i tjenesten og ikke hele tjenesten
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 

@@ -1,7 +1,7 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
 <div class="form-group">
-    <label for="title" class="col-sm-2 control-label">Navn</label>
+    <label for="Title" class="col-sm-2 control-label">Navn</label>
     <div class="col-sm-9">
         @Html.EditorFor(m => m.Title)
         <p class="help-text bg-success" id="help-text-name" style="display: none">
@@ -16,7 +16,7 @@
 </div>
 
 <div class="form-group">
-    <label for="purpose" class="col-sm-2 control-label">Formål</label>
+    <label for="Purpose" class="col-sm-2 control-label">Formål</label>
     <div class="col-sm-9">
         @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
         <p class="help-text bg-success" id="help-text-purpose" style="display: none">
@@ -31,7 +31,7 @@
 </div>
 
 <div class="form-group">
-    <label for="abstract" class="col-sm-2 control-label">Sammendrag</label>
+    <label for="Abstract" class="col-sm-2 control-label">Sammendrag</label>
     <div class="col-sm-9">
         @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
         <p class="help-text bg-success" id="help-text-abstract" style="display: none">
@@ -46,7 +46,7 @@
 </div>
 
 <div class="form-group">
-    <label for="abstract" class="col-sm-2 control-label">Opprettet dato</label>
+    <label for="DateCreated" class="col-sm-2 control-label">Opprettet dato</label>
     <div class="col-sm-2">
         @Html.EditorFor(m => m.DateCreated)
     </div>
@@ -65,11 +65,11 @@
     
 </div>
 <div class="form-group">
-    <label for="abstract" class="col-sm-2 control-label">Dato sist oppdatert</label>
+    <label for="DateUpdated" class="col-sm-2 control-label">Dato sist oppdatert</label>
     <div class="col-sm-2">
         @Html.EditorFor(m => m.DateUpdated)
     </div>
-    <label for="abstract" class="col-sm-2 control-label">Publiseringsdato</label>
+    <label for="DatePublished" class="col-sm-2 control-label">Publiseringsdato</label>
     <div class="col-sm-2">
         @Html.EditorFor(m => m.DatePublished)
     </div>

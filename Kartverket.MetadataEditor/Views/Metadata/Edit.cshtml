@@ -56,16 +56,16 @@
         @if (Model.HierarchyLevel == "dataset")
         {
             <div class="tab-pane" id="dataset">
-                @Html.Partial("_Extent", Model)
                 @Html.Partial("_Dataset", Model)
+                @Html.Partial("_Extent", Model)
             </div>
         }
 
         @if (Model.HierarchyLevel == "service")
         {
             <div class="tab-pane" id="service">
-                @Html.Partial("_Extent", Model)
                 @Html.Partial("_Service", Model)
+                @Html.Partial("_Extent", Model)
             </div>
         }
         
