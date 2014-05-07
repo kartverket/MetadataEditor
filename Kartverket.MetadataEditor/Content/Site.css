@@ -112,3 +112,19 @@ ul#thumbnails > li.thumbnail > img {
     margin-right: 10px;
     float: left;
 }
+
+.body-content {
+    background-color: #f6f6f6;
+    border-bottom: 1px solid #cccbcb;
+    position: relative;
+    padding-bottom: 6em;
+    z-index: 1;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, white), color-stop(100%, #f6f6f6));
+    background-image: -webkit-linear-gradient(white, #f6f6f6);
+    background-image: -moz-linear-gradient(white, #f6f6f6);
+    background-image: -ms-linear-gradient(white, #f6f6f6);
+    background-image: -o-linear-gradient(white, #f6f6f6);
+    background-image: linear-gradient(white, #f6f6f6);
+}
+
+footer { margin-top: 20px; }

@@ -38,32 +38,39 @@
             </div>
         </div>
     </div>
+    <div class="body-content">
+        <div class="container">
 
-    <div class="container body-content">
-
-        <div class="pull-right">
-            @if (Request.IsAuthenticated)
-            {
-                string username = "";
-                foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+            <div class="pull-right">
+                @if (Request.IsAuthenticated)
                 {
-                    if (c.Type == "urn:oid:0.9.2342.19200300.100.1.1" || c.Type == "username")
+                    string username = "";
+                    foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
                     {
-                        username = @c.Value;
+                        if (c.Type == "urn:oid:0.9.2342.19200300.100.1.1" || c.Type == "username")
+                        {
+                            username = @c.Value;
+                        }
                     }
+                    <a href="@Url.Action("SignOut", "AuthServices")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg ut @username</a>
                 }
-                <a href="@Url.Action("SignOut", "AuthServices")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg ut @username</a>
-            }
-            else
-            {
-                <a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg inn</a>
-            }
+                else
+                {
+                    <a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg inn</a>
+                }
+            </div>
+
+            @RenderBody()
         </div>
-
-        @RenderBody()
-
-        <hr />
+    </div>
+    <div class="container">
         <footer>
+            <p>
+                GeoNorge metadataeditor er et registreringsskjema for å registrere kartdata og karttjenester. Det finnes ulike seksjoner med ulike opplysninger. Opplysninger om et datasett eller tjeneste angis som metadata. Etater skal følge standarder når disse leveres geoportalen. Metadataeditoren hjelper etater i å følge standarden. Hver etat må være innlogget og får da vist de metadata som etaten selv er ansvarlig for.
+                Denne editoren er under arbeid, og foreligger i første versjon, men er fullt operativ, og metadataene vil oppdateres og lagres i den nasjonale katalogen.
+                Tilbakemeldinger på editoren kan sendes til <a href="mailto: post@norgedigitalt.no?subject=Tilbakemelding%20GeoNorge-metadataeditor">post@norgedigitalt.no</a>
+            </p>
+
             <!--
             @if (User.Identity.IsAuthenticated)
             {
@@ -76,7 +83,6 @@
             <p>&copy; @DateTime.Now.Year - Kartverket</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
