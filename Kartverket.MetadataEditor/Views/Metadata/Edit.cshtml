@@ -104,8 +104,90 @@
 </form>
 
 @section scripts {
+    @Scripts.Render("~/Scripts/jquery-ui-1.10.4.min.js")
+    @Scripts.Render("~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js")
+    @Scripts.Render("~/Scripts/jQuery.FileUpload/jquery.fileupload.js")
+
     <script>
         $(function () {
+            $('#uploadThumbnailFile').fileupload({
+                dataType: 'json',
+                url: '/Metadata/UploadThumbnail',
+                add: function (e, data) {
+                    console.log(data);
+                    $("#uploadThumbnailButton").on("click", function (event) {
+                        event.preventDefault();
+                        data.submit();
+                    })
+                },
+                done: function (e, data) {
+                    console.log("File uploaded: " + data.result.filename);
+                    $("#thumbnailUrl").val('http://editor.geonorge.no/Content/thumbnails/' + data.result.filename);
+                    $('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                }
+            });
+
+            $("#thumbnailAdd").click(function (event) {
+                event.preventDefault();
+                var $thumbnails = $("#thumbnails");
+
+                var itemIndex = $('li', $thumbnails).length;
+
+                var $thumbnailType = $("#thumbnailType");
+                var $thumbnailUrl = $("#thumbnailUrl");
+
+                var $item = $('<li />', { class: 'thumbnail clearfix' });
+
+                var $itemImage = $('<img />', {
+                    src: $thumbnailUrl.val(),
+                    width: '200',
+                });
+
+                var $itemType = $('<p />').append('<strong>Type</strong> ').append($thumbnailType.val());
+                var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
+
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: $thumbnailType.val()
+                });
+
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails['+ itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+                $item.append($itemImage);
+                $item.append($itemType);
+                $item.append($itemTypeHidden);
+                $item.append($itemUrl);
+                $item.append($itemUrlHidden);
+                $item.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
+
+                $thumbnails.append($item);
+
+                $thumbnailType.val('');
+                $thumbnailUrl.val('');
+            });
+
+            $('button.thumbnailRemove').click(function (event) {
+                event.preventDefault();
+                $(this).parent().remove();
+                
+                $('#thumbnails li').each(function (index, value) {
+                    $hiddenItemsForRow = $('input[type=hidden]', value);
+                    $hiddenItemsForRow.each(function(hiddenIndex, hiddenValue) {
+                        var name = $(hiddenValue).attr("name");
+                        console.log(name);
+                        if (name.indexOf('.Type') !== -1) {
+                            $(hiddenValue).attr('name', 'Thumbnails[' + index + '].Type');
+                        } else if (name.indexOf('.URL') !== -1) {
+                            $(hiddenValue).attr('name', 'Thumbnails[' + index + '].URL');
+                        }
+                    });
+                });
+            });
 
             $("a.help-text-toggle").click(function (event) {
                 event.preventDefault();

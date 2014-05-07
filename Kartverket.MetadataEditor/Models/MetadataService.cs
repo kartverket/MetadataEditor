@@ -245,6 +245,8 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ProductPageUrl = model.ProductPageUrl;
             metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
 
+            metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);
+
             // distribution
             metadata.SpatialRepresentation = model.SpatialRepresentation;
             metadata.ReferenceSystem = new SimpleReferenceSystem

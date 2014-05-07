@@ -219,6 +219,25 @@ namespace Kartverket.MetadataEditor.Controllers
             };
         }
 
+        public ActionResult UploadThumbnail(string uuid)
+        {
+            string filename = null;
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase file = Request.Files[0];
+                filename = uuid + "_" + file.FileName;
+                string fullPath = Server.MapPath("~/Content/thumbnails/" + filename);
+                file.SaveAs(fullPath);
+            }
+
+            var viewresult = Json(new { status = "OK", filename = filename});
+            //for IE8 which does not accept application/json
+            if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
+                viewresult.ContentType = "text/plain";
+
+            return viewresult;
+        }
+
 	}
 
     public enum MetadataMessages

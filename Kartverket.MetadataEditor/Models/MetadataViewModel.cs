@@ -252,6 +252,25 @@ namespace Kartverket.MetadataEditor.Models
 
             return thumbnails;
         }
+
+        internal static List<SimpleThumbnail> ToSimpleThumbnailList(List<Thumbnail> list)
+        {
+            List<SimpleThumbnail> output = new List<SimpleThumbnail>();
+
+            if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    output.Add(new SimpleThumbnail
+                    {
+                        Type = item.Type,
+                        URL = item.URL
+                    });
+                }
+            }
+
+            return output;
+        }
     }
 
 }

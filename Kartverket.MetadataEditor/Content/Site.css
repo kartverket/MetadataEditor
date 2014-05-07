@@ -103,3 +103,12 @@ p.keyword-header {
     padding: 10px;
     border-radius: 4px;
 }
+
+ul#thumbnails {
+    list-style-type: none;
+}
+ul#thumbnails > li.thumbnail > img {
+    width: 200px;
+    margin-right: 10px;
+    float: left;
+}
