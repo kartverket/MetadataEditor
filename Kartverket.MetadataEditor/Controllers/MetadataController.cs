@@ -20,6 +20,7 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Create()
         {
             MetadataCreateViewModel model = new MetadataCreateViewModel
@@ -33,6 +34,7 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(MetadataCreateViewModel model)
         {
             model.MetadataContactOrganization = GetSecurityClaim("organization");
@@ -95,6 +97,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult Edit(string uuid, bool saved = false)
         {
             if (string.IsNullOrWhiteSpace(uuid))
@@ -115,6 +118,7 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(MetadataViewModel model)
         {
             bool saved = true;
@@ -232,6 +236,7 @@ namespace Kartverket.MetadataEditor.Controllers
             };
         }
 
+        [Authorize]
         public ActionResult UploadThumbnail(string uuid)
         {
             string filename = null;

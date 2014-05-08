@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
+    [Authorize]
     public class ServiceController : Controller
     {
         private MetadataService _metadataService;
