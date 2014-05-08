@@ -16,6 +16,12 @@
     <div class="alert alert-success">
         Metadata ble lagret.
     </div>
+} 
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        Det har oppstått en feil: @ViewBag.ErrorMessage
+    </div>    
 }
 
 @if (Model.HierarchyLevel == "service")
