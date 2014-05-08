@@ -41,23 +41,33 @@
     <div class="body-content">
         <div class="container">
 
-            <div class="text-right">
+            <div class="menu clearfix">
                 @if (Request.IsAuthenticated)
                 {
-                    string username = "";
-                    foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                    <div class="btn-group">
+                        <a href="@Url.Action("Index", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a>
+                        <a href="@Url.Action("Create","Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a>
+                    </div>
+                }
+
+                <div class="pull-right">
+                    @if (Request.IsAuthenticated)
                     {
-                        if (c.Type == "urn:oid:0.9.2342.19200300.100.1.1" || c.Type == "username")
+                        string username = "";
+                        foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
                         {
-                            username = @c.Value;
+                            if (c.Type == "urn:oid:0.9.2342.19200300.100.1.1" || c.Type == "username")
+                            {
+                                username = @c.Value;
+                            }
                         }
+                        <a href="@Url.Action("SignOut", "AuthServices")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg ut @username</a>
                     }
-                    <a href="@Url.Action("SignOut", "AuthServices")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg ut @username</a>
-                }
-                else
-                {
-                    <a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg inn</a>
-                }
+                    else
+                    {
+                        <a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg inn</a>
+                    }
+                </div>
             </div>
 
             @RenderBody()
