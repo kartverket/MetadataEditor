@@ -117,8 +117,21 @@ namespace Kartverket.MetadataEditor.Controllers
         [HttpPost]
         public ActionResult Edit(MetadataViewModel model)
         {
-            _metadataService.SaveMetadataModel(model);
-            return RedirectToAction("Edit", new { uuid = model.Uuid, saved = true});
+            bool saved = true;
+            string errorMessage = null;
+            try
+            {
+                _metadataService.SaveMetadataModel(model);
+            }
+            catch (Exception e)
+            {
+                saved = false;
+                errorMessage = e.Message;
+                Log.Error("Error while editing metadata with uuid = " + model.Uuid, e);
+
+            }
+            
+            return RedirectToAction("Edit", new { uuid = model.Uuid, saved});
         }
 
         public Dictionary<string, string> GetListOfTopicCategories()
