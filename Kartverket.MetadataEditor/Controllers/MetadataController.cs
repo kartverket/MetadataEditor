@@ -244,7 +244,7 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 HttpPostedFileBase file = Request.Files[0];
                 filename = uuid + "_" + file.FileName;
-                string fullPath = Server.MapPath("~/Content/thumbnails/" + filename);
+                string fullPath = Server.MapPath("~/thumbnails/" + filename);
                 file.SaveAs(fullPath);
             }
 
