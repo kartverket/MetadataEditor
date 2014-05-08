@@ -1,32 +1,72 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
 <div class="form-group">
-    <label class="col-sm-2 control-label">Bruksbegrensninger</label>
+    <label for="UseLimitations" class="col-sm-2 control-label">Bruksbegrensninger</label>
     <div class="col-sm-9">
         @Html.EditorFor(m => m.UseLimitations)
+        <p class="help-text bg-success" id="help-text-UseLimitations" style="display: none">
+            Angir hvilke områder dataene ikke er egnet for. F.eks "dataene er ikke egnet for kommunens arealplanarbeide" eller "må ikke brukes til å navigere etter". En bør også oppgi hvorfor det er begrensninger på bruk.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-UseLimitations" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Tilgangsrestriksjoner</label>
+    <label for="AccessConstraints" class="col-sm-2 control-label">Tilgangsrestriksjoner</label>
     <div class="col-sm-9">
         @Html.DropDownList("AccessConstraints", ViewBag.AccessConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
+        <p class="help-text bg-success" id="help-text-AccessConstraints" style="display: none">
+            Restriksjoner eller krav som må være oppfylt for å få tilgang til datasettet. 
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-AccessConstraints" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Brukerrestriksjoner</label>
+    <label for="UseConstraints" class="col-sm-2 control-label">Brukerrestriksjoner</label>
     <div class="col-sm-9">
         @Html.DropDownList("UseConstraints", ViewBag.UseConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
+        <p class="help-text bg-success" id="help-text-UseConstraints" style="display: none">
+            Krav som må være oppfylt for å anvende datasettet/tjenesten.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-UseConstraints" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Andre restriksjoner</label>
+    <label for="OtherConstraints" class="col-sm-2 control-label">Andre restriksjoner</label>
     <div class="col-sm-9">
         @Html.EditorFor(m => m.OtherConstraints)
+        <p class="help-text bg-success" id="help-text-OtherConstraints" style="display: none">
+            Andre restriksjoner knyttet til datasettet/datatjenesten. Her kan en henvise til lisens.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-OtherConstraints" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Sikkerhetsnivå</label>
+    <label for="SecurityConstraints" class="col-sm-2 control-label">Sikkerhetsnivå</label>
     <div class="col-sm-9">
         @Html.DropDownList("SecurityConstraints", ViewBag.SecurityConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
+        <p class="help-text bg-success" id="help-text-SecurityConstraints" style="display: none">
+            Sikkerhetsnivå på datasettet/datatjenesten.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-SecurityConstraints" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>

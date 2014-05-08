@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GeoNorge.
+        ///   Looks up a localized string similar to Geonorge.
         /// </summary>
         public static string AppPageTitle {
             get {

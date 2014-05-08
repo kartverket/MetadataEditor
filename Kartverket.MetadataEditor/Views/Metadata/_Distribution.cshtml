@@ -18,9 +18,24 @@
 </div>
 <div class="form-group">
     <label for="DistributionProtocol" class="col-sm-2 control-label">Protokoll</label>
-    <div class="col-sm-9">
+    <div class="col-sm-3">
         @Html.EditorFor(m => m.DistributionProtocol)
     </div>
+    <label for="predefinedDistributionProtocols" class="col-sm-2 control-label">Forhåndsvalg protokoll</label>
+    <div class="col-sm-3">
+        <select class="form-control" id="predefinedDistributionProtocols">
+            <option value="WWW:DOWNLOAD-1.0-http--download">Nedlastingsside</option>
+            <option value="WWW:LINK-1.0-http--link">Webside</option>
+            <option value="OGC:WMS" title="Web Map Service">WMS-tjeneste</option>
+            <option value="OGC:WFS" title="Web Feature Service">WFS-tjeneste</option>
+            <option value="OGC:WCS" title="Web Coverage Service">WCS-tjeneste</option>
+            <option value="OGC:WPS" title="Web Processing Service">WPS-tjeneste</option>
+            <option value="OGC:CSW" title="Catalog Service for the Web">CSW-tjeneste</option>
+        </select>
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-default" id="usePredefinedDistributionProtocol">Bruk</button>
+    </div>    
 </div>
 <div class="form-group">
     <label for="DistributionUrl" class="col-sm-2 control-label">URL</label>

@@ -3,13 +3,13 @@
 <div class="row">
     <div class="alert alert-info col-sm-12">
         <p>
-            GeoNorge metadataeditor er et registreringsskjema for å registrere kartdata og karttjenester. Det finnes ulike seksjoner med ulike opplysninger. Opplysninger om et datasett eller tjeneste angis som metadata. Etater skal følge standarder når disse leveres geoportalen. Metadataeditoren hjelper etater i å følge standarden. Hver etat må være innlogget og får da vist de metadata som etaten selv er ansvarlig for.
+            Geonorge metadataeditor er et registreringsskjema for å registrere kartdata og karttjenester. Det finnes ulike seksjoner med ulike opplysninger. Opplysninger om et datasett eller tjeneste angis som metadata. Etater skal følge standarder når disse leveres geoportalen. Metadataeditoren hjelper etater i å følge standarden. Hver etat må være innlogget og får da vist de metadata som etaten selv er ansvarlig for.
         </p>
         <p>
             Denne editoren er under arbeid, og foreligger i første versjon, men er fullt operativ, og metadataene vil oppdateres og lagres i den nasjonale katalogen.
         </p>
         <p>
-            Tilbakemeldinger på editoren kan sendes til <a href="mailto: post@norgedigitalt.no?subject=Tilbakemelding%20GeoNorge-metadataeditor">post@norgedigitalt.no</a>
+            Tilbakemeldinger på editoren kan sendes til <a href="mailto: post@norgedigitalt.no?subject=Tilbakemelding%20Geonorge-metadataeditor">post@norgedigitalt.no</a>
         </p>
     </div>
 </div>
@@ -19,7 +19,7 @@
 @if (Request.IsAuthenticated)
 {
     <p class="text-right">
-        <a href="@Url.Action("Create","Metadata")" class="btn btn-primary btn-xs">Opprett ny metadata</a>
+        <a href="@Url.Action("Create","Metadata")" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a>
     </p>
 }
 

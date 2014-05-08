@@ -142,25 +142,25 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             return new Dictionary<string, string> 
             {
-                {"farming", "farming"}, 
-                {"biota", "biota"},
-                {"boundaries", "boundaries"},
-                {"climatologyMeteorologyAtmosphere","climatologyMeteorologyAtmosphere"},
-                {"economy","economy"},
-                {"elevation","elevation"},
-                {"environment","environment"},
-                {"geoscientificInformation","geoscientificInformation"},
-                {"health","health"},
-                {"imageryBaseMapsEarthCover","imageryBaseMapsEarthCover"},
-                {"intelligenceMilitary","intelligenceMilitary"},
-                {"inlandWaters","inlandWaters"},
-                {"location","location"},
-                {"oceans","oceans"},
-                {"planningCadastre","planningCadastre"},
-                {"society","society"},
-                {"structure","structure"},
-                {"transportation","transportation"},
-                {"utilitiesCommunication","utilitiesCommunication"},
+                {"farming", "Landbruk og havbruk"}, 
+                {"biota", "Biologisk mangfold"},
+                {"boundaries", "Administrative grenser"},
+                {"climatologyMeteorologyAtmosphere","Klima, meteorologi og atomsfære"},
+                {"economy","Økonomi"},
+                {"elevation","Høydedata"},
+                {"environment","Miljødata"},
+                {"geoscientificInformation","Geovitenskapelig informasjon"},
+                {"health","Helse"},
+                {"imageryBaseMapsEarthCover","Basisdata"},
+                {"intelligenceMilitary","Militære data"},
+                {"inlandWaters","Innsjø og vassdrag"},
+                {"location","Posisjonsdata"},
+                {"oceans","Kyst og sjø"},
+                {"planningCadastre","Plan og eiendom"},
+                {"society","Samfunn"},
+                {"structure","Konstruksjoner"},
+                {"transportation","Transport"},
+                {"utilitiesCommunication","Ledningsinformasjon"},
             };
         }
 
@@ -168,12 +168,12 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             return new Dictionary<string, string> 
             {
-                {"vector", "vector"}, 
-                {"grid", "grid"}, 
-                {"textTable", "textTable"}, 
-                {"tin", "tin"}, 
-                {"stereoModel", "stereoModel"}, 
-                {"video", "video"}, 
+                {"vector", "Vektordata"}, 
+                {"grid", "Rasterdata/grid"}, 
+                {"textTable", "Teksttabell"}, 
+                {"tin", "TIN-modell"}, 
+                {"stereoModel", "Stereomodel"}, 
+                {"video", "Video"}, 
             };
         }
 
@@ -214,11 +214,11 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             return new Dictionary<string, string>
             {
-                {"unclassified", "unclassified"},
-                {"restricted", "restricted"},
-                {"confidential", "confidential"},
-                {"secret", "secret"},
-                {"topSecret", "topSecret"},
+                {"unclassified", "Ugradert"},
+                {"restricted", "Begrenset"},
+                {"confidential", "Konfidensielt"},
+                {"secret", "Hemmelig"},
+                {"topSecret", "Topp hemmelig"},
             };
         }
 
@@ -226,13 +226,13 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             return new Dictionary<string, string>
             {
-                {"copyright", "copyright"},
-                {"patent", "patent"},
-                {"patentPending", "patentPending"},
-                {"trademark", "trademark"},
-                {"license", "license"},
-                {"restricted", "restricted"},
-                {"otherRestrictions", "otherRestrictions"},
+                {"otherRestrictions", "Andre restriksjoner"},    
+                {"restricted", "Beskyttet"},
+                {"copyright", "Kopibeskyttet"},
+                {"license", "Lisens"},
+                {"patent", "Patentert"},
+                {"patentPending", "Påvente av patent"},
+                {"trademark", "Registrert varemerke"},
             };
         }
 
