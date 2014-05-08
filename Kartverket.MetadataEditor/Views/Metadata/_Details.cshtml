@@ -1,4 +1,35 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+<div class="form-group">
+    <label for="DateCreated" class="col-sm-2 control-label">Opprettet dato</label>
+    <div class="col-sm-2">
+        @Html.EditorFor(m => m.DateCreated)
+    </div>
+    <div class="col-sm-7">
+        <p class="help-text bg-success" id="help-text-date" style="display: none">
+            Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Datoene refererer til datasett/tjeneste og ikke metadata.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-date" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+<div class="form-group">
+
+</div>
+<div class="form-group">
+    <label for="DateUpdated" class="col-sm-2 control-label">Dato sist oppdatert</label>
+    <div class="col-sm-2">
+        @Html.EditorFor(m => m.DateUpdated)
+    </div>
+    <label for="DatePublished" class="col-sm-2 control-label">Publiseringsdato</label>
+    <div class="col-sm-2">
+        @Html.EditorFor(m => m.DatePublished)
+    </div>
+</div>
+
 <div class="panel panel-default">
     <div class="panel-heading">Geografisk utstrekning</div>
     <div class="panel-body">

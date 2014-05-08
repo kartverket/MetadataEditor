@@ -319,7 +319,7 @@
     <Content Include="Views\Metadata\_MetadataItem.cshtml" />
     <Content Include="Views\Metadata\_English.cshtml" />
     <Content Include="Views\Metadata\Create.cshtml" />
-    <Content Include="Views\Metadata\_Extent.cshtml" />
+    <Content Include="Views\Metadata\_Details.cshtml" />
     <None Include="Web.KartverketRelease.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
