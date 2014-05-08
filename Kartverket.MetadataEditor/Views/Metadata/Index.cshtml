@@ -2,12 +2,6 @@
 
 <h1>@Resources.UI.MyMetadata_Label</h1>
 
-@if (Request.IsAuthenticated)
-{
-    <p class="text-right">
-        <a href="@Url.Action("Create","Metadata")" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a>
-    </p>
-}
 
 @if (!string.IsNullOrWhiteSpace(ViewBag.StatusMessage))
 {
@@ -21,22 +15,28 @@
 
 @if (Model.UserIsAdmin)
 {
-    <p><a href="@Url.Action("Index")?organization=@Model.UserOrganization" class="btn btn-default">Vis metadata for @Model.UserOrganization</a></p>
-    <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
-        <div class="form-group">
-            <label for="searchString">Fritekst søk:</label>
-            <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
+    <div class="col-sm-offset-2 col-sm-8">
+        <div class="panel panel-info" style="margin-top: 20px;">
+            <div class="panel-heading">Søk</div>
+            <div class="panel-body">
+                <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
+                    <div class="form-group">
+                        <label for="searchString">Fritekst søk:</label>
+                        <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
+                    </div>
+                    <div class="form-group">
+                        <label for="searchOrganization">Organisasjon:</label>
+                        <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Søk</button>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="searchOrganization">Organisasjon:</label>
-            <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
-        </div>
-        <button type="submit" class="btn btn-primary">Søk</button>
-    </form>
+    </div>
 }
 
-
-@if (Model.MetadataItems.Count > 0) { 
+@if (Model.MetadataItems.Count > 0)
+{
     @Html.Partial("_MetadataList", Model.MetadataItems)
     <div class="clearfix">
         <p class="text-right">
@@ -44,11 +44,11 @@
         </p>
         <div class="pull-right btn-group">
             @{
-                string linkParam = "";
-                if (!string.IsNullOrWhiteSpace(Model.SearchString))
-                {
-        
-                }
+    string linkParam = "";
+    if (!string.IsNullOrWhiteSpace(Model.SearchString))
+    {
+
+    }
             }
             <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn btn-default btn-sm @Model.OffsetPreviousState()">Forrige</a>
             <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn btn-default btn-sm @Model.OffsetNextState()">Neste</a>

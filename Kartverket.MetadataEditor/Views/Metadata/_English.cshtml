@@ -17,7 +17,7 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">Sammendrag</label>
     <div class="col-sm-5">
-        @Html.EditorFor(m => m.EnglishAbstract)
+        @Html.TextAreaFor(m => m.EnglishAbstract, new { @class = "form-control", cols = "", rows = "8" })
     </div>
     <div class="col-sm-5 control-text">
         @Html.DisplayFor(m => m.Abstract)
