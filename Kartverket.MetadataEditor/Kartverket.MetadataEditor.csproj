@@ -164,6 +164,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UI.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\HomeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\arrow-down-right.png" />
