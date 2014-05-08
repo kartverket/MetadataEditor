@@ -15,45 +15,46 @@
 
 @if (Model.UserIsAdmin)
 {
-    <div class="col-sm-offset-2 col-sm-8">
-        <div class="panel panel-info" style="margin-top: 20px;">
-            <div class="panel-heading">Søk</div>
-            <div class="panel-body">
-                <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
-                    <div class="form-group">
-                        <label for="searchString">Fritekst søk:</label>
-                        <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
-                    </div>
-                    <div class="form-group">
-                        <label for="searchOrganization">Organisasjon:</label>
-                        <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Søk</button>
-                </form>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <div class="panel panel-info" style="margin-top: 20px;">
+                <div class="panel-heading">Søk</div>
+                <div class="panel-body">
+                    <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
+                        <div class="form-group">
+                            <label for="searchString">Fritekst søk:</label>
+                            <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
+                        </div>
+                        <div class="form-group">
+                            <label for="searchOrganization">Organisasjon:</label>
+                            <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Søk</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 }
-
-@if (Model.MetadataItems.Count > 0)
+@if (Request.IsAuthenticated)
 {
-    @Html.Partial("_MetadataList", Model.MetadataItems)
-    <div class="clearfix">
-        <p class="text-right">
-            Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
-        </p>
-        <div class="pull-right btn-group">
-            @{
-    string linkParam = "";
-    if (!string.IsNullOrWhiteSpace(Model.SearchString))
+    if (Model.MetadataItems.Count > 0)
     {
-
-    }
-            }
-            <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn btn-default btn-sm @Model.OffsetPreviousState()">Forrige</a>
-            <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn btn-default btn-sm @Model.OffsetNextState()">Neste</a>
+        @Html.Partial("_MetadataList", Model.MetadataItems)
+        <div class="clearfix">
+            <p class="text-right">
+                Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
+            </p>
+            <div class="pull-right btn-group">
+                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn btn-default btn-sm @Model.OffsetPreviousState()">Forrige</a>
+                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn btn-default btn-sm @Model.OffsetNextState()">Neste</a>
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <p>Ingen treff.</p>
+    }
 }
 else
 {
