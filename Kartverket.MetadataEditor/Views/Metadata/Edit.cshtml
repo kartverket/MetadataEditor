@@ -132,7 +132,7 @@
                 },
                 done: function (e, data) {
                     console.log("File uploaded: " + data.result.filename);
-                    $("#thumbnailUrl").val('http://editor.geonorge.no/Content/thumbnails/' + data.result.filename);
+                    $("#thumbnailUrl").val('https://editor.geonorge.no/thumbnails/' + data.result.filename);
                     $('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
                 }
             });
