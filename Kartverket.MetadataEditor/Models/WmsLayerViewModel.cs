@@ -16,5 +16,7 @@ namespace Kartverket.MetadataEditor.Models
         public string BoundingBoxNorth { get; set; }
         public string BoundingBoxSouth { get; set; }
         public string Uuid { get; set; }
+        public string EnglishTitle { get; set; }
+        public string EnglishAbstract { get; set; }
     }
 }

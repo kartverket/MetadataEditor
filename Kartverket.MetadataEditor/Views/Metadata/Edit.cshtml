@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = @Resources.UI.EditMetadata;
 }
+
 <div class="pull-right">
     <p><small>UUID: @Model.Uuid</small></p>
     <p class="text-right"><small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small></p>
@@ -318,6 +319,11 @@
             $('button#keywords-inspire-add').click(function (event) {
                 event.preventDefault();
                 addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
+            });
+
+            $('button#keywords-other-add').click(function (event) {
+                event.preventDefault();
+                addKeywordFromTextbox('keywords-other', "KeywordsOther");
             });
 
             // use a delegated event handler to bind to all existing and future delete links

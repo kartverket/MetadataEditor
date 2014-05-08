@@ -388,6 +388,8 @@ namespace Kartverket.MetadataEditor.Models
                         Keyword = keyword
                     });
                 }
+
+                simpleLayer.Keywords = existingKeywords;
             }
 
             simpleLayer.DistributionDetails = new SimpleDistributionDetails
@@ -407,7 +409,16 @@ namespace Kartverket.MetadataEditor.Models
                     SouthBoundLatitude = layerModel.BoundingBoxSouth
                 };
             }
+
+            if (!string.IsNullOrWhiteSpace(layerModel.EnglishTitle))
+            {
+                simpleLayer.EnglishTitle = layerModel.EnglishTitle;
+            }
             
+            if (!string.IsNullOrWhiteSpace(layerModel.EnglishAbstract))
+            {
+                simpleLayer.EnglishAbstract = layerModel.EnglishAbstract;
+            }
 
 
             MetadataTransaction transaction = _geoNorge.MetadataInsert(layer);
