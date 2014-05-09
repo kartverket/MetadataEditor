@@ -14,6 +14,8 @@ namespace Kartverket.MetadataEditor.Models
 
         public List<WmsLayerViewModel> GetLayers(string wmsUrl)
         {
+            List<WmsLayerViewModel> models = new List<WmsLayerViewModel>();
+
             if (!wmsUrl.EndsWith("?"))
             {
                 wmsUrl = wmsUrl + "?";
@@ -22,12 +24,31 @@ namespace Kartverket.MetadataEditor.Models
 
             XDocument xd = XDocument.Load(wmsUrl);
 
+            XElement root = xd.Element(WMS + "WMS_Capabilities");
+            if (root != null)
+            {
+                models = parseGetCapabilitiesV1_3(root, wmsUrl);
+            }
+            else
+            {
+                root = xd.Element("WMT_MS_Capabilities");
+                if (root != null)
+                {
+                    models = parseGetCapabilitiesV1_1_1(root);
+                }
+            }
+            
+            return models;
+        }
+
+        private List<WmsLayerViewModel> parseGetCapabilitiesV1_3(XElement root, string wmsUrl)
+        {
             IEnumerable<XElement> layers =
-                    from el in xd.Elements(WMS + "WMS_Capabilities").Elements(WMS + "Capability").Elements(WMS + "Layer").Elements(WMS + "Layer")
+                    from el in root.Elements(WMS + "Capability").Elements(WMS + "Layer").Elements(WMS + "Layer")
                     select el;
 
             Dictionary<string, Dictionary<string, string>> englishData = new Dictionary<string, Dictionary<string, string>>();
-            XElement extendedCapabilities = xd.Element(WMS + "WMS_Capabilities").Element(WMS + "Capability").Element(INSPIRE + "ExtendedCapabilities");
+            XElement extendedCapabilities = root.Element(WMS + "Capability").Element(INSPIRE + "ExtendedCapabilities");
             if (extendedCapabilities != null)
             {
                 XElement supportedLanguages = extendedCapabilities.Element(INSPIRE_COMMON + "SupportedLanguages");
@@ -69,7 +90,7 @@ namespace Kartverket.MetadataEditor.Models
             foreach (var layer in layers)
             {
                 var boundingBox = layer.Element(WMS + "EX_GeographicBoundingBox");
-                var nameElement = layer.Element(WMS +"Name");
+                var nameElement = layer.Element(WMS + "Name");
                 var titleElement = layer.Element(WMS + "Title");
                 var abstractElement = layer.Element(WMS + "Abstract");
                 List<string> keywords = ParseKeywords(layer.Element(WMS + "KeywordList"));
@@ -77,7 +98,8 @@ namespace Kartverket.MetadataEditor.Models
                 string name = nameElement != null ? nameElement.Value : null;
                 string englishTitle = null;
                 string englishAbstract = null;
-                if (englishData.Count > 0 && englishData.ContainsKey(name)) {
+                if (englishData.Count > 0 && englishData.ContainsKey(name))
+                {
                     Dictionary<string, string> englishTexts = englishData[name];
                     if (englishTexts != null)
                     {
@@ -99,10 +121,42 @@ namespace Kartverket.MetadataEditor.Models
                     EnglishAbstract = englishAbstract
                 });
             }
+
             return models;
         }
 
+        private List<WmsLayerViewModel> parseGetCapabilitiesV1_1_1(XElement root)
+        {
+            IEnumerable<XElement> layers =
+                    from el in root.Elements("Capability").Elements("Layer").Elements("Layer")
+                    select el;
 
+            List<WmsLayerViewModel> models = new List<WmsLayerViewModel>();
+
+            foreach (var layer in layers)
+            {
+               // var boundingBox = layer.Element("EX_GeographicBoundingBox");
+                var nameElement = layer.Element("Name");
+                var titleElement = layer.Element("Title");
+                var abstractElement = layer.Element("Abstract");
+                List<string> keywords = ParseKeywords(layer.Element("KeywordList"));
+
+    
+                models.Add(new WmsLayerViewModel
+                {
+                    Name = nameElement != null ? nameElement.Value : null,
+                    Title = titleElement != null ? titleElement.Value : null,
+                    Abstract = abstractElement != null ? abstractElement.Value : null,
+                    //BoundingBoxEast = boundingBox != null ? boundingBox.Element(WMS + "eastBoundLongitude").Value : null,
+                    //BoundingBoxWest = boundingBox != null ? boundingBox.Element(WMS + "westBoundLongitude").Value : null,
+                    //BoundingBoxNorth = boundingBox != null ? boundingBox.Element(WMS + "northBoundLatitude").Value : null,
+                    //BoundingBoxSouth = boundingBox != null ? boundingBox.Element(WMS + "southBoundLatitude").Value : null,
+                    Keywords = keywords,
+                });
+            }
+
+            return models;
+        }
 
         private static List<string> ParseKeywords(XElement keywordListElement)
         {
