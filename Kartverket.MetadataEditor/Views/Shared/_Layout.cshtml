@@ -11,7 +11,6 @@
     @Resources.UI.AppPageTitle
     </title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @RenderSection("head", required: false)
 </head>
 <body>
@@ -97,8 +96,7 @@
             <p>&copy; @DateTime.Now.Year - Kartverket</p>
         </footer>
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/scripts")
     @RenderSection("scripts", required: false)
 </body>
 </html>

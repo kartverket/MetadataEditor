@@ -8,6 +8,7 @@ namespace Kartverket.MetadataEditor
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+/*    
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -22,6 +23,17 @@ namespace Kartverket.MetadataEditor
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            */
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery.validate*",
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/respond.js",
+                "~/Scripts/jquery-ui-1.10.4.min.js",
+                "~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js",
+                "~/Scripts/jQuery.FileUpload/jquery.fileupload.js",
+                "~/Scripts/geonorge-editor.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
