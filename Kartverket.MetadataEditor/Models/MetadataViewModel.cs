@@ -99,7 +99,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 if (!thumbnail.URL.StartsWith("http"))
                 {
-                    thumbnail.URL = "https://www.geonorge.no/geonetworkbeta/srv/eng/resources.get?uuid=" + Uuid + "&access=public&fname=" + thumbnail.URL;
+                    thumbnail.URL = "https://www.geonorge.no/geonetwork/srv/nor/resources.get?uuid=" + Uuid + "&access=public&fname=" + thumbnail.URL;
                 }
             }
         }
