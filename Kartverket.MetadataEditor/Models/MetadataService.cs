@@ -153,7 +153,8 @@ namespace Kartverket.MetadataEditor.Models
 
                 TopicCategory = metadata.TopicCategory,
                 SupplementalDescription = metadata.SupplementalDescription,
-                
+                SpecificUsage = metadata.SpecificUsage,
+
                 ProductPageUrl = metadata.ProductPageUrl,
                 ProductSheetUrl = metadata.ProductSheetUrl,
                 ProductSpecificationUrl = metadata.ProductSpecificationUrl,
@@ -215,8 +216,18 @@ namespace Kartverket.MetadataEditor.Models
 
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
-            metadata.Purpose = model.Purpose;
-            metadata.SupplementalDescription = model.SupplementalDescription;
+            
+            if (!string.IsNullOrWhiteSpace(model.Purpose))
+                metadata.Purpose = model.Purpose;
+            
+            if (!string.IsNullOrWhiteSpace(model.TopicCategory))
+                metadata.TopicCategory = model.TopicCategory;
+
+            if (!string.IsNullOrWhiteSpace(model.SupplementalDescription))
+                metadata.SupplementalDescription = model.SupplementalDescription;
+
+            if (!string.IsNullOrWhiteSpace(model.SpecificUsage))
+                metadata.SpecificUsage = model.SpecificUsage;
 
             var contactMetadata = model.ContactMetadata.ToSimpleContact();
             if (!string.IsNullOrWhiteSpace(model.EnglishContactMetadataOrganization))
@@ -240,31 +251,51 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ContactOwner = contactOwner;
 
             // documents
-            metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
-            metadata.ProductSheetUrl = model.ProductSheetUrl;
-            metadata.ProductPageUrl = model.ProductPageUrl;
-            metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
+            if (!string.IsNullOrWhiteSpace(model.ProductSpecificationUrl))
+                metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
+            
+            if (!string.IsNullOrWhiteSpace(model.ProductSheetUrl))
+                metadata.ProductSheetUrl = model.ProductSheetUrl;
+            
+            if (!string.IsNullOrWhiteSpace(model.ProductPageUrl))
+                metadata.ProductPageUrl = model.ProductPageUrl;
+
+            if (!string.IsNullOrWhiteSpace(model.LegendDescriptionUrl))
+                metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
 
             metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);
 
             // distribution
-            metadata.SpatialRepresentation = model.SpatialRepresentation;
-            metadata.ReferenceSystem = new SimpleReferenceSystem
+            if (!string.IsNullOrWhiteSpace(model.SpatialRepresentation))
+                metadata.SpatialRepresentation = model.SpatialRepresentation;
+
+            if (!string.IsNullOrWhiteSpace(model.ReferenceSystemCoordinateSystem))
             {
-                CoordinateSystem = model.ReferenceSystemCoordinateSystem,
-                Namespace = model.ReferenceSystemNamespace
-            };
-            metadata.DistributionFormat = new SimpleDistributionFormat 
-            { 
-                Name = model.DistributionFormatName,
-                Version = model.DistributionFormatVersion
-            };
-            metadata.DistributionDetails = new SimpleDistributionDetails
+                metadata.ReferenceSystem = new SimpleReferenceSystem
+                {
+                    CoordinateSystem = model.ReferenceSystemCoordinateSystem,
+                    Namespace = model.ReferenceSystemNamespace
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.DistributionFormatName) || !string.IsNullOrWhiteSpace(model.DistributionFormatVersion))
             {
-                URL = model.DistributionUrl,
-                Protocol = model.DistributionProtocol,
-                Name = model.DistributionName
-            };
+                metadata.DistributionFormat = new SimpleDistributionFormat
+                {
+                    Name = model.DistributionFormatName,
+                    Version = model.DistributionFormatVersion
+                };
+            }
+            
+            if (!string.IsNullOrWhiteSpace(model.DistributionUrl) || !string.IsNullOrWhiteSpace(model.DistributionProtocol) || !string.IsNullOrWhiteSpace(model.DistributionName))
+            {
+                metadata.DistributionDetails = new SimpleDistributionDetails
+                {
+                    URL = model.DistributionUrl,
+                    Protocol = model.DistributionProtocol,
+                    Name = model.DistributionName
+                };
+            }
 
             // quality
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle)) {
@@ -277,9 +308,18 @@ namespace Kartverket.MetadataEditor.Models
                     Result = model.QualitySpecificationResult
                 };
             }
-            metadata.ProcessHistory = model.ProcessHistory;
-            metadata.MaintenanceFrequency = model.MaintenanceFrequency;
-            metadata.ResolutionScale = model.ResolutionScale;
+            
+            if (!string.IsNullOrWhiteSpace(model.ProcessHistory))
+                metadata.ProcessHistory = model.ProcessHistory;
+            
+            if (!string.IsNullOrWhiteSpace(model.MaintenanceFrequency))
+                metadata.MaintenanceFrequency = model.MaintenanceFrequency;
+
+            if (!string.IsNullOrWhiteSpace(model.ResolutionScale))
+                metadata.ResolutionScale = model.ResolutionScale;
+
+            if (!string.IsNullOrWhiteSpace(model.Status))
+                metadata.Status = model.Status;
 
             metadata.DateCreated = model.DateCreated;
             metadata.DatePublished = model.DatePublished;
@@ -296,15 +336,22 @@ namespace Kartverket.MetadataEditor.Models
                 };
             }
 
-            metadata.Constraints = new SimpleConstraints
+            if (!string.IsNullOrWhiteSpace(model.AccessConstraints)
+                || !string.IsNullOrWhiteSpace(model.OtherConstraints)
+                || !string.IsNullOrWhiteSpace(model.SecurityConstraints)
+                || !string.IsNullOrWhiteSpace(model.UseConstraints)
+                || !string.IsNullOrWhiteSpace(model.UseLimitations))
             {
-                AccessConstraints = model.AccessConstraints,
-                OtherConstraints = model.OtherConstraints,
-                SecurityConstraints = model.SecurityConstraints,
-                UseConstraints = model.UseConstraints,
-                UseLimitations = model.UseLimitations
-            };
-
+                metadata.Constraints = new SimpleConstraints
+                {
+                    AccessConstraints = model.AccessConstraints,
+                    OtherConstraints = model.OtherConstraints,
+                    SecurityConstraints = model.SecurityConstraints,
+                    UseConstraints = model.UseConstraints,
+                    UseLimitations = model.UseLimitations
+                };
+            }
+            
             metadata.Keywords = model.GetAllKeywords();
 
             bool hasEnglishFields = false;

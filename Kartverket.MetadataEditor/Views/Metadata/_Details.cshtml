@@ -4,6 +4,7 @@
     <label for="DateCreated" class="col-sm-2 control-label">Opprettet dato</label>
     <div class="col-sm-2">
         @Html.EditorFor(m => m.DateCreated)
+        @Html.ValidationMessageFor(m => m.DateCreated)
     </div>
     <div class="col-sm-7">
         <p class="help-text bg-success" id="help-text-date" style="display: none">

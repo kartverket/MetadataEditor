@@ -1,6 +1,7 @@
 ﻿using GeoNorgeAPI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -74,8 +75,13 @@ namespace Kartverket.MetadataEditor.Models
         public string OtherConstraints { get; set; }
         public string SecurityConstraints { get; set; }
 
+        [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime? DateCreated { get; set; }
+
+        [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime? DatePublished { get; set; }
+
+        [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime? DateUpdated { get; set; }
 
         public DateTime? DateMetadataUpdated { get; set; }
