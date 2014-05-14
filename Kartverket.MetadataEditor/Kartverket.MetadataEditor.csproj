@@ -258,6 +258,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\geonorge-editor.js" />
+    <Content Include="Scripts\globalize-custom.js" />
+    <Content Include="Scripts\globalize.culture.nb-NO.js" />
+    <Content Include="Scripts\globalize.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />

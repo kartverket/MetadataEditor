@@ -3,7 +3,7 @@
 <div class="form-group">
     <label for="DateCreated" class="col-sm-2 control-label">Opprettet dato</label>
     <div class="col-sm-2">
-        @Html.EditorFor(m => m.DateCreated)
+        @Html.EditorFor(m => m.DateCreated, new { cssClass="date" })
         @Html.ValidationMessageFor(m => m.DateCreated)
     </div>
     <div class="col-sm-7">
@@ -23,11 +23,11 @@
 <div class="form-group">
     <label for="DateUpdated" class="col-sm-2 control-label">Dato sist oppdatert</label>
     <div class="col-sm-2">
-        @Html.EditorFor(m => m.DateUpdated)
+        @Html.EditorFor(m => m.DateUpdated, new { cssClass = "date" })
     </div>
     <label for="DatePublished" class="col-sm-2 control-label">Publiseringsdato</label>
     <div class="col-sm-2">
-        @Html.EditorFor(m => m.DatePublished)
+        @Html.EditorFor(m => m.DatePublished, new { cssClass = "date" })
     </div>
 </div>
 
