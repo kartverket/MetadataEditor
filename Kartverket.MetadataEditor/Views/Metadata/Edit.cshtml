@@ -338,7 +338,23 @@
                         option.removeAttr('disabled');
                     }
                     
-                    $('li#' + deleteId).remove();
+                    var $listItem = $('li#' + deleteId);
+                    var $parentList = $listItem.parent();
+                    $listItem.remove();
+
+                    $('li', $parentList).each(function (index, value) {
+                        $hiddenItemsForRow = $('input[type=hidden]', value);
+                        $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
+                            var name = $(hiddenValue).attr("name");
+                            //console.log("hidden value old name: " + name);
+                            var inputName = name.substring(0, name.indexOf("["));
+                            var inputNameWithIndex = inputName + '[' + index + ']';
+                            //console.log("new name: " + inputNameWithIndex);
+                            $(hiddenValue).attr('name', inputNameWithIndex);
+                        });
+                    });
+
+                    
                 }
             });
 
