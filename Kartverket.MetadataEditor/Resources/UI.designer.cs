@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geonorge.
+        ///   Looks up a localized string similar to Geonorge - metadataeditor.
         /// </summary>
         public static string AppPageTitle {
             get {
