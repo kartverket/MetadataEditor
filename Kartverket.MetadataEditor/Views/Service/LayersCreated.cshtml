@@ -8,6 +8,14 @@
 <ul>
     @foreach (var layer in Model.Layers)
     {
-        <li><a href="@Url.Action("Edit", "Metadata", new { uuid=@layer.Uuid })" target="_blank">@layer.Title <span class="glyphicon glyphicon-pencil"></span></a></li>
+        if (layer.ErrorMessage == null)
+        {
+            <li><a href="@Url.Action("Edit", "Metadata", new { uuid=@layer.Uuid })" target="_blank">@layer.Title <span class="glyphicon glyphicon-pencil"></span></a></li>
+        }
+        else
+        {
+            <li>@layer.Title <span class="label label-danger">Feil!</span> Klarte ikke å opprette metadata for laget. Feilmelding: @layer.ErrorMessage</li>
+        }
+        
     }
 </ul>

@@ -9,6 +9,8 @@ namespace Kartverket.MetadataEditor.Models
 {
     public class MetadataService
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private GeoNorge _geoNorge;
 
         public MetadataService(GeoNorge geonorge)
@@ -391,8 +393,21 @@ namespace Kartverket.MetadataEditor.Models
 
             List<string> layerIdentifiers = new List<string>();
             foreach(WmsLayerViewModel layer in layers) {
-                createDuplicateOfMetadata(parentMetadata, layer);
-                layerIdentifiers.Add(layer.Uuid);
+                try
+                {
+                    SimpleMetadata simpleLayer = createDuplicateOfMetadata(parentMetadata, layer);
+                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata());
+                    if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
+                    {
+                        layer.Uuid = transaction.Identifiers[0];
+                        layerIdentifiers.Add(layer.Uuid);
+                    }
+                }
+                catch (Exception e)
+                {
+                    layer.ErrorMessage = e.Message;
+                    Log.Error("Error while creating metadata for layer: " + layer.Title, e);
+                }
             }
 
             parentMetadata.OperatesOn = layerIdentifiers;
@@ -402,7 +417,7 @@ namespace Kartverket.MetadataEditor.Models
             return layers;
         }
 
-        private void createDuplicateOfMetadata(SimpleMetadata parentMetadata, WmsLayerViewModel layerModel)
+        private SimpleMetadata createDuplicateOfMetadata(SimpleMetadata parentMetadata, WmsLayerViewModel layerModel)
         {
             MD_Metadata_Type parent = parentMetadata.GetMetadata();
 
@@ -467,12 +482,9 @@ namespace Kartverket.MetadataEditor.Models
                 simpleLayer.EnglishAbstract = layerModel.EnglishAbstract;
             }
 
+            return simpleLayer;
 
-            MetadataTransaction transaction = _geoNorge.MetadataInsert(layer);
-            if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
-            {
-                layerModel.Uuid = transaction.Identifiers[0];
-            }
+            
         }
 
         internal string CreateMetadata(MetadataCreateViewModel model)

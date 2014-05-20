@@ -18,5 +18,7 @@ namespace Kartverket.MetadataEditor.Models
         public string Uuid { get; set; }
         public string EnglishTitle { get; set; }
         public string EnglishAbstract { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }
