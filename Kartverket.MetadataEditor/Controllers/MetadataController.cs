@@ -40,7 +40,7 @@ namespace Kartverket.MetadataEditor.Controllers
             model.MetadataContactOrganization = GetSecurityClaim("organization");
             if (ModelState.IsValid)
             {
-                string uuid = _metadataService.CreateMetadata(model);
+                string uuid = _metadataService.CreateMetadata(model, GetUsername());
 
                 return RedirectToAction("Edit", new { uuid = uuid });
             }
@@ -72,6 +72,11 @@ namespace Kartverket.MetadataEditor.Controllers
                 model.UserOrganization = userOrganization;
             }
             return View(model);
+        }
+
+        private string GetUsername()
+        {
+            return GetSecurityClaim("username");
         }
 
         private string GetSecurityClaim(string type)
@@ -125,7 +130,7 @@ namespace Kartverket.MetadataEditor.Controllers
             string errorMessage = null;
             try
             {
-                _metadataService.SaveMetadataModel(model);
+                _metadataService.SaveMetadataModel(model, GetUsername());
             }
             catch (Exception e)
             {

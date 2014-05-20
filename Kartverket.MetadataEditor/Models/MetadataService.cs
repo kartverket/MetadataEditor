@@ -212,7 +212,7 @@ namespace Kartverket.MetadataEditor.Models
             return model;
         }
 
-        public void SaveMetadataModel(MetadataViewModel model)
+        public void SaveMetadataModel(MetadataViewModel model, string username)
         {
             SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(model.Uuid));
 
@@ -374,7 +374,12 @@ namespace Kartverket.MetadataEditor.Models
 
             SetDefaultValuesOnMetadata(metadata);
 
-            _geoNorge.MetadataUpdate(metadata.GetMetadata());
+            _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+        }
+
+        private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username)
+        {
+            return new Dictionary<string, string> { { "GeonorgeUsername", username } };
         }
 
         private void SetDefaultValuesOnMetadata(SimpleMetadata metadata)
@@ -487,7 +492,7 @@ namespace Kartverket.MetadataEditor.Models
             
         }
 
-        internal string CreateMetadata(MetadataCreateViewModel model)
+        internal string CreateMetadata(MetadataCreateViewModel model, string username)
         {
             SimpleMetadata metadata = null;
             if (model.Type.Equals("service"))
@@ -531,7 +536,7 @@ namespace Kartverket.MetadataEditor.Models
 
             SetDefaultValuesOnMetadata(metadata);
 
-            _geoNorge.MetadataInsert(metadata.GetMetadata());
+            _geoNorge.MetadataInsert(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
 
             return metadata.Uuid;
         }
