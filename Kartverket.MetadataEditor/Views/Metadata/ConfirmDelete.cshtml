@@ -1,0 +1,11 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+<h2>Slett metadata</h2>
+
+<p>Er du sikker på at vil slette metadata: <strong>@Model.Title</strong></p>
+
+@using (Html.BeginForm("Delete", "Metadata", FormMethod.Post))
+{
+    @Html.Hidden("uuid", Model.Uuid);
+    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span> Slett</button>
+}

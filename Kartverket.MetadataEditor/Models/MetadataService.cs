@@ -541,6 +541,11 @@ namespace Kartverket.MetadataEditor.Models
             return metadata.Uuid;
         }
 
-       
+
+
+        internal void DeleteMetadata(string uuid, string username)
+        {
+            _geoNorge.MetadataDelete(uuid, CreateAdditionalHeadersWithUsername(username));
+        }
     }
 }

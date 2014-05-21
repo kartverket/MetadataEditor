@@ -132,7 +132,19 @@ namespace Kartverket.MetadataEditor.Models
             return allKeywords;
         }
 
-        
+
+
+        internal bool HasAccess(string organization)
+        {
+            bool hasAccess = false;
+
+            if (ContactMetadata != null && ContactMetadata.Organization != null && ContactMetadata.Organization.Equals(organization))
+            {
+                hasAccess = true;
+            }
+
+            return hasAccess;
+        }
     }
 
     public class Contact

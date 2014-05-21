@@ -48,5 +48,8 @@
                 <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
             </a>
         </div>
+        <div class="btn-group">
+            <a href="@Url.Action("ConfirmDelete", "Metadata", new { uuid = Model.Uuid })" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
+        </div>
     </td>
 </tr>

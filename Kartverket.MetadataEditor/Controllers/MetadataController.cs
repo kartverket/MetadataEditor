@@ -71,6 +71,12 @@ namespace Kartverket.MetadataEditor.Controllers
 
                 model.UserOrganization = userOrganization;
             }
+
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Message = TempData["Message"];
+            }
+
             return View(model);
         }
 
@@ -261,8 +267,54 @@ namespace Kartverket.MetadataEditor.Controllers
             return viewresult;
         }
 
-	}
+        [Authorize]
+        [HttpGet]
+        public ActionResult ConfirmDelete(string uuid)
+        {
+            if (string.IsNullOrWhiteSpace(uuid))
+                return HttpNotFound();
 
+            MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
+
+            string role = GetSecurityClaim("role");
+            if (HasAccessToMetadata(model))
+            {
+                return View(model);
+            } else {
+                return new HttpUnauthorizedResult();
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Delete(string uuid)
+        {
+            MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
+
+            string role = GetSecurityClaim("role");
+            if (HasAccessToMetadata(model))
+            {
+                _metadataService.DeleteMetadata(uuid, GetUsername());
+
+                TempData["Message"] = "Metadata med uuid " + uuid + " ble slettet.";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return new HttpUnauthorizedResult();
+            }
+        }
+
+        private bool HasAccessToMetadata(MetadataViewModel model)
+        {
+            string organization = GetSecurityClaim("organization");
+            string role = GetSecurityClaim("role");
+            bool isAdmin = !string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin");
+            return isAdmin || model.HasAccess(organization);
+        }
+
+	}
+    
     public enum MetadataMessages
     {
         InvalidUuid
