@@ -157,7 +157,9 @@
     <Compile Include="Models\ObjectExtensions.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
     <Compile Include="Models\WmsLayerViewModel.cs" />
+    <Compile Include="Models\WmsServiceViewModel.cs" />
     <Compile Include="Models\WmsServiceParser.cs" />
+    <Compile Include="Models\WmsGetCapabilities13Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\UI.Designer.cs">
       <AutoGen>True</AutoGen>

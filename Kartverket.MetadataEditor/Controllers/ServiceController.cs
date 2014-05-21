@@ -29,12 +29,21 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 wmsUrl = metadata.DistributionUrl;
             }
-            List<WmsLayerViewModel> layers = _wmsServiceParser.GetLayers(wmsUrl);
 
+            WmsServiceViewModel serviceModel = null;
+            try
+            {
+                serviceModel = _wmsServiceParser.GetLayers(wmsUrl);
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Feil ved henting av GetCapabilities: " + e.Message;
+            }
+            
             ServiceLayerViewModel model = new ServiceLayerViewModel
             {
                 Metadata = metadata,
-                Layers = layers,
+                Layers = serviceModel != null ? serviceModel.Layers : new List<WmsLayerViewModel>(),
                 WmsUrl = wmsUrl,
             };
 
@@ -45,10 +54,10 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
 
-            List<WmsLayerViewModel> layersFromService = _wmsServiceParser.GetLayers(wmsUrl);
+            WmsServiceViewModel serviceModel = _wmsServiceParser.GetLayers(wmsUrl);
 
             List<WmsLayerViewModel> createMetadataForLayers = new List<WmsLayerViewModel>();
-            foreach (var layer in layersFromService)
+            foreach (var layer in serviceModel.Layers)
             {
                 if (selectedLayers.Contains(layer.Name))
                 {
