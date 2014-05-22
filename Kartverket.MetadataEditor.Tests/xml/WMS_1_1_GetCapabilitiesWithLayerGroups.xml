@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE WMT_MS_Capabilities SYSTEM "http://schemas.opengis.net/wms/1.1.1/WMS_MS_Capabilities.dtd">
+<!-- end of DOCTYPE declaration --><WMT_MS_Capabilities version="1.1.1">
+
+<!-- MapServer version 6.3-dev OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG SUPPORTS=PROJ SUPPORTS=GD SUPPORTS=AGG SUPPORTS=FREETYPE SUPPORTS=ICONV SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=THREADS SUPPORTS=GEOS INPUT=JPEG INPUT=POSTGIS INPUT=ORACLESPATIAL INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE -->
+
+<Service>
+  <Name>OGC:WMS</Name>
+  <Title>Norges maritime grenser WMS</Title>
+  <Abstract>Norges maritime grenser er en samlebetegnelse for grenser og soner i havområder som inngår i Norges lover og forskrifter.</Abstract>
+  <KeywordList>
+      <Keyword>Norges maritime grenser WMS</Keyword>
+      <Keyword> sjøgrenser</Keyword>
+      <Keyword> sjøområder</Keyword>
+      <Keyword> 200 Milsgrense</Keyword>
+      <Keyword> Tilstøtende sone (24nm)</Keyword>
+      <Keyword> Grunnlinje</Keyword>
+      <Keyword> Territorialgrense (12nm)</Keyword>
+  </KeywordList>
+  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" />
+  <ContactInformation>
+    <ContactPersonPrimary>
+      <ContactPerson>Carina Tolpinrud Jøntvedt</ContactPerson>
+      <ContactOrganization>Kartverk</ContactOrganization>
+    </ContactPersonPrimary>
+      <ContactPosition>Data ansvarlig</ContactPosition>
+    <ContactAddress>
+        <AddressType>Postal address</AddressType>
+        <Address>Kartverket</Address>
+        <City>Hønefoss</City>
+        <StateOrProvince>Buskerud</StateOrProvince>
+        <PostCode>3507</PostCode>
+        <Country>Norway</Country>
+    </ContactAddress>
+  </ContactInformation>
+  <Fees>Norge digitalt</Fees>
+  <AccessConstraints>Copyright Kartverket 2007</AccessConstraints>
+</Service>
+
+<Capability>
+  <Request>
+    <GetCapabilities>
+      <Format>application/vnd.ogc.wms_xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Post>
+        </HTTP>
+      </DCPType>
+    </GetCapabilities>
+    <GetMap>
+      <Format>image/png</Format>
+      <Format>image/png; mode=24bit</Format>
+      <Format>image/jpeg</Format>
+      <Format>image/tiff</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Post>
+        </HTTP>
+      </DCPType>
+    </GetMap>
+    <GetFeatureInfo>
+      <Format>text/html</Format>
+      <Format>application/vnd.ogc.gml</Format>
+      <Format>text/plain</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Post>
+        </HTTP>
+      </DCPType>
+    </GetFeatureInfo>
+    <DescribeLayer>
+      <Format>text/xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Post>
+        </HTTP>
+      </DCPType>
+    </DescribeLayer>
+    <GetLegendGraphic>
+      <Format>image/png</Format>
+      <Format>image/png; mode=24bit</Format>
+      <Format>image/jpeg</Format>
+      <Format>image/gif</Format>
+      <Format>image/png; mode=8bit</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Post>
+        </HTTP>
+      </DCPType>
+    </GetLegendGraphic>
+    <GetStyles>
+      <Format>text/xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" /></Post>
+        </HTTP>
+      </DCPType>
+    </GetStyles>
+  </Request>
+  <Exception>
+    <Format>application/vnd.ogc.se_xml</Format>
+    <Format>application/vnd.ogc.se_inimage</Format>
+    <Format>application/vnd.ogc.se_blank</Format>
+  </Exception>
+  <VendorSpecificCapabilities />
+  <UserDefinedSymbolization SupportSLD="1" UserLayer="0" UserStyle="1" RemoteWFS="0" />
+  <Layer>
+    <Name>nmg_WMS</Name>
+    <Title>Norges maritime grenser WMS</Title>
+    <Abstract>Norges maritime grenser er en samlebetegnelse for grenser og soner i havområder som inngår i Norges lover og forskrifter.</Abstract>
+    <KeywordList>
+        <Keyword>Norges maritime grenser WMS</Keyword>
+        <Keyword> sjøgrenser</Keyword>
+        <Keyword> sjøområder</Keyword>
+        <Keyword> 200 Milsgrense</Keyword>
+        <Keyword> Tilstøtende sone (24nm)</Keyword>
+        <Keyword> Grunnlinje</Keyword>
+        <Keyword> Territorialgrense (12nm)</Keyword>
+    </KeywordList>
+    <SRS>EPSG:3575</SRS>
+    <SRS>EPSG:3034</SRS>
+    <SRS>EPSG:3035</SRS>
+    <SRS>EPSG:102018</SRS>
+    <SRS>EPSG:900913</SRS>
+    <SRS>EPSG:4326</SRS>
+    <SRS>EPSG:25829</SRS>
+    <SRS>EPSG:25830</SRS>
+    <SRS>EPSG:25831</SRS>
+    <SRS>EPSG:25832</SRS>
+    <SRS>EPSG:25833</SRS>
+    <SRS>EPSG:25834</SRS>
+    <SRS>EPSG:25835</SRS>
+    <SRS>EPSG:25836</SRS>
+    <SRS>EPSG:32636</SRS>
+    <SRS>EPSG:32635</SRS>
+    <SRS>EPSG:32632</SRS>
+    <SRS>EPSG:32634</SRS>
+    <SRS>EPSG:32631</SRS>
+    <SRS>EPSG:32633</SRS>
+    <SRS>EPSG:3857</SRS>
+    <LatLonBoundingBox minx="-181.791" miny="55.4651" maxx="162.447" maxy="101.108" />
+    <BoundingBox SRS="EPSG:32633" minx="-566158" miny="6.27807e+06" maxx="1.37006e+06" maxy="9.43158e+06" />
+    <Attribution>
+        <Title>Kartverket</Title>
+        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?" />
+    </Attribution>
+    <Layer>
+      <Title>Maritime_omraader</Title>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Landareal</Name>
+        <Title>Landareal</Title>
+        <Abstract>Området på 'land'-siden av kystkonturen, begrenset av kyst, kai og data-avgrensningslinjer</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="102" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Landareal&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Indre_farvann</Name>
+        <Title>Indre farvann</Title>
+        <Abstract>Havområdet innenfor grunnlinjen</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="125" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Indre_farvann&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Land_indre_farvann</Name>
+        <Title>Land indre farvann</Title>
+        <Abstract>Landområdet som grenser til Sverige, Finland og Russland med kystnære øyer, holmer og skjær, samt havområdet ut til grunnlinjen</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="162" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Land_indre_farvann&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Territorialfarvann</Name>
+        <Title>Territorialfarvann</Title>
+        <Abstract>Sone som dekker havområdet fra kystlinjen og ut til territorialgrensen, 12 nm utenfor og parallelt med grunnlinjen</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="153" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Territorialfarvann&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Sjoterritorium</Name>
+        <Title>Sjøterritorium</Title>
+        <Abstract>Sone som dekker havområdet fra grunnlinjen og ut til territorialgrensen, 12 nm utenfor og parallelt med grunnlinjen</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="127" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Sjoterritorium&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Territorialomraade</Name>
+        <Title>Territorialområde</Title>
+        <Abstract>Sone som dekker alt landområde og havområde innenfor territorialgrensen, 12 nm utenfor og parallelt med grunnlinjen</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="154" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Territorialomraade&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Tilstotende_sone</Name>
+        <Title>Tilstøtende sone</Title>
+        <Abstract>Sone som dekker havområdet fra territorialgrensen 12 nm og ut til 24 nm beregnet utenfor og parallelt med grunnlinjen ved Fastlands-Norge</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="151" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Tilstotende_sone&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Norges_okonomiske_sone</Name>
+        <Title>Norges økonomiske sone</Title>
+        <Abstract>Sone som dekker havområdet fra territorialgrensen 12 nm og ut til 200 nm beregnet utenfor og parallelt med grunnlinjen ved Fastlands-Norge, og er avgrenset av avtalte avgrensningslinjer der det er mindre enn 400 nm til annen stats grunnlinje</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="210" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Norges_okonomiske_sone&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Fiskevernsonen_ved_Svalbard</Name>
+        <Title>Fiskevernsonen ved Svalbard</Title>
+        <Abstract>Sone som dekker havområdet fra territorialgrensen 12 nm og ut til 200 nm beregnet utenfor og parallelt med grunnlinjene ved Svalbard, og er avgrenset av Norges økonomiske sone, samt avtalte avgrensningslinjer</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="239" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Fiskevernsonen_ved_Svalbard&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Fiskerisonen_ved_Jan_Mayen</Name>
+        <Title>Fiskerisonen ved Jan Mayen</Title>
+        <Abstract>Sone som dekker havområdet fra territorialgrensen 12 nm og ut til 200 nm beregnet utenfor og parallelt med grunnlinjen ved Jan Mayen, og er avgrenset av avtalte avgrensningslinjer der det er mindre enn 400 nm til annen stats grunnlinje</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="229" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Fiskerisonen_ved_Jan_Mayen&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Norges_kontinentalsokkel</Name>
+        <Title>Norges kontinentalsokkel</Title>
+        <Abstract>Sone som dekker den undersjøiske forlengelsen av landmassen ut til de store havdyp, og som regnes fra territorialgrensen 12 nm ved Fastlands-Norge, Svalbard og Jan Mayen og ut til yttergrensen for sokkel eller avtalt avgrensningslinje mot annen stat</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="210" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Norges_kontinentalsokkel&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Internasjonalt_farvann</Name>
+        <Title>Internasjonalt farvann</Title>
+        <Abstract>Havområde som ikke er underlagt noen form for kyststatsjurisdiksjon</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="185" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Internasjonalt_farvann&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>DSO</Name>
+        <Title>Det særskilte området, DSO</Title>
+        <Abstract>Havområde som ligger øst for avgrensningslinjen mot Russland, og innenfor 200 nm fra grunnlinjen ved Fastlands-Norge, men utenfor 200 nm fra grunnlinjen ved Russland</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="236" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=DSO&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+    </Layer>
+    <Layer>
+      <Title>Maritime_grenser</Title>
+      <Layer queryable="1" opaque="0" cascaded="0">
+<!-- WARNING: The layer name '1_nautisk_mil' might contain spaces or invalid characters or may start with a number. This could lead to potential problems. -->
+        <Name>1_nautisk_mil</Name>
+        <Title>1 nautisk mil</Title>
+        <Abstract>Maritim grense beregnet 1 nm utenfor og parallelt med grunnlinjen ved Fastlands-Norge</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="118" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=1_nautisk_mil&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="748.354272644456" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Fiskerigrense</Name>
+        <Title>Fiskerigrense</Title>
+        <Abstract>Maritim grense beregnet 4 nm utenfor og parallelt med grunnlinjen ved Fastlands-Norge</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="126" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Fiskerigrense&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="7483.54272644456" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>avgrensningslinje_for_sokkel</Name>
+        <Title>Avtalt avgrensningslinje for kontinentalsokkel</Title>
+        <Abstract>Avtalt og ratifisert grenselinje for den undersjøiske forlengelsen av landmassen ut til de store havdyp der flere enn én stat kan framlegge dokumentasjon utenfor 200 nm fra noen stats grunnlinje</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="227" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=avgrensningslinje_for_sokkel&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Sokkelgrense</Name>
+        <Title>Yttergrense for Norges kontinentalsokkel</Title>
+        <Abstract>Dokumentert og godkjent ytre begrensningslinje for den undersjøiske forlengelsen av landmassen ut til de store havdyp</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="128" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Sokkelgrense&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+<!-- WARNING: The layer name '200_nautiske_mil' might contain spaces or invalid characters or may start with a number. This could lead to potential problems. -->
+        <Name>200_nautiske_mil</Name>
+        <Title>200 nautiske mil</Title>
+        <Abstract>Ytre begrensningslinje i hav, beregnet 200 nm utenfor og parallelt med grunnlinjen ved Fastlands-Norge</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="146" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=200_nautiske_mil&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Avtalt_avgrensningslinje</Name>
+        <Title>Avtalt avgrensningslinje</Title>
+        <Abstract>Avtalt avgrensningslinje til havs basert på folkerettslig bindende avtale. Avtalt avgrensningslinje vil normalt gjelde alle aktuelle former for kyststatsjurisdiksjon. Detaljene vil framgå av den aktuelle avgrensningsavtale</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="199" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Avtalt_avgrensningslinje&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Yttergrense_for_tilstotende_sone</Name>
+        <Title>Yttergrense for tilstøtende sone 24 nautiske mil</Title>
+        <Abstract>Ytre begrensningslinje i hav, beregnet 24 nm utenfor og parallelt med grunnlinjen ved Fastlands-Norge, og som avgrenser tilstøtende sone</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="260" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Yttergrense_for_tilstotende_sone&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Territorialgrense</Name>
+        <Title>Territorialgrense 12 nautiske mil</Title>
+        <Abstract>Avgrensning i havet av statens suverenitetsområde, beregnet 12 nm utenfor og parallelt med grunnlinjen</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="148" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Territorialgrense&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Grunnlinje</Name>
+        <Title>Grunnlinje</Title>
+        <Abstract>Rette linjestykker trukket opp mellom punkter på de ytterste nes og skjær som stikker opp over havet ved lavvann (fjære sjø)</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="100" height="24">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Grunnlinje&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18708.8568161114" />
+      </Layer>
+    </Layer>
+    <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>Maritime_omraader_navn</Name>
+        <Title>Navn maritime områder</Title>
+        <Abstract>Navn på maritine områder</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="239" height="398">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Maritime_omraader_navn&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>Maritime_grenser_navn</Name>
+        <Title>Navn maritime grenser</Title>
+        <Abstract>Navn på maritime områder</Abstract>
+        <SRS>EPSG:32633</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="260" height="244">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://wms.geonorge.no/skwms1/wms.nmg?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=Maritime_grenser_navn&amp;format=image/png&amp;STYLE=default" />
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="2619.23995425559" />
+    </Layer>
+  </Layer>
+</Capability>
+</WMT_MS_Capabilities>

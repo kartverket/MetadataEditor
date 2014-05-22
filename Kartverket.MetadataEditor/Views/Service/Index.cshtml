@@ -86,39 +86,33 @@
 <hr/>
 
 <h4>@Model.Layers.Count lag funnet i GetCapabilities</h4>
-
-<div class="btn-toolbar" style="margin-bottom: 20px;">
-    <div class="btn-group">
-        <button id="toggleSelectedWmsLayers" class="btn btn-default">Velg alle/ingen</button>
-    </div>
-    <div class="btn-group">
-        <button id="toggleWmsLayerDetails" class="btn btn-default">Vis/skjul laginformasjon</button>
-    </div>
-    <div class="btn-group">
-        <button type="submit" class="btn btn-primary">Opprett metadata for valgte lag</button>
-    </div>
-</div>
-
 <form method="post" action="@Url.Action("CreateMetadataForLayers")">
 
     <input type="hidden" name="uuid" value="@Model.Metadata.Uuid" />
     <input type="hidden" name="wmsUrl" value="@Model.WmsUrl" />
+
+    <div class="btn-toolbar" style="margin-bottom: 20px;">
+        <div class="btn-group">
+            <button type="button" id="toggleSelectedWmsLayers" class="btn btn-default">Velg alle/ingen</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" id="toggleWmsLayerDetails" class="btn btn-default">Vis/skjul laginformasjon</button>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Opprett metadata for valgte lag</button>
+        </div>
+    </div>
 
     @foreach (var layer in Model.Layers)
     {
         <div class="panel panel-default wms-layer">
             <div class="panel-heading">
                 <input type="checkbox" name="selectedLayers" value="@layer.Name" checked="checked" />
-                @layer.Title <span class="layer-name">[@layer.Name]</span> 
+                @layer.Title <span class="layer-name">[@layer.Name]</span>
                 @if (layer.IsGroupLayer)
                 {
                     <span class="label label-info">Gruppelag</span>
                 }
-                <!--
-                <div class="pull-right">
-                    <label><input type="checkbox" name="selectedLayers" value="@layer.Name" checked="checked" /> Opprett metadata</label>
-                </div>
-                    -->
             </div>
             <div class="panel-body" style="display:none">
                 <p><strong>WMS lagnavn:</strong> @layer.Name</p>

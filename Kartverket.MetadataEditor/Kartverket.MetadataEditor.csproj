@@ -156,6 +156,7 @@
     <Compile Include="Models\MetadataViewModel.cs" />
     <Compile Include="Models\ObjectExtensions.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
+    <Compile Include="Models\WmsGetCapabilities11Parser.cs" />
     <Compile Include="Models\WmsLayerViewModel.cs" />
     <Compile Include="Models\WmsServiceViewModel.cs" />
     <Compile Include="Models\WmsServiceParser.cs" />

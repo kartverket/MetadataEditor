@@ -11,24 +11,25 @@ using System.Xml.Linq;
 namespace Kartverket.MetadataEditor.Tests.Models
 {
     [TestFixture]
-    public class WmsGetCapabilities13ParserTest
+    class WmsGetCapabilities11ParserTest
     {
+
         private string xmlFile;
         [SetUp]
         public void SetUp()
         {
-            xmlFile = File.ReadAllText("xml\\WMS_1_3_GetCapabilitiesWithLayerGroups.xml");
+            xmlFile = File.ReadAllText("xml\\WMS_1_1_GetCapabilitiesWithLayerGroups.xml");
         }
 
-
         [Test]
-        public void ShouldParseLayerGroupsFromWms1_3_GetCapabilitiesDocument()
+        public void ShouldParseLayerGroupsFromWms1_1_GetCapabilitiesDocument()
         {
             XDocument doc = XDocument.Parse(xmlFile);
-            WmsServiceViewModel serviceModel = new WmsGetCapabilities13Parser().Parse(doc);
+            WmsServiceViewModel serviceModel = new WmsGetCapabilities11Parser().Parse(doc);
 
             Assert.NotNull(serviceModel.Layers, "No layers found");
             Assert.AreEqual(26, serviceModel.Layers.Count, "Should have many layers");
         }
+
     }
 }

@@ -113,12 +113,16 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\WmsGetCapabilities11ParserTest.cs" />
     <Compile Include="Models\WmsGetCapabilities13ParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
-    <Content Include="xml\WMS_1_3_GetCapabiltiesWithLayerGroups.xml">
+    <Content Include="xml\WMS_1_1_GetCapabilitiesWithLayerGroups.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="xml\WMS_1_3_GetCapabilitiesWithLayerGroups.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
