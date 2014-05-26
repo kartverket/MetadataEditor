@@ -391,16 +391,18 @@ namespace Kartverket.MetadataEditor.Models
         }
 
 
-        internal List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers)
+        internal List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers, string[] keywords)
         {
-
             SimpleMetadata parentMetadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
+
+            List<SimpleKeyword> selectedKeywordsFromParent = CreateListOfKeywords(keywords);
 
             List<string> layerIdentifiers = new List<string>();
             foreach(WmsLayerViewModel layer in layers) {
                 try
                 {
                     SimpleMetadata simpleLayer = createDuplicateOfMetadata(parentMetadata, layer);
+                    simpleLayer.Keywords = selectedKeywordsFromParent;
                     MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata());
                     if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
                     {
@@ -420,6 +422,53 @@ namespace Kartverket.MetadataEditor.Models
             _geoNorge.MetadataUpdate(parentMetadata.GetMetadata());
 
             return layers;
+        }
+
+        private List<SimpleKeyword> CreateListOfKeywords(string[] selectedKeywords)
+        {
+            List<SimpleKeyword> keywords = new List<SimpleKeyword>();
+
+            foreach (var keyword in selectedKeywords)
+            {
+                SimpleKeyword simpleKeyword = null;
+                if (keyword.StartsWith("Theme_"))
+                {
+                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Type = SimpleKeyword.TYPE_THEME };
+                } 
+                else if (keyword.StartsWith("Place_"))
+                {
+                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Type = SimpleKeyword.TYPE_PLACE };
+                }
+                else if (keyword.StartsWith("NationalInitiative_"))
+                {
+                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE };
+                }
+                else if (keyword.StartsWith("Inspire_"))
+                {
+                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1 };
+                }
+                else if (keyword.StartsWith("Other_"))
+                {
+                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword) };
+                }
+
+                if (simpleKeyword != null)
+                    keywords.Add(simpleKeyword);
+            }
+            return keywords;
+        }
+
+        private string stripPrefixFromKeyword(string input)
+        {
+            int prefixIndexEnd = input.IndexOf("_");
+            if (prefixIndexEnd != -1)
+            {
+                return input.Substring(prefixIndexEnd + 1);
+            }
+            else
+            {
+                return input;
+            }            
         }
 
         private SimpleMetadata createDuplicateOfMetadata(SimpleMetadata parentMetadata, WmsLayerViewModel layerModel)

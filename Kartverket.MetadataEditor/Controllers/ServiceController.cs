@@ -50,7 +50,7 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
-        public ActionResult CreateMetadataForLayers(string uuid, string wmsUrl, String[] selectedLayers)
+        public ActionResult CreateMetadataForLayers(string uuid, string wmsUrl, String[] selectedLayers, string[] keywords)
         {
             MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
 
@@ -65,7 +65,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
             }
 
-            List<WmsLayerViewModel> newlyCreatedLayerMetadata = _metadataService.CreateMetadataForLayers(uuid, createMetadataForLayers);
+            List<WmsLayerViewModel> newlyCreatedLayerMetadata = _metadataService.CreateMetadataForLayers(uuid, createMetadataForLayers, keywords);
             
             ServiceLayerViewModel model = new ServiceLayerViewModel
             {
