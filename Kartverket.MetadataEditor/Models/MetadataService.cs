@@ -146,13 +146,14 @@ namespace Kartverket.MetadataEditor.Models
                 ContactPublisher = new Contact(metadata.ContactPublisher, "publisher"),
                 ContactOwner = new Contact(metadata.ContactOwner, "owner"),
 
-                KeywordsTheme = SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_THEME, null),
-                KeywordsPlace = SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null),
-                KeywordsNationalInitiative = SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE),
-                KeywordsInspire = SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1),
-                KeywordsServiceTaxonomy = SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY),
-                KeywordsOther = SimpleKeyword.Filter(metadata.Keywords, null, null),
-
+                KeywordsTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_THEME, null)),
+                KeywordsPlace = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null)),
+                KeywordsNationalInitiative = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE)),
+                KeywordsInspire = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1)),
+                KeywordsServiceTaxonomy = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY)),
+                KeywordsOther = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, null)),
+                KeywordsEnglish = CreateDictionaryOfEnglishKeywords(metadata.Keywords),
+                
                 TopicCategory = metadata.TopicCategory,
                 SupplementalDescription = metadata.SupplementalDescription,
                 SpecificUsage = metadata.SpecificUsage,
@@ -210,6 +211,33 @@ namespace Kartverket.MetadataEditor.Models
 
             model.FixThumbnailUrls();
             return model;
+        }
+
+        private Dictionary<string, string> CreateDictionaryOfEnglishKeywords(List<SimpleKeyword> keywords)
+        {
+            Dictionary<string, string> englishKeywords = new Dictionary<string, string>();
+            foreach (var keyword in keywords)
+            {
+                if (!string.IsNullOrWhiteSpace(keyword.EnglishKeyword))
+                {
+                    englishKeywords.Add(keyword.GetPrefix() + "_" + keyword.Keyword, keyword.EnglishKeyword);
+                }
+            }
+            return englishKeywords;
+        }
+
+
+        private List<string> CreateListOfKeywords(List<SimpleKeyword> input)
+        {
+            List<string> output = new List<string>();
+            if (input != null)
+            {
+                foreach (var keyword in input)
+                {
+                    output.Add(keyword.Keyword);
+                }
+            }            
+            return output;
         }
 
         public void SaveMetadataModel(MetadataViewModel model, string username)

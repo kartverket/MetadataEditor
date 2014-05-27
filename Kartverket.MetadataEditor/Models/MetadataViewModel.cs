@@ -27,6 +27,7 @@ namespace Kartverket.MetadataEditor.Models
         public List<String> KeywordsServiceTaxonomy { get; set; }
         public List<String> KeywordsNationalInitiative { get; set; }
         public List<String> KeywordsOther { get; set; }
+        public Dictionary<string, string> KeywordsEnglish { get; set; }
 
         public string LegendDescriptionUrl { get; set; }
         public string ProductPageUrl { get; set; }
@@ -104,35 +105,43 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        internal void AddKeywordsToList(List<SimpleKeyword> outputList, List<string> inputList, string type = null, string thesaurus = null)
+        internal List<SimpleKeyword> CreateKeywords(List<string> inputList, string prefix, string type = null, string thesaurus = null)
         {
+            List<SimpleKeyword> output = new List<SimpleKeyword>();
             if (inputList != null)
             {
                 foreach (var keyword in inputList)
                 {
-                    outputList.Add(new SimpleKeyword
+                    string englishTranslation = null;
+                    string keyForEnglishTranslation = prefix + "_" + keyword;
+                    if (KeywordsEnglish != null && KeywordsEnglish.ContainsKey(keyForEnglishTranslation))
+                    {
+                        englishTranslation = KeywordsEnglish[keyForEnglishTranslation];
+                    }
+
+                    output.Add(new SimpleKeyword
                     {
                         Keyword = keyword,
                         Thesaurus = thesaurus,
-                        Type = type
+                        Type = type,
+                        EnglishKeyword = englishTranslation,
                     });
                 }
             }
+            return output;
         }
 
         internal List<SimpleKeyword> GetAllKeywords()
         {
             List<SimpleKeyword> allKeywords = new List<SimpleKeyword>();
-            AddKeywordsToList(allKeywords, KeywordsInspire, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1);
-            AddKeywordsToList(allKeywords, KeywordsNationalInitiative, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE);
-            AddKeywordsToList(allKeywords, KeywordsServiceTaxonomy, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY);
-            AddKeywordsToList(allKeywords, KeywordsPlace, SimpleKeyword.TYPE_PLACE, null);
-            AddKeywordsToList(allKeywords, KeywordsTheme, SimpleKeyword.TYPE_THEME, null);
-            AddKeywordsToList(allKeywords, KeywordsOther, null, null);
+            allKeywords.AddRange(CreateKeywords(KeywordsInspire, "Inspire", null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1));
+            allKeywords.AddRange(CreateKeywords(KeywordsNationalInitiative, "NationalInitiative", null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE));
+            allKeywords.AddRange(CreateKeywords(KeywordsServiceTaxonomy, "Service", null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY));
+            allKeywords.AddRange(CreateKeywords(KeywordsPlace, "Place", SimpleKeyword.TYPE_PLACE, null));
+            allKeywords.AddRange(CreateKeywords(KeywordsTheme, "Theme", SimpleKeyword.TYPE_THEME, null));
+            allKeywords.AddRange(CreateKeywords(KeywordsOther, "Other", null, null));
             return allKeywords;
         }
-
-
 
         internal bool HasAccess(string organization)
         {
@@ -145,6 +154,7 @@ namespace Kartverket.MetadataEditor.Models
 
             return hasAccess;
         }
+
     }
 
     public class Contact

@@ -114,7 +114,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 return HttpNotFound();
 
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
-
+            
+           
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
             ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
