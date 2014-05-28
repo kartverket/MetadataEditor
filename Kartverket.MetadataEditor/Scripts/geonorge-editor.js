@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿
+
+$(function () {
 
     /* activate jquery ui datepicker */
     $.datepicker.regional['nb'] = {
@@ -45,5 +47,4 @@
         max: jQuery.validator.format("Vennligst skriv inn en verdi på mindre eller lik {0}."),
         min: jQuery.validator.format("Vennligst skriv inn en verdi på større eller lik {0}.")
     });
-
 });

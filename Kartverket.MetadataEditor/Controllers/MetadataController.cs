@@ -1,6 +1,7 @@
 ﻿using Kartverket.MetadataEditor.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -248,18 +249,31 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [Authorize]
-        public ActionResult UploadThumbnail(string uuid)
+        public ActionResult UploadThumbnail(string uuid, bool scaleImage = false)    
         {
             string filename = null;
             if (Request.Files.Count > 0)
             {
                 HttpPostedFileBase file = Request.Files[0];
-                filename = uuid + "_" + file.FileName;
+
+                var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                filename = uuid + "_" + timestamp + "_" + file.FileName;
                 string fullPath = Server.MapPath("~/thumbnails/" + filename);
-                file.SaveAs(fullPath);
+             
+                if (scaleImage)
+                {
+                    var image = Image.FromStream(file.InputStream);
+                    var newImage = ScaleImage(image, 180, 1000);
+                    newImage.Save(fullPath);
+                }
+                else
+                {
+                    file.SaveAs(fullPath);
+                }
             }
 
             var viewresult = Json(new { status = "OK", filename = filename});
+
             //for IE8 which does not accept application/json
             if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
                 viewresult.ContentType = "text/plain";
@@ -267,6 +281,21 @@ namespace Kartverket.MetadataEditor.Controllers
             return viewresult;
         }
 
+
+        public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
+        {
+            var ratioX = (double)maxWidth / image.Width;
+            var ratioY = (double)maxHeight / image.Height;
+            var ratio = Math.Min(ratioX, ratioY);
+
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
+
+            var newImage = new Bitmap(newWidth, newHeight);
+            Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
+            return newImage;
+        }
+        
         [Authorize]
         [HttpGet]
         public ActionResult ConfirmDelete(string uuid)

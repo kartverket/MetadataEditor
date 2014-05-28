@@ -123,9 +123,16 @@
                 dataType: 'json',
                 url: '/Metadata/UploadThumbnail',
                 add: function (e, data) {
-                    console.log(data);
+                  
                     $("#uploadThumbnailButton").on("click", function (event) {
                         event.preventDefault();
+
+                        console.log(data);
+                        data.formData = {
+                            "uuid" : "@Model.Uuid",
+                            "scaleImage": $('#uploadScaleImage').prop('checked')
+                        };
+
                         data.submit();
                     })
                 },

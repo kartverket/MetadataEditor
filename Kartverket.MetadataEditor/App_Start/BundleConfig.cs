@@ -18,6 +18,7 @@ namespace Kartverket.MetadataEditor
                 "~/Scripts/jquery-ui-1.10.4.min.js",
                 "~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js",
                 "~/Scripts/jQuery.FileUpload/jquery.fileupload.js",
+                "~/Scripts/bootstrap-filestyle.js",
                 "~/Scripts/geonorge-editor.js"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
