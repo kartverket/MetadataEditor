@@ -155,6 +155,22 @@ namespace Kartverket.MetadataEditor.Models
             return hasAccess;
         }
 
+
+        public bool IsService()
+        {
+            return HierarchyLevel == "service";
+        }
+
+        public bool IsDataset()
+        {
+            return HierarchyLevel == "dataset";
+        }
+
+        public bool IsSoftware()
+        {
+            return HierarchyLevel == "software";
+        }
+
     }
 
     public class Contact

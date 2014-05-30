@@ -579,6 +579,10 @@ namespace Kartverket.MetadataEditor.Models
             else
             {
                 metadata = SimpleMetadata.CreateDataset();
+                if (model.Type.Equals("software"))
+                {
+                    metadata.HierarchyLevel = "software";
+                }
             }
 
             metadata.Title = model.Title;

@@ -30,6 +30,10 @@
         {
             <span class="label label-success">@Resources.UI.Metadata_Type_Dataset</span>
         }
+        else if (Model.Type == "software")
+        {
+            <span class="label label-warning">Applikasjon</span>
+        }
         else
         {
             <span class="label label-warning">@Model.Type</span>

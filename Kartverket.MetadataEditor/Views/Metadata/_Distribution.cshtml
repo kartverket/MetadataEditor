@@ -1,6 +1,6 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
-@if (Model.HierarchyLevel == "dataset")
+@if (Model.IsDataset())
 {
     <div class="form-group">
         <label for="SpatialRepresentation" class="col-sm-2 control-label">Representasjonsform</label>
@@ -56,18 +56,21 @@
         </p>
     </div>
 </div>
-<div class="form-group">
-    <label for="DistributionName" class="col-sm-2 control-label">Lagnavn</label>
-    <div class="col-sm-9">
-        @Html.EditorFor(m => m.DistributionName)
-        <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
-            Fylles bare ut for tjenester, og kun hvis metadataene kun gjelder et lag i tjenesten og ikke hele tjenesten
-        </p>
-    </div>
-    <div class="col-sm-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
 
+@if (!Model.IsSoftware()) 
+{ 
+    <div class="form-group">
+        <label for="DistributionName" class="col-sm-2 control-label">Lagnavn</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(m => m.DistributionName)
+            <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
+                Fylles bare ut for tjenester, og kun hvis metadataene kun gjelder et lag i tjenesten og ikke hele tjenesten
+            </p>
+        </div>
+        <div class="col-sm-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
+    </div>
+}

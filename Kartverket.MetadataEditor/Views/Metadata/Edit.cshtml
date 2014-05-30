@@ -27,7 +27,7 @@
 
 @Html.ValidationSummary(false)
 
-@if (Model.HierarchyLevel == "service")
+@if (Model.IsService())
 {
     <div class="text-right">
         <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-default btn-xs">
@@ -38,11 +38,15 @@
 
 <ul class="nav nav-tabs" style="clear:both">
     <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
-@if (Model.HierarchyLevel == "dataset")
+@if (Model.IsDataset())
 {
     <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om datasett</a></li>
 }
-@if (Model.HierarchyLevel == "service")
+else if (Model.IsSoftware())
+{
+    <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om applikasjon</a></li>
+}
+else if (Model.IsService())
 {
     <li><a href="#service" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om tjeneste</a></li>
 }
@@ -62,7 +66,7 @@
             @Html.Partial("_Basic", Model)
         </div>
 
-        @if (Model.HierarchyLevel == "dataset")
+        @if (Model.IsDataset() || Model.IsSoftware())
         {
             <div class="tab-pane" id="dataset">
                 @Html.Partial("_Details", Model)
@@ -71,7 +75,7 @@
             </div>
         }
 
-        @if (Model.HierarchyLevel == "service")
+        @if (Model.IsService())
         {
             <div class="tab-pane" id="service">
                 @Html.Partial("_Details", Model)
