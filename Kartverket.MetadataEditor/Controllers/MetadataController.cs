@@ -37,11 +37,13 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Create(MetadataCreateViewModel model)
         {
-            model.MetadataContactOrganization = GetSecurityClaim("organization");
+            string organization = GetSecurityClaim("organization");
+            model.MetadataContactOrganization = organization;
             if (ModelState.IsValid)
             {
-                string uuid = _metadataService.CreateMetadata(model, GetUsername());
-
+                string username = GetUsername();
+                string uuid = _metadataService.CreateMetadata(model, username);
+                Log.Info(string.Format("Created new metadata: {0} [uuid = {1}] for user: {2} on behalf of {3} ", model.Title, uuid, username, organization));
                 return RedirectToAction("Edit", new { uuid = uuid });
             }
             return View(model);
