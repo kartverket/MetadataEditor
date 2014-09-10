@@ -68,10 +68,22 @@
                     }
                     else
                     {
-                        <a href="@Url.Content("~/Saml2AuthenticationModule/SignIn")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg inn</a>
+                        <a href="@Url.Action("SignIn", "AuthServices")" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-user"></span> Logg inn</a>
                     }
                 </div>
             </div>
+            @if (TempData["success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["success"]
+                </div>
+            }
+            @if (TempData["failure"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["failure"]
+                </div>
+            }
 
             @RenderBody()
         </div>
