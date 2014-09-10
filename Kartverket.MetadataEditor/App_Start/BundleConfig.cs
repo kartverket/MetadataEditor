@@ -15,7 +15,7 @@ namespace Kartverket.MetadataEditor
                 "~/Scripts/globalize-custom.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
-                "~/Scripts/jquery-ui-1.10.4.min.js",
+                "~/Scripts/jquery-ui.min-{version}.js",
                 "~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js",
                 "~/Scripts/jQuery.FileUpload/jquery.fileupload.js",
                 "~/Scripts/bootstrap-filestyle.js",
