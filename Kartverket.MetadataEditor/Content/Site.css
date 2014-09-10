@@ -91,3 +91,20 @@ footer { margin-top: 20px; }
 input[readonly] {
 	cursor: default !important;
 }
+
+.menu { margin-bottom: 20px; }
+
+
+.form-group.required .control-label:after, .panel-heading.required:after { 
+   content: " *";
+   color: red;
+}
+
+.form-group.has-feedback .form-control-feedback { display: none; }
+.form-group.has-feedback.has-error .form-control-feedback { display: block; }
+
+.nav-tabs li.has-error > span.glyphicon-warning-sign {
+    position: absolute;
+    z-index: 2;
+    color: #a94442;
+}

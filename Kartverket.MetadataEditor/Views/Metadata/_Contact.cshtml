@@ -1,22 +1,22 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
 <div class="panel panel-default">
-    <div class="panel-heading">Metadatakontakt</div>
+    <div class="panel-heading required">Metadatakontakt</div>
     <div class="panel-body">
         @Html.HiddenFor(m => Model.ContactMetadata.Role)
-        <div class="form-group">
+        <div class="form-group required">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactMetadata.Name, new { @class = "form-control" })
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group required">
             <label for="abstract" class="col-sm-2 control-label">Epost</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactMetadata.Email, new { @class = "form-control" })
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group required">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactMetadata.Organization, new { @class = "form-control" })

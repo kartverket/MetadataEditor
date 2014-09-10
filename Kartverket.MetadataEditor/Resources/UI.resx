@@ -126,8 +126,23 @@
   <data name="Error_InvalidUuid" xml:space="preserve">
     <value>Ugyldig uuid</value>
   </data>
+  <data name="FieldMustBeDate" xml:space="preserve">
+    <value>{0} må være en dato på formen 19.01.2014.</value>
+  </data>
+  <data name="FieldMustBeNumeric" xml:space="preserve">
+    <value>{0} må være et tall.</value>
+  </data>
+  <data name="Metadata_Abstract" xml:space="preserve">
+    <value>Sammendrag</value>
+  </data>
   <data name="Metadata_Edit_DatasetFields" xml:space="preserve">
     <value>Detaljer om datasett</value>
+  </data>
+  <data name="Metadata_Edit_Saved_Failure" xml:space="preserve">
+    <value>Det oppstod en feil under lagring av metadata: {0}.</value>
+  </data>
+  <data name="Metadata_Edit_Saved_Success" xml:space="preserve">
+    <value>Metadataene ble lagret.</value>
   </data>
   <data name="Metadata_Edit_ServiceFields" xml:space="preserve">
     <value>Detaljer om tjeneste</value>
@@ -137,6 +152,9 @@
   </data>
   <data name="Metadata_Organization" xml:space="preserve">
     <value>Organisasjon</value>
+  </data>
+  <data name="Metadata_Purpose" xml:space="preserve">
+    <value>Formål</value>
   </data>
   <data name="Metadata_Title" xml:space="preserve">
     <value>Tittel</value>
@@ -158,5 +176,11 @@
   </data>
   <data name="Organization" xml:space="preserve">
     <value>Organisasjon</value>
+  </data>
+  <data name="PropertyValueInvalid" xml:space="preserve">
+    <value>Verdien '{0}' er ikke gyldig for feltet {1}.</value>
+  </data>
+  <data name="PropertyValueRequired" xml:space="preserve">
+    <value>{0} er et påkrevd felt.</value>
   </data>
 </root>

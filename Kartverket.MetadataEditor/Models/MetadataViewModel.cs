@@ -1,20 +1,43 @@
-﻿using GeoNorgeAPI;
+﻿using System.ComponentModel;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Versioning;
+using ExpressiveAnnotations.Attributes;
+using GeoNorgeAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using Microsoft.Ajax.Utilities;
+using Resources;
 
 namespace Kartverket.MetadataEditor.Models
 {
     public class MetadataViewModel
     {
-        
+
+        public MetadataViewModel()
+        {
+            KeywordsTheme = new List<string>();
+            KeywordsPlace = new List<string>();
+            KeywordsInspire = new List<string>();
+            KeywordsServiceTaxonomy = new List<string>();
+            KeywordsNationalInitiative = new List<string>();
+            KeywordsOther = new List<string>();
+            KeywordsEnglish = new Dictionary<string, string>();
+        }
         
         public string Uuid { get; set; }
         public string HierarchyLevel { get; set; }
+        
+        [Required]
+        [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
+        
+        [Required]
+        [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
         public string Purpose { get; set; }
+
+        [Required]
+        [Display(Name = "Metadata_Abstract", ResourceType = typeof(UI))]
         public string Abstract { get; set; }
 
         public Contact ContactMetadata { get; set; }
@@ -175,9 +198,15 @@ namespace Kartverket.MetadataEditor.Models
 
     public class Contact
     {
+        [RequiredIf("Role == 'pointOfContact'", ErrorMessage = "Metadatakontakt er påkrevd.")]
         public string Name { get; set; }
+
+        [RequiredIf("Name != null", ErrorMessage = "Organisasjon er påkrevd når navn på kontaktperson er oppgitt.")]
         public string Organization { get; set; }
+        
+        [RequiredIf("Name != null", ErrorMessage = "Epost er påkrevd når navn på kontaktperson er oppgitt.")]
         public string Email { get; set; }
+
         public string Role { get; set; }
 
         public Contact() { }

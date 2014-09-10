@@ -111,14 +111,21 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Edit(string uuid, bool saved = false)
+        public ActionResult Edit(string uuid)
         {
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
 
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
-            
-           
+
+            PrepareViewBagForEditing(model);
+
+            return View(model);
+        }
+
+
+        private void PrepareViewBagForEditing(MetadataViewModel model)
+        {
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
             ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
@@ -126,30 +133,30 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(), "Key", "Value", model.SecurityConstraints);
             ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.UseConstraints);
             ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.AccessConstraints);
-            ViewBag.Saved = saved;
-
-            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(MetadataViewModel model)
+        public ActionResult Edit(string uuid, MetadataViewModel model)
         {
-            bool saved = true;
-            string errorMessage = null;
-            try
+            if (ModelState.IsValid)
             {
-                _metadataService.SaveMetadataModel(model, GetUsername());
+                try
+                {
+                    _metadataService.SaveMetadataModel(model, GetUsername());
+                    TempData["success"] = Resources.UI.Metadata_Edit_Saved_Success;
+                }
+                catch (Exception e)
+                {
+                    Log.Error("Error while editing metadata with uuid = " + model.Uuid, e);
+                    TempData["failure"] = String.Format(Resources.UI.Metadata_Edit_Saved_Failure, e.Message);
+                }
+                
+                return RedirectToAction("Edit", new {uuid = model.Uuid});
             }
-            catch (Exception e)
-            {
-                saved = false;
-                errorMessage = e.Message;
-                Log.Error("Error while editing metadata with uuid = " + model.Uuid, e);
 
-            }
-            
-            return RedirectToAction("Edit", new { uuid = model.Uuid, saved});
+            PrepareViewBagForEditing(model);
+            return View(model);
         }
 
         public Dictionary<string, string> GetListOfTopicCategories()

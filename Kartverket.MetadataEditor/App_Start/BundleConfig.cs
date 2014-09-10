@@ -10,6 +10,7 @@ namespace Kartverket.MetadataEditor
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery.validate*",
+                "~/Scripts/expressive.annotations.validate.js",
                 "~/Scripts/globalize.js",
                 "~/Scripts/globalize.culture.nb-NO.js",
                 "~/Scripts/globalize-custom.js",

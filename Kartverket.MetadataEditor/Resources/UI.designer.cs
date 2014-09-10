@@ -88,11 +88,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} må være en dato på formen 19.01.2014..
+        /// </summary>
+        public static string FieldMustBeDate {
+            get {
+                return ResourceManager.GetString("FieldMustBeDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} må være et tall..
+        /// </summary>
+        public static string FieldMustBeNumeric {
+            get {
+                return ResourceManager.GetString("FieldMustBeNumeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sammendrag.
+        /// </summary>
+        public static string Metadata_Abstract {
+            get {
+                return ResourceManager.GetString("Metadata_Abstract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detaljer om datasett.
         /// </summary>
         public static string Metadata_Edit_DatasetFields {
             get {
                 return ResourceManager.GetString("Metadata_Edit_DatasetFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det oppstod en feil under lagring av metadata: {0}..
+        /// </summary>
+        public static string Metadata_Edit_Saved_Failure {
+            get {
+                return ResourceManager.GetString("Metadata_Edit_Saved_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metadataene ble lagret..
+        /// </summary>
+        public static string Metadata_Edit_Saved_Success {
+            get {
+                return ResourceManager.GetString("Metadata_Edit_Saved_Success", resourceCulture);
             }
         }
         
@@ -120,6 +165,15 @@ namespace Resources {
         public static string Metadata_Organization {
             get {
                 return ResourceManager.GetString("Metadata_Organization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formål.
+        /// </summary>
+        public static string Metadata_Purpose {
+            get {
+                return ResourceManager.GetString("Metadata_Purpose", resourceCulture);
             }
         }
         
@@ -183,6 +237,24 @@ namespace Resources {
         public static string Organization {
             get {
                 return ResourceManager.GetString("Organization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verdien &apos;{0}&apos; er ikke gyldig for feltet {1}..
+        /// </summary>
+        public static string PropertyValueInvalid {
+            get {
+                return ResourceManager.GetString("PropertyValueInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} er et påkrevd felt..
+        /// </summary>
+        public static string PropertyValueRequired {
+            get {
+                return ResourceManager.GetString("PropertyValueRequired", resourceCulture);
             }
         }
     }

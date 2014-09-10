@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using ExpressiveAnnotations.Attributes;
+using ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.Validators;
+using Kartverket.MetadataEditor.Util;
 
 namespace Kartverket.MetadataEditor
 {
@@ -19,11 +19,20 @@ namespace Kartverket.MetadataEditor
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredIfValidator));
+            DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(AssertThatAttribute), typeof(AssertThatValidator));
 
-            CultureInfo culture = new CultureInfo("nb-NO");
+            // override standard error messages
+            ClientDataTypeModelValidatorProvider.ResourceClassKey = "UI";
+            DefaultModelBinder.ResourceClassKey = "UI";
+            DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredAttribute), typeof(MyRequiredAttributeAdapter));
+
+            // setting locale
+            var culture = new CultureInfo("nb-NO");
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
 
+            // init log4net
             log4net.Config.XmlConfigurator.Configure();
         }
     }

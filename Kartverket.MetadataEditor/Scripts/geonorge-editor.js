@@ -1,4 +1,36 @@
 ﻿
+$.validator.setDefaults({
+    ignore: "", /* allow validation of inivisble elements, i.e. those that are in an inactive tab*/
+    highlight: function (element) {
+        console.log("Running highlight!!");
+        $(element).closest(".form-group").addClass("has-error");
+        
+        var id = $(element).closest(".tab-pane").attr('id');
+        var $tabLink = $('ul.nav-tabs a[href=#' + id + ']');
+
+        $tabLink.parent().addClass("has-error");
+
+        var warning = $tabLink.parent().find('span.glyphicon-warning-sign');
+        console.log("warning=");
+        console.log(warning);
+        if (warning.length == 0) {
+
+            $tabLink.before('<span class="glyphicon glyphicon-warning-sign"></span>');
+        }
+        
+    },
+    unhighlight: function (element) {
+       // $(element).closest(".form-group").removeClass("has-error");
+        /*
+        var id = $(element).closest(".tab-pane").attr('id');
+        var $tabLink = $('ul.nav-tabs a[href=#' + id + ']');
+        $tabLink.parent().removeClass("has-error");
+        $tabLink.parent().find('span.glyphicon-warning-sign').remove();
+        */
+
+        console.log("unhighlight");
+    }
+});
 
 $(function () {
 
@@ -47,4 +79,6 @@ $(function () {
         max: jQuery.validator.format("Vennligst skriv inn en verdi på mindre eller lik {0}."),
         min: jQuery.validator.format("Vennligst skriv inn en verdi på større eller lik {0}.")
     });
+
+    
 });

@@ -1,9 +1,10 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
-<div class="form-group">
-    <label for="Title" class="col-sm-2 control-label">Navn</label>
+<div class="form-group required has-feedback">
+    @Html.LabelFor(m => m.Title, new { @class = "col-sm-2 control-label" })
     <div class="col-sm-9">
         @Html.EditorFor(m => m.Title)
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
         <p class="help-text bg-success" id="help-text-name" style="display: none">
             Offisiell tittel (navn). Navnet skal være konsist, beskrive tjenesten/datasettet best mulig og baseres på norsk rettskriving.  Navnet skal være identisk med det som blir brukt i nedlastningsløsninger og på etatens hjemmesider. Navnet kan også inneholde årstall og geografisk område.
         </p>
@@ -15,10 +16,11 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label for="Purpose" class="col-sm-2 control-label">Formål</label>
+<div class="form-group required has-feedback">
+    @Html.LabelFor(m => m.Purpose, new { @class = "col-sm-2 control-label" })
     <div class="col-sm-9">
         @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
         <p class="help-text bg-success" id="help-text-purpose" style="display: none">
             Kortfattet tekst om hva som er formålet med tjenesten / datasettet / datasettserien.
         </p>
@@ -30,10 +32,11 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label for="Abstract" class="col-sm-2 control-label">Sammendrag</label>
+<div class="form-group required has-feedback">
+    @Html.LabelFor(m => m.Abstract, new { @class = "col-sm-2 control-label" })
     <div class="col-sm-9">
         @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
         <p class="help-text bg-success" id="help-text-abstract" style="display: none">
             Kortfattet tekst om hva som er innholdet i tjenesten/datasettet.
         </p>
@@ -101,14 +104,14 @@
                 <p class="keyword-header">Samarbeid og lover</p>
                 <ul id="keywords-national-initiative">
                     @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
-                    {
-                        var keyword = Model.KeywordsNationalInitiative[i];
-                        <li id="keywords-national-initiative-@i">
-                            <span class="label label-success">@keyword</span>
-                            <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i"><small>Slett</small></a>
-                            <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
-                        </li>
-                    }
+                        {
+                            var keyword = Model.KeywordsNationalInitiative[i];
+                            <li id="keywords-national-initiative-@i">
+                                <span class="label label-success">@keyword</span>
+                                <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i"><small>Slett</small></a>
+                                <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
+                            </li>
+                        }
                 </ul>
                 <div class="form-group">
                     <div class="col-sm-6">
