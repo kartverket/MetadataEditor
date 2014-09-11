@@ -23,8 +23,10 @@ namespace Kartverket.MetadataEditor
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(AssertThatAttribute), typeof(AssertThatValidator));
 
             // override standard error messages
-            ClientDataTypeModelValidatorProvider.ResourceClassKey = "UI";
-            DefaultModelBinder.ResourceClassKey = "UI";
+            ClientDataTypeModelValidatorProvider.ResourceClassKey = "DefaultResources";
+            DefaultModelBinder.ResourceClassKey = "DefaultResources";
+
+
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredAttribute), typeof(MyRequiredAttributeAdapter));
 
             // setting locale

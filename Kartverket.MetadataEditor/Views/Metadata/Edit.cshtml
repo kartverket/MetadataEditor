@@ -61,6 +61,7 @@ else if (Model.IsService())
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form">
     @Html.HiddenFor(m => m.Uuid)
     @Html.HiddenFor(m => m.DateMetadataUpdated)
+    @Html.HiddenFor(m => m.HierarchyLevel)
 
     <div class="tab-content">
         <div class="tab-pane active" id="home">
@@ -125,10 +126,21 @@ else if (Model.IsService())
     <script>
         $(function () {
 
-            $('button#save').click(function(event) {
-                console.log("saving!");
-            });
+            //  add warning sign to tabs containing input fields with error.
+            $('.input-validation-error').each(function () {
+                var $inputElement = $(this);
+                $inputElement.closest('.form-group').addClass('has-error');
 
+                var id = $inputElement.closest(".tab-pane").attr('id');
+                var $tabLink = $('ul.nav-tabs a[href=#' + id + ']');
+
+                $tabLink.parent().addClass("has-error");
+
+                var warning = $tabLink.parent().find('span.glyphicon-warning-sign');
+                if (warning.length == 0) {
+                    $tabLink.before('<span class="glyphicon glyphicon-warning-sign"></span>');
+                }
+            });
 
             $('#uploadThumbnailFile').fileupload({
                 dataType: 'json',

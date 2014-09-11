@@ -99,12 +99,15 @@ namespace Kartverket.MetadataEditor.Models
         public string OtherConstraints { get; set; }
         public string SecurityConstraints { get; set; }
 
-        [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        [Display(Name = "Metadata_DateCreated", ResourceType = typeof(UI))]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime? DateCreated { get; set; }
 
+        [Display(Name = "Metadata_DatePublished", ResourceType = typeof(UI))]
         [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime? DatePublished { get; set; }
 
+        [Display(Name = "Metadata_DateUpdated", ResourceType = typeof(UI))]
         [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime? DateUpdated { get; set; }
 
@@ -198,13 +201,13 @@ namespace Kartverket.MetadataEditor.Models
 
     public class Contact
     {
-        [RequiredIf("Role == 'pointOfContact'", ErrorMessage = "Metadatakontakt er påkrevd.")]
+        [RequiredIf("Role == 'pointOfContact'", ErrorMessageResourceName = "Metadata_Contact_Name_Required", ErrorMessageResourceType = typeof(UI))]
         public string Name { get; set; }
 
-        [RequiredIf("Name != null", ErrorMessage = "Organisasjon er påkrevd når navn på kontaktperson er oppgitt.")]
+        [RequiredIf("Name != null", ErrorMessageResourceName = "Metadata_Contact_Organization_Required", ErrorMessageResourceType = typeof(UI))]
         public string Organization { get; set; }
-        
-        [RequiredIf("Name != null", ErrorMessage = "Epost er påkrevd når navn på kontaktperson er oppgitt.")]
+
+        [RequiredIf("Name != null", ErrorMessageResourceName = "Metadata_Contact_Email_Required", ErrorMessageResourceType = typeof(UI))]
         public string Email { get; set; }
 
         public string Role { get; set; }
