@@ -146,18 +146,18 @@ else if (Model.IsService())
                 dataType: 'json',
                 url: '/Metadata/UploadThumbnail',
                 add: function (e, data) {
-                  
-                    $("#uploadThumbnailButton").on("click", function (event) {
+
+                    $("#uploadThumbnailButton").on("click", function(event) {
                         event.preventDefault();
 
                         console.log(data);
                         data.formData = {
-                            "uuid" : "@Model.Uuid",
+                            "uuid": "@Model.Uuid",
                             "scaleImage": $('#uploadScaleImage').prop('checked')
                         };
 
                         data.submit();
-                    })
+                    });
                 },
                 done: function (e, data) {
                     console.log("File uploaded: " + data.result.filename);
@@ -175,7 +175,7 @@ else if (Model.IsService())
                 var $thumbnailType = $("#thumbnailType");
                 var $thumbnailUrl = $("#thumbnailUrl");
 
-                var $item = $('<li />', { class: 'thumbnail clearfix' });
+                var $item = $('<li />', { "class": 'thumbnail clearfix' });
 
                 var $itemImage = $('<img />', {
                     src: $thumbnailUrl.val(),
@@ -215,7 +215,7 @@ else if (Model.IsService())
                 $(this).parent().remove();
                 
                 $('#thumbnails li').each(function (index, value) {
-                    $hiddenItemsForRow = $('input[type=hidden]', value);
+                    var $hiddenItemsForRow = $('input[type=hidden]', value);
                     $hiddenItemsForRow.each(function(hiddenIndex, hiddenValue) {
                         var name = $(hiddenValue).attr("name");
                         console.log(name);
@@ -228,6 +228,8 @@ else if (Model.IsService())
                 });
             });
 
+            // help text
+
             $("a.help-text-toggle").click(function (event) {
                 event.preventDefault();
                 var helpTextId = $(this).data("help-text-id");
@@ -237,11 +239,15 @@ else if (Model.IsService())
             // add help icon to each help text paragraph
             $(".help-text").prepend("<span class=\"badge\">?</span> ");
 
+            // distribution
+
             $('button#usePredefinedDistributionProtocol').click(function (event) {
                 event.preventDefault();
                 var selectedProtocol = $('select#predefinedDistributionProtocols').val();
                 $('#DistributionProtocol').val(selectedProtocol);
             });
+
+            // conformity 
 
             $("button#prefillConformityInspire").click(function (event) {
                 event.preventDefault();
@@ -260,6 +266,8 @@ else if (Model.IsService())
                 $("#QualitySpecificationResult").prop('checked', true);
             });
 
+
+            // bounding box
 
             var $states = $('select#bboxState');
             var $counties = $('select#bboxCounty');
@@ -285,8 +293,10 @@ else if (Model.IsService())
             });
 
 
+            // keywords
+
             function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
-                var deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
+                deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
 
                 var $keywordInput = $('#' + selectorPrefix + '-text');
 
@@ -318,14 +328,14 @@ else if (Model.IsService())
             };
 
             function addKeywordFromCodeList(selectorPrefix, inputName) {
-                $keywordInput = addKeyword(selectorPrefix, inputName);
+                var $keywordInput = addKeyword(selectorPrefix, inputName);
                 var $selected = $keywordInput.find("option:selected");
                 $selected.attr("disabled", "disabled");
                 $selected.removeAttr("selected");
             };
 
             function addKeywordFromTextbox(selectorPrefix, inputName) {
-                $keywordInput = addKeyword(selectorPrefix, inputName);
+                var $keywordInput = addKeyword(selectorPrefix, inputName);
                 $keywordInput.val('');
             }
 
@@ -373,7 +383,7 @@ else if (Model.IsService())
                     $listItem.remove();
 
                     $('li', $parentList).each(function (index, value) {
-                        $hiddenItemsForRow = $('input[type=hidden]', value);
+                        var $hiddenItemsForRow = $('input[type=hidden]', value);
                         $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
                             var name = $(hiddenValue).attr("name");
                             //console.log("hidden value old name: " + name);
