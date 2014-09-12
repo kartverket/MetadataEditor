@@ -124,6 +124,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med punktum og minst 2 desimaler nøyaktighet..
+        /// </summary>
+        public static string Metadata_BoundingBox_East_Invalid {
+            get {
+                return ResourceManager.GetString("Metadata_BoundingBox_East_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning - Nord - er ikke gyldig. Koordinaten må oppgis med punktum og minst 2 desimaler nøyaktighet..
+        /// </summary>
+        public static string Metadata_BoundingBox_North_Invalid {
+            get {
+                return ResourceManager.GetString("Metadata_BoundingBox_North_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning - Sør - er ikke gyldig. Koordinaten må oppgis med punktum og minst 2 desimaler nøyaktighet..
+        /// </summary>
+        public static string Metadata_BoundingBox_South_Invalid {
+            get {
+                return ResourceManager.GetString("Metadata_BoundingBox_South_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning - Vest - er ikke gyldig. Koordinaten må oppgis med punktum og minst 2 desimaler nøyaktighet..
+        /// </summary>
+        public static string Metadata_BoundingBox_West_Invalid {
+            get {
+                return ResourceManager.GetString("Metadata_BoundingBox_West_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Epost er påkrevd når navn på kontaktperson er oppgitt..
         /// </summary>
         public static string Metadata_Contact_Email_Required {

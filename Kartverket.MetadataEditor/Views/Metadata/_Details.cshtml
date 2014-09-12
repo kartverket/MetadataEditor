@@ -43,29 +43,35 @@
 <div class="panel panel-default">
     <div class="panel-heading">Geografisk utstrekning</div>
     <div class="panel-body">
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Nord</label>
-            <div class="col-sm-2">
-                @Html.EditorFor(m => m.BoundingBoxNorth)
+        <div class="row">
+            <div class="form-group col-sm-6 ">
+                <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.BoundingBoxNorth)
+                </div>
             </div>
-            <label class="col-sm-1 control-label">Øst</label>
-            <div class="col-sm-2">
-                @Html.EditorFor(m => m.BoundingBoxEast)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Sør</label>
-            <div class="col-sm-2">
-                @Html.EditorFor(m => m.BoundingBoxSouth)
-            </div>
-            <label class="col-sm-1 control-label">Vest</label>
-            <div class="col-sm-2">
-                @Html.EditorFor(m => m.BoundingBoxWest)
+            <div class="form-group col-sm-6 ">
+                <label class="col-sm-2 control-label">Øst</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.BoundingBoxEast)
+                </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.BoundingBoxSouth)
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="col-sm-2 control-label">Vest</label>
+                <div class="col-sm-4">
+                    @Html.EditorFor(m => m.BoundingBoxWest)
+                </div>
+            </div>
+        </div>
+        <p>Koordinatene må oppgis med punktum og minst to desimalers nøyaktighet. Eksempel: 71.8912 og -2.5591</p>
         <p>Skriv inn koordinatverdier for utstrekning, eller bruk de forhåndsdefinerte verdiene nedenfor dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune.</p>
         <div class="form-group">
             <label for="state" class="control-label col-sm-3">Fylke:</label>

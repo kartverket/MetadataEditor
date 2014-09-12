@@ -209,8 +209,25 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
 
+            if (metadata.BoundingBox != null)
+            {
+                model.BoundingBoxEast = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.EastBoundLongitude);
+                model.BoundingBoxWest = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.WestBoundLongitude);
+                model.BoundingBoxNorth = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.NorthBoundLatitude);
+                model.BoundingBoxSouth = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.SouthBoundLatitude);
+            }
+
             model.FixThumbnailUrls();
             return model;
+        }
+
+        private string ConvertCoordinateWithCommaToPoint(string input)
+        {
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                return input.Replace(',', '.');
+            }
+            return input;
         }
 
         private Dictionary<string, string> CreateDictionaryOfEnglishKeywords(List<SimpleKeyword> keywords)

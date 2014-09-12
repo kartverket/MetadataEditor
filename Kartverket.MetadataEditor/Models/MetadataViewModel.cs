@@ -1,12 +1,8 @@
-﻿using System.ComponentModel;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.Versioning;
-using ExpressiveAnnotations.Attributes;
+﻿using ExpressiveAnnotations.Attributes;
 using GeoNorgeAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.Ajax.Utilities;
 using Resources;
 
 namespace Kartverket.MetadataEditor.Models
@@ -62,9 +58,16 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Status { get; set; }
 
+        [RegularExpression(@"-?(0+|(0*[1-9]\d*))(\.\d{2,})", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI))]
         public string BoundingBoxEast { get; set; }
+
+        [RegularExpression(@"-?(0+|(0*[1-9]\d*))(\.\d{2,})", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI))]
         public string BoundingBoxWest { get; set; }
+        
+        [RegularExpression(@"-?(0+|(0*[1-9]\d*))(\.\d{2,})", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI))]
         public string BoundingBoxNorth { get; set; }
+
+        [RegularExpression(@"-?(0+|(0*[1-9]\d*))(\.\d{2,})", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI))]
         public string BoundingBoxSouth { get; set; }
 
         /* dataset only */

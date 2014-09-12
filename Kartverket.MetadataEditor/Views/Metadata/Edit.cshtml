@@ -138,7 +138,7 @@ else if (Model.IsService())
 
                 var warning = $tabLink.parent().find('span.glyphicon-warning-sign');
                 if (warning.length == 0) {
-                    $tabLink.before('<span class="glyphicon glyphicon-warning-sign"></span>');
+                    $tabLink.before('<span class="glyphicon glyphicon-warning-sign" title="Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet."></span>');
                 }
             });
 
