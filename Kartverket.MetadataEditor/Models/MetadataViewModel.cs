@@ -23,6 +23,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsNationalInitiative = new List<string>();
             KeywordsOther = new List<string>();
             KeywordsEnglish = new Dictionary<string, string>();
+            Thumbnails = new List<Thumbnail>();
         }
         
         public string Uuid { get; set; }
