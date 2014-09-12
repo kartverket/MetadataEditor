@@ -1,10 +1,12 @@
-﻿using Kartverket.MetadataEditor.Models;
+﻿using System.IO;
+using Kartverket.MetadataEditor.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Resources;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -137,26 +139,43 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(string uuid, MetadataViewModel model)
+        public ActionResult Edit(string uuid, string action, MetadataViewModel model)
         {
             if (ModelState.IsValid)
             {
-                try
+                if (action.Equals(UI.Button_SaveAsXml))
                 {
-                    _metadataService.SaveMetadataModel(model, GetUsername());
-                    TempData["success"] = Resources.UI.Metadata_Edit_Saved_Success;
+                    Stream fileStream = _metadataService.SaveMetadataAsXml(model);
+                    var fileStreamResult = new FileStreamResult(fileStream, "application/xml")
+                    {
+                        FileDownloadName = model.Title + "_" + uuid + ".xml"
+                    };
+
+                    return fileStreamResult;
                 }
-                catch (Exception e)
+                else
                 {
-                    Log.Error("Error while editing metadata with uuid = " + model.Uuid, e);
-                    TempData["failure"] = String.Format(Resources.UI.Metadata_Edit_Saved_Failure, e.Message);
+                    SaveMetadataToCswServer(model);
+                    return RedirectToAction("Edit", new { uuid = model.Uuid });
                 }
-                
-                return RedirectToAction("Edit", new {uuid = model.Uuid});
             }
 
             PrepareViewBagForEditing(model);
             return View(model);
+        }
+
+        private void SaveMetadataToCswServer(MetadataViewModel model)
+        {
+            try
+            {
+                _metadataService.SaveMetadataModel(model, GetUsername());
+                TempData["success"] = UI.Metadata_Edit_Saved_Success;
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error while editing metadata with uuid = " + model.Uuid, e);
+                TempData["failure"] = String.Format(UI.Metadata_Edit_Saved_Failure, e.Message);
+            }
         }
 
         public Dictionary<string, string> GetListOfTopicCategories()

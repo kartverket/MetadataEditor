@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
+using Arkitektum.GIS.Lib.SerializeUtil;
 using www.opengis.net;
 using GeoNorgeAPI;
 
@@ -261,12 +264,19 @@ namespace Kartverket.MetadataEditor.Models
         {
             SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(model.Uuid));
 
+            UpdateMetadataFromModel(model, metadata);
+
+            _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+        }
+
+        private void UpdateMetadataFromModel(MetadataViewModel model, SimpleMetadata metadata)
+        {
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
-            
+
             if (!string.IsNullOrWhiteSpace(model.Purpose))
                 metadata.Purpose = model.Purpose;
-            
+
             if (!string.IsNullOrWhiteSpace(model.TopicCategory))
                 metadata.TopicCategory = model.TopicCategory;
 
@@ -300,10 +310,10 @@ namespace Kartverket.MetadataEditor.Models
             // documents
             if (!string.IsNullOrWhiteSpace(model.ProductSpecificationUrl))
                 metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
-            
+
             if (!string.IsNullOrWhiteSpace(model.ProductSheetUrl))
                 metadata.ProductSheetUrl = model.ProductSheetUrl;
-            
+
             if (!string.IsNullOrWhiteSpace(model.ProductPageUrl))
                 metadata.ProductPageUrl = model.ProductPageUrl;
 
@@ -325,7 +335,8 @@ namespace Kartverket.MetadataEditor.Models
                 };
             }
 
-            if (!string.IsNullOrWhiteSpace(model.DistributionFormatName) || !string.IsNullOrWhiteSpace(model.DistributionFormatVersion))
+            if (!string.IsNullOrWhiteSpace(model.DistributionFormatName) ||
+                !string.IsNullOrWhiteSpace(model.DistributionFormatVersion))
             {
                 metadata.DistributionFormat = new SimpleDistributionFormat
                 {
@@ -333,8 +344,9 @@ namespace Kartverket.MetadataEditor.Models
                     Version = model.DistributionFormatVersion
                 };
             }
-            
-            if (!string.IsNullOrWhiteSpace(model.DistributionUrl) || !string.IsNullOrWhiteSpace(model.DistributionProtocol) || !string.IsNullOrWhiteSpace(model.DistributionName))
+
+            if (!string.IsNullOrWhiteSpace(model.DistributionUrl) || !string.IsNullOrWhiteSpace(model.DistributionProtocol) ||
+                !string.IsNullOrWhiteSpace(model.DistributionName))
             {
                 metadata.DistributionDetails = new SimpleDistributionDetails
                 {
@@ -345,7 +357,8 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             // quality
-            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle)) {
+            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
+            {
                 metadata.QualitySpecification = new SimpleQualitySpecification
                 {
                     Title = model.QualitySpecificationTitle,
@@ -355,10 +368,10 @@ namespace Kartverket.MetadataEditor.Models
                     Result = model.QualitySpecificationResult
                 };
             }
-            
+
             if (!string.IsNullOrWhiteSpace(model.ProcessHistory))
                 metadata.ProcessHistory = model.ProcessHistory;
-            
+
             if (!string.IsNullOrWhiteSpace(model.MaintenanceFrequency))
                 metadata.MaintenanceFrequency = model.MaintenanceFrequency;
 
@@ -398,12 +411,12 @@ namespace Kartverket.MetadataEditor.Models
                     UseLimitations = model.UseLimitations
                 };
             }
-            
+
             metadata.Keywords = model.GetAllKeywords();
 
             bool hasEnglishFields = false;
             // don't create PT_FreeText fields if it isn't necessary
-            if (!string.IsNullOrWhiteSpace(model.EnglishTitle)) 
+            if (!string.IsNullOrWhiteSpace(model.EnglishTitle))
             {
                 metadata.EnglishTitle = model.EnglishTitle;
                 hasEnglishFields = true;
@@ -414,12 +427,10 @@ namespace Kartverket.MetadataEditor.Models
                 hasEnglishFields = true;
             }
 
-            if (hasEnglishFields) 
+            if (hasEnglishFields)
                 metadata.SetLocale(SimpleMetadata.LOCALE_ENG);
 
             SetDefaultValuesOnMetadata(metadata);
-
-            _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
         }
 
         private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username)
@@ -644,6 +655,13 @@ namespace Kartverket.MetadataEditor.Models
         internal void DeleteMetadata(string uuid, string username)
         {
             _geoNorge.MetadataDelete(uuid, CreateAdditionalHeadersWithUsername(username));
+        }
+
+        public Stream SaveMetadataAsXml(MetadataViewModel model)
+        {
+            var simpleMetadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(model.Uuid));
+            UpdateMetadataFromModel(model, simpleMetadata);
+            return SerializeUtil.SerializeToStream(simpleMetadata.GetMetadata());
         }
     }
 }

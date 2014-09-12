@@ -111,11 +111,12 @@ else if (Model.IsService())
             @Html.Partial("_English", Model)
         </div>
 
-        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-4">
-            <button id="save" type="submit" class="btn btn-primary">Lagre</button>
+            <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
+            <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_SaveAsXml">@UI.Button_SaveAsXml</button>
         </div>
     </div>
 
