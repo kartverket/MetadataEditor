@@ -156,8 +156,15 @@ namespace Kartverket.MetadataEditor.Controllers
                 else
                 {
                     SaveMetadataToCswServer(model);
-                    return RedirectToAction("Edit", new { uuid = model.Uuid });
+                    return RedirectToAction("Edit", new {uuid = model.Uuid});
                 }
+            }
+            else
+            {
+                string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+                Log.Debug("Model for " + uuid + " is not valid: " + messages);
             }
 
             PrepareViewBagForEditing(model);
