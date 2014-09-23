@@ -61,23 +61,25 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="ExpressiveAnnotations">
-      <HintPath>..\packages\ExpressiveAnnotations.2.2.1\lib\net45\ExpressiveAnnotations.dll</HintPath>
-    </Reference>
-    <Reference Include="ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider">
-      <HintPath>..\packages\ExpressiveAnnotations.2.2.1\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="GeoNorgeAPI, Version=2.5.4.21816, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ExpressiveAnnotations, Version=2.2.2.0, Culture=neutral, PublicKeyToken=d3e372f3c1e83cec, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GeoNorgeAPI.2.5.4.21816\lib\net45\GeoNorgeAPI.dll</HintPath>
+      <HintPath>..\packages\ExpressiveAnnotations.2.2.2\lib\net45\ExpressiveAnnotations.dll</HintPath>
     </Reference>
-    <Reference Include="Kentor.AuthServices, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider, Version=2.2.0.0, Culture=neutral, PublicKeyToken=d3e372f3c1e83cec, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kentor.AuthServices.0.6.0.0\lib\net45\Kentor.AuthServices.dll</HintPath>
+      <HintPath>..\packages\ExpressiveAnnotations.2.2.2\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Kentor.AuthServices.Mvc, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GeoNorgeAPI, Version=2.5.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kentor.AuthServices.Mvc.0.6.0.0\lib\net45\Kentor.AuthServices.Mvc.dll</HintPath>
+      <HintPath>..\packages\GeoNorgeAPI.2.5.7.0\lib\net45\GeoNorgeAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="Kentor.AuthServices, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Kentor.AuthServices.0.6.2.0\lib\net45\Kentor.AuthServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Kentor.AuthServices.Mvc, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Kentor.AuthServices.Mvc.0.6.2.0\lib\net45\Kentor.AuthServices.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
