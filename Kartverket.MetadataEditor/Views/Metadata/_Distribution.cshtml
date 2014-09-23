@@ -1,6 +1,6 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
-@if (Model.IsDataset())
+@if (Model.IsDataset() || Model.IsDatasetSeries())
 {
     <div class="form-group">
         <label for="SpatialRepresentation" class="col-sm-2 control-label">Representasjonsform</label>

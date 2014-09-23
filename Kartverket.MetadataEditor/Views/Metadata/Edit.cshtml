@@ -42,6 +42,10 @@
 {
     <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om datasett</a></li>
 }
+else if (Model.IsDatasetSeries())
+{
+    <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om applikasjon</a></li>
+}
 else if (Model.IsSoftware())
 {
     <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om applikasjon</a></li>
@@ -68,7 +72,7 @@ else if (Model.IsService())
             @Html.Partial("_Basic", Model)
         </div>
 
-        @if (Model.IsDataset() || Model.IsSoftware())
+        @if (Model.IsDatasetOrSeriesOrSoftware())
         {
             <div class="tab-pane" id="dataset">
                 @Html.Partial("_Details", Model)

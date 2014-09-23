@@ -201,6 +201,16 @@ namespace Kartverket.MetadataEditor.Models
             return HierarchyLevel == "software";
         }
 
+        public bool IsDatasetSeries()
+        {
+            return HierarchyLevel == "series";
+        }
+
+        public bool IsDatasetOrSeriesOrSoftware()
+        {
+            return IsDataset() || IsDatasetSeries() || IsSoftware();
+        }
+
     }
 
     public class Contact

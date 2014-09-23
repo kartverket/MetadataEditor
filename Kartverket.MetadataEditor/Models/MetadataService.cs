@@ -611,6 +611,10 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     metadata.HierarchyLevel = "software";
                 }
+                else if (model.Type.Equals("series"))
+                {
+                    metadata.HierarchyLevel = "series";
+                }
             }
 
             metadata.Title = model.Title;
