@@ -142,7 +142,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med punktum og minst 2 desimaler nøyaktighet..
+        ///   Looks up a localized string similar to Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
         /// </summary>
         public static string Metadata_BoundingBox_East_Invalid {
             get {
@@ -151,7 +151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geografisk utstrekning - Nord - er ikke gyldig. Koordinaten må oppgis med punktum og minst 2 desimaler nøyaktighet..
+        ///   Looks up a localized string similar to Geografisk utstrekning - Nord - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
         /// </summary>
         public static string Metadata_BoundingBox_North_Invalid {
             get {
@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geografisk utstrekning - Sør - er ikke gyldig. Koordinaten må oppgis med punktum og minst 2 desimaler nøyaktighet..
+        ///   Looks up a localized string similar to Geografisk utstrekning - Sør - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
         /// </summary>
         public static string Metadata_BoundingBox_South_Invalid {
             get {
@@ -169,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geografisk utstrekning - Vest - er ikke gyldig. Koordinaten må oppgis med punktum og minst 2 desimaler nøyaktighet..
+        ///   Looks up a localized string similar to Geografisk utstrekning - Vest - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
         /// </summary>
         public static string Metadata_BoundingBox_West_Invalid {
             get {
