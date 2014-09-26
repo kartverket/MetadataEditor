@@ -31,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>false</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -315,7 +316,6 @@
     <Content Include="Views\Metadata\_Basic.cshtml" />
     <Content Include="Views\Metadata\_OptionsCountyList.cshtml" />
     <Content Include="Views\Metadata\_Constraints.cshtml" />
-    <Content Include="settings.config" />
     <Content Include="settings.config.default" />
     <Content Include="Views\Service\Index.cshtml" />
     <Content Include="Views\Service\LayersCreated.cshtml" />
