@@ -4,6 +4,25 @@
     ViewBag.Title = @Resources.UI.EditMetadata;
 }
 
+@section ActionMenu {
+    <div class="btn-group">
+        <a href="https://www.geonorge.no/geonetwork/srv/nor/xml_iso19139?uuid=@Model.Uuid" class="btn btn-sm btn-default">
+            <i class="glyphicon glyphicon-file"></i> Last ned XML
+        </a>
+        <a href="https://www.geonorge.no/geonetwork/?uuid=@Model.Uuid" class="btn btn-sm btn-default">
+            <span class="glyphicon glyphicon-share-alt"></span> Vis i metadatakatalogen
+        </a>
+        @if (Model.IsService())
+        {
+            <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for WMS-lag
+            </a>
+        }
+        <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
+    </div>
+}
+
+
 <div class="pull-right">
     <p><small>UUID: @Model.Uuid</small></p>
     <p class="text-right"><small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small></p>
@@ -27,14 +46,7 @@
 
 @Html.ValidationSummary(false,"Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:",new { @class = "alert alert-danger"})
 
-@if (Model.IsService())
-{
-    <div class="text-right">
-        <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-default btn-xs">
-            Opprett metadata for WMS-lag
-        </a>
-    </div>
-}
+
 
 <ul class="nav nav-tabs" style="clear:both">
     <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
