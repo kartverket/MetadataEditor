@@ -36,6 +36,8 @@ namespace Kartverket.MetadataEditor
 
             // init log4net
             log4net.Config.XmlConfigurator.Configure();
+
+            MvcHandler.DisableMvcResponseHeader = true;
         }
     }
 }
