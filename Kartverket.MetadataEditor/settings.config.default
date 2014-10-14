@@ -3,12 +3,5 @@
   <add key="GeoNetworkServer" value="http://www.geonorge.no/geonetworkbeta/" />
   <add key="GeoNetworkUsername" value="" />
   <add key="GeoNetworkPassword" value="" />
-  
   <add key="ProductSheetGeneratorUrl" value="http://localhost/productsheets/create?uuid=" />
-
-  <add key="webpages:Version" value="3.0.0.0" />
-  <add key="webpages:Enabled" value="false" />
-  <add key="ClientValidationEnabled" value="true" />
-  <add key="UnobtrusiveJavaScriptEnabled" value="false" />
-  <add key="owin:AutomaticAppStartup " value="false" />
 </appSettings>

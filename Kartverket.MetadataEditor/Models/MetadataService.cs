@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using Arkitektum.GIS.Lib.SerializeUtil;
+using Kartverket.MetadataEditor.Util;
 using www.opengis.net;
 using GeoNorgeAPI;
 
@@ -118,7 +119,16 @@ namespace Kartverket.MetadataEditor.Models
                         organization = creator;
                     }
 
-                    var metadataItem = new MetadataItemViewModel { Title = title, Uuid = uuid, Organization = organization, Type = type, Relation = relation };
+                    var metadataItem = new MetadataItemViewModel
+                    {
+                        Title = title, 
+                        Uuid = uuid, 
+                        Organization = organization, 
+                        Type = type, 
+                        Relation = relation,
+                        GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(uuid),
+                        GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(uuid)
+                    };
 
                     metadata.Add(uuid, metadataItem);
 

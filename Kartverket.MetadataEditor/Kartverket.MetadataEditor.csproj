@@ -184,6 +184,7 @@
       <DependentUpon>UI.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Util\GeoNetworkUtil.cs" />
     <Compile Include="Util\MyRequiredAttributeAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
