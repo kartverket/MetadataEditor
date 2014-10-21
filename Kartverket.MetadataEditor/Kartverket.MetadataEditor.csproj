@@ -316,7 +316,7 @@
     <Content Include="Views\Metadata\_Basic.cshtml" />
     <Content Include="Views\Metadata\_OptionsCountyList.cshtml" />
     <Content Include="Views\Metadata\_Constraints.cshtml" />
-    <Content Include="settings.config.default" />
+    <Content Include="settings.default.config" />
     <Content Include="Views\Service\Index.cshtml" />
     <Content Include="Views\Service\LayersCreated.cshtml" />
     <Content Include="Views\Metadata\_MetadataItem.cshtml" />
