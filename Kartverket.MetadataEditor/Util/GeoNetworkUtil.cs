@@ -11,7 +11,7 @@ namespace Kartverket.MetadataEditor.Util
 
         private static string GetBaseUrl()
         {
-            return WebConfigurationManager.AppSettings["GeoNetworkServer"];
+            return WebConfigurationManager.AppSettings["GeoNetworkUrl"];
         }
 
         public static string GetXmlDownloadUrl(string uuid)

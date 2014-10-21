@@ -25,7 +25,7 @@ namespace Kartverket.MetadataEditor.Models
         public MetadataService()
         {
             System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
-            string server = settings["GeoNetworkServer"];
+            string server = settings["GeoNetworkUrl"];
             string username = settings["GeoNetworkUsername"];
             string password = settings["GeoNetworkPassword"];
             _geoNorge = new GeoNorgeAPI.GeoNorge(username, password, server);
