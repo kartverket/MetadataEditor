@@ -330,9 +330,7 @@
     <Content Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="settings.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="settings.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
