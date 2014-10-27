@@ -3,6 +3,7 @@
 <div class="panel panel-default">
     <div class="panel-heading required">Metadatakontakt</div>
     <div class="panel-body">
+        <p>Kontaktpunkt som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse.</p>
         @Html.HiddenFor(m => Model.ContactMetadata.Role)
         <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
@@ -31,6 +32,7 @@
 <div class="panel panel-default">
     <div class="panel-heading required">Teknisk kontakt</div>
     <div class="panel-body">
+        <p>Kontaktpunkt som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. Organisasjon og e-postadresse er påkrevd.</p>
         @Html.HiddenFor(m => Model.ContactPublisher.Role)
         <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
@@ -59,6 +61,7 @@
 <div class="panel panel-default">
     <div class="panel-heading required">Faglig kontakt</div>
     <div class="panel-body">
+        <p>Kontaktpunkt som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. Organisasjon og e-postadresse er påkrevd.</p>
         @Html.HiddenFor(m => Model.ContactOwner.Role)
         <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>

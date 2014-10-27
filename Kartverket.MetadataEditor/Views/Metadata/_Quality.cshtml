@@ -1,26 +1,43 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 <div class="form-group">
-    <label class="col-sm-2 control-label">Oppdateringshyppighet</label>
+    <label for="MaintenanceFrequency" class="col-sm-2 control-label">Oppdateringshyppighet</label>
     <div class="col-sm-9">
         @Html.DropDownList("MaintenanceFrequency", ViewBag.MaintenanceFrequencyValues as SelectList, String.Empty, new { @class = "form-control" })
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Målestokkstall</label>
+    <label for="ResolutionScale" class="col-sm-2 control-label">Målestokkstall</label>
     <div class="col-sm-9">
         @Html.EditorFor(m => m.ResolutionScale)
+        <p class="help-text bg-success" id="help-text-ResolutionScale" style="display: none">
+            Målestokkstallet skal legges inn som et heltall (eks: 5000)
+        </p>
+    </div>
+    
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-ResolutionScale" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 <div class="form-group">
-    <label for="abstract" class="col-sm-2 control-label">Status</label>
+    <label for="Status" class="col-sm-2 control-label">Status</label>
     <div class="col-sm-9">
         @Html.DropDownList("Status", ViewBag.StatusValues as SelectList, String.Empty, new { @class = "form-control" })
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Prosesshistorie</label>
+    <label for="ProcessHistory" class="col-sm-2 control-label">Prosesshistorie</label>
     <div class="col-sm-9">
         @Html.TextAreaFor(m => m.ProcessHistory, new { @class = "form-control", cols = "", rows = "5" })
+        <p class="help-text bg-success" id="help-text-ProcessHistory" style="display: none">
+            Dataprodusentens generelle kunnskap om opprinnelsen og prosesshistorien til et datasett eller tjeneste
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-ProcessHistory" class="badge help-text-toggle">?</a>
+        </p>
     </div>
 </div>
 
@@ -34,9 +51,16 @@
     </div>
         <div class="panel-body">
             <p class="help-text bg-success" id="help-text-Conformity" style="display: none">
-                Forhåndsutfylling av referanse til Inspire er nødvendig for datasett som er omfattet av Inspire-direktivet. Datasettet eller tjenesten trenger ikke være harmonisert med datasettspesifikasjonen. Da skal heller ikke "godkjent" være huket av.
+                <b>Inspiredata:</b> Referanse til Inspire er nødvendig for datasett som er omfattet av Inspire-direktivet. Datasettet eller tjenesten trenger ikke være harmonisert med datasettspesifikasjonen. Da skal heller ikke "godkjent" være huket av.
+                <br/>
+                <b>Nasjonale SOSI-standardiserte data:</b> Referanse til SOSI-produktspesifikasjon eller SOSI-fagområde kan legges inn for nasjonale datasett. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med SOSI. Da skal heller ikke "godkjent" være huket av.
+                <br/>
+                <b>Nasjonale eller internasjonale fagdata:</b> Datasett som følger egen standard, fagstandard eller internasjonal standard skal referere til denne. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med standarden, men da skal det heller ikke hukes av for "godkjent".
+                <br/>
+                <b>Datasett og tjenester som ikke bygger på en standard:</b> Det skal her refereres til egen dokumentasjon, eller fylles inn "Mangler"
+
             </p>
-            <p>Forhåndsutfylling: <button id="prefillConformityInspire" class="btn btn-default">INSPIRE</button> <button id="prefillConformitySosi" class="btn btn-default">SOSI-fagområde</button></p>
+            <p>Forhåndsutfylling: <button id="prefillConformityInspire" class="btn btn-default">INSPIRE</button> <button id="prefillConformitySosi" class="btn btn-default">SOSI-fagområde</button> <button id="prefillConformitySosiSpec" class="btn btn-default">SOSI-produktspesifikasjon</button></p>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">Standard (produktspesifikasjon)</label>
