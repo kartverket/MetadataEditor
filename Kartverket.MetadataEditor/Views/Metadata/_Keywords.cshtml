@@ -1,0 +1,193 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+<div class="form-group">
+    <label for="keywords" class="col-sm-2 control-label">Nøkkelord</label>
+    <div class="col-sm-9">
+
+        <div class="col-sm-6">
+            <p class="keyword-header">Tema</p>
+            <ul id="keywords-theme">
+                @for (int i = 0; i < Model.KeywordsTheme.Count; i++)
+                {
+                    var keyword = Model.KeywordsTheme[i];
+                    <li id="keywords-theme-@i">
+                        <span class="label label-success">@keyword</span>
+                        <a href="" class="keyword-delete" data-delete="keywords-theme-@i"><small>Slett</small></a>
+                        <input type="hidden" name="KeywordsTheme[@i]" value="@keyword" />
+                    </li>
+                }
+            </ul>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" id="keywords-theme-text" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-default btn-sm" id="keywords-theme-add">Legg til</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        @if (!Model.IsSoftware())
+        {
+            <div class="col-sm-6">
+                <p class="keyword-header">Samarbeid og lover</p>
+                <ul id="keywords-national-initiative">
+                    @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
+                    {
+                        var keyword = Model.KeywordsNationalInitiative[i];
+                        <li id="keywords-national-initiative-@i">
+                            <span class="label label-success">@keyword</span>
+                            <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i"><small>Slett</small></a>
+                            <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
+                        </li>
+                    }
+                </ul>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <select class="input-sm form-control" id="keywords-national-initiative-text">
+                            <option></option>
+                            <option>Inspire</option>
+                            <option>Det offentlige kartgrunnlaget</option>
+                            <option>Barentswatch</option>
+                            <option>Norge digitalt</option>
+                            <option>European Location Framework</option>
+                            <option>Arctic SDI</option>
+                            <option>Åpne data</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <p class="keyword-header">Inspire</p>
+                <ul id="keywords-inspire">
+                    @for (int i = 0; i < Model.KeywordsInspire.Count; i++)
+                    {
+                        var keyword = Model.KeywordsInspire[i];
+                        <li id="keywords-inspire-@i">
+                            <span class="label label-success">@keyword</span>
+                            <a href="" class="keyword-delete" data-delete="keywords-inspire-@i"><small>Slett</small></a>
+                            <input type="hidden" name="KeywordsInspire[@i]" value="@keyword" />
+                        </li>
+                    }
+                </ul>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <select class="input-sm form-control" id="keywords-inspire-text">
+                            <option></option>
+                            <option>Addresses</option>
+                            <option>Administrative units</option>
+                            <option>Agricultural and aquaculture facilities</option>
+                            <option>Area management/restriction/regulation zones and reporting units</option>
+                            <option>Atmospheric conditions</option>
+                            <option>Bio-geographical regions</option>
+                            <option>Buildings</option>
+                            <option>Cadastral parcels</option>
+                            <option>Coordinate reference systems</option>
+                            <option>Elevation</option>
+                            <option>Energy resources</option>
+                            <option>Environmental monitoring facilities</option>
+                            <option>Geographical grid systems</option>
+                            <option>Geographical names</option>
+                            <option>Geology</option>
+                            <option>Habitats and biotopes</option>
+                            <option>Human health and safety</option>
+                            <option>Hydrography</option>
+                            <option>Land cover</option>
+                            <option>Land use</option>
+                            <option>Meteorological geographical features</option>
+                            <option>Mineral resources</option>
+                            <option>Natural risk zones</option>
+                            <option>Oceanographic geographical features</option>
+                            <option>Orthoimagery</option>
+                            <option>Population distribution — demography</option>
+                            <option>Production and industrial facilities</option>
+                            <option>Protected sites</option>
+                            <option>Sea regions</option>
+                            <option>Soil</option>
+                            <option>Species distribution</option>
+                            <option>Statistical units</option>
+                            <option>Transport networks</option>
+                            <option>Utility and governmental services</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-sm" id="keywords-inspire-add">Legg til</button>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-sm-6">
+            <p class="keyword-header">Annet</p>
+            <ul id="keywords-other">
+                @for (int i = 0; i < Model.KeywordsOther.Count; i++)
+                {
+                    var keyword = Model.KeywordsOther[i];
+                    <li id="keywords-other-@i">
+                        <span class="label label-success">@keyword</span>
+                        <a href="" class="keyword-delete" data-delete="keywords-other-@i"><small>Slett</small></a>
+                        <input type="hidden" name="KeywordsOther[@i]" value="@keyword" />
+                    </li>
+                }
+            </ul>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" id="keywords-other-text" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-default btn-sm" id="keywords-other-add">Legg til</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-keyword" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-9">
+        <div class="help-text bg-success" id="help-text-keyword" style="display: none">
+            <b>Velkjente ord og begreper brukt som søkeord</b>
+
+            <p>
+                <b>Tema</b><br>
+                Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.
+            </p>
+            <p>
+                <b>Sted</b><br>
+                Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasett dekker og ikke hva det ikke dekker
+            </p>
+            <p>
+                <b>Inspire:</b><br>
+                Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste).
+            </p>
+            <p>
+                <b>Samarbeid og lover</b><br>
+                Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="TopicCategory" class="col-sm-2 control-label">Tematisk hovedkategori</label>
+    <div class="col-sm-9">
+        @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
+        <p class="help-text bg-success" id="help-text-topicCategory" style="display: none">
+            Tematisk inndeling definert i metadatastandarden.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-topicCategory" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>

@@ -50,27 +50,13 @@
 
 <ul class="nav nav-tabs" style="clear:both">
     <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
-@if (Model.IsDataset())
-{
-    <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om datasett</a></li>
-}
-else if (Model.IsDatasetSeries())
-{
-    <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om applikasjon</a></li>
-}
-else if (Model.IsSoftware())
-{
-    <li><a href="#dataset" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om applikasjon</a></li>
-}
-else if (Model.IsService())
-{
-    <li><a href="#service" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Detaljer om tjeneste</a></li>
-}
+    <li><a href="#timeandspace" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Tid og rom</a></li>
     <li><a href="#contact" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
     <li><a href="#distribution" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
     <li><a href="#documents" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumenter</a></li>
     <li><a href="#constraints" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
     <li><a href="#quality" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
+    <li><a href="#keywords" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
     <li><a href="#english" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
 </ul>
 
@@ -84,27 +70,12 @@ else if (Model.IsService())
             @Html.Partial("_Basic", Model)
         </div>
 
-        @if (Model.IsDatasetOrSeriesOrSoftware())
-        {
-            <div class="tab-pane" id="dataset">
-                @Html.Partial("_Details", Model)
-                @Html.Partial("_Dataset", Model)
-                
-            </div>
-        }
-
-        @if (Model.IsService())
-        {
-            <div class="tab-pane" id="service">
-                @Html.Partial("_Details", Model)
-                @Html.Partial("_Service", Model)
-                
-            </div>
-        }
+        <div class="tab-pane" id="timeandspace">
+            @Html.Partial("_TimeAndSpace", Model)
+        </div>
         
         <div class="tab-pane" id="contact">
             @Html.Partial("_Contact", Model)
-
         </div>
 
         <div class="tab-pane" id="distribution">
@@ -123,6 +94,10 @@ else if (Model.IsService())
             @Html.Partial("_Quality", Model)
         </div>
         
+        <div class="tab-pane" id="keywords">
+            @Html.Partial("_Keywords", Model)
+        </div>
+
         <div class="tab-pane" id="english">
             @Html.Partial("_English", Model)
         </div>

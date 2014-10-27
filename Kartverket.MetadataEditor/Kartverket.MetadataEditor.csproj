@@ -322,7 +322,7 @@
     <Content Include="Views\Metadata\_MetadataItem.cshtml" />
     <Content Include="Views\Metadata\_English.cshtml" />
     <Content Include="Views\Metadata\Create.cshtml" />
-    <Content Include="Views\Metadata\_Details.cshtml" />
+    <Content Include="Views\Metadata\_TimeAndSpace.cshtml" />
     <Content Include="Views\Metadata\ConfirmDelete.cshtml" />
     <Content Include="Web.Dev.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -331,6 +331,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="settings.config" />
+    <Content Include="Views\Metadata\_Keywords.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

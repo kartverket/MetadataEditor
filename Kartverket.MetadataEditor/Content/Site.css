@@ -108,3 +108,8 @@ input[readonly] {
     z-index: 2;
     color: #a94442;
 }
+
+.nav-tabs > li > a {
+    font-size: 13px;
+
+}
