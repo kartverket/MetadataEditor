@@ -216,7 +216,6 @@ namespace Kartverket.MetadataEditor.Models
 
     public class Contact
     {
-        [Required(ErrorMessageResourceName = "Metadata_Contact_Name_Required", ErrorMessageResourceType = typeof(UI))]
         [Display(Name = "Contact_Name", ResourceType = typeof(UI))]
         public string Name { get; set; }
 
