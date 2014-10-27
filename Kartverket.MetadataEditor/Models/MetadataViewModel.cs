@@ -1,4 +1,5 @@
-﻿using ExpressiveAnnotations.Attributes;
+﻿using System.Runtime.CompilerServices;
+using ExpressiveAnnotations.Attributes;
 using GeoNorgeAPI;
 using System;
 using System.Collections.Generic;
@@ -215,13 +216,16 @@ namespace Kartverket.MetadataEditor.Models
 
     public class Contact
     {
-        [RequiredIf("Role == 'pointOfContact'", ErrorMessageResourceName = "Metadata_Contact_Name_Required", ErrorMessageResourceType = typeof(UI))]
+        [Required(ErrorMessageResourceName = "Metadata_Contact_Name_Required", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Contact_Name", ResourceType = typeof(UI))]
         public string Name { get; set; }
 
-        [RequiredIf("Name != null", ErrorMessageResourceName = "Metadata_Contact_Organization_Required", ErrorMessageResourceType = typeof(UI))]
+        [Required(ErrorMessageResourceName = "Metadata_Contact_Organization_Required", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Contact_Organization", ResourceType = typeof(UI))]
         public string Organization { get; set; }
 
-        [RequiredIf("Name != null", ErrorMessageResourceName = "Metadata_Contact_Email_Required", ErrorMessageResourceType = typeof(UI))]
+        [Required(ErrorMessageResourceName = "Metadata_Contact_Email_Required", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Contact_Email", ResourceType = typeof(UI))]
         public string Email { get; set; }
 
         public string Role { get; set; }

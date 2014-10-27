@@ -88,6 +88,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontaktperson - Epost.
+        /// </summary>
+        public static string Contact_Email {
+            get {
+                return ResourceManager.GetString("Contact_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktperson - Navn.
+        /// </summary>
+        public static string Contact_Name {
+            get {
+                return ResourceManager.GetString("Contact_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktperson - Organisasjonsnavn.
+        /// </summary>
+        public static string Contact_Organization {
+            get {
+                return ResourceManager.GetString("Contact_Organization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014..
         /// </summary>
         public static string DateCreated_InvalidDate {
@@ -178,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Epost er påkrevd når navn på kontaktperson er oppgitt..
+        ///   Looks up a localized string similar to Epost til kontaktperson er påkrevd..
         /// </summary>
         public static string Metadata_Contact_Email_Required {
             get {
@@ -187,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Metadatakontakt er et påkrevd felt..
+        ///   Looks up a localized string similar to Navn på kontaktperson er påkrevd..
         /// </summary>
         public static string Metadata_Contact_Name_Required {
             get {
@@ -196,7 +223,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Organisasjon er påkrevd når navn på kontaktperson er oppgitt..
+        ///   Looks up a localized string similar to Organisasjonsnavn er påkrevd kontaktinformasjon..
         /// </summary>
         public static string Metadata_Contact_Organization_Required {
             get {
