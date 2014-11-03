@@ -340,26 +340,43 @@
 
             $('button#keywords-theme-add').click(function (event) {
                 event.preventDefault();
+                if ($('#keywords-theme-text').val() == '')
+                    alert('Vennligst fyll ut tema');
+                else
                 addKeywordFromTextbox('keywords-theme', "KeywordsTheme");
+
             });
 
             $('button#keywords-place-add').click(function (event) {
                 event.preventDefault();
+                if ($('#keywords-place-text').val() == '')
+                    alert('Vennligst fyll ut sted');
+                else
                 addKeywordFromTextbox('keywords-place', "KeywordsPlace");
             });
                         
             $('button#keywords-national-initiative-add').click(function (event) {
                 event.preventDefault();
+                if ($('#keywords-national-initiative-text').val() == '')
+                    alert('Vennligst velg samarbeid og lov');
+                else
                 addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
             });
 
             $('button#keywords-inspire-add').click(function (event) {
                 event.preventDefault();
+                if ($('#keywords-inspire-text').val() == '')
+                    alert('Vennligst velg inspire');
+                else
+
                 addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
             });
 
             $('button#keywords-other-add').click(function (event) {
                 event.preventDefault();
+                if ($('#keywords-other-text').val() == '')
+                    alert('Vennligst fyll ut annet');
+                else
                 addKeywordFromTextbox('keywords-other', "KeywordsOther");
             });
 
