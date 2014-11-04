@@ -15,6 +15,7 @@ namespace Kartverket.MetadataEditor.Models
         public string MetadataContactName { get; set; }
 
         [Required(ErrorMessage = "Epost er påkrevd.")]
+        [EmailAddress(ErrorMessage = "Epost-adressen er ugyldig")]
         public string MetadataContactEmail { get; set; }
 
         public string MetadataContactOrganization { get; set; }

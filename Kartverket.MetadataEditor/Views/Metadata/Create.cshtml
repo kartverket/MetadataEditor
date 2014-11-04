@@ -2,6 +2,14 @@
 
 <h1>Opprett metadata</h1>
 <form action="@Url.Action("Create")" method="post" class="form-horizontal">
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        Det har oppstått en feil: @ViewBag.ErrorMessage
+    </div>
+}
+
+@Html.ValidationSummary(false, "Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:", new { @class = "alert alert-danger" })
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Tittel</label>
@@ -40,19 +48,19 @@
                 <div class="panel-heading">Metadatakontakt</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Navn</label>
+                        <label class="col-sm-2 control-label">Navn</label>
                         <div class="col-sm-10">
                             @Html.EditorFor(m => m.MetadataContactName)
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Epost</label>
+                        <label class="col-sm-2 control-label">Epost</label>
                         <div class="col-sm-10">
-                            @Html.EditorFor(m => m.MetadataContactEmail)
+                            @Html.TextBoxFor(m => m.MetadataContactEmail, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
+                        <label class="col-sm-2 control-label">Organisasjon</label>
                         <div class="col-sm-10 control-text">
                             @Html.DisplayFor(m => m.MetadataContactOrganization)
                         </div>

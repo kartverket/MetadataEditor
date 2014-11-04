@@ -25,16 +25,16 @@ namespace Kartverket.MetadataEditor.Models
         
         public string Uuid { get; set; }
         public string HierarchyLevel { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage=null)]
         [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = null)]
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
         public string Purpose { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = null)]
         [Display(Name = "Metadata_Abstract", ResourceType = typeof(UI))]
         public string Abstract { get; set; }
 
@@ -59,16 +59,16 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Status { get; set; }
 
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage=null)]
         public string BoundingBoxEast { get; set; }
 
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
         public string BoundingBoxWest { get; set; }
 
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
         public string BoundingBoxNorth { get; set; }
 
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
         public string BoundingBoxSouth { get; set; }
 
         /* dataset only */
@@ -220,11 +220,11 @@ namespace Kartverket.MetadataEditor.Models
         public string Name { get; set; }
 
 
-        [Required(ErrorMessageResourceName = "Metadata_Contact_Organization_Required", ErrorMessageResourceType = typeof(UI))]
+        [Required(ErrorMessageResourceName = "Metadata_Contact_Organization_Required", ErrorMessageResourceType = typeof(UI), ErrorMessage=null)]
         [Display(Name = "Contact_Organization", ResourceType = typeof(UI))]
         public string Organization { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = null)]
         [EmailAddress(ErrorMessage = "Epost-adressen er ugyldig")]
         public string Email { get; set; }
 

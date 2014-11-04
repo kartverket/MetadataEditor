@@ -12,8 +12,11 @@ namespace Kartverket.MetadataEditor.Util
         )
             : base(metadata, context, attribute)
         {
-            attribute.ErrorMessageResourceType = typeof(Resources.UI);
-            attribute.ErrorMessageResourceName = "PropertyValueRequired";
+            if (string.IsNullOrEmpty(attribute.ErrorMessage))
+            {
+                attribute.ErrorMessageResourceType = typeof(Resources.UI);
+                attribute.ErrorMessageResourceName = "PropertyValueRequired";
+            }
         }
     }
 }
