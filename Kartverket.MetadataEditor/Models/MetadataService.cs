@@ -152,7 +152,7 @@ namespace Kartverket.MetadataEditor.Models
                 Uuid = metadata.Uuid,
                 Title = metadata.Title,
                 HierarchyLevel = metadata.HierarchyLevel,
-                Abstract = metadata.Abstract,
+                Abstract = metadata.Abstract.Replace("...",""),
                 Purpose = metadata.Purpose,
 
                 ContactMetadata = new Contact(metadata.ContactMetadata, "pointOfContact"),

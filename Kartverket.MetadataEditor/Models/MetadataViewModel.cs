@@ -224,7 +224,7 @@ namespace Kartverket.MetadataEditor.Models
         [Display(Name = "Contact_Organization", ResourceType = typeof(UI))]
         public string Organization { get; set; }
 
-        [EmailAddress(ErrorMessage = "Epost-adresse er ugyldig")]
+        //[EmailAddress(ErrorMessage = "Epost-adressen er ugyldig")]
         public string Email { get; set; }
 
         public string Role { get; set; }
