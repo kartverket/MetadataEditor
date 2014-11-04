@@ -73,7 +73,7 @@
         <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Epost</label>
             <div class="col-sm-9">
-                @Html.EditorFor(m => Model.ContactOwner.Email, new { @class = "form-control" })
+                @Html.TextBoxFor(m => Model.ContactOwner.Email, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
         </div>
