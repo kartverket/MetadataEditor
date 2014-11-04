@@ -219,12 +219,12 @@ namespace Kartverket.MetadataEditor.Models
         [Display(Name = "Contact_Name", ResourceType = typeof(UI))]
         public string Name { get; set; }
 
+
         [Required(ErrorMessageResourceName = "Metadata_Contact_Organization_Required", ErrorMessageResourceType = typeof(UI))]
         [Display(Name = "Contact_Organization", ResourceType = typeof(UI))]
         public string Organization { get; set; }
 
-        [Required(ErrorMessageResourceName = "Metadata_Contact_Email_Required", ErrorMessageResourceType = typeof(UI))]
-        [Display(Name = "Contact_Email", ResourceType = typeof(UI))]
+        [EmailAddress(ErrorMessage = "Epost-adresse er ugyldig")]
         public string Email { get; set; }
 
         public string Role { get; set; }
