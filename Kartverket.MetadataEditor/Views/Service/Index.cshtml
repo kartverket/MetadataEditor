@@ -3,17 +3,9 @@
 <h4>Tjeneste:</h4>
 <h1>@Model.Metadata.Title</h1>
 
-<form action="@Url.Action("Index")" method="get" class="form-horizontal">
-    <input type="hidden" name="uuid" value="@Model.Metadata.Uuid" />
-    <div class="form-group">
-        <label for="urlWms" class="col-sm-3 control-label">URL til WMS-tjenesten:</label>
-        <div class="col-sm-6">
-            <input type="text" value="@Model.WmsUrl" name="wmsUrl" class="form-control" />
-        </div>
-        <div class="col-sm-2">
-            <button class="btn btn-primary">Hent laginformasjon</button>
-        </div>
-    </div>
+    <h5>
+        <b>URL til WMS-tjenesten:</b> @Model.WmsUrl
+    </h5>
 
     @if (ViewBag.Message != null)
     {
@@ -27,7 +19,7 @@
             Serveren returnerte ingen laginformasjon. Vennligst sjekk at URL til WMS-tjenesten er korrekt.
         </div>
     }
-</form>
+
 
 <form method="post" action="@Url.Action("CreateMetadataForLayers")">
     <input type="hidden" name="uuid" value="@Model.Metadata.Uuid" />
