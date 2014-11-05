@@ -163,7 +163,7 @@
 
     $('#toggleSelectedKeywords').click(function (event) {
         event.preventDefault();
-        $('input[name="keywords[]"]').each(function () {
+        $('input[name="keywords"]').each(function () {
             if ($(this).prop('checked')) {
                 $(this).prop('checked', false);
             } else {
