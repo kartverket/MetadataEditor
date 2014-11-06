@@ -24,8 +24,38 @@
 
 
 <div class="pull-right">
-    <p><small>UUID: @Model.Uuid</small></p>
-    <p class="text-right"><small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small></p>
+    <p class="text-right"><small>UUID: @Model.Uuid</small><br />
+    <small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small>
+    <br />
+    <small>
+    @if (Model.HierarchyLevel == "service")
+    {
+        <span class="label label-info">@Resources.UI.Metadata_Type_Service</span>
+    }
+    else if (Model.HierarchyLevel == "dataset")
+    {
+        <span class="label label-success">@Resources.UI.Metadata_Type_Dataset</span>
+    }
+    else if (Model.HierarchyLevel == "software")
+    {
+        <span class="label label-warning">Applikasjon</span>
+    }
+    else
+    {
+        <span class="label label-warning">@Model.HierarchyLevel</span>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.ParentIdentifier) && Model.HierarchyLevel == "service")
+    {
+        <span class="label label-info">WMS-Lag</span>
+    }
+    
+    @if (!string.IsNullOrWhiteSpace(Model.ParentIdentifier) && Model.HierarchyLevel == "service")
+    {
+        <span>[<a href="@Url.Action("Edit", new { uuid = @Model.ParentIdentifier})">Lenke til tjenesten</a>]</span>
+    }
+
+    </small>
+</p>
 </div>
 
 <h3>@ViewBag.Title</h3>

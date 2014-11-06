@@ -25,6 +25,7 @@ namespace Kartverket.MetadataEditor.Models
         
         public string Uuid { get; set; }
         public string HierarchyLevel { get; set; }
+        public string ParentIdentifier { get; set; }
 
         [Required(ErrorMessage=null)]
         [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]

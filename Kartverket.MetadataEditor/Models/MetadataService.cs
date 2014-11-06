@@ -152,6 +152,7 @@ namespace Kartverket.MetadataEditor.Models
                 Uuid = metadata.Uuid,
                 Title = metadata.Title,
                 HierarchyLevel = metadata.HierarchyLevel,
+                ParentIdentifier = metadata.ParentIdentifier, 
                 Abstract = metadata.Abstract.Replace("...",""),
                 Purpose = metadata.Purpose,
 
