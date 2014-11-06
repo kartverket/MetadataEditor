@@ -79,15 +79,15 @@
 
 
 <ul class="nav nav-tabs" style="clear:both">
-    <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
-    <li><a href="#timeandspace" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Tid og rom</a></li>
-    <li><a href="#contact" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
-    <li><a href="#distribution" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
-    <li><a href="#documents" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumenter</a></li>
-    <li><a href="#constraints" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
-    <li><a href="#quality" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
-    <li><a href="#keywords" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
-    <li><a href="#english" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
+    <li class="active"><a href="#home" id="homelink" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
+    <li><a href="#timeandspace" id="timeandspacelink" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Tid og rom</a></li>
+    <li><a href="#contact" id="contactlink" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
+    <li><a href="#distribution" id="distributionlink" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
+    <li><a href="#documents" id="documentslink" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumenter</a></li>
+    <li><a href="#constraints" id="constraintslink" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
+    <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
+    <li><a href="#keywords" id="keywordslink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
+    <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
 </ul>
 
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form">
@@ -163,6 +163,64 @@
                     $tabLink.before('<span class="glyphicon glyphicon-warning-sign" title="Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet."></span>');
                 }
             });
+
+            var menu_state = $.cookie('navtabselected');
+
+            $('#homelink').click(function (event) {
+                $.cookie('navtabselected', 'home');       
+            });
+
+            $('#timeandspacelink').click(function (event) {
+                $.cookie('navtabselected', 'timeandspace');
+            });
+
+            $('#contactlink').click(function (event) {
+                $.cookie('navtabselected', 'contact');
+            });
+
+            $('#distributionlink').click(function (event) {
+                $.cookie('navtabselected', 'distribution');
+            });
+
+            $('#documentslink').click(function (event) {
+                $.cookie('navtabselected', 'documents');
+            });
+
+            $('#constraintslink').click(function (event) {
+                $.cookie('navtabselected', 'constraints');
+            });
+
+            $('#qualitylink').click(function (event) {
+                $.cookie('navtabselected', 'quality');
+            });
+
+            $('#keywordslink').click(function (event) {
+                $.cookie('navtabselected', 'keywords');
+            });
+
+            $('#englishlink').click(function (event) {
+                $.cookie('navtabselected', 'english');
+            });
+
+            if (menu_state == 'home' || menu_state == '')
+                $('#homelink').click();
+            else if(menu_state == 'timeandspace')
+                $('#timeandspacelink').click();
+            else if (menu_state == 'contact')
+                $('#contactlink').click();
+            else if (menu_state == 'distribution')
+                $('#distributionlink').click();
+            else if (menu_state == 'documents')
+                $('#documentslink').click();
+            else if (menu_state == 'constraints')
+                $('#constraintslink').click();
+            else if (menu_state == 'quality')
+                $('#qualitylink').click();
+            else if (menu_state == 'keywords')
+                $('#keywordslink').click();
+            else if (menu_state == 'english')
+                $('#englishlink').click();
+
 
             $('#uploadThumbnailFile').fileupload({
                 dataType: 'json',

@@ -60,3 +60,12 @@ else
 {
     <p style="font-style: italic">Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata.</p>
 }
+
+@section scripts {
+    <script>
+        $(function () {
+            $.cookie('navtabselected', null);
+            $.removeCookie('navtabselected', { path: '/Metadata' });
+        });
+    </script>
+}
