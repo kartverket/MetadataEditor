@@ -64,8 +64,7 @@ else
 @section scripts {
     <script>
         $(function () {
-            $.cookie('navtabselected', null);
-            $.removeCookie('navtabselected', { path: '/Metadata' });
+            $.cookie('navtabselected', null, { path: '/Metadata' });
         });
     </script>
 }

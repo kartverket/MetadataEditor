@@ -167,7 +167,7 @@
             var menu_state = $.cookie('navtabselected');
 
             $('#homelink').click(function (event) {
-                $.cookie('navtabselected', 'home');       
+                $.cookie('navtabselected', 'home');
             });
 
             $('#timeandspacelink').click(function (event) {
@@ -202,7 +202,7 @@
                 $.cookie('navtabselected', 'english');
             });
 
-            if (menu_state == 'home' || menu_state == '')
+            if (menu_state == 'home' || menu_state == null)
                 $('#homelink').click();
             else if(menu_state == 'timeandspace')
                 $('#timeandspacelink').click();
