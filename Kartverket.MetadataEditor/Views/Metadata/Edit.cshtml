@@ -478,7 +478,7 @@
 
             $('button#keywords-theme-add').click(function (event) {
                 event.preventDefault();
-                if ($('#keywords-theme-text').val() == '')
+                if ($('#keywords-theme-text').val().trim() == '')
                     alert('Vennligst fyll ut tema');
                 else
                 addKeywordFromTextbox('keywords-theme', "KeywordsTheme");
@@ -487,7 +487,7 @@
 
             $('button#keywords-place-add').click(function (event) {
                 event.preventDefault();
-                if ($('#keywords-place-text').val() == '')
+                if ($('#keywords-place-text').val().trim() == '')
                     alert('Vennligst fyll ut sted');
                 else
                 addKeywordFromTextbox('keywords-place', "KeywordsPlace");
@@ -495,7 +495,7 @@
                         
             $('button#keywords-national-initiative-add').click(function (event) {
                 event.preventDefault();
-                if ($('#keywords-national-initiative-text').val() == '')
+                if ($('#keywords-national-initiative-text').val().trim() == '')
                     alert('Vennligst velg samarbeid og lov');
                 else
                 addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
@@ -503,7 +503,7 @@
 
             $('button#keywords-inspire-add').click(function (event) {
                 event.preventDefault();
-                if ($('#keywords-inspire-text').val() == '')
+                if ($('#keywords-inspire-text').val().trim() == '')
                     alert('Vennligst velg inspire');
                 else
                 addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
@@ -511,7 +511,7 @@
 
             $('button#keywords-other-add').click(function (event) {
                 event.preventDefault();
-                if ($('#keywords-other-text').val() == '')
+                if ($('#keywords-other-text').val().trim() == '')
                     alert('Vennligst fyll ut annet');
                 else
                 addKeywordFromTextbox('keywords-other', "KeywordsOther");
