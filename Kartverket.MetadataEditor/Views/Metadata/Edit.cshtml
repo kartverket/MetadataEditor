@@ -397,10 +397,9 @@
                 var selectedDateStr = $('#DateUpdated').val();
                 var selectedDateArr = selectedDateStr.split('.');
                 var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                var options = { year: "numeric", month: '2-digit', day: '2-digit' };
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
-                    $('#DateUpdated').val(currentDate.toLocaleDateString('no-BM',options));
+                    $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
                 }       
             });
 
@@ -410,10 +409,9 @@
                 var selectedDateStr = $('#DatePublished').val();
                 var selectedDateArr = selectedDateStr.split('.');
                 var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                var options = { year: "numeric", month: '2-digit', day: '2-digit' };
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
-                    $('#DatePublished').val(currentDate.toLocaleDateString('no-BM', options));
+                    $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
                 }
             });
 
@@ -423,10 +421,9 @@
                 var selectedDateStr = $('#DateCreated').val();
                 var selectedDateArr = selectedDateStr.split('.');
                 var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                var options = { year: "numeric", month: '2-digit', day: '2-digit' };
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
-                    $('#DateCreated').val(currentDate.toLocaleDateString('no-BM', options));
+                    $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
                 }
             });
 
