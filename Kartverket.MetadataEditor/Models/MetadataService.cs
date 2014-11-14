@@ -37,7 +37,7 @@ namespace Kartverket.MetadataEditor.Models
 
             return ParseSearchResults(offset, limit, results);
         }
-        
+
         public MetadataIndexViewModel SearchMetadata(string organizationName, string searchString, int offset, int limit)
         {
             SearchResultsType results = null;
@@ -62,7 +62,7 @@ namespace Kartverket.MetadataEditor.Models
 
             return model;
         }
-        
+
 
         public MetadataIndexViewModel GetAllMetadata(string searchString, int offset, int limit)
         {
@@ -121,10 +121,10 @@ namespace Kartverket.MetadataEditor.Models
 
                     var metadataItem = new MetadataItemViewModel
                     {
-                        Title = title, 
-                        Uuid = uuid, 
-                        Organization = organization, 
-                        Type = type, 
+                        Title = title,
+                        Uuid = uuid,
+                        Organization = organization,
+                        Type = type,
                         Relation = relation,
                         GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(uuid),
                         GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(uuid)
@@ -148,12 +148,13 @@ namespace Kartverket.MetadataEditor.Models
         {
             SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
 
-            var model = new MetadataViewModel() { 
+            var model = new MetadataViewModel()
+            {
                 Uuid = metadata.Uuid,
                 Title = metadata.Title,
                 HierarchyLevel = metadata.HierarchyLevel,
-                ParentIdentifier = metadata.ParentIdentifier, 
-                Abstract = metadata.Abstract.Replace("...",""),
+                ParentIdentifier = metadata.ParentIdentifier,
+                Abstract = metadata.Abstract.Replace("...", ""),
                 Purpose = metadata.Purpose,
 
                 ContactMetadata = new Contact(metadata.ContactMetadata, "pointOfContact"),
@@ -167,7 +168,7 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsServiceTaxonomy = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY)),
                 KeywordsOther = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, null)),
                 KeywordsEnglish = CreateDictionaryOfEnglishKeywords(metadata.Keywords),
-                
+
                 TopicCategory = metadata.TopicCategory,
                 SupplementalDescription = metadata.SupplementalDescription,
                 SpecificUsage = metadata.SpecificUsage,
@@ -176,7 +177,7 @@ namespace Kartverket.MetadataEditor.Models
                 ProductSheetUrl = metadata.ProductSheetUrl,
                 ProductSpecificationUrl = metadata.ProductSpecificationUrl,
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
-                
+
                 Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails),
 
                 SpatialRepresentation = metadata.SpatialRepresentation,
@@ -187,7 +188,7 @@ namespace Kartverket.MetadataEditor.Models
                 DistributionName = metadata.DistributionDetails != null ? metadata.DistributionDetails.Name : null,
 
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
-                ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace: null,
+                ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace : null,
 
                 QualitySpecificationDate = metadata.QualitySpecification != null ? metadata.QualitySpecification.Date : null,
                 QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
@@ -215,7 +216,7 @@ namespace Kartverket.MetadataEditor.Models
                 BoundingBoxWest = metadata.BoundingBox != null ? metadata.BoundingBox.WestBoundLongitude : null,
                 BoundingBoxNorth = metadata.BoundingBox != null ? metadata.BoundingBox.NorthBoundLatitude : null,
                 BoundingBoxSouth = metadata.BoundingBox != null ? metadata.BoundingBox.SouthBoundLatitude : null,
-                
+
                 EnglishTitle = metadata.EnglishTitle,
                 EnglishAbstract = metadata.EnglishAbstract,
                 EnglishContactMetadataOrganization = metadata.ContactMetadata != null ? metadata.ContactMetadata.OrganizationEnglish : null,
@@ -267,7 +268,7 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     output.Add(keyword.Keyword);
                 }
-            }            
+            }
             return output;
         }
 
@@ -465,11 +466,11 @@ namespace Kartverket.MetadataEditor.Models
             List<SimpleKeyword> selectedKeywordsFromParent = CreateListOfKeywords(keywords);
 
             List<string> layerIdentifiers = new List<string>();
-            foreach(WmsLayerViewModel layer in layers) {
+            foreach (WmsLayerViewModel layer in layers)
+            {
                 try
                 {
-                    SimpleMetadata simpleLayer = createDuplicateOfMetadata(parentMetadata, layer);
-                    simpleLayer.Keywords = selectedKeywordsFromParent;
+                    SimpleMetadata simpleLayer = createMetadataForLayer(parentMetadata, selectedKeywordsFromParent, layer);
                     MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata());
                     if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
                     {
@@ -495,32 +496,35 @@ namespace Kartverket.MetadataEditor.Models
         {
             List<SimpleKeyword> keywords = new List<SimpleKeyword>();
 
-            foreach (var keyword in selectedKeywords)
+            if (selectedKeywords != null)
             {
-                SimpleKeyword simpleKeyword = null;
-                if (keyword.StartsWith("Theme_"))
+                foreach (var keyword in selectedKeywords)
                 {
-                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Type = SimpleKeyword.TYPE_THEME };
-                } 
-                else if (keyword.StartsWith("Place_"))
-                {
-                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Type = SimpleKeyword.TYPE_PLACE };
-                }
-                else if (keyword.StartsWith("NationalInitiative_"))
-                {
-                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE };
-                }
-                else if (keyword.StartsWith("Inspire_"))
-                {
-                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1 };
-                }
-                else if (keyword.StartsWith("Other_"))
-                {
-                    simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword) };
-                }
+                    SimpleKeyword simpleKeyword = null;
+                    if (keyword.StartsWith("Theme_"))
+                    {
+                        simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Type = SimpleKeyword.TYPE_THEME };
+                    }
+                    else if (keyword.StartsWith("Place_"))
+                    {
+                        simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Type = SimpleKeyword.TYPE_PLACE };
+                    }
+                    else if (keyword.StartsWith("NationalInitiative_"))
+                    {
+                        simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE };
+                    }
+                    else if (keyword.StartsWith("Inspire_"))
+                    {
+                        simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1 };
+                    }
+                    else if (keyword.StartsWith("Other_"))
+                    {
+                        simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword) };
+                    }
 
-                if (simpleKeyword != null)
-                    keywords.Add(simpleKeyword);
+                    if (simpleKeyword != null)
+                        keywords.Add(simpleKeyword);
+                }
             }
             return keywords;
         }
@@ -535,10 +539,10 @@ namespace Kartverket.MetadataEditor.Models
             else
             {
                 return input;
-            }            
+            }
         }
 
-        private SimpleMetadata createDuplicateOfMetadata(SimpleMetadata parentMetadata, WmsLayerViewModel layerModel)
+        private SimpleMetadata createMetadataForLayer(SimpleMetadata parentMetadata, List<SimpleKeyword> selectedKeywordsFromParent, WmsLayerViewModel layerModel)
         {
             MD_Metadata_Type parent = parentMetadata.GetMetadata();
 
@@ -555,12 +559,14 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             simpleLayer.Title = title;
-            
+
             if (!string.IsNullOrWhiteSpace(layerModel.Abstract))
             {
                 simpleLayer.Abstract = layerModel.Abstract;
             }
 
+            simpleLayer.Keywords = selectedKeywordsFromParent;
+            
             if (layerModel.Keywords.Count > 0)
             {
                 var existingKeywords = simpleLayer.Keywords;
@@ -571,7 +577,6 @@ namespace Kartverket.MetadataEditor.Models
                         Keyword = keyword
                     });
                 }
-
                 simpleLayer.Keywords = existingKeywords;
             }
 
@@ -581,7 +586,7 @@ namespace Kartverket.MetadataEditor.Models
                 Protocol = parentMetadata.DistributionDetails.Protocol,
                 URL = parentMetadata.DistributionDetails.URL
             };
-            
+
             if (!string.IsNullOrWhiteSpace(layerModel.BoundingBoxEast))
             {
                 simpleLayer.BoundingBox = new SimpleBoundingBox
@@ -597,7 +602,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 simpleLayer.EnglishTitle = layerModel.EnglishTitle;
             }
-            
+
             if (!string.IsNullOrWhiteSpace(layerModel.EnglishAbstract))
             {
                 simpleLayer.EnglishAbstract = layerModel.EnglishAbstract;
@@ -605,7 +610,7 @@ namespace Kartverket.MetadataEditor.Models
 
             return simpleLayer;
 
-            
+
         }
 
         internal string CreateMetadata(MetadataCreateViewModel model, string username)
@@ -637,7 +642,7 @@ namespace Kartverket.MetadataEditor.Models
                 Organization = model.MetadataContactOrganization,
                 Role = "pointOfContact"
             };
-            
+
             metadata.ContactPublisher = new SimpleContact
             {
                 Name = model.MetadataContactName,
