@@ -257,7 +257,7 @@
 
             $("#thumbnailAdd").click(function (event) {
                 event.preventDefault();
-                if ($('#thumbnailUrl').val() == '') { alert('URL mangler'); return false; }
+                if ($('#thumbnailUrl').val().trim() == '') { alert('URL mangler'); return false; }
 
                 var $thumbnails = $("#thumbnails");
 
