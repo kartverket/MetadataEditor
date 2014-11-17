@@ -32,6 +32,43 @@
         @if (!Model.IsSoftware())
         {
             <div class="col-sm-6">
+                <p class="keyword-header">DOK-kategori</p>
+                <ul id="keywords-national-theme">
+                    @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
+                    {
+                        var keyword = Model.KeywordsNationalTheme[i];
+                        <li id="keywords-national-theme-@i">
+                            <span class="label label-success">@keyword</span>
+                            <a href="" class="keyword-delete" data-delete="keywords-national-theme-@i"><small>Slett</small></a>
+                            <input type="hidden" name="KeywordsNationalTheme[@i]" value="@keyword" />
+                        </li>
+                    }
+                </ul>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <select class="input-sm form-control" id="keywords-national-theme-text">
+                            <option></option>
+                            <option>Basis geodata</option>
+                            <option>Samferdsel</option>
+                            <option>Samfunnssikkerhet</option>
+                            <option>Forurensning</option>
+                            <option>Friluftsliv</option>
+                            <option>Landskap</option>
+                            <option>Natur</option>
+                            <option>Kulturminner</option>
+                            <option>Landbruk</option>
+                            <option>Energi</option>
+                            <option>Geologi</option>
+                            <option>Kyst / fiskeri</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-default btn-sm" id="keywords-national-theme-add">Legg til</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
                 <p class="keyword-header">Samarbeid og lover</p>
                 <ul id="keywords-national-initiative">
                     @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)

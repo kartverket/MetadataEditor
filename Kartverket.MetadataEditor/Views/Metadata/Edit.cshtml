@@ -489,6 +489,14 @@
                 addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
             });
 
+            $('button#keywords-national-theme-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-national-theme-text').val().trim() == '')
+                    alert('Vennligst velg DOK-kategori');
+                else
+                    addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
+            });
+
             $('button#keywords-inspire-add').click(function (event) {
                 event.preventDefault();
                 if ($('#keywords-inspire-text').val().trim() == '')
@@ -540,24 +548,5 @@
             });
 
         });
-
-
-        /*
-    $(function() {
-        var hash = document.location.hash;
-        var prefix = "tab_";
-        if (hash) {
-            var l = hash.replace(prefix, "");
-            console.log("l = " + l);
-            //$().tab('show');
-        }
-
-        // Change hash for page-reload
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            window.location.hash = e.target.hash.replace("#", "#" + prefix);
-        });
-    });
-        */
-
     </script>
 }

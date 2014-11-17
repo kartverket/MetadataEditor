@@ -55,6 +55,18 @@
                 </ul>
             </div>
         }
+        @if (Model.Metadata.KeywordsNationalTheme != null && Model.Metadata.KeywordsNationalTheme.Count > 0)
+        {
+            <div class="col-sm-6 col-md-4">
+                <p class="keyword-header">DOK-kategori</p>
+                <ul>
+                    @foreach (var k in Model.Metadata.KeywordsNationalTheme)
+                    {
+                        <li><input type="checkbox" name="keywords" checked="checked" value="NationalTheme_@k" />@k</li>
+                    }
+                </ul>
+            </div>
+        }
         @if (Model.Metadata.KeywordsInspire != null && Model.Metadata.KeywordsInspire.Count > 0)
         { 
             <div class="col-sm-6 col-md-4">

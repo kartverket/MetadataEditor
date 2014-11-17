@@ -18,6 +18,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsInspire = new List<string>();
             KeywordsServiceTaxonomy = new List<string>();
             KeywordsNationalInitiative = new List<string>();
+            KeywordsNationalTheme = new List<string>();
             KeywordsOther = new List<string>();
             KeywordsEnglish = new Dictionary<string, string>();
             Thumbnails = new List<Thumbnail>();
@@ -48,6 +49,7 @@ namespace Kartverket.MetadataEditor.Models
         public List<String> KeywordsInspire { get; set; }
         public List<String> KeywordsServiceTaxonomy { get; set; }
         public List<String> KeywordsNationalInitiative { get; set; }
+        public List<String> KeywordsNationalTheme { get; set; }
         public List<String> KeywordsOther { get; set; }
         public Dictionary<string, string> KeywordsEnglish { get; set; }
 
@@ -168,6 +170,7 @@ namespace Kartverket.MetadataEditor.Models
             List<SimpleKeyword> allKeywords = new List<SimpleKeyword>();
             allKeywords.AddRange(CreateKeywords(KeywordsInspire, "Inspire", null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1));
             allKeywords.AddRange(CreateKeywords(KeywordsNationalInitiative, "NationalInitiative", null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE));
+            allKeywords.AddRange(CreateKeywords(KeywordsNationalTheme, "NationalTheme", null, SimpleKeyword.THESAURUS_NATIONAL_THEME));
             allKeywords.AddRange(CreateKeywords(KeywordsServiceTaxonomy, "Service", null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY));
             allKeywords.AddRange(CreateKeywords(KeywordsPlace, "Place", SimpleKeyword.TYPE_PLACE, null));
             allKeywords.AddRange(CreateKeywords(KeywordsTheme, "Theme", SimpleKeyword.TYPE_THEME, null));
