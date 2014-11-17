@@ -140,7 +140,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.CreateProductSheetUrl =
                 System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"] + model.Uuid;
             ViewBag.ThumbnailUrl =
-                System.Web.Configuration.WebConfigurationManager.AppSettings["ThumbnailUrl"];
+                System.Web.Configuration.WebConfigurationManager.AppSettings["EditorUrl"] + "thumbnails/";
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
         }
