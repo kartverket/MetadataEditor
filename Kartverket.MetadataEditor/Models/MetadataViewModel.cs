@@ -121,6 +121,9 @@ namespace Kartverket.MetadataEditor.Models
 
         public DateTime? DateMetadataUpdated { get; set; }
 
+        public string DateMetadataValidFrom { get; set; }
+        public string DateMetadataValidTo { get; set; }
+
         public string EnglishTitle { get; set; }
         public string EnglishAbstract { get; set; }
 

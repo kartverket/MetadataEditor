@@ -27,6 +27,22 @@
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
         </div>
+
+        <div style="border-color: black;" class="form-group has-feedback">
+            <label for="DateCreated" class="col-sm-6 control-label">Gyldig fra dato (dd.mm.yyyy)</label>
+            <div class="col-sm-4">
+                @Html.EditorFor(m => m.DateMetadataValidFrom, new { cssClass = "date" }) 
+                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            </div>
+        </div>
+        <div style="border-color: black;" class="form-group has-feedback">
+            <label for="DateCreated" class="col-sm-6 control-label">Gyldig til dato (dd.mm.yyyy)</label>
+            <div class="col-sm-4">
+                @Html.EditorFor(m => m.DateMetadataValidTo, new { cssClass = "date" })
+                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            </div>
+        </div>
+
     </div>
     <div class="col-sm-6">
         <div class="form-group">

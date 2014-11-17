@@ -210,6 +210,8 @@ namespace Kartverket.MetadataEditor.Models
                 DatePublished = metadata.DatePublished,
                 DateUpdated = metadata.DateUpdated,
                 DateMetadataUpdated = metadata.DateMetadataUpdated,
+                DateMetadataValidFrom = metadata.ValidTimePeriod.ValidFrom,
+                DateMetadataValidTo = metadata.ValidTimePeriod.ValidTo,
 
                 Status = metadata.Status,
 
@@ -397,6 +399,16 @@ namespace Kartverket.MetadataEditor.Models
             metadata.DateCreated = model.DateCreated;
             metadata.DatePublished = model.DatePublished;
             metadata.DateUpdated = model.DateUpdated;
+
+            if (!string.IsNullOrWhiteSpace(model.DateMetadataValidFrom) && !string.IsNullOrWhiteSpace(model.DateMetadataValidTo))
+            {
+                metadata.ValidTimePeriod = new SimpleValidTimePeriod()
+                {
+                    ValidFrom = model.DateMetadataValidFrom,
+                    ValidTo = model.DateMetadataValidTo
+                };
+            }
+
 
             if (!string.IsNullOrWhiteSpace(model.BoundingBoxEast))
             {
