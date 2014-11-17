@@ -241,16 +241,7 @@
                 },
                 done: function (e, data) {
                     console.log("File uploaded: " + data.result.filename);
-                    @{  
-                        string thumbnailUrl;
-                        string domain = Request.Url.Host;
-                        int port = Request.Url.Port;
-                        if (domain.Contains("localhost")) { thumbnailUrl = "http://" + domain + ":" + port + "/thumbnails/"; }
-                        else if (domain.Contains("dev")) { thumbnailUrl = "http://editor.dev.geonorge.no/thumbnails/"; }
-                        else if (domain.Contains("test")) { thumbnailUrl = "http://editor.test.geonorge.no/thumbnails/"; }
-                        else { thumbnailUrl = "https://editor.geonorge.no/thumbnails/"; }
-                    }
-                    $("#thumbnailUrl").val('@thumbnailUrl' + data.result.filename);
+                    $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
                     $('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
                 }
             });

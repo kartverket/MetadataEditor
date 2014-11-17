@@ -139,6 +139,8 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.AccessConstraints);
             ViewBag.CreateProductSheetUrl =
                 System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"] + model.Uuid;
+            ViewBag.ThumbnailUrl =
+                System.Web.Configuration.WebConfigurationManager.AppSettings["ThumbnailUrl"];
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
         }
