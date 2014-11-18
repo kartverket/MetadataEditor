@@ -210,8 +210,8 @@ namespace Kartverket.MetadataEditor.Models
                 DatePublished = metadata.DatePublished,
                 DateUpdated = metadata.DateUpdated,
                 DateMetadataUpdated = metadata.DateMetadataUpdated,
-                DateMetadataValidFrom = metadata.ValidTimePeriod.ValidFrom,
-                DateMetadataValidTo = metadata.ValidTimePeriod.ValidTo,
+                DateMetadataValidFrom =  string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidFrom) ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidFrom) ,
+                DateMetadataValidTo = string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidTo) ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidTo),
 
                 Status = metadata.Status,
 
@@ -400,12 +400,15 @@ namespace Kartverket.MetadataEditor.Models
             metadata.DatePublished = model.DatePublished;
             metadata.DateUpdated = model.DateUpdated;
 
-            if (!string.IsNullOrWhiteSpace(model.DateMetadataValidFrom) && !string.IsNullOrWhiteSpace(model.DateMetadataValidTo))
+            DateTime? DateMetadataValidFrom = model.DateMetadataValidFrom;
+            DateTime? DateMetadataValidTo = model.DateMetadataValidTo;
+
+            if (DateMetadataValidFrom != null && DateMetadataValidTo != null)
             {
                 metadata.ValidTimePeriod = new SimpleValidTimePeriod()
                 {
-                    ValidFrom = model.DateMetadataValidFrom,
-                    ValidTo = model.DateMetadataValidTo
+                    ValidFrom = String.Format("{0:s}", DateMetadataValidFrom),
+                    ValidTo = String.Format("{0:s}", DateMetadataValidTo)
                 };
             }
 
