@@ -165,6 +165,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\MetadataCreateViewModel.cs" />
     <Compile Include="Models\MetadataIndexViewModel.cs" />
     <Compile Include="Models\MetadataItemViewModel.cs" />
