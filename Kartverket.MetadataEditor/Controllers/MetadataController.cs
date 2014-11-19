@@ -120,11 +120,20 @@ namespace Kartverket.MetadataEditor.Controllers
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
 
-            MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
+            try
+            {
+                MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
+                PrepareViewBagForEditing(model);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error while getting metadata with uuid = " + uuid, e);
+                TempData["failure"] = "Feilmelding: " + e.Message;
+                return View("Error");
+            }
 
-            PrepareViewBagForEditing(model);
-
-            return View(model);
+            
         }
 
 
