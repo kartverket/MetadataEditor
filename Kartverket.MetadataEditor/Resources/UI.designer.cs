@@ -322,6 +322,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forklaring av resultat.
+        /// </summary>
+        public static string Metadata_QualitySpecificationExplanation {
+            get {
+                return ResourceManager.GetString("Metadata_QualitySpecificationExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tittel.
         /// </summary>
         public static string Metadata_Title {

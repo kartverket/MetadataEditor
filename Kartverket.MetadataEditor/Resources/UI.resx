@@ -204,6 +204,9 @@
   <data name="Metadata_Purpose" xml:space="preserve">
     <value>Formål</value>
   </data>
+  <data name="Metadata_QualitySpecificationExplanation" xml:space="preserve">
+    <value>Forklaring av resultat</value>
+  </data>
   <data name="Metadata_Title" xml:space="preserve">
     <value>Tittel</value>
   </data>
