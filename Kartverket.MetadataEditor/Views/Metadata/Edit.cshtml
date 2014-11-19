@@ -418,6 +418,41 @@
                 }
             });
 
+            $("#DateMetadataValidFrom").change(function (event) {
+                event.preventDefault();
+                var selectedDateStr = $('#DateMetadataValidFrom').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                var validToStr = $('#DateMetadataValidTo').val();
+                var validToArr = validToStr.split('.');
+                var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
+
+                if (ValidToDate < selectedDate) {
+                    alert('Gyldig fra dato må være mindre enn gyldig til dato');
+                    var newDate = new Date(ValidToDate);
+                    newDate.setDate(newDate.getDate() - 1);
+                    $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+                }
+            });
+
+            $("#DateMetadataValidTo").change(function (event) {
+                event.preventDefault();
+                var selectedDateStr = $('#DateMetadataValidTo').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                var validFromStr = $('#DateMetadataValidFrom').val();
+                var validFromArr = validFromStr.split('.');
+                var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
+
+                if (selectedDate < ValidFromDate) {
+                    alert('Gyldig til dato må være større enn gyldig fra dato');
+                    var newDate = new Date(ValidFromDate);
+                    newDate.setDate(newDate.getDate() + 1);
+                    $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+                }
+            });
+
+
             // keywords
 
             function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
