@@ -72,7 +72,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
                 else
                 {
-                    model = _metadataService.SearchMetadata(userOrganization, null, offset, limit);
+                    model = _metadataService.SearchMetadata(userOrganization, searchString, offset, limit);
                 }
 
                 model.UserOrganization = userOrganization;
