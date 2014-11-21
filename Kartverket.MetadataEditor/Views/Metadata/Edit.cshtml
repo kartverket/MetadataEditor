@@ -321,6 +321,120 @@
             // add help icon to each help text paragraph
             $(".help-text").prepend("<span class=\"badge\">?</span> ");
 
+            // format
+
+
+            $("#SpatialRepresentation").change(function (event) {
+                event.preventDefault();
+                var selectedSpatialRepresentation = $("#SpatialRepresentation").val();
+
+                if (selectedSpatialRepresentation == "vector") {
+
+                    $('#DistributionFormatName').children('option:not(:first)').remove();
+
+                    $('#DistributionFormatName').append('<option val="SOSI">SOSI</option>');
+                    $('#DistributionFormatName').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
+                    $('#DistributionFormatName').append('<option val="DOS/OPeNDAP">DOS/OPeNDAP</option>');
+                    $('#DistributionFormatName').append('<option val="DXF">DXF</option>');
+                    $('#DistributionFormatName').append('<option val="ESRI Filgeodatabase">ESRI Filgeodatabase</option>');
+                    $('#DistributionFormatName').append('<option val="ESRI Geodatabase">ESRI Geodatabase</option>');
+                    $('#DistributionFormatName').append('<option val="ESRI Shape">ESRI Shape</option>');
+                    $('#DistributionFormatName').append('<option val="GeoJSON">GeoJSON</option>');
+                    $('#DistributionFormatName').append('<option val="GML">GML</option>');
+                    $('#DistributionFormatName').append('<option val="GPX">GPX</option>');
+                    $('#DistributionFormatName').append('<option val="KML">KML</option>');
+                    $('#DistributionFormatName').append('<option val="KMZ">KMZ</option>');
+                    $('#DistributionFormatName').append('<option val="LAS">LAS</option>');
+                    $('#DistributionFormatName').append('<option val="LAZ">LAZ</option>');
+                    $('#DistributionFormatName').append('<option val="MapInfo (MIF/MID)">MapInfo (MIF/MID)</option>');
+                    $('#DistributionFormatName').append('<option val="MapInfo (TAB)">MapInfo (TAB)</option>');
+                    $('#DistributionFormatName').append('<option val="Microstation DGN">Microstation DGN</option>');
+                    $('#DistributionFormatName').append('<option val="OLEX">OLEX</option>');
+                    $('#DistributionFormatName').append('<option val="PDF">PDF</option>');
+                    $('#DistributionFormatName').append('<option val="RDF">RDF</option>');
+                    $('#DistributionFormatName').append('<option val="S57">S57</option>');
+                    $('#DistributionFormatName').append('<option val="SQLite/SpatialLite">SQLite/SpatialLite</option>');
+                    $('#DistributionFormatName').append('<option val="XML">XML</option>');
+                }
+
+                else if (selectedSpatialRepresentation == "grid") {
+
+                    $('#DistributionFormatName').children('option:not(:first)').remove();
+
+                    $('#DistributionFormatName').append('<option val="Arc ASCII Grid">Arc ASCII Grid</option>');
+                    $('#DistributionFormatName').append('<option val="Arc SDE Raster">Arc SDE Raster</option>');
+                    $('#DistributionFormatName').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
+                    $('#DistributionFormatName').append('<option val="BMP">BMP</option>');
+                    $('#DistributionFormatName').append('<option val="USGS DEM">USGS DEM</option>');
+                    $('#DistributionFormatName').append('<option val="DTED">DTED</option>');
+                    $('#DistributionFormatName').append('<option val="Erdas ECW">Erdas ECW</option>');
+                    $('#DistributionFormatName').append('<option val="GeoTIFF">GeoTIFF</option>');
+                    $('#DistributionFormatName').append('<option val="GFX">GFX</option>');
+                    $('#DistributionFormatName').append('<option val="GRASS raster format">GRASS raster format</option>');
+                    $('#DistributionFormatName').append('<option val="GRIB">GRIB</option>');
+                    $('#DistributionFormatName').append('<option val="Erdas IMG">Erdas IMG</option>');
+                    $('#DistributionFormatName').append('<option val="JPEG">JPEG</option>');
+                    $('#DistributionFormatName').append('<option val="JPEG2000">JPEG2000</option>');
+                    $('#DistributionFormatName').append('<option val="MrSID">MrSID</option>');
+                    $('#DistributionFormatName').append('<option val="NetCDF">NetCDF</option>');
+                    $('#DistributionFormatName').append('<option val="PNG">PNG</option>');
+                    $('#DistributionFormatName').append('<option val="PPT">PPT</option>');
+                    $('#DistributionFormatName').append('<option val="TIFF">TIFF</option>');
+
+                }
+
+                else if (selectedSpatialRepresentation == "textTable") {
+
+                    $('#DistributionFormatName').children('option:not(:first)').remove();
+
+                    $('#DistributionFormatName').append('<option val="CSV">CSV</option>');
+                    $('#DistributionFormatName').append('<option val="Microsoft Excel">Microsoft Excel</option>');
+                    $('#DistributionFormatName').append('<option val="DBF">DBF</option>');
+                    $('#DistributionFormatName').append('<option val="Tekstfil">Tekstfil</option>');
+                    
+                }
+
+                else if (selectedSpatialRepresentation == "tin") {
+
+                    $('#DistributionFormatName').children('option:not(:first)').remove();
+
+                    $('#DistributionFormatName').append('<option val="Intergraph TIN">Intergraph TIN</option>');
+                    $('#DistributionFormatName').append('<option val="ESRI TIN">ESRI TIN</option>');
+                    $('#DistributionFormatName').append('<option val="GEOPAK TIN">GEOPAK TIN</option>');
+                    $('#DistributionFormatName').append('<option val="LandXML TIN">LandXML TIN</option>');
+
+                }
+
+                else if (selectedSpatialRepresentation == "stereoModel") {
+
+                    $('#DistributionFormatName').children('option:not(:first)').remove();
+
+                    $('#DistributionFormatName').append('<option val="Intergraph TIN">Intergraph TIN</option>');
+                    $('#DistributionFormatName').append('<option val="JPEG">JPEG</option>');
+                }
+
+                else if (selectedSpatialRepresentation == "video") {
+
+                    $('#DistributionFormatName').children('option:not(:first)').remove();
+
+                    $('#DistributionFormatName').append('<option val="MPEG">MPEG</option>');
+                    $('#DistributionFormatName').append('<option val="AVI">AVI</option>');
+                    $('#DistributionFormatName').append('<option val="MOV">MOV</option>');
+                    $('#DistributionFormatName').append('<option val="OGG">OGG</option>');
+                    $('#DistributionFormatName').append('<option val="WMV">WMV</option>');
+                    $('#DistributionFormatName').append('<option val="RealVideo">RealVideo</option>');
+                    $('#DistributionFormatName').append('<option val="RMVB">RMVB</option>');
+                    $('#DistributionFormatName').append('<option val="FLASH">FLASH</option>');
+                    $('#DistributionFormatName').append('<option val="ASF">ASF</option>');
+                    $('#DistributionFormatName').append('<option val="MP4">MP4</option>');
+                    $('#DistributionFormatName').append('<option val="QuickTime">QuickTime</option>');
+                }
+
+            });
+
+            $("#SpatialRepresentation").trigger("change");
+
+
             // distribution
 
             $('button#usePredefinedDistributionProtocol').click(function (event) {

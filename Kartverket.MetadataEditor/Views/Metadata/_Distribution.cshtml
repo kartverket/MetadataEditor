@@ -12,7 +12,14 @@
 <div class="form-group">
     <label for="DistributionFormatName" class="col-sm-2 control-label">Format</label>
     <div class="col-sm-3">
+        @if (Model.IsDataset() || Model.IsDatasetSeries()) { 
+        <select id="DistributionFormatName" name="DistributionFormatName" class="form-control">
+            <option value="@Model.DistributionFormatName">@Model.DistributionFormatName</option>
+        </select>
+        }
+        else { 
         @Html.EditorFor(m => m.DistributionFormatName)
+        }
     </div>
     <label for="DistributionFormatVersion" class="col-sm-2 control-label">Versjon</label>
     <div class="col-sm-4">
