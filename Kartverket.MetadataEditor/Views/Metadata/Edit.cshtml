@@ -18,7 +18,10 @@
                 <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for WMS-lag
             </a>
         }
+        @if (Model.IsDataset()) 
+        {   
         <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
+        }
     </div>
 }
 
