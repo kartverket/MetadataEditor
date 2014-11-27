@@ -2,6 +2,10 @@
 @using Resources
 @{
     ViewBag.Title = @Resources.UI.EditMetadata;
+    bool showProductSheetGeneratorUrl = false;
+    var ProductSheetGeneratorUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"];
+    if (ProductSheetGeneratorUrl != null && ProductSheetGeneratorUrl != "")
+        showProductSheetGeneratorUrl = true;
 }
 
 @section ActionMenu {
@@ -18,7 +22,7 @@
                 <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for WMS-lag
             </a>
         }
-        @if (Model.IsDataset()) 
+        @if (Model.IsDataset() && showProductSheetGeneratorUrl) 
         {   
         <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
         }
@@ -26,7 +30,7 @@
 }
 
 
-<div class="pull-right">
+<div class="pull-right">@System.Web.Configuration.WebConfigurationManager.AppSettings["EditorUrl"]
     <p class="text-right"><small>UUID: @Model.Uuid</small><br />
     <small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small>
     <br />
