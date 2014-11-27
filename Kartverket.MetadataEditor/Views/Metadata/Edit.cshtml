@@ -16,7 +16,7 @@
         <a href="@ViewBag.GeoNetworkViewUrl" class="btn btn-sm btn-default">
             <span class="glyphicon glyphicon-share-alt"></span> Vis i metadatakatalogen
         </a>
-        @if (Model.IsService())
+        @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
         {
             <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
                 <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for WMS-lag
@@ -30,7 +30,7 @@
 }
 
 
-<div class="pull-right">@System.Web.Configuration.WebConfigurationManager.AppSettings["EditorUrl"]
+<div class="pull-right">
     <p class="text-right"><small>UUID: @Model.Uuid</small><br />
     <small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small>
     <br />
