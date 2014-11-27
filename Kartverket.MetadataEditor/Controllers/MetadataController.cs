@@ -131,7 +131,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
                 else
                 {
-                    return new HttpUnauthorizedResult();
+                    TempData["failure"] = "Du har ikke tilgang til å redigere disse metadataene";
+                    return View("Error");
                 }
             }
             catch (Exception e)
