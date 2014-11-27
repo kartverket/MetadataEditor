@@ -14,6 +14,8 @@ namespace Kartverket.MetadataEditor.Models
 
         public WmsServiceViewModel GetLayers(string wmsUrl)
         {
+            if (!string.IsNullOrWhiteSpace(wmsUrl))
+            {
             WmsServiceViewModel serviceModel = new WmsServiceViewModel();
 
             if (!wmsUrl.EndsWith("?"))
@@ -46,6 +48,9 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             return serviceModel;
+            }
+            else
+                return null;
         }
     }
 }

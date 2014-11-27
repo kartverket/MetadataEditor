@@ -17,11 +17,17 @@ namespace Kartverket.MetadataEditor.Models
 
         public string GetCapabilitiesUrl()
         {
-            if (!WmsUrl.EndsWith("?"))
+            if (WmsUrl != null)
             {
-                WmsUrl = WmsUrl + "?";
+                if (!WmsUrl.EndsWith("?"))
+                {
+                    WmsUrl = WmsUrl + "?";
+                }
+                return WmsUrl + "service=wms&request=GetCapabilities";
             }
-            return WmsUrl + "service=wms&request=GetCapabilities";
+            else
+                return null;
+
         }
     }
 }
