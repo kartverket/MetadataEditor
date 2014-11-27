@@ -121,10 +121,18 @@ namespace Kartverket.MetadataEditor.Controllers
                 return HttpNotFound();
 
             try
-            {
+            {   
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
-                PrepareViewBagForEditing(model);
-                return View(model);
+                string role = GetSecurityClaim("role");
+                if (HasAccessToMetadata(model))
+                {
+                    PrepareViewBagForEditing(model);
+                    return View(model);
+                }
+                else
+                {
+                    return new HttpUnauthorizedResult();
+                }
             }
             catch (Exception e)
             {
