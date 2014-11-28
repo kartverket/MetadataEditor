@@ -67,7 +67,8 @@ namespace Kartverket.MetadataEditor.Controllers
                     }
                 }
             }
-            List<WmsLayerViewModel> newlyCreatedLayerMetadata = _metadataService.CreateMetadataForLayers(uuid, createMetadataForLayers, keywords);
+            string username = GetUsername();
+            List<WmsLayerViewModel> newlyCreatedLayerMetadata = _metadataService.CreateMetadataForLayers(uuid, createMetadataForLayers, keywords, username);
             
             ServiceLayerViewModel model = new ServiceLayerViewModel
             {
@@ -79,5 +80,30 @@ namespace Kartverket.MetadataEditor.Controllers
             return View("LayersCreated", model);
         }
 
+        private string GetUsername()
+        {
+            return GetSecurityClaim("username");
+        }
+
+        private string GetSecurityClaim(string type)
+        {
+            string result = null;
+            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+            {
+                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
+                {
+                    result = claim.Value;
+                    break;
+                }
+            }
+
+            // bad hack, must fix BAAT
+            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
+            {
+                result = "Kartverket";
+            }
+
+            return result;
+        }
 	}
 }

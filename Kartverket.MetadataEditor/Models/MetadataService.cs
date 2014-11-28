@@ -475,7 +475,7 @@ namespace Kartverket.MetadataEditor.Models
         }
 
 
-        internal List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers, string[] keywords)
+        internal List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers, string[] keywords, string username)
         {
             SimpleMetadata parentMetadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
 
@@ -487,7 +487,7 @@ namespace Kartverket.MetadataEditor.Models
                 try
                 {
                     SimpleMetadata simpleLayer = createMetadataForLayer(parentMetadata, selectedKeywordsFromParent, layer);
-                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata());
+                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
                     if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
                     {
                         layer.Uuid = transaction.Identifiers[0];
