@@ -187,7 +187,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             bool hasAccess = false;
 
-            if (ContactMetadata != null && ContactMetadata.Organization != null && ContactMetadata.Organization.Equals(organization))
+            if (ContactMetadata != null && ContactMetadata.Organization != null && ContactMetadata.Organization.ToLower().Equals(organization.ToLower()))
             {
                 hasAccess = true;
             }
