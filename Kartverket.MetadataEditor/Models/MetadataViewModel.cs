@@ -87,6 +87,7 @@ namespace Kartverket.MetadataEditor.Models
         public string DistributionUrl { get; set; }
         public string DistributionProtocol { get; set; }
         public string DistributionName { get; set; }
+        public string UnitsOfDistribution { get; set; }
 
         public string ReferenceSystemCoordinateSystem { get; set; }
         public string ReferenceSystemNamespace { get; set; }

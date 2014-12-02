@@ -96,6 +96,13 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label for="UnitsOfDistribution" class="col-sm-2 control-label">Fordeling enheter</label>
+    <div class="col-sm-9">
+        @Html.DropDownList("UnitsOfDistribution", ViewBag.UnitsOfDistributionValues as SelectList, String.Empty, new { @class = "form-control" })
+    </div>
+</div>
+
 @if (!Model.IsSoftware()) 
 { 
     <div class="form-group">

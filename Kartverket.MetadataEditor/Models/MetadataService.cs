@@ -188,6 +188,7 @@ namespace Kartverket.MetadataEditor.Models
                 DistributionUrl = metadata.DistributionDetails != null ? metadata.DistributionDetails.URL : null,
                 DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
                 DistributionName = metadata.DistributionDetails != null ? metadata.DistributionDetails.Name : null,
+                UnitsOfDistribution = metadata.DistributionDetails != null ? metadata.DistributionDetails.UnitsOfDistribution : null,
 
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace : null,
@@ -365,13 +366,14 @@ namespace Kartverket.MetadataEditor.Models
             metadata.DistributionFormats = model.GetDistributionFormats();
 
             if (!string.IsNullOrWhiteSpace(model.DistributionUrl) || !string.IsNullOrWhiteSpace(model.DistributionProtocol) ||
-                !string.IsNullOrWhiteSpace(model.DistributionName))
+                !string.IsNullOrWhiteSpace(model.DistributionName) || !string.IsNullOrWhiteSpace(model.UnitsOfDistribution))
             {
                 metadata.DistributionDetails = new SimpleDistributionDetails
                 {
                     URL = model.DistributionUrl,
                     Protocol = model.DistributionProtocol,
-                    Name = model.DistributionName
+                    Name = model.DistributionName,
+                    UnitsOfDistribution = model.UnitsOfDistribution
                 };
             }
 

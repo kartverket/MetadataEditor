@@ -150,6 +150,7 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
+            ViewBag.UnitsOfDistributionValues = new SelectList(GetListOfUnitsOfDistribution(), "Key", "Value", model.UnitsOfDistribution);
             ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
             ViewBag.StatusValues = new SelectList(GetListOfStatusValues(), "Key", "Value", model.Status);
             ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(), "Key", "Value", model.SecurityConstraints);
@@ -234,6 +235,18 @@ namespace Kartverket.MetadataEditor.Controllers
                 {"structure","Konstruksjoner"},
                 {"transportation","Transport"},
                 {"utilitiesCommunication","Ledningsinformasjon"},
+            };
+        }
+
+        public Dictionary<string, string> GetListOfUnitsOfDistribution()
+        {
+            return new Dictionary<string, string> 
+            {
+                {"Kommunevis", "Kommunevis"}, 
+                {"Fylkesvis", "Fylkesvis"}, 
+                {"Landsfiler", "Landsfiler"}, 
+                {"Regional inndeling", "Regional inndeling"}, 
+                {"Kartbladvis", "Kartbladvis"}, 
             };
         }
 
