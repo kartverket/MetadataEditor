@@ -4,28 +4,57 @@
 {
     <div class="form-group">
         <label for="SpatialRepresentation" class="col-sm-2 control-label">Representasjonsform</label>
-        <div class="col-sm-9">
+        <div class="col-sm-2">
             @Html.DropDownList("SpatialRepresentation", ViewBag.SpatialRepresentationValues as SelectList, String.Empty, new { @class = "form-control" })
         </div>
+        
     </div>
 }
-<div class="form-group">
-    <label for="DistributionFormatName" class="col-sm-2 control-label">Format</label>
-    <div class="col-sm-3">
-        @if (Model.IsDataset() || Model.IsDatasetSeries()) { 
-        <select id="DistributionFormatName" name="DistributionFormatName" class="form-control">
-            <option value="@Model.DistributionFormatName">@Model.DistributionFormatName</option>
-        </select>
-        }
-        else { 
-        @Html.EditorFor(m => m.DistributionFormatName)
-        }
-    </div>
-    <label for="DistributionFormatVersion" class="col-sm-2 control-label">Versjon</label>
-    <div class="col-sm-4">
-        @Html.EditorFor(m => m.DistributionFormatVersion)
-    </div>
+@if (Model.IsDataset() || Model.IsDatasetSeries())
+{
+<hr style="border-bottom:medium 1px black;" />
+}
+<div id="distributionFormatDiv">
+    @{ string modelDatatype = "service"; }
+    @for (int f = 0; f < Model.DistributionFormats.Count; f++)
+    {
+        string rowID = "formatRow" + f;
+        <div id="@rowID" class="form-group">
+            <label for="distributionFormats[@f].Name" class="col-sm-2 control-label">Format</label>
+            <div class="col-sm-3">
+                @if (Model.IsDataset() || Model.IsDatasetSeries())
+                {
+                    modelDatatype = "dataset";
+                    <select id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" class="form-control">
+                        <option value="@Model.DistributionFormats[f].Name">@Model.DistributionFormats[f].Name</option>
+                    </select>
+                }
+                else
+                {
+                    <input id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" type="text" value="@Model.DistributionFormats[f].Name" />
+                }
+            </div>
+            <label for="distributionFormats[@f].Version" class="col-sm-2 control-label">Versjon</label>
+            <div class="col-sm-3">
+                <input type="text" id="distributionFormats[@f].Version" name="distributionFormats[@f].Version" value="@Model.DistributionFormats[f].Version" />
+            </div>
+            <div class="col-sm-2">
+                @if (f == 0)
+                {            
+                    <button class="btn btn-default" id="newDistributionFormat">Nytt format</button>
+                }
+                @if (f > 0)
+                {
+                    <button class="btn btn-default" id="delDistributionFormat[@f]" onclick="removeDistributionFormat(@f)">Slett</button>
+                }
+            </div>
+
+        </div>
+    }
 </div>
+<hr style="border-bottom:medium 1px black;" />
+<input type="hidden" name="DistributionFormatsCount" id="DistributionFormatsCount" value="@Model.DistributionFormats.Count" />
+<input type="hidden" name="DistributionFormatsType" id="DistributionFormatsType" value="@modelDatatype" />
 <div class="form-group">
     <label for="DistributionProtocol" class="col-sm-2 control-label">Protokoll</label>
     <div class="col-sm-3">

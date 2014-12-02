@@ -184,6 +184,7 @@ namespace Kartverket.MetadataEditor.Models
                 SpatialRepresentation = metadata.SpatialRepresentation,
                 DistributionFormatName = metadata.DistributionFormat != null ? metadata.DistributionFormat.Name : null,
                 DistributionFormatVersion = metadata.DistributionFormat != null ? metadata.DistributionFormat.Version : null,
+                DistributionFormats = metadata.DistributionFormats != null ? metadata.DistributionFormats : new List<SimpleDistributionFormat> { new SimpleDistributionFormat() },
                 DistributionUrl = metadata.DistributionDetails != null ? metadata.DistributionDetails.URL : null,
                 DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
                 DistributionName = metadata.DistributionDetails != null ? metadata.DistributionDetails.Name : null,
@@ -210,7 +211,7 @@ namespace Kartverket.MetadataEditor.Models
                 DatePublished = metadata.DatePublished,
                 DateUpdated = metadata.DateUpdated,
                 DateMetadataUpdated = metadata.DateMetadataUpdated,
-                DateMetadataValidFrom =  string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidFrom) ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidFrom) ,
+                DateMetadataValidFrom = string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidFrom) ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidFrom),
                 DateMetadataValidTo = string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidTo) ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidTo),
 
                 Status = metadata.Status,
@@ -350,6 +351,7 @@ namespace Kartverket.MetadataEditor.Models
                 };
             }
 
+            //Upgraded to multiple distribution formats
             if (!string.IsNullOrWhiteSpace(model.DistributionFormatName) ||
                 !string.IsNullOrWhiteSpace(model.DistributionFormatVersion))
             {
@@ -359,6 +361,8 @@ namespace Kartverket.MetadataEditor.Models
                     Version = model.DistributionFormatVersion
                 };
             }
+
+            metadata.DistributionFormats = model.GetDistributionFormats();
 
             if (!string.IsNullOrWhiteSpace(model.DistributionUrl) || !string.IsNullOrWhiteSpace(model.DistributionProtocol) ||
                 !string.IsNullOrWhiteSpace(model.DistributionName))

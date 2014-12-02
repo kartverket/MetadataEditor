@@ -83,6 +83,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public string DistributionFormatName { get; set; }
         public string DistributionFormatVersion { get; set; }
+        public List<SimpleDistributionFormat> DistributionFormats { get; set; }
         public string DistributionUrl { get; set; }
         public string DistributionProtocol { get; set; }
         public string DistributionName { get; set; }
@@ -182,6 +183,23 @@ namespace Kartverket.MetadataEditor.Models
             allKeywords.AddRange(CreateKeywords(KeywordsOther, "Other", null, null));
             return allKeywords;
         }
+
+        internal List<SimpleDistributionFormat> GetDistributionFormats() 
+        {
+            List<SimpleDistributionFormat> distributionFormats = new List<SimpleDistributionFormat>();
+
+            for(int d=0; d<DistributionFormats.Count; d++)
+            {
+                SimpleDistributionFormat distributionFormat = new SimpleDistributionFormat();
+                distributionFormat.Name = DistributionFormats[d].Name;
+                distributionFormat.Version = DistributionFormats[d].Version;
+                distributionFormats.Add(distributionFormat);
+            }
+
+            return distributionFormats;
+        
+        }
+
 
         internal bool HasAccess(string organization)
         {
