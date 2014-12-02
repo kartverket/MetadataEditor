@@ -474,14 +474,12 @@
             dfHtm += '</div>';
             dfHtm += '<div class="col-sm-2">';
 
-            //$("#distributionFormatDiv").append('<button type="button" id="delDistributionFormat[' + fIndex + ']" class="btn btn-default" onclick="document.getElementById(\'formatRow' + fIndex + '\').remove();document.getElementById(\'DistributionFormatsCount\').value-=1">Slett</button>');
             dfHtm += '<button type="button" id="delDistributionFormat[' + fIndex + ']" class="btn btn-default" onclick="removeDistributionFormat(' + fIndex + ')">Slett</button>';
 
             dfHtm += '</div>';
 
             dfHtm += '</div>';
 
-            //alert($("#distributionFormatDiv").html());
             $("#distributionFormatDiv").append(dfHtm);
             $("#DistributionFormatsCount").val(DistributionFormatCounts);
             
