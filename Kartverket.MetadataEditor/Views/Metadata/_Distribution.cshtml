@@ -31,12 +31,12 @@
                 }
                 else
                 {
-                    <input id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" type="text" value="@Model.DistributionFormats[f].Name" />
+                    <input id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" type="text" value="@Model.DistributionFormats[f].Name" class="form-control" />
                 }
             </div>
             <label for="distributionFormats[@f].Version" class="col-sm-2 control-label">Versjon</label>
             <div class="col-sm-3">
-                <input type="text" id="distributionFormats[@f].Version" name="distributionFormats[@f].Version" value="@Model.DistributionFormats[f].Version" />
+                <input type="text" id="distributionFormats[@f].Version" name="distributionFormats[@f].Version" value="@Model.DistributionFormats[f].Version" class="form-control" />
             </div>
             <div class="col-sm-2">
                 @if (f == 0)
