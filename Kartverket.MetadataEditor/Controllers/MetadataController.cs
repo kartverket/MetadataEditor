@@ -323,30 +323,40 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [Authorize]
+        [OutputCache(Duration = 0)]
         public ActionResult UploadThumbnail(string uuid, bool scaleImage = false)    
         {
             string filename = null;
+            var viewresult = Json(new {});
             if (Request.Files.Count > 0)
             {
                 HttpPostedFileBase file = Request.Files[0];
 
-                var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                filename = uuid + "_" + timestamp + "_" + file.FileName;
-                string fullPath = Server.MapPath("~/thumbnails/" + filename);
+                if (file.ContentType == "image/jpeg" || file.ContentType == "image/gif" || file.ContentType == "image/png")
+                {
+
+                    var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    filename = uuid + "_" + timestamp + "_" + file.FileName;
+                    string fullPath = Server.MapPath("~/thumbnails/" + filename);
              
-                if (scaleImage)
-                {
-                    var image = Image.FromStream(file.InputStream);
-                    var newImage = ScaleImage(image, 180, 1000);
-                    newImage.Save(fullPath);
+                    if (scaleImage)
+                    {
+                        var image = Image.FromStream(file.InputStream);
+                        var newImage = ScaleImage(image, 180, 1000);
+                        newImage.Save(fullPath);
+                    }
+                    else
+                    {
+                        file.SaveAs(fullPath);
+                    }
+
+                    viewresult = Json(new { status = "OK", filename = filename });
                 }
-                else
+                else 
                 {
-                    file.SaveAs(fullPath);
+                    viewresult = Json(new { status = "ErrorWrongContent" });
                 }
             }
-
-            var viewresult = Json(new { status = "OK", filename = filename});
 
             //for IE8 which does not accept application/json
             if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
