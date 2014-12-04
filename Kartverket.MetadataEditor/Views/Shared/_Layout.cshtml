@@ -16,13 +16,14 @@
     @Styles.Render("~/Content/css")
     @RenderSection("head", required: false)
 </head>
-<body>
-    <div class="options-wrapper">
-        <div class="container">
-            <p class="top-header">Norges geografiske infrastruktur - Norge Digitalt</p>
-        </div>
+<body class="geonorge-container prototype  geonorge">
+    <div id="logo-on-sm">
+        <img src="/Content/img/kvlogo_col.png" alt="Kartverkets logo" />
     </div>
-    <div class="navbar navbar-default" role="navigation">
+
+    @Html.Partial("_NavbarPartial")
+
+    @*<div class="navbar navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,23 +44,27 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="body-content">
         <div class="container">
-
+            <ol class="breadcrumb">
+                <li><a href="@Html.GeonorgeUrl()">Geonorge</a></li>
+                <li><a href="/">Metadataeditor</a></li>
+                @RenderSection("breadcrumb", false)
+            </ol>
             <div class="menu clearfix">
                 @if (Request.IsAuthenticated)
                 {
                     if (IsSectionDefined("ActionMenu"))
                     {
-                        @RenderSection("ActionMenu")
+                    @RenderSection("ActionMenu")
                     }
                     else
                     {
-                        <div class="btn-group">
-                            <a href="@Url.Action("Index", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a>
-                            <a href="@Url.Action("Create","Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a>
-                        </div>
+                    <div class="btn-group">
+                        <a href="@Url.Action("Index", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a>
+                        <a href="@Url.Action("Create","Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a>
+                    </div>
                     }
                 }
 

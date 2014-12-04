@@ -194,7 +194,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\common.css" />
     <Content Include="Content\geonorge-default.css" />
+    <Content Include="Content\img\kvlogo_col.png" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
@@ -203,6 +205,8 @@
     <Content Include="Content\jQuery.FileUpload\img\progressbar.gif" />
     <Content Include="Content\kartverket_logo.png" />
     <Content Include="Content\logo_kartverket_norgedigitalt.png" />
+    <Content Include="Content\navbar.css" />
+    <Content Include="Content\searchbar.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -246,6 +250,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\fonts\MetaComp-Book.ttf" />
+    <Content Include="Content\fonts\MetaWeb-Book.eot" />
+    <Content Include="Content\fonts\MetaWeb-Book.woff" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\folder deploy.pubxml" />
     <Content Include="Scripts\bootstrap-filestyle.js" />
@@ -336,6 +343,7 @@
     </Content>
     <Content Include="settings.config" />
     <Content Include="Views\Metadata\_Keywords.cshtml" />
+    <Content Include="Views\Shared\_NavbarPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
