@@ -466,8 +466,37 @@ namespace Kartverket.MetadataEditor.Models
 
         private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username)
         {
-            return new Dictionary<string, string> { { "GeonorgeUsername", username } };
+            Dictionary<string, string> header = new Dictionary<string, string> { { "GeonorgeUsername", username } };
+
+            bool isAdmin = false;
+            bool editorRole = false;
+
+            foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+            {
+
+                if (c.Type == "organization")
+                    header.Add("GeonorgeOrganization", c.Value);
+                else if (c.Type == "role")
+                {
+                    if (c.Value == "nd.metadata_admin")
+                    {
+                        header.Add("GeonorgeRole", c.Value);
+                        isAdmin = true;
+                    }
+                    else if (c.Value == "nd.metadata_editor")
+                    {
+                        editorRole = true;
+                    }
+                }                 
+            }
+
+            if (!isAdmin && editorRole)
+                header.Add("GeonorgeRole", "nd.metadata_editor");
+
+            return header;
         }
+
+           
 
         private void SetDefaultValuesOnMetadata(SimpleMetadata metadata)
         {
