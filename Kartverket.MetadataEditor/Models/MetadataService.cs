@@ -340,7 +340,7 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);
 
             // distribution
-            if (!string.IsNullOrWhiteSpace(model.SpatialRepresentation))
+            //if (!string.IsNullOrWhiteSpace(model.SpatialRepresentation))
                 metadata.SpatialRepresentation = model.SpatialRepresentation;
 
             if (!string.IsNullOrWhiteSpace(model.ReferenceSystemCoordinateSystem))
@@ -353,29 +353,26 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             //Upgraded to multiple distribution formats
-            if (!string.IsNullOrWhiteSpace(model.DistributionFormatName) ||
-                !string.IsNullOrWhiteSpace(model.DistributionFormatVersion))
-            {
-                metadata.DistributionFormat = new SimpleDistributionFormat
-                {
-                    Name = model.DistributionFormatName,
-                    Version = model.DistributionFormatVersion
-                };
-            }
+            //if (!string.IsNullOrWhiteSpace(model.DistributionFormatName) ||
+            //    !string.IsNullOrWhiteSpace(model.DistributionFormatVersion))
+            //{
+            //    metadata.DistributionFormat = new SimpleDistributionFormat
+            //    {
+            //        Name = model.DistributionFormatName,
+            //        Version = model.DistributionFormatVersion
+            //    };
+            //}
 
             metadata.DistributionFormats = model.GetDistributionFormats();
 
-            if (!string.IsNullOrWhiteSpace(model.DistributionUrl) || !string.IsNullOrWhiteSpace(model.DistributionProtocol) ||
-                !string.IsNullOrWhiteSpace(model.DistributionName) || !string.IsNullOrWhiteSpace(model.UnitsOfDistribution))
+            metadata.DistributionDetails = new SimpleDistributionDetails
             {
-                metadata.DistributionDetails = new SimpleDistributionDetails
-                {
-                    URL = model.DistributionUrl,
-                    Protocol = model.DistributionProtocol,
-                    Name = model.DistributionName,
-                    UnitsOfDistribution = model.UnitsOfDistribution
-                };
-            }
+                URL = model.DistributionUrl,
+                Protocol = model.DistributionProtocol,
+                Name = model.DistributionName,
+                UnitsOfDistribution = model.UnitsOfDistribution
+            };
+
 
             // quality
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))

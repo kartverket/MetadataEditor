@@ -350,6 +350,7 @@
                 if (selectedSpatialRepresentation == "vector") {
 
                     $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val=""></option>');
                     $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SOSI">SOSI</option>');
                     $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
                     $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DOS/OPeNDAP">DOS/OPeNDAP</option>');
