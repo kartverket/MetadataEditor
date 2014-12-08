@@ -99,7 +99,40 @@
 <div class="form-group">
     <label for="UnitsOfDistribution" class="col-sm-2 control-label">Geografisk distribusjonsinndeling</label>
     <div class="col-sm-9">
-        @Html.DropDownList("UnitsOfDistribution", ViewBag.UnitsOfDistributionValues as SelectList, String.Empty, new { @class = "form-control" })
+        @{ int distrID = 0;
+           string UnitsOfDistribution = Model.UnitsOfDistribution!=null ? Model.UnitsOfDistribution : "";
+           var selectedUnits = System.Text.RegularExpressions.Regex.Split(UnitsOfDistribution, ", ");
+         foreach (var distribution in ViewBag.UnitsOfDistributionValues as SelectList)
+         {
+             string inputName = "UnitsOfDistribution" + distrID;
+             string unitschecked = "";
+             if (selectedUnits.Contains(distribution.Value))
+             {unitschecked = "checked";}
+            <input onchange="getUnitsOfDistribution()" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distribution.Value">@distribution.Text
+            distrID++; 
+        }
+         
+        }
+        <script type="text/javascript">
+            function getUnitsOfDistribution()
+            {
+                var numberOfUnits = document.getElementById('UnitsOfDistributionCount').value;
+                var UnitsOfDistributionString = '';
+                for (var n = 0; n < numberOfUnits; n++)
+                {
+                    var unitValue = document.getElementById('UnitsOfDistribution' + n).value;
+                    var unitChecked = document.getElementById('UnitsOfDistribution' + n).checked;
+                    if (unitChecked)
+                    {
+                        UnitsOfDistributionString = UnitsOfDistributionString + unitValue + ', ';
+                    }
+                }
+                UnitsOfDistributionString = UnitsOfDistributionString.slice(0, -2);
+                document.getElementById('UnitsOfDistribution').value = UnitsOfDistributionString;
+            }
+        </script>
+        <input type="hidden" id="UnitsOfDistribution" name="UnitsOfDistribution" value="@Model.UnitsOfDistribution">
+        <input type="hidden" id="UnitsOfDistributionCount" name="UnitsOfDistributionCount" value="@distrID">
     </div>
 </div>
 

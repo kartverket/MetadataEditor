@@ -242,11 +242,11 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             return new Dictionary<string, string> 
             {
-                {"Kommunevis", "Kommunevis"}, 
-                {"Fylkesvis", "Fylkesvis"}, 
-                {"Landsfiler", "Landsfiler"}, 
-                {"Regional inndeling", "Regional inndeling"}, 
-                {"Kartbladvis", "Kartbladvis"}, 
+                {"kommunevis", "Kommunevis"}, 
+                {"fylkesvis", "Fylkesvis"}, 
+                {"landsfiler", "Landsfiler"}, 
+                {"regional inndeling", "Regional inndeling"}, 
+                {"kartbladvis", "Kartbladvis"}, 
             };
         }
 
