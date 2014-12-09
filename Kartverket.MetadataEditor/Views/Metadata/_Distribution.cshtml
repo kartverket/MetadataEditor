@@ -108,7 +108,7 @@
              string unitschecked = "";
              if (selectedUnits.Contains(distribution.Value))
              {unitschecked = "checked";}
-            <input onchange="getUnitsOfDistribution()" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distribution.Value">@distribution.Text
+            <input onchange="getUnitsOfDistribution()" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distribution.Value"> @distribution.Text
             distrID++; 
         }
          
