@@ -104,27 +104,40 @@
         </div>
     </div>
     <div class="container">
-        <footer>
-            <p>
-                Geonorge metadataeditor er et registreringsskjema for å registrere kartdata og karttjenester. Det finnes ulike seksjoner med ulike opplysninger. Opplysninger om et datasett eller tjeneste angis som metadata. Etater skal følge standarder når disse leveres geoportalen. Metadataeditoren hjelper etater i å følge standarden. Hver etat må være innlogget og får da vist de metadata som etaten selv er ansvarlig for.
-            </p>
-            <p>
-                Denne editoren er under arbeid, og foreligger i første versjon, men er fullt operativ, og metadataene vil oppdateres og lagres i den nasjonale katalogen.
-            </p>
-            <p>
-                Tilbakemeldinger på editoren kan sendes til <a href="mailto: post@norgedigitalt.no?subject=Tilbakemelding%20Geonorge-metadataeditor">post@norgedigitalt.no</a>
-            </p>
+        <footer class="page-footer" role="contentinfo">
+            <div class="top-shadow">&nbsp;</div>
 
-            <!--
-            @if (User.Identity.IsAuthenticated)
-            {
-                foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-                {
-                    <p>@c.Type = @c.Value</p>
-                }
-            }
-            -->
-            <p>&copy; @DateTime.Now.Year - Kartverket - versjon: @Html.ApplicationVersionNumber()</p>
+            <div class="container padding-bottom">
+                <div class="row">
+
+                    <div class="col-sm-3 col-xs-12">
+                        <div>
+                            <h1 class="heading">Kontakt oss</h1>
+                            <p>Tlf. 08700</p>
+                            <p>post@norgedigitalt.no</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 visible-xs">&nbsp;</div>
+                    <div class="col-sm-2 col-sm-offset-7 col-xs-12">
+                        <div class="">
+                            <p>© 2014 - Kartverket</p>
+                            <p>Versjon @Html.ApplicationVersionNumber()</p>
+                            <!--<p><a href="/Om-Kartverket/Personvern-og-cookies/"> Personvern og cookies </a></p>-->
+                            <!--
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                                {
+                                    <p>@c.Type = @c.Value</p>
+                                }
+                            }
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </footer>
     </div>
     @Scripts.Render("~/bundles/scripts")
