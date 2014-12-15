@@ -95,7 +95,6 @@ namespace Kartverket.MetadataEditor.Models
         // quality
         public string QualitySpecificationDate { get; set; }
         public string QualitySpecificationDateType { get; set; }
-        [Required]
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
         public string QualitySpecificationExplanation { get; set; }
         public bool QualitySpecificationResult { get; set; }

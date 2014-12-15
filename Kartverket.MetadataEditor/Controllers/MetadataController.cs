@@ -168,6 +168,14 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Edit(string uuid, string action, MetadataViewModel model)
         {
+            if (!model.IsSoftware()) 
+            { 
+                if (string.IsNullOrWhiteSpace(model.QualitySpecificationExplanation)) 
+                {
+                    ModelState.AddModelError("QualitySpecificationExplanationMissing", "Forklaring av resultat er påkrevd");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 if (action.Equals(UI.Button_SaveAsXml))
