@@ -40,8 +40,19 @@
             </div>
             <div class="col-sm-2">
                 @if (f == 0)
-                {            
+                {     
                     <button class="btn btn-default" id="newDistributionFormat">Nytt format</button>
+                        <span class="form-control-static">
+                            <a href="#" data-help-text-id="help-text-DistributionFormat" class="badge help-text-toggle">?</a>
+                        </span>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <p class="help-text bg-success" id="help-text-DistributionFormat" style="display: none">
+                            Flere format kan angis. Versjon av formatet som leveres via filer eller tjenester, for eksempel gml 3.2.1.
+                        </p>
+                    </div>
+                </div>
+
                 }
                 @if (f > 0)
                 {
@@ -77,79 +88,93 @@
             <option value="W3C:REST" title="REST-API">REST-API</option>
         </select>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <button class="btn btn-default" id="usePredefinedDistributionProtocol">Bruk</button>
-    </div>    
-</div>
-<div class="form-group">
-    <label for="DistributionUrl" class="col-sm-2 control-label">URL</label>
-    <div class="col-sm-9">
-        @Html.EditorFor(m => m.DistributionUrl)
-        <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
-            Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).
-        </p>
     </div>
     <div class="col-sm-1">
         <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-DistributionUrl" class="badge help-text-toggle">?</a>
+            <a href="#" data-help-text-id="help-text-DistributionProtocol" class="badge help-text-toggle">?</a>
+        </p>
+    </div>       
+</div>
+<div class="form-group">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-9">
+        <p class="help-text bg-success" id="help-text-DistributionProtocol" style="display: none">
+            Velg riktig lenketype for ressursen (datasette/tjenesten/websiden)
         </p>
     </div>
-</div>
+ </div>
 
-<div class="form-group">
-    <label for="UnitsOfDistribution" class="col-sm-2 control-label">Geografisk distribusjonsinndeling</label>
-    <div class="col-sm-9">
-        @{ int distrID = 0;
-           string UnitsOfDistribution = Model.UnitsOfDistribution!=null ? Model.UnitsOfDistribution : "";
-           var selectedUnits = System.Text.RegularExpressions.Regex.Split(UnitsOfDistribution, ", ");
-         foreach (var distribution in ViewBag.UnitsOfDistributionValues as SelectList)
-         {
-             string inputName = "UnitsOfDistribution" + distrID;
-             string unitschecked = "";
-             if (selectedUnits.Contains(distribution.Value))
-             {unitschecked = "checked";}
-            <input onchange="getUnitsOfDistribution()" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distribution.Value"> @distribution.Text
-            distrID++; 
-        }
-         
-        }
-        <script type="text/javascript">
-            function getUnitsOfDistribution()
-            {
-                var numberOfUnits = document.getElementById('UnitsOfDistributionCount').value;
-                var UnitsOfDistributionString = '';
-                for (var n = 0; n < numberOfUnits; n++)
-                {
-                    var unitValue = document.getElementById('UnitsOfDistribution' + n).value;
-                    var unitChecked = document.getElementById('UnitsOfDistribution' + n).checked;
-                    if (unitChecked)
-                    {
-                        UnitsOfDistributionString = UnitsOfDistributionString + unitValue + ', ';
-                    }
-                }
-                UnitsOfDistributionString = UnitsOfDistributionString.slice(0, -2);
-                document.getElementById('UnitsOfDistribution').value = UnitsOfDistributionString;
-            }
-        </script>
-        <input type="hidden" id="UnitsOfDistribution" name="UnitsOfDistribution" value="@Model.UnitsOfDistribution">
-        <input type="hidden" id="UnitsOfDistributionCount" name="UnitsOfDistributionCount" value="@distrID">
-    </div>
-</div>
-
-@if (!Model.IsSoftware()) 
-{ 
     <div class="form-group">
-        <label for="DistributionName" class="col-sm-2 control-label">Lagnavn</label>
+        <label for="DistributionUrl" class="col-sm-2 control-label">URL</label>
         <div class="col-sm-9">
-            @Html.EditorFor(m => m.DistributionName)
-            <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
-                Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten.
+            @Html.EditorFor(m => m.DistributionUrl)
+            <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
+                Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).
             </p>
         </div>
         <div class="col-sm-1">
             <p class="form-control-static">
-                <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
+                <a href="#" data-help-text-id="help-text-DistributionUrl" class="badge help-text-toggle">?</a>
             </p>
         </div>
     </div>
-}
+
+    <div class="form-group">
+        <label for="UnitsOfDistribution" class="col-sm-2 control-label">Geografisk distribusjonsinndeling</label>
+        <div class="col-sm-9">
+            @{ int distrID = 0;
+             string UnitsOfDistribution = Model.UnitsOfDistribution != null ? Model.UnitsOfDistribution : "";
+             var selectedUnits = System.Text.RegularExpressions.Regex.Split(UnitsOfDistribution, ", ");
+             foreach (var distribution in ViewBag.UnitsOfDistributionValues as SelectList)
+             {
+                 string inputName = "UnitsOfDistribution" + distrID;
+                 string unitschecked = "";
+                 if (selectedUnits.Contains(distribution.Value))
+                 { unitschecked = "checked"; }
+                <input onchange="getUnitsOfDistribution()" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distribution.Value"> @distribution.Text
+                 distrID++;
+             }
+
+            }
+            <script type="text/javascript">
+                function getUnitsOfDistribution()
+                {
+                    var numberOfUnits = document.getElementById('UnitsOfDistributionCount').value;
+                    var UnitsOfDistributionString = '';
+                    for (var n = 0; n < numberOfUnits; n++)
+                    {
+                        var unitValue = document.getElementById('UnitsOfDistribution' + n).value;
+                        var unitChecked = document.getElementById('UnitsOfDistribution' + n).checked;
+                        if (unitChecked)
+                        {
+                            UnitsOfDistributionString = UnitsOfDistributionString + unitValue + ', ';
+                        }
+                    }
+                    UnitsOfDistributionString = UnitsOfDistributionString.slice(0, -2);
+                    document.getElementById('UnitsOfDistribution').value = UnitsOfDistributionString;
+                }
+            </script>
+            <input type="hidden" id="UnitsOfDistribution" name="UnitsOfDistribution" value="@Model.UnitsOfDistribution">
+            <input type="hidden" id="UnitsOfDistributionCount" name="UnitsOfDistributionCount" value="@distrID">
+        </div>
+    </div>
+
+    @if (!Model.IsSoftware())
+    {
+        <div class="form-group">
+            <label for="DistributionName" class="col-sm-2 control-label">Lagnavn</label>
+            <div class="col-sm-9">
+                @Html.EditorFor(m => m.DistributionName)
+                <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
+                    Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten.
+                </p>
+            </div>
+            <div class="col-sm-1">
+                <p class="form-control-static">
+                    <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
+                </p>
+            </div>
+        </div>
+    }

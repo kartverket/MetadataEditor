@@ -3,7 +3,7 @@
 <div class="panel panel-default">
     <div class="panel-heading required">Metadatakontakt</div>
     <div class="panel-body">
-        <p>Kontaktpunkt som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse.</p>
+        <p>Kontaktpunkt (person eller avdeling) som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</p>
         @Html.HiddenFor(m => Model.ContactMetadata.Role)
         <div class="form-group has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
@@ -32,7 +32,7 @@
 <div class="panel panel-default">
     <div class="panel-heading required">Teknisk kontakt</div>
     <div class="panel-body">
-        <p>Kontaktpunkt som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. Organisasjon og e-postadresse er påkrevd.</p>
+        <p>Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</p>
         @Html.HiddenFor(m => Model.ContactPublisher.Role)
         <div class="form-group has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
@@ -61,7 +61,7 @@
 <div class="panel panel-default">
     <div class="panel-heading required">Faglig kontakt</div>
     <div class="panel-body">
-        <p>Kontaktpunkt som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. Organisasjon og e-postadresse er påkrevd.</p>
+        <p>Kontaktpunkt (person eller avdeling) som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</p>
         @Html.HiddenFor(m => Model.ContactOwner.Role)
         <div class="form-group has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
