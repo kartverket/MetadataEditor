@@ -297,8 +297,7 @@ namespace Kartverket.MetadataEditor.Models
             if (!string.IsNullOrWhiteSpace(model.TopicCategory))
                 metadata.TopicCategory = model.TopicCategory;
 
-            if (!string.IsNullOrWhiteSpace(model.SupplementalDescription))
-                metadata.SupplementalDescription = model.SupplementalDescription;
+            metadata.SupplementalDescription = model.SupplementalDescription;
 
             if (!string.IsNullOrWhiteSpace(model.SpecificUsage))
                 metadata.SpecificUsage = model.SpecificUsage;
@@ -325,16 +324,9 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ContactOwner = contactOwner;
 
             // documents
-            if (!string.IsNullOrWhiteSpace(model.ProductSpecificationUrl))
-                metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
-
-            if (!string.IsNullOrWhiteSpace(model.ProductSheetUrl))
+                metadata.ProductSpecificationUrl = model.ProductSpecificationUrl; 
                 metadata.ProductSheetUrl = model.ProductSheetUrl;
-
-            if (!string.IsNullOrWhiteSpace(model.ProductPageUrl))
                 metadata.ProductPageUrl = model.ProductPageUrl;
-
-            if (!string.IsNullOrWhiteSpace(model.LegendDescriptionUrl))
                 metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
 
             metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);
