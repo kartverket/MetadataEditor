@@ -97,7 +97,7 @@
     <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
 </ul>
 
-<form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form">
+<form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" onclick="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     @Html.HiddenFor(m => m.Uuid)
     @Html.HiddenFor(m => m.DateMetadataUpdated)
     @Html.HiddenFor(m => m.HierarchyLevel)
@@ -110,7 +110,7 @@
         <div class="tab-pane" id="timeandspace">
             @Html.Partial("_TimeAndSpace", Model)
         </div>
-        
+
         <div class="tab-pane" id="contact">
             @Html.Partial("_Contact", Model)
         </div>
@@ -118,7 +118,7 @@
         <div class="tab-pane" id="distribution">
             @Html.Partial("_Distribution", Model)
         </div>
-        
+
         <div class="tab-pane" id="documents">
             @Html.Partial("_Documents", Model)
         </div>
@@ -130,7 +130,7 @@
         <div class="tab-pane" id="quality">
             @Html.Partial("_Quality", Model)
         </div>
-        
+
         <div class="tab-pane" id="keywords">
             @Html.Partial("_Keywords", Model)
         </div>
