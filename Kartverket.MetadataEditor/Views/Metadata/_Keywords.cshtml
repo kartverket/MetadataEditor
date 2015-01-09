@@ -219,7 +219,8 @@
         </div>
     </div>
 </div>
-
+@if (Model.IsDataset())
+{
 <div class="form-group">
     <label for="TopicCategory" class="col-sm-2 control-label">Tematisk hovedkategori</label>
     <div class="col-sm-9">
@@ -234,3 +235,4 @@
         </p>
     </div>
 </div>
+}
