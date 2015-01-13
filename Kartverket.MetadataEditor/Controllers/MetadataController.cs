@@ -162,6 +162,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 System.Web.Configuration.WebConfigurationManager.AppSettings["EditorUrl"] + "thumbnails/";
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
+            var seoUrl = new SeoUrl("", model.Title);
+            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + seoUrl.Title + "/" + model.Uuid; ;
         }
 
         [HttpPost]

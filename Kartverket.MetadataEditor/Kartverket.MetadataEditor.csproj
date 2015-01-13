@@ -172,6 +172,7 @@
     <Compile Include="Models\MetadataService.cs" />
     <Compile Include="Models\MetadataViewModel.cs" />
     <Compile Include="Models\ObjectExtensions.cs" />
+    <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
     <Compile Include="Models\WmsGetCapabilities11Parser.cs" />
     <Compile Include="Models\WmsLayerViewModel.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Views\Metadata\ConfirmDelete.cshtml" />
     <Content Include="Web.Dev.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
