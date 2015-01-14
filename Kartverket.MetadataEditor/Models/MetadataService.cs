@@ -193,7 +193,7 @@ namespace Kartverket.MetadataEditor.Models
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace : null,
 
-                QualitySpecificationDate = metadata.QualitySpecification != null ? metadata.QualitySpecification.Date : null,
+                QualitySpecificationDate = (metadata.QualitySpecification != null && !string.IsNullOrWhiteSpace(metadata.QualitySpecification.Date)) ? DateTime.Parse(metadata.QualitySpecification.Date) : (DateTime?)null,
                 QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
                 QualitySpecificationExplanation = metadata.QualitySpecification != null ? metadata.QualitySpecification.Explanation : null,
                 QualitySpecificationResult = metadata.QualitySpecification != null ? metadata.QualitySpecification.Result : false,
@@ -372,7 +372,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.QualitySpecification = new SimpleQualitySpecification
                 {
                     Title = model.QualitySpecificationTitle,
-                    Date = model.QualitySpecificationDate,
+                    Date = model.QualitySpecificationDate.ToString(), 
                     DateType = model.QualitySpecificationDateType,
                     Explanation = model.QualitySpecificationExplanation,
                     Result = model.QualitySpecificationResult
