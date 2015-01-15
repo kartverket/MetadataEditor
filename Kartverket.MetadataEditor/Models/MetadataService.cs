@@ -154,7 +154,7 @@ namespace Kartverket.MetadataEditor.Models
                 Title = metadata.Title,
                 HierarchyLevel = metadata.HierarchyLevel,
                 ParentIdentifier = metadata.ParentIdentifier,
-                Abstract = metadata.Abstract.Replace("...", ""),
+                Abstract = metadata.Abstract != null ? metadata.Abstract.Replace("...", "") : "",
                 Purpose = metadata.Purpose,
 
                 ContactMetadata = new Contact(metadata.ContactMetadata, "pointOfContact"),

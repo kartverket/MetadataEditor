@@ -168,13 +168,21 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(string uuid, string action, MetadataViewModel model)
+        public ActionResult Edit(string uuid, string action, MetadataViewModel model, string ignoreValidationError)
         {
             if (!model.IsSoftware()) 
             { 
                 if (string.IsNullOrWhiteSpace(model.QualitySpecificationExplanation)) 
                 {
                     ModelState.AddModelError("QualitySpecificationExplanationMissing", "Forklaring av resultat er påkrevd");
+                }
+            }
+
+            if (ignoreValidationError == "1") 
+            { 
+                foreach (var modelValue in ModelState.Values)
+                {
+                    modelValue.Errors.Clear();
                 }
             }
 
