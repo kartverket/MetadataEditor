@@ -372,7 +372,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.QualitySpecification = new SimpleQualitySpecification
                 {
                     Title = model.QualitySpecificationTitle,
-                    Date = model.QualitySpecificationDate.ToString(), 
+                    Date = String.Format("{0:s}", model.QualitySpecificationDate), 
                     DateType = model.QualitySpecificationDateType,
                     Explanation = model.QualitySpecificationExplanation,
                     Result = model.QualitySpecificationResult
