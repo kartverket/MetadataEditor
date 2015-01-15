@@ -398,14 +398,11 @@ namespace Kartverket.MetadataEditor.Models
             DateTime? DateMetadataValidFrom = model.DateMetadataValidFrom;
             DateTime? DateMetadataValidTo = model.DateMetadataValidTo;
 
-            if (DateMetadataValidFrom != null && DateMetadataValidTo != null)
-            {
                 metadata.ValidTimePeriod = new SimpleValidTimePeriod()
                 {
-                    ValidFrom = String.Format("{0:s}", DateMetadataValidFrom),
-                    ValidTo = String.Format("{0:s}", DateMetadataValidTo)
+                    ValidFrom = DateMetadataValidFrom != null ? String.Format("{0:s}", DateMetadataValidFrom) : "",
+                    ValidTo = DateMetadataValidTo != null ? String.Format("{0:s}", DateMetadataValidTo ) : ""
                 };
-            }
 
 
             if (!string.IsNullOrWhiteSpace(model.BoundingBoxEast))
