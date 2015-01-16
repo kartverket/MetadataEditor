@@ -2,21 +2,22 @@
 
 @if (!Model.IsService())
 {
-<div class="form-group">
-    <label for="ResolutionScale" class="col-sm-2 control-label">Målestokkstall</label>
-    <div class="col-sm-9">
-        @Html.EditorFor(m => m.ResolutionScale)
-        <p class="help-text bg-success" id="help-text-ResolutionScale" style="display: none">
-            Målestokkstallet skal legges inn som et heltall (eks: 5000)
-        </p>
+    <div class="form-group required has-feedback">
+        <label for="ResolutionScale" class="col-sm-2 control-label">Målestokkstall</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(m => m.ResolutionScale)
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            <p class="help-text bg-success" id="help-text-ResolutionScale" style="display: none">
+                Målestokkstallet skal legges inn som et heltall (eks: 5000)
+            </p>
+        </div>
+
+        <div class="col-sm-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-ResolutionScale" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
     </div>
-    
-    <div class="col-sm-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-ResolutionScale" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
 }
 <div class="form-group">
     <label for="Status" class="col-sm-2 control-label">Status</label>
@@ -24,10 +25,11 @@
         @Html.DropDownList("Status", ViewBag.StatusValues as SelectList, String.Empty, new { @class = "form-control" })
     </div>
 </div>
-<div class="form-group">
+<div class="form-group  required has-feedback">
     <label for="ProcessHistory" class="col-sm-2 control-label">Prosesshistorie</label>
     <div class="col-sm-9">
         @Html.TextAreaFor(m => m.ProcessHistory, new { @class = "form-control", cols = "", rows = "5" })
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
         <p class="help-text bg-success" id="help-text-ProcessHistory" style="display: none">
             Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert. Hvis det ikke finnes dokumentert prosesshistorie eller at denne ikke er lagt inn kan en skrive "Ingen tilgjengelig prosesshistorie"
         </p>
@@ -60,10 +62,11 @@
             </p>
             <p>Forhåndsutfylling: <button id="prefillConformityInspire" class="btn btn-default">INSPIRE</button> <button id="prefillConformitySosi" class="btn btn-default">SOSI-fagområde</button> <button id="prefillConformitySosiSpec" class="btn btn-default">SOSI-produktspesifikasjon</button></p>
 
-            <div class="form-group">
+            <div class="form-group required has-feedback">
                 <label class="col-sm-2 control-label">Standard (produktspesifikasjon)</label>
                 <div class="col-sm-9">
                     @Html.EditorFor(m => m.QualitySpecificationTitle)
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                 </div>
             </div>
             <div class="form-group">

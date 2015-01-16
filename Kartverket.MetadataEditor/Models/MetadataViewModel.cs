@@ -62,20 +62,25 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Status { get; set; }
 
+        [Required (ErrorMessage="Geografisk utstrekning nord er påkrevd")]
         [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage=null)]
         public string BoundingBoxEast { get; set; }
 
+        [Required(ErrorMessage = "Geografisk utstrekning vest er påkrevd")]
         [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
         public string BoundingBoxWest { get; set; }
 
+        [Required(ErrorMessage = "Geografisk utstrekning nord er påkrevd")]
         [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
         public string BoundingBoxNorth { get; set; }
 
+        [Required(ErrorMessage = "Geografisk utstrekning sør er påkrevd")]
         [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
         public string BoundingBoxSouth { get; set; }
 
         /* dataset only */
         public string SupplementalDescription { get; set; }
+        [Required (ErrorMessage="Bruksområde er påkrevd")]
         public string SpecificUsage { get; set; }  // bruksområde
         public string ResourceIdentifierName { get; set; }  // teknisk navn
         public string TopicCategory { get; set; }
@@ -99,8 +104,11 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationExplanation { get; set; }
         public bool QualitySpecificationResult { get; set; }
         public string QualitySpecificationTitle { get; set; }
+        [Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
+        [Required (ErrorMessage="Oppdateringshyppighet område er påkrevd")]
         public string MaintenanceFrequency { get; set; }
+        [Required(ErrorMessage = "Målestokktall er påkrevd")]
         public string ResolutionScale { get; set; }
 
         // constraints
