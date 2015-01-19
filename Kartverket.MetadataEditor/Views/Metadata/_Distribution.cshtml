@@ -14,27 +14,34 @@
 {
 <hr style="border-bottom:medium 1px black;" />
 }
+@{string classFormat="form-control";
+  if (ViewContext.ViewData.ModelState.ContainsKey("DistributionFormats"))
+  {
+      classFormat = "input-validation-error form-control";
+  }
+}
 <div id="distributionFormatDiv">
     @{ string modelDatatype = "service"; }
     @for (int f = 0; f < Model.DistributionFormats.Count; f++)
-    {
-        string rowID = "formatRow" + f;
+    {         string rowID = "formatRow" + f;
         <div id="@rowID" class="form-group required has-feedback">
             <label for="distributionFormats[@f].Name" class="col-sm-2 control-label">Format</label>
             <div class="col-sm-3">
                 @if (Model.IsDataset() || Model.IsDatasetSeries())
                 {
                     modelDatatype = "dataset";
-                    <select id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" class="form-control">
+                    <select class="@classFormat" id="distributionFormats[@f].Name" name="distributionFormats[@f].Name">
                         <option value="@Model.DistributionFormats[f].Name">@Model.DistributionFormats[f].Name</option>
                     </select>
+                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                 }
                 else
                 {
-                    <input id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" type="text" value="@Model.DistributionFormats[f].Name" class="form-control" />
+                    <input id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" type="text" value="@Model.DistributionFormats[f].Name" class="@classFormat" />
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                 }
             </div>
-            <label for="distributionFormats[@f].Version" class="col-sm-2 control-label">Versjon</label>
+            <label for="distributionFormats[@f].Version" class="col-sm-2" style="text-align: right;">Versjon</label>
             <div class="col-sm-3">
                 <input type="text" id="distributionFormats[@f].Version" name="distributionFormats[@f].Version" value="@Model.DistributionFormats[f].Version" class="form-control" />
             </div>

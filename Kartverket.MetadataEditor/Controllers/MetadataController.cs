@@ -172,18 +172,18 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             if (!model.IsSoftware()) 
             { 
-                if (string.IsNullOrWhiteSpace(model.QualitySpecificationExplanation)) 
-                {
-                    ModelState.AddModelError("QualitySpecificationExplanationMissing", "Forklaring av resultat er påkrevd");
-                }
-                if (string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
-                {
-                    ModelState.AddModelError("QualitySpecificationTitleMissing", "Standard (produktspesifikasjon) er påkrevd");
-                }
-                if (string.IsNullOrWhiteSpace(model.DistributionFormats[0].Name))
-                {
-                    ModelState.AddModelError("DistributionFormatsNameMissing", "Format er påkrevd");
-                }
+                //if (string.IsNullOrWhiteSpace(model.QualitySpecificationExplanation)) 
+                //{
+                //    ModelState.AddModelError("QualitySpecificationExplanationMissing", "Forklaring av resultat er påkrevd");
+                //}
+                //if (string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
+                //{
+                //    ModelState.AddModelError("QualitySpecificationTitleMissing", "Standard (produktspesifikasjon) er påkrevd");
+                //}
+                //if (string.IsNullOrWhiteSpace(model.DistributionFormats[0].Name))
+                //{
+                //    ModelState.AddModelError("DistributionFormatsNameMissing", "Format er påkrevd");
+                //}
             }
 
             if (ignoreValidationError == "1") 

@@ -88,6 +88,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public string DistributionFormatName { get; set; }
         public string DistributionFormatVersion { get; set; }
+        [AssertThat("IsValidDistributionFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
         public List<SimpleDistributionFormat> DistributionFormats { get; set; }
         public string DistributionUrl { get; set; }
         public string DistributionProtocol { get; set; }
@@ -101,8 +102,10 @@ namespace Kartverket.MetadataEditor.Models
         public DateTime? QualitySpecificationDate { get; set; }
         public string QualitySpecificationDateType { get; set; }
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
+        [RequiredIf("!IsSoftware()",ErrorMessage="Forklaring av resultat er påkrevd")]
         public string QualitySpecificationExplanation { get; set; }
         public bool QualitySpecificationResult { get; set; }
+        [RequiredIf("!IsSoftware()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd")]
         public string QualitySpecificationTitle { get; set; }
         [Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
@@ -141,6 +144,7 @@ namespace Kartverket.MetadataEditor.Models
         public string EnglishContactMetadataOrganization { get; set; }
         public string EnglishContactPublisherOrganization { get; set; }
         public string EnglishContactOwnerOrganization { get; set; }
+
 
         internal void FixThumbnailUrls()
         {
@@ -245,6 +249,10 @@ namespace Kartverket.MetadataEditor.Models
         public bool IsDatasetOrSeriesOrSoftware()
         {
             return IsDataset() || IsDatasetSeries() || IsSoftware();
+        }
+
+        public bool IsValidDistributionFormat() {
+            return  (!string.IsNullOrWhiteSpace(DistributionFormats[0].Name));
         }
 
     }
