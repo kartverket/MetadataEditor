@@ -23,26 +23,7 @@
     </td>
     <td>@Model.Organization</td>
     <th>
-        @if (Model.Type == "service")
-        {
-            <span class="label label-info">@Resources.UI.Metadata_Type_Service</span>
-        }
-        else if (Model.Type == "dataset")
-        {
-            <span class="label label-success">@Resources.UI.Metadata_Type_Dataset</span>
-        }
-        else if (Model.Type == "software")
-        {
-            <span class="label label-warning">Applikasjon</span>
-        }
-        else
-        {
-            <span class="label label-warning">@Model.Type</span>
-        }
-        @if (!string.IsNullOrWhiteSpace(Model.Relation) && Model.Type == "service")
-        {
-            <span class="label label-info">WMS-Lag</span>
-        }
+        <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
     </th>
     <td class="text-right btn-toolbar">
         <div class="btn-group">

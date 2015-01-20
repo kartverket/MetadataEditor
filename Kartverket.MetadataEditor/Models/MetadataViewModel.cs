@@ -255,6 +255,31 @@ namespace Kartverket.MetadataEditor.Models
             return  (!string.IsNullOrWhiteSpace(DistributionFormats[0].Name));
         }
 
+        public string GetInnholdstypeCSS()
+        {
+            string t = "label-default";
+            if (HierarchyLevel == "dataset") t = "label-success";
+            else if (HierarchyLevel == "software") t = "label-warning";
+            else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier))) t = "label-info";
+            else if (HierarchyLevel == "service") t = "label-info";
+            else if (HierarchyLevel == "series") t = "label-primary";
+
+            return t;
+        }
+
+        public string GetInnholdstype()
+        {
+            string t = HierarchyLevel;
+            if (HierarchyLevel == "dataset") t = "Datasett";
+            else if (HierarchyLevel == "software") t = "Applikasjon";
+            else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier))) t = "WMS-lag (Tjenestelag)";
+            else if (HierarchyLevel == "service") t = "Tjeneste";
+            else if (HierarchyLevel == "series") t = "Datasettserie";
+
+            return t;
+        }
+
+
     }
 
     public class Contact
