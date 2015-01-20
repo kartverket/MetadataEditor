@@ -617,6 +617,18 @@
             }
         });
 
+        $("#QualitySpecificationDate").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#QualitySpecificationDate').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+                alert('Dato kan ikke være i fremtiden');
+                $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+            }
+        });
+
 
         // keywords
 
