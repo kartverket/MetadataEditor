@@ -416,21 +416,15 @@ namespace Kartverket.MetadataEditor.Models
                 };
             }
 
-            if (!string.IsNullOrWhiteSpace(model.AccessConstraints)
-                || !string.IsNullOrWhiteSpace(model.OtherConstraints)
-                || !string.IsNullOrWhiteSpace(model.SecurityConstraints)
-                || !string.IsNullOrWhiteSpace(model.UseConstraints)
-                || !string.IsNullOrWhiteSpace(model.UseLimitations))
-            {
+
                 metadata.Constraints = new SimpleConstraints
                 {
-                    AccessConstraints = model.AccessConstraints,
-                    OtherConstraints = model.OtherConstraints,
-                    SecurityConstraints = model.SecurityConstraints,
-                    UseConstraints = model.UseConstraints,
-                    UseLimitations = model.UseLimitations
+                    AccessConstraints = !string.IsNullOrWhiteSpace(model.AccessConstraints) ? model.AccessConstraints : "",
+                    OtherConstraints = !string.IsNullOrWhiteSpace(model.OtherConstraints) ? model.OtherConstraints : "",
+                    SecurityConstraints = !string.IsNullOrWhiteSpace(model.SecurityConstraints) ? model.SecurityConstraints : "",
+                    UseConstraints = !string.IsNullOrWhiteSpace(model.UseConstraints) ? model.UseConstraints : "",
+                    UseLimitations = !string.IsNullOrWhiteSpace(model.UseLimitations) ? model.UseLimitations : ""
                 };
-            }
 
             metadata.Keywords = model.GetAllKeywords();
 
