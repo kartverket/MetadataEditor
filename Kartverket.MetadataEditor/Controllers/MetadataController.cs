@@ -441,7 +441,7 @@ namespace Kartverket.MetadataEditor.Controllers
         public ActionResult RegisterData()
         {
             string organization = GetSecurityClaim("organization");
-            ViewBag.RegisterOrganization = organization;
+            ViewBag.RegisterOrganizationUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/search/organisasjon/" + organization;
             return View();
         
         }

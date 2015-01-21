@@ -8,7 +8,7 @@
     <h1>Mine registerdata</h1>
     @{WebClient c = new WebClient();
     c.Encoding = System.Text.Encoding.UTF8;
-    var data = c.DownloadString("http://register.dev.geonorge.no/api/register/search/organisasjon/" + ViewBag.RegisterOrganization);
+    var data = c.DownloadString(ViewBag.RegisterOrganizationUrl);
     var o = JArray.Parse(data);
     foreach (var registerData in o)
     {
