@@ -170,21 +170,6 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Edit(string uuid, string action, MetadataViewModel model, string ignoreValidationError)
         {
-            if (!model.IsSoftware()) 
-            { 
-                //if (string.IsNullOrWhiteSpace(model.QualitySpecificationExplanation)) 
-                //{
-                //    ModelState.AddModelError("QualitySpecificationExplanationMissing", "Forklaring av resultat er påkrevd");
-                //}
-                //if (string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
-                //{
-                //    ModelState.AddModelError("QualitySpecificationTitleMissing", "Standard (produktspesifikasjon) er påkrevd");
-                //}
-                //if (string.IsNullOrWhiteSpace(model.DistributionFormats[0].Name))
-                //{
-                //    ModelState.AddModelError("DistributionFormatsNameMissing", "Format er påkrevd");
-                //}
-            }
 
             if (ignoreValidationError == "1") 
             { 
@@ -450,6 +435,15 @@ namespace Kartverket.MetadataEditor.Controllers
             string role = GetSecurityClaim("role");
             bool isAdmin = !string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin");
             return isAdmin || model.HasAccess(organization);
+        }
+
+        [Authorize]
+        public ActionResult RegisterData()
+        {
+            string organization = GetSecurityClaim("organization");
+            ViewBag.RegisterOrganization = organization;
+            return View();
+        
         }
 
 	}

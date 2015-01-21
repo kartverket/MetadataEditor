@@ -1,0 +1,24 @@
+﻿@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+@{
+    ViewBag.Title = "Mine registerdata";
+}
+
+<div id="registerdata" class="tab-pane" style="width:auto;height:auto">
+    <h1>Mine registerdata</h1>
+    @{WebClient c = new WebClient();
+    c.Encoding = System.Text.Encoding.UTF8;
+    var data = c.DownloadString("http://register.dev.geonorge.no/api/register/search/organisasjon/" + ViewBag.RegisterOrganization);
+    var o = JArray.Parse(data);
+    foreach (var registerData in o)
+    {
+        <div class="row">
+            <div class="col-sm-3"><a href="@registerData["showUrl"]" target="_blank">@registerData["name"]</a></div>
+            <div class="col-sm-3">@registerData["description"]</div>
+            <div class="col-sm-3">@registerData["status"]</div>
+            <div class="col-sm-3"><a href="@registerData["editUrl"]" target="_blank">Rediger</a></div>
+        </div>
+    <hr />
+    }
+}
+

@@ -346,6 +346,7 @@
     <Content Include="settings.config" />
     <Content Include="Views\Metadata\_Keywords.cshtml" />
     <Content Include="Views\Shared\_NavbarPartial.cshtml" />
+    <Content Include="Views\Metadata\RegisterData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
