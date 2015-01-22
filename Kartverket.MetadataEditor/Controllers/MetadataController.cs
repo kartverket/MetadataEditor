@@ -170,8 +170,13 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Edit(string uuid, string action, MetadataViewModel model, string ignoreValidationError)
         {
+            ViewBag.IsAdmin = "0";
+            string role = GetSecurityClaim("role");
+            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin")) {
+                ViewBag.IsAdmin = "1";
+            }
 
-            if (ignoreValidationError == "1") 
+            if (ignoreValidationError == "1" && ViewBag.IsAdmin == "1") 
             { 
                 foreach (var modelValue in ModelState.Values)
                 {

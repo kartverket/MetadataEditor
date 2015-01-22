@@ -125,7 +125,7 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-4">
             <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
-            @if (!Html.ViewData.ModelState.IsValid)
+            @if (!Html.ViewData.ModelState.IsValid && ViewBag.IsAdmin == "1")
             {
                 <input type="checkbox" name="ignoreValidationError" value="1" /> <span>Ignorer feil</span>
             }
