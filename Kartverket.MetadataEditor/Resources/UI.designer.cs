@@ -223,7 +223,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Organisasjonsnavn er påkrevd kontaktinformasjon..
+        ///   Looks up a localized string similar to Organisasjonsnavn er feil..
         /// </summary>
         public static string Metadata_Contact_Organization_Required {
             get {

@@ -172,7 +172,7 @@
     <value>Navn på kontaktperson er påkrevd.</value>
   </data>
   <data name="Metadata_Contact_Organization_Required" xml:space="preserve">
-    <value>Organisasjonsnavn er påkrevd kontaktinformasjon.</value>
+    <value>Organisasjonsnavn er feil.</value>
   </data>
   <data name="Metadata_DateCreated" xml:space="preserve">
     <value>Opprettet dato</value>

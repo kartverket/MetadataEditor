@@ -120,8 +120,8 @@ namespace Kartverket.MetadataEditor.Controllers
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
 
-            try
-            {   
+            //try
+            //{   
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
                 string role = GetSecurityClaim("role");
                 if (HasAccessToMetadata(model))
@@ -134,13 +134,13 @@ namespace Kartverket.MetadataEditor.Controllers
                     TempData["failure"] = "Du har ikke tilgang til å redigere disse metadataene";
                     return View("Error");
                 }
-            }
-            catch (Exception e)
-            {
-                Log.Error("Error while getting metadata with uuid = " + uuid, e);
-                TempData["failure"] = "Feilmelding: " + e.Message;
-                return View("Error");
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    Log.Error("Error while getting metadata with uuid = " + uuid, e);
+            //    TempData["failure"] = "Feilmelding: " + e.Message;
+            //    return View("Error");
+            //}
 
             
         }
@@ -163,7 +163,25 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
             var seoUrl = new SeoUrl("", model.Title);
-            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + seoUrl.Title + "/" + model.Uuid; ;
+            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + seoUrl.Title + "/" + model.Uuid;
+
+            Dictionary<string, string> OrganizationList = GetListOfOrganizations();
+
+
+            if (string.IsNullOrEmpty(model.ContactMetadata.Organization))
+                model.ContactMetadata.Organization = Request.Form["ContactMetadata.Organization.Old"].ToString();
+
+            if (string.IsNullOrEmpty(model.ContactPublisher.Organization))
+                model.ContactPublisher.Organization = Request["ContactPublisher.Organization.Old"].ToString();
+
+
+            if (string.IsNullOrEmpty(model.ContactOwner.Organization))
+                model.ContactOwner.Organization = Request["ContactOwner.Organization.Old"].ToString();
+
+            ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", model.ContactMetadata.Organization);
+            ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", model.ContactPublisher.Organization);
+            ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", model.ContactOwner.Organization);
+
         }
 
         [HttpPost]
@@ -336,6 +354,27 @@ namespace Kartverket.MetadataEditor.Controllers
                 {"patentPending", "Påvente av patent"},
                 {"trademark", "Registrert varemerke"},
             };
+        }
+
+        public Dictionary<string, string> GetListOfOrganizations()
+        {
+            Dictionary<string, string> Organizations = new Dictionary<string, string>();
+
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/organisasjoner");
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var orgs = response["containeditems"];
+
+            foreach (var org in orgs)
+            {
+                Organizations.Add(org["label"].ToString(), org["label"].ToString());
+            }
+
+            Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return Organizations;
         }
 
         [Authorize]
