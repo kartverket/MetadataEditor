@@ -168,15 +168,29 @@ namespace Kartverket.MetadataEditor.Controllers
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 
 
-            if (string.IsNullOrEmpty(model.ContactMetadata.Organization))
+            if (string.IsNullOrEmpty(model.ContactMetadata.Organization)) 
+            {
+                if (Request.Form["ContactMetadata.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactMetadata.Organization.Old"]))
+                { 
                 model.ContactMetadata.Organization = Request.Form["ContactMetadata.Organization.Old"].ToString();
+                }
+            }
 
-            if (string.IsNullOrEmpty(model.ContactPublisher.Organization))
+            if (string.IsNullOrEmpty(model.ContactPublisher.Organization)) 
+            {
+                if (Request.Form["ContactPublisher.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactPublisher.Organization.Old"]))
+                { 
                 model.ContactPublisher.Organization = Request["ContactPublisher.Organization.Old"].ToString();
+                }
+            }
 
 
-            if (string.IsNullOrEmpty(model.ContactOwner.Organization))
+            if (string.IsNullOrEmpty(model.ContactOwner.Organization)) 
+            {
+                if (Request.Form["ContactOwner.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactOwner.Organization.Old"])) { 
                 model.ContactOwner.Organization = Request["ContactOwner.Organization.Old"].ToString();
+                }
+            }
 
             ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", model.ContactMetadata.Organization);
             ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", model.ContactPublisher.Organization);
@@ -369,7 +383,10 @@ namespace Kartverket.MetadataEditor.Controllers
 
             foreach (var org in orgs)
             {
-                Organizations.Add(org["label"].ToString(), org["label"].ToString());
+                if (!Organizations.ContainsKey(org["label"].ToString())) 
+                {
+                    Organizations.Add(org["label"].ToString(), org["label"].ToString());
+                }
             }
 
             Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);

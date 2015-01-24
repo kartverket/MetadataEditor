@@ -22,7 +22,7 @@
         <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
-                @Html.DropDownList("ContactMetadata.Organization", ViewBag.OrganizationContactMetadataValues as SelectList, Model.ContactMetadata.Organization, new { @class = "form-control" })
+                @Html.DropDownList("ContactMetadata.Organization", ViewBag.OrganizationContactMetadataValues as SelectList, Model.ContactMetadata.Organization != null ? Model.ContactMetadata.Organization : String.Empty, new { @class = "form-control" })
                 @Html.ValidationMessage("ContactMetadata.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
                 <input type="hidden" value="@Model.ContactMetadata.Organization" name="ContactMetadata.Organization.Old" />
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -53,7 +53,7 @@
         <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
-                @Html.DropDownList("ContactPublisher.Organization", ViewBag.OrganizationContactPublisherValues as SelectList, Model.ContactPublisher.Organization, new { @class = "form-control" })
+                @Html.DropDownList("ContactPublisher.Organization", ViewBag.OrganizationContactPublisherValues as SelectList, Model.ContactPublisher.Organization != null ? Model.ContactPublisher.Organization : String.Empty, new { @class = "form-control" })
                 @Html.ValidationMessage("ContactPublisher.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
                 <input type="hidden" value="@Model.ContactPublisher.Organization" name="ContactPublisher.Organization.Old" />
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -84,7 +84,7 @@
         <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
-                @Html.DropDownList("ContactOwner.Organization", ViewBag.OrganizationContactOwnerValues as SelectList, Model.ContactOwner.Organization, new { @class = "form-control" })
+                @Html.DropDownList("ContactOwner.Organization", ViewBag.OrganizationContactOwnerValues as SelectList, Model.ContactOwner.Organization != null ? Model.ContactOwner.Organization : String.Empty, new { @class = "form-control" })
                 @Html.ValidationMessage("ContactOwner.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
                 <input type="hidden" value="@Model.ContactOwner.Organization" name="ContactOwner.Organization.Old" />
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
