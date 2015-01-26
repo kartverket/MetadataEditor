@@ -4,7 +4,7 @@
     ViewBag.Title = "Mine registerdata";
 }
 
-<div id="registerdata" class="tab-pane" style="width:auto;height:auto">
+<div id="registerdata">
     <h1>Mine registerdata</h1>
     @{WebClient c = new WebClient();
     c.Encoding = System.Text.Encoding.UTF8;
@@ -13,10 +13,9 @@
     foreach (var registerData in o)
     {
         <div class="row">
-            <div class="col-sm-3"><a href="@registerData["showUrl"]" target="_blank">@registerData["name"]</a></div>
-            <div class="col-sm-3">@registerData["description"]</div>
-            <div class="col-sm-3">@registerData["status"]</div>
-            <div class="col-sm-3"><a href="@registerData["editUrl"]" target="_blank">Rediger</a></div>
+            <div class="col-sm-4"><a href="@registerData["showUrl"]" target="_blank">@registerData["name"]</a></div>
+            <div class="col-sm-4">@registerData["description"]</div>
+            <div class="col-sm-4">@registerData["status"]</div>
         </div>
     <hr />
     }
