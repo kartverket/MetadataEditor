@@ -134,6 +134,7 @@
                 <input type="hidden" name="ignoreValidationError" value="0" />
             }
             <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_SaveAsXml">@UI.Button_SaveAsXml</button>
+            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="submit" class="btn btn-primary" value="">Slett</button>
         </div>
     </div>
 

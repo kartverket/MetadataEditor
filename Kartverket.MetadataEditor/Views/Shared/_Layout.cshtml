@@ -89,6 +89,13 @@
                     }
                 </div>
             </div>
+            @if (TempData["Message"] != null)
+            {
+            <div class="alert alert-info">
+                @TempData["Message"]
+            </div>
+            }
+
             @if (TempData["success"] != null)
             {
                 <div id="savedOKMsg" class="alert alert-success">
