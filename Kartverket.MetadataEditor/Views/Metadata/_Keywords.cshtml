@@ -4,6 +4,7 @@
     <label for="keywords" class="col-sm-2 control-label">Nøkkelord</label>
     <div class="col-sm-9">
 
+        <div class="row">
         <div class="col-sm-6">
             <p class="keyword-header">Tema</p>
             <ul id="keywords-theme">
@@ -69,97 +70,100 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-6">
-                <p class="keyword-header">Samarbeid og lover</p>
-                <ul id="keywords-national-initiative">
-                    @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
-                    {
-                        var keyword = Model.KeywordsNationalInitiative[i];
-                        <li id="keywords-national-initiative-@i">
-                            <span class="label label-success">@keyword</span>
-                            <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i"><small>Slett</small></a>
-                            <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
-                        </li>
-                    }
-                </ul>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <select class="input-sm form-control" id="keywords-national-initiative-text">
-                            <option></option>
-                            <option value="Inspire">Inspire</option>
-                            <option value="Det offentlige kartgrunnlaget">Det offentlige kartgrunnlaget</option>
-                            <option value="Barentswatch">Barentswatch</option>
-                            <option value="Norge digitalt">Norge digitalt</option>
-                            <option value="European Location Framework">European Location Framework</option>
-                            <option value="Arctic SDI">Arctic SDI</option>
-                            <option value="Åpne data">Åpne data</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <p class="keyword-header">Inspire</p>
-                <ul id="keywords-inspire">
-                    @for (int i = 0; i < Model.KeywordsInspire.Count; i++)
-                    {
-                        var keyword = Model.KeywordsInspire[i];
-                        <li id="keywords-inspire-@i">
-                            <span class="label label-success">@keyword</span>
-                            <a href="" class="keyword-delete" data-delete="keywords-inspire-@i"><small>Slett</small></a>
-                            <input type="hidden" name="KeywordsInspire[@i]" value="@keyword" />
-                        </li>
-                    }
-                </ul>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <select class="input-sm form-control" id="keywords-inspire-text">
-                            <option></option>
-                            <option value="Addresses">Addresses</option>
-                            <option value="Administrative units">Administrative units</option>
-                            <option value="Agricultural and aquaculture facilities">Agricultural and aquaculture facilities</option>
-                            <option value="Area management/restriction/regulation zones and reporting units">Area management/restriction/regulation zones and reporting units</option>
-                            <option value="Atmospheric conditions">Atmospheric conditions</option>
-                            <option value="Bio-geographical regions">Bio-geographical regions</option>
-                            <option value="Buildings">Buildings</option>
-                            <option value="Cadastral parcels">Cadastral parcels</option>
-                            <option value="Coordinate reference systems">Coordinate reference systems</option>
-                            <option value="Elevation">Elevation</option>
-                            <option value="Energy resources">Energy resources</option>
-                            <option value="Environmental monitoring facilities">Environmental monitoring facilities</option>
-                            <option value="Geographical grid systems">Geographical grid systems</option>
-                            <option value="Geographical names">Geographical names</option>
-                            <option value="Geology">Geology</option>
-                            <option value="Habitats and biotopes">Habitats and biotopes</option>
-                            <option value="Human health and safety">Human health and safety</option>
-                            <option value="Hydrography">Hydrography</option>
-                            <option value="Land cover">Land cover</option>
-                            <option value="Land use">Land use</option>
-                            <option value="Meteorological geographical features">Meteorological geographical features</option>
-                            <option value="Mineral resources">Mineral resources</option>
-                            <option value="Natural risk zones">Natural risk zones</option>
-                            <option value="Oceanographic geographical features">Oceanographic geographical features</option>
-                            <option value="Orthoimagery">Orthoimagery</option>
-                            <option value="Population distribution — demography">Population distribution — demography</option>
-                            <option value="Production and industrial facilities">Production and industrial facilities</option>
-                            <option value="Protected sites">Protected sites</option>
-                            <option value="Sea regions">Sea regions</option>
-                            <option value="Soil">Soil</option>
-                            <option value="Species distribution">Species distribution</option>
-                            <option value="Statistical units<">Statistical units</option>
-                            <option value="Transport networks">Transport networks</option>
-                            <option value="Utility and governmental services">Utility and governmental services</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-default btn-sm" id="keywords-inspire-add">Legg til</button>
+        @:</div>
+        <div class="row">
+                <div class="col-sm-6">
+                    <p class="keyword-header">Samarbeid og lover</p>
+                    <ul id="keywords-national-initiative">
+                        @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
+                        {
+                            var keyword = Model.KeywordsNationalInitiative[i];
+                            <li id="keywords-national-initiative-@i">
+                                <span class="label label-success">@keyword</span>
+                                <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i"><small>Slett</small></a>
+                                <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
+                            </li>
+                        }
+                    </ul>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <select class="input-sm form-control" id="keywords-national-initiative-text">
+                                <option></option>
+                                <option value="Inspire">Inspire</option>
+                                <option value="Det offentlige kartgrunnlaget">Det offentlige kartgrunnlaget</option>
+                                <option value="Barentswatch">Barentswatch</option>
+                                <option value="Norge digitalt">Norge digitalt</option>
+                                <option value="European Location Framework">European Location Framework</option>
+                                <option value="Arctic SDI">Arctic SDI</option>
+                                <option value="Åpne data">Åpne data</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="col-sm-6">
+                    <p class="keyword-header">Inspire</p>
+                    <ul id="keywords-inspire">
+                        @for (int i = 0; i < Model.KeywordsInspire.Count; i++)
+                        {
+                            var keyword = Model.KeywordsInspire[i];
+                            <li id="keywords-inspire-@i">
+                                <span class="label label-success">@keyword</span>
+                                <a href="" class="keyword-delete" data-delete="keywords-inspire-@i"><small>Slett</small></a>
+                                <input type="hidden" name="KeywordsInspire[@i]" value="@keyword" />
+                            </li>
+                        }
+                    </ul>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <select class="input-sm form-control" id="keywords-inspire-text">
+                                <option></option>
+                                <option value="Addresses">Addresses</option>
+                                <option value="Administrative units">Administrative units</option>
+                                <option value="Agricultural and aquaculture facilities">Agricultural and aquaculture facilities</option>
+                                <option value="Area management/restriction/regulation zones and reporting units">Area management/restriction/regulation zones and reporting units</option>
+                                <option value="Atmospheric conditions">Atmospheric conditions</option>
+                                <option value="Bio-geographical regions">Bio-geographical regions</option>
+                                <option value="Buildings">Buildings</option>
+                                <option value="Cadastral parcels">Cadastral parcels</option>
+                                <option value="Coordinate reference systems">Coordinate reference systems</option>
+                                <option value="Elevation">Elevation</option>
+                                <option value="Energy resources">Energy resources</option>
+                                <option value="Environmental monitoring facilities">Environmental monitoring facilities</option>
+                                <option value="Geographical grid systems">Geographical grid systems</option>
+                                <option value="Geographical names">Geographical names</option>
+                                <option value="Geology">Geology</option>
+                                <option value="Habitats and biotopes">Habitats and biotopes</option>
+                                <option value="Human health and safety">Human health and safety</option>
+                                <option value="Hydrography">Hydrography</option>
+                                <option value="Land cover">Land cover</option>
+                                <option value="Land use">Land use</option>
+                                <option value="Meteorological geographical features">Meteorological geographical features</option>
+                                <option value="Mineral resources">Mineral resources</option>
+                                <option value="Natural risk zones">Natural risk zones</option>
+                                <option value="Oceanographic geographical features">Oceanographic geographical features</option>
+                                <option value="Orthoimagery">Orthoimagery</option>
+                                <option value="Population distribution — demography">Population distribution — demography</option>
+                                <option value="Production and industrial facilities">Production and industrial facilities</option>
+                                <option value="Protected sites">Protected sites</option>
+                                <option value="Sea regions">Sea regions</option>
+                                <option value="Soil">Soil</option>
+                                <option value="Species distribution">Species distribution</option>
+                                <option value="Statistical units<">Statistical units</option>
+                                <option value="Transport networks">Transport networks</option>
+                                <option value="Utility and governmental services">Utility and governmental services</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-default btn-sm" id="keywords-inspire-add">Legg til</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        @:<div class="row">
         }
         <div class="col-sm-6">
             <p class="keyword-header">Annet</p>
@@ -183,7 +187,7 @@
                 </div>
             </div>
         </div>
-
+        </div>
     </div>
     <div class="col-sm-1">
         <p class="form-control-static">
