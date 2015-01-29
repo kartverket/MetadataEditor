@@ -97,6 +97,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public string ReferenceSystemCoordinateSystem { get; set; }
         public string ReferenceSystemNamespace { get; set; }
+        public List<SimpleReferenceSystem> ReferenceSystems { get; set; }
         
         // quality
         public DateTime? QualitySpecificationDate { get; set; }
@@ -210,6 +211,25 @@ namespace Kartverket.MetadataEditor.Models
 
             return distributionFormats;
         
+        }
+
+        internal List<SimpleReferenceSystem> GetReferenceSystems()
+        {
+            if (ReferenceSystems == null)
+                return null;
+
+            List<SimpleReferenceSystem> referenceSystems = new List<SimpleReferenceSystem>();
+
+            for (int r = 0; r < ReferenceSystems.Count; r++)
+            {
+                SimpleReferenceSystem referenceSystem = new SimpleReferenceSystem();
+                referenceSystem.CoordinateSystem = ReferenceSystems[r].CoordinateSystem;
+                referenceSystem.Namespace = ReferenceSystems[r].Namespace;
+                referenceSystems.Add(referenceSystem);
+            }
+
+            return referenceSystems;
+
         }
 
 

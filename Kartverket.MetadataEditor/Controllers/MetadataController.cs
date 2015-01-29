@@ -196,6 +196,9 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", model.ContactPublisher.Organization);
             ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", model.ContactOwner.Organization);
 
+            Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
+            ViewBag.ReferenceSystemsValues = new SelectList(ReferenceSystemsList, "Key", "Value");
+
         }
 
         [HttpPost]
@@ -392,6 +395,32 @@ namespace Kartverket.MetadataEditor.Controllers
             Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
 
             return Organizations;
+        }
+
+        public Dictionary<string, string> GetListOfReferenceSystems()
+        {
+            Dictionary<string, string> ReferenceSystems = new Dictionary<string, string>();
+
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/epsg-koder");
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var refs = response["containeditems"];
+
+            foreach (var refsys in refs)
+            {
+
+                var documentreference = refsys["documentreference"].ToString();
+                if (!ReferenceSystems.ContainsKey(documentreference))
+                {
+                    ReferenceSystems.Add(documentreference, refsys["label"].ToString());
+                }
+            }
+
+            ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return ReferenceSystems;
         }
 
         [Authorize]

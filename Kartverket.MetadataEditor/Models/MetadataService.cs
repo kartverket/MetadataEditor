@@ -192,6 +192,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace : null,
+                ReferenceSystems = metadata.ReferenceSystems.Count == 0 ? null : metadata.ReferenceSystems,
 
                 QualitySpecificationDate = (metadata.QualitySpecification != null && !string.IsNullOrWhiteSpace(metadata.QualitySpecification.Date)) ? DateTime.Parse(metadata.QualitySpecification.Date) : (DateTime?)null,
                 QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
@@ -335,14 +336,18 @@ namespace Kartverket.MetadataEditor.Models
             //if (!string.IsNullOrWhiteSpace(model.SpatialRepresentation))
                 metadata.SpatialRepresentation = model.SpatialRepresentation;
 
-            if (!string.IsNullOrWhiteSpace(model.ReferenceSystemCoordinateSystem))
-            {
-                metadata.ReferenceSystem = new SimpleReferenceSystem
-                {
-                    CoordinateSystem = model.ReferenceSystemCoordinateSystem,
-                    Namespace = model.ReferenceSystemNamespace
-                };
-            }
+            //if (!string.IsNullOrWhiteSpace(model.ReferenceSystemCoordinateSystem))
+            //{
+            //    metadata.ReferenceSystem = new SimpleReferenceSystem
+            //    {
+            //        CoordinateSystem = model.ReferenceSystemCoordinateSystem,
+            //        Namespace = model.ReferenceSystemNamespace
+            //    };
+            //}
+                var refsys = model.GetReferenceSystems();
+                if (refsys != null)
+                    metadata.ReferenceSystems = refsys;
+               
 
             //Upgraded to multiple distribution formats
             //if (!string.IsNullOrWhiteSpace(model.DistributionFormatName) ||

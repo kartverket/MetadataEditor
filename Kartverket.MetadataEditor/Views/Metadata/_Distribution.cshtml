@@ -185,3 +185,72 @@
             </div>
         </div>
     }
+
+    @if (Model.IsDataset() || Model.IsDatasetSeries())
+    {
+        <hr style="border-bottom:medium 1px black;" /> 
+        <div id="ReferenceSystemsDiv">
+            @if (Model.ReferenceSystems == null) { 
+            <button class="btn btn-default" id="newReferencesystem">Nytt referansesystem</button>
+            }
+            
+            @if (Model.ReferenceSystems != null) 
+            { 
+               
+            for (int f = 0; f < Model.ReferenceSystems.Count; f++)
+            {
+                string rowID = "referenceRow" + f;
+                <div id="@rowID" class="form-group">
+                    <label for="referenceSystems[@f].CoordinateSystem" class="col-sm-2 control-label">Romlig<br />referansesystem</label>
+                    <div class="col-sm-3">                        
+                        <select class="@classFormat" id="referenceSystems[@f].CoordinateSystem" name="referenceSystems[@f].CoordinateSystem" onchange="document.getElementById('referenceSystems[@f].Namespace').value='EPSG'">
+                            <option value="@Model.ReferenceSystems[f].CoordinateSystem">
+                                @Model.ReferenceSystems[f].CoordinateSystem
+                            </option>
+                            @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
+                            {
+                                string selectedRef = opt.Value == Model.ReferenceSystems[f].CoordinateSystem ? "selected" : "";
+                                <option value="@opt.Value" @selectedRef>@opt.Text</option>
+                            }
+                        </select>                       
+                    </div>
+                    <label for="referenceSystems[@f].Namespace" class="col-sm-2" style="text-align: right;">Koderom</label>
+                    <div class="col-sm-3">
+                        @{string refspaceValue = Model.ReferenceSystems[f].Namespace != null ? Model.ReferenceSystems[f].Namespace : "EPSG";}
+                        <input type="text" id="referenceSystems[@f].Namespace" name="referenceSystems[@f].Namespace" value="@refspaceValue" class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        @if (f == 0)
+                        {
+                            <button class="btn btn-default" id="newReferencesystem">Nytt ref.sy.</button>
+                            <span class="form-control-static">
+                                <a href="#" data-help-text-id="help-text-ReferenceSystem" class="badge help-text-toggle">?</a>
+                            </span>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p class="help-text bg-success" id="help-text-ReferenceSystem" style="display: none">
+                                     Her legger man inn referanser til unik identifisering av datasett og datasettserier som beskrives.
+                                    </p>
+                                </div>
+                            </div>
+
+                        }
+                        @if (f > 0)
+                        {
+                            <button class="btn btn-default" id="delReferenceSystem[@f]" onclick="removeReferenceSystem(@f)">Slett</button>
+                        }
+                    </div>
+
+                </div>
+            }
+            }
+        </div>
+     if (Model.ReferenceSystems != null) {
+    <input type="hidden" name="ReferenceSystemsCount" id="ReferenceSystemsCount" value="@Model.ReferenceSystems.Count" />
+     }
+     else
+     {
+        <input type="hidden" name="ReferenceSystemsCount" id="ReferenceSystemsCount" value="0" />
+     }
+
+    }
