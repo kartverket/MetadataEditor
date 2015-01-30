@@ -347,6 +347,7 @@
     <Content Include="Views\Metadata\_Keywords.cshtml" />
     <Content Include="Views\Shared\_NavbarPartial.cshtml" />
     <Content Include="Views\Metadata\RegisterData.cshtml" />
+    <Content Include="Views\Shared\_Analytics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
