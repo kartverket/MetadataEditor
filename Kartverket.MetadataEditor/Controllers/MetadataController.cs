@@ -234,6 +234,11 @@ namespace Kartverket.MetadataEditor.Controllers
                 else
                 {
                     SaveMetadataToCswServer(model);
+                    if (action.Equals(UI.Button_Validate)) 
+                    {
+                        ValidateMetadata(uuid);
+                    }
+
                     return RedirectToAction("Edit", new {uuid = model.Uuid});
                 }
             }
@@ -261,6 +266,23 @@ namespace Kartverket.MetadataEditor.Controllers
                 Log.Error("Error while editing metadata with uuid = " + model.Uuid, e);
                 TempData["failure"] = String.Format(UI.Metadata_Edit_Saved_Failure, e.Message);
             }
+        }
+
+
+        private void ValidateMetadata(string uuid)
+        {
+            try
+            {
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/validate/" + uuid);
+                TempData["success"] = UI.Metadata_Validate_Success;
+            }
+            catch (Exception e)
+            {
+                TempData["failure"] = String.Format(UI.Metadata_Validate_Error, e.Message);
+            }
+
         }
 
         public Dictionary<string, string> GetListOfTopicCategories()

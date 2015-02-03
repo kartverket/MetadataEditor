@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valider.
+        /// </summary>
+        public static string Button_Validate {
+            get {
+                return ResourceManager.GetString("Button_Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontaktperson - Epost.
         /// </summary>
         public static string Contact_Email {
@@ -363,6 +372,24 @@ namespace Resources {
         public static string Metadata_Type_Service {
             get {
                 return ResourceManager.GetString("Metadata_Type_Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feil ved validering: {0}..
+        /// </summary>
+        public static string Metadata_Validate_Error {
+            get {
+                return ResourceManager.GetString("Metadata_Validate_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metadata ble validert.
+        /// </summary>
+        public static string Metadata_Validate_Success {
+            get {
+                return ResourceManager.GetString("Metadata_Validate_Success", resourceCulture);
             }
         }
         

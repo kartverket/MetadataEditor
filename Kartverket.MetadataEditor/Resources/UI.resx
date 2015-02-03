@@ -126,6 +126,9 @@
   <data name="Button_SaveAsXml" xml:space="preserve">
     <value>Lagre som XML</value>
   </data>
+  <data name="Button_Validate" xml:space="preserve">
+    <value>Valider</value>
+  </data>
   <data name="Contact_Email" xml:space="preserve">
     <value>Kontaktperson - Epost</value>
   </data>
@@ -218,6 +221,12 @@
   </data>
   <data name="Metadata_Type_Service" xml:space="preserve">
     <value>Tjeneste</value>
+  </data>
+  <data name="Metadata_Validate_Error" xml:space="preserve">
+    <value>Feil ved validering: {0}.</value>
+  </data>
+  <data name="Metadata_Validate_Success" xml:space="preserve">
+    <value>Metadata ble validert</value>
   </data>
   <data name="Metadata_Validation" xml:space="preserve">
     <value>Validering</value>
