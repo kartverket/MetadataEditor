@@ -44,6 +44,26 @@
 
     </small>
 </p>
+    <script>
+        function hideshow(which) {
+            if (!document.getElementById)
+                return;
+            if (which.style.visibility == "visible") {
+                which.style.display = "none";
+                which.style.visibility = "hidden";
+            }
+            else
+            {
+                which.style.display = "block";
+                which.style.visibility = "visible";
+            }
+        }
+    </script>
+    <div id="validation"style="display: none; visibility: hidden;">
+        Validert <span id="validatedDate"></span>: <span id="validationStatus"></span>, <a style="cursor:pointer" class="alert-info" onclick="javascript: hideshow(document.getElementById('validationResults'))">detaljer</a>
+    </div>
+   <div id="validationResults" style="display:none; visibility:hidden; position:absolute; width: 400px; height: auto; z-index: 3; background-color: white; border: 1px solid black;">
+    </div>
 </div>
 
 <h3>@ViewBag.Title</h3>
@@ -145,6 +165,49 @@
 @section scripts {
     <script>
     $(function () {
+
+        //test validation
+
+
+        $.getJSON("@ViewBag.ValideringUrl", function (result) {
+
+            if (result.length != 0) {
+                $("#validation").css('visibility', 'visible');
+                $("#validation").css('display', 'block');
+                var date = new Date(result.ValidationResults[0].Timestamp);
+                $("#validatedDate").text(date.toLocaleDateString() + ' ' + date.toLocaleTimeString());
+
+                var validationStatus = result.ValidationResults[0].Result;
+                if (validationStatus == 1) {
+                    $("#validationStatus").text("OK");
+                    $("#validationStatus").addClass("label label-success");
+                }
+                else if (validationStatus == 0)
+                {
+                    $("#validationStatus").text("FEIL");
+                    $("#validationStatus").addClass("label label-danger");
+                }
+                else {
+                    $("#validationStatus").text("Ikke validert");
+                    $("#validationStatus").addClass("label label-warning");
+                }
+
+                var Messages = result.ValidationResults[0].Messages.split('\n');
+
+                var message = "<ul>";
+
+                for (m = 0; m < Messages.length; m++)
+                {
+                    message = message + "<li>" + Messages[m] + '</li>'
+                }
+
+                message = message + "</ul>";
+
+                $("#validationResults").html(message);
+
+            }
+           
+        });
 
         //  add warning sign to tabs containing input fields with error.
         $('.input-validation-error').each(function () {
@@ -315,6 +378,7 @@
                 });
             });
         });
+
 
         // help text
 
@@ -503,7 +567,7 @@
             @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
             {
             @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
-            }
+                        }
             dfHtm += '</select>';
 
             dfHtm += '</div>';
@@ -526,292 +590,292 @@
         });
 
 
-            // distribution
+        // distribution
 
-            $('button#usePredefinedDistributionProtocol').click(function (event) {
-                event.preventDefault();
-                var selectedProtocol = $('select#predefinedDistributionProtocols').val();
-                $('#DistributionProtocol').val(selectedProtocol);
-            });
+        $('button#usePredefinedDistributionProtocol').click(function (event) {
+            event.preventDefault();
+            var selectedProtocol = $('select#predefinedDistributionProtocols').val();
+            $('#DistributionProtocol').val(selectedProtocol);
+        });
 
-            // conformity
+        // conformity
 
-            $("button#prefillConformityInspire").click(function (event) {
-                event.preventDefault();
-                $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
-                $("#QualitySpecificationDate").val("08.12.2010");
-                $("#QualitySpecificationDateType").val("publication");
-                //$("#QualitySpecificationExplanation").val("See the referenced specification");
-                $("#QualitySpecificationResult").prop('checked', true);
-            });
-            $("button#prefillConformitySosi").click(function (event) {
-                event.preventDefault();
-                $("#QualitySpecificationTitle").val("SOSI-fagområde: (Navn på fagområde)");
-                $("#QualitySpecificationDate").val("01.01.2014");
-                $("#QualitySpecificationDateType").val("publication");
-                //$("#QualitySpecificationExplanation").val("See the referenced specification");
-                $("#QualitySpecificationResult").prop('checked', true);
-            });
-            $("button#prefillConformitySosiSpec").click(function (event) {
-                event.preventDefault();
-                $("#QualitySpecificationTitle").val("SOSI-produktspesifikasjon: (Navn på produktspesifikasjon)");
-                $("#QualitySpecificationDate").val("01.01.2014");
-                $("#QualitySpecificationDateType").val("publication");
-                //$("#QualitySpecificationExplanation").val("See the referenced specification");
-                $("#QualitySpecificationResult").prop('checked', true);
-            });
+        $("button#prefillConformityInspire").click(function (event) {
+            event.preventDefault();
+            $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
+            $("#QualitySpecificationDate").val("08.12.2010");
+            $("#QualitySpecificationDateType").val("publication");
+            //$("#QualitySpecificationExplanation").val("See the referenced specification");
+            $("#QualitySpecificationResult").prop('checked', true);
+        });
+        $("button#prefillConformitySosi").click(function (event) {
+            event.preventDefault();
+            $("#QualitySpecificationTitle").val("SOSI-fagområde: (Navn på fagområde)");
+            $("#QualitySpecificationDate").val("01.01.2014");
+            $("#QualitySpecificationDateType").val("publication");
+            //$("#QualitySpecificationExplanation").val("See the referenced specification");
+            $("#QualitySpecificationResult").prop('checked', true);
+        });
+        $("button#prefillConformitySosiSpec").click(function (event) {
+            event.preventDefault();
+            $("#QualitySpecificationTitle").val("SOSI-produktspesifikasjon: (Navn på produktspesifikasjon)");
+            $("#QualitySpecificationDate").val("01.01.2014");
+            $("#QualitySpecificationDateType").val("publication");
+            //$("#QualitySpecificationExplanation").val("See the referenced specification");
+            $("#QualitySpecificationResult").prop('checked', true);
+        });
 
-            // bounding box
+        // bounding box
 
-            var $states = $('select#bboxState');
-            var $counties = $('select#bboxCounty');
+        var $states = $('select#bboxState');
+        var $counties = $('select#bboxCounty');
 
-            var $countyList = $counties.find('option').clone();
+        var $countyList = $counties.find('option').clone();
 
-            $states.change(function () {
-                var $selectedStateNumber = $(this).find('option:selected').data('statenumber');
-                var regex = new RegExp("^" + $selectedStateNumber);
-                $counties.html($countyList.filter(function () {
-                    return regex.test($(this).attr('data-countynumber'));
-                }));
-            }).change();
-
-
-            $("button#bboxPrefill").click(function (event) {
-                event.preventDefault();
-                var $selectedCounty = $counties.find('option:selected');
-                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
-            });
-
-            // Check date not in future
-            $("#DateUpdated").change(function (event) {
-                event.preventDefault();
-                var currentDate = new Date();
-                var selectedDateStr = $('#DateUpdated').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                if (selectedDate > currentDate) {
-                    alert('Dato kan ikke være i fremtiden');
-                    $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
-            });
-
-            $("#DatePublished").change(function (event) {
-                event.preventDefault();
-                var currentDate = new Date();
-                var selectedDateStr = $('#DatePublished').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                if (selectedDate > currentDate) {
-                    alert('Dato kan ikke være i fremtiden');
-                    $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
-            });
-
-            $("#DateCreated").change(function (event) {
-                event.preventDefault();
-                var currentDate = new Date();
-                var selectedDateStr = $('#DateCreated').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                if (selectedDate > currentDate) {
-                    alert('Dato kan ikke være i fremtiden');
-                    $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
-            });
-
-            $("#DateMetadataValidFrom").change(function (event) {
-                event.preventDefault();
-                var selectedDateStr = $('#DateMetadataValidFrom').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                var validToStr = $('#DateMetadataValidTo').val();
-                var validToArr = validToStr.split('.');
-                var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
-
-                if (ValidToDate < selectedDate) {
-                    alert('Gyldig fra dato må være mindre enn gyldig til dato');
-                    var newDate = new Date(ValidToDate);
-                    newDate.setDate(newDate.getDate() - 1);
-                    $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                }
-            });
-
-            $("#DateMetadataValidTo").change(function (event) {
-                event.preventDefault();
-                var selectedDateStr = $('#DateMetadataValidTo').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                var validFromStr = $('#DateMetadataValidFrom').val();
-                var validFromArr = validFromStr.split('.');
-                var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
-
-                if (selectedDate < ValidFromDate) {
-                    alert('Gyldig til dato må være større enn gyldig fra dato');
-                    var newDate = new Date(ValidFromDate);
-                    newDate.setDate(newDate.getDate() + 1);
-                    $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                }
-            });
-
-            $("#QualitySpecificationDate").change(function (event) {
-                event.preventDefault();
-                var currentDate = new Date();
-                var selectedDateStr = $('#QualitySpecificationDate').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                if (selectedDate > currentDate) {
-                    alert('Dato kan ikke være i fremtiden');
-                    $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
-            });
+        $states.change(function () {
+            var $selectedStateNumber = $(this).find('option:selected').data('statenumber');
+            var regex = new RegExp("^" + $selectedStateNumber);
+            $counties.html($countyList.filter(function () {
+                return regex.test($(this).attr('data-countynumber'));
+            }));
+        }).change();
 
 
-            // keywords
+        $("button#bboxPrefill").click(function (event) {
+            event.preventDefault();
+            var $selectedCounty = $counties.find('option:selected');
+            $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+            $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+            $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+            $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+        });
 
-            function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
-                deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
-
-                var $keywordInput = $('#' + selectorPrefix + '-text');
-
-                var newKeyword = $keywordInput.val();
-
-                var elementId = $('ul#' + selectorPrefix + ' li').length;
-
-                var listItemId = selectorPrefix + "-" + elementId;
-
-                var li = $('<li />', { "id": listItemId });
-                li.append($('<span />', { "class": "label label-success", text: newKeyword }));
-                li.append('&nbsp;');
-
-                var link = $('<a />', {
-                    "href": "",
-                    "class": "keyword-delete",
-                    "data-delete": listItemId,
-                    "data-list": selectorPrefix + '-text',
-                    "data-list-value": newKeyword
-                });
-                link.append("<small>Slett</small>");
-
-                li.append(link);
-                li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
-
-                $('ul#' + selectorPrefix).append(li);
-
-                return $keywordInput;
-            };
-
-            function addKeywordFromCodeList(selectorPrefix, inputName) {
-                var $keywordInput = addKeyword(selectorPrefix, inputName);
-                var $selected = $keywordInput.find("option:selected");
-                $selected.attr("disabled", "disabled");
-                $selected.removeAttr("selected");
-            };
-
-            function addKeywordFromTextbox(selectorPrefix, inputName) {
-                var $keywordInput = addKeyword(selectorPrefix, inputName);
-                $keywordInput.val('');
+        // Check date not in future
+        $("#DateUpdated").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#DateUpdated').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+                alert('Dato kan ikke være i fremtiden');
+                $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
             }
+        });
 
-            $('button#keywords-theme-add').click(function (event) {
-                event.preventDefault();
-                if ($('#keywords-theme-text').val().trim() == '')
-                    alert('Vennligst fyll ut tema');
-                else
-                    addKeywordFromTextbox('keywords-theme', "KeywordsTheme");
+        $("#DatePublished").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#DatePublished').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+                alert('Dato kan ikke være i fremtiden');
+                $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+            }
+        });
 
+        $("#DateCreated").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#DateCreated').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+                alert('Dato kan ikke være i fremtiden');
+                $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+            }
+        });
+
+        $("#DateMetadataValidFrom").change(function (event) {
+            event.preventDefault();
+            var selectedDateStr = $('#DateMetadataValidFrom').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            var validToStr = $('#DateMetadataValidTo').val();
+            var validToArr = validToStr.split('.');
+            var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
+
+            if (ValidToDate < selectedDate) {
+                alert('Gyldig fra dato må være mindre enn gyldig til dato');
+                var newDate = new Date(ValidToDate);
+                newDate.setDate(newDate.getDate() - 1);
+                $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+            }
+        });
+
+        $("#DateMetadataValidTo").change(function (event) {
+            event.preventDefault();
+            var selectedDateStr = $('#DateMetadataValidTo').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            var validFromStr = $('#DateMetadataValidFrom').val();
+            var validFromArr = validFromStr.split('.');
+            var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
+
+            if (selectedDate < ValidFromDate) {
+                alert('Gyldig til dato må være større enn gyldig fra dato');
+                var newDate = new Date(ValidFromDate);
+                newDate.setDate(newDate.getDate() + 1);
+                $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+            }
+        });
+
+        $("#QualitySpecificationDate").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#QualitySpecificationDate').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+                alert('Dato kan ikke være i fremtiden');
+                $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+            }
+        });
+
+
+        // keywords
+
+        function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
+            deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
+
+            var $keywordInput = $('#' + selectorPrefix + '-text');
+
+            var newKeyword = $keywordInput.val();
+
+            var elementId = $('ul#' + selectorPrefix + ' li').length;
+
+            var listItemId = selectorPrefix + "-" + elementId;
+
+            var li = $('<li />', { "id": listItemId });
+            li.append($('<span />', { "class": "label label-success", text: newKeyword }));
+            li.append('&nbsp;');
+
+            var link = $('<a />', {
+                "href": "",
+                "class": "keyword-delete",
+                "data-delete": listItemId,
+                "data-list": selectorPrefix + '-text',
+                "data-list-value": newKeyword
             });
+            link.append("<small>Slett</small>");
 
-            $('button#keywords-place-add').click(function (event) {
-                event.preventDefault();
-                if ($('#keywords-place-text').val().trim() == '')
-                    alert('Vennligst fyll ut sted');
-                else
-                    addKeywordFromTextbox('keywords-place', "KeywordsPlace");
-            });
+            li.append(link);
+            li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
 
-            $('button#keywords-national-initiative-add').click(function (event) {
-                event.preventDefault();
-                if ($('#keywords-national-initiative-text').val().trim() == '')
-                    alert('Vennligst velg samarbeid og lov');
-                else
-                    addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
-            });
+            $('ul#' + selectorPrefix).append(li);
 
-            $('button#keywords-national-theme-add').click(function (event) {
-                event.preventDefault();
-                if ($('#keywords-national-theme-text').val().trim() == '')
-                    alert('Vennligst velg DOK-kategori');
-                else
-                    addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
-            });
+            return $keywordInput;
+        };
 
-            $('button#keywords-inspire-add').click(function (event) {
-                event.preventDefault();
-                if ($('#keywords-inspire-text').val().trim() == '')
-                    alert('Vennligst velg inspire');
-                else
-                    addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
-            });
+        function addKeywordFromCodeList(selectorPrefix, inputName) {
+            var $keywordInput = addKeyword(selectorPrefix, inputName);
+            var $selected = $keywordInput.find("option:selected");
+            $selected.attr("disabled", "disabled");
+            $selected.removeAttr("selected");
+        };
 
-            $('button#keywords-other-add').click(function (event) {
-                event.preventDefault();
-                if ($('#keywords-other-text').val().trim() == '')
-                    alert('Vennligst fyll ut annet');
-                else
-                    addKeywordFromTextbox('keywords-other', "KeywordsOther");
-            });
+        function addKeywordFromTextbox(selectorPrefix, inputName) {
+            var $keywordInput = addKeyword(selectorPrefix, inputName);
+            $keywordInput.val('');
+        }
 
-            // use a delegated event handler to bind to all existing and future delete links
-            $('body').on("click", "a.keyword-delete", function (event) {
-                event.preventDefault();
-
-                if (confirm('Er du sikker på at du vil slette nøkkelordet?')) {
-                    var deleteId = $(this).data('delete');
-
-                    var $selectCodeList = $("select#" + $(this).data('list'));
-                    if ($selectCodeList !== undefined) {
-                        var selector = 'option:contains("' + $(this).data('list-value') + '")';
-                        var option = $selectCodeList.children(selector);
-                        option.removeAttr('disabled');
-                    }
-
-                    var $listItem = $('li#' + deleteId);
-                    var $parentList = $listItem.parent();
-                    $listItem.remove();
-
-                    $('li', $parentList).each(function (index, value) {
-                        var $hiddenItemsForRow = $('input[type=hidden]', value);
-                        $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
-                            var name = $(hiddenValue).attr("name");
-                            //console.log("hidden value old name: " + name);
-                            var inputName = name.substring(0, name.indexOf("["));
-                            var inputNameWithIndex = inputName + '[' + index + ']';
-                            //console.log("new name: " + inputNameWithIndex);
-                            $(hiddenValue).attr('name', inputNameWithIndex);
-                        });
-                    });
-
-
-                }
-            });
+        $('button#keywords-theme-add').click(function (event) {
+            event.preventDefault();
+            if ($('#keywords-theme-text').val().trim() == '')
+                alert('Vennligst fyll ut tema');
+            else
+                addKeywordFromTextbox('keywords-theme', "KeywordsTheme");
 
         });
 
-        function removeDistributionFormat(formatID) {
-            var elem = document.getElementById("formatRow" + formatID);
-            elem.parentNode.removeChild(elem);
-            document.getElementById('DistributionFormatsCount').value -= 1;
-        };
+        $('button#keywords-place-add').click(function (event) {
+            event.preventDefault();
+            if ($('#keywords-place-text').val().trim() == '')
+                alert('Vennligst fyll ut sted');
+            else
+                addKeywordFromTextbox('keywords-place', "KeywordsPlace");
+        });
 
-        function removeReferenceSystem(refID) {
-            var elem = document.getElementById("referenceRow" + refID);
-            elem.parentNode.removeChild(elem);
-            document.getElementById('ReferenceSystemsCount').value -= 1;
-        };
+        $('button#keywords-national-initiative-add').click(function (event) {
+            event.preventDefault();
+            if ($('#keywords-national-initiative-text').val().trim() == '')
+                alert('Vennligst velg samarbeid og lov');
+            else
+                addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
+        });
+
+        $('button#keywords-national-theme-add').click(function (event) {
+            event.preventDefault();
+            if ($('#keywords-national-theme-text').val().trim() == '')
+                alert('Vennligst velg DOK-kategori');
+            else
+                addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
+        });
+
+        $('button#keywords-inspire-add').click(function (event) {
+            event.preventDefault();
+            if ($('#keywords-inspire-text').val().trim() == '')
+                alert('Vennligst velg inspire');
+            else
+                addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
+        });
+
+        $('button#keywords-other-add').click(function (event) {
+            event.preventDefault();
+            if ($('#keywords-other-text').val().trim() == '')
+                alert('Vennligst fyll ut annet');
+            else
+                addKeywordFromTextbox('keywords-other', "KeywordsOther");
+        });
+
+        // use a delegated event handler to bind to all existing and future delete links
+        $('body').on("click", "a.keyword-delete", function (event) {
+            event.preventDefault();
+
+            if (confirm('Er du sikker på at du vil slette nøkkelordet?')) {
+                var deleteId = $(this).data('delete');
+
+                var $selectCodeList = $("select#" + $(this).data('list'));
+                if ($selectCodeList !== undefined) {
+                    var selector = 'option:contains("' + $(this).data('list-value') + '")';
+                    var option = $selectCodeList.children(selector);
+                    option.removeAttr('disabled');
+                }
+
+                var $listItem = $('li#' + deleteId);
+                var $parentList = $listItem.parent();
+                $listItem.remove();
+
+                $('li', $parentList).each(function (index, value) {
+                    var $hiddenItemsForRow = $('input[type=hidden]', value);
+                    $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
+                        var name = $(hiddenValue).attr("name");
+                        //console.log("hidden value old name: " + name);
+                        var inputName = name.substring(0, name.indexOf("["));
+                        var inputNameWithIndex = inputName + '[' + index + ']';
+                        //console.log("new name: " + inputNameWithIndex);
+                        $(hiddenValue).attr('name', inputNameWithIndex);
+                    });
+                });
+
+
+            }
+        });
+
+    });
+
+    function removeDistributionFormat(formatID) {
+        var elem = document.getElementById("formatRow" + formatID);
+        elem.parentNode.removeChild(elem);
+        document.getElementById('DistributionFormatsCount').value -= 1;
+    };
+
+    function removeReferenceSystem(refID) {
+        var elem = document.getElementById("referenceRow" + refID);
+        elem.parentNode.removeChild(elem);
+        document.getElementById('ReferenceSystemsCount').value -= 1;
+    };
 
     </script>
 }

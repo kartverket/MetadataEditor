@@ -199,6 +199,8 @@ namespace Kartverket.MetadataEditor.Controllers
             Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
             ViewBag.ReferenceSystemsValues = new SelectList(ReferenceSystemsList, "Key", "Value");
 
+            ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
+
         }
 
         [HttpPost]
