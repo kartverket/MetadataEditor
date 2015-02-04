@@ -1,0 +1,27 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+<h2>Koble til datasett</h2>
+
+@for (int i = 0; i < Model.OperatesOn.Count; i++)
+{
+    <div class="form-group">
+        <label class="col-sm-2 control-label">UUID</label>
+        <div class="col-sm-4">
+            <input class="form-control" type="text" value="@Model.OperatesOn[i].ToString()" name="OperatesOn" />
+        </div>
+        <label class="col-sm-2 control-label">Tittel</label>
+        <div class="col-sm-4">
+            <div>Tittel kommer</div>
+        </div>
+    </div>
+}
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Ny UUID</label>
+    <div class="col-sm-4">
+        <input class="form-control" type="text" name="OperatesOn" />
+    </div>
+    <label class="col-sm-2 control-label">Tittel</label>
+    <div class="col-sm-4">
+        <div>Tittel kommer</div>
+    </div>
+</div>

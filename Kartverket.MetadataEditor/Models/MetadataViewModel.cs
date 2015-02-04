@@ -146,6 +146,8 @@ namespace Kartverket.MetadataEditor.Models
         public string EnglishContactPublisherOrganization { get; set; }
         public string EnglishContactOwnerOrganization { get; set; }
 
+        public List<string> OperatesOn { get; set; }
+
 
         internal void FixThumbnailUrls()
         {

@@ -239,6 +239,9 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             model.FixThumbnailUrls();
+
+            model.OperatesOn = metadata.OperatesOn !=null ? metadata.OperatesOn : null;
+
             return model;
         }
 
@@ -448,6 +451,9 @@ namespace Kartverket.MetadataEditor.Models
 
             if (hasEnglishFields)
                 metadata.SetLocale(SimpleMetadata.LOCALE_ENG);
+
+            if (model.OperatesOn != null)
+                metadata.OperatesOn = model.OperatesOn;
 
             SetDefaultValuesOnMetadata(metadata);
         }
