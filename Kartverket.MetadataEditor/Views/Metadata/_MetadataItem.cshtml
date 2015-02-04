@@ -9,7 +9,7 @@
         relationIcon = "<span class=\"relation-icon\"><img src=\"" + Url.Content("~/Content/arrow-down-right.png") + "\" width=\"9\" height=\"17\" alt=\"pil ned og til høyre.\"></span>";
     }   
 }
-
+<script>validationUUIDs[validationUUIDs.length] = '@Model.Uuid';</script>
 <tr @css>
     <td>
         @Html.Raw(relationIcon)
@@ -25,6 +25,9 @@
     <th>
         <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
     </th>
+    <td>
+        <span id="status-@Model.Uuid"></span>
+    </td>
     <td class="text-right btn-toolbar">
         <div class="btn-group">
             <a href="@Model.GeoNetworkXmlDownloadUrl" target="_blank" class="btn btn-default btn-xs">

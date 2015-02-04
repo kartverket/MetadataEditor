@@ -340,6 +340,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Metadata_Status {
+            get {
+                return ResourceManager.GetString("Metadata_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tittel.
         /// </summary>
         public static string Metadata_Title {
