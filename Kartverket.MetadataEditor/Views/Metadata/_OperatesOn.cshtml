@@ -1,27 +1,125 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
-<h2>Koble til datasett</h2>
+<script>
 
-@for (int i = 0; i < Model.OperatesOn.Count; i++)
-{
-    <div class="form-group">
-        <label class="col-sm-2 control-label">UUID</label>
-        <div class="col-sm-4">
-            <input class="form-control" type="text" value="@Model.OperatesOn[i].ToString()" name="OperatesOn" />
-        </div>
-        <label class="col-sm-2 control-label">Tittel</label>
-        <div class="col-sm-4">
-            <div>Tittel kommer</div>
-        </div>
-    </div>
-}
+    function getMetadata(uuid) {
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+
+            if (result.length != 0) {
+
+                var title = result.Results[0].Title;
+                $("#title-" + uuid).text(title);
+            }
+
+            else {
+                $("#title-" + uuid).text("TITTEL MANGLER");
+            }
+
+        });
+    };
+
+
+    function getMetadataFreetext(searchStr) {
+
+        $('#searchresultsDS').empty();
+
+        if (searchStr == '')
+        {
+            $('#searchInfo').text('Vennligst skriv inn søkeord');
+            return false;
+        }
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + searchStr, function (result) {
+
+            $('#searchInfo').text('');
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0)
+                {
+                    for (r = 0; r < result.Results.length; r++)
+                    {
+                        displayMetadataRow(result.Results[r]);
+                    }
+
+                }
+                else
+                {
+                    $('#searchInfo').text('Fant ingen metadata');
+                }
+                
+            }
+
+        });
+    };
+
+
+    function displayMetadataRow(result)
+    {
+        var div = '<div> <a onclick="addOperatesOn(\'' + result.Uuid + '\')" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> ' + result.Title + ', ' + result.Organization + '</div><hr>';
+        $('#searchresultsDS').append(div);
+    }
+
+    function addOperatesOn(Uuid)
+    {
+        var h='<div id="operatesOn-' + Uuid + '" class="form-group">';
+        h+='<label class="col-sm-1 control-label">UUID</label>';
+        h+='<div class="col-sm-3">';
+        h+=Uuid;
+        h+='<input type="hidden" value="'+ Uuid +'" name="OperatesOn" />';
+        h+='</div>';
+        h+='<label class="col-sm-1 control-label">Tittel</label>';
+        h+='<div class="col-sm-3">';
+        h+='<div id="title-'+Uuid+'">';
+        h+='<script>getMetadata(\'' + Uuid + '\'' + '\)\;\<\/script>';
+        h+='</div>';
+        h+='</div>';
+        h+='<div class="col-sm-1 btn-group">';
+        h+='<a href="#" onclick="document.getElementById(\'operatesOn-' + Uuid + '\').parentNode.removeChild(document.getElementById(\'operatesOn-' + Uuid +'\'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Fjern</a>';
+        h+='</div>';
+
+        h+='</div>';
+        $('#operatesOnDIV').append(h);
+
+    }
+
+</script>
+
+<h2>Koble til datasett</h2>
+<div style="right: 5px; top: 5px; position:absolute;"><a href="#" onclick="javascript: hideshow(document.getElementById('operatesOn'))">Lukk</a></div>
 
 <div class="form-group">
-    <label class="col-sm-2 control-label">Ny UUID</label>
-    <div class="col-sm-4">
-        <input class="form-control" type="text" name="OperatesOn" />
+    <label class="col-sm-1 control-label"></label>
+    <div class="col-sm-3">
+        <input class="form-control" type="text" id="searchmetadata" />
     </div>
-    <label class="col-sm-2 control-label">Tittel</label>
-    <div class="col-sm-4">
-        <div>Tittel kommer</div>
-    </div>
+    <div><button type="button" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button></div>
+    <span id="searchInfo" style="color:red"></span>
+</div>
+
+<div id="searchresultsDS">
+
+</div>
+<div id="operatesOnDIV">
+    @for (int i = 0; i < Model.OperatesOn.Count; i++)
+    {
+        <div id="operatesOn-@Model.OperatesOn[i].ToString()" class="form-group">
+            <label class="col-sm-1 control-label">UUID</label>
+            <div class="col-sm-3">
+                @Model.OperatesOn[i].ToString()
+                <input type="hidden" value="@Model.OperatesOn[i].ToString()" name="OperatesOn" />
+            </div>
+            <label class="col-sm-1 control-label">Tittel</label>
+            <div class="col-sm-3">
+                <div id="title-@Model.OperatesOn[i].ToString()">
+                    <script>getMetadata('@Model.OperatesOn[i].ToString()');</script>
+                </div>
+            </div>
+            <div class="col-sm-1 btn-group">
+                <a href="#" onclick="document.getElementById('operatesOn-@Model.OperatesOn[i].ToString()').parentNode.removeChild(document.getElementById('operatesOn-@Model.OperatesOn[i].ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Fjern</a>
+            </div>
+
+        </div>
+    }
 </div>

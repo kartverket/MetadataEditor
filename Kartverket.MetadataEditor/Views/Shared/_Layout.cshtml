@@ -17,6 +17,8 @@
     @Styles.Render("~/Content/css")
     @RenderSection("head", required: false)
     @Html.Partial("_Analytics")
+    @Scripts.Render("~/bundles/scripts")
+    @RenderSection("scripts", required: false)
     <script>
         var validationUUIDs = [];
     </script>
@@ -152,7 +154,5 @@
             </div>
 
         </footer>
-    @Scripts.Render("~/bundles/scripts")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

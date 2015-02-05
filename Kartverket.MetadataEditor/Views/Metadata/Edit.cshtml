@@ -8,105 +8,110 @@
         showProductSheetGeneratorUrl = true;
 }
 
-@section ActionMenu {
-    <div class="btn-group">
-        <a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
-            <i class="glyphicon glyphicon-file"></i> Last ned XML
-        </a>
-        <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
-            <span class="glyphicon glyphicon-share-alt"></span> Vis i kartkatalogen
-        </a>
-        @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
-        {
-            <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
-                <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for WMS-lag
-            </a>
-        }
-        @if (Model.IsDataset() && showProductSheetGeneratorUrl) 
-        {   
-        <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
-        }
-        
-        @if (Model.IsService())
-        {
-            <a href="#operatesOn" id="operatesOnLink" data-toggle="tab" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
-        }
-    </div>
-}
-
-
-<div class="pull-right">
-    <p class="text-right"><small>UUID: @Model.Uuid</small><br />
-    <small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small>
-    <br />
-    <small>
-    <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
-    
-    @if (!string.IsNullOrWhiteSpace(Model.ParentIdentifier) && Model.HierarchyLevel == "service")
-    {
-        <span>[<a href="@Url.Action("Edit", new { uuid = @Model.ParentIdentifier})">Lenke til tjenesten</a>]</span>
-    }
-
-    </small>
-</p>
-    <script>
-        function hideshow(which) {
-            if (!document.getElementById)
-                return;
-            if (which.style.visibility == "visible") {
-                which.style.display = "none";
-                which.style.visibility = "hidden";
-            }
-            else
-            {
-                which.style.display = "block";
-                which.style.visibility = "visible";
-            }
-        }
-    </script>
-    <div id="validation"style="display: none; visibility: hidden;">
-        Validert <span id="validatedDate"></span>: <span id="validationStatus"></span>, <a style="cursor:pointer" class="alert-info" onclick="javascript: hideshow(document.getElementById('validationResults'))">detaljer</a>
-    </div>
-   <div id="validationResults" style="display:none; visibility:hidden; position:absolute; width: 400px; height: auto; z-index: 3; background-color: white; border: 1px solid black;">
-    </div>
-</div>
-
-<h3>@ViewBag.Title</h3>
-<h2>@Model.Title</h2>
-
-@if (ViewBag.Saved == true)
-{
-    <div class="alert alert-success">
-        Metadata ble lagret.
-    </div>
-} 
-@if (ViewBag.ErrorMessage != null)
-{
-    <div class="alert alert-danger">
-        Det har oppstått en feil: @ViewBag.ErrorMessage
-    </div>    
-}
-
-@Html.ValidationSummary(false,"Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:",new { @class = "alert alert-danger"})
-
-
-
-<ul class="nav nav-tabs" style="clear:both">
-    <li class="active"><a href="#home" id="homelink" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
-    <li><a href="#timeandspace" id="timeandspacelink" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Tid og rom</a></li>
-    <li><a href="#contact" id="contactlink" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
-    <li><a href="#distribution" id="distributionlink" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
-    <li><a href="#documents" id="documentslink" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumenter</a></li>
-    <li><a href="#constraints" id="constraintslink" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
-    <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
-    <li><a href="#keywords" id="keywordslink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
-    <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
-</ul>
-
-<form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" onclick="@(TempData["success"] != null ? "removeokmsg();" : "" )">
+<form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" oninput="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     @Html.HiddenFor(m => m.Uuid)
     @Html.HiddenFor(m => m.DateMetadataUpdated)
     @Html.HiddenFor(m => m.HierarchyLevel)
+
+    <div id="operatesOn" style="width: auto; height:auto; min-width: 450px; position:absolute; background-color:white; display: none; visibility:hidden; border: 1px solid black; z-index: 3; overflow:scroll; padding: 5px 5px 5px 5px" >
+        @Html.Partial("_OperatesOn", Model)
+    </div>
+
+    @section ActionMenu {
+        <div class="btn-group">
+            <a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
+                <i class="glyphicon glyphicon-file"></i> Last ned XML
+            </a>
+            <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
+                <span class="glyphicon glyphicon-share-alt"></span> Vis i kartkatalogen
+            </a>
+            @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
+            {
+                <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for WMS-lag
+                </a>
+            }
+            @if (Model.IsDataset() && showProductSheetGeneratorUrl)
+            {
+                <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
+            }
+
+            @if (Model.IsService())
+            {
+                <a href="#" onclick="javascript: hideshow(document.getElementById('operatesOn'))" id="operatesOnLink" data-toggle="tab" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
+            }
+        </div>
+    }
+
+
+    <div class="pull-right">
+        <p class="text-right">
+            <small>UUID: @Model.Uuid</small><br />
+            <small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small>
+            <br />
+            <small>
+                <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ParentIdentifier) && Model.HierarchyLevel == "service")
+                {
+                    <span>[<a href="@Url.Action("Edit", new { uuid = @Model.ParentIdentifier})">Lenke til tjenesten</a>]</span>
+                }
+
+            </small>
+        </p>
+        <script>
+            function hideshow(which) {
+                if (!document.getElementById)
+                    return;
+                if (which.style.visibility == "visible") {
+                    which.style.display = "none";
+                    which.style.visibility = "hidden";
+                }
+                else {
+                    which.style.display = "inline-block";
+                    which.style.visibility = "visible";
+                }
+            }
+        </script>
+        <div id="validation" style="display: none; visibility: hidden;">
+            Validert <span id="validatedDate"></span>: <span id="validationStatus"></span>, <a style="cursor:pointer" class="alert-info" onclick="javascript: hideshow(document.getElementById('validationResults'))">detaljer</a>
+        </div>
+        <div id="validationResults" style="display:inline-block; visibility:hidden; position:absolute; width: 400px; height: auto; z-index: 3; background-color: white; border: 1px solid black;">
+        </div>
+    </div>
+
+    <h3>@ViewBag.Title</h3>
+    <h2>@Model.Title</h2>
+
+    @if (ViewBag.Saved == true)
+    {
+        <div class="alert alert-success">
+            Metadata ble lagret.
+        </div>
+    }
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            Det har oppstått en feil: @ViewBag.ErrorMessage
+        </div>
+    }
+
+    @Html.ValidationSummary(false, "Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:", new { @class = "alert alert-danger" })
+
+
+
+    <ul class="nav nav-tabs" style="clear:both">
+        <li class="active"><a href="#home" id="homelink" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
+        <li><a href="#timeandspace" id="timeandspacelink" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Tid og rom</a></li>
+        <li><a href="#contact" id="contactlink" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
+        <li><a href="#distribution" id="distributionlink" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
+        <li><a href="#documents" id="documentslink" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumenter</a></li>
+        <li><a href="#constraints" id="constraintslink" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
+        <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
+        <li><a href="#keywords" id="keywordslink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
+        <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
+    </ul>
+
 
     <div class="tab-content">
         <div class="tab-pane active" id="home">
@@ -144,10 +149,8 @@
         <div class="tab-pane" id="english">
             @Html.Partial("_English", Model)
         </div>
-        <div class="tab-pane" id="operatesOn">
-            @Html.Partial("_OperatesOn", Model)
-        </div>
     </div>
+
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-4">
@@ -172,9 +175,6 @@
 @section scripts {
     <script>
     $(function () {
-
-        //test validation
-
 
         $.getJSON("@ViewBag.ValideringUrl", function (result) {
 
