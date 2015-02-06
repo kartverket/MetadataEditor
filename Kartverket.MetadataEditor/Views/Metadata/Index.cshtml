@@ -84,26 +84,30 @@ else
             $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]api/metadata/" + uuid, function (result) {
 
 
-                if (result.length != 0) {
-                    var validationStatus = result.ValidationResults[0].Result;
-                    if (validationStatus == 1) {
-                        $("#status-" + uuid).text("OK");
-                        $("#status-" + uuid).removeClass("label label-warning");
-                        $("#status-" + uuid).addClass("label label-success");
-                    }
-                    else if (validationStatus == 0) {
-                        $("#status-" + uuid).text("FEIL");
-                        $("#status-" + uuid).removeClass("label label-warning");
-                        $("#status-" + uuid).addClass("label label-danger");
+                if (result != null)
+                {
+                    if (result.length != 0) {
+                        var validationStatus = result.ValidationResults[0].Result;
+                        if (validationStatus == 1) {
+                            $("#status-" + uuid).text("OK");
+                            $("#status-" + uuid).removeClass("label label-warning");
+                            $("#status-" + uuid).addClass("label label-success");
+                        }
+                        else if (validationStatus == 0) {
+                            $("#status-" + uuid).text("FEIL");
+                            $("#status-" + uuid).removeClass("label label-warning");
+                            $("#status-" + uuid).addClass("label label-danger");
+                        }
                     }
                 }
-   
             });
         };
 
-        for (v = 0; v < validationUUIDs.length; v++)
-        {
-            getValidationStatus(validationUUIDs[v]);
-        }
     </script>
 }
+
+<script>
+    for (v = 0; v < validationUUIDs.length; v++) {
+        getValidationStatus(validationUUIDs[v]);
+    }
+</script>

@@ -153,7 +153,7 @@
 
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-4">
+        <div class="col-sm-offset-2 col-sm-5">
             <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
             @if (!Html.ViewData.ModelState.IsValid && ViewBag.IsAdmin == "1")
             {
@@ -178,42 +178,44 @@
 
         $.getJSON("@ViewBag.ValideringUrl", function (result) {
 
-            if (result.length != 0) {
-                $("#validation").css('visibility', 'visible');
-                $("#validation").css('display', 'block');
-                var date = new Date(result.ValidationResults[0].Timestamp);
-                $("#validatedDate").text(date.toLocaleDateString() + ' ' + date.toLocaleTimeString());
+            if (result != null)
+            {      
+                if (result.length != 0) {
+                    $("#validation").css('visibility', 'visible');
+                    $("#validation").css('display', 'block');
+                    var date = new Date(result.ValidationResults[0].Timestamp);
+                    $("#validatedDate").text(date.toLocaleDateString() + ' ' + date.toLocaleTimeString());
 
-                var validationStatus = result.ValidationResults[0].Result;
-                if (validationStatus == 1) {
-                    $("#validationStatus").text("OK");
-                    $("#validationStatus").addClass("label label-success");
+                    var validationStatus = result.ValidationResults[0].Result;
+                    if (validationStatus == 1) {
+                        $("#validationStatus").text("OK");
+                        $("#validationStatus").addClass("label label-success");
+                    }
+                    else if (validationStatus == 0)
+                    {
+                        $("#validationStatus").text("FEIL");
+                        $("#validationStatus").addClass("label label-danger");
+                    }
+                    else {
+                        $("#validationStatus").text("Ikke validert");
+                        $("#validationStatus").addClass("label label-warning");
+                    }
+
+                    var Messages = result.ValidationResults[0].Messages.split('\n');
+
+                    var message = "<ul>";
+
+                    for (m = 0; m < Messages.length; m++)
+                    {
+                        message = message + "<li>" + Messages[m] + '</li>'
+                    }
+
+                    message = message + "</ul>";
+
+                    $("#validationResults").html(message);
+
                 }
-                else if (validationStatus == 0)
-                {
-                    $("#validationStatus").text("FEIL");
-                    $("#validationStatus").addClass("label label-danger");
-                }
-                else {
-                    $("#validationStatus").text("Ikke validert");
-                    $("#validationStatus").addClass("label label-warning");
-                }
-
-                var Messages = result.ValidationResults[0].Messages.split('\n');
-
-                var message = "<ul>";
-
-                for (m = 0; m < Messages.length; m++)
-                {
-                    message = message + "<li>" + Messages[m] + '</li>'
-                }
-
-                message = message + "</ul>";
-
-                $("#validationResults").html(message);
-
             }
-           
         });
 
         //  add warning sign to tabs containing input fields with error.

@@ -240,7 +240,7 @@ namespace Kartverket.MetadataEditor.Models
 
             model.FixThumbnailUrls();
 
-            model.OperatesOn = metadata.OperatesOn !=null ? metadata.OperatesOn : null;
+            model.OperatesOn = metadata.OperatesOn !=null ? metadata.OperatesOn : new List<string>();
 
             return model;
         }

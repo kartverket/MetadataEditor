@@ -22,6 +22,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsOther = new List<string>();
             KeywordsEnglish = new Dictionary<string, string>();
             Thumbnails = new List<Thumbnail>();
+            OperatesOn = new List<string>();
         }
         
         public string Uuid { get; set; }

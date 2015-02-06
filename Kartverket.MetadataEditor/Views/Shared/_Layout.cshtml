@@ -17,11 +17,12 @@
     @Styles.Render("~/Content/css")
     @RenderSection("head", required: false)
     @Html.Partial("_Analytics")
+    <script>
+    var validationUUIDs = [];
+    </script>
     @Scripts.Render("~/bundles/scripts")
     @RenderSection("scripts", required: false)
-    <script>
-        var validationUUIDs = [];
-    </script>
+
 </head>
 <body class="geonorge-container prototype  geonorge">
     <div id="logo-on-sm">
