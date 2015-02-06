@@ -8,7 +8,7 @@
         showProductSheetGeneratorUrl = true;
 }
 
-<form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" oninput="@(TempData["success"] != null ? "removeokmsg();" : "" )">
+<form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     @Html.HiddenFor(m => m.Uuid)
     @Html.HiddenFor(m => m.DateMetadataUpdated)
     @Html.HiddenFor(m => m.HierarchyLevel)
