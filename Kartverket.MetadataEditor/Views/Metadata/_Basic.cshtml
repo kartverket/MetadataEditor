@@ -16,6 +16,37 @@
     </div>
 </div>
 
+@if (Model.IsDataset() || Model.IsDatasetSeries())
+{
+    <div class="form-group">
+        <label for="ResourceReferenceCode" class="col-sm-2 control-label">Unik ressurs-id</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(m => m.ResourceReferenceCode)
+            <p class="help-text bg-success" id="help-text-ResourceReferenceCode" style="display: none">
+                Hjelpetekst kommer...
+            </p>
+        </div>
+        <div class="col-sm-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-ResourceReferenceCode" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ResourceReferenceCodespace" class="col-sm-2 control-label">Navnerom</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(m => m.ResourceReferenceCodespace)
+            <p class="help-text bg-success" id="help-text-ResourceReferenceCodespace" style="display: none">
+                Hjelpetekst kommer...
+            </p>
+        </div>
+        <div class="col-sm-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-ResourceReferenceCodespace" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
+    </div>
+}
 <div class="form-group required has-feedback">
     @Html.LabelFor(m => m.Purpose, new { @class = "col-sm-2 control-label" })
     <div class="col-sm-9">

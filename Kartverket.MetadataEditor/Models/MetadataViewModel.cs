@@ -99,6 +99,10 @@ namespace Kartverket.MetadataEditor.Models
         public string ReferenceSystemCoordinateSystem { get; set; }
         public string ReferenceSystemNamespace { get; set; }
         public List<SimpleReferenceSystem> ReferenceSystems { get; set; }
+
+        public string ResourceReferenceCode { get; set; }
+        public string ResourceReferenceCodespace { get; set; }
+
         
         // quality
         public DateTime? QualitySpecificationDate { get; set; }
