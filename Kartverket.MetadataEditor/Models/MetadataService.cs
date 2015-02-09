@@ -192,7 +192,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace : null,
-                ReferenceSystems = metadata.ReferenceSystems.Count == 0 ? null : metadata.ReferenceSystems,
+                ReferenceSystems = metadata.ReferenceSystems!=null && metadata.ReferenceSystems.Count == 0 ? null : metadata.ReferenceSystems,
 
                 QualitySpecificationDate = (metadata.QualitySpecification != null && !string.IsNullOrWhiteSpace(metadata.QualitySpecification.Date)) ? DateTime.Parse(metadata.QualitySpecification.Date) : (DateTime?)null,
                 QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
