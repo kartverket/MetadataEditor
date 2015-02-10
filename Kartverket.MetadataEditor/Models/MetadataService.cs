@@ -242,8 +242,12 @@ namespace Kartverket.MetadataEditor.Models
 
             model.OperatesOn = metadata.OperatesOn !=null ? metadata.OperatesOn : new List<string>();
 
-            model.ResourceReferenceCode = metadata.ResourceReference !=null ? metadata.ResourceReference.Code : null;
-            model.ResourceReferenceCodespace = metadata.ResourceReference != null ? metadata.ResourceReference.Codespace : null;
+            if (metadata.ResourceReference != null)
+            {
+                model.ResourceReferenceCode = metadata.ResourceReference.Code != null ? metadata.ResourceReference.Code : null;
+                model.ResourceReferenceCodespace = metadata.ResourceReference.Codespace != null ? metadata.ResourceReference.Codespace : null;
+            }
+
 
             return model;
         }
@@ -458,9 +462,13 @@ namespace Kartverket.MetadataEditor.Models
             if (model.OperatesOn != null)
                 metadata.OperatesOn = model.OperatesOn;
 
-            if (!string.IsNullOrWhiteSpace(model.ResourceReferenceCode))
+            if (!string.IsNullOrWhiteSpace(model.ResourceReferenceCode) || !string.IsNullOrWhiteSpace(model.ResourceReferenceCodespace))
             {
-                metadata.ResourceReference = new SimpleResourceReference { Code = model.ResourceReferenceCode, Codespace = model.ResourceReferenceCodespace };
+                metadata.ResourceReference = new SimpleResourceReference
+                {
+                 Code = model.ResourceReferenceCode != null ? model.ResourceReferenceCode : null, 
+                 Codespace = model.ResourceReferenceCodespace != null ? model.ResourceReferenceCodespace : null 
+                };
             }
 
             SetDefaultValuesOnMetadata(metadata);
