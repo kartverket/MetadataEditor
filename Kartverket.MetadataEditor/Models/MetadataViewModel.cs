@@ -125,6 +125,8 @@ namespace Kartverket.MetadataEditor.Models
         public string AccessConstraints { get; set; }
         public string UseConstraints { get; set; }
         public string OtherConstraints { get; set; }
+        public string OtherConstraintsLink { get; set; }
+        public string OtherConstraintsLinkText { get; set; }
         public string SecurityConstraints { get; set; }
 
         [Display(Name = "Metadata_DateCreated", ResourceType = typeof(UI))]

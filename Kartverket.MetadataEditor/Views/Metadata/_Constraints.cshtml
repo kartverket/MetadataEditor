@@ -31,7 +31,7 @@
 <div class="form-group">
     <label for="UseConstraints" class="col-sm-2 control-label">Brukerrestriksjoner</label>
     <div class="col-sm-9">
-        @Html.DropDownList("UseConstraints", ViewBag.UseConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
+        @Html.DropDownList("UseConstraints", ViewBag.UseConstraintValues as SelectList, String.Empty, new { @class = "form-control", @onchange = "licenseCheck(this.value)" })
         <p class="help-text bg-success" id="help-text-UseConstraints" style="display: none">
             Krav som må være oppfylt for å anvende datasettet/tjenesten.
         </p>
@@ -42,6 +42,41 @@
         </p>
     </div>
 </div>
+<div class="form-group" id="licenses" style="visibility:hidden; display: none;">
+    <label for="LicenseTypes" class="col-sm-2 control-label">Lisens</label>
+    <div class="col-sm-7">
+        @Html.DropDownList("LicenseTypes", ViewBag.LicenseTypesValues as SelectList, "-- Velg lisens --", new { @class = "form-control", @onchange = "setLicense()" })
+        <p class="help-text bg-success" id="help-text-LicenseTypes" style="display: none">
+            Lisens for datasettet/datatjenesten.
+        </p>
+    </div>
+    <div class="col-sm-2">
+        <button type="button" class="btn btn-default" onclick="document.getElementById('LicenseLink').style.visibility = 'visible'; document.getElementById('LicenseLink').style.display = 'block'; document.getElementById('OtherConstraintsLink').value = ''; document.getElementById('OtherConstraintsLinkText').value = ''; document.getElementById('LicenseTypes').selectedIndex = 0;" >Egendefinert</button>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-LicenseTypes" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+
+
+<div class="form-group" id="LicenseLink" style="visibility:hidden; display: none;">
+    <label for="OtherConstraintsLinkText" class="col-sm-2 control-label">Valgt lisens</label>
+    <div class="col-sm-3">
+        @Html.EditorFor(m => m.OtherConstraintsLinkText)
+    </div>
+    <label for="OtherConstraintsLink" class="col-sm-1 control-label">URL</label>
+    <div class="col-sm-4">
+        @Html.EditorFor(m => m.OtherConstraintsLink) 
+    </div>
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-default" id="otherConstraintsLicenseRemove" onclick="document.getElementById('OtherConstraintsLink').value = ''; document.getElementById('OtherConstraintsLinkText').value = ''; document.getElementById('LicenseLink').style.visibility = 'hidden'; document.getElementById('LicenseLink').style.display = 'none';">Slett</button>
+    </div>
+   
+</div>
+
+
 <div class="form-group">
     <label for="OtherConstraints" class="col-sm-2 control-label">Andre restriksjoner</label>
     <div class="col-sm-9">
@@ -70,3 +105,47 @@
         </p>
     </div>
 </div>
+<script>
+
+    function licenseCheck()
+    {
+
+        if (document.getElementById('UseConstraints').value == 'license')
+        {
+            document.getElementById('licenses').style.display = 'block';
+            document.getElementById('licenses').style.visibility = 'visible';
+        }
+        else{
+            document.getElementById('licenses').style.display = 'none';
+            document.getElementById('licenses').style.visibility = 'hidden';
+            document.getElementById('LicenseLink').style.display = 'none';
+            document.getElementById('LicenseLink').style.visibility = 'hidden';
+
+        }
+    }
+
+
+    function setLicense()
+    {
+        var e = document.getElementById("LicenseTypes");
+        var linkValue = e.options[e.selectedIndex].value;
+        var linkText = e.options[e.selectedIndex].text;
+
+        document.getElementById('OtherConstraintsLink').value = linkValue;
+        document.getElementById('OtherConstraintsLinkText').value = linkText;
+    }
+
+    licenseCheck();
+
+    var licenseFound = false;
+    for (var i = 0; i < document.getElementById('LicenseTypes').options.length; i++) {
+        if (document.getElementById('LicenseTypes').options[i].value == '@Model.OtherConstraintsLink') {
+            licenseFound = true;
+            break;
+        }
+    }
+    if (!licenseFound) {
+        document.getElementById('LicenseLink').style.display = 'block';
+        document.getElementById('LicenseLink').style.visibility = 'visible';
+    }
+</script>

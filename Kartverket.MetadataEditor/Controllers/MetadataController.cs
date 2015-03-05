@@ -155,6 +155,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.StatusValues = new SelectList(GetListOfStatusValues(), "Key", "Value", model.Status);
             ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(), "Key", "Value", model.SecurityConstraints);
             ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.UseConstraints);
+            ViewBag.LicenseTypesValues = new SelectList(GetListOfLicenseTypes(), "Key", "Value", model.OtherConstraintsLink);
             ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.AccessConstraints);
             ViewBag.CreateProductSheetUrl =
                 System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"] + model.Uuid;
@@ -445,6 +446,17 @@ namespace Kartverket.MetadataEditor.Controllers
             ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
 
             return ReferenceSystems;
+        }
+
+
+        public Dictionary<string, string> GetListOfLicenseTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {"http://data.norge.no/nlod/no/1.0", "Norsk lisens for offentlige data (NLOD)"},    
+                {"http://creativecommons.org/licenses/by/3.0/no/", "Creative Commons BY 3.0 (CC BY 3.0)"},
+                {"http://creativecommons.org/licenses/by/4.0/no/", "Creative Commons BY 4.0 (CC BY 4.0)"}
+            };
         }
 
         [Authorize]

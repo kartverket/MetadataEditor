@@ -208,6 +208,8 @@ namespace Kartverket.MetadataEditor.Models
                 AccessConstraints = metadata.Constraints != null ? metadata.Constraints.AccessConstraints : null,
                 SecurityConstraints = metadata.Constraints != null ? metadata.Constraints.SecurityConstraints : null,
                 OtherConstraints = metadata.Constraints != null ? metadata.Constraints.OtherConstraints : null,
+                OtherConstraintsLink = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLink : null,
+                OtherConstraintsLinkText = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLinkText : null,
 
                 DateCreated = metadata.DateCreated,
                 DatePublished = metadata.DatePublished,
@@ -436,6 +438,8 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     AccessConstraints = !string.IsNullOrWhiteSpace(model.AccessConstraints) ? model.AccessConstraints : "",
                     OtherConstraints = !string.IsNullOrWhiteSpace(model.OtherConstraints) ? model.OtherConstraints : "",
+                    OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
+                    OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
                     SecurityConstraints = !string.IsNullOrWhiteSpace(model.SecurityConstraints) ? model.SecurityConstraints : "",
                     UseConstraints = !string.IsNullOrWhiteSpace(model.UseConstraints) ? model.UseConstraints : "",
                     UseLimitations = !string.IsNullOrWhiteSpace(model.UseLimitations) ? model.UseLimitations : ""
