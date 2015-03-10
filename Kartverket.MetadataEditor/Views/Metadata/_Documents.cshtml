@@ -26,6 +26,15 @@
             @Html.EditorFor(m => m.ProductPageUrl, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
+    if (Model.IsDataset() || Model.IsDatasetSeries()) {
+        
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Dekningsoversikt (URL)</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(m => m.CoverageUrl, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    }
 }
 
 <div class="panel panel-default">
