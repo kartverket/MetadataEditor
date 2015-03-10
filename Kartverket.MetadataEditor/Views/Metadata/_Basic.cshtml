@@ -78,7 +78,8 @@
         </p>
     </div>
 </div>
-
+@if (Model.IsDatasetOrSeriesOrSoftware() )
+{
 <div class="form-group">
     <label for="SupplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
     <div class="col-sm-9">
@@ -93,6 +94,7 @@
         </p>
     </div>
 </div>
+}
 
 <div class="form-group required has-feedback">
     <label for="SpecificUsage" class="col-sm-2 control-label">Bruksområde</label>
