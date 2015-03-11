@@ -31,7 +31,6 @@
         }
 
         $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + searchStr, function (result) {
-
             $('#searchInfo').text('');
 
             if (result.length != 0) {
@@ -57,7 +56,7 @@
 
     function displayMetadataRow(result)
     {
-        var div = '<div> <a onclick="addOperatesOn(\'' + result.Uuid + '\')" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> ' + result.Title + ', ' + result.Organization + '</div><hr>';
+        var div = '<div> <a onclick="addOperatesOn(\'' + result.Uuid + '\')" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> ' + result.Title + '(' + result.Type + ')' + ', ' + result.Organization + '</div><hr>';
         $('#searchresultsDS').append(div);
     }
 
@@ -86,15 +85,15 @@
 
 </script>
 
-<h2>Koble til datasett</h2>
+<h4>Koble til datasett</h4>
 <div style="right: 5px; top: 5px; position:absolute;"><a href="#" onclick="javascript: hideshow(document.getElementById('operatesOn'))">Lukk</a></div>
 
 <div class="form-group">
     <label class="col-sm-1 control-label"></label>
     <div class="col-sm-3">
-        <input class="form-control" type="text" id="searchmetadata" />
+        <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) getMetadataFreetext(document.getElementById('searchmetadata').value);" />
     </div>
-    <div><button type="button" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button></div>
+    <div class="col-sm-2"><button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button></div>
     <span id="searchInfo" style="color:red"></span>
 </div>
 
