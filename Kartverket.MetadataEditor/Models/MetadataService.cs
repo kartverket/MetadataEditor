@@ -653,12 +653,63 @@ namespace Kartverket.MetadataEditor.Models
 
             if (!string.IsNullOrWhiteSpace(layerModel.BoundingBoxEast))
             {
+                string defaultWestBoundLongitude = "-20";
+                string defaultEastBoundLongitude = "38";
+                string defaultSouthBoundLatitude = "56";
+                string defaultNorthBoundLatitude = "90";
+
+                string parentWestBoundLongitude = defaultWestBoundLongitude;
+                string parentEastBoundLongitude = defaultEastBoundLongitude;
+                string parentSouthBoundLatitude = defaultSouthBoundLatitude;
+                string parentNorthBoundLatitude = defaultNorthBoundLatitude;
+
+                if (parentMetadata.BoundingBox != null) 
+                { 
+                parentWestBoundLongitude = parentMetadata.BoundingBox.WestBoundLongitude;
+                parentEastBoundLongitude = parentMetadata.BoundingBox.EastBoundLongitude;
+                parentSouthBoundLatitude = parentMetadata.BoundingBox.SouthBoundLatitude;
+                parentNorthBoundLatitude = parentMetadata.BoundingBox.NorthBoundLatitude;
+                }
+
+                string WestBoundLongitude = layerModel.BoundingBoxWest;
+                string EastBoundLongitude = layerModel.BoundingBoxEast;
+                string SouthBoundLatitude = layerModel.BoundingBoxSouth;
+                string NorthBoundLatitude = layerModel.BoundingBoxNorth;
+
+                decimal number;
+
+                if ( !Decimal.TryParse(WestBoundLongitude, out number)
+                    || !Decimal.TryParse(EastBoundLongitude, out number)
+                    || !Decimal.TryParse(SouthBoundLatitude, out number)
+                    || !Decimal.TryParse(NorthBoundLatitude, out number)
+                    )
+                {
+                    WestBoundLongitude = parentWestBoundLongitude;
+                    EastBoundLongitude = parentEastBoundLongitude;
+                    SouthBoundLatitude = parentSouthBoundLatitude;
+                    NorthBoundLatitude = parentNorthBoundLatitude;
+
+                         if ( !Decimal.TryParse(WestBoundLongitude, out number)
+                            || !Decimal.TryParse(EastBoundLongitude, out number)
+                            || !Decimal.TryParse(SouthBoundLatitude, out number)
+                            || !Decimal.TryParse(NorthBoundLatitude, out number)
+                            ) 
+                         {
+                             WestBoundLongitude = defaultWestBoundLongitude;
+                             EastBoundLongitude = defaultEastBoundLongitude;
+                             SouthBoundLatitude = defaultSouthBoundLatitude;
+                             NorthBoundLatitude = defaultNorthBoundLatitude;  
+                         }
+                  
+                }
+
+
                 simpleLayer.BoundingBox = new SimpleBoundingBox
                 {
-                    EastBoundLongitude = layerModel.BoundingBoxEast,
-                    WestBoundLongitude = layerModel.BoundingBoxWest,
-                    NorthBoundLatitude = layerModel.BoundingBoxNorth,
-                    SouthBoundLatitude = layerModel.BoundingBoxSouth
+                    EastBoundLongitude = EastBoundLongitude,
+                    WestBoundLongitude = WestBoundLongitude,
+                    NorthBoundLatitude = NorthBoundLatitude,
+                    SouthBoundLatitude = SouthBoundLatitude
                 };
             }
 
