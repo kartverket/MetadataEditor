@@ -30,33 +30,63 @@
             return false;
         }
 
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + searchStr, function (result) {
+        var metadataFound = false;
+        var counter = 0;
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=dataset&text=" + searchStr, function (result) {
             $('#searchInfo').text('');
 
             if (result.length != 0) {
 
                 if (result.Results.length != 0)
                 {
-                    for (r = 0; r < result.Results.length; r++)
+                    for (r = counter ; r < result.Results.length; r++)
                     {
                         displayMetadataRow(result.Results[r]);
                     }
 
+                    metadataFound = true;
                 }
                 else
                 {
-                    $('#searchInfo').text('Fant ingen metadata');
+                    metadataFound = false;
                 }
-                
+
             }
 
         });
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr, function (result) {
+            $('#searchInfo').text('');
+            if (result.length != 0) {
+
+                if (result.Results.length != 0)
+                {
+                    for (r = counter ; r < result.Results.length; r++)
+                    {
+                        displayMetadataRow(result.Results[r]);
+                    }
+
+                    metadataFound = true;
+                }
+                else
+                {
+                    metadataFound = false;
+                }
+
+            }
+
+        });
+
+        if(!metadataFound)
+            $('#searchInfo').text('Fant ingen metadata');
+
     };
 
 
     function displayMetadataRow(result)
     {
-        var div = '<div> <a onclick="addOperatesOn(\'' + result.Uuid + '\')" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> ' + result.Title + '(' + result.Type + ')' + ', ' + result.Organization + '</div><hr>';
+        var div = '<div> <a onclick="addOperatesOn(\'' + result.Uuid + '\')" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> ' + result.Title + ', ' + result.Organization + '</div><hr>';
         $('#searchresultsDS').append(div);
     }
 
