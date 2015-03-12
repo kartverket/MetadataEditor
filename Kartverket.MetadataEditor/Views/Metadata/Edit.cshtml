@@ -30,6 +30,10 @@
                 <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
                     <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for WMS-lag
                 </a>
+
+                <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for WFS-lag
+                </a>
             }
             @if (Model.IsDataset() && showProductSheetGeneratorUrl)
             {

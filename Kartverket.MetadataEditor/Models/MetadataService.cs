@@ -556,6 +556,40 @@ namespace Kartverket.MetadataEditor.Models
             return layers;
         }
 
+
+        internal List<WfsLayerViewModel> CreateMetadataForFeature(string uuid, List<WfsLayerViewModel> layers, string[] keywords, string username)
+        {
+            SimpleMetadata parentMetadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
+
+            List<SimpleKeyword> selectedKeywordsFromParent = CreateListOfKeywords(keywords);
+
+            List<string> layerIdentifiers = new List<string>();
+            foreach (WfsLayerViewModel layer in layers)
+            {
+                try
+                {
+                    SimpleMetadata simpleLayer = createMetadataForFeature(parentMetadata, selectedKeywordsFromParent, layer);
+                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+                    if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
+                    {
+                        layer.Uuid = transaction.Identifiers[0];
+                        layerIdentifiers.Add(layer.Uuid);
+                    }
+                }
+                catch (Exception e)
+                {
+                    layer.ErrorMessage = e.Message;
+                    Log.Error("Error while creating metadata for layer: " + layer.Title, e);
+                }
+            }
+
+            parentMetadata.OperatesOn = layerIdentifiers;
+
+            _geoNorge.MetadataUpdate(parentMetadata.GetMetadata());
+
+            return layers;
+        }
+
         private List<SimpleKeyword> CreateListOfKeywords(string[] selectedKeywords)
         {
             List<SimpleKeyword> keywords = new List<SimpleKeyword>();
@@ -727,6 +761,129 @@ namespace Kartverket.MetadataEditor.Models
 
 
         }
+
+        private SimpleMetadata createMetadataForFeature(SimpleMetadata parentMetadata, List<SimpleKeyword> selectedKeywordsFromParent, WfsLayerViewModel layerModel)
+        {
+            MD_Metadata_Type parent = parentMetadata.GetMetadata();
+
+            MD_Metadata_Type layer = parent.Copy();
+            layer.parentIdentifier = new CharacterString_PropertyType { CharacterString = parent.fileIdentifier.CharacterString };
+            layer.fileIdentifier = new CharacterString_PropertyType { CharacterString = Guid.NewGuid().ToString() };
+
+            SimpleMetadata simpleLayer = new SimpleMetadata(layer);
+
+            string title = layerModel.Title;
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                title = layerModel.Name;
+            }
+
+            simpleLayer.Title = title;
+
+            if (!string.IsNullOrWhiteSpace(layerModel.Abstract))
+            {
+                simpleLayer.Abstract = layerModel.Abstract;
+            }
+
+            simpleLayer.Keywords = selectedKeywordsFromParent;
+
+            if (layerModel.Keywords.Count > 0)
+            {
+                var existingKeywords = simpleLayer.Keywords;
+                foreach (var keyword in layerModel.Keywords)
+                {
+                    existingKeywords.Add(new SimpleKeyword
+                    {
+                        Keyword = keyword
+                    });
+                }
+                simpleLayer.Keywords = existingKeywords;
+            }
+
+            simpleLayer.DistributionDetails = new SimpleDistributionDetails
+            {
+                Name = layerModel.Name,
+                Protocol = parentMetadata.DistributionDetails.Protocol,
+                URL = parentMetadata.DistributionDetails.URL
+            };
+
+            if (!string.IsNullOrWhiteSpace(layerModel.BoundingBoxEast))
+            {
+                string defaultWestBoundLongitude = "-20";
+                string defaultEastBoundLongitude = "38";
+                string defaultSouthBoundLatitude = "56";
+                string defaultNorthBoundLatitude = "90";
+
+                string parentWestBoundLongitude = defaultWestBoundLongitude;
+                string parentEastBoundLongitude = defaultEastBoundLongitude;
+                string parentSouthBoundLatitude = defaultSouthBoundLatitude;
+                string parentNorthBoundLatitude = defaultNorthBoundLatitude;
+
+                if (parentMetadata.BoundingBox != null)
+                {
+                    parentWestBoundLongitude = parentMetadata.BoundingBox.WestBoundLongitude;
+                    parentEastBoundLongitude = parentMetadata.BoundingBox.EastBoundLongitude;
+                    parentSouthBoundLatitude = parentMetadata.BoundingBox.SouthBoundLatitude;
+                    parentNorthBoundLatitude = parentMetadata.BoundingBox.NorthBoundLatitude;
+                }
+
+                string WestBoundLongitude = layerModel.BoundingBoxWest;
+                string EastBoundLongitude = layerModel.BoundingBoxEast;
+                string SouthBoundLatitude = layerModel.BoundingBoxSouth;
+                string NorthBoundLatitude = layerModel.BoundingBoxNorth;
+
+                decimal number;
+
+                if (!Decimal.TryParse(WestBoundLongitude, out number)
+                    || !Decimal.TryParse(EastBoundLongitude, out number)
+                    || !Decimal.TryParse(SouthBoundLatitude, out number)
+                    || !Decimal.TryParse(NorthBoundLatitude, out number)
+                    )
+                {
+                    WestBoundLongitude = parentWestBoundLongitude;
+                    EastBoundLongitude = parentEastBoundLongitude;
+                    SouthBoundLatitude = parentSouthBoundLatitude;
+                    NorthBoundLatitude = parentNorthBoundLatitude;
+
+                    if (!Decimal.TryParse(WestBoundLongitude, out number)
+                       || !Decimal.TryParse(EastBoundLongitude, out number)
+                       || !Decimal.TryParse(SouthBoundLatitude, out number)
+                       || !Decimal.TryParse(NorthBoundLatitude, out number)
+                       )
+                    {
+                        WestBoundLongitude = defaultWestBoundLongitude;
+                        EastBoundLongitude = defaultEastBoundLongitude;
+                        SouthBoundLatitude = defaultSouthBoundLatitude;
+                        NorthBoundLatitude = defaultNorthBoundLatitude;
+                    }
+
+                }
+
+
+                simpleLayer.BoundingBox = new SimpleBoundingBox
+                {
+                    EastBoundLongitude = EastBoundLongitude,
+                    WestBoundLongitude = WestBoundLongitude,
+                    NorthBoundLatitude = NorthBoundLatitude,
+                    SouthBoundLatitude = SouthBoundLatitude
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(layerModel.EnglishTitle))
+            {
+                simpleLayer.EnglishTitle = layerModel.EnglishTitle;
+            }
+
+            if (!string.IsNullOrWhiteSpace(layerModel.EnglishAbstract))
+            {
+                simpleLayer.EnglishAbstract = layerModel.EnglishAbstract;
+            }
+
+            return simpleLayer;
+
+
+        }
+
 
         internal string CreateMetadata(MetadataCreateViewModel model, string username)
         {

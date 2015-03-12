@@ -162,6 +162,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\MetadataController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\ServiceWfsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,6 +175,11 @@
     <Compile Include="Models\ObjectExtensions.cs" />
     <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
+    <Compile Include="Models\WfsGetCapabilities11Parser.cs" />
+    <Compile Include="Models\WfsLayerViewModel.cs" />
+    <Compile Include="Models\WfsServiceLayerViewModel.cs" />
+    <Compile Include="Models\WfsServiceParser.cs" />
+    <Compile Include="Models\WfsServiceViewModel.cs" />
     <Compile Include="Models\WmsGetCapabilities11Parser.cs" />
     <Compile Include="Models\WmsLayerViewModel.cs" />
     <Compile Include="Models\WmsServiceViewModel.cs" />
@@ -349,6 +355,8 @@
     <Content Include="Views\Metadata\RegisterData.cshtml" />
     <Content Include="Views\Shared\_Analytics.cshtml" />
     <Content Include="Views\Metadata\_OperatesOn.cshtml" />
+    <Content Include="Views\ServiceWfs\Index.cshtml" />
+    <Content Include="Views\ServiceWfs\LayersCreated.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

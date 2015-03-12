@@ -1,0 +1,187 @@
+﻿@model Kartverket.MetadataEditor.Models.WfsServiceLayerViewModel
+
+<h4>Tjeneste (under konstruksjon):</h4>
+<h1>@Model.Metadata.Title</h1>
+
+    <h5>
+        <b>URL til WFS-tjenesten:</b> @Model.WfsUrl
+    </h5>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning">
+            @ViewBag.Message
+        </div>
+    }
+    else if (Model.Layers.Count == 0)
+    {
+        <div class="alert alert-warning">
+            Serveren returnerte ingen laginformasjon. Vennligst sjekk at URL til WFS-tjenesten er korrekt.
+        </div>
+    }
+
+
+<form method="post" action="@Url.Action("CreateMetadataForLayers")">
+    <input type="hidden" name="uuid" value="@Model.Metadata.Uuid" />
+    <input type="hidden" name="wfsUrl" value="@Model.WfsUrl" />
+    <p><a href="@Model.GetCapabilitiesUrl()" target="_blank" class="btn btn-default"><i class="glyphicon glyphicon-file"></i> Vis GetCapabilities-XML</a></p>
+
+    <h3>Nøkkelord fra tjenesten</h3>
+    <p>Velg nøkkelord som skal kopieres til lagnivå.</p>
+    <button type="button" id="toggleSelectedKeywords" class="btn btn-default">Velg alle/ingen</button>
+
+    <div class="row">
+        @if (Model.Metadata.KeywordsTheme != null && Model.Metadata.KeywordsTheme.Count > 0)
+        {
+            <div class="col-sm-6 col-md-4">
+                <p class="keyword-header">Tema</p>
+                <ul>
+                    @foreach (var k in Model.Metadata.KeywordsTheme)
+                    {
+                        <li><input type="checkbox" name="keywords" checked="checked" value="Theme_@k" />@k</li>
+                    }
+                </ul>
+            </div>
+        }
+        @if (Model.Metadata.KeywordsNationalInitiative != null && Model.Metadata.KeywordsNationalInitiative.Count > 0)
+        { 
+            <div class="col-sm-6 col-md-4">
+                <p class="keyword-header">Nasjonale intiativ</p>
+                <ul>
+                    @foreach (var k in Model.Metadata.KeywordsNationalInitiative)
+                    {
+                        <li><input type="checkbox" name="keywords" checked="checked" value="NationalInitiative_@k" />@k</li>
+                    }
+                </ul>
+            </div>
+        }
+        @if (Model.Metadata.KeywordsNationalTheme != null && Model.Metadata.KeywordsNationalTheme.Count > 0)
+        {
+            <div class="col-sm-6 col-md-4">
+                <p class="keyword-header">DOK-kategori</p>
+                <ul>
+                    @foreach (var k in Model.Metadata.KeywordsNationalTheme)
+                    {
+                        <li><input type="checkbox" name="keywords" checked="checked" value="NationalTheme_@k" />@k</li>
+                    }
+                </ul>
+            </div>
+        }
+        @if (Model.Metadata.KeywordsInspire != null && Model.Metadata.KeywordsInspire.Count > 0)
+        { 
+            <div class="col-sm-6 col-md-4">
+                <p class="keyword-header">Inspire</p>
+                <ul>
+                    @foreach (var k in Model.Metadata.KeywordsInspire)
+                    {
+                        <li><input type="checkbox" name="keywords" checked="checked" value="Inspire_@k" />@k</li>
+                    }
+                </ul>
+            </div>
+        }
+        @if (Model.Metadata.KeywordsPlace != null && Model.Metadata.KeywordsPlace.Count > 0)
+        {
+            <div class="col-sm-6 col-md-4">
+                <p class="keyword-header">Sted</p>
+                <ul>
+                    @foreach (var k in Model.Metadata.KeywordsPlace)
+                    {
+                        <li><input type="checkbox" name="keywords" checked="checked" value="Place_@k" />@k</li>
+                    }
+                </ul>
+            </div>
+        }
+        @if (Model.Metadata.KeywordsOther != null && Model.Metadata.KeywordsOther.Count > 0)
+        {
+            <div class="col-sm-6 col-md-4">
+                <p class="keyword-header">Annet</p>
+                <ul>
+                    @foreach (var k in Model.Metadata.KeywordsOther)
+                    {
+                        <li @{ string displayStyle = ""; { if (@k == "infoMapAccessService") { displayStyle = "display:none; visibility:hidden;"; } } }  style="@displayStyle"><input type="checkbox" name="keywords" checked="checked" value="Other_@k" />@k</li>
+                    }
+                </ul>
+            </div>
+        }
+        
+    </div>
+
+    <hr />
+
+    <h4>@Model.Layers.Count lag funnet i GetCapabilities</h4>
+
+
+    <div class="btn-toolbar" style="margin-bottom: 20px;">
+        <div class="btn-group">
+            <button type="button" id="toggleSelectedWfsLayers" class="btn btn-default">Velg alle/ingen</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" id="toggleWfsLayerDetails" class="btn btn-default">Vis/skjul laginformasjon</button>
+        </div>
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">Opprett metadata for valgte lag</button>
+        </div>
+    </div>
+
+    @foreach (var layer in Model.Layers)
+    {
+        <div class="panel panel-default wfs-layer">
+            <div class="panel-heading">
+                <input type="checkbox" name="selectedLayers" value="@layer.Name" checked="checked" />
+                @layer.Title <span class="layer-name">[@layer.Name]</span>
+                @if (layer.IsGroupLayer)
+                {
+                    <span class="label label-info">Gruppelag</span>
+                }
+            </div>
+            <div class="panel-body" style="display:none">
+                <p><strong>WFS lagnavn:</strong> @layer.Name</p>
+                <p><strong>Sammendrag:</strong> @layer.Abstract</p>
+                <p>
+                    <strong>Nøkkelord:</strong>
+                    <ul>
+                        @foreach (var keyword in layer.Keywords)
+                        {
+                            <li>@keyword</li>
+                        }
+                    </ul>
+                </p>
+                <p><strong>Engelsk tittel:</strong> @layer.EnglishTitle</p>
+                <p><strong>Engelsk sammendrag:</strong> @layer.EnglishAbstract</p>
+                <p><strong>Geografisk utstrekning:</strong> Nord: @layer.BoundingBoxNorth, Sør: @layer.BoundingBoxSouth, Øst: @layer.BoundingBoxEast, Vest: @layer.BoundingBoxWest</p>
+            </div>
+        </div>
+    }
+</form>
+
+
+<script>
+    $('#toggleSelectedWfsLayers').click(function (event) {
+        event.preventDefault();
+        $('input[name="selectedLayers"]').each(function () {
+            if ($(this).prop('checked')) {
+                $(this).prop('checked', false);
+            } else {
+                $(this).prop('checked', true);
+            }
+        });
+    });
+
+    $('#toggleWfsLayerDetails').click(function (event) {
+        event.preventDefault();
+        $('div.wfs-layer > div.panel-body').toggle();
+        $('div.wfs-layer > div.panel-heading span.layer-name').toggle();
+    });
+
+    $('#toggleSelectedKeywords').click(function (event) {
+        event.preventDefault();
+        $('input[name="keywords"]').each(function () {
+            if ($(this).prop('checked')) {
+                $(this).prop('checked', false);
+            } else {
+                $(this).prop('checked', true);
+            }
+        });
+    });
+
+</script>
