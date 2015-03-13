@@ -12,6 +12,8 @@ namespace Kartverket.MetadataEditor.Models
         private static XNamespace INSPIRE = "http://inspire.ec.europa.eu/schemas/inspire_vs/1.0";
         private static XNamespace INSPIRE_COMMON = "http://inspire.ec.europa.eu/schemas/common/1.0";
 
+        private static XNamespace ows = "http://www.opengis.net/ows";
+
         public WfsServiceViewModel Parse(XDocument getCapabilitiesXmlDocument)
         {
             WfsServiceViewModel serviceModel = new WfsServiceViewModel();
@@ -40,36 +42,53 @@ namespace Kartverket.MetadataEditor.Models
         {
             List<WfsLayerViewModel> parsedLayers = new List<WfsLayerViewModel>();
 
-            var boundingBox = layer.Element(WFS + "EX_GeographicBoundingBox");
+            var boundingBox = layer.Element(ows + "WGS84BoundingBox");
+
+            string WestBoundLongitude = null, SouthBoundLatitude = null, EastBoundLongitude = null, NorthBoundLatitude = null;
+
+            if (boundingBox != null) 
+            { 
+            var LowerCorner = boundingBox.Element(ows + "LowerCorner").Value;
+            var LowerCornerElements = LowerCorner.Split(' ');
+            WestBoundLongitude = LowerCornerElements[0];
+            SouthBoundLatitude = LowerCornerElements[1];
+
+            var UpperCorner = boundingBox.Element(ows + "UpperCorner").Value;
+            var UpperCornerElements = UpperCorner.Split(' ');
+            EastBoundLongitude = UpperCornerElements[0];
+            NorthBoundLatitude = UpperCornerElements[1];
+
+            }
+
             var nameElement = layer.Element(WFS + "Name");
             var titleElement = layer.Element(WFS + "Title");
             var abstractElement = layer.Element(WFS + "Abstract");
-            List<string> keywords = ParseKeywords(layer.Element(WFS + "KeywordList"));
+            List<string> keywords = ParseKeywords(layer.Element(ows + "Keywords"));
 
             string name = nameElement != null ? nameElement.Value : null;
 
-            IEnumerable<XElement> subLayers = from el in layer.Elements(WFS + "FeatureType") select el;
+            //IEnumerable<XElement> subLayers = from el in layer.Elements(WFS + "FeatureType") select el;
 
             parsedLayers.Add(new WfsLayerViewModel
             {
                 Name = name,
                 Title = titleElement != null ? titleElement.Value : null,
                 Abstract = abstractElement != null ? abstractElement.Value : null,
-                BoundingBoxEast = boundingBox != null ? boundingBox.Element(WFS + "eastBoundLongitude").Value : null,
-                BoundingBoxWest = boundingBox != null ? boundingBox.Element(WFS + "westBoundLongitude").Value : null,
-                BoundingBoxNorth = boundingBox != null ? boundingBox.Element(WFS + "northBoundLatitude").Value : null,
-                BoundingBoxSouth = boundingBox != null ? boundingBox.Element(WFS + "southBoundLatitude").Value : null,
+                BoundingBoxEast = !string.IsNullOrEmpty(EastBoundLongitude) ? EastBoundLongitude : null,
+                BoundingBoxWest = !string.IsNullOrEmpty(WestBoundLongitude) ? WestBoundLongitude : null,
+                BoundingBoxNorth = !string.IsNullOrEmpty(NorthBoundLatitude) ? NorthBoundLatitude : null,
+                BoundingBoxSouth = !string.IsNullOrEmpty(SouthBoundLatitude) ? SouthBoundLatitude : null,
                 Keywords = keywords,
-                IsGroupLayer = subLayers != null && subLayers.Count() > 0
+                IsGroupLayer = false // subLayers != null && subLayers.Count() > 0 //finnes ikke wfs?
             });
 
-            if (subLayers != null && subLayers.Count() > 0)
-            {
-                foreach (var subLayer in subLayers)
-                {
-                    parsedLayers.AddRange(ParseLayerData(subLayer));
-                }
-            }
+            //if (subLayers != null && subLayers.Count() > 0)
+            //{
+            //    foreach (var subLayer in subLayers)
+            //    {
+            //        parsedLayers.AddRange(ParseLayerData(subLayer));
+            //    }
+            //}
 
             return parsedLayers;
         }
@@ -133,7 +152,7 @@ namespace Kartverket.MetadataEditor.Models
             List<string> keywords = new List<string>();
             if (keywordListElement != null)
             {
-                var keywordListValues = keywordListElement.Elements(WFS + "Keyword");
+                var keywordListValues = keywordListElement.Elements(ows + "Keyword");
                 foreach (var keyword in keywordListValues)
                 {
                     var keywordValue = keyword.Value;
