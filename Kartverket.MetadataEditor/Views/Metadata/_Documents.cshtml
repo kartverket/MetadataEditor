@@ -58,6 +58,8 @@
     </div>
     }
 }
+@if (Model.IsDataset() || Model.IsDatasetSeries())
+{
 <script>
     function showCoverageType(coverageT) {
 
@@ -123,6 +125,7 @@
 
 
 </script>
+}    
 <div class="panel panel-default">
     <div class="panel-heading">Grafisk bilde</div>
     <div class="panel-body">
