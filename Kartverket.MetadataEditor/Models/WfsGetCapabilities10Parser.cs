@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace Kartverket.MetadataEditor.Models
 {
-    public class WfsGetCapabilities11Parser
+    public class WfsGetCapabilities10Parser
     {
         private static XNamespace WFS = "http://www.opengis.net/wfs";
         private static XNamespace INSPIRE = "http://inspire.ec.europa.eu/schemas/inspire_vs/1.0";
@@ -44,28 +44,25 @@ namespace Kartverket.MetadataEditor.Models
         {
             List<WfsLayerViewModel> parsedLayers = new List<WfsLayerViewModel>();
 
-            var boundingBox = layer.Element(ows + "WGS84BoundingBox");
+            var boundingBox = layer.Element(WFS + "LatLongBoundingBox");
 
             string WestBoundLongitude = null, SouthBoundLatitude = null, EastBoundLongitude = null, NorthBoundLatitude = null;
 
-            if (boundingBox != null) 
-            { 
-            var LowerCorner = boundingBox.Element(ows + "LowerCorner").Value;
-            var LowerCornerElements = LowerCorner.Split(' ');
-            WestBoundLongitude = LowerCornerElements[0];
-            SouthBoundLatitude = LowerCornerElements[1];
-
-            var UpperCorner = boundingBox.Element(ows + "UpperCorner").Value;
-            var UpperCornerElements = UpperCorner.Split(' ');
-            EastBoundLongitude = UpperCornerElements[0];
-            NorthBoundLatitude = UpperCornerElements[1];
-
+            if (boundingBox != null)
+            {
+                WestBoundLongitude = boundingBox.Attribute("minx").Value;
+                SouthBoundLatitude = boundingBox.Attribute("miny").Value;
+                EastBoundLongitude = boundingBox.Attribute("maxx").Value;
+                NorthBoundLatitude = boundingBox.Attribute("maxy").Value;
             }
 
             var nameElement = layer.Element(WFS + "Name");
             var titleElement = layer.Element(WFS + "Title");
             var abstractElement = layer.Element(WFS + "Abstract");
-            List<string> keywords = ParseKeywords(layer.Element(ows + "Keywords"));
+            string keys = layer.Element(WFS + "Keywords").Value;
+            keys = keys.Replace("\n", "");
+            List<string> keywords = keys.Split(' ').ToList();
+            keywords = keywords.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
 
             string name = nameElement != null ? nameElement.Value : null;
 
@@ -80,7 +77,7 @@ namespace Kartverket.MetadataEditor.Models
                 BoundingBoxNorth = !string.IsNullOrEmpty(NorthBoundLatitude) ? NorthBoundLatitude : null,
                 BoundingBoxSouth = !string.IsNullOrEmpty(SouthBoundLatitude) ? SouthBoundLatitude : null,
                 Keywords = keywords,
-                IsGroupLayer = false 
+                IsGroupLayer = false
             });
 
 
@@ -98,29 +95,12 @@ namespace Kartverket.MetadataEditor.Models
         //not implemented
         public Dictionary<string, Dictionary<string, string>> ParseEnglishGetCapabilities(XDocument getCapabilitiesEnglish)
         {
-            
+
             Dictionary<string, Dictionary<string, string>> englishData = new Dictionary<string, Dictionary<string, string>>();
 
             return englishData;
         }
 
 
-        private static List<string> ParseKeywords(XElement keywordListElement)
-        {
-            List<string> keywords = new List<string>();
-            if (keywordListElement != null)
-            {
-                var keywordListValues = keywordListElement.Elements(ows + "Keyword");
-                foreach (var keyword in keywordListValues)
-                {
-                    var keywordValue = keyword.Value;
-                    if (!string.IsNullOrWhiteSpace(keywordValue))
-                    {
-                        keywords.Add(keywordValue);
-                    }
-                }
-            }
-            return keywords;
-        }
     }
 }

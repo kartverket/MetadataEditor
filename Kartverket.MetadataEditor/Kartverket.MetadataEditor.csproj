@@ -175,6 +175,7 @@
     <Compile Include="Models\ObjectExtensions.cs" />
     <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
+    <Compile Include="Models\WfsGetCapabilities10Parser.cs" />
     <Compile Include="Models\WfsGetCapabilities11Parser.cs" />
     <Compile Include="Models\WfsLayerViewModel.cs" />
     <Compile Include="Models\WfsServiceLayerViewModel.cs" />
