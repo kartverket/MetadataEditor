@@ -25,7 +25,7 @@ namespace Kartverket.MetadataEditor.Models
                 wfsUrl = wfsUrl + "service=wfs&request=GetCapabilities";
 
                 //test version
-                //wfsUrl = wfsUrl + "&version=1.0.0";
+                wfsUrl = wfsUrl + "&version=1.0.0";
 
                 XDocument xmlDocument = XDocument.Load(wfsUrl);
 
