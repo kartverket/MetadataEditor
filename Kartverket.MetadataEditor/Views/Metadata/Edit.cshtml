@@ -13,7 +13,7 @@
     @Html.HiddenFor(m => m.DateMetadataUpdated)
     @Html.HiddenFor(m => m.HierarchyLevel)
 
-    <div id="operatesOn" style="width: auto; height:auto; min-width: 450px; position:absolute; background-color:white; display: none; visibility:hidden; border: 1px solid black; z-index: 3; overflow:scroll; padding: 5px 5px 5px 5px" >
+    <div id="operatesOn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
         @Html.Partial("_OperatesOn", Model)
     </div>
 
@@ -42,7 +42,7 @@
 
             @if (Model.IsService())
             {
-                <a href="#" onclick="javascript: hideshow(document.getElementById('operatesOn'))" id="operatesOnLink" data-toggle="tab" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
+                <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
             }
         </div>
     }
