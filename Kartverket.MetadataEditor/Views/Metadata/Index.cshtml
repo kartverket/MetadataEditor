@@ -70,38 +70,53 @@ else
 
 @section scripts {
     <script>
-        $(function () {
-            $.cookie('navtabselected', null, { path: '/Metadata' });
+    $(function () {
+        $.cookie('navtabselected', null, { path: '/Metadata' });
 
-        });
-
-
-        function getValidationStatus(uuid) {
-
-            $("#status-" + uuid).text("Ikke validert");
-            $("#status-" + uuid).addClass("label label-warning");
-
-            $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]api/metadata/" + uuid, function (result) {
+    });
 
 
-                if (result != null)
-                {
-                    if (result.length != 0) {
-                        var validationStatus = result.ValidationResults[0].Result;
-                        if (validationStatus == 1) {
-                            $("#status-" + uuid).text("OK");
-                            $("#status-" + uuid).removeClass("label label-warning");
-                            $("#status-" + uuid).addClass("label label-success");
-                        }
-                        else if (validationStatus == 0) {
-                            $("#status-" + uuid).text("FEIL");
-                            $("#status-" + uuid).removeClass("label label-warning");
-                            $("#status-" + uuid).addClass("label label-danger");
-                        }
+    function getValidationStatus(uuid) {
+
+        $("#status-" + uuid).text("Ikke validert");
+        $("#status-" + uuid).addClass("label label-warning");
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]api/metadata/" + uuid, function (result) {
+
+
+            if (result != null)
+            {
+                if (result.length != 0) {
+                    var validationStatus = result.ValidationResults[0].Result;
+                    if (validationStatus == 1) {
+                        $("#status-" + uuid).text("OK");
+                        $("#status-" + uuid).removeClass("label label-warning");
+                        $("#status-" + uuid).addClass("label label-success");
+                    }
+                    else if (validationStatus == 0) {
+                        $("#status-" + uuid).text("FEIL");
+                        $("#status-" + uuid).removeClass("label label-warning");
+                        $("#status-" + uuid).addClass("label label-danger");
                     }
                 }
-            });
-        };
+            }
+        });
+    };
+
+    function getAdditionalData(uuid) {
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+            if (result.length != 0) {
+
+                var DistributionProtocol = result.Results[0].DistributionProtocol;
+                if (DistributionProtocol.indexOf("WFS") > -1)
+                {
+                    $("#type-" + uuid).text("WFS tjeneste");
+                }
+                
+            }
+        });
+    }
 
     </script>
 }

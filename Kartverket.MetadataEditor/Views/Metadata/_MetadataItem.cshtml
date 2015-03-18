@@ -23,7 +23,7 @@
     </td>
     <td>@Model.Organization</td>
     <th>
-        <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
+        <div id="type-@Model.Uuid" class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
     </th>
     <td>
         <span id="status-@Model.Uuid"></span>
@@ -42,3 +42,7 @@
         </div>
     </td>
 </tr>
+@if (Model.Type == "service" && !string.IsNullOrWhiteSpace(Model.Relation)) 
+{
+<script>getAdditionalData('@Model.Uuid')</script>
+}
