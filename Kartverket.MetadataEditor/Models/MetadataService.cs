@@ -29,6 +29,19 @@ namespace Kartverket.MetadataEditor.Models
             string username = settings["GeoNetworkUsername"];
             string password = settings["GeoNetworkPassword"];
             _geoNorge = new GeoNorgeAPI.GeoNorge(username, password, server);
+            _geoNorge.OnLogEventDebug += new GeoNorgeAPI.LogEventHandlerDebug(LogEventsDebug);
+            _geoNorge.OnLogEventError += new GeoNorgeAPI.LogEventHandlerError(LogEventsError);
+        }
+
+        private void LogEventsDebug(string log)
+        {
+
+            Log.Debug(log);
+        }
+
+        private void LogEventsError(string log, Exception ex)
+        {
+            Log.Error(log, ex);
         }
 
         public MetadataIndexViewModel GetMyMetadata(string organizationName, int offset, int limit)
