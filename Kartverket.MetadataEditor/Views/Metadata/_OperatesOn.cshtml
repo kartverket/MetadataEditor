@@ -115,7 +115,7 @@
         <div class="modal-body">    
                 <div class="row">
                     <div class="col-sm-5">
-                        <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) getMetadataFreetext(document.getElementById('searchmetadata').value);" />                    
+                        <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />                    
                     </div>
                     <div class="col-sm-1">
                         <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>                        
