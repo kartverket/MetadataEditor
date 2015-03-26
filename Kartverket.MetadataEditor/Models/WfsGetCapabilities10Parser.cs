@@ -59,9 +59,13 @@ namespace Kartverket.MetadataEditor.Models
             var nameElement = layer.Element(WFS + "Name");
             var titleElement = layer.Element(WFS + "Title");
             var abstractElement = layer.Element(WFS + "Abstract");
+            List<string> keywords = new List<string>();
+            if(layer.Element(WFS + "Keywords") != null)
+            { 
             string keys = layer.Element(WFS + "Keywords").Value;
-            List<string> keywords = keys.Split('\n').ToList();
+            keywords = keys.Split('\n').ToList();
             keywords = keywords.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
+            }
 
             string name = nameElement != null ? nameElement.Value : null;
 
