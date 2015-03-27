@@ -455,7 +455,8 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 {"http://data.norge.no/nlod/no/1.0", "Norsk lisens for offentlige data (NLOD)"},    
                 {"http://creativecommons.org/licenses/by/3.0/no/", "Creative Commons BY 3.0 (CC BY 3.0)"},
-                {"http://creativecommons.org/licenses/by/4.0/no/", "Creative Commons BY 4.0 (CC BY 4.0)"}
+                {"http://creativecommons.org/licenses/by/4.0/no/", "Creative Commons BY 4.0 (CC BY 4.0)"},
+                {"http://www.kartverket.no/Geonorge/Norge-digitalt/Avtaler-og-maler/Norge-digitalt-lisens/", "Norge digitalt-lisens"}
             };
         }
 
