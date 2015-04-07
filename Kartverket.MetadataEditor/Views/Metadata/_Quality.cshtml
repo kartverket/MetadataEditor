@@ -65,8 +65,16 @@
             <div class="form-group required has-feedback">
                 <label class="col-sm-2 control-label">Standard (produktspesifikasjon)</label>
                 <div class="col-sm-9">
-                    @Html.EditorFor(m => m.QualitySpecificationTitle, new { @class = "form-control"})
+                    @Html.EditorFor(m => m.QualitySpecificationTitle, new { @class = "form-control" })
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <p class="help-text bg-success" id="help-text-QualitySpecificationTitle" style="display: none">
+                     Referansenavn på datakilde/tjeneste.
+                    </p>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-text-id="help-text-QualitySpecificationTitle" class="badge help-text-toggle">?</a>
+                    </p>
                 </div>
             </div>
             <div class="form-group">
