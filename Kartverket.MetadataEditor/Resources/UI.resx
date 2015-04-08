@@ -162,6 +162,9 @@
   <data name="Helptext_ContactPublisher" xml:space="preserve">
     <value>Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</value>
   </data>
+  <data name="Helptext_Image" xml:space="preserve">
+    <value>Du kan laste opp et bilde til metadataeditoren eller legge inn url til et bilde som ligger på din egen server. Dette gjelder for miniatyrbilde, stort bilde eller grafisk illustrasjon over dekningsområde/utbredelse av datasett</value>
+  </data>
   <data name="Metadata_Abstract" xml:space="preserve">
     <value>Sammendrag</value>
   </data>

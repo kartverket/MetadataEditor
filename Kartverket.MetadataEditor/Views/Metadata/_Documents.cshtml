@@ -1,4 +1,5 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@using Resources
 
 @if (!Model.IsSoftware())
 {
@@ -127,10 +128,9 @@
 </script>
 }    
 <div class="panel panel-default">
-    <div class="panel-heading">Grafisk bilde</div>
+    <div class="panel-heading">Grafisk bilde<div class="pull-right"><a href="#" data-help-text-id="help-text-Image" class="badge help-text-toggle">?</a></div></div>
     <div class="panel-body">
-        <p>Du kan laste opp et bilde til metadataeditoren eller legge inn url til et bilde som ligger på din egen server. Dette gjelder for miniatyrbilde, stort bilde eller grafisk illustrasjon over dekningsområde/utbredelse av datasett</p>
-
+        <p class="help-text bg-success" id="help-text-Image" style="display: none">@UI.Helptext_Image</p>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-9">
                     <div class="form-group" id="uploadThumbnail">
