@@ -120,8 +120,8 @@ namespace Kartverket.MetadataEditor.Controllers
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
 
-            //try
-            //{   
+            try
+            {   
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
                 string role = GetSecurityClaim("role");
                 if (HasAccessToMetadata(model))
@@ -134,13 +134,13 @@ namespace Kartverket.MetadataEditor.Controllers
                     TempData["failure"] = "Du har ikke tilgang til å redigere disse metadataene";
                     return View("Error");
                 }
-            //}
-            //catch (Exception e)
-            //{
-            //    Log.Error("Error while getting metadata with uuid = " + uuid, e);
-            //    TempData["failure"] = "Feilmelding: " + e.Message;
-            //    return View("Error");
-            //}
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error while getting metadata with uuid = " + uuid, e);
+                TempData["failure"] = "Feilmelding: " + e.Message;
+                return View("Error");
+            }
 
             
         }
@@ -201,6 +201,8 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.ReferenceSystemsValues = new SelectList(ReferenceSystemsList, "Key", "Value");
 
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
+
+            ViewBag.ValidModel = TryValidateModel(model);
 
         }
 
