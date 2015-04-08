@@ -758,6 +758,8 @@
 
         // keywords
 
+        var keywordThreshold = 20;
+
         function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
             deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
 
@@ -770,7 +772,7 @@
             var listItemId = selectorPrefix + "-" + elementId;
 
             var li = $('<li />', { "id": listItemId });
-            li.append($('<span />', { "class": "label label-success", text: newKeyword }));
+            li.append($('<span />', { "class": "", text: newKeyword }));
             li.append('&nbsp;');
 
             var link = $('<a />', {
@@ -785,7 +787,10 @@
             li.append(link);
             li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
 
-            $('ul#' + selectorPrefix).append(li);
+            if (elementId < keywordThreshold)
+                $('ul#' + selectorPrefix).append(li);
+            else
+                alert('Maksimum antall nøkkelord er ' + keywordThreshold);
 
             return $keywordInput;
         };
