@@ -332,10 +332,18 @@
                 else {
                     $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
                     $('#uploadThumbnailStatus').attr('style', 'text-info');
-                    $('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                    //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
                 }
             }
         });
+
+        var checkExist = setInterval(function () {
+            if ($('#thumbnailUrl').val() && $('#uploadMode').val() == 'upload') {
+                $("#thumbnailAdd").click();
+                $('#uploadMode').val('reference');
+            }
+        }, 100); // check every 100ms
+
 
         $("#thumbnailAdd").click(function (event) {
             event.preventDefault();

@@ -132,57 +132,71 @@
     <div class="panel-body">
         <p class="help-text bg-success" id="help-text-Image" style="display: none">@UI.Helptext_Image</p>
         <div class="form-group">
-            <div class="col-sm-offset-1 col-sm-9">
-                    <div class="form-group" id="uploadThumbnail">
-                        <div class="col-sm-7">
-                            <input type="file" id="uploadThumbnailFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadThumbnailButton').disabled = false;" />
-                        </div>
-                        <div class="col-sm-4">
-                            <label class="control-label"><input type="checkbox" id="uploadScaleImage" checked="checked" name="scaleImage" /> Skalering til miniatyrbilde</label>
-                        </div>
-                        <div class="col-sm-1 text-right">
-                            <button class="btn btn-default" type="submit" id="uploadThumbnailButton" disabled>Last opp</button>
-                        </div>
-                    </div>
-                <div id="uploadThumbnailStatus"></div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="col-sm-1 control-label">URL</label>
-            <div class="col-sm-6">
-                <input id="thumbnailUrl" type="text" class="form-control" />
-            </div>
-            <label class="col-sm-1 control-label">Type</label>
+            <label class="col-sm-2 control-label">Type</label>
             <div class="col-sm-2">
                 <select id="thumbnailType" class="form-control">
-                    <option value="thumbnail">Miniatyrbilde</option>
+                    <option value="miniatyrbilde">Miniatyrbilde</option>
                     <option value="large_thumbnail">Stort bilde</option>
-                    <option value="dekningsoversikt">Dekningsoversikt</option>                   
+                    <option value="dekningsoversikt">Dekningsoversikt</option>
                 </select>
             </div>
-            <div class="col-sm-2">
-                <button class="btn btn-default" id="thumbnailAdd">Legg til</button>
-            </div>
         </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Angi bildefil</label>
+                <div class="col-sm-8">
+                    <div class="form-group" id="uploadThumbnail">
+                        <div class="col-sm-7">
+                            <input type="file" id="uploadThumbnailFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';"  />
+                        </div>
+                        <div class="col-sm-5">
+                            <label class="control-label"><input type="checkbox" id="uploadScaleImage" checked="checked" name="scaleImage" /> Skalering til miniatyrbilde</label>
+                        </div>
 
-        <ul id="thumbnails">
-            @for (int i = 0; i < Model.Thumbnails.Count; i++ )
-            {
-                var thumbnail = Model.Thumbnails[i];
-                
-                <li class="thumbnail clearfix">
-                    <input type="hidden" name="Thumbnails[@i].Type" value="@thumbnail.Type" />
-                    <input type="hidden" name="Thumbnails[@i].URL" value="@thumbnail.URL" />
-                    <img src="@thumbnail.URL" width="200" class="pull-left" style="margin-right: 10px;" />
-                    <p><strong>Type:</strong> @thumbnail.Type</p>
-                    <p><strong>URL:</strong> <small>@thumbnail.URL</small></p>
-                    <button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>
-                </li>
-            }
-        </ul>
+                    </div>
+                    <div id="uploadThumbnailStatus"></div>
+                </div>
+            </div>
 
-    </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Eller angi URL</label>
+                <div class="col-sm-5">
+                    <input id="thumbnailUrl" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
+                </div>
+                <div class="col-sm-3">
+                </div>
+                    <div class="col-sm-1">
+                        <input type="hidden" id="uploadMode" value="reference" />
+                        <button class="btn btn-default" style="display: none; visibility:hidden;" id="thumbnailAdd"></button>
+                        <button class="btn btn-default" type="submit" id="uploadThumbnailButton" onclick="return checkIfUrlRef();">Legg til</button>
+                        <script>
+                            function checkIfUrlRef() {
+                                if (document.getElementById('thumbnailUrl').value != '' && document.getElementById('uploadMode').value == 'reference') {
+                                    document.getElementById('thumbnailAdd').click();
+                                    return false;
+                                }
+                            }
+                        </script>
+
+                    </div>
+                </div>
+
+            <ul id="thumbnails">
+                @for (int i = 0; i < Model.Thumbnails.Count; i++)
+                {
+                    var thumbnail = Model.Thumbnails[i];
+
+                    <li class="thumbnail clearfix">
+                        <input type="hidden" name="Thumbnails[@i].Type" value="@thumbnail.Type" />
+                        <input type="hidden" name="Thumbnails[@i].URL" value="@thumbnail.URL" />
+                        <img src="@thumbnail.URL" width="200" class="pull-left" style="margin-right: 10px;" />
+                        <p><strong>Type:</strong> @thumbnail.Type</p>
+                        <p><strong>URL:</strong> <small>@thumbnail.URL</small></p>
+                        <button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>
+                    </li>
+                }
+            </ul>
+
+        </div>
 </div>
 
