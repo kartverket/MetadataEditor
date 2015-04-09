@@ -216,6 +216,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 ViewBag.IsAdmin = "1";
             }
 
+            ValidateModel(model);
+
             if (ignoreValidationError == "1" && ViewBag.IsAdmin == "1") 
             { 
                 foreach (var modelValue in ModelState.Values)
@@ -257,6 +259,17 @@ namespace Kartverket.MetadataEditor.Controllers
 
             PrepareViewBagForEditing(model);
             return View(model);
+        }
+
+        private void ValidateModel(MetadataViewModel model)
+        {
+            ViewBag.thumbnailMissingCSS = "";
+            var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
+            if (thumb.Count() == 0) 
+            { 
+                ModelState.AddModelError("thumbnailMissing", "Det er påkrevd å fylle ut miniatyrbilde under grafisk bilde");
+                ViewBag.thumbnailMissingCSS = "input-validation-error";
+                }
         }
 
         private void SaveMetadataToCswServer(MetadataViewModel model)

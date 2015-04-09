@@ -196,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Du kan laste opp et bilde til metadataeditoren eller legge inn url til et bilde som ligger på din egen server. Dette gjelder for miniatyrbilde, stort bilde eller grafisk illustrasjon over dekningsområde/utbredelse av datasett.
+        ///   Looks up a localized string similar to Du kan laste opp et bilde til metadataeditoren eller legge inn url til et bilde som ligger på din egen server. Dette gjelder for miniatyrbilde, stort bilde eller grafisk illustrasjon over dekningsområde/utbredelse av datasett. Miniatyrbilde er påkrevd..
         /// </summary>
         public static string Helptext_Image {
             get {
