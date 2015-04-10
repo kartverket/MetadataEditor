@@ -1,5 +1,5 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
-
+@using Resources
 
 
 <div class="row">
@@ -129,178 +129,191 @@
 
 
 <div class="panel panel-default">
-    <div class="panel-heading">Geografisk utstrekning</div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="form-group col-sm-6 required has-feedback">
-                <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.BoundingBoxNorth)
-                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+    <div class="panel-heading required">Geografisk utstrekning<div class="pull-right"><a href="#" data-help-text-id="help-text-BoundingBox" class="badge help-text-toggle">?</a></div></div>
+    <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">@UI.Helptext_BoundingBox</p>
+    <div class="panel-group">
+        <div class="panel-heading bg-info">Angi dekningsområde:</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="form-group col-sm-6 required has-feedback">
+                    <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.BoundingBoxNorth)
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 required has-feedback">
+                    <label class="col-sm-2 control-label">Øst</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.BoundingBoxEast)
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
                 </div>
             </div>
-            <div class="form-group col-sm-6 required has-feedback">
-                <label class="col-sm-2 control-label">Øst</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.BoundingBoxEast)
-                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+            <div class="row">
+                <div class="form-group col-sm-6 required has-feedback">
+                    <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.BoundingBoxSouth)
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 required has-feedback">
+                    <label class="col-sm-2 control-label">Vest</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.BoundingBoxWest)
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="state" class="control-label col-sm-3">Velg fast område:</label>
+                <div class="col-sm-2">
+                    <select name="state" id="bboxState" class="form-control">
+                        <option data-statenumber="00">Hele landet</option>
+                        <option data-statenumber="02">Akershus</option>
+                        <option data-statenumber="09">Aust-Agder</option>
+                        <option data-statenumber="06">Buskerud</option>
+                        <option data-statenumber="20">Finnmark</option>
+                        <option data-statenumber="04">Hedmark</option>
+                        <option data-statenumber="12">Hordaland</option>
+                        <option data-statenumber="15">Møre og Romsdal</option>
+                        <option data-statenumber="17">Nord-Trøndelag</option>
+                        <option data-statenumber="18">Nordland</option>
+                        <option data-statenumber="05">Oppland</option>
+                        <option data-statenumber="21">Oslo</option>
+                        <option data-statenumber="11">Rogaland</option>
+                        <option data-statenumber="14">Sogn og Fjordane</option>
+                        <option data-statenumber="16">Sør-Trøndelag</option>
+                        <option data-statenumber="08">Telemark</option>
+                        <option data-statenumber="19">Troms</option>
+                        <option data-statenumber="10">Vest-Agder</option>
+                        <option data-statenumber="07">Vestfold</option>
+                        <option data-statenumber="01">Østfold</option>
+                    </select>
+                </div>
+                <label for="county" class="control-label col-sm-1">Delområde:</label>
+                <div class="col-sm-3">
+                    <select name="county" id="bboxCounty" class="form-control">
+                        <option data-countynumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
+                        @Html.Partial("_OptionsCountyList")
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default" id="bboxPrefill">Bruk</button>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group col-sm-6 required has-feedback">
-                <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.BoundingBoxSouth)
-                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                </div>
-            </div>
-            <div class="form-group col-sm-6 required has-feedback">
-                <label class="col-sm-2 control-label">Vest</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.BoundingBoxWest)
-                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                </div>
-            </div>
-        </div>
-        <p>Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum.</p>
-        <div class="form-group">
-            <label for="state" class="control-label col-sm-3">Fylke:</label>
-            <div class="col-sm-2">
-                <select name="state" id="bboxState" class="form-control">
-                    <option data-statenumber="00">Norge</option>
-                    <option data-statenumber="02">Akershus</option>
-                    <option data-statenumber="09">Aust-Agder</option>
-                    <option data-statenumber="06">Buskerud</option>
-                    <option data-statenumber="20">Finnmark</option>
-                    <option data-statenumber="04">Hedmark</option>
-                    <option data-statenumber="12">Hordaland</option>
-                    <option data-statenumber="15">Møre og Romsdal</option>
-                    <option data-statenumber="17">Nord-Trøndelag</option>
-                    <option data-statenumber="18">Nordland</option>
-                    <option data-statenumber="05">Oppland</option>
-                    <option data-statenumber="21">Oslo</option>
-                    <option data-statenumber="11">Rogaland</option>
-                    <option data-statenumber="14">Sogn og Fjordane</option>
-                    <option data-statenumber="16">Sør-Trøndelag</option>
-                    <option data-statenumber="08">Telemark</option>
-                    <option data-statenumber="19">Troms</option>
-                    <option data-statenumber="10">Vest-Agder</option>
-                    <option data-statenumber="07">Vestfold</option>
-                    <option data-statenumber="01">Østfold</option>
-                </select>
-            </div>
-            <label for="county" class="control-label col-sm-1">Kommune:</label>
-            <div class="col-sm-3">
-                <select name="county" id="bboxCounty" class="form-control">
-                    <option data-countynumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
-                    @Html.Partial("_OptionsCountyList")
-                </select>
-            </div>
-            <div class="col-sm-2">
-                <button class="btn btn-default" id="bboxPrefill">Bruk</button>
-            </div>
-        </div>
     </div>
-</div>
-
-@if (Model.IsDataset() || Model.IsDatasetSeries())
-{
-<div class="form-group">
-    <label class="col-sm-2 control-label">Dekningsoversikt</label>
-    <div class="col-sm-9">
-        <select id="coverageType" name="coverageType" class="form-control" onchange="showCoverageType(this.value);">
-            <option value="webpage">Dekningsoversikt er tilgjengelig i egen webside</option>
-            <option value="mapservice">Dekningsoversikt er tilgjengelig i eget tjenestekartlag</option>
-        </select>
-    </div>
-</div>
-<div class="form-group" id="coverageWebsite">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-9">
-        <label class="control-label" for="CoverageUrl">Webside:</label>
-        @Html.EditorFor(m => m.CoverageUrl, new { htmlAttributes = new { @class = "form-control" } })
-    </div>
-</div>
-<div class="form-group" id="coverageServiceMap">
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-9">
-        <input type="radio" value="WMS" id="WMSid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />WMS
-        <input type="radio" value="WFS" id="WFSid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />WFS
-        <input type="radio" value="GeoJSON" id="GeoJSONid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />GeoJSON
-        <br />
-        <label class="control-label" for="coveragePath">Url til tjeneste:</label><input class="form-control" type="text" id="coveragePath" name="coveragePath" onchange="setCoverage()" />
-        <br />
-        <label class="control-label" for="coverageLayer">Navn på kartlag:</label><input class="form-control" type="text" id="coverageLayer" name="coverageLayer" onchange="setCoverage()" />
-    </div>
-</div>
-}
-@if (Model.IsDataset() || Model.IsDatasetSeries())
-{
-    <script>
-        function showCoverageType(coverageT) {
-
-            if (coverageT == 'mapservice') {
-                document.getElementById('coverageWebsite').style.display = "none";
-                document.getElementById('coverageWebsite').style.visibility = "hidden";
-                document.getElementById('coverageServiceMap').style.display = "block";
-                document.getElementById('coverageServiceMap').style.visibility = "visible";
-
-            }
-            else {
-                document.getElementById('coverageWebsite').style.display = "block";
-                document.getElementById('coverageWebsite').style.visibility = "visible";
-                document.getElementById('coverageServiceMap').style.display = "none";
-                document.getElementById('coverageServiceMap').style.visibility = "hidden";
-            }
-        }
-
-        function setCoverage() {
-
-
-            var coverageMapType = document.querySelector('.coverageMapTypes:checked').value;
-            var coveragePath = document.getElementById('coveragePath').value;
-            var coverageLayer = document.getElementById('coverageLayer').value;
-            document.getElementById('CoverageUrl').value = 'TYPE:' + coverageMapType + '@@PATH:' + coveragePath + '@@LAYER:' + coverageLayer;
-
-
-        }
-
-        function getCoverage() {
-            var coverageStr = '@Model.CoverageUrl';
-            var endPosType = coverageStr.search('@@PATH');
-            var typeStr = coverageStr.substring(5, endPosType);
-            if (typeStr == 'WMS')
-                document.getElementById("WMSid").checked = true;
-            else if (typeStr == 'WFS')
-                document.getElementById("WFSid").checked = true;
-            else if (typeStr == 'GeoJSON')
-                document.getElementById("GeoJSONid").checked = true;
-
-
-            var endPath = coverageStr.search('@@LAYER');
-            var pathStr = coverageStr.substring(endPosType + 6, endPath);
-            document.getElementById('coveragePath').value = pathStr;
-
-            var startLayer = endPath + 7;
-            var endLayer = coverageStr.length - startLayer;
-            var layerStr = coverageStr.substr(startLayer, endLayer);
-            document.getElementById('coverageLayer').value = layerStr;
-
-        }
-
-        @if (!string.IsNullOrEmpty(Model.CoverageUrl) && Model.CoverageUrl.IndexOf("TYPE:") > -1)
+ 
+        @if (Model.IsDataset() || Model.IsDatasetSeries())
     {
-        @: showCoverageType('mapservice')
-                @: document.getElementById('coverageType').options[1].selected = true;
-                @: getCoverage();
-                        }
-    else
-    {
-        @: showCoverageType('webpage')
+            <div class="panel-group">
+                <div class="panel-heading bg-info">Angi dekningskart:</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Velg type dekningskart:</label>
+                            <div class="col-sm-9">
+                                <select id="coverageType" name="coverageType" class="form-control" onchange="showCoverageType(this.value);">
+                                    <option value="webpage">Webside</option>
+                                    <option value="mapservice">Karttjenestelag</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="coverageWebsite">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-9">
+                                <label class="control-label" for="CoverageUrl">Webside:</label>
+                                @Html.EditorFor(m => m.CoverageUrl, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="form-group" id="coverageServiceMap">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-9">
+
+                                <label class="control-label" for="coveragePath">Url til tjeneste:</label><input class="form-control" type="text" id="coveragePath" name="coveragePath" onchange="setCoverage()" />
+                                <input type="radio" value="WMS" id="WMSid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />WMS
+                                <input type="radio" value="WFS" id="WFSid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />WFS
+                                <input type="radio" value="GeoJSON" id="GeoJSONid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />GeoJSON
+                                <br />
+                                <label class="control-label" for="coverageLayer">Navn på kartlag:</label><input class="form-control" type="text" id="coverageLayer" name="coverageLayer" onchange="setCoverage()" />
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
                     }
+                    @if (Model.IsDataset() || Model.IsDatasetSeries())
+    {
+                        <script>
+                            function showCoverageType(coverageT) {
+
+                                if (coverageT == 'mapservice') {
+                                    document.getElementById('coverageWebsite').style.display = "none";
+                                    document.getElementById('coverageWebsite').style.visibility = "hidden";
+                                    document.getElementById('coverageServiceMap').style.display = "block";
+                                    document.getElementById('coverageServiceMap').style.visibility = "visible";
+
+                                }
+                                else {
+                                    document.getElementById('coverageWebsite').style.display = "block";
+                                    document.getElementById('coverageWebsite').style.visibility = "visible";
+                                    document.getElementById('coverageServiceMap').style.display = "none";
+                                    document.getElementById('coverageServiceMap').style.visibility = "hidden";
+                                }
+                            }
+
+                            function setCoverage() {
 
 
-    </script>
-}    
+                                var coverageMapType = document.querySelector('.coverageMapTypes:checked').value;
+                                var coveragePath = document.getElementById('coveragePath').value;
+                                var coverageLayer = document.getElementById('coverageLayer').value;
+                                document.getElementById('CoverageUrl').value = 'TYPE:' + coverageMapType + '@@PATH:' + coveragePath + '@@LAYER:' + coverageLayer;
+
+
+                            }
+
+                            function getCoverage() {
+                                var coverageStr = '@Model.CoverageUrl';
+                                var endPosType = coverageStr.search('@@PATH');
+                                var typeStr = coverageStr.substring(5, endPosType);
+                                if (typeStr == 'WMS')
+                                    document.getElementById("WMSid").checked = true;
+                                else if (typeStr == 'WFS')
+                                    document.getElementById("WFSid").checked = true;
+                                else if (typeStr == 'GeoJSON')
+                                    document.getElementById("GeoJSONid").checked = true;
+
+
+                                var endPath = coverageStr.search('@@LAYER');
+                                var pathStr = coverageStr.substring(endPosType + 6, endPath);
+                                document.getElementById('coveragePath').value = pathStr;
+
+                                var startLayer = endPath + 7;
+                                var endLayer = coverageStr.length - startLayer;
+                                var layerStr = coverageStr.substr(startLayer, endLayer);
+                                document.getElementById('coverageLayer').value = layerStr;
+
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.CoverageUrl) && Model.CoverageUrl.IndexOf("TYPE:") > -1)
+        {
+            @: showCoverageType('mapservice')
+                                                                            @: document.getElementById('coverageType').options[1].selected = true;
+                                                                            @: getCoverage();
+                                                                                    }
+        else
+        {
+            @: showCoverageType('webpage')
+                                                                                }
+
+
+                        </script>
+    }
+
+                </div>
+
 
