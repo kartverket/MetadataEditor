@@ -200,8 +200,27 @@
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn btn-default" id="bboxPrefill">Bruk</button>
+                    
                 </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-3 col-sm-offset-1">
+                        <label for="state" class="control-label">Eller angi området i kartet:</label>
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="#" role="button" data-toggle="modal" id="norgeskartLink" data-target="#norgeskart" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-globe"></span> Angi i kartet</a>
+                    </div>
+                    <div class="col-sm-1">
+                        <div id="norgeskart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="norgeskart" aria-hidden="true">
+                            @Html.Partial("_Norgeskart", Model)
+                        </div>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-default" id="bboxPrefill">Bruk</button>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -407,5 +426,3 @@
                     }
 
                 </div>
-
-
