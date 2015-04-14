@@ -190,8 +190,7 @@
 
         $.getJSON("@ViewBag.ValideringUrl", function (result) {
 
-            if (result != null)
-            {      
+            if (result != null) {
                 if (result.length != 0) {
                     $("#validation").css('visibility', 'visible');
                     $("#validation").css('display', 'block');
@@ -203,8 +202,7 @@
                         $("#validationStatus").text("OK");
                         $("#validationStatus").addClass("label label-success");
                     }
-                    else if (validationStatus == 0)
-                    {
+                    else if (validationStatus == 0) {
                         $("#validationStatus").text("FEIL");
                         $("#validationStatus").addClass("label label-danger");
                     }
@@ -217,8 +215,7 @@
 
                     var message = "<ul>";
 
-                    for (m = 0; m < Messages.length; m++)
-                    {
+                    for (m = 0; m < Messages.length; m++) {
                         message = message + "<li>" + Messages[m] + '</li>'
                     }
 
@@ -337,12 +334,93 @@
             }
         });
 
+        $('#uploadCoverageFile').fileupload({
+            dataType: 'json',
+            url: '/Metadata/UploadThumbnail',
+            add: function (e, data) {
+
+                $("#uploadCoverageButton").on("click", function (event) {
+                    event.preventDefault();
+
+                    console.log(data);
+                    data.formData = {
+                        "uuid": "@Model.Uuid",
+                        "scaleImage": $('#uploadScaleCoverage').prop('checked')
+                    };
+
+                    data.submit();
+                });
+            },
+            done: function (e, data) {
+                console.log("File uploaded: " + data.result.filename);
+                if (data.result.status == "ErrorWrongContent") {
+                    $("#coverageUri").val('');
+                    $('#uploadCoverageStatus').attr('style', 'color: red ;');
+                    $('#uploadCoverageStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                }
+                else {
+                    $("#coverageUri").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                    $('#uploadCoverageStatus').attr('style', 'text-info');
+                    //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                }
+            }
+        });
+
         var checkExist = setInterval(function () {
             if ($('#thumbnailUrl').val() && $('#uploadMode').val() == 'upload') {
                 $("#thumbnailAdd").click();
                 $('#uploadMode').val('reference');
             }
         }, 100); // check every 100ms
+
+        var checkExistCoverageImage = setInterval(function () {
+            if ($('#coverageUri').val() && $('#uploadMode').val() == 'upload') {
+                $("#coverageAdd").click();
+                $('#uploadMode').val('reference');
+            }
+        }, 100); // check every 100ms
+
+
+        $("#coverageAdd").click(function (event) {
+            event.preventDefault();
+            if ($('#coverageUri').val().trim() == '') { alert('URL mangler'); return false; }
+
+            var $item = $('#imageCoverage');
+
+            var $thumbnails = $("#thumbnails");
+            var itemIndex = $('li', $thumbnails).length;
+
+
+            var $thumbnailUrl = $("#coverageUri");
+
+            var $itemTypeHidden = $('<input />', {
+                type: 'hidden',
+                name: 'Thumbnails[' + itemIndex + '].Type',
+                value: 'dekningsoversikt'
+            });
+
+            var $itemUrlHidden = $('<input />', {
+                type: 'hidden',
+                name: 'Thumbnails[' + itemIndex + '].URL',
+                value: $thumbnailUrl.val()
+            });
+
+
+            if (!$("#coverageImageSelectedType").length) {
+                $item.append($itemTypeHidden);
+                $item.append($itemUrlHidden);
+            }
+            else
+            {
+                $("#coverageImageSelectedURL").val($thumbnailUrl.val());
+            }
+
+            $("#coverageImageSelected").removeAttr('src');
+            $("#coverageImageSelected").attr('src',$("#coverageUri").val());
+            $("#coverageImageNameSelected").text($("#coverageUri").val());
+
+           
+        });
 
 
         $("#thumbnailAdd").click(function (event) {
@@ -352,6 +430,12 @@
             var $thumbnails = $("#thumbnails");
 
             var itemIndex = $('li', $thumbnails).length;
+
+
+            if ($("#coverageImageSelectedType").length)
+            {
+                itemIndex = itemIndex + 1;
+            }
 
             var $thumbnailType = $("#thumbnailType");
             var $thumbnailUrl = $("#thumbnailUrl");
@@ -597,7 +681,7 @@
             @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
             {
             @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
-                        }
+                                    }
             dfHtm += '</select>';
 
             dfHtm += '</div>';

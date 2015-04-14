@@ -65,6 +65,15 @@ ul#thumbnails > li.thumbnail > img {
     float: left;
 }
 
+ul#thumbnailsCoverage {
+    list-style-type: none;
+}
+ul#thumbnailsCoverage > li.thumbnail > img {
+    width: 200px;
+    margin-right: 10px;
+    float: left;
+}
+
 footer { margin-top: 20px; }
 
 

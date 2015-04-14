@@ -40,7 +40,7 @@
                 <select id="thumbnailType" class="@ViewBag.thumbnailMissingCSS form-control">
                     <option value="miniatyrbilde">Miniatyrbilde</option>
                     <option value="large_thumbnail">Stort bilde</option>
-                    <option value="dekningsoversikt">Dekningsoversikt</option>
+                    @*<option value="dekningsoversikt">Dekningsoversikt</option>*@
                 </select>
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
@@ -92,7 +92,8 @@
                 @for (int i = 0; i < Model.Thumbnails.Count; i++)
                 {
                     var thumbnail = Model.Thumbnails[i];
-
+                    if (thumbnail.Type != "dekningsoversikt")
+                    { 
                     <li class="thumbnail clearfix">
                         <input type="hidden" name="Thumbnails[@i].Type" value="@thumbnail.Type" />
                         <input type="hidden" name="Thumbnails[@i].URL" value="@thumbnail.URL" />
@@ -101,6 +102,7 @@
                         <p><strong>URL:</strong> <small>@thumbnail.URL</small></p>
                         <button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>
                     </li>
+                    }
                 }
             </ul>
 
