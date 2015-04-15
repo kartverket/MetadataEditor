@@ -3,7 +3,7 @@
 
 <script type="text/javascript" src="http://labs.kartverket.no/js/easyXDM.js"></script>
 
-<div class="modal-dialog" style="width: 50%;">
+<div class="modal-dialog" style="width: 75%;">
     <div class="modal-content">
         <div class="modal-header">
             <h4>Norgeskart</h4>
@@ -22,8 +22,31 @@
                 var socket = new easyXDM.Socket({
                     remote: "http://norgeskart.no/geoportal/staging/select-rect.html",
                     onMessage: function (message, origin) {
-                        var reslist = document.getElementById('result');
-                        reslist.innerHTML = message + "<br/>" + reslist.innerHTML;
+                        //var reslist = document.getElementById('result');
+                        //reslist.innerHTML = message + "<br/>" + reslist.innerHTML;
+                        var obj = $.parseJSON(message);
+                        if (obj.feature != null)
+                        {
+                        var coords = obj.feature.geometry.coordinates[0];
+                        var c1 = coords[0];
+                        var c2 = coords[1];
+                        var c3 = coords[2];
+                        var c4 = coords[3];
+
+                        var west = c1[0];
+                        var south = c1[1];
+                        var east = c2[0];
+                        var north = c3[1];
+
+                        document.getElementById('BoundingBoxWest').value = west;
+                        document.getElementById('BoundingBoxSouth').value = south;
+                        document.getElementById('BoundingBoxEast').value = east;
+                        document.getElementById('BoundingBoxNorth').value = north;
+
+                        //alert('Coordinate 1: ' + c1 + '\n' + 'Coordinate 2: ' + c2 + '\n' + 'Coordinate 3: ' + c3 + '\n' + 'Coordinate 4: ' + c4 + '\n\nVest: ' + west + '\nSør: ' + south + '\nØst: ' + east + '\nNord: ' + north);
+
+                        }
+
                     },
                     container: document.getElementById("container"),
                     onReady: function () {
