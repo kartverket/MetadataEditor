@@ -127,7 +127,7 @@
     <value>Lagre som XML</value>
   </data>
   <data name="Button_Validate" xml:space="preserve">
-    <value>Valider</value>
+    <value>Publiser</value>
   </data>
   <data name="Contact_Email" xml:space="preserve">
     <value>Kontaktperson - Epost</value>

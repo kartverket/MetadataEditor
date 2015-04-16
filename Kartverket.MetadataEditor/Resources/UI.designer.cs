@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valider.
+        ///   Looks up a localized string similar to Publiser.
         /// </summary>
         public static string Button_Validate {
             get {
