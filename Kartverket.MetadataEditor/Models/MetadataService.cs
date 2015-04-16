@@ -404,7 +404,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.QualitySpecification = new SimpleQualitySpecification
                 {
                     Title = model.QualitySpecificationTitle,
-                    Date = String.Format("{0:s}", model.QualitySpecificationDate), 
+                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDate), 
                     DateType = model.QualitySpecificationDateType,
                     Explanation = model.QualitySpecificationExplanation,
                     Result = model.QualitySpecificationResult
@@ -432,8 +432,8 @@ namespace Kartverket.MetadataEditor.Models
 
                 metadata.ValidTimePeriod = new SimpleValidTimePeriod()
                 {
-                    ValidFrom = DateMetadataValidFrom != null ? String.Format("{0:s}", DateMetadataValidFrom) : "",
-                    ValidTo = DateMetadataValidTo != null ? String.Format("{0:s}", DateMetadataValidTo ) : ""
+                    ValidFrom = DateMetadataValidFrom != null ? String.Format("{0:yyyy-MM-dd}", DateMetadataValidFrom) : "",
+                    ValidTo = DateMetadataValidTo != null ? String.Format("{0:yyyy-MM-dd}", DateMetadataValidTo) : ""
                 };
 
 
