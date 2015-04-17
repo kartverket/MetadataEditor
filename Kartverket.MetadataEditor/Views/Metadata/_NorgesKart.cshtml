@@ -7,7 +7,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h4>Norgeskart</h4>
-            <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+            <div style="right: 5px; top: 5px; position:absolute;"><button onclick="setBoundingBox();" type="button" class="btn btn-default" data-dismiss="modal">Ferdig</button></div>
         </div>
         <div class="modal-body">
             <div id="viewer" role="main" style="height:100%">
@@ -18,6 +18,12 @@
       </div>
  </div>
             <script>
+
+                var BBWest;
+                var BBSouth;
+                var BBEast;
+                var BBNorth;
+
                 // by Kartverket/Thomas Hirsch 2012 / public domain.
                 var socket = new easyXDM.Socket({
                     remote: "http://norgeskart.no/geoportal/staging/select-rect.html",
@@ -38,12 +44,17 @@
                         var east = c2[0];
                         var north = c3[1];
 
-                        document.getElementById('BoundingBoxWest').value = west;
-                        document.getElementById('BoundingBoxSouth').value = south;
-                        document.getElementById('BoundingBoxEast').value = east;
-                        document.getElementById('BoundingBoxNorth').value = north;
+                        //document.getElementById('BoundingBoxWest').value = west;
+                        //document.getElementById('BoundingBoxSouth').value = south;
+                        //document.getElementById('BoundingBoxEast').value = east;
+                        //document.getElementById('BoundingBoxNorth').value = north;
 
                         //alert('Coordinate 1: ' + c1 + '\n' + 'Coordinate 2: ' + c2 + '\n' + 'Coordinate 3: ' + c3 + '\n' + 'Coordinate 4: ' + c4 + '\n\nVest: ' + west + '\nSør: ' + south + '\nØst: ' + east + '\nNord: ' + north);
+
+                        BBWest= west;
+                        BBSouth = south;
+                        BBEast = east;
+                        BBNorth = north;
 
                         }
 
@@ -54,4 +65,14 @@
                         this.container.getElementsByTagName("iframe")[0].style.width = "600px";
                     }
                 });
+
+                function setBoundingBox()
+                {
+
+                    document.getElementById('BoundingBoxWest').value = BBWest;
+                    document.getElementById('BoundingBoxSouth').value = BBSouth;
+                    document.getElementById('BoundingBoxEast').value = BBEast;
+                    document.getElementById('BoundingBoxNorth').value = BBNorth;
+                }
+
             </script>
