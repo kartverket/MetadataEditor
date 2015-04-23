@@ -33,7 +33,7 @@ namespace Kartverket.MetadataEditor.Models
         [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = null)]
+        //[Required(ErrorMessage = null)]
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
         public string Purpose { get; set; }
 
@@ -82,7 +82,7 @@ namespace Kartverket.MetadataEditor.Models
 
         /* dataset only */
         public string SupplementalDescription { get; set; }
-        [Required (ErrorMessage="Bruksområde er påkrevd")]
+        //[Required (ErrorMessage="Bruksområde er påkrevd")]
         public string SpecificUsage { get; set; }  // bruksområde
         public string ResourceIdentifierName { get; set; }  // teknisk navn
         public string TopicCategory { get; set; }
@@ -114,11 +114,11 @@ namespace Kartverket.MetadataEditor.Models
         public bool QualitySpecificationResult { get; set; }
         [RequiredIf("!IsSoftware()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd")]
         public string QualitySpecificationTitle { get; set; }
-        [Required(ErrorMessage = "Prosesshistorie er påkrevd")]
+        //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
         [Required (ErrorMessage="Oppdateringshyppighet område er påkrevd")]
         public string MaintenanceFrequency { get; set; }
-        [RequiredIf("!IsService()", ErrorMessage = "Målestokktall er påkrevd")]
+        //[RequiredIf("!IsService()", ErrorMessage = "Målestokktall er påkrevd")]
         public string ResolutionScale { get; set; }
 
         // constraints
