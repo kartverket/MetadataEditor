@@ -39,22 +39,28 @@
                         var c3 = coords[2];
                         var c4 = coords[3];
 
-                        var west = c1[0];
-                        var south = c1[1];
-                        var east = c2[0];
-                        var north = c3[1];
+                        var x1 = c1[0];
+                        var y1 = c1[1];
+                        var x2 = c2[0];
+                        var y2 = c3[1];
 
-                        //document.getElementById('BoundingBoxWest').value = west;
-                        //document.getElementById('BoundingBoxSouth').value = south;
-                        //document.getElementById('BoundingBoxEast').value = east;
-                        //document.getElementById('BoundingBoxNorth').value = north;
+                        
+                        $.getJSON('http://norgeskart.no/ws/trans.py?ost=' + x1 + '&nord=' + y1 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
+                            if (result.errKode == 0){
+                                BBWest = result.ost;
+                                BBSouth = result.nord
+                            }
+                        }
+                        );
+                        
+                        $.getJSON('http://norgeskart.no/ws/trans.py?ost=' + x2 + '&nord=' + y2 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
+                            if (result.errKode == 0) {
+                                BBEast = result.ost;
+                                BBNorth = result.nord
+                            }
+                        }
+                        );
 
-                        //alert('Coordinate 1: ' + c1 + '\n' + 'Coordinate 2: ' + c2 + '\n' + 'Coordinate 3: ' + c3 + '\n' + 'Coordinate 4: ' + c4 + '\n\nVest: ' + west + '\nSør: ' + south + '\nØst: ' + east + '\nNord: ' + north);
-
-                        BBWest= west;
-                        BBSouth = south;
-                        BBEast = east;
-                        BBNorth = north;
 
                         }
 
@@ -70,6 +76,11 @@
                 {
                     if (typeof BBWest != 'undefined')
                     {
+                    BBWest = BBWest.toFixed(4);
+                    BBSouth = BBSouth.toFixed(4);
+                    BBEast = BBEast.toFixed(4);
+                    BBNorth = BBNorth.toFixed(4);
+
                     document.getElementById('BoundingBoxWest').value = BBWest;
                     document.getElementById('BoundingBoxSouth').value = BBSouth;
                     document.getElementById('BoundingBoxEast').value = BBEast;
