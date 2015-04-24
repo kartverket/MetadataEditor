@@ -169,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum..
+        ///   Looks up a localized string similar to Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen &quot;Angi i kartet&quot; for å definere et rektangel i Norgeskart..
         /// </summary>
         public static string Helptext_BoundingBox {
             get {
@@ -205,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Du kan laste opp et bilde til metadataeditoren eller legge inn url til et bilde som ligger på din egen server. Dette gjelder for miniatyrbilde, stort bilde eller grafisk illustrasjon over dekningsområde/utbredelse av datasett. Miniatyrbilde er påkrevd..
+        ///   Looks up a localized string similar to Du kan laste opp et bilde til metadataeditoren eller legge inn url til et bilde som ligger på din egen server. Dette gjelder for miniatyrbilde og stort bilde. Miniatyrbilde er påkrevd..
         /// </summary>
         public static string Helptext_Image {
             get {
