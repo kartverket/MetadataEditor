@@ -187,7 +187,8 @@
 @section scripts {
     <script>
     $(function () {
-
+        var valideringsUrl = '@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]';
+        if (valideringsUrl != ''){
         $.getJSON("@ViewBag.ValideringUrl", function (result) {
 
             if (result != null) {
@@ -226,6 +227,7 @@
                 }
             }
         });
+        }
 
         //  add warning sign to tabs containing input fields with error.
         $('.input-validation-error').each(function () {

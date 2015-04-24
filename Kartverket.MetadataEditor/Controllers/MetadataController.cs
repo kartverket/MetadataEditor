@@ -291,10 +291,13 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             try
             {
+                if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "") 
+                { 
                 System.Net.WebClient c = new System.Net.WebClient();
                 c.Encoding = System.Text.Encoding.UTF8;
                 var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/validate/" + uuid);
                 TempData["success"] = UI.Metadata_Validate_Success;
+                }
             }
             catch (Exception e)
             {
