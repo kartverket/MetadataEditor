@@ -129,6 +129,7 @@ namespace Kartverket.MetadataEditor.Models
         public string OtherConstraintsLink { get; set; }
         public string OtherConstraintsLinkText { get; set; }
         public string SecurityConstraints { get; set; }
+        public string SecurityConstraintsNote { get; set; }
 
         [Display(Name = "Metadata_DateCreated", ResourceType = typeof(UI))]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd.MM.yyyy}")]

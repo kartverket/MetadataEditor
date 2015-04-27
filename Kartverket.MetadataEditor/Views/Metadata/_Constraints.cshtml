@@ -105,6 +105,21 @@
         </p>
     </div>
 </div>
+
+<div class="form-group">
+    <label for="SecurityConstraintsNote" class="col-sm-2 control-label">Lovhenvisning</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.SecurityConstraintsNote)
+        <p class="help-text bg-success" id="help-text-SecurityConstraintsNote" style="display: none">
+            Grunngiving av tilgangsbegrensninger eller bruksbegrensninger i form av juridiske forhold eller andre begrensende faktorer. Her kan en henvise til lov, forskrift eller lignende.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-SecurityConstraintsNote" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
 <script>
 
     function licenseCheck()
