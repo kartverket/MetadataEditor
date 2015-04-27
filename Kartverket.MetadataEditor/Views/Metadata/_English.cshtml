@@ -81,8 +81,8 @@
                 {
                     value = Model.KeywordsEnglish[key];
                 }
-                
-                <div class="form-group">
+
+                <div class="form-group" @{ string displayStyle = ""; { if (@keyword == "infoMapAccessService") { displayStyle = "display:none; visibility:hidden;"; } } } style="@displayStyle">
                     <div class="col-sm-5 col-sm-offset-2">
                         <input type="text" class="form-control" name="KeywordsEnglish[@(keywordPrefix)_@keyword]" value="@value" />
                     </div>
