@@ -311,7 +311,7 @@ namespace Kartverket.MetadataEditor.Models
 
             UpdateMetadataFromModel(model, metadata);
 
-            _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+            _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username, model.Published));
         }
 
         private void UpdateMetadataFromModel(MetadataViewModel model, SimpleMetadata metadata)
@@ -495,7 +495,7 @@ namespace Kartverket.MetadataEditor.Models
             SetDefaultValuesOnMetadata(metadata);
         }
 
-        private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username)
+        private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "false")
         {
             Dictionary<string, string> header = new Dictionary<string, string> { { "GeonorgeUsername", username } };
 
@@ -523,6 +523,11 @@ namespace Kartverket.MetadataEditor.Models
 
             if (!isAdmin && editorRole)
                 header.Add("GeonorgeRole", "nd.metadata_editor");
+
+            if (string.IsNullOrEmpty(published))
+                published = "false";
+
+            header.Add("published", published);
 
             return header;
         }

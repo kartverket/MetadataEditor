@@ -157,6 +157,8 @@ namespace Kartverket.MetadataEditor.Models
 
         public List<string> OperatesOn { get; set; }
 
+        public string Published { get; set; }
+
 
         internal void FixThumbnailUrls()
         {
