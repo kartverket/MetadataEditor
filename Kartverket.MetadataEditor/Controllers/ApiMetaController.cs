@@ -9,8 +9,7 @@ using System.Web.Http;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
-    //TODO handle authorization
-    //[Authorize]
+    [Authorize]
     public class ApiMetaController : ApiController
     {
         [Route("api/uploadthumbnail/{uuid}")]

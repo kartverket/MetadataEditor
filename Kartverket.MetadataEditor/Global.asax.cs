@@ -8,11 +8,14 @@ using ExpressiveAnnotations.Attributes;
 using ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.Validators;
 using Kartverket.MetadataEditor.Util;
 using System.Web.Http;
+using System;
 
 namespace Kartverket.MetadataEditor
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -41,6 +44,13 @@ namespace Kartverket.MetadataEditor
 
             MvcHandler.DisableMvcResponseHeader = true;
 
+        }
+
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError().GetBaseException();
+
+            log.Error("App_Error", ex);
         }
     }
 }

@@ -12,6 +12,7 @@ using Resources;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
+    [HandleError]
     public class MetadataController : Controller
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -589,6 +590,11 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.RegisterOrganizationUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/search/organisasjon/" + organization;
             return View();
         
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Log.Error("Error", filterContext.Exception);
         }
 
 	}

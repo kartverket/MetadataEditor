@@ -185,6 +185,7 @@
     <Compile Include="Models\MetadataItemViewModel.cs" />
     <Compile Include="Models\MetadataService.cs" />
     <Compile Include="Models\MetadataViewModel.cs" />
+    <Compile Include="Models\NotFoundModel.cs" />
     <Compile Include="Models\ObjectExtensions.cs" />
     <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
@@ -332,7 +333,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Metadata\Index.cshtml" />
     <Content Include="Views\Metadata\Edit.cshtml" />
@@ -372,6 +375,9 @@
     <Content Include="Views\ServiceWfs\Index.cshtml" />
     <Content Include="Views\ServiceWfs\LayersCreated.cshtml" />
     <Content Include="Views\Metadata\_NorgesKart.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
