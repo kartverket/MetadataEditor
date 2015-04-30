@@ -7,6 +7,7 @@ using System.Web.Routing;
 using ExpressiveAnnotations.Attributes;
 using ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.Validators;
 using Kartverket.MetadataEditor.Util;
+using System.Web.Http;
 
 namespace Kartverket.MetadataEditor
 {
@@ -14,6 +15,7 @@ namespace Kartverket.MetadataEditor
     {
         protected void Application_Start()
         {
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -38,6 +40,7 @@ namespace Kartverket.MetadataEditor
             log4net.Config.XmlConfigurator.Configure();
 
             MvcHandler.DisableMvcResponseHeader = true;
+
         }
     }
 }
