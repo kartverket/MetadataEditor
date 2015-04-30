@@ -19,6 +19,7 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             string filename = null;
             string fullPath = null;
+            string url = null;
 
             try
             {
@@ -33,6 +34,8 @@ namespace Kartverket.MetadataEditor.Controllers
                         var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
                         filename = uuid + "_" + timestamp + "_" + file.FileName;
                         fullPath = HttpContext.Current.Server.MapPath("~/thumbnails/" + filename);
+
+                        url = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filename;
 
                         if (scaleImage)
                         {
@@ -61,7 +64,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 var error = new { errorMessage = e.Message };
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, error); 
             }
-            var uploaded = new { uploadedToURL = fullPath };
+            var uploaded = new { uploadedToURL = url };
             return Request.CreateResponse(HttpStatusCode.OK, uploaded);
         }
 
