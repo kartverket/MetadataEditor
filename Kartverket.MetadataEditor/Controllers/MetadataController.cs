@@ -139,9 +139,10 @@ namespace Kartverket.MetadataEditor.Controllers
             }
             catch (Exception e)
             {
-                Log.Error("Error while getting metadata with uuid = " + uuid, e);
-                TempData["failure"] = "Feilmelding: " + e.Message;
-                return View("Error");
+                //Log.Error("Error while getting metadata with uuid = " + uuid, e);
+                throw new Exception("Error while getting metadata with uuid = " + uuid, e);
+                //TempData["failure"] = "Feilmelding: " + e.Message;
+                //return View("Error");
             }
 
             
