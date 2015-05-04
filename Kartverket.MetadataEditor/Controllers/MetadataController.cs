@@ -9,13 +9,14 @@ using System.Web;
 using System.Web.Mvc;
 using Kartverket.MetadataEditor.Util;
 using Resources;
+using log4net;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
     [HandleError]
     public class MetadataController : Controller
     {
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
 
         private MetadataService _metadataService;
 

@@ -9,12 +9,13 @@ using ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.Validators;
 using Kartverket.MetadataEditor.Util;
 using System.Web.Http;
 using System;
+using log4net;
 
 namespace Kartverket.MetadataEditor
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
 
         protected void Application_Start()
         {
