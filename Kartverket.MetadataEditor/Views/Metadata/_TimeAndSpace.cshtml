@@ -269,17 +269,19 @@
                                             <div class="col-sm-7">
                                                 <input type="file" id="uploadCoverageFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';" />
                                             </div>
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-3">
                                                 <label class="control-label"><input type="checkbox" id="uploadScaleCoverage" checked="checked" name="scaleImage" /> Skalering til miniatyrbilde</label>
                                             </div>
-
+                                            <div class="col-sm-2">
+                                                <button class="btn btn-default" type="submit" id="uploadCoverageButton" onclick="return checkIfUrlReference();">Bruk</button>
+                                            </div>
                                         </div>
                                         <div id="uploadCoverageStatus"></div>
                                     </div>
                                 </div>
 
 
-                                <div class="form-group">
+                                <div class="form-group" style="display: none; visibility: hidden;">
                                     <label class="col-sm-2 control-label">Eller angi URL</label>
                                     <div class="col-sm-5">
                                         <input id="coverageUri" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
@@ -288,7 +290,7 @@
                                     </div>
                                     <div class="col-sm-1">
                                         <button class="btn btn-default" style="display: none; visibility:hidden;" id="coverageAdd"></button>
-                                        <button class="btn btn-default" type="submit" id="uploadCoverageButton" onclick="return checkIfUrlReference();">Bruk</button>
+                                        
                                         <script>
                                             function checkIfUrlReference() {
                                                 if (document.getElementById('coverageUri').value != '' && document.getElementById('uploadMode').value == 'reference') {

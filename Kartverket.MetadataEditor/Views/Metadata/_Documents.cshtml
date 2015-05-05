@@ -55,17 +55,20 @@
                         <div class="col-sm-7">
                             <input type="file" id="uploadThumbnailFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';"  />
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-3">
                             <label class="control-label"><input type="checkbox" id="uploadScaleImage" checked="checked" name="scaleImage" /> Skalering til miniatyrbilde</label>
+                            
                         </div>
-
+                        <div class="col-sm-2">
+                            <button class="btn btn-default" type="submit" id="uploadThumbnailButton" onclick="return checkIfUrlRef();">Legg til</button>
+                        </div>
                     </div>
                     <div id="uploadThumbnailStatus"></div>
                 </div>
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group" style="display: none; visibility: hidden;">
                 <label class="col-sm-2 control-label">Eller angi URL</label>
                 <div class="col-sm-5">
                     <input id="thumbnailUrl" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
@@ -75,7 +78,7 @@
                     <div class="col-sm-1">
                         <input type="hidden" id="uploadMode" value="reference" />
                         <button class="btn btn-default" style="display: none; visibility:hidden;" id="thumbnailAdd"></button>
-                        <button class="btn btn-default" type="submit" id="uploadThumbnailButton" onclick="return checkIfUrlRef();">Legg til</button>
+                        
                         <script>
                             function checkIfUrlRef() {
                                 if (document.getElementById('thumbnailUrl').value != '' && document.getElementById('uploadMode').value == 'reference') {
