@@ -11,4 +11,4 @@
 <p>Feilmelding: @Model.Exception.Message</p>
 }
 <p>Feilen er logget og vil sjekkes av systemansvarlig.</p>
-<p>Du kan også rapportere feilen til <a mailto:"post@norgedigitalt.no">post@norgedigitalt.no</a>.</p>
+<p>Du kan også rapportere feilen til <a href="mailto:@System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]">@System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]</a>.</p>
