@@ -1,4 +1,5 @@
 ﻿using Kartverket.MetadataEditor.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,14 @@ using System.Web.Mvc;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
+    [HandleError]
     [Authorize]
     public class ServiceController : Controller
     {
         private MetadataService _metadataService;
         private WmsServiceParser _wmsServiceParser;
+
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
 
         public ServiceController()
         {
@@ -104,6 +108,11 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
             return result;
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Log.Error("Error", filterContext.Exception);
         }
 	}
 }
