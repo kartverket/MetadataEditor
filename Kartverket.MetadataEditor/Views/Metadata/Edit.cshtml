@@ -56,7 +56,7 @@
     <div class="pull-right">
         <p class="text-right">
             <small>UUID: @Model.Uuid</small><br />
-            <small>Metadata sist oppdatert: @Model.DateMetadataUpdated</small>
+            <small>Metadata sist oppdatert: @String.Format("{0:dd.MM.yyyy}", Model.DateMetadataUpdated)</small>
             <br />
             <small>
                 <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
