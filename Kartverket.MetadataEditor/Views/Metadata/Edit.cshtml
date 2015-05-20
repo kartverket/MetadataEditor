@@ -162,8 +162,8 @@
 
 
     <div class="form-group">
-        <div class="col-sm-7">
-            <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
+        <div class="col-sm-12 text-right">
+            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="submit" class="btn btn-primary" value="">Slett</button>
             @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
             {
                 <input type="checkbox" name="ignoreValidationError" value="1" /> <span>Ignorer feil</span>
@@ -173,18 +173,18 @@
                 <input type="hidden" name="ignoreValidationError" value="0" />
             }
             @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_SaveAsXml">@UI.Button_SaveAsXml</button>*@
-            
+
             @if (ViewBag.ValidModel == true)
             {
                 <input type="checkbox" name="published" value="true" checked /> <span>Publiser</span>
-            @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Validate">@UI.Button_Validate</button>*@
+                @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Validate">@UI.Button_Validate</button>*@
             }
             else
             {
                 <input type="hidden" name="published" value="false" />
             }
-            
-            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="submit" class="btn btn-primary" value="">Slett</button>
+            <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
+
         </div>
     </div>
 
