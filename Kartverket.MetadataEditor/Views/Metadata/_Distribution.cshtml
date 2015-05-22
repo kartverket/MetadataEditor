@@ -30,7 +30,7 @@
                 @if (Model.IsDataset() || Model.IsDatasetSeries())
                 {
                     modelDatatype = "dataset";
-                    <select class="@classFormat" id="distributionFormats[@f].Name" name="distributionFormats[@f].Name">
+                    <select class="@classFormat" id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" onclick="checkForSpatialRepresentation(@f)">
                         <option value="@Model.DistributionFormats[f].Name">@Model.DistributionFormats[f].Name</option>
                     </select>
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -162,6 +162,14 @@
                     UnitsOfDistributionString = UnitsOfDistributionString.slice(0, -2);
                     document.getElementById('UnitsOfDistribution').value = UnitsOfDistributionString;
                 }
+
+                function checkForSpatialRepresentation(formatID)
+                {
+                    if (document.getElementById('distributionFormats[' + formatID + '].Name').length <= 1)
+                        alert('Vennligst velg først representasjonsform');
+
+                }
+
             </script>
             <input type="hidden" id="UnitsOfDistribution" name="UnitsOfDistribution" value="@Model.UnitsOfDistribution">
             <input type="hidden" id="UnitsOfDistributionCount" name="UnitsOfDistributionCount" value="@distrID">
