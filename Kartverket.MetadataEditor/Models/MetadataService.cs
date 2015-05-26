@@ -319,16 +319,14 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
 
-            if (!string.IsNullOrWhiteSpace(model.Purpose))
-                metadata.Purpose = model.Purpose;
+            metadata.Purpose = !string.IsNullOrWhiteSpace(model.Purpose) ? model.Purpose : " ";
 
             if (!string.IsNullOrWhiteSpace(model.TopicCategory))
                 metadata.TopicCategory = model.TopicCategory;
 
             metadata.SupplementalDescription = model.SupplementalDescription;
 
-            if (!string.IsNullOrWhiteSpace(model.SpecificUsage))
-                metadata.SpecificUsage = model.SpecificUsage;
+            metadata.SpecificUsage = !string.IsNullOrWhiteSpace(model.SpecificUsage) ? model.SpecificUsage : " ";
 
             var contactMetadata = model.ContactMetadata.ToSimpleContact();
             if (!string.IsNullOrWhiteSpace(model.EnglishContactMetadataOrganization))
@@ -412,14 +410,13 @@ namespace Kartverket.MetadataEditor.Models
                 };
             }
 
-            if (!string.IsNullOrWhiteSpace(model.ProcessHistory))
-                metadata.ProcessHistory = model.ProcessHistory;
+            metadata.ProcessHistory = !string.IsNullOrWhiteSpace(model.ProcessHistory) ? model.ProcessHistory : " ";
 
             if (!string.IsNullOrWhiteSpace(model.MaintenanceFrequency))
                 metadata.MaintenanceFrequency = model.MaintenanceFrequency;
 
-            if (!string.IsNullOrWhiteSpace(model.ResolutionScale))
-                metadata.ResolutionScale = model.ResolutionScale;
+            if (!model.IsService())
+                metadata.ResolutionScale = !string.IsNullOrWhiteSpace(model.ResolutionScale) ? model.ResolutionScale : " ";
 
             if (!string.IsNullOrWhiteSpace(model.Status))
                 metadata.Status = model.Status;
