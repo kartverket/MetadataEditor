@@ -304,7 +304,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             string t = HierarchyLevel;
             if (HierarchyLevel == "dataset") t = "Datasett";
-            else if (HierarchyLevel == "software") t = "Applikasjon";
+            else if (HierarchyLevel == "software") t = "Programvare";
             else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier)) && DistributionProtocol != null && DistributionProtocol.Contains("WFS")) t = "WFS-lag (Tjenestelag)";
             else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier))) t = "WMS-lag (Tjenestelag)";
             else if (HierarchyLevel == "service") t = "Tjeneste";

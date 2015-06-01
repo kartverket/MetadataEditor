@@ -38,7 +38,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             string t = Type;
             if (Type == "dataset") t = "Datasett";
-            else if (Type == "software") t = "Applikasjon";
+            else if (Type == "software") t = "Programvare";
             else if (Type == "service" && (!string.IsNullOrWhiteSpace(Relation))) t = "WMS-lag (Tjenestelag)";
             else if (Type == "service") t = "Tjeneste";
             else if (Type == "series") t = "Datasettserie";
