@@ -47,7 +47,7 @@
                 </ul>
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <select class="input-sm form-control" id="keywords-national-theme-text">
+                        @*<select class="input-sm form-control" id="keywords-national-theme-text">
                             <option></option>
                             <option value="Basis geodata">Basis geodata</option>
                             <option value="Samferdsel">Samferdsel</option>
@@ -63,7 +63,8 @@
                             <option value="Kyst / fiskeri">Kyst / fiskeri</option>
                             <option value="Plandata">Plandata</option>
                             <option value="Annen">Annen</option>
-                        </select>
+                        </select>*@
+                        @Html.DropDownList("keywords-national-theme-text", ViewBag.NationalThemeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-default btn-sm" id="keywords-national-theme-add">Legg til</button>
@@ -87,7 +88,7 @@
                     </ul>
                     <div class="form-group">
                         <div class="col-sm-6">
-                            <select class="input-sm form-control" id="keywords-national-initiative-text">
+                            @*<select class="input-sm form-control" id="keywords-national-initiative-text">
                                 <option></option>
                                 <option value="Inspire">Inspire</option>
                                 <option value="Det offentlige kartgrunnlaget">Det offentlige kartgrunnlaget</option>
@@ -96,7 +97,8 @@
                                 <option value="European Location Framework">European Location Framework</option>
                                 <option value="Arctic SDI">Arctic SDI</option>
                                 <option value="Åpne data">Åpne data</option>
-                            </select>
+                            </select>*@
+                            @Html.DropDownList("keywords-national-initiative-text", ViewBag.NationalInitiativeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
                         </div>
                         <div class="col-sm-2">
                             <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
@@ -119,7 +121,8 @@
                     </ul>
                     <div class="form-group">
                         <div class="col-sm-6">
-                            <select class="input-sm form-control" id="keywords-inspire-text">
+                            @Html.DropDownList("keywords-inspire-text", ViewBag.InspireValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
+                            @*<select class="input-sm form-control" id="keywords-inspire-text">
                                 <option></option>
                                 <option value="Addresses">Addresses</option>
                                 <option value="Administrative units">Administrative units</option>
@@ -155,7 +158,7 @@
                                 <option value="Statistical units<">Statistical units</option>
                                 <option value="Transport networks">Transport networks</option>
                                 <option value="Utility and governmental services">Utility and governmental services</option>
-                            </select>
+                            </select>*@
                         </div>
                         <div class="col-sm-2">
                             <button type="button" class="btn btn-default btn-sm" id="keywords-inspire-add">Legg til</button>

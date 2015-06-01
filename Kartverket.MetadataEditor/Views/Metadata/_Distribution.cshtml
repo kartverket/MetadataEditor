@@ -80,7 +80,8 @@
     </div>
     <label for="predefinedDistributionProtocols" class="col-sm-2 control-label">Forhåndsvalg protokoll</label>
     <div class="col-sm-3">
-        <select class="form-control" id="predefinedDistributionProtocols">
+        @Html.DropDownList("predefinedDistributionProtocols", ViewBag.predefinedDistributionProtocols as SelectList, String.Empty, new { @class = "form-control" })
+        @*<select class="form-control" id="predefinedDistributionProtocols">
             <option value=""></option>
             <option value="WWW:DOWNLOAD-1.0-http--download">Nedlastingsside</option>
             <option value="WWW:LINK-1.0-http--link">Webside</option>
@@ -93,7 +94,7 @@
             <option value="W3C:WS" title="Webservice">Webservice</option>
             <option value="OGC:SOS" title="SOS-tjeneste">SOS-tjeneste</option>
             <option value="W3C:REST" title="REST-API">REST-API</option>
-        </select>
+        </select>*@
     </div>
     <div class="col-sm-1">
         <button class="btn btn-default" id="usePredefinedDistributionProtocol">Bruk</button>

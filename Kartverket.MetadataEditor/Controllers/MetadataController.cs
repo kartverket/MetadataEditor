@@ -153,6 +153,7 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
+            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(), "Key", "Value");
             ViewBag.UnitsOfDistributionValues = new SelectList(GetListOfUnitsOfDistribution(), "Key", "Value", model.UnitsOfDistribution);
             ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
             ViewBag.StatusValues = new SelectList(GetListOfStatusValues(), "Key", "Value", model.Status);
@@ -202,6 +203,10 @@ namespace Kartverket.MetadataEditor.Controllers
 
             Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
             ViewBag.ReferenceSystemsValues = new SelectList(ReferenceSystemsList, "Key", "Value");
+
+            ViewBag.NationalThemeValues = new SelectList(GetListOfNationalTheme(), "Key", "Value");
+            ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
+            ViewBag.InspireValues = new SelectList(GetListOfInspire(), "Key", "Value");
 
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
 
@@ -311,113 +316,176 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfTopicCategories()
         {
-            return new Dictionary<string, string> 
-            {
-                {"farming", "Landbruk og havbruk"}, 
-                {"biota", "Biologisk mangfold"},
-                {"boundaries", "Administrative grenser"},
-                {"climatologyMeteorologyAtmosphere","Klima, meteorologi og atomsfære"},
-                {"economy","Økonomi"},
-                {"elevation","Høydedata"},
-                {"environment","Miljødata"},
-                {"geoscientificInformation","Geovitenskapelig informasjon"},
-                {"health","Helse"},
-                {"imageryBaseMapsEarthCover","Basisdata"},
-                {"intelligenceMilitary","Militære data"},
-                {"inlandWaters","Innsjø og vassdrag"},
-                {"location","Posisjonsdata"},
-                {"oceans","Kyst og sjø"},
-                {"planningCadastre","Plan og eiendom"},
-                {"society","Samfunn"},
-                {"structure","Konstruksjoner"},
-                {"transportation","Transport"},
-                {"utilitiesCommunication","Ledningsinformasjon"},
-            };
+            //return new Dictionary<string, string> 
+            //{
+            //    {"farming", "Landbruk og havbruk"}, 
+            //    {"biota", "Biologisk mangfold"},
+            //    {"boundaries", "Administrative grenser"},
+            //    {"climatologyMeteorologyAtmosphere","Klima, meteorologi og atomsfære"},
+            //    {"economy","Økonomi"},
+            //    {"elevation","Høydedata"},
+            //    {"environment","Miljødata"},
+            //    {"geoscientificInformation","Geovitenskapelig informasjon"},
+            //    {"health","Helse"},
+            //    {"imageryBaseMapsEarthCover","Basisdata"},
+            //    {"intelligenceMilitary","Militære data"},
+            //    {"inlandWaters","Innsjø og vassdrag"},
+            //    {"location","Posisjonsdata"},
+            //    {"oceans","Kyst og sjø"},
+            //    {"planningCadastre","Plan og eiendom"},
+            //    {"society","Samfunn"},
+            //    {"structure","Konstruksjoner"},
+            //    {"transportation","Transport"},
+            //    {"utilitiesCommunication","Ledningsinformasjon"},
+            //};
+
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB100");
         }
 
         public Dictionary<string, string> GetListOfUnitsOfDistribution()
         {
-            return new Dictionary<string, string> 
-            {
-                {"kommunevis", "Kommunevis"}, 
-                {"fylkesvis", "Fylkesvis"}, 
-                {"landsfiler", "Landsfiler"}, 
-                {"regional inndeling", "Regional inndeling"}, 
-                {"kartbladvis", "Kartbladvis"}, 
-            };
+            //return new Dictionary<string, string> 
+            //{
+            //    {"kommunevis", "Kommunevis"}, 
+            //    {"fylkesvis", "Fylkesvis"}, 
+            //    {"landsfiler", "Landsfiler"}, 
+            //    {"regional inndeling", "Regional inndeling"}, 
+            //    {"kartbladvis", "Kartbladvis"}, 
+            //};
+
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB119");
         }
 
         public Dictionary<string, string> GetListOfSpatialRepresentations()
         {
-            return new Dictionary<string, string> 
-            {
-                {"vector", "Vektordata"}, 
-                {"grid", "Rasterdata/grid"}, 
-                {"textTable", "Teksttabell"}, 
-                {"tin", "TIN-modell"}, 
-                {"stereoModel", "Stereomodel"}, 
-                {"video", "Video"}, 
-            };
+            //return new Dictionary<string, string> 
+            //{
+            //    {"vector", "Vektordata"}, 
+            //    {"grid", "Rasterdata/grid"}, 
+            //    {"textTable", "Teksttabell"}, 
+            //    {"tin", "TIN-modell"}, 
+            //    {"stereoModel", "Stereomodel"}, 
+            //    {"video", "Video"}, 
+            //};
+
+            return GetCodeList("4C54EB31-714E-4457-AF6A-44FE6DBE76C1");
         }
 
         public Dictionary<string, string> GetListOfMaintenanceFrequencyValues()
         {
-            return new Dictionary<string, string>
-            {
-                {"continual", "Kontinuerlig"},
-                {"daily", "Daglig"},
-                {"weekly", "Ukentlig"},
-                {"fortnightly", "Annenhver uke"},
-                {"monthly", "Månedlig"},
-                {"quarterly", "Hvert kvartal"},
-                {"biannually", "Hvert halvår"},
-                {"annually", "Årlig"},
-                {"asNeeded", "Etter behov"},
-                {"irregular", "Ujevnt"},
-                {"notPlanned", "Ikke planlagt"},
-                {"unknown", "Ukjent"},
-            };
+            //return new Dictionary<string, string>
+            //{
+            //    {"continual", "Kontinuerlig"},
+            //    {"daily", "Daglig"},
+            //    {"weekly", "Ukentlig"},
+            //    {"fortnightly", "Annenhver uke"},
+            //    {"monthly", "Månedlig"},
+            //    {"quarterly", "Hvert kvartal"},
+            //    {"biannually", "Hvert halvår"},
+            //    {"annually", "Årlig"},
+            //    {"asNeeded", "Etter behov"},
+            //    {"irregular", "Ujevnt"},
+            //    {"notPlanned", "Ikke planlagt"},
+            //    {"unknown", "Ukjent"},
+            //};
+
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB124");
         }
 
         public Dictionary<string, string> GetListOfStatusValues()
         {
-            return new Dictionary<string, string>
-            {
-                {"completed", "Fullført"},
-                {"historicalArchive", "Arkivert"},
-                {"obsolete", "Utdatert"},
-                {"onGoing", "Kontinuerlig oppdatert"},
-                {"planned", "Planlagt"},
-                {"required", "Må oppdateres"},
-                {"underDevelopment", "Under arbeid"},
-            };
+            //return new Dictionary<string, string>
+            //{
+            //    {"completed", "Fullført"},
+            //    {"historicalArchive", "Arkivert"},
+            //    {"obsolete", "Utdatert"},
+            //    {"onGoing", "Kontinuerlig oppdatert"},
+            //    {"planned", "Planlagt"},
+            //    {"required", "Må oppdateres"},
+            //    {"underDevelopment", "Under arbeid"},
+            //};
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB137");
         }
 
         public Dictionary<string, string> GetListOfClassificationValues()
         {
-            return new Dictionary<string, string>
-            {
-                {"unclassified", "Ugradert"},
-                {"restricted", "Begrenset"},
-                {"confidential", "Konfidensielt"},
-                {"secret", "Hemmelig"},
-                {"topSecret", "Topp hemmelig"},
-            };
+            //return new Dictionary<string, string>
+            //{
+            //    {"unclassified", "Ugradert"},
+            //    {"restricted", "Begrenset"},
+            //    {"confidential", "Konfidensielt"},
+            //    {"secret", "Hemmelig"},
+            //    {"topSecret", "Topp hemmelig"},
+            //};
+
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB145");
         }
 
         public Dictionary<string, string> GetListOfRestrictionValues()
         {
-            return new Dictionary<string, string>
-            {
-                {"otherRestrictions", "Andre restriksjoner"},    
-                {"restricted", "Beskyttet"},
-                {"copyright", "Kopibeskyttet"},
-                {"license", "Lisens"},
-                {"patent", "Patentert"},
-                {"patentPending", "Påvente av patent"},
-                {"trademark", "Registrert varemerke"},
-            };
+            //return new Dictionary<string, string>
+            //{
+            //    {"otherRestrictions", "Andre restriksjoner"},    
+            //    {"restricted", "Beskyttet"},
+            //    {"copyright", "Kopibeskyttet"},
+            //    {"license", "Lisens"},
+            //    {"patent", "Patentert"},
+            //    {"patentPending", "Påvente av patent"},
+            //    {"trademark", "Registrert varemerke"},
+            //};
+
+            return GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57");
+
         }
+
+        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols()
+        {
+
+            return GetCodeList("94B5A165-7176-4F43-B6EC-1063F7ADE9EA");
+
+        }
+
+
+        public Dictionary<string, string> GetListOfNationalTheme()
+        {
+            return GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
+        }
+
+        public Dictionary<string, string> GetListOfNationalInitiative()
+        {
+            return GetCodeList("37204B11-4802-44B6-80A1-519968BD072F");
+        }
+
+        public Dictionary<string, string> GetListOfInspire()
+        {
+            return GetCodeList("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6");
+        }
+        
+
+        public Dictionary<string, string> GetCodeList(string systemid)
+        {
+            Dictionary<string, string> CodeValues = new Dictionary<string, string>();
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(url);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var codeList = response["containeditems"];
+
+            foreach (var code in codeList)
+            {
+                if (!CodeValues.ContainsKey(code["codevalue"].ToString()))
+                {
+                    CodeValues.Add(code["codevalue"].ToString(), code["label"].ToString());
+                }
+            }
+
+            CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return CodeValues;
+        }
+
 
         public Dictionary<string, string> GetListOfOrganizations()
         {
