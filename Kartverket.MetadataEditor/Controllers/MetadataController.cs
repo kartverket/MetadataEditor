@@ -153,6 +153,10 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
+
+            ViewBag.VectorFormats = new SelectList(GetListOfVectorFormats(), "Key", "Value");
+            ViewBag.RasterFormats = new SelectList(GetListOfRasterFormats(), "Key", "Value");
+
             ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(), "Key", "Value");
             ViewBag.UnitsOfDistributionValues = new SelectList(GetListOfUnitsOfDistribution(), "Key", "Value", model.UnitsOfDistribution);
             ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
@@ -460,6 +464,16 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             return GetCodeList("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6");
         }
+
+        public Dictionary<string, string> GetListOfVectorFormats()
+        {
+            return GetCodeList("49202645-7137-499F-8CA3-F0F89324B107");
+        }
+
+        public Dictionary<string, string> GetListOfRasterFormats()
+        {
+            return GetCodeList("25EF67D3-974F-4B0C-841D-BDD0B29CE78B");
+        }
         
 
         public Dictionary<string, string> GetCodeList(string systemid)
@@ -475,9 +489,13 @@ namespace Kartverket.MetadataEditor.Controllers
 
             foreach (var code in codeList)
             {
-                if (!CodeValues.ContainsKey(code["codevalue"].ToString()))
+                var codevalue = code["codevalue"].ToString();
+                if (string.IsNullOrWhiteSpace(codevalue))
+                    codevalue = code["label"].ToString();
+
+                if (!CodeValues.ContainsKey(codevalue))
                 {
-                    CodeValues.Add(code["codevalue"].ToString(), code["label"].ToString());
+                    CodeValues.Add(codevalue, code["label"].ToString());
                 }
             }
 

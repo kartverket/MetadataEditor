@@ -195,45 +195,45 @@
     <script>
     $(function () {
         var valideringsUrl = '@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]';
-        if (valideringsUrl != ''){
-        $.getJSON("@ViewBag.ValideringUrl", function (result) {
+        if (valideringsUrl != '') {
+            $.getJSON("@ViewBag.ValideringUrl", function (result) {
 
-            if (result != null) {
-                if (result.length != 0) {
-                    $("#validation").css('visibility', 'visible');
-                    $("#validation").css('display', 'block');
-                    var date = new Date(result.ValidationResults[0].Timestamp);
-                    $("#validatedDate").text(date.toLocaleDateString() + ' ' + date.toLocaleTimeString());
+                if (result != null) {
+                    if (result.length != 0) {
+                        $("#validation").css('visibility', 'visible');
+                        $("#validation").css('display', 'block');
+                        var date = new Date(result.ValidationResults[0].Timestamp);
+                        $("#validatedDate").text(date.toLocaleDateString() + ' ' + date.toLocaleTimeString());
 
-                    var validationStatus = result.ValidationResults[0].Result;
-                    if (validationStatus == 1) {
-                        $("#validationStatus").text("OK");
-                        $("#validationStatus").addClass("label label-success");
+                        var validationStatus = result.ValidationResults[0].Result;
+                        if (validationStatus == 1) {
+                            $("#validationStatus").text("OK");
+                            $("#validationStatus").addClass("label label-success");
+                        }
+                        else if (validationStatus == 0) {
+                            $("#validationStatus").text("FEIL");
+                            $("#validationStatus").addClass("label label-danger");
+                        }
+                        else {
+                            $("#validationStatus").text("Ikke validert");
+                            $("#validationStatus").addClass("label label-warning");
+                        }
+
+                        var Messages = result.ValidationResults[0].Messages.split('\n');
+
+                        var message = "<ul>";
+
+                        for (m = 0; m < Messages.length; m++) {
+                            message = message + "<li>" + Messages[m] + '</li>'
+                        }
+
+                        message = message + "</ul>";
+
+                        $("#validationResults").html(message);
+
                     }
-                    else if (validationStatus == 0) {
-                        $("#validationStatus").text("FEIL");
-                        $("#validationStatus").addClass("label label-danger");
-                    }
-                    else {
-                        $("#validationStatus").text("Ikke validert");
-                        $("#validationStatus").addClass("label label-warning");
-                    }
-
-                    var Messages = result.ValidationResults[0].Messages.split('\n');
-
-                    var message = "<ul>";
-
-                    for (m = 0; m < Messages.length; m++) {
-                        message = message + "<li>" + Messages[m] + '</li>'
-                    }
-
-                    message = message + "</ul>";
-
-                    $("#validationResults").html(message);
-
                 }
-            }
-        });
+            });
         }
 
         //  add warning sign to tabs containing input fields with error.
@@ -419,16 +419,15 @@
                 $item.append($itemTypeHidden);
                 $item.append($itemUrlHidden);
             }
-            else
-            {
+            else {
                 $("#coverageImageSelectedURL").val($thumbnailUrl.val());
             }
 
             $("#coverageImageSelected").removeAttr('src');
-            $("#coverageImageSelected").attr('src',$("#coverageUri").val());
+            $("#coverageImageSelected").attr('src', $("#coverageUri").val());
             $("#coverageImageNameSelected").text($("#coverageUri").val());
 
-           
+
         });
 
 
@@ -441,8 +440,7 @@
             var itemIndex = $('li', $thumbnails).length;
 
 
-            if ($("#coverageImageSelectedType").length)
-            {
+            if ($("#coverageImageSelectedType").length) {
                 itemIndex = itemIndex + 1;
             }
 
@@ -527,54 +525,65 @@
 
                     $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
                     $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val=""></option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SOSI">SOSI</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DOS/OPeNDAP">DOS/OPeNDAP</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DXF">DXF</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Filgeodatabase">ESRI Filgeodatabase</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Geodatabase">ESRI Geodatabase</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Shape">ESRI Shape</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoJSON">GeoJSON</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GML">GML</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GPX">GPX</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KML">KML</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KMZ">KMZ</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAS">LAS</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAZ">LAZ</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (MIF/MID)">MapInfo (MIF/MID)</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (TAB)">MapInfo (TAB)</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microstation DGN">Microstation DGN</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="OLEX">OLEX</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PDF">PDF</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RDF">RDF</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="S57">S57</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SQLite/SpatialLite">SQLite/SpatialLite</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="XML">XML</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SOSI">SOSI</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DOS/OPeNDAP">DOS/OPeNDAP</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DXF">DXF</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Filgeodatabase">ESRI Filgeodatabase</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Geodatabase">ESRI Geodatabase</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Shape">ESRI Shape</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoJSON">GeoJSON</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GML">GML</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GPX">GPX</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KML">KML</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KMZ">KMZ</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAS">LAS</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAZ">LAZ</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (MIF/MID)">MapInfo (MIF/MID)</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (TAB)">MapInfo (TAB)</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microstation DGN">Microstation DGN</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="OLEX">OLEX</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PDF">PDF</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RDF">RDF</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="S57">S57</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SQLite/SpatialLite">SQLite/SpatialLite</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="XML">XML</option>');
+
+                    @foreach (var df in ViewBag.VectorFormats as SelectList)
+                    {
+                        @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
+                    }
+
                 }
 
                 else if (selectedSpatialRepresentation == "grid") {
 
                     $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
 
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc ASCII Grid">Arc ASCII Grid</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc SDE Raster">Arc SDE Raster</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="BMP">BMP</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="USGS DEM">USGS DEM</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DTED">DTED</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas ECW">Erdas ECW</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoTIFF">GeoTIFF</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GFX">GFX</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRASS raster format">GRASS raster format</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRIB">GRIB</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas IMG">Erdas IMG</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG2000">JPEG2000</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MrSID">MrSID</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="NetCDF">NetCDF</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PNG">PNG</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PPT">PPT</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="TIFF">TIFF</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc ASCII Grid">Arc ASCII Grid</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc SDE Raster">Arc SDE Raster</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="BMP">BMP</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="USGS DEM">USGS DEM</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DTED">DTED</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas ECW">Erdas ECW</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoTIFF">GeoTIFF</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GFX">GFX</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRASS raster format">GRASS raster format</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRIB">GRIB</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas IMG">Erdas IMG</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG2000">JPEG2000</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MrSID">MrSID</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="NetCDF">NetCDF</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PNG">PNG</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PPT">PPT</option>');
+                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="TIFF">TIFF</option>');
+
+                @foreach (var df in ViewBag.RasterFormats as SelectList)
+                {
+                    @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
+                }
 
                 }
 
@@ -690,7 +699,7 @@
             @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
             {
             @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
-                                    }
+                                                }
             dfHtm += '</select>';
 
             dfHtm += '</div>';
