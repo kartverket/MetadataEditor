@@ -93,6 +93,7 @@ namespace Kartverket.MetadataEditor.Models
         [AssertThat("IsValidDistributionFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
         public List<SimpleDistributionFormat> DistributionFormats { get; set; }
         public string DistributionUrl { get; set; }
+        [Required(ErrorMessage = "Distribusjons-protokoll er påkrevd")]
         public string DistributionProtocol { get; set; }
         public string DistributionName { get; set; }
         public string UnitsOfDistribution { get; set; }
