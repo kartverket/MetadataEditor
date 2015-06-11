@@ -73,18 +73,19 @@
 <hr style="border-bottom:medium 1px black;" />
 <input type="hidden" name="DistributionFormatsCount" id="DistributionFormatsCount" value="@Model.DistributionFormats.Count" />
 <input type="hidden" name="DistributionFormatsType" id="DistributionFormatsType" value="@modelDatatype" />
-<div class="form-group">
-    <label for="DistributionProtocol" class="col-sm-2 control-label">Protokoll</label>
+<div class="form-group required has-feedback">
+    <label for="DistributionProtocol" class="col-sm-2 control-label">Distribusjonstype</label>
     <div class="col-sm-7">
-        @Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg protokoll --", new { @class = "form-control" })      
+        @Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg distribusjonstype  --", new { @class = "form-control" })
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
     </div>
     <div class="col-sm-2"></div>
-        <div class="col-sm-1">
-            <p class="form-control-static">
-                <a href="#" data-help-text-id="help-text-DistributionProtocol" class="badge help-text-toggle">?</a>
-            </p>
-        </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-DistributionProtocol" class="badge help-text-toggle">?</a>
+        </p>
     </div>
+</div>
 <div class="form-group">
     <div class="col-sm-2"></div>
     <div class="col-sm-9">
