@@ -12,6 +12,11 @@ namespace Kartverket.MetadataEditor.Controllers
     [Authorize]
     public class ApiMetaController : ApiController
     {
+        /// <summary>
+        /// Upload thumbnail
+        /// </summary>
+        /// <param name="uuid">The identifier of the metadata</param>
+        /// <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
         [Route("api/uploadthumbnail/{uuid}")]
         [HttpPost]
         public HttpResponseMessage UploadThumbnail(string uuid, bool scaleImage = false)
