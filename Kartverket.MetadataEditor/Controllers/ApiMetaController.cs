@@ -85,5 +85,75 @@ namespace Kartverket.MetadataEditor.Controllers
             Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
             return newImage;
         }
+
+
+        /// <summary>
+        /// Validate metadata
+        /// </summary>
+        /// <param name="uuid">The identifier of the metadata</param>
+        [Route("api/validatemetadata/{uuid}")]
+        [HttpGet]
+        public MetaDataEntry Validate(string uuid)
+        {
+            MetaDataEntry metadata = new MetaDataEntry();
+            metadata.Errors = new List<Error>();
+
+            try
+            {
+                Kartverket.MetadataEditor.Models.MetadataService _metadataService = new Kartverket.MetadataEditor.Models.MetadataService();
+                Kartverket.MetadataEditor.Models.MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
+
+
+                if (model != null) 
+                {
+                    metadata.Uuid = model.Uuid;
+                    metadata.Title = model.Title;
+                    metadata.OrganizationName = model.ContactMetadata.Organization != null ? model.ContactMetadata.Organization : "";
+                    metadata.ContactEmail = model.ContactMetadata.Email != null ? model.ContactMetadata.Email : "";
+                }
+
+                var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
+                if (thumb.Count() == 0)
+                    ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut miniatyrbilde under grafisk bilde");
+
+                
+                Validate<Kartverket.MetadataEditor.Models.MetadataViewModel>(model);
+                var errors = ModelState.Where(n => n.Value.Errors.Count > 0).ToList();
+
+                foreach (var error in errors) {
+                    metadata.Errors.Add(new Error{ Key = error.Key.ToString(), Message = error.Value.Errors[0].ErrorMessage } );
+                }                
+
+            }
+            catch (Exception ex) {
+                metadata.Errors.Add(new Error { Key = "Error", Message = ex.Message });
+            }
+
+            if (metadata.Errors.Count > 0)
+                metadata.Status = "ERRORS";
+            else
+                metadata.Status = "OK";
+
+            return metadata;
+        
+        }
+
     }
+
+    public class MetaDataEntry 
+    {
+        public string Uuid { get; set; }
+        public string Title { get; set; }
+        public string OrganizationName { get; set; }
+        public string ContactEmail { get; set; }
+        public string Status { get; set; }
+        public List<Error> Errors { get; set; }
+    }
+
+    public class Error
+    {
+        public string Key { get; set; }
+        public string Message { get; set; }
+    }
+
 }

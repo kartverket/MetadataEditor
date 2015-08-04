@@ -143,7 +143,8 @@ namespace Kartverket.MetadataEditor.Models
                         GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(uuid)
                     };
 
-                    metadata.Add(uuid, metadataItem);
+                    if (uuid != null)
+                        metadata.Add(uuid, metadataItem);
 
 
                 }
