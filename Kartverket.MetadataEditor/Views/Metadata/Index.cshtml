@@ -81,19 +81,18 @@ else
         $("#status-" + uuid).text("Ikke validert");
         $("#status-" + uuid).addClass("label label-warning");
 
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]api/metadata/" + uuid, function (result) {
-
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]api/validatemetadata/" + uuid, function (result) {
 
             if (result != null)
             {
                 if (result.length != 0) {
-                    var validationStatus = result.ValidationResults[0].Result;
-                    if (validationStatus == 1) {
+                    var validationStatus = result.Status;
+                    if (validationStatus == "OK") {
                         $("#status-" + uuid).text("OK");
                         $("#status-" + uuid).removeClass("label label-warning");
                         $("#status-" + uuid).addClass("label label-success");
                     }
-                    else if (validationStatus == 0) {
+                    else if (validationStatus == "ERRORS") {
                         $("#status-" + uuid).text("FEIL");
                         $("#status-" + uuid).removeClass("label label-warning");
                         $("#status-" + uuid).addClass("label label-danger");
