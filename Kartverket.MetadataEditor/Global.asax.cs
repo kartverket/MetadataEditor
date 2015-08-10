@@ -10,12 +10,15 @@ using Kartverket.MetadataEditor.Util;
 using System.Web.Http;
 using System;
 using log4net;
+using Raven.Client.Document;
+using Raven.Client.Embedded;
 
 namespace Kartverket.MetadataEditor
 {
     public class MvcApplication : System.Web.HttpApplication
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
+        public static EmbeddableDocumentStore Store;
 
         protected void Application_Start()
         {
@@ -44,6 +47,9 @@ namespace Kartverket.MetadataEditor
             log4net.Config.XmlConfigurator.Configure();
 
             MvcHandler.DisableMvcResponseHeader = true;
+
+            Store = new EmbeddableDocumentStore { ConnectionStringName = "RavenDB" };
+            Store.Initialize();
 
         }
 

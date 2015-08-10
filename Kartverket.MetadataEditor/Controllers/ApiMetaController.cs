@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
-    [Authorize]
+    
     public class ApiMetaController : ApiController
     {
         /// <summary>
@@ -17,6 +17,7 @@ namespace Kartverket.MetadataEditor.Controllers
         /// </summary>
         /// <param name="uuid">The identifier of the metadata</param>
         /// <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
+        [Authorize]
         [Route("api/uploadthumbnail/{uuid}")]
         [HttpPost]
         public HttpResponseMessage UploadThumbnail(string uuid, bool scaleImage = false)
@@ -93,7 +94,7 @@ namespace Kartverket.MetadataEditor.Controllers
         /// <param name="uuid">The identifier of the metadata</param>
         [Route("api/validatemetadata/{uuid}")]
         [HttpGet]
-        public MetaDataEntry Validate(string uuid)
+        public MetaDataEntry ValidateMetadata(string uuid)
         {
             MetaDataEntry metadata = new MetaDataEntry();
             metadata.Errors = new List<Error>();
@@ -116,8 +117,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 if (thumb.Count() == 0)
                     ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut miniatyrbilde under grafisk bilde");
 
-                
-                Validate<Kartverket.MetadataEditor.Models.MetadataViewModel>(model);
+                Validate(model);
+
                 var errors = ModelState.Where(n => n.Value.Errors.Count > 0).ToList();
 
                 foreach (var error in errors) {
@@ -126,6 +127,9 @@ namespace Kartverket.MetadataEditor.Controllers
 
             }
             catch (Exception ex) {
+                if (ex.HResult == -2146233079 )
+                    metadata.Errors.Add(new Error { Key = "DistributionFormats", Message = "Distribusjonsformat er påkrevd" });
+                else
                 metadata.Errors.Add(new Error { Key = "Error", Message = ex.Message });
             }
 

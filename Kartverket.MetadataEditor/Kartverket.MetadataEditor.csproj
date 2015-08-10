@@ -92,7 +92,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\RavenDB.Database.3.0.3690\lib\net45\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB.Client.3.0.3690\lib\net45\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Database">
+      <HintPath>..\packages\RavenDB.Database.3.0.3690\lib\net45\Raven.Database.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.identitymodel.services" />
@@ -208,6 +218,7 @@
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\ServiceWfsController.cs" />
     <Compile Include="Controllers\ApiMetaController.cs" />
+    <Compile Include="Controllers\ValidatorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,6 +232,7 @@
     <Compile Include="Models\ObjectExtensions.cs" />
     <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
+    <Compile Include="Models\ValidatorService.cs" />
     <Compile Include="Models\WfsGetCapabilities10Parser.cs" />
     <Compile Include="Models\WfsGetCapabilities11Parser.cs" />
     <Compile Include="Models\WfsLayerViewModel.cs" />
@@ -434,6 +446,7 @@
     <Content Include="Views\Error\NotFound.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Validator\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

@@ -133,10 +133,13 @@ Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 
+# RavenDB files
+Database/
+CompiledIndexCache/
+
 # SQL Server files
 App_Data/*.mdf
 App_Data/*.ldf
-
 
 #LightSwitch generated files
 GeneratedArtifacts/
