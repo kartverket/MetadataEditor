@@ -27,8 +27,8 @@ namespace Kartverket.MetadataEditor.Models
 
         public void ValidateAllMetadata() 
         {
-            DeleteFiles(MvcApplication.Store);
-            GetAllMetadata();
+            //DeleteFiles(MvcApplication.Store);
+            //GetAllMetadata();
             SendEmail();
 
         }
@@ -119,77 +119,97 @@ namespace Kartverket.MetadataEditor.Models
 
         private void SendEmail()
         {
-            var session = MvcApplication.Store.OpenSession();
-            var results = session.Query<MetaDataEntry>().Take(1024).OrderBy(o => o.OrganizationName);
+            try 
+            { 
+                var session = MvcApplication.Store.OpenSession();
+                var results = session.Query<MetaDataEntry>().Take(4).OrderBy(o => o.ContactEmail);
 
-            var resultsList = results.ToList();
-            List<ErrorReport> reports = new List<ErrorReport>();
+                var resultsList = results.ToList();
+                List<ErrorReport> reports = new List<ErrorReport>();
 
-            var Organisations = resultsList.Select(o => o.OrganizationName).Distinct().ToList();
+                var Organisations = resultsList.Select(o => o.ContactEmail).Distinct().ToList();
 
-            foreach (var orgName in Organisations) 
-            {
-                var resultOrgs = resultsList.Where(r => r.OrganizationName == orgName).ToList();
-                ErrorReport errReport = new ErrorReport();
-                foreach(var resultOrg in resultOrgs)
+                foreach (var contactEmail in Organisations) 
                 {
-                    errReport.OrganizationName = resultOrg.OrganizationName;
-                    if (!errReport.Emails.Contains(resultOrg.ContactEmail))
-                        errReport.Emails.Add(resultOrg.ContactEmail);
+                    var resultOrgs = resultsList.Where(r => r.ContactEmail == contactEmail).ToList();
+                    ErrorReport errReport = new ErrorReport();
 
-                    if (!errReport.MetaData.Contains(resultOrg))
-                        errReport.MetaData.Add(resultOrg);
-
-                }
-                reports.Add(errReport);
-            }
-
-            foreach (var report in reports) { 
-
-                var message = new MailMessage();
-
-                foreach (var emailTo in report.Emails) {
-                    message.To.Add(new MailAddress(emailTo));
-                }
-
-                message.From = new MailAddress("dagolav@arkitektum.no");
-                message.Subject = report.OrganizationName + ": feil i metadata";
-                StringBuilder b = new StringBuilder();
-                b.Append("Vennligst rett opp følgende metatata som har feil:<br/>\r\n");
-                foreach (var meta in report.MetaData)
-                {
-                    b.Append("<a href=\"http://editor.geonorge.no/Metadata/Edit?uuid=" + meta.Uuid + "\">" + meta.Title + "<br/>\r\n");
-                    b.Append("Feil:<br/>\r\n");
-                    foreach (var err in meta.Errors)
+                    foreach(var resultOrg in resultOrgs)
                     {
-                        b.Append(err.Message + "<br/>\r\n");
-                    }
-                    b.Append("<hr/>\r\n");
-                }
-                message.Body = b.ToString();
-                message.IsBodyHtml = true;
+                        errReport.OrganizationName = resultOrg.OrganizationName;
+                        if (!errReport.Emails.Contains(resultOrg.ContactEmail))
+                            errReport.Emails.Add(resultOrg.ContactEmail);
 
-                //TODO Config SMTP
-                using (var smtp = new SmtpClient())
-                {
-                    //var credential = new NetworkCredential
-                    //{
-                    //    UserName = "?",  
-                    //    Password = "?"  
-                    //};
-                    //smtp.Credentials = credential;
-                    //smtp.UseDefaultCredentials = true;
-                    //smtp.Host = "?";
-                    //smtp.Port = 587;
-                    //smtp.EnableSsl = true;
-                    //smtp.Send(message);
-                    Log.Info("Send email to:" + message.To.ToString());
+                        if (!errReport.MetaData.Contains(resultOrg))
+                            errReport.MetaData.Add(resultOrg);
+
+                    }
+                    reports.Add(errReport);
+                }
+
+                foreach (var report in reports) { 
+
+                    var message = new MailMessage();
+
+                    //foreach (var emailTo in report.Emails) {
+                        //message.To.Add(new MailAddress(emailTo));
+                        //message.To.Add(new MailAddress("metadata@geonorge.no"));
+                    message.To.Add(new MailAddress("dagolav@arkitektum.no"));
+                    //}
+
+                    message.From = new MailAddress(System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]);
+                    message.Subject = "Feil i metadata (" + report.Emails[0] + ")";
+                    StringBuilder b = new StringBuilder();
+                    b.Append("Vennligst rett opp følgende metatata som har feil:<br/>\r\n");
+                    foreach (var meta in report.MetaData)
+                    {
+                        b.Append("<a href=\"http://editor.geonorge.no/Metadata/Edit?uuid=" + meta.Uuid + "\">" + meta.Title + "<br/>\r\n");
+                        b.Append("Feil:<br/>\r\n");
+                        foreach (var err in meta.Errors)
+                        {
+                            b.Append(err.Message + "<br/>\r\n");
+                        }
+                        b.Append("<hr/>\r\n");
+                    }
+                    message.Body = b.ToString();
+                    message.IsBodyHtml = true;
+
+
+                    using (var smtp = new SmtpClient())
+                    {
+                        //var credential = new NetworkCredential
+                        //{
+                        //    UserName = "?",  
+                        //    Password = "?"  
+                        //};
+                        //smtp.Credentials = credential;
+                        smtp.UseDefaultCredentials = true;
+                        smtp.Host = "mail.statkart.no";
+                        //smtp.Port = 587;
+                        //smtp.EnableSsl = true;
+                        try
+                        {
+                            smtp.Send(message);
+                        }
+                        catch (Exception excep)
+                        {
+                            Log.Error(excep.Message);
+                            Log.Error(excep.InnerException);
+                        }
+                        Log.Info("Send email to:" + message.To.ToString());
+                        Log.Info("Subject:" + message.Subject);
+                        Log.Info("Body:" + message.Body);
+                    }
+
                 }
 
             }
-
+            catch (Exception exc) 
+            {
+                Log.Error(exc.Message);
+            }
         }
-
+        
     }
 
     class ErrorReport 
