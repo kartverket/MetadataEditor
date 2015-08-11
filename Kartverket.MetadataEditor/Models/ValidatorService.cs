@@ -27,8 +27,8 @@ namespace Kartverket.MetadataEditor.Models
 
         public void ValidateAllMetadata() 
         {
-            //DeleteFiles(MvcApplication.Store);
-            //GetAllMetadata();
+            DeleteFiles(MvcApplication.Store);
+            GetAllMetadata();
             SendEmail();
 
         }
@@ -121,8 +121,10 @@ namespace Kartverket.MetadataEditor.Models
         {
             try 
             { 
+                var cfg=(System.Web.Configuration.CompilationSection) System.Configuration.ConfigurationManager.GetSection("system.web/compilation");
+
                 var session = MvcApplication.Store.OpenSession();
-                var results = session.Query<MetaDataEntry>().Take(4).OrderBy(o => o.ContactEmail);
+                var results = session.Query<MetaDataEntry>().Take(1024).OrderBy(o => o.ContactEmail);
 
                 var resultsList = results.ToList();
                 List<ErrorReport> reports = new List<ErrorReport>();
@@ -153,24 +155,26 @@ namespace Kartverket.MetadataEditor.Models
 
                     //foreach (var emailTo in report.Emails) {
                         //message.To.Add(new MailAddress(emailTo));
-                        //message.To.Add(new MailAddress("metadata@geonorge.no"));
-                    message.To.Add(new MailAddress("dagolav@arkitektum.no"));
+                        message.To.Add(new MailAddress("metadata@geonorge.no"));
                     //}
 
                     message.From = new MailAddress(System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]);
                     message.Subject = "Feil i metadata (" + report.Emails[0] + ")";
                     StringBuilder b = new StringBuilder();
-                    b.Append("Vennligst rett opp følgende metatata som har feil:<br/>\r\n");
+                    b.Append("Vennligst rett opp følgende metatata som har feil:<br/><br/>\r\n");
                     foreach (var meta in report.MetaData)
                     {
-                        b.Append("<a href=\"http://editor.geonorge.no/Metadata/Edit?uuid=" + meta.Uuid + "\">" + meta.Title + "<br/>\r\n");
-                        b.Append("Feil:<br/>\r\n");
+                        b.Append("<a href=\"http://editor.geonorge.no/Metadata/Edit?uuid=" + meta.Uuid + "\">" + meta.Title + "</a><br/>\r\n");
+                        b.Append("<b>Feil</b>:<br/>\r\n");
                         foreach (var err in meta.Errors)
                         {
                             b.Append(err.Message + "<br/>\r\n");
                         }
                         b.Append("<hr/>\r\n");
                     }
+
+                    b.Append("Mvh.<br/> Kartverket");
+
                     message.Body = b.ToString();
                     message.IsBodyHtml = true;
 
@@ -183,8 +187,18 @@ namespace Kartverket.MetadataEditor.Models
                         //    Password = "?"  
                         //};
                         //smtp.Credentials = credential;
-                        smtp.UseDefaultCredentials = true;
-                        smtp.Host = "mail.statkart.no";
+                        //smtp.UseDefaultCredentials = true;
+
+                        if (cfg.Debug)
+                        { 
+                            smtp.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+                            smtp.PickupDirectoryLocation = "C:\\temp\\Mails\\";
+                            smtp.Host = "localhost";
+                        }
+                        else 
+                        { 
+                            smtp.Host = "mail.statkart.no";
+                        }
                         //smtp.Port = 587;
                         //smtp.EnableSsl = true;
                         try
