@@ -161,7 +161,9 @@ namespace Kartverket.MetadataEditor.Models
                     message.From = new MailAddress(System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]);
                     message.Subject = "Feil i metadata (" + report.Emails[0] + ")";
                     StringBuilder b = new StringBuilder();
-                    b.Append("Vennligst rett opp følgende metatata som har feil:<br/><br/>\r\n");
+                    b.Append("Hei!<br/><br/>\r\n");
+                    b.Append("<p>Kartverket arbeider med å forbedre metadataene slik at brukere enklere kan finne fram til geografiske data</p>");
+                    b.Append("Vennligst rett opp følgende metadata som har feil/mangler:<br/><br/>\r\n");
                     foreach (var meta in report.MetaData)
                     {
                         b.Append("<a href=\"http://editor.geonorge.no/Metadata/Edit?uuid=" + meta.Uuid + "\">" + meta.Title + "</a><br/>\r\n");

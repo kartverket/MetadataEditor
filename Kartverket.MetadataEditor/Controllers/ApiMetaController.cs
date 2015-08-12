@@ -116,6 +116,26 @@ namespace Kartverket.MetadataEditor.Controllers
                 var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
                 if (thumb.Count() == 0)
                     ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut miniatyrbilde under grafisk bilde");
+                else if (thumb.Count() > 0)
+                {
+                    try
+                    {
+                        using (var client = new HttpClient())
+                        {
+                            client.DefaultRequestHeaders.Accept.Clear();
+                            string Url = thumb.Select(t => t.URL).FirstOrDefault().ToString();
+                            HttpResponseMessage response = client.GetAsync(new Uri(Url)).Result;
+                            if (response.StatusCode != HttpStatusCode.OK)
+                            {
+                                metadata.Errors.Add(new Error { Key = "ThumbnailNotFound", Message = "Feil ressurslenke til miniatyrbilde under grafisk bilde" });
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        metadata.Errors.Add(new Error { Key = "Error", Message = ex.Message });
+                    }
+                }
 
                 Validate(model);
 
