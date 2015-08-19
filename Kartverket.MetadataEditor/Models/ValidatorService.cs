@@ -198,8 +198,8 @@ namespace Kartverket.MetadataEditor.Models
                             smtp.Host = "localhost";
                         }
                         else 
-                        { 
-                            smtp.Host = "mail.statkart.no";
+                        {
+                            smtp.Host = System.Web.Configuration.WebConfigurationManager.AppSettings["SmtpHost"];
                         }
                         //smtp.Port = 587;
                         //smtp.EnableSsl = true;
