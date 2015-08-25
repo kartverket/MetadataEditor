@@ -27,9 +27,16 @@ namespace Kartverket.MetadataEditor.Models
 
         public void ValidateAllMetadata() 
         {
-            DeleteFiles(MvcApplication.Store);
-            GetAllMetadata();
-            SendEmail();
+            try 
+            { 
+                DeleteFiles(MvcApplication.Store);
+                GetAllMetadata();
+                SendEmail();
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
 
         }
 
