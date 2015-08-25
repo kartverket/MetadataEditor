@@ -183,13 +183,6 @@ namespace Kartverket.MetadataEditor.Models
 
                     using (var smtp = new SmtpClient())
                     {
-                        //var credential = new NetworkCredential
-                        //{
-                        //    UserName = "?",  
-                        //    Password = "?"  
-                        //};
-                        //smtp.Credentials = credential;
-                        //smtp.UseDefaultCredentials = true;
 
                         if (cfg.Debug)
                         { 
@@ -201,8 +194,7 @@ namespace Kartverket.MetadataEditor.Models
                         {
                             smtp.Host = System.Web.Configuration.WebConfigurationManager.AppSettings["SmtpHost"];
                         }
-                        //smtp.Port = 587;
-                        //smtp.EnableSsl = true;
+
                         try
                         {
                             smtp.Send(message);
