@@ -128,7 +128,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             try 
             { 
-                var cfg=(System.Web.Configuration.CompilationSection) System.Configuration.ConfigurationManager.GetSection("system.web/compilation");
+                //var cfg=(System.Web.Configuration.CompilationSection) System.Configuration.ConfigurationManager.GetSection("system.web/compilation");
 
                 var session = MvcApplication.Store.OpenSession();
                 var results = session.Query<MetaDataEntry>().Take(1024).OrderBy(o => o.ContactEmail);
@@ -191,16 +191,16 @@ namespace Kartverket.MetadataEditor.Models
                     using (var smtp = new SmtpClient())
                     {
 
-                        if (cfg.Debug)
-                        { 
-                            smtp.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
-                            smtp.PickupDirectoryLocation = "C:\\temp\\Mails\\";
-                            smtp.Host = "localhost";
-                        }
-                        else 
-                        {
+                        //if (cfg.Debug)
+                        //{ 
+                        //    smtp.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+                        //    smtp.PickupDirectoryLocation = "C:\\temp\\Mails\\";
+                        //    smtp.Host = "localhost";
+                        //}
+                        //else 
+                        //{
                             smtp.Host = System.Web.Configuration.WebConfigurationManager.AppSettings["SmtpHost"];
-                        }
+                        //}
 
                         try
                         {
