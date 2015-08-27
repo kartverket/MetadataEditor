@@ -147,9 +147,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             }
             catch (Exception ex) {
-                if (ex.HResult == -2146233079 )
-                    metadata.Errors.Add(new Error { Key = "DistributionFormats", Message = "Distribusjonsformat er påkrevd" });
-                else
                 metadata.Errors.Add(new Error { Key = "Error", Message = ex.Message });
             }
 

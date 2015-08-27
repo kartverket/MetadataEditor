@@ -327,8 +327,8 @@ namespace Kartverket.MetadataEditor.Models
         [Display(Name = "Contact_Organization", ResourceType = typeof(UI))]
         public string Organization { get; set; }
 
-        [Required(ErrorMessage = null)]
-        [EmailAddress(ErrorMessage = "Epost-adressen er ugyldig")]
+        [Required]
+        [EmailAddress(ErrorMessage = null)]
         public string Email { get; set; }
 
         public string Role { get; set; }
