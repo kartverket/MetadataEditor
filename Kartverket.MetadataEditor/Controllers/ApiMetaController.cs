@@ -115,11 +115,19 @@ namespace Kartverket.MetadataEditor.Controllers
 
                 var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
                 if (thumb.Count() == 0)
-                    ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut miniatyrbilde under grafisk bilde");
+                    ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut miniatyrbilde under illustrasjonsbilde");
                 else if (thumb.Count() > 0)
                 {
                     try
                     {
+                        //Disable SSL sertificate errors
+                        System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                        delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                                                System.Security.Cryptography.X509Certificates.X509Chain chain,
+                                                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                        {
+                            return true; // **** Always accept
+                        };
                         using (var client = new HttpClient())
                         {
                             client.DefaultRequestHeaders.Accept.Clear();

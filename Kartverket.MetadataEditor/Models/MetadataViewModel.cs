@@ -37,7 +37,7 @@ namespace Kartverket.MetadataEditor.Models
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
         public string Purpose { get; set; }
 
-        [Required(ErrorMessage = null)]
+        [Required(ErrorMessage = "Sammendrag er påkrevd")]
         [Display(Name = "Metadata_Abstract", ResourceType = typeof(UI))]
         public string Abstract { get; set; }
 
