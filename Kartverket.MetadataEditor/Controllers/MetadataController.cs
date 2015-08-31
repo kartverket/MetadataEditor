@@ -50,7 +50,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 string username = GetUsername();
                 string uuid = _metadataService.CreateMetadata(model, username);
                 Log.Info(string.Format("Created new metadata: {0} [uuid = {1}] for user: {2} on behalf of {3} ", model.Title, uuid, username, organization));
-                return RedirectToAction("Edit", new { uuid = uuid });
+                return RedirectToAction("Edit", new { uuid = uuid, metadatacreated = true });
             }
             return View(model);
         }
@@ -214,7 +214,11 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
 
-            ViewBag.ValidModel = TryValidateModel(model);
+            ViewBag.ValidModel = true;
+            if (Request.QueryString["metadatacreated"] == null )
+            {
+                ViewBag.ValidModel = TryValidateModel(model);
+            }
 
         }
 
