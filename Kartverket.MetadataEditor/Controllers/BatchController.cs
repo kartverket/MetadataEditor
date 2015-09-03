@@ -3,6 +3,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -21,7 +22,48 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public ActionResult BatchUpdate(FormCollection batch) 
         {
-            return Content("Not implemented"); ;
+            Log.Info("Starting batch update metadata.");
+
+            BatchData data = GetFormData(batch);
+
+            new Thread(() => new BatchService().Update(data, GetUsername())).Start();
+
+            TempData["message"] = "Batch-oppdatering er startet!";
+
+            return RedirectToAction("Index");
+        }
+
+        private BatchData GetFormData(FormCollection batch)
+        {
+            BatchData data = new BatchData();
+
+            data.dataField = batch["batchField"];
+            string dataValue = batch["batchValue"];
+            if (data.dataField == "ContactMetadata_Organization" || data.dataField == "ContactPublisher_Organization" || data.dataField == "ContactOwner_Organization")
+            {
+                dataValue = batch["OrganizationContactMetadata"];
+            }
+            else if (data.dataField == "MaintenanceFrequency")
+            {
+                dataValue = batch["MaintenanceFrequency"];
+            }
+
+            data.dataValue = dataValue;
+
+            var uuids = batch["uuids"].Split(',');
+
+            List<MetaDataEntry> mdList = new List<MetaDataEntry>();
+
+            foreach (var uuid in uuids)
+            {
+                MetaDataEntry md = new MetaDataEntry();
+                md.Uuid = uuid;
+                mdList.Add(md);
+            }
+
+            data.MetaData = mdList;
+
+            return data;
         }
 
         public ActionResult Index(MetadataMessages? message, string organization = "", string searchString = "", int offset = 1, int limit = 50)
