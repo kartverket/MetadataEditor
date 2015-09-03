@@ -1,0 +1,143 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataIndexViewModel
+
+<h1>Batch-oppdatering</h1>
+
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.StatusMessage))
+{
+    <div class="col-sm-offset-2 col-sm-7">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Feilmelding</div>
+            <div class="panel-body">@ViewBag.StatusMessage</div>
+        </div>
+    </div>
+}
+@if (Request.IsAuthenticated)
+{
+    <div class="row">
+        @{ string colSm = "5";
+         if (Model.UserIsAdmin)
+         { colSm = "8"; }
+        }
+        <div class="col-sm col-sm-@colSm">
+            <div class="panel panel-info" style="">
+                <div class="panel-heading">Søk</div>
+                <div class="panel-body">
+                    <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
+                        <div class="form-group">
+                            <label for="searchString">Fritekst søk:</label>
+                            <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
+                        </div>
+                        <div class="form-group">
+                            @if (Model.UserIsAdmin)
+                            {
+                                <label for="searchOrganization">Organisasjon:</label>
+                                <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
+                            }
+                        </div>
+                        <button type="submit" class="btn btn-primary">Søk</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+</div>
+}
+<form action="@Url.Action("BatchUpdate")" method="post">
+    @Html.Partial("_BatchItems")
+    @if (Request.IsAuthenticated)
+    {
+        if (Model.MetadataItems.Count > 0)
+        {
+            @Html.Partial("_MetadataList", Model.MetadataItems)
+            <div class="clearfix">
+                <p class="text-right">
+                    Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
+                </p>
+                <div class="pull-right btn-group">
+                    <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn btn-default btn-sm" @Model.OffsetPreviousState()>Forrige</a>
+                    <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn btn-default btn-sm" @Model.OffsetNextState()>Neste</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p>Ingen treff.</p>
+        }
+    }
+    else
+    {
+        <p style="font-style: italic">Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata.</p>
+    }
+</form>
+
+@section scripts {
+    <script>
+    $(function () {
+        $.cookie('navtabselected', null, { path: '/Metadata' });
+
+        $("#checkAll").click(function () {
+            $(".check").prop('checked', $(this).prop('checked'));
+        });
+
+    });
+
+
+    function getValidationStatus(uuid) {
+
+        $("#status-" + uuid).text("Ikke validert");
+        $("#status-" + uuid).addClass("label label-warning");
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]api/validatemetadata/" + uuid, function (result) {
+
+            if (result != null)
+            {
+                if (result.length != 0) {
+                    var validationStatus = result.Status;
+                    if (validationStatus == "OK") {
+                        $("#status-" + uuid).text("OK");
+                        $("#status-" + uuid).removeClass("label label-warning");
+                        $("#status-" + uuid).addClass("label label-success");
+                    }
+                    else if (validationStatus == "ERRORS") {
+                        $("#status-" + uuid).text("FEIL");
+                        $("#status-" + uuid).removeClass("label label-warning");
+                        $("#status-" + uuid).addClass("label label-danger");
+                        var errorMsg = "";
+                        for (e = 0; e < result.Errors.length; e++)
+                        {
+                            errorMsg = errorMsg + result.Errors[e].Message + "</br>";
+                        }
+                        $("#statusMsg-" + uuid).html(errorMsg);
+                    }
+                }
+            }
+        });
+    };
+
+    function getAdditionalData(uuid) {
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+            if (result.length != 0) {
+
+                var DistributionProtocol = result.Results[0].DistributionProtocol;
+                if (DistributionProtocol.indexOf("WFS") > -1)
+                {
+                    $("#type-" + uuid).text("WFS tjeneste");
+                }
+
+            }
+        });
+    }
+
+    </script>
+}
+
+<script>
+    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
+    {
+        @:for (v = 0; v < validationUUIDs.length; v++) {
+        @:    getValidationStatus(validationUUIDs[v]);
+        @:}
+    }
+</script>

@@ -1,0 +1,32 @@
+﻿@model List<Kartverket.MetadataEditor.Models.MetadataItemViewModel>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <div>
+                        <input type="checkbox" class="check" id="checkAll"> Velg alle
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>@Resources.UI.Metadata_Title</th>
+                <th>@Resources.UI.Metadata_Organization</th>
+                <th style="width: 15%">@Resources.UI.Metadata_Type</th>
+                <th style="width: 10%">
+                    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
+                    {
+                        @Resources.UI.Metadata_Status
+                    }
+                </th>
+                <th style="width: 25%">Feilmelding</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var metadata in Model)
+            {
+                @Html.Partial("_MetadataItem", metadata)
+            }
+        </tbody>
+    </table>

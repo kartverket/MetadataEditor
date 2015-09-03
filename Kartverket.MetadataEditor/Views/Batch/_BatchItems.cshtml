@@ -1,0 +1,79 @@
+﻿<div class="col-sm col-sm-12" style="left: -13px">
+    <div class="panel panel-info" >
+        <div class="panel-heading">Hva ønsker du å oppdatere?</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label>Metadata felt:</label>
+                <select name="batchField" id="batchFieldID" class="form-control" onchange="displayInput(this.value);">
+                    <option value="">Vennligst velg</option>
+                    @*@if (Model.UserIsAdmin)
+            {*@
+                    <option value="ContactMetadata_Organization">Metadatakontakt organisasjon</option>
+                    }
+                    <option value="ContactMetadata_Name">Metadatakontakt navn</option>
+                    <option value="ContactMetadata_Email">Metadatakontakt e-post</option>
+                    @*@if (Model.UserIsAdmin)
+            {*@
+                    <option value="ContactPublisher_Organization">Teknisk kontakt organisasjon</option>
+                    //}
+                    <option value="ContactPublisher_Name">Teknisk kontakt navn</option>
+                    <option value="ContactPublisher_Email">Teknisk kontakt e-post</option>
+                    @*@if (Model.UserIsAdmin)
+            {*@
+                    <option value="ContactOwner_Organization">Faglig kontakt organisasjon</option>
+                    @*}*@
+                    <option value="ContactOwner_Name">Faglig kontakt navn</option>
+                    <option value="ContactOwner_Email">Faglig kontakt e-post</option>
+
+                    <option value="MaintenanceFrequency">Oppdateringshyppighet</option>
+                </select>
+            </div>
+            <div class="form-group" >
+                <label>Ny verdi: </label>
+                <input type="text" id="batchValueText" name="batchValue" class="form-control" />
+                @Html.DropDownList("OrganizationContactMetadata", ViewBag.OrganizationContactMetadata as SelectList, String.Empty, new { @class = "form-control" })
+                @Html.DropDownList("MaintenanceFrequency", ViewBag.MaintenanceFrequency as SelectList, String.Empty, new { @class = "form-control" })
+            </div>
+            <div class="form-group text-right">
+                <input type="submit" class="btn btn-primary" value="Oppdater valgte metadata">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('OrganizationContactMetadata').style.visibility = "hidden";
+    document.getElementById('OrganizationContactMetadata').style.display = "none";
+
+    document.getElementById('MaintenanceFrequency').style.visibility = "hidden";
+    document.getElementById('MaintenanceFrequency').style.display = "none";
+
+    function displayInput(selectedInput)
+    {
+        document.getElementById('batchValueText').style.visibility = "hidden";
+        document.getElementById('batchValueText').style.display = "none";
+
+        document.getElementById('OrganizationContactMetadata').style.visibility = "hidden";
+        document.getElementById('OrganizationContactMetadata').style.display = "none";
+
+        document.getElementById('MaintenanceFrequency').style.visibility = "hidden";
+        document.getElementById('MaintenanceFrequency').style.display = "none";
+
+        if (selectedInput == "ContactMetadata_Organization" || selectedInput == "ContactPublisher_Organization" || selectedInput == "ContactOwner_Organization")
+        {
+            document.getElementById('OrganizationContactMetadata').style.display = "block";
+            document.getElementById('OrganizationContactMetadata').style.visibility = "visible";
+
+        }
+        else if (selectedInput == "MaintenanceFrequency")
+        {
+            document.getElementById('MaintenanceFrequency').style.visibility = "visible";
+            document.getElementById('MaintenanceFrequency').style.display = "block";
+        }
+        else
+        {
+            document.getElementById('batchValueText').style.visibility = "visible";
+            document.getElementById('batchValueText').style.display = "block";
+
+        }
+    }
+</script>

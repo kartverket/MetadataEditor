@@ -1,0 +1,39 @@
+﻿@using Kartverket.MetadataEditor.Helpers
+@model Kartverket.MetadataEditor.Models.MetadataItemViewModel
+
+@{
+    string css = "";
+    string relationIcon = "";
+    if (ViewData.ContainsKey("Relation")) {
+        css = "relation";
+        relationIcon = "<span class=\"relation-icon\"><img src=\"" + Url.Content("~/Content/arrow-down-right.png") + "\" width=\"9\" height=\"17\" alt=\"pil ned og til høyre.\"></span>";
+    }   
+}
+<script>validationUUIDs[validationUUIDs.length] = '@Model.Uuid';</script>
+<tr @css>
+    <td>
+        <input type="checkbox" class="check" name="uuids" value="@Model.Uuid">
+    </td>
+    <td>
+        @Html.Raw(relationIcon)
+        <a href="@Url.Action("../Metadata/Edit", new { uuid=@Model.Uuid })">
+            @Model.Title
+        </a>
+    </td>
+    <td>@Model.Organization</td>
+    <th>
+        <div id="type-@Model.Uuid" class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
+    </th>
+    <td>
+        <span id="status-@Model.Uuid"></span>
+    </td>
+    <td>
+        <div id="statusMsg-@Model.Uuid">
+
+        </div>
+    </td>
+</tr>
+@if (Model.Type == "service" && !string.IsNullOrWhiteSpace(Model.Relation)) 
+{
+<script>getAdditionalData('@Model.Uuid')</script>
+}

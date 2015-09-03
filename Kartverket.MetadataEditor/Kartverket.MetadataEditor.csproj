@@ -213,6 +213,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\BatchController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\MetadataController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
@@ -447,6 +448,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Validator\Index.cshtml" />
+    <Content Include="Views\Batch\Index.cshtml" />
+    <Content Include="Views\Batch\_MetadataList.cshtml" />
+    <Content Include="Views\Batch\_MetadataItem.cshtml" />
+    <Content Include="Views\Batch\_BatchItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
