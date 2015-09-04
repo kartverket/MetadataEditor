@@ -25,10 +25,52 @@ namespace Kartverket.MetadataEditor.Models
                 foreach (var md in data.MetaData)
                 {
                     MetadataViewModel metadata = _metadataService.GetMetadataModel(md.Uuid);
-                    if (data.dataField == "ContactMetadata_Email")
+
+                    //Metadatakontakt
+                    if (data.dataField == "ContactMetadata_Organization")
+                    {
+                        metadata.ContactMetadata.Organization = data.dataValue;
+                    }
+                    else if (data.dataField == "ContactMetadata_Name")
+                    {
+                        metadata.ContactMetadata.Name = data.dataValue;
+                    }
+                    else if (data.dataField == "ContactMetadata_Email")
                     {
                         metadata.ContactMetadata.Email = data.dataValue;
                     }
+                    //Teknisk kontakt
+                    else if (data.dataField == "ContactPublisher_Organization")
+                    {
+                        metadata.ContactPublisher.Organization = data.dataValue;
+                    }
+                    else if (data.dataField == "ContactPublisher_Name")
+                    {
+                        metadata.ContactPublisher.Name = data.dataValue;
+                    }
+                    else if (data.dataField == "ContactPublisher_Email")
+                    {
+                        metadata.ContactPublisher.Email = data.dataValue;
+                    }
+                    //Faglig kontakt
+                    else if (data.dataField == "ContactOwner_Organization")
+                    {
+                        metadata.ContactOwner.Organization = data.dataValue;
+                    }
+                    else if (data.dataField == "ContactOwner_Name")
+                    {
+                        metadata.ContactOwner.Name = data.dataValue;
+                    }
+                    else if (data.dataField == "ContactOwner_Email")
+                    {
+                        metadata.ContactOwner.Email = data.dataValue;
+                    }
+                    //Oppdateringshyppighet
+                    else if (data.dataField == "MaintenanceFrequency")
+                    {
+                        metadata.MaintenanceFrequency = data.dataValue;
+                    }
+
 
                     _metadataService.SaveMetadataModel(metadata, username);
                     
