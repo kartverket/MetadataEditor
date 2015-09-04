@@ -73,6 +73,8 @@ namespace Kartverket.MetadataEditor.Models
 
 
                     _metadataService.SaveMetadataModel(metadata, username);
+
+                    Log.Info("Batch update uuid: " + metadata.Uuid + ", " + data.dataField + ": " + data.dataValue);
                     
                 }
               
