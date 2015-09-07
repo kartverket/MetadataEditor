@@ -362,6 +362,7 @@
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.min.js" />
+    <Content Include="Scripts\jquery.autosize.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Scripts\jQuery.FileUpload\cors\jquery.postmessage-transport.js" />

@@ -22,6 +22,7 @@ namespace Kartverket.MetadataEditor
                 "~/Scripts/jQuery.FileUpload/jquery.fileupload.js",
                 "~/Scripts/bootstrap-filestyle.js",
                 "~/Scripts/geonorge-editor.js",
+                "~/Scripts/jquery.autosize.js",
                 "~/Scripts/jquery.cookie.js"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
