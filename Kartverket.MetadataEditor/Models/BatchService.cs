@@ -22,60 +22,77 @@ namespace Kartverket.MetadataEditor.Models
         {
             try
             {
-                foreach (var md in data.MetaData)
+                if (!string.IsNullOrWhiteSpace(data.dataField) && !string.IsNullOrWhiteSpace(data.dataValue)) 
                 {
-                    MetadataViewModel metadata = _metadataService.GetMetadataModel(md.Uuid);
 
-                    //Metadatakontakt
-                    if (data.dataField == "ContactMetadata_Organization")
+                    foreach (var md in data.MetaData)
                     {
-                        metadata.ContactMetadata.Organization = data.dataValue;
-                    }
-                    else if (data.dataField == "ContactMetadata_Name")
-                    {
-                        metadata.ContactMetadata.Name = data.dataValue;
-                    }
-                    else if (data.dataField == "ContactMetadata_Email")
-                    {
-                        metadata.ContactMetadata.Email = data.dataValue;
-                    }
-                    //Teknisk kontakt
-                    else if (data.dataField == "ContactPublisher_Organization")
-                    {
-                        metadata.ContactPublisher.Organization = data.dataValue;
-                    }
-                    else if (data.dataField == "ContactPublisher_Name")
-                    {
-                        metadata.ContactPublisher.Name = data.dataValue;
-                    }
-                    else if (data.dataField == "ContactPublisher_Email")
-                    {
-                        metadata.ContactPublisher.Email = data.dataValue;
-                    }
-                    //Faglig kontakt
-                    else if (data.dataField == "ContactOwner_Organization")
-                    {
-                        metadata.ContactOwner.Organization = data.dataValue;
-                    }
-                    else if (data.dataField == "ContactOwner_Name")
-                    {
-                        metadata.ContactOwner.Name = data.dataValue;
-                    }
-                    else if (data.dataField == "ContactOwner_Email")
-                    {
-                        metadata.ContactOwner.Email = data.dataValue;
-                    }
-                    //Oppdateringshyppighet
-                    else if (data.dataField == "MaintenanceFrequency")
-                    {
-                        metadata.MaintenanceFrequency = data.dataValue;
+                        bool metadataUpdated = false;
+
+                        MetadataViewModel metadata = _metadataService.GetMetadataModel(md.Uuid);
+
+                        //Metadatakontakt
+                        if (data.dataField == "ContactMetadata_Organization")
+                        {
+                            metadata.ContactMetadata.Organization = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        else if (data.dataField == "ContactMetadata_Name")
+                        {
+                            metadata.ContactMetadata.Name = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        else if (data.dataField == "ContactMetadata_Email")
+                        {
+                            metadata.ContactMetadata.Email = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        //Teknisk kontakt
+                        else if (data.dataField == "ContactPublisher_Organization")
+                        {
+                            metadata.ContactPublisher.Organization = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        else if (data.dataField == "ContactPublisher_Name")
+                        {
+                            metadata.ContactPublisher.Name = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        else if (data.dataField == "ContactPublisher_Email")
+                        {
+                            metadata.ContactPublisher.Email = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        //Faglig kontakt
+                        else if (data.dataField == "ContactOwner_Organization")
+                        {
+                            metadata.ContactOwner.Organization = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        else if (data.dataField == "ContactOwner_Name")
+                        {
+                            metadata.ContactOwner.Name = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        else if (data.dataField == "ContactOwner_Email")
+                        {
+                            metadata.ContactOwner.Email = data.dataValue;
+                            metadataUpdated = true;
+                        }
+                        //Oppdateringshyppighet
+                        else if (data.dataField == "MaintenanceFrequency")
+                        {
+                            metadata.MaintenanceFrequency = data.dataValue;
+                            metadataUpdated = true;
+                        }
+
+                        if (metadataUpdated) 
+                        { 
+                        _metadataService.SaveMetadataModel(metadata, username);
+                        Log.Info("Batch update uuid: " + metadata.Uuid + ", " + data.dataField + ": " + data.dataValue);
+                        }
                     }
 
-
-                    _metadataService.SaveMetadataModel(metadata, username);
-
-                    Log.Info("Batch update uuid: " + metadata.Uuid + ", " + data.dataField + ": " + data.dataValue);
-                    
                 }
               
             }
@@ -84,6 +101,53 @@ namespace Kartverket.MetadataEditor.Models
                 Log.Error(ex.Message);
             }
 
+        }
+
+        public void UpdateAll(BatchData data, string username, string organization)
+        {
+            try
+            {
+                MetadataIndexViewModel model = new MetadataIndexViewModel();
+                int offset = 1;
+                int limit = 50;
+                model = _metadataService.SearchMetadata(organization, "", offset, limit);
+                model.UserOrganization = organization;
+
+                foreach (var item in model.MetadataItems)
+                {
+                    data.MetaData.Add(new MetaDataEntry { Uuid = item.Uuid });
+                }
+
+                Update(data, username);
+
+                int numberOfRecordsMatched = model.TotalNumberOfRecords;
+                int next = model.OffsetNext();
+
+                while (next < numberOfRecordsMatched)
+                {
+                    data.MetaData = null; data.MetaData = new List<MetaDataEntry>();
+
+                    model = _metadataService.SearchMetadata(organization, "", next, limit);
+                    model.UserOrganization = organization;
+
+                    foreach (var item in model.MetadataItems)
+                    {
+                        data.MetaData.Add(new MetaDataEntry { Uuid = item.Uuid });
+                    }
+
+                    Update(data, username);
+
+                    next = model.OffsetNext();
+                    if (next == 0) break;
+                }
+
+ 
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
         }
     }
 

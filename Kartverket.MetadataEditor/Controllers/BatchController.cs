@@ -22,19 +22,46 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public ActionResult BatchUpdate(FormCollection batch) 
         {
-            Log.Info("Starting batch update metadata.");
+            if (User.Identity.IsAuthenticated)
+            {
+                Log.Info("Starting batch update metadata.");
 
-            BatchData data = GetFormData(batch);
+                BatchData data = GetFormData(batch);
 
-            new Thread(() => new BatchService().Update(data, GetUsername())).Start();
+                if (!string.IsNullOrWhiteSpace(Request.Form["updateAll"])) {
 
-            TempData["message"] = "Batch-oppdatering er startet!";
+                    if (data != null)
+                    {
+                        new Thread(() => new BatchService().UpdateAll(data, GetUsername(), GetSecurityClaim("organization"))).Start();
+                        TempData["message"] = "Batch-oppdatering er startet og kjører i bakgrunnen!";
+                    }
+                    else
+                    {
+                        TempData["message"] = "Ingen oppdatering valgt";
+                    }
+            
+                }
+                else 
+                { 
+                    if (data != null)
+                    {
+                        new Thread(() => new BatchService().Update(data, GetUsername())).Start();
+                        TempData["message"] = "Batch-oppdatering er startet og kjører i bakgrunnen!";
+                    }
+                    else 
+                    {
+                        TempData["message"] = "Ingen oppdatering valgt";
+                    }
+                }
 
-            return RedirectToAction("Index");
+            }
+
+                return RedirectToAction("Index");
         }
 
         private BatchData GetFormData(FormCollection batch)
         {
+
             BatchData data = new BatchData();
 
             data.dataField = batch["batchField"];
@@ -50,7 +77,17 @@ namespace Kartverket.MetadataEditor.Controllers
 
             data.dataValue = dataValue;
 
-            var uuids = batch["uuids"].Split(',');
+            if (string.IsNullOrWhiteSpace(data.dataField) || string.IsNullOrWhiteSpace(data.dataValue))
+                return null;
+
+            List<string> uuids = new List<string>();
+            if (batch["uuids"] != null) 
+            { 
+            uuids = batch["uuids"].Split(',').ToList();
+            }
+
+            if (string.IsNullOrWhiteSpace(Request.Form["updateAll"]) && uuids.Count == 0)
+                return null;
 
             List<MetaDataEntry> mdList = new List<MetaDataEntry>();
 
@@ -66,7 +103,7 @@ namespace Kartverket.MetadataEditor.Controllers
             return data;
         }
 
-        public ActionResult Index(MetadataMessages? message, string organization = "", string searchString = "", int offset = 1, int limit = 50)
+        public ActionResult Index(MetadataMessages? message, string organization = "", string searchString = "", int offset = 1, int limit = 100)
         {
             ViewBag.StatusMessage =
                 message == MetadataMessages.InvalidUuid ? Resources.UI.Error_InvalidUuid
