@@ -38,6 +38,14 @@
                 <input type="submit" class="btn btn-primary" value="Oppdater valgte metadata">
                 <input type="submit" class="btn btn-primary" name="updateAll" value="Oppdater alle mine metadata">
             </div>
+            @if (TempData["Message"] != null)
+            {
+            <div class="form-group text-right">
+                <div class="alert alert-info">
+                    @TempData["Message"]
+                </div>
+            </div>
+            }
         </div>
     </div>
 </div>

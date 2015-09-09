@@ -34,11 +34,11 @@ namespace Kartverket.MetadataEditor.Controllers
                     if (data != null)
                     {
                         new Thread(() => new BatchService().UpdateAll(data, GetUsername(), GetSecurityClaim("organization"))).Start();
-                        TempData["message"] = "Batch-oppdatering er startet og kjører i bakgrunnen!";
+                        TempData["message"] = "Batch-oppdatering: " + data.dataField  +" = "  + data.dataValue + ", er startet og kjører i bakgrunnen!";
                     }
                     else
                     {
-                        TempData["message"] = "Ingen oppdatering valgt";
+                        TempData["failure"] = "Ingen oppdatering valgt";
                     }
             
                 }
@@ -47,11 +47,11 @@ namespace Kartverket.MetadataEditor.Controllers
                     if (data != null)
                     {
                         new Thread(() => new BatchService().Update(data, GetUsername())).Start();
-                        TempData["message"] = "Batch-oppdatering er startet og kjører i bakgrunnen!";
+                        TempData["message"] = "Batch-oppdatering: " + data.dataField + " = " + data.dataValue + ", er startet og kjører i bakgrunnen!";
                     }
                     else 
                     {
-                        TempData["message"] = "Ingen oppdatering valgt";
+                        TempData["failure"] = "Ingen oppdatering valgt";
                     }
                 }
 
