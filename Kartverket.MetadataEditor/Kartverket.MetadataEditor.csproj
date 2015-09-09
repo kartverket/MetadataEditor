@@ -216,6 +216,7 @@
     <Compile Include="Controllers\BatchController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\MetadataController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\ServiceWfsController.cs" />
     <Compile Include="Controllers\ApiMetaController.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Models\MetadataViewModel.cs" />
     <Compile Include="Models\NotFoundModel.cs" />
     <Compile Include="Models\ObjectExtensions.cs" />
+    <Compile Include="Models\ReportService.cs" />
     <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
     <Compile Include="Models\ValidatorService.cs" />
@@ -454,6 +456,7 @@
     <Content Include="Views\Batch\_MetadataList.cshtml" />
     <Content Include="Views\Batch\_MetadataItem.cshtml" />
     <Content Include="Views\Batch\_BatchItems.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

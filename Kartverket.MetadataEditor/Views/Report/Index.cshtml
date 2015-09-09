@@ -1,0 +1,174 @@
+﻿@model List<Kartverket.MetadataEditor.Models.MetadataViewModel>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Report1</title>
+</head>
+<body>
+    <table border="1" cellpadding="2" cellspacing="2">
+        <thead>
+            <tr>
+                <th>Datasettnavn</th>
+                <th>MetadataID</th>
+                <th>Etat</th>
+                <th>DOK</th>
+                <th>Link</th>
+                <th>Basis geodata</th>
+                <th>Energi</th>
+                <th>Forurensning</th>
+                <th>Friluftsliv</th>
+                <th>Geologi</th>
+                <th>Kulturminner</th>
+                <th>Kyst / Fiskeri</th>
+                <th>Landbruk</th>
+                <th>Landskap</th>
+                <th>Natur</th>
+                <th>Plan</th>
+                <th>Samferdsel</th>
+                <th>Samfunnssikkerhet</th>
+            </tr>
+        </thead>
+        <tbody>
+           @{ var metadataList = Model.ToList();}
+            @foreach (var metadata in metadataList)
+            { 
+            <tr>
+                <td>@metadata.Title</td>
+                <td>@metadata.Uuid</td>
+                <td>@metadata.ContactMetadata.Organization</td>
+                <td>
+                    @foreach (var ni in metadata.KeywordsNationalInitiative.ToList())
+                    {
+                        if (ni.ToString() == "Det offentlige kartgrunnlaget") 
+                        { 
+                        <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>https://kartkatalog.geonorge.no/metadata/uuid/@metadata.Uuid</td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Basis geodata")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Energi")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Forurensning")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Friluftsliv")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Geologi")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Kulturminner")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Kyst / Fiskeri")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Landbruk")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Landskap")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Natur")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Plan")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Samferdsel")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var nt in metadata.KeywordsNationalTheme.ToList())
+                    {
+                        if (nt.ToString() == "Samfunnssikkerhet")
+                        {
+                            <span>JA</span>
+                        }
+                    }
+                </td>
+            </tr>
+           }
+        </tbody>
+    </table>
+</body>
+</html>
