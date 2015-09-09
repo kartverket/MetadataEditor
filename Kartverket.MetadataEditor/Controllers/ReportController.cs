@@ -10,6 +10,7 @@ namespace Kartverket.MetadataEditor.Controllers
     public class ReportController : Controller
     {
         // GET: Report
+        [Authorize]
         public ActionResult Index()
         {
             List<MetadataViewModel> metadata = new ReportService().Report1();

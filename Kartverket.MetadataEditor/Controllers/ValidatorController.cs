@@ -21,6 +21,7 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ValidateAll()
         {
             Log.Info("Start validating all metadata.");

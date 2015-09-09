@@ -20,6 +20,7 @@ namespace Kartverket.MetadataEditor.Controllers
             _metadataService = new MetadataService();
         }
 
+        [Authorize]
         public ActionResult BatchUpdate(FormCollection batch) 
         {
             if (User.Identity.IsAuthenticated)
