@@ -117,7 +117,7 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationTitle { get; set; }
         //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
-        [Required (ErrorMessage="Oppdateringshyppighet område er påkrevd")]
+        [Required (ErrorMessage="Oppdateringshyppighet er påkrevd")]
         public string MaintenanceFrequency { get; set; }
         //[RequiredIf("!IsService()", ErrorMessage = "Målestokktall er påkrevd")]
         public string ResolutionScale { get; set; }
