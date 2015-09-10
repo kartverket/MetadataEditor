@@ -781,6 +781,24 @@
             $("input#BoundingBoxWest").val($selectedCounty.data('west'));
         });
 
+        $("#bboxCounty").click(function (event) {
+            event.preventDefault();
+            var $selectedCounty = $counties.find('option:selected');
+            $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+            $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+            $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+            $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+        });
+
+        $("#bboxState").click(function (event) {
+            event.preventDefault();
+            var $selectedCounty = $counties.find('option:selected');
+            $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+            $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+            $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+            $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+        });
+
         // Check date not in future
         $("#DateUpdated").change(function (event) {
             event.preventDefault();

@@ -134,38 +134,6 @@
     <div class="panel-group">
         <div class="panel-heading bg-info">Angi avgrensningsområde:</div>
         <div class="panel-body">
-            <div class="row">
-                <div class="form-group col-sm-6 required has-feedback">
-                    <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
-                    <div class="col-sm-4">
-                        @Html.EditorFor(m => m.BoundingBoxNorth)
-                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                    </div>
-                </div>
-                <div class="form-group col-sm-6 required has-feedback">
-                    <label class="col-sm-2 control-label">Øst</label>
-                    <div class="col-sm-4">
-                        @Html.EditorFor(m => m.BoundingBoxEast)
-                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-6 required has-feedback">
-                    <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
-                    <div class="col-sm-4">
-                        @Html.EditorFor(m => m.BoundingBoxSouth)
-                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                    </div>
-                </div>
-                <div class="form-group col-sm-6 required has-feedback">
-                    <label class="col-sm-2 control-label">Vest</label>
-                    <div class="col-sm-4">
-                        @Html.EditorFor(m => m.BoundingBoxWest)
-                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                    </div>
-                </div>
-            </div>
             <div class="form-group">
                 <label for="state" class="control-label col-sm-3">Velg fast område:</label>
                 <div class="col-sm-2">
@@ -200,7 +168,7 @@
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn btn-default" id="bboxPrefill">Bruk</button>
+                    <button class="btn btn-default hidden" id="bboxPrefill">Angi</button>
                 </div>
             </div>
             <div class="form-group">
@@ -208,7 +176,7 @@
                     <div class="col-sm-3 col-sm-offset-1">
                         <label for="state" class="control-label">Eller angi området i kartet:</label>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 col-sm-pull-1">
                         <a href="#" role="button" data-toggle="modal" id="norgeskartLink" data-target="#norgeskart" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-globe"></span> Angi i kartet</a>
                     </div>
                     <div class="col-sm-1">
@@ -217,211 +185,248 @@
                         </div>
                     </div>
                     <div class="col-sm-8"></div>
-                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-        @{bool coverageImageFound = false;}
-        @if (Model.IsDataset() || Model.IsDatasetSeries())
-        {
-            <div class="panel-group">
-                <div class="panel-heading bg-info">Angi dekningskart:</div>
-                <div class="panel-body">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-4 col-sm-offset-4 control-label">Valgte koordinater:</label>
+                </div>
+            </div>
                     <div class="row">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Velg type dekningskart:</label>
-                            <div class="col-sm-9">
-                                <select id="coverageType" name="coverageType" class="form-control" onchange="showCoverageType(this.value);">
-                                    <option value="webpage">Webside</option>
-                                    <option value="mapservice">Karttjenestelag</option>
-                                    <option value="imageCoverage">Bildefil</option>
-                                </select>
+                        <div class="form-group col-sm-6 required has-feedback">
+                            <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
+                            <div class="col-sm-4">
+                                @Html.EditorFor(m => m.BoundingBoxNorth)
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                             </div>
                         </div>
-                        <div class="form-group" id="coverageWebsite">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-9">
-                                <label class="control-label" for="CoverageUrl">Webside:</label>
-                                @Html.EditorFor(m => m.CoverageUrl, new { htmlAttributes = new { @class = "form-control" } })
-                            </div>
-                        </div>
-                        <div class="form-group" id="coverageServiceMap">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-9">
-
-                                <label class="control-label" for="coveragePath">Url til tjeneste:</label><input class="form-control" type="text" id="coveragePath" name="coveragePath" onchange="setCoverage()" />
-                                <input type="radio" value="WMS" id="WMSid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />WMS
-                                <input type="radio" value="WFS" id="WFSid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />WFS
-                                <input type="radio" value="GeoJSON" id="GeoJSONid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />GeoJSON
-                                <br />
-                                <label class="control-label" for="coverageLayer">Navn på kartlag:</label><input class="form-control" type="text" id="coverageLayer" name="coverageLayer" onchange="setCoverage()" />
-
-                            </div>
-                        </div>
-                        <div class="form-group" id="imageCoverage">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-9">
-
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Angi bildefil</label>
-                                    <div class="col-sm-8">
-                                        <div class="form-group" id="uploadCoverage">
-                                            <div class="col-sm-7">
-                                                <input type="file" id="uploadCoverageFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';" />
-                                            </div>
-                                            <div class="col-sm-3 hidden">
-                                                <label class="control-label"><input type="checkbox" id="uploadScaleCoverage" name="scaleImage" /> Skalering til miniatyrbilde</label>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <button class="btn btn-default" type="submit" id="uploadCoverageButton" onclick="return checkIfUrlReference();">Last opp</button>
-                                            </div>
-                                        </div>
-                                        <div id="uploadCoverageStatus"></div>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group" style="display: none; visibility: hidden;">
-                                    <label class="col-sm-2 control-label">Eller angi URL</label>
-                                    <div class="col-sm-5">
-                                        <input id="coverageUri" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
-                                    </div>
-                                    <div class="col-sm-3">
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <button class="btn btn-default" style="display: none; visibility:hidden;" id="coverageAdd"></button>
-                                        
-                                        <script>
-                                            function checkIfUrlReference() {
-                                                if (document.getElementById('coverageUri').value != '' && document.getElementById('uploadMode').value == 'reference') {
-                                                    document.getElementById('coverageAdd').click();
-                                                    return false;
-                                                }
-                                            }
-                                        </script>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <ul id="thumbnailsCoverage">
-                                    @for (int i = 0; i < Model.Thumbnails.Count; i++)
-                                    {
-                                    var thumbnail = Model.Thumbnails[i];
-                                    if (thumbnail.Type == "dekningsoversikt")
-                                        {
-                                        coverageImageFound = true;
-                                        <li class="thumbnail clearfix">
-                                            <input type="hidden" id="coverageImageSelectedType" name="Thumbnails[@i].Type" value="@thumbnail.Type" />
-                                            <input type="hidden" id="coverageImageSelectedURL" name="Thumbnails[@i].URL" value="@thumbnail.URL" />
-                                            <img id="coverageImageSelected" src="@thumbnail.URL" width="200" class="pull-left" style="margin-right: 10px;" />
-                                            <p><strong>Valgt dekningskart:</strong></p>
-                                            <p><strong>URL:</strong> <span id="coverageImageNameSelected"><small>@thumbnail.URL</small></span></p>
-                                        </li>
-                                        break;
-                                        }
-                                    }    
-                                    </ul>
-
-                                </div>
+                        <div class="form-group col-sm-6 required has-feedback">
+                            <label class="col-sm-2 control-label">Øst</label>
+                            <div class="col-sm-4">
+                                @Html.EditorFor(m => m.BoundingBoxEast)
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6 required has-feedback">
+                            <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
+                            <div class="col-sm-4">
+                                @Html.EditorFor(m => m.BoundingBoxSouth)
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 required has-feedback">
+                            <label class="col-sm-2 control-label">Vest</label>
+                            <div class="col-sm-4">
+                                @Html.EditorFor(m => m.BoundingBoxWest)
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            @{bool coverageImageFound = false;}
+            @if (Model.IsDataset() || Model.IsDatasetSeries())
+            {
+                <div class="panel-group">
+                    <div class="panel-heading bg-info">Angi dekningskart:</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Velg type dekningskart:</label>
+                                <div class="col-sm-9">
+                                    <select id="coverageType" name="coverageType" class="form-control" onchange="showCoverageType(this.value);">
+                                        <option value="webpage">Webside</option>
+                                        <option value="mapservice">Karttjenestelag</option>
+                                        <option value="imageCoverage">Bildefil</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="coverageWebsite">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-9">
+                                    <label class="control-label" for="CoverageUrl">Webside:</label>
+                                    @Html.EditorFor(m => m.CoverageUrl, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="form-group" id="coverageServiceMap">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-9">
+
+                                    <label class="control-label" for="coveragePath">Url til tjeneste:</label><input class="form-control" type="text" id="coveragePath" name="coveragePath" onchange="setCoverage()" />
+                                    <input type="radio" value="WMS" id="WMSid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />WMS
+                                    <input type="radio" value="WFS" id="WFSid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />WFS
+                                    <input type="radio" value="GeoJSON" id="GeoJSONid" name="coverageMapType" onchange="setCoverage()" class="coverageMapTypes" />GeoJSON
+                                    <br />
+                                    <label class="control-label" for="coverageLayer">Navn på kartlag:</label><input class="form-control" type="text" id="coverageLayer" name="coverageLayer" onchange="setCoverage()" />
+
+                                </div>
+                            </div>
+                            <div class="form-group" id="imageCoverage">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-9">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Angi bildefil</label>
+                                        <div class="col-sm-8">
+                                            <div class="form-group" id="uploadCoverage">
+                                                <div class="col-sm-7">
+                                                    <input type="file" id="uploadCoverageFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';" />
+                                                </div>
+                                                <div class="col-sm-3 hidden">
+                                                    <label class="control-label"><input type="checkbox" id="uploadScaleCoverage" name="scaleImage" /> Skalering til miniatyrbilde</label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button class="btn btn-default" type="submit" id="uploadCoverageButton" onclick="return checkIfUrlReference();">Last opp</button>
+                                                </div>
+                                            </div>
+                                            <div id="uploadCoverageStatus"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" style="display: none; visibility: hidden;">
+                                        <label class="col-sm-2 control-label">Eller angi URL</label>
+                                        <div class="col-sm-5">
+                                            <input id="coverageUri" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button class="btn btn-default" style="display: none; visibility:hidden;" id="coverageAdd"></button>
+
+                                            <script>
+                                                function checkIfUrlReference() {
+                                                    if (document.getElementById('coverageUri').value != '' && document.getElementById('uploadMode').value == 'reference') {
+                                                        document.getElementById('coverageAdd').click();
+                                                        return false;
+                                                    }
+                                                }
+                                            </script>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <ul id="thumbnailsCoverage">
+                                            @for (int i = 0; i < Model.Thumbnails.Count; i++)
+                                            {
+                                                var thumbnail = Model.Thumbnails[i];
+                                                if (thumbnail.Type == "dekningsoversikt")
+                                                {
+                                                    coverageImageFound = true;
+                                                    <li class="thumbnail clearfix">
+                                                        <input type="hidden" id="coverageImageSelectedType" name="Thumbnails[@i].Type" value="@thumbnail.Type" />
+                                                        <input type="hidden" id="coverageImageSelectedURL" name="Thumbnails[@i].URL" value="@thumbnail.URL" />
+                                                        <img id="coverageImageSelected" src="@thumbnail.URL" width="200" class="pull-left" style="margin-right: 10px;" />
+                                                        <p><strong>Valgt dekningskart:</strong></p>
+                                                        <p><strong>URL:</strong> <span id="coverageImageNameSelected"><small>@thumbnail.URL</small></span></p>
+                                                    </li>
+                                                    break;
+                                                }
+                                            }
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.IsDataset() || Model.IsDatasetSeries())
+            {
+                <script>
+                    function showCoverageType(coverageT) {
+
+                        //if (coverageT == 'mapservice' || coverageT == 'webpage') {
+                        //    if (!document.getElementById('coverageImageSelectedURL')) {
+                        //        document.getElementById('coverageImageSelectedURL').removeNode();
+                        //        document.getElementById('coverageImageSelectedType').removeNode();
+                        //    }
+                        //}
+
+                        if (coverageT == 'mapservice') {
+                            document.getElementById('coverageWebsite').style.display = "none";
+                            document.getElementById('coverageWebsite').style.visibility = "hidden";
+                            document.getElementById('imageCoverage').style.display = "none";
+                            document.getElementById('imageCoverage').style.visibility = "hidden";
+                            document.getElementById('coverageServiceMap').style.display = "block";
+                            document.getElementById('coverageServiceMap').style.visibility = "visible";
+
+                        }
+
+                        else if (coverageT == 'webpage') {
+                            document.getElementById('coverageWebsite').style.display = "block";
+                            document.getElementById('coverageWebsite').style.visibility = "visible";
+                            document.getElementById('coverageServiceMap').style.display = "none";
+                            document.getElementById('coverageServiceMap').style.visibility = "hidden";
+                            document.getElementById('imageCoverage').style.display = "none";
+                            document.getElementById('imageCoverage').style.visibility = "hidden";
+                        }
+
+                        else {
+                            document.getElementById('coverageWebsite').style.display = "none";
+                            document.getElementById('coverageWebsite').style.visibility = "hidden";
+                            document.getElementById('coverageServiceMap').style.display = "none";
+                            document.getElementById('coverageServiceMap').style.visibility = "hidden";
+                            document.getElementById('imageCoverage').style.display = "block";
+                            document.getElementById('imageCoverage').style.visibility = "visible";
+                        }
                     }
-                    @if (Model.IsDataset() || Model.IsDatasetSeries())
-                    {
-                        <script>
-    function showCoverageType(coverageT) {
 
-        //if (coverageT == 'mapservice' || coverageT == 'webpage') {
-        //    if (!document.getElementById('coverageImageSelectedURL')) {
-        //        document.getElementById('coverageImageSelectedURL').removeNode();
-        //        document.getElementById('coverageImageSelectedType').removeNode();
-        //    }
-        //}
-
-        if (coverageT == 'mapservice') {
-            document.getElementById('coverageWebsite').style.display = "none";
-            document.getElementById('coverageWebsite').style.visibility = "hidden";
-            document.getElementById('imageCoverage').style.display = "none";
-            document.getElementById('imageCoverage').style.visibility = "hidden";
-            document.getElementById('coverageServiceMap').style.display = "block";
-            document.getElementById('coverageServiceMap').style.visibility = "visible";
-
-        }
-
-        else if (coverageT == 'webpage') {
-            document.getElementById('coverageWebsite').style.display = "block";
-            document.getElementById('coverageWebsite').style.visibility = "visible";
-            document.getElementById('coverageServiceMap').style.display = "none";
-            document.getElementById('coverageServiceMap').style.visibility = "hidden";
-            document.getElementById('imageCoverage').style.display = "none";
-            document.getElementById('imageCoverage').style.visibility = "hidden";
-        }
-
-        else {
-            document.getElementById('coverageWebsite').style.display = "none";
-            document.getElementById('coverageWebsite').style.visibility = "hidden";
-            document.getElementById('coverageServiceMap').style.display = "none";
-            document.getElementById('coverageServiceMap').style.visibility = "hidden";
-            document.getElementById('imageCoverage').style.display = "block";
-            document.getElementById('imageCoverage').style.visibility = "visible";
-        }
-    }
-
-    function setCoverage() {
+                    function setCoverage() {
 
 
-        var coverageMapType = document.querySelector('.coverageMapTypes:checked').value;
-        var coveragePath = document.getElementById('coveragePath').value;
-        var coverageLayer = document.getElementById('coverageLayer').value;
-        document.getElementById('CoverageUrl').value = 'TYPE:' + coverageMapType + '@@PATH:' + coveragePath + '@@LAYER:' + coverageLayer;
+                        var coverageMapType = document.querySelector('.coverageMapTypes:checked').value;
+                        var coveragePath = document.getElementById('coveragePath').value;
+                        var coverageLayer = document.getElementById('coverageLayer').value;
+                        document.getElementById('CoverageUrl').value = 'TYPE:' + coverageMapType + '@@PATH:' + coveragePath + '@@LAYER:' + coverageLayer;
 
 
-    }
+                    }
 
-    function getCoverage() {
-        var coverageStr = '@Model.CoverageUrl';
-        var endPosType = coverageStr.search('@@PATH');
-        var typeStr = coverageStr.substring(5, endPosType);
-        if (typeStr == 'WMS')
-            document.getElementById("WMSid").checked = true;
-        else if (typeStr == 'WFS')
-            document.getElementById("WFSid").checked = true;
-        else if (typeStr == 'GeoJSON')
-            document.getElementById("GeoJSONid").checked = true;
+                    function getCoverage() {
+                        var coverageStr = '@Model.CoverageUrl';
+                        var endPosType = coverageStr.search('@@PATH');
+                        var typeStr = coverageStr.substring(5, endPosType);
+                        if (typeStr == 'WMS')
+                            document.getElementById("WMSid").checked = true;
+                        else if (typeStr == 'WFS')
+                            document.getElementById("WFSid").checked = true;
+                        else if (typeStr == 'GeoJSON')
+                            document.getElementById("GeoJSONid").checked = true;
 
 
-        var endPath = coverageStr.search('@@LAYER');
-        var pathStr = coverageStr.substring(endPosType + 6, endPath);
-        document.getElementById('coveragePath').value = pathStr;
+                        var endPath = coverageStr.search('@@LAYER');
+                        var pathStr = coverageStr.substring(endPosType + 6, endPath);
+                        document.getElementById('coveragePath').value = pathStr;
 
-        var startLayer = endPath + 7;
-        var endLayer = coverageStr.length - startLayer;
-        var layerStr = coverageStr.substr(startLayer, endLayer);
-        document.getElementById('coverageLayer').value = layerStr;
+                        var startLayer = endPath + 7;
+                        var endLayer = coverageStr.length - startLayer;
+                        var layerStr = coverageStr.substr(startLayer, endLayer);
+                        document.getElementById('coverageLayer').value = layerStr;
 
-    }
+                    }
 
-    @if (!string.IsNullOrEmpty(Model.CoverageUrl) && Model.CoverageUrl.IndexOf("TYPE:") > -1)
+                    @if (!string.IsNullOrEmpty(Model.CoverageUrl) && Model.CoverageUrl.IndexOf("TYPE:") > -1)
                             {
                                 @: showCoverageType('mapservice')
-                                        @: document.getElementById('coverageType').options[1].selected = true;
-                                        @: getCoverage();
-                                    }
+                                                            @: document.getElementById('coverageType').options[1].selected = true;
+                                                            @: getCoverage();
+                                                        }
                             else if(coverageImageFound)
                             {
                                         @: document.getElementById('coverageType').options[2].selected = true;
-                                     @: showCoverageType('imageCoverage')
-                                }
+                                                         @: showCoverageType('imageCoverage')
+                                                    }
                             else
                             {
                                 @: showCoverageType('webpage')
-                                    }
+                                                        }
 
 
-                        </script>
-                    }
+                </script>
+            }
 
-                </div>
+        </div>
