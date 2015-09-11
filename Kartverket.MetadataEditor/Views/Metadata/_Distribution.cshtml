@@ -207,7 +207,7 @@
                     <label for="referenceSystems[@f].Namespace" class="col-sm-2" style="text-align: right;">Koderom</label>
                     <div class="col-sm-3">
                         @{string refspaceValue = Model.ReferenceSystems[f].Namespace != null ? Model.ReferenceSystems[f].Namespace : "EPSG";}
-                        <input type="text" id="referenceSystems[@f].Namespace" name="referenceSystems[@f].Namespace" value="@refspaceValue" class="form-control" />
+                        <input type="text" id="referenceSystems[@f].Namespace" name="referenceSystems[@f].Namespace" value="@refspaceValue" readonly class="form-control" />
                     </div>
                     <div class="col-sm-2">
                         @if (f == 0)
