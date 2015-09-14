@@ -212,6 +212,10 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(), "Key", "Value");
 
+            ViewBag.ProductspesificationValues = new SelectList(GetRegister("produktspesifikasjoner", model), "Key", "Value", model.ProductSpecificationUrl);
+            ViewBag.ProductsheetValues = new SelectList(GetRegister("produktark", model), "Key", "Value", model.ProductSheetUrl);
+            ViewBag.LegendDescriptionValues = new SelectList(GetRegister("tegneregler", model), "Key", "Value", model.LegendDescriptionUrl);
+
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
 
             ViewBag.ValidModel = true;
@@ -557,6 +561,37 @@ namespace Kartverket.MetadataEditor.Controllers
             ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
 
             return ReferenceSystems;
+        }
+
+        public Dictionary<string, string> GetRegister(string registername, MetadataViewModel model)
+        {
+            string role = GetSecurityClaim("role");
+
+            Dictionary<string, string> RegisterItems = new Dictionary<string, string>();
+
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/" + registername);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var items = response["containeditems"];
+
+            foreach (var item in items)
+            {
+                var id = item["id"].ToString();
+                var owner = item["owner"].ToString();
+                string organization = item["owner"].ToString();
+
+                if (!RegisterItems.ContainsKey(id))
+                {
+                    if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
+                    RegisterItems.Add(id, item["label"].ToString());
+                }
+            }
+
+            RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return RegisterItems;
         }
 
 

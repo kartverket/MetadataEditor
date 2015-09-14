@@ -4,21 +4,21 @@
 @if (!Model.IsSoftware())
 {
     <div class="form-group">
-        <label class="col-sm-2 control-label">Produktspesifikasjon (URL)</label>
+        <label class="col-sm-2 control-label">Produktspesifikasjon</label>
         <div class="col-sm-9">
-            @Html.EditorFor(m => m.ProductSpecificationUrl, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownList("ProductSpecificationUrl", ViewBag.ProductspesificationValues as SelectList, String.Empty, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Produktark (URL)</label>
+        <label class="col-sm-2 control-label">Produktark</label>
         <div class="col-sm-9">
-            @Html.EditorFor(m => m.ProductSheetUrl, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownList("ProductSheetUrl", ViewBag.ProductsheetValues as SelectList, String.Empty, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Tegneregler (URL)</label>
+        <label class="col-sm-2 control-label">Tegneregler</label>
         <div class="col-sm-9">
-            @Html.EditorFor(m => m.LegendDescriptionUrl, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownList("LegendDescriptionUrl", ViewBag.LegendDescriptionValues as SelectList, String.Empty, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
