@@ -38,14 +38,14 @@
             <label class="col-sm-2 control-label">Type</label>
             <div class="col-sm-2">
                 <select id="thumbnailType" class="@ViewBag.thumbnailMissingCSS form-control">
-                    <option value="miniatyrbilde">Miniatyrbilde</option>
-                    <option value="large_thumbnail">Stort bilde</option>
+                    @*<option value="miniatyrbilde">Miniatyrbilde</option>*@
+                    <option value="large_thumbnail" selected>Stort bilde</option>
                     @*<option value="dekningsoversikt">Dekningsoversikt</option>*@
                 </select>
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
             <div>
-                @Html.ValidationMessage("thumbnailMissing", "Du må angi bildefil eller angi URL for miniatyrbilde")
+                @Html.ValidationMessage("thumbnailMissing", "Du må angi bildefil for illustrasjonsbilde")
             </div>
         </div>
             <div class="form-group">
@@ -55,12 +55,12 @@
                         <div class="col-sm-7">
                             <input type="file" id="uploadThumbnailFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';"  />
                         </div>
-                        <div class="col-sm-3">
-                            <label class="control-label"><input type="checkbox" id="uploadScaleImage" checked="checked" name="scaleImage" /> Tilpass størrelsen til liten visning</label>
-                            
+                        <div class="col-sm-3 hidden">
+                            <label class="control-label"><input type="checkbox" id="uploadScaleImage" name="scaleImage" /> Tilpass størrelsen til liten visning</label>
+
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-default" type="submit" id="uploadThumbnailButton" onclick="return checkIfUrlRef();">Legg til</button>
+                            <button class="btn btn-default" type="submit" id="uploadThumbnailButton" onclick="return checkIfUrlRef();">Last opp</button>
                         </div>
                     </div>
                     <div id="uploadThumbnailStatus"></div>
@@ -72,6 +72,7 @@
                 <label class="col-sm-2 control-label">Eller angi URL</label>
                 <div class="col-sm-5">
                     <input id="thumbnailUrl" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
+                    <input id="thumbnailUrlMini" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
                 </div>
                 <div class="col-sm-3">
                 </div>

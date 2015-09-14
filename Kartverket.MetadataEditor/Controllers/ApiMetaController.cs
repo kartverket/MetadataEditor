@@ -115,7 +115,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                 var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
                 if (thumb.Count() == 0)
-                    ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut miniatyrbilde under illustrasjonsbilde");
+                    ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut illustrasjonsbilde");
                 else if (thumb.Count() > 0)
                 {
                     try
@@ -135,7 +135,7 @@ namespace Kartverket.MetadataEditor.Controllers
                             HttpResponseMessage response = client.GetAsync(new Uri(Url)).Result;
                             if (response.StatusCode != HttpStatusCode.OK)
                             {
-                                metadata.Errors.Add(new Error { Key = "ThumbnailNotFound", Message = "Feil ressurslenke til miniatyrbilde under grafisk bilde" });
+                                metadata.Errors.Add(new Error { Key = "ThumbnailNotFound", Message = "Feil ressurslenke til illustrasjonsbilde" });
                             }
                         }
                     }

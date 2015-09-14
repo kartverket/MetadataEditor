@@ -20,24 +20,24 @@
     @section ActionMenu {
         <div class="btn-group">
             @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
-                <i class="glyphicon glyphicon-file"></i> Last ned XML
-            </a>*@
+                    <i class="glyphicon glyphicon-file"></i> Last ned XML
+                </a>*@
             <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
                 <span class="glyphicon glyphicon-share-alt"></span> Vis i kartkatalogen
             </a>
             @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
             {
-                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WMS")) 
+                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WMS"))
                 {
-                <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
-                    <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
-                </a>
+                    <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                    </a>
                 }
                 if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WFS"))
                 {
-                <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
-                    <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
-                </a>
+                    <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                    </a>
                 }
             }
             @if (Model.IsDataset() && showProductSheetGeneratorUrl)
@@ -193,8 +193,8 @@
 
 @section scripts {
     <script>
-    $(function () {
-        @*var valideringsUrl = '@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]';
+        $(function () {
+            @*var valideringsUrl = '@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]';
         if (valideringsUrl != '') {
             $.getJSON("@ViewBag.ValideringUrl", function (result) {
 
@@ -236,800 +236,843 @@
             });
         }*@
 
-        //  add warning sign to tabs containing input fields with error.
-        $('.input-validation-error').each(function () {
-            var $inputElement = $(this);
-            $inputElement.closest('.form-group').addClass('has-error');
+            //  add warning sign to tabs containing input fields with error.
+            $('.input-validation-error').each(function () {
+                var $inputElement = $(this);
+                $inputElement.closest('.form-group').addClass('has-error');
 
-            var id = $inputElement.closest(".tab-pane").attr('id');
-            var $tabLink = $('ul.nav-tabs a[href=#' + id + ']');
+                var id = $inputElement.closest(".tab-pane").attr('id');
+                var $tabLink = $('ul.nav-tabs a[href=#' + id + ']');
 
-            $tabLink.parent().addClass("has-error");
+                $tabLink.parent().addClass("has-error");
 
-            var warning = $tabLink.parent().find('span.glyphicon-warning-sign');
-            if (warning.length == 0) {
-                $tabLink.before('<span class="glyphicon glyphicon-warning-sign" title="Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet."></span>');
-            }
-        });
-
-        var menu_state = $.cookie('navtabselected');
-
-        $('#homelink').click(function (event) {
-            $.cookie('navtabselected', 'home');
-        });
-
-        $('#timeandspacelink').click(function (event) {
-            $.cookie('navtabselected', 'timeandspace');
-        });
-
-        $('#contactlink').click(function (event) {
-            $.cookie('navtabselected', 'contact');
-        });
-
-        $('#distributionlink').click(function (event) {
-            $.cookie('navtabselected', 'distribution');
-        });
-
-        $('#documentslink').click(function (event) {
-            $.cookie('navtabselected', 'documents');
-        });
-
-        $('#constraintslink').click(function (event) {
-            $.cookie('navtabselected', 'constraints');
-        });
-
-        $('#qualitylink').click(function (event) {
-            $.cookie('navtabselected', 'quality');
-        });
-
-        $('#keywordslink').click(function (event) {
-            $.cookie('navtabselected', 'keywords');
-        });
-
-        $('#englishlink').click(function (event) {
-            $.cookie('navtabselected', 'english');
-        });
-
-
-        if (menu_state == 'home' || menu_state == null)
-            $('#homelink').click();
-        else if (menu_state == 'timeandspace')
-            $('#timeandspacelink').click();
-        else if (menu_state == 'contact')
-            $('#contactlink').click();
-        else if (menu_state == 'distribution')
-            $('#distributionlink').click();
-        else if (menu_state == 'documents')
-            $('#documentslink').click();
-        else if (menu_state == 'constraints')
-            $('#constraintslink').click();
-        else if (menu_state == 'quality')
-            $('#qualitylink').click();
-        else if (menu_state == 'keywords')
-            $('#keywordslink').click();
-        else if (menu_state == 'english')
-            $('#englishlink').click();
-
-        $('#Purpose').autosize();
-        $('#Abstract').autosize();
-        $('#SupplementalDescription').autosize();
-        $('#SpecificUsage').autosize();
-        
-
-
-        $('#uploadThumbnailFile').fileupload({
-            dataType: 'json',
-            url: '/Metadata/UploadThumbnail',
-            add: function (e, data) {
-
-                $("#uploadThumbnailButton").on("click", function (event) {
-                    event.preventDefault();
-
-                    console.log(data);
-                    data.formData = {
-                        "uuid": "@Model.Uuid",
-                        "scaleImage": $('#uploadScaleImage').prop('checked')
-                    };
-
-                    data.submit();
-                });
-            },
-            done: function (e, data) {
-                console.log("File uploaded: " + data.result.filename);
-                if (data.result.status == "ErrorWrongContent") {
-                    $("#thumbnailUrl").val('');
-                    $('#uploadThumbnailStatus').attr('style', 'color: red ;');
-                    $('#uploadThumbnailStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                var warning = $tabLink.parent().find('span.glyphicon-warning-sign');
+                if (warning.length == 0) {
+                    $tabLink.before('<span class="glyphicon glyphicon-warning-sign" title="Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet."></span>');
                 }
-                else {
-                    $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
-                    $('#uploadThumbnailStatus').attr('style', 'text-info');
-                    //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
-                }
-            }
-        });
-
-        $('#uploadCoverageFile').fileupload({
-            dataType: 'json',
-            url: '/Metadata/UploadThumbnail',
-            add: function (e, data) {
-
-                $("#uploadCoverageButton").on("click", function (event) {
-                    event.preventDefault();
-
-                    console.log(data);
-                    data.formData = {
-                        "uuid": "@Model.Uuid",
-                        "scaleImage": $('#uploadScaleCoverage').prop('checked')
-                    };
-
-                    data.submit();
-                });
-            },
-            done: function (e, data) {
-                console.log("File uploaded: " + data.result.filename);
-                if (data.result.status == "ErrorWrongContent") {
-                    $("#coverageUri").val('');
-                    $('#uploadCoverageStatus').attr('style', 'color: red ;');
-                    $('#uploadCoverageStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
-                }
-                else {
-                    $("#coverageUri").val('@ViewBag.ThumbnailUrl' + data.result.filename);
-                    $('#uploadCoverageStatus').attr('style', 'text-info');
-                    //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
-                }
-            }
-        });
-
-        var checkExist = setInterval(function () {
-            if ($('#thumbnailUrl').val() && $('#uploadMode').val() == 'upload') {
-                $("#thumbnailAdd").click();
-                $('#uploadMode').val('reference');
-            }
-        }, 100); // check every 100ms
-
-        var checkExistCoverageImage = setInterval(function () {
-            if ($('#coverageUri').val() && $('#uploadMode').val() == 'upload') {
-                $("#coverageAdd").click();
-                $('#uploadMode').val('reference');
-            }
-        }, 100); // check every 100ms
-
-
-        $("#coverageAdd").click(function (event) {
-            event.preventDefault();
-            if ($('#coverageUri').val().trim() == '') { alert('URL mangler'); return false; }
-
-            var $item = $('#imageCoverage');
-
-            var $thumbnails = $("#thumbnails");
-            var itemIndex = $('li', $thumbnails).length;
-
-
-            var $thumbnailUrl = $("#coverageUri");
-
-            var $itemTypeHidden = $('<input />', {
-                type: 'hidden',
-                name: 'Thumbnails[' + itemIndex + '].Type',
-                value: 'dekningsoversikt'
             });
 
-            var $itemUrlHidden = $('<input />', {
-                type: 'hidden',
-                name: 'Thumbnails[' + itemIndex + '].URL',
-                value: $thumbnailUrl.val()
+            var menu_state = $.cookie('navtabselected');
+
+            $('#homelink').click(function (event) {
+                $.cookie('navtabselected', 'home');
+            });
+
+            $('#timeandspacelink').click(function (event) {
+                $.cookie('navtabselected', 'timeandspace');
+            });
+
+            $('#contactlink').click(function (event) {
+                $.cookie('navtabselected', 'contact');
+            });
+
+            $('#distributionlink').click(function (event) {
+                $.cookie('navtabselected', 'distribution');
+            });
+
+            $('#documentslink').click(function (event) {
+                $.cookie('navtabselected', 'documents');
+            });
+
+            $('#constraintslink').click(function (event) {
+                $.cookie('navtabselected', 'constraints');
+            });
+
+            $('#qualitylink').click(function (event) {
+                $.cookie('navtabselected', 'quality');
+            });
+
+            $('#keywordslink').click(function (event) {
+                $.cookie('navtabselected', 'keywords');
+            });
+
+            $('#englishlink').click(function (event) {
+                $.cookie('navtabselected', 'english');
             });
 
 
-            if (!$("#coverageImageSelectedType").length) {
+            if (menu_state == 'home' || menu_state == null)
+                $('#homelink').click();
+            else if (menu_state == 'timeandspace')
+                $('#timeandspacelink').click();
+            else if (menu_state == 'contact')
+                $('#contactlink').click();
+            else if (menu_state == 'distribution')
+                $('#distributionlink').click();
+            else if (menu_state == 'documents')
+                $('#documentslink').click();
+            else if (menu_state == 'constraints')
+                $('#constraintslink').click();
+            else if (menu_state == 'quality')
+                $('#qualitylink').click();
+            else if (menu_state == 'keywords')
+                $('#keywordslink').click();
+            else if (menu_state == 'english')
+                $('#englishlink').click();
+
+            $('#Purpose').autosize();
+            $('#Abstract').autosize();
+            $('#SupplementalDescription').autosize();
+            $('#SpecificUsage').autosize();
+
+
+
+            $('#uploadThumbnailFile').fileupload({
+                dataType: 'json',
+                url: '/Metadata/UploadThumbnailGenerateMini',
+                add: function (e, data) {
+
+                    $("#uploadThumbnailButton").on("click", function (event) {
+                        event.preventDefault();
+
+                        console.log(data);
+                        data.formData = {
+                            "uuid": "@Model.Uuid"
+                        };
+
+                        data.submit();
+                    });
+                },
+                done: function (e, data) {
+                    console.log("File uploaded: " + data.result.filename);
+                    if (data.result.status == "ErrorWrongContent") {
+                        $("#thumbnailUrl").val('');
+                        $('#uploadThumbnailStatus').attr('style', 'color: red ;');
+                        $('#uploadThumbnailStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                    }
+                    else {
+                        $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                        $("#thumbnailUrlMini").val('@ViewBag.ThumbnailUrl' + data.result.filenamemini);
+                        $('#uploadThumbnailStatus').attr('style', 'text-info');
+                        //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                    }
+                }
+            });
+
+            $('#uploadCoverageFile').fileupload({
+                dataType: 'json',
+                url: '/Metadata/UploadThumbnail',
+                add: function (e, data) {
+
+                    $("#uploadCoverageButton").on("click", function (event) {
+                        event.preventDefault();
+
+                        console.log(data);
+                        data.formData = {
+                            "uuid": "@Model.Uuid",
+                            "scaleImage": $('#uploadScaleCoverage').prop('checked')
+                        };
+
+                        data.submit();
+                    });
+                },
+                done: function (e, data) {
+                    console.log("File uploaded: " + data.result.filename);
+                    if (data.result.status == "ErrorWrongContent") {
+                        $("#coverageUri").val('');
+                        $('#uploadCoverageStatus').attr('style', 'color: red ;');
+                        $('#uploadCoverageStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                    }
+                    else {
+                        $("#coverageUri").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                        $('#uploadCoverageStatus').attr('style', 'text-info');
+                        //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                    }
+                }
+            });
+
+            var checkExist = setInterval(function () {
+                if ($('#thumbnailUrl').val() && $('#uploadMode').val() == 'upload') {
+                    $("#thumbnailAdd").click();
+                    $('#uploadMode').val('reference');
+                }
+            }, 100); // check every 100ms
+
+            var checkExistCoverageImage = setInterval(function () {
+                if ($('#coverageUri').val() && $('#uploadMode').val() == 'upload') {
+                    $("#coverageAdd").click();
+                    $('#uploadMode').val('reference');
+                }
+            }, 100); // check every 100ms
+
+
+            $("#coverageAdd").click(function (event) {
+                event.preventDefault();
+                if ($('#coverageUri').val().trim() == '') { alert('URL mangler'); return false; }
+
+                var $item = $('#imageCoverage');
+
+                var $thumbnails = $("#thumbnails");
+                var itemIndex = $('li', $thumbnails).length;
+
+
+                var $thumbnailUrl = $("#coverageUri");
+
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: 'dekningsoversikt'
+                });
+
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+
+                if (!$("#coverageImageSelectedType").length) {
+                    $item.append($itemTypeHidden);
+                    $item.append($itemUrlHidden);
+                }
+                else {
+                    $("#coverageImageSelectedURL").val($thumbnailUrl.val());
+                }
+
+                $("#coverageImageSelected").removeAttr('src');
+                $("#coverageImageSelected").attr('src', $("#coverageUri").val());
+                $("#coverageImageNameSelected").text($("#coverageUri").val());
+
+
+            });
+
+
+            $("#thumbnailAdd").click(function (event) {
+                event.preventDefault();
+                if ($('#thumbnailUrl').val().trim() == '') { alert('URL mangler'); return false; }
+
+
+                //TODO Remove old images and put mini first in list
+
+                var $thumbnails = $("#thumbnails");
+
+                var itemIndex = $('li', $thumbnails).length;
+
+
+                if ($("#coverageImageSelectedType").length) {
+                    itemIndex = itemIndex + 1;
+                }
+
+                var $thumbnailType = $("#thumbnailType");
+                var $thumbnailUrl = $("#thumbnailUrl");
+
+                var $item = $('<li />', { "class": 'thumbnail clearfix' });
+
+                var $itemImage = $('<img />', {
+                    src: $thumbnailUrl.val(),
+                    width: '200',
+                });
+
+                var $itemType = $('<p />').append('<strong>Type</strong> ').append($thumbnailType.val());
+                var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
+
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: $thumbnailType.val()
+                });
+
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+                $item.append($itemImage);
+                $item.append($itemType);
                 $item.append($itemTypeHidden);
+                $item.append($itemUrl);
                 $item.append($itemUrlHidden);
-            }
-            else {
-                $("#coverageImageSelectedURL").val($thumbnailUrl.val());
-            }
+                $item.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
 
-            $("#coverageImageSelected").removeAttr('src');
-            $("#coverageImageSelected").attr('src', $("#coverageUri").val());
-            $("#coverageImageNameSelected").text($("#coverageUri").val());
+                $thumbnails.append($item);
 
+                $thumbnailType.val('');
+                $thumbnailUrl.val('');
 
-        });
-
-
-        $("#thumbnailAdd").click(function (event) {
-            event.preventDefault();
-            if ($('#thumbnailUrl').val().trim() == '') { alert('URL mangler'); return false; }
-
-            var $thumbnails = $("#thumbnails");
-
-            var itemIndex = $('li', $thumbnails).length;
-
-
-            if ($("#coverageImageSelectedType").length) {
+                //Mini
                 itemIndex = itemIndex + 1;
-            }
+                var thumbnailType = "miniatyrbilde";
+                var $thumbnailUrl = $("#thumbnailUrlMini");
 
-            var $thumbnailType = $("#thumbnailType");
-            var $thumbnailUrl = $("#thumbnailUrl");
+                var $item = $('<li />', { "class": 'thumbnail clearfix' });
 
-            var $item = $('<li />', { "class": 'thumbnail clearfix' });
-
-            var $itemImage = $('<img />', {
-                src: $thumbnailUrl.val(),
-                width: '200',
-            });
-
-            var $itemType = $('<p />').append('<strong>Type</strong> ').append($thumbnailType.val());
-            var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
-
-            var $itemTypeHidden = $('<input />', {
-                type: 'hidden',
-                name: 'Thumbnails[' + itemIndex + '].Type',
-                value: $thumbnailType.val()
-            });
-
-            var $itemUrlHidden = $('<input />', {
-                type: 'hidden',
-                name: 'Thumbnails[' + itemIndex + '].URL',
-                value: $thumbnailUrl.val()
-            });
-
-            $item.append($itemImage);
-            $item.append($itemType);
-            $item.append($itemTypeHidden);
-            $item.append($itemUrl);
-            $item.append($itemUrlHidden);
-            $item.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
-
-            $thumbnails.append($item);
-
-            $thumbnailType.val('');
-            $thumbnailUrl.val('');
-        });
-
-        $('button.thumbnailRemove').click(function (event) {
-            event.preventDefault();
-            $(this).parent().remove();
-
-            $('#thumbnails li').each(function (index, value) {
-                var $hiddenItemsForRow = $('input[type=hidden]', value);
-                $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
-                    var name = $(hiddenValue).attr("name");
-                    console.log(name);
-                    if (name.indexOf('.Type') !== -1) {
-                        $(hiddenValue).attr('name', 'Thumbnails[' + index + '].Type');
-                    } else if (name.indexOf('.URL') !== -1) {
-                        $(hiddenValue).attr('name', 'Thumbnails[' + index + '].URL');
-                    }
+                var $itemImage = $('<img />', {
+                    src: $thumbnailUrl.val(),
+                    width: '200',
                 });
+
+                var $itemType = $('<p />').append('<strong>Type</strong> ').append(thumbnailType);
+                var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
+
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: thumbnailType
+                });
+
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+                $item.append($itemImage);
+                $item.append($itemType);
+                $item.append($itemTypeHidden);
+                $item.append($itemUrl);
+                $item.append($itemUrlHidden);
+                $item.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
+
+                $thumbnails.append($item);
+
+                $thumbnailType.val('');
+                $thumbnailUrl.val('');
+
             });
-        });
 
+            $('button.thumbnailRemove').click(function (event) {
+                event.preventDefault();
+                $(this).parent().remove();
 
-        // help text
-
-        $("a.help-text-toggle").click(function (event) {
-            event.preventDefault();
-            var helpTextId = $(this).data("help-text-id");
-            $("#" + helpTextId).toggle();
-        });
-
-        // add help icon to each help text paragraph
-        $(".help-text").prepend("<span class=\"badge\">?</span> ");
-
-        // format
-
-
-        $("#SpatialRepresentation").change(function (event) {
-            event.preventDefault();
-            var selectedSpatialRepresentation = $("#SpatialRepresentation").val();
-
-            for (var f = 0; f < $('#DistributionFormatsCount').val() ; f++) {
-
-                if (selectedSpatialRepresentation == "vector") {
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val=""></option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SOSI">SOSI</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DOS/OPeNDAP">DOS/OPeNDAP</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DXF">DXF</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Filgeodatabase">ESRI Filgeodatabase</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Geodatabase">ESRI Geodatabase</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Shape">ESRI Shape</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoJSON">GeoJSON</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GML">GML</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GPX">GPX</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KML">KML</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KMZ">KMZ</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAS">LAS</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAZ">LAZ</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (MIF/MID)">MapInfo (MIF/MID)</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (TAB)">MapInfo (TAB)</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microstation DGN">Microstation DGN</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="OLEX">OLEX</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PDF">PDF</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RDF">RDF</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="S57">S57</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SQLite/SpatialLite">SQLite/SpatialLite</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="XML">XML</option>');
-
-                    @foreach (var df in ViewBag.VectorFormats as SelectList)
-                    {
-                        @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
-                    }
-
-                }
-
-                else if (selectedSpatialRepresentation == "grid") {
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc ASCII Grid">Arc ASCII Grid</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc SDE Raster">Arc SDE Raster</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="BMP">BMP</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="USGS DEM">USGS DEM</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DTED">DTED</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas ECW">Erdas ECW</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoTIFF">GeoTIFF</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GFX">GFX</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRASS raster format">GRASS raster format</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRIB">GRIB</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas IMG">Erdas IMG</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG2000">JPEG2000</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MrSID">MrSID</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="NetCDF">NetCDF</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PNG">PNG</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PPT">PPT</option>');
-                    //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="TIFF">TIFF</option>');
-
-                @foreach (var df in ViewBag.RasterFormats as SelectList)
-                {
-                    @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
-                }
-
-                }
-
-                else if (selectedSpatialRepresentation == "textTable") {
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="CSV">CSV</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microsoft Excel">Microsoft Excel</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DBF">DBF</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Tekstfil">Tekstfil</option>');
-
-                }
-
-                else if (selectedSpatialRepresentation == "tin") {
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Intergraph TIN">Intergraph TIN</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI TIN">ESRI TIN</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GEOPAK TIN">GEOPAK TIN</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LandXML TIN">LandXML TIN</option>');
-
-                }
-
-                else if (selectedSpatialRepresentation == "stereoModel") {
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Intergraph TIN">Intergraph TIN</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
-                }
-
-                else if (selectedSpatialRepresentation == "video") {
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MPEG">MPEG</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="AVI">AVI</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MOV">MOV</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="OGG">OGG</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="WMV">WMV</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RealVideo">RealVideo</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RMVB">RMVB</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="FLASH">FLASH</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASF">ASF</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MP4">MP4</option>');
-                    $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="QuickTime">QuickTime</option>');
-                }
-
-            }
-
-        });
-
-        $("#SpatialRepresentation").trigger("change");
-
-        $("#newDistributionFormat").click(function (event) {
-            event.preventDefault();
-
-            var DistributionFormatCounts = parseInt($("#DistributionFormatsCount").val());
-            DistributionFormatCounts += 1;
-            var fIndex = DistributionFormatCounts - 1;
-
-            var dfHtm = "";
-
-            dfHtm += '<div id="formatRow' + fIndex + '" class="form-group required has-feedback">';
-            dfHtm += '<label for="distributionFormats[' + fIndex + '].Name" class="col-sm-2 control-label">Format</label>';
-            dfHtm += '<div class="col-sm-3">';
-
-            if ($("#DistributionFormatsType").val() == "dataset") {
-                dfHtm += '<select id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" class="form-control">';
-                dfHtm += '<option value=""></option>';
-                dfHtm += '</select>';
-            }
-            else {
-                dfHtm += '<input id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" type="text" value="" class="form-control" />';
-            }
-            dfHtm += '</div>';
-            dfHtm += '<label for="distributionFormats[' + fIndex + '].Version" class="col-sm-2" style="text-align: right;">Versjon</label>';
-            dfHtm += '<div class="col-sm-3">';
-            dfHtm += '<input type="text" id="distributionFormats[' + fIndex + '].Version" name="distributionFormats[' + fIndex + '].Version" value="" class="form-control" style="border-color: #ccc;" />';
-            dfHtm += '</div>';
-            dfHtm += '<div class="col-sm-2">';
-
-            dfHtm += '<button type="button" id="delDistributionFormat[' + fIndex + ']" class="btn btn-default" onclick="removeDistributionFormat(' + fIndex + ')">Slett</button>';
-
-            dfHtm += '</div>';
-
-            dfHtm += '</div>';
-
-            $("#distributionFormatDiv").append(dfHtm);
-            $("#DistributionFormatsCount").val(DistributionFormatCounts);
-
-            $("#SpatialRepresentation").trigger("change");
-
-        });
-
-
-        $("#newReferencesystem").click(function (event) {
-            event.preventDefault();
-            var ReferenceSystemCounts = parseInt($("#ReferenceSystemsCount").val());
-            ReferenceSystemCounts += 1;
-            var fIndex = ReferenceSystemCounts - 1;
-
-            var dfHtm = "";
-
-            dfHtm += '<div id="referenceRow' + fIndex + '" class="form-group">';
-            dfHtm += '<label for="referenceSystems[' + fIndex + '].CoordinateSystem" class="col-sm-2 control-label">Romlig<br>referansesystem</label>';
-            dfHtm += '<div class="col-sm-3">';
-
-
-            dfHtm += '<select id="referenceSystems[' + fIndex + '].CoordinateSystem" name="referenceSystems[' + fIndex + '].CoordinateSystem" class="form-control">';
-            @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
-            {
-            @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
-                                                }
-            dfHtm += '</select>';
-
-            dfHtm += '</div>';
-            dfHtm += '<label for="referenceSystems[' + fIndex + '].Version" class="col-sm-2" style="text-align: right;">Koderom</label>';
-            dfHtm += '<div class="col-sm-3">';
-            dfHtm += '<input type="text" id="referenceSystems[' + fIndex + '].Namespace" name="referenceSystems[' + fIndex + '].Namespace" readonly value="EPSG" class="form-control" />';
-            dfHtm += '</div>';
-            dfHtm += '<div class="col-sm-2">';
-
-            dfHtm += '<button type="button" id="delReferenceSystem[' + fIndex + ']" class="btn btn-default" onclick="removeReferenceSystem(' + fIndex + ')">Slett</button>';
-
-            dfHtm += '</div>';
-
-            dfHtm += '</div>';
-
-            $("#ReferenceSystemsDiv").append(dfHtm);
-            $("#ReferenceSystemsCount").val(ReferenceSystemCounts);
-
-
-        });
-
-
-
-        // conformity
-
-        $("button#prefillConformityInspire").click(function (event) {
-            event.preventDefault();
-            $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
-            $("#QualitySpecificationDate").val("08.12.2010");
-            $("#QualitySpecificationDateType").val("publication");
-            //$("#QualitySpecificationExplanation").val("See the referenced specification");
-            $("#QualitySpecificationResult").prop('checked', true);
-        });
-        $("button#prefillConformitySosi").click(function (event) {
-            event.preventDefault();
-            $("#QualitySpecificationTitle").val("SOSI-fagområde: (Navn på fagområde)");
-            $("#QualitySpecificationDate").val("01.01.2014");
-            $("#QualitySpecificationDateType").val("publication");
-            //$("#QualitySpecificationExplanation").val("See the referenced specification");
-            $("#QualitySpecificationResult").prop('checked', true);
-        });
-        $("button#prefillConformitySosiSpec").click(function (event) {
-            event.preventDefault();
-            $("#QualitySpecificationTitle").val("SOSI-produktspesifikasjon: (Navn på produktspesifikasjon)");
-            $("#QualitySpecificationDate").val("01.01.2014");
-            $("#QualitySpecificationDateType").val("publication");
-            //$("#QualitySpecificationExplanation").val("See the referenced specification");
-            $("#QualitySpecificationResult").prop('checked', true);
-        });
-
-        // bounding box
-
-        var $states = $('select#bboxState');
-        var $counties = $('select#bboxCounty');
-
-        var $countyList = $counties.find('option').clone();
-
-        $states.change(function () {
-            var $selectedStateNumber = $(this).find('option:selected').data('statenumber');
-            var regex = new RegExp("^" + $selectedStateNumber);
-            $counties.html($countyList.filter(function () {
-                return regex.test($(this).attr('data-countynumber'));
-            }));
-        }).change();
-
-
-        $("button#bboxPrefill").click(function (event) {
-            event.preventDefault();
-            var $selectedCounty = $counties.find('option:selected');
-            $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-            $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-            $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-            $("input#BoundingBoxWest").val($selectedCounty.data('west'));
-        });
-
-        $("#bboxCounty").click(function (event) {
-            event.preventDefault();
-            var $selectedCounty = $counties.find('option:selected');
-            $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-            $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-            $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-            $("input#BoundingBoxWest").val($selectedCounty.data('west'));
-        });
-
-        $("#bboxState").click(function (event) {
-            event.preventDefault();
-            var $selectedCounty = $counties.find('option:selected');
-            $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-            $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-            $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-            $("input#BoundingBoxWest").val($selectedCounty.data('west'));
-        });
-
-        // Check date not in future
-        $("#DateUpdated").change(function (event) {
-            event.preventDefault();
-            var currentDate = new Date();
-            var selectedDateStr = $('#DateUpdated').val();
-            var selectedDateArr = selectedDateStr.split('.');
-            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-            if (selectedDate > currentDate) {
-                alert('Dato kan ikke være i fremtiden');
-                $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-            }
-        });
-
-        $("#DatePublished").change(function (event) {
-            event.preventDefault();
-            var currentDate = new Date();
-            var selectedDateStr = $('#DatePublished').val();
-            var selectedDateArr = selectedDateStr.split('.');
-            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-            if (selectedDate > currentDate) {
-                alert('Dato kan ikke være i fremtiden');
-                $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-            }
-        });
-
-        $("#DateCreated").change(function (event) {
-            event.preventDefault();
-            var currentDate = new Date();
-            var selectedDateStr = $('#DateCreated').val();
-            var selectedDateArr = selectedDateStr.split('.');
-            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-            if (selectedDate > currentDate) {
-                alert('Dato kan ikke være i fremtiden');
-                $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-            }
-        });
-
-        $("#DateMetadataValidFrom").change(function (event) {
-            event.preventDefault();
-            var selectedDateStr = $('#DateMetadataValidFrom').val();
-            var selectedDateArr = selectedDateStr.split('.');
-            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-            var validToStr = $('#DateMetadataValidTo').val();
-            var validToArr = validToStr.split('.');
-            var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
-
-            if (ValidToDate < selectedDate) {
-                alert('Gyldig fra dato må være mindre enn gyldig til dato');
-                var newDate = new Date(ValidToDate);
-                newDate.setDate(newDate.getDate() - 1);
-                $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-            }
-        });
-
-        $("#DateMetadataValidTo").change(function (event) {
-            event.preventDefault();
-            var selectedDateStr = $('#DateMetadataValidTo').val();
-            var selectedDateArr = selectedDateStr.split('.');
-            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-            var validFromStr = $('#DateMetadataValidFrom').val();
-            var validFromArr = validFromStr.split('.');
-            var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
-
-            if (selectedDate < ValidFromDate) {
-                alert('Gyldig til dato må være større enn gyldig fra dato');
-                var newDate = new Date(ValidFromDate);
-                newDate.setDate(newDate.getDate() + 1);
-                $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-            }
-        });
-
-        $("#QualitySpecificationDate").change(function (event) {
-            event.preventDefault();
-            var currentDate = new Date();
-            var selectedDateStr = $('#QualitySpecificationDate').val();
-            var selectedDateArr = selectedDateStr.split('.');
-            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-            if (selectedDate > currentDate) {
-                alert('Dato kan ikke være i fremtiden');
-                $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-            }
-        });
-
-
-        // keywords
-
-        var keywordThreshold = 20;
-
-        function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
-            deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
-
-            var $keywordInput = $('#' + selectorPrefix + '-text');
-
-            var newKeyword = $keywordInput.val();
-
-            var elementId = $('ul#' + selectorPrefix + ' li').length;
-
-            var listItemId = selectorPrefix + "-" + elementId;
-
-            var li = $('<li />', { "id": listItemId });
-            li.append($('<span />', { "class": "", text: newKeyword }));
-            li.append('&nbsp;');
-
-            var link = $('<a />', {
-                "href": "",
-                "class": "keyword-delete",
-                "data-delete": listItemId,
-                "data-list": selectorPrefix + '-text',
-                "data-list-value": newKeyword
-            });
-            link.append("<small>Slett</small>");
-
-            li.append(link);
-            li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
-
-            if (elementId < keywordThreshold)
-                $('ul#' + selectorPrefix).append(li);
-            else
-                alert('Maksimum antall nøkkelord er ' + keywordThreshold);
-
-            return $keywordInput;
-        };
-
-        function addKeywordFromCodeList(selectorPrefix, inputName) {
-            var $keywordInput = addKeyword(selectorPrefix, inputName);
-            var $selected = $keywordInput.find("option:selected");
-            $selected.attr("disabled", "disabled");
-            $selected.removeAttr("selected");
-        };
-
-        function addKeywordFromTextbox(selectorPrefix, inputName) {
-            var $keywordInput = addKeyword(selectorPrefix, inputName);
-            $keywordInput.val('');
-        }
-
-        $('button#keywords-theme-add').click(function (event) {
-            event.preventDefault();
-            if ($('#keywords-theme-text').val().trim() == '')
-                alert('Vennligst fyll ut tema');
-            else
-                addKeywordFromTextbox('keywords-theme', "KeywordsTheme");
-
-        });
-
-        $('button#keywords-place-add').click(function (event) {
-            event.preventDefault();
-            if ($('#keywords-place-text').val().trim() == '')
-                alert('Vennligst fyll ut sted');
-            else
-                addKeywordFromTextbox('keywords-place', "KeywordsPlace");
-        });
-
-        $('button#keywords-national-initiative-add').click(function (event) {
-            event.preventDefault();
-            if ($('#keywords-national-initiative-text').val().trim() == '')
-                alert('Vennligst velg samarbeid og lov');
-            else
-                addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
-        });
-
-        $('button#keywords-national-theme-add').click(function (event) {
-            event.preventDefault();
-            if ($('#keywords-national-theme-text').val().trim() == '')
-                alert('Vennligst velg Nasjonal temainndeling');
-            else
-                addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
-        });
-
-        $('button#keywords-inspire-add').click(function (event) {
-            event.preventDefault();
-            if ($('#keywords-inspire-text').val().trim() == '')
-                alert('Vennligst velg inspire');
-            else
-                addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
-        });
-
-        $('button#keywords-other-add').click(function (event) {
-            event.preventDefault();
-            if ($('#keywords-other-text').val().trim() == '')
-                alert('Vennligst fyll ut annet');
-            else
-                addKeywordFromTextbox('keywords-other', "KeywordsOther");
-        });
-
-        // use a delegated event handler to bind to all existing and future delete links
-        $('body').on("click", "a.keyword-delete", function (event) {
-            event.preventDefault();
-
-            if (confirm('Er du sikker på at du vil slette nøkkelordet?')) {
-                var deleteId = $(this).data('delete');
-
-                var $selectCodeList = $("select#" + $(this).data('list'));
-                if ($selectCodeList !== undefined) {
-                    var selector = 'option:contains("' + $(this).data('list-value') + '")';
-                    var option = $selectCodeList.children(selector);
-                    option.removeAttr('disabled');
-                }
-
-                var $listItem = $('li#' + deleteId);
-                var $parentList = $listItem.parent();
-                $listItem.remove();
-
-                $('li', $parentList).each(function (index, value) {
+                $('#thumbnails li').each(function (index, value) {
                     var $hiddenItemsForRow = $('input[type=hidden]', value);
                     $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
                         var name = $(hiddenValue).attr("name");
-                        //console.log("hidden value old name: " + name);
-                        var inputName = name.substring(0, name.indexOf("["));
-                        var inputNameWithIndex = inputName + '[' + index + ']';
-                        //console.log("new name: " + inputNameWithIndex);
-                        $(hiddenValue).attr('name', inputNameWithIndex);
+                        console.log(name);
+                        if (name.indexOf('.Type') !== -1) {
+                            $(hiddenValue).attr('name', 'Thumbnails[' + index + '].Type');
+                        } else if (name.indexOf('.URL') !== -1) {
+                            $(hiddenValue).attr('name', 'Thumbnails[' + index + '].URL');
+                        }
                     });
                 });
+            });
 
 
+            // help text
+
+            $("a.help-text-toggle").click(function (event) {
+                event.preventDefault();
+                var helpTextId = $(this).data("help-text-id");
+                $("#" + helpTextId).toggle();
+            });
+
+            // add help icon to each help text paragraph
+            $(".help-text").prepend("<span class=\"badge\">?</span> ");
+
+            // format
+
+
+            $("#SpatialRepresentation").change(function (event) {
+                event.preventDefault();
+                var selectedSpatialRepresentation = $("#SpatialRepresentation").val();
+
+                for (var f = 0; f < $('#DistributionFormatsCount').val() ; f++) {
+
+                    if (selectedSpatialRepresentation == "vector") {
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val=""></option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SOSI">SOSI</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DOS/OPeNDAP">DOS/OPeNDAP</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DXF">DXF</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Filgeodatabase">ESRI Filgeodatabase</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Geodatabase">ESRI Geodatabase</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Shape">ESRI Shape</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoJSON">GeoJSON</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GML">GML</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GPX">GPX</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KML">KML</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KMZ">KMZ</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAS">LAS</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAZ">LAZ</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (MIF/MID)">MapInfo (MIF/MID)</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (TAB)">MapInfo (TAB)</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microstation DGN">Microstation DGN</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="OLEX">OLEX</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PDF">PDF</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RDF">RDF</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="S57">S57</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SQLite/SpatialLite">SQLite/SpatialLite</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="XML">XML</option>');
+
+                        @foreach (var df in ViewBag.VectorFormats as SelectList)
+                    {
+                        @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
+                                                                                    }
+
+                    }
+
+                    else if (selectedSpatialRepresentation == "grid") {
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc ASCII Grid">Arc ASCII Grid</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc SDE Raster">Arc SDE Raster</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="BMP">BMP</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="USGS DEM">USGS DEM</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DTED">DTED</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas ECW">Erdas ECW</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoTIFF">GeoTIFF</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GFX">GFX</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRASS raster format">GRASS raster format</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRIB">GRIB</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas IMG">Erdas IMG</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG2000">JPEG2000</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MrSID">MrSID</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="NetCDF">NetCDF</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PNG">PNG</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PPT">PPT</option>');
+                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="TIFF">TIFF</option>');
+
+                        @foreach (var df in ViewBag.RasterFormats as SelectList)
+                {
+                    @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
+                                                                                }
+
+                    }
+
+                    else if (selectedSpatialRepresentation == "textTable") {
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="CSV">CSV</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microsoft Excel">Microsoft Excel</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DBF">DBF</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Tekstfil">Tekstfil</option>');
+
+                    }
+
+                    else if (selectedSpatialRepresentation == "tin") {
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Intergraph TIN">Intergraph TIN</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI TIN">ESRI TIN</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GEOPAK TIN">GEOPAK TIN</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LandXML TIN">LandXML TIN</option>');
+
+                    }
+
+                    else if (selectedSpatialRepresentation == "stereoModel") {
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Intergraph TIN">Intergraph TIN</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
+                    }
+
+                    else if (selectedSpatialRepresentation == "video") {
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MPEG">MPEG</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="AVI">AVI</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MOV">MOV</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="OGG">OGG</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="WMV">WMV</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RealVideo">RealVideo</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RMVB">RMVB</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="FLASH">FLASH</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASF">ASF</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MP4">MP4</option>');
+                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="QuickTime">QuickTime</option>');
+                    }
+
+                }
+
+            });
+
+            $("#SpatialRepresentation").trigger("change");
+
+            $("#newDistributionFormat").click(function (event) {
+                event.preventDefault();
+
+                var DistributionFormatCounts = parseInt($("#DistributionFormatsCount").val());
+                DistributionFormatCounts += 1;
+                var fIndex = DistributionFormatCounts - 1;
+
+                var dfHtm = "";
+
+                dfHtm += '<div id="formatRow' + fIndex + '" class="form-group required has-feedback">';
+                dfHtm += '<label for="distributionFormats[' + fIndex + '].Name" class="col-sm-2 control-label">Format</label>';
+                dfHtm += '<div class="col-sm-3">';
+
+                if ($("#DistributionFormatsType").val() == "dataset") {
+                    dfHtm += '<select id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" class="form-control">';
+                    dfHtm += '<option value=""></option>';
+                    dfHtm += '</select>';
+                }
+                else {
+                    dfHtm += '<input id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" type="text" value="" class="form-control" />';
+                }
+                dfHtm += '</div>';
+                dfHtm += '<label for="distributionFormats[' + fIndex + '].Version" class="col-sm-2" style="text-align: right;">Versjon</label>';
+                dfHtm += '<div class="col-sm-3">';
+                dfHtm += '<input type="text" id="distributionFormats[' + fIndex + '].Version" name="distributionFormats[' + fIndex + '].Version" value="" class="form-control" style="border-color: #ccc;" />';
+                dfHtm += '</div>';
+                dfHtm += '<div class="col-sm-2">';
+
+                dfHtm += '<button type="button" id="delDistributionFormat[' + fIndex + ']" class="btn btn-default" onclick="removeDistributionFormat(' + fIndex + ')">Slett</button>';
+
+                dfHtm += '</div>';
+
+                dfHtm += '</div>';
+
+                $("#distributionFormatDiv").append(dfHtm);
+                $("#DistributionFormatsCount").val(DistributionFormatCounts);
+
+                $("#SpatialRepresentation").trigger("change");
+
+            });
+
+
+            $("#newReferencesystem").click(function (event) {
+                event.preventDefault();
+                var ReferenceSystemCounts = parseInt($("#ReferenceSystemsCount").val());
+                ReferenceSystemCounts += 1;
+                var fIndex = ReferenceSystemCounts - 1;
+
+                var dfHtm = "";
+
+                dfHtm += '<div id="referenceRow' + fIndex + '" class="form-group">';
+                dfHtm += '<label for="referenceSystems[' + fIndex + '].CoordinateSystem" class="col-sm-2 control-label">Romlig<br>referansesystem</label>';
+                dfHtm += '<div class="col-sm-3">';
+
+
+                dfHtm += '<select id="referenceSystems[' + fIndex + '].CoordinateSystem" name="referenceSystems[' + fIndex + '].CoordinateSystem" class="form-control">';
+                @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
+            {
+            @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
+                                                                                        }
+                dfHtm += '</select>';
+
+                dfHtm += '</div>';
+                dfHtm += '<label for="referenceSystems[' + fIndex + '].Version" class="col-sm-2" style="text-align: right;">Koderom</label>';
+                dfHtm += '<div class="col-sm-3">';
+                dfHtm += '<input type="text" id="referenceSystems[' + fIndex + '].Namespace" name="referenceSystems[' + fIndex + '].Namespace" readonly value="EPSG" class="form-control" />';
+                dfHtm += '</div>';
+                dfHtm += '<div class="col-sm-2">';
+
+                dfHtm += '<button type="button" id="delReferenceSystem[' + fIndex + ']" class="btn btn-default" onclick="removeReferenceSystem(' + fIndex + ')">Slett</button>';
+
+                dfHtm += '</div>';
+
+                dfHtm += '</div>';
+
+                $("#ReferenceSystemsDiv").append(dfHtm);
+                $("#ReferenceSystemsCount").val(ReferenceSystemCounts);
+
+
+            });
+
+
+
+            // conformity
+
+            $("button#prefillConformityInspire").click(function (event) {
+                event.preventDefault();
+                $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
+                $("#QualitySpecificationDate").val("08.12.2010");
+                $("#QualitySpecificationDateType").val("publication");
+                //$("#QualitySpecificationExplanation").val("See the referenced specification");
+                $("#QualitySpecificationResult").prop('checked', true);
+            });
+            $("button#prefillConformitySosi").click(function (event) {
+                event.preventDefault();
+                $("#QualitySpecificationTitle").val("SOSI-fagområde: (Navn på fagområde)");
+                $("#QualitySpecificationDate").val("01.01.2014");
+                $("#QualitySpecificationDateType").val("publication");
+                //$("#QualitySpecificationExplanation").val("See the referenced specification");
+                $("#QualitySpecificationResult").prop('checked', true);
+            });
+            $("button#prefillConformitySosiSpec").click(function (event) {
+                event.preventDefault();
+                $("#QualitySpecificationTitle").val("SOSI-produktspesifikasjon: (Navn på produktspesifikasjon)");
+                $("#QualitySpecificationDate").val("01.01.2014");
+                $("#QualitySpecificationDateType").val("publication");
+                //$("#QualitySpecificationExplanation").val("See the referenced specification");
+                $("#QualitySpecificationResult").prop('checked', true);
+            });
+
+            // bounding box
+
+            var $states = $('select#bboxState');
+            var $counties = $('select#bboxCounty');
+
+            var $countyList = $counties.find('option').clone();
+
+            $states.change(function () {
+                var $selectedStateNumber = $(this).find('option:selected').data('statenumber');
+                var regex = new RegExp("^" + $selectedStateNumber);
+                $counties.html($countyList.filter(function () {
+                    return regex.test($(this).attr('data-countynumber'));
+                }));
+            }).change();
+
+
+            $("button#bboxPrefill").click(function (event) {
+                event.preventDefault();
+                var $selectedCounty = $counties.find('option:selected');
+                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+            });
+
+            $("#bboxCounty").click(function (event) {
+                event.preventDefault();
+                var $selectedCounty = $counties.find('option:selected');
+                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+            });
+
+            $("#bboxState").click(function (event) {
+                event.preventDefault();
+                var $selectedCounty = $counties.find('option:selected');
+                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+            });
+
+            // Check date not in future
+            $("#DateUpdated").change(function (event) {
+                event.preventDefault();
+                var currentDate = new Date();
+                var selectedDateStr = $('#DateUpdated').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                if (selectedDate > currentDate) {
+                    alert('Dato kan ikke være i fremtiden');
+                    $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                }
+            });
+
+            $("#DatePublished").change(function (event) {
+                event.preventDefault();
+                var currentDate = new Date();
+                var selectedDateStr = $('#DatePublished').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                if (selectedDate > currentDate) {
+                    alert('Dato kan ikke være i fremtiden');
+                    $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                }
+            });
+
+            $("#DateCreated").change(function (event) {
+                event.preventDefault();
+                var currentDate = new Date();
+                var selectedDateStr = $('#DateCreated').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                if (selectedDate > currentDate) {
+                    alert('Dato kan ikke være i fremtiden');
+                    $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                }
+            });
+
+            $("#DateMetadataValidFrom").change(function (event) {
+                event.preventDefault();
+                var selectedDateStr = $('#DateMetadataValidFrom').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                var validToStr = $('#DateMetadataValidTo').val();
+                var validToArr = validToStr.split('.');
+                var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
+
+                if (ValidToDate < selectedDate) {
+                    alert('Gyldig fra dato må være mindre enn gyldig til dato');
+                    var newDate = new Date(ValidToDate);
+                    newDate.setDate(newDate.getDate() - 1);
+                    $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+                }
+            });
+
+            $("#DateMetadataValidTo").change(function (event) {
+                event.preventDefault();
+                var selectedDateStr = $('#DateMetadataValidTo').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                var validFromStr = $('#DateMetadataValidFrom').val();
+                var validFromArr = validFromStr.split('.');
+                var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
+
+                if (selectedDate < ValidFromDate) {
+                    alert('Gyldig til dato må være større enn gyldig fra dato');
+                    var newDate = new Date(ValidFromDate);
+                    newDate.setDate(newDate.getDate() + 1);
+                    $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+                }
+            });
+
+            $("#QualitySpecificationDate").change(function (event) {
+                event.preventDefault();
+                var currentDate = new Date();
+                var selectedDateStr = $('#QualitySpecificationDate').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                if (selectedDate > currentDate) {
+                    alert('Dato kan ikke være i fremtiden');
+                    $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                }
+            });
+
+
+            // keywords
+
+            var keywordThreshold = 20;
+
+            function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
+                deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
+
+                var $keywordInput = $('#' + selectorPrefix + '-text');
+
+                var newKeyword = $keywordInput.val();
+
+                var elementId = $('ul#' + selectorPrefix + ' li').length;
+
+                var listItemId = selectorPrefix + "-" + elementId;
+
+                var li = $('<li />', { "id": listItemId });
+                li.append($('<span />', { "class": "", text: newKeyword }));
+                li.append('&nbsp;');
+
+                var link = $('<a />', {
+                    "href": "",
+                    "class": "keyword-delete",
+                    "data-delete": listItemId,
+                    "data-list": selectorPrefix + '-text',
+                    "data-list-value": newKeyword
+                });
+                link.append("<small>Slett</small>");
+
+                li.append(link);
+                li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
+
+                if (elementId < keywordThreshold)
+                    $('ul#' + selectorPrefix).append(li);
+                else
+                    alert('Maksimum antall nøkkelord er ' + keywordThreshold);
+
+                return $keywordInput;
+            };
+
+            function addKeywordFromCodeList(selectorPrefix, inputName) {
+                var $keywordInput = addKeyword(selectorPrefix, inputName);
+                var $selected = $keywordInput.find("option:selected");
+                $selected.attr("disabled", "disabled");
+                $selected.removeAttr("selected");
+            };
+
+            function addKeywordFromTextbox(selectorPrefix, inputName) {
+                var $keywordInput = addKeyword(selectorPrefix, inputName);
+                $keywordInput.val('');
             }
+
+            $('button#keywords-theme-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-theme-text').val().trim() == '')
+                    alert('Vennligst fyll ut tema');
+                else
+                    addKeywordFromTextbox('keywords-theme', "KeywordsTheme");
+
+            });
+
+            $('button#keywords-place-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-place-text').val().trim() == '')
+                    alert('Vennligst fyll ut sted');
+                else
+                    addKeywordFromTextbox('keywords-place', "KeywordsPlace");
+            });
+
+            $('button#keywords-national-initiative-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-national-initiative-text').val().trim() == '')
+                    alert('Vennligst velg samarbeid og lov');
+                else
+                    addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
+            });
+
+            $('button#keywords-national-theme-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-national-theme-text').val().trim() == '')
+                    alert('Vennligst velg Nasjonal temainndeling');
+                else
+                    addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
+            });
+
+            $('button#keywords-inspire-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-inspire-text').val().trim() == '')
+                    alert('Vennligst velg inspire');
+                else
+                    addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
+            });
+
+            $('button#keywords-other-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-other-text').val().trim() == '')
+                    alert('Vennligst fyll ut annet');
+                else
+                    addKeywordFromTextbox('keywords-other', "KeywordsOther");
+            });
+
+            // use a delegated event handler to bind to all existing and future delete links
+            $('body').on("click", "a.keyword-delete", function (event) {
+                event.preventDefault();
+
+                if (confirm('Er du sikker på at du vil slette nøkkelordet?')) {
+                    var deleteId = $(this).data('delete');
+
+                    var $selectCodeList = $("select#" + $(this).data('list'));
+                    if ($selectCodeList !== undefined) {
+                        var selector = 'option:contains("' + $(this).data('list-value') + '")';
+                        var option = $selectCodeList.children(selector);
+                        option.removeAttr('disabled');
+                    }
+
+                    var $listItem = $('li#' + deleteId);
+                    var $parentList = $listItem.parent();
+                    $listItem.remove();
+
+                    $('li', $parentList).each(function (index, value) {
+                        var $hiddenItemsForRow = $('input[type=hidden]', value);
+                        $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
+                            var name = $(hiddenValue).attr("name");
+                            //console.log("hidden value old name: " + name);
+                            var inputName = name.substring(0, name.indexOf("["));
+                            var inputNameWithIndex = inputName + '[' + index + ']';
+                            //console.log("new name: " + inputNameWithIndex);
+                            $(hiddenValue).attr('name', inputNameWithIndex);
+                        });
+                    });
+
+
+                }
+            });
+
         });
 
-    });
+        function removeDistributionFormat(formatID) {
+            var elem = document.getElementById("formatRow" + formatID);
+            elem.parentNode.removeChild(elem);
+            document.getElementById('DistributionFormatsCount').value -= 1;
+        };
 
-    function removeDistributionFormat(formatID) {
-        var elem = document.getElementById("formatRow" + formatID);
-        elem.parentNode.removeChild(elem);
-        document.getElementById('DistributionFormatsCount').value -= 1;
-    };
-
-    function removeReferenceSystem(refID) {
-        var elem = document.getElementById("referenceRow" + refID);
-        elem.parentNode.removeChild(elem);
-        document.getElementById('ReferenceSystemsCount').value -= 1;
-    };
+        function removeReferenceSystem(refID) {
+            var elem = document.getElementById("referenceRow" + refID);
+            elem.parentNode.removeChild(elem);
+            document.getElementById('ReferenceSystemsCount').value -= 1;
+        };
 
     </script>
 }
