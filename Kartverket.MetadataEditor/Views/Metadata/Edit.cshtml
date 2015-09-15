@@ -442,17 +442,57 @@
                 if ($('#thumbnailUrl').val().trim() == '') { alert('URL mangler'); return false; }
 
 
-                //TODO Remove old images and put mini first in list
-
                 var $thumbnails = $("#thumbnails");
 
                 var itemIndex = $('li', $thumbnails).length;
+
+                //Remove old images
+                $('li', $thumbnails).remove();
+
+                itemIndex = $('li', $thumbnails).length;
 
 
                 if ($("#coverageImageSelectedType").length) {
                     itemIndex = itemIndex + 1;
                 }
 
+                //Mini
+                
+                var thumbnailType = "miniatyrbilde";
+                var $thumbnailUrl = $("#thumbnailUrlMini");
+
+                var $itemMini = $('<li />', { "class": 'thumbnail clearfix' });
+
+                var $itemImage = $('<img />', {
+                    src: $thumbnailUrl.val(),
+                    width: '200',
+                });
+
+                var $itemType = $('<p />').append('<strong>Type</strong> ').append(thumbnailType);
+                var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
+
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: thumbnailType
+                });
+
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+                $itemMini.append($itemImage);
+                $itemMini.append($itemType);
+                $itemMini.append($itemTypeHidden);
+                $itemMini.append($itemUrl);
+                $itemMini.append($itemUrlHidden);
+                $itemMini.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
+
+
+                //Large Image
+                itemIndex = itemIndex + 1;
                 var $thumbnailType = $("#thumbnailType");
                 var $thumbnailUrl = $("#thumbnailUrl");
 
@@ -485,49 +525,12 @@
                 $item.append($itemUrlHidden);
                 $item.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
 
-                $thumbnails.append($item);
 
                 $thumbnailType.val('');
                 $thumbnailUrl.val('');
 
-                //Mini
-                itemIndex = itemIndex + 1;
-                var thumbnailType = "miniatyrbilde";
-                var $thumbnailUrl = $("#thumbnailUrlMini");
-
-                var $item = $('<li />', { "class": 'thumbnail clearfix' });
-
-                var $itemImage = $('<img />', {
-                    src: $thumbnailUrl.val(),
-                    width: '200',
-                });
-
-                var $itemType = $('<p />').append('<strong>Type</strong> ').append(thumbnailType);
-                var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
-
-                var $itemTypeHidden = $('<input />', {
-                    type: 'hidden',
-                    name: 'Thumbnails[' + itemIndex + '].Type',
-                    value: thumbnailType
-                });
-
-                var $itemUrlHidden = $('<input />', {
-                    type: 'hidden',
-                    name: 'Thumbnails[' + itemIndex + '].URL',
-                    value: $thumbnailUrl.val()
-                });
-
-                $item.append($itemImage);
-                $item.append($itemType);
-                $item.append($itemTypeHidden);
-                $item.append($itemUrl);
-                $item.append($itemUrlHidden);
-                $item.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
-
+                $thumbnails.append($itemMini);
                 $thumbnails.append($item);
-
-                $thumbnailType.val('');
-                $thumbnailUrl.val('');
 
             });
 
