@@ -116,8 +116,8 @@
         <li><a href="#distribution" id="distributionlink" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
         <li><a href="#documents" id="documentslink" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumentasjon</a></li>
         <li><a href="#constraints" id="constraintslink" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
-        <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
         <li><a href="#keywords" id="keywordslink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
+        <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
         <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
     </ul>
 
@@ -147,12 +147,12 @@
             @Html.Partial("_Constraints", Model)
         </div>
 
-        <div class="tab-pane" id="quality">
-            @Html.Partial("_Quality", Model)
-        </div>
-
         <div class="tab-pane" id="keywords">
             @Html.Partial("_Keywords", Model)
+        </div>
+
+        <div class="tab-pane" id="quality">
+            @Html.Partial("_Quality", Model)
         </div>
 
         <div class="tab-pane" id="english">
