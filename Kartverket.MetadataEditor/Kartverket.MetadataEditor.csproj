@@ -349,6 +349,7 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\folder deploy.pubxml" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap-filestyle.js" />
     <Content Include="Scripts\bootstrap-filestyle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
