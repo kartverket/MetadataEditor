@@ -256,6 +256,15 @@ namespace Kartverket.MetadataEditor.Models
                 model.BoundingBoxSouth = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.SouthBoundLatitude);
             }
 
+            if (metadata.ProductSpecificationOther != null) 
+            {
+                model.ProductSpecificationOther = new SimpleOnlineResource
+                {
+                    Name = metadata.ProductSpecificationOther.Name,
+                    URL = metadata.ProductSpecificationOther.URL
+                };
+            }
+
             model.FixThumbnailUrls();
 
             model.OperatesOn = metadata.OperatesOn !=null ? metadata.OperatesOn : new List<string>();
@@ -351,7 +360,15 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ContactOwner = contactOwner;
 
             // documents
-                metadata.ProductSpecificationUrl = model.ProductSpecificationUrl; 
+                metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
+
+                metadata.ProductSpecificationOther = new SimpleOnlineResource 
+                {
+                    Name = !string.IsNullOrEmpty(model.ProductSpecificationOther.Name) ? model.ProductSpecificationOther.Name : "",
+                    URL = !string.IsNullOrEmpty(model.ProductSpecificationOther.URL) ? model.ProductSpecificationOther.URL : "",
+                };
+
+
                 metadata.ProductSheetUrl = model.ProductSheetUrl;
                 metadata.ProductPageUrl = model.ProductPageUrl;
                 metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;

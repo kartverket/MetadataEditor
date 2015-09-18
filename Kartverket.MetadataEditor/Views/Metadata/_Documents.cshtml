@@ -10,6 +10,18 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-sm-2 control-label">Produktspesifikasjon annen (navn)</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(m => m.ProductSpecificationOther.Name, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Produktspesifikasjon annen (URL)</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(m => m.ProductSpecificationOther.URL, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-sm-2 control-label">Produktark</label>
         <div class="col-sm-9">
             @Html.DropDownList("ProductSheetUrl", ViewBag.ProductsheetValues as SelectList, String.Empty, new { @class = "form-control" })
