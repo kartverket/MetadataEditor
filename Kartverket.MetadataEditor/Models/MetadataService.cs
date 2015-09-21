@@ -209,11 +209,11 @@ namespace Kartverket.MetadataEditor.Models
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace : null,
                 ReferenceSystems = metadata.ReferenceSystems!=null && metadata.ReferenceSystems.Count == 0 ? null : metadata.ReferenceSystems,
 
-                QualitySpecificationDate = (metadata.QualitySpecification != null && !string.IsNullOrWhiteSpace(metadata.QualitySpecification.Date)) ? DateTime.Parse(metadata.QualitySpecification.Date) : (DateTime?)null,
-                QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
-                QualitySpecificationExplanation = metadata.QualitySpecification != null ? metadata.QualitySpecification.Explanation : null,
-                QualitySpecificationResult = metadata.QualitySpecification != null ? metadata.QualitySpecification.Result : false,
-                QualitySpecificationTitle = metadata.QualitySpecification != null ? metadata.QualitySpecification.Title : null,
+                //QualitySpecificationDate = (metadata.QualitySpecification != null && !string.IsNullOrWhiteSpace(metadata.QualitySpecification.Date)) ? DateTime.Parse(metadata.QualitySpecification.Date) : (DateTime?)null,
+                //QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
+                //QualitySpecificationExplanation = metadata.QualitySpecification != null ? metadata.QualitySpecification.Explanation : null,
+                //QualitySpecificationResult = metadata.QualitySpecification != null ? metadata.QualitySpecification.Result : false,
+                //QualitySpecificationTitle = metadata.QualitySpecification != null ? metadata.QualitySpecification.Title : null,
                 ProcessHistory = metadata.ProcessHistory,
                 MaintenanceFrequency = metadata.MaintenanceFrequency,
                 ResolutionScale = metadata.ResolutionScale,
@@ -275,8 +275,57 @@ namespace Kartverket.MetadataEditor.Models
                 model.ResourceReferenceCodespace = metadata.ResourceReference.Codespace != null ? metadata.ResourceReference.Codespace : null;
             }
 
+            getQualitySpecifications(model, metadata);
+
 
             return model;
+        }
+
+        private void getQualitySpecifications(MetadataViewModel model, SimpleMetadata metadata)
+        {
+            if (metadata.QualitySpecifications != null && metadata.QualitySpecifications.Count > 0)
+            {
+                foreach (var qualitySpecification in metadata.QualitySpecifications)
+                {
+                    string responsible = !string.IsNullOrEmpty(qualitySpecification.Responsible) ? qualitySpecification.Responsible : "";
+                    responsible = responsible.ToLower();
+
+                    string title = qualitySpecification.Title != null ? qualitySpecification.Title : "";
+                    title = title.ToLower();
+
+                    if (title.Contains("commission regulation"))
+                        responsible = "inspire";
+                    else if (title.Contains("sosi"))
+                        responsible = "sosi";
+
+                    if (responsible == "inspire") 
+                    {
+                        model.QualitySpecificationDateInspire = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspire = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspire = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.QualitySpecificationResultInspire =  qualitySpecification.Result;
+                        model.QualitySpecificationTitleInspire = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+ 
+                    }
+                    else if (responsible == "sosi")
+                    {
+                        model.QualitySpecificationDateSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationSosi = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.QualitySpecificationResultSosi =  qualitySpecification.Result;
+                        model.QualitySpecificationTitleSosi = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+                    }
+                    else 
+                    {
+                        model.QualitySpecificationDate = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateType = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanation = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.QualitySpecificationResult =  qualitySpecification.Result;
+                        model.QualitySpecificationTitle = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+                    }
+                }
+
+            }
         }
 
         private string ConvertCoordinateWithCommaToPoint(string input)
@@ -416,17 +465,45 @@ namespace Kartverket.MetadataEditor.Models
 
 
             // quality
+            List<SimpleQualitySpecification> qualityList = new List<SimpleQualitySpecification>();
+            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleInspire))
+            {
+                qualityList.Add(new SimpleQualitySpecification
+                {
+                    Title = model.QualitySpecificationTitleInspire,
+                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateInspire),
+                    DateType = model.QualitySpecificationDateTypeInspire,
+                    Explanation = model.QualitySpecificationExplanationInspire,
+                    Result = model.QualitySpecificationResultInspire,
+                    Responsible = "inspire"
+                });
+            }
+            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleSosi))
+            {
+                qualityList.Add(new SimpleQualitySpecification
+                {
+                    Title = model.QualitySpecificationTitleSosi,
+                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                    DateType = model.QualitySpecificationDateTypeSosi,
+                    Explanation = model.QualitySpecificationExplanationSosi,
+                    Result = model.QualitySpecificationResultSosi,
+                    Responsible = "sosi"
+                });
+            }
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
             {
-                metadata.QualitySpecification = new SimpleQualitySpecification
+                qualityList.Add(new SimpleQualitySpecification
                 {
                     Title = model.QualitySpecificationTitle,
-                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDate), 
+                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDate),
                     DateType = model.QualitySpecificationDateType,
                     Explanation = model.QualitySpecificationExplanation,
-                    Result = model.QualitySpecificationResult
-                };
+                    Result = model.QualitySpecificationResult,
+                    Responsible = "other"
+                });
             }
+
+            metadata.QualitySpecifications = qualityList;
 
             metadata.ProcessHistory = !string.IsNullOrWhiteSpace(model.ProcessHistory) ? model.ProcessHistory : " ";
 
