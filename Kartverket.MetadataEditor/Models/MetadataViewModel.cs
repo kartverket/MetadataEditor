@@ -109,13 +109,25 @@ namespace Kartverket.MetadataEditor.Models
         
         // quality
         public DateTime? QualitySpecificationDate { get; set; }
+        public DateTime? QualitySpecificationDateInspire { get; set; }
+        public DateTime? QualitySpecificationDateSosi { get; set; }
         public string QualitySpecificationDateType { get; set; }
+        public string QualitySpecificationDateTypeInspire { get; set; }
+        public string QualitySpecificationDateTypeSosi { get; set; }
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
-        [RequiredIf("!IsSoftware()",ErrorMessage="Forklaring av resultat er påkrevd")]
+        //[RequiredIf("!IsSoftware()",ErrorMessage="Forklaring av resultat er påkrevd")]
+        //TODO adjust logic requirement
         public string QualitySpecificationExplanation { get; set; }
+        public string QualitySpecificationExplanationInspire { get; set; }
+        public string QualitySpecificationExplanationSosi { get; set; }
         public bool QualitySpecificationResult { get; set; }
-        [RequiredIf("!IsSoftware()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd")]
+        public bool QualitySpecificationResultInspire { get; set; }
+        public bool QualitySpecificationResultSosi { get; set; }
+        //[RequiredIf("!IsSoftware()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd")]
+        //TODO adjust logic requirement
         public string QualitySpecificationTitle { get; set; }
+        public string QualitySpecificationTitleInspire { get; set; }
+        public string QualitySpecificationTitleSosi { get; set; }
         //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
         [Required (ErrorMessage="Oppdateringshyppighet er påkrevd")]
