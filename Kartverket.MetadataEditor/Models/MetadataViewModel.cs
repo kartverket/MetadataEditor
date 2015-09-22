@@ -115,15 +115,14 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationDateTypeInspire { get; set; }
         public string QualitySpecificationDateTypeSosi { get; set; }
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
-        //[RequiredIf("!IsSoftware()",ErrorMessage="Forklaring av resultat er påkrevd")]
-        //TODO adjust logic requirement
+        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Forklaring av resultat er påkrevd")]
         public string QualitySpecificationExplanation { get; set; }
         public string QualitySpecificationExplanationInspire { get; set; }
         public string QualitySpecificationExplanationSosi { get; set; }
         public bool QualitySpecificationResult { get; set; }
         public bool QualitySpecificationResultInspire { get; set; }
         public bool QualitySpecificationResultSosi { get; set; }
-        //[RequiredIf("!IsSoftware()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd")]
+        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd")]
         //TODO adjust logic requirement
         public string QualitySpecificationTitle { get; set; }
         public string QualitySpecificationTitleInspire { get; set; }
@@ -173,6 +172,25 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Published { get; set; }
 
+        public bool IsValidQualitySpesification() 
+        {
+            if (IsSoftware())
+                return true;
+
+            bool qualityRequired = false;
+
+            if (!string.IsNullOrEmpty(QualitySpecificationTitle) && !string.IsNullOrEmpty(QualitySpecificationExplanation))
+                qualityRequired = true;
+
+            if (!string.IsNullOrEmpty(QualitySpecificationTitleInspire) && !string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
+                qualityRequired = true;
+
+            if (!string.IsNullOrEmpty(QualitySpecificationTitleSosi) && !string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
+                qualityRequired = true;
+
+            return qualityRequired;
+
+        }
 
         internal void FixThumbnailUrls()
         {
