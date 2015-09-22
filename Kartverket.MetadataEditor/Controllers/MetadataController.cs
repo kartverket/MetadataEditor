@@ -238,7 +238,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ValidateModel(model);
 
-            if (ignoreValidationError == "1" && ViewBag.IsAdmin == "1") 
+            if (ignoreValidationError == "1" /*&& ViewBag.IsAdmin == "1"*/) 
             { 
                 foreach (var modelValue in ModelState.Values)
                 {
