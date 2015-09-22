@@ -115,17 +115,20 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationDateTypeInspire { get; set; }
         public string QualitySpecificationDateTypeSosi { get; set; }
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
-        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Forklaring av resultat er påkrevd")]
+        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Forklaring av resultat er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationExplanation { get; set; }
+        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Forklaring av resultat er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationExplanationInspire { get; set; }
+        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Forklaring av resultat er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationExplanationSosi { get; set; }
         public bool QualitySpecificationResult { get; set; }
         public bool QualitySpecificationResultInspire { get; set; }
         public bool QualitySpecificationResultSosi { get; set; }
-        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd")]
-        //TODO adjust logic requirement
+        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationTitle { get; set; }
+        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd  for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationTitleInspire { get; set; }
+        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationTitleSosi { get; set; }
         //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
@@ -172,23 +175,64 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Published { get; set; }
 
+
         public bool IsValidQualitySpesification() 
         {
             if (IsSoftware())
                 return true;
 
-            bool qualityRequired = false;
+            bool qualityValid = false;
 
-            if (!string.IsNullOrEmpty(QualitySpecificationTitle) && !string.IsNullOrEmpty(QualitySpecificationExplanation))
-                qualityRequired = true;
+            if (string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation))
+            { 
+                if (!string.IsNullOrEmpty(QualitySpecificationTitleInspire) && !string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
+                    qualityValid = true;
 
-            if (!string.IsNullOrEmpty(QualitySpecificationTitleInspire) && !string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
-                qualityRequired = true;
+                if (!string.IsNullOrEmpty(QualitySpecificationTitleSosi) && !string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
+                    qualityValid = true;
+            }
 
-            if (!string.IsNullOrEmpty(QualitySpecificationTitleSosi) && !string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
-                qualityRequired = true;
+            return qualityValid;
 
-            return qualityRequired;
+        }
+
+        public bool IsValidQualitySpesificationInspire()
+        {
+            if (IsSoftware())
+                return true;
+
+            bool qualityValid = false;
+
+            if (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
+            {
+                if (!string.IsNullOrEmpty(QualitySpecificationTitle) && !string.IsNullOrEmpty(QualitySpecificationExplanation))
+                    qualityValid = true;
+
+                if (!string.IsNullOrEmpty(QualitySpecificationTitleSosi) && !string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
+                    qualityValid = true;
+            }
+
+            return qualityValid;
+
+        }
+
+        public bool IsValidQualitySpesificationSosi()
+        {
+            if (IsSoftware())
+                return true;
+
+            bool qualityValid = false;
+
+            if (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
+            {
+                if (!string.IsNullOrEmpty(QualitySpecificationTitle) && !string.IsNullOrEmpty(QualitySpecificationExplanation))
+                    qualityValid = true;
+
+                if (!string.IsNullOrEmpty(QualitySpecificationTitleInspire) && !string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
+                    qualityValid = true;
+            }
+
+            return qualityValid;
 
         }
 
