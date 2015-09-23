@@ -174,15 +174,15 @@
             }
             @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_SaveAsXml">@UI.Button_SaveAsXml</button>*@
 
-            @if (ViewBag.ValidModel == true)
-            {
-                <input type="checkbox" name="published" value="true" checked /> <span>Publiser</span>
-                @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Validate">@UI.Button_Validate</button>*@
-            }
-            else
-            {
-                <input type="hidden" name="published" value="false" />
-            }
+            @*@if (ViewBag.ValidModel == true)
+        {*@
+            <input type="checkbox" name="published" value="true" checked /> <span>Publiser</span>
+            @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Validate">@UI.Button_Validate</button>*@
+            @*}
+        else
+        {*@
+            <input type="hidden" name="published" value="false" />
+            @*}*@
             <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
 
         </div>
