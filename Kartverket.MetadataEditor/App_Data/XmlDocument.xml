@@ -733,7 +733,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Title">
             <summary>
-              Looks up a localized string similar to Tittel.
+              Looks up a localized string similar to Metadata tittel.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Type">

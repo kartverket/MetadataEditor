@@ -394,7 +394,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tittel.
+        ///   Looks up a localized string similar to Metadata tittel.
         /// </summary>
         public static string Metadata_Title {
             get {
