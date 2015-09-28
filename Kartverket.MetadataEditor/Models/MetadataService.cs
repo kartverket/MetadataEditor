@@ -411,14 +411,11 @@ namespace Kartverket.MetadataEditor.Models
             // documents
                 metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
 
-                if (!string.IsNullOrEmpty(model.ProductSpecificationOther.Name) && !string.IsNullOrEmpty(model.ProductSpecificationOther.URL)) 
+                metadata.ProductSpecificationOther = new SimpleOnlineResource
                 {
-                    metadata.ProductSpecificationOther = new SimpleOnlineResource 
-                    {
-                        Name = !string.IsNullOrEmpty(model.ProductSpecificationOther.Name) ? model.ProductSpecificationOther.Name : "",
-                        URL = !string.IsNullOrEmpty(model.ProductSpecificationOther.URL) ? model.ProductSpecificationOther.URL : "",
-                    };
-                }
+                    Name = model.ProductSpecificationOther.Name,
+                    URL = model.ProductSpecificationOther.URL
+                };
 
 
                 metadata.ProductSheetUrl = model.ProductSheetUrl;

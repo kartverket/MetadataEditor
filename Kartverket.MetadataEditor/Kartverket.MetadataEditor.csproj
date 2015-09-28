@@ -72,9 +72,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExpressiveAnnotations.2.2.7\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GeoNorgeAPI, Version=3.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\GeoNorgeAPI.3.0.4.0\lib\net40\GeoNorgeAPI.dll</HintPath>
+      <HintPath>..\packages\GeoNorgeAPI.3.0.5.0\lib\net40\GeoNorgeAPI.dll</HintPath>
     </Reference>
     <Reference Include="Kentor.AuthServices, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
