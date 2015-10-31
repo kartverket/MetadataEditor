@@ -777,30 +777,109 @@
 
             // conformity
 
-            $("button#prefillConformityInspire").click(function (event) {
-                event.preventDefault();
-                $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
-                $("#QualitySpecificationDate").val("08.12.2010");
-                $("#QualitySpecificationDateType").val("publication");
-                //$("#QualitySpecificationExplanation").val("See the referenced specification");
-                $("#QualitySpecificationResult").prop('checked', true);
-            });
-            $("button#prefillConformitySosi").click(function (event) {
-                event.preventDefault();
-                $("#QualitySpecificationTitle").val("SOSI-fagområde: (Navn på fagområde)");
-                $("#QualitySpecificationDate").val("01.01.2014");
-                $("#QualitySpecificationDateType").val("publication");
-                //$("#QualitySpecificationExplanation").val("See the referenced specification");
-                $("#QualitySpecificationResult").prop('checked', true);
-            });
-            $("button#prefillConformitySosiSpec").click(function (event) {
-                event.preventDefault();
-                $("#QualitySpecificationTitle").val("SOSI-produktspesifikasjon: (Navn på produktspesifikasjon)");
-                $("#QualitySpecificationDate").val("01.01.2014");
-                $("#QualitySpecificationDateType").val("publication");
-                //$("#QualitySpecificationExplanation").val("See the referenced specification");
-                $("#QualitySpecificationResult").prop('checked', true);
-            });
+            $('#QualitySpecificationTitleInspire').prop('readonly', true);
+            $('#QualitySpecificationTitleSosi').prop('readonly', true);
+            $('#QualitySpecificationTitle').prop('readonly', true);
+
+            $('#QualitySpecificationDateTypeInspire').prop('readonly', true);
+            $('#QualitySpecificationDateTypeSosi').prop('readonly', true);
+            $('#QualitySpecificationDateType').prop('readonly', true);
+
+            //$("button#prefillConformityInspire").click(function (event) {
+            //    event.preventDefault();
+            //    $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
+            //    $("#QualitySpecificationDate").val("08.12.2010");
+            //    $("#QualitySpecificationDateType").val("publication");
+            //    //$("#QualitySpecificationExplanation").val("See the referenced specification");
+            //    $("#QualitySpecificationResult").prop('checked', true);
+            //});
+            //$("button#prefillConformitySosi").click(function (event) {
+            //    event.preventDefault();
+            //    $("#QualitySpecificationTitle").val("SOSI-fagområde: (Navn på fagområde)");
+            //    $("#QualitySpecificationDate").val("01.01.2014");
+            //    $("#QualitySpecificationDateType").val("publication");
+            //    //$("#QualitySpecificationExplanation").val("See the referenced specification");
+            //    $("#QualitySpecificationResult").prop('checked', true);
+            //});
+            //$("button#prefillConformitySosiSpec").click(function (event) {
+            //    event.preventDefault();
+            //    $("#QualitySpecificationTitle").val("SOSI-produktspesifikasjon: (Navn på produktspesifikasjon)");
+            //    $("#QualitySpecificationDate").val("01.01.2014");
+            //    $("#QualitySpecificationDateType").val("publication");
+            //    //$("#QualitySpecificationExplanation").val("See the referenced specification");
+            //    $("#QualitySpecificationResult").prop('checked', true);
+            //});
+
+            var Inspire = function (event) {
+                if (event) {
+                    var selectednationalinitiative = $('#keywords-national-initiative-text').val();
+                    if (selectednationalinitiative == "Inspire") {
+                        if ($("#QualitySpecificationTitleInspire").val().trim() == "")
+                            $("#QualitySpecificationTitleInspire").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
+                        if ($("#QualitySpecificationDateInspire").val().trim() == "")
+                            $("#QualitySpecificationDateInspire").val("08.12.2010");
+                        if ($("#QualitySpecificationDateTypeInspire").val().trim() == "")
+                            $("#QualitySpecificationDateTypeInspire").val("publication");
+                    }
+                }
+            };
+
+            $("button#keywords-national-initiative-add").on("click", Inspire);
+            Inspire();
+
+
+            function InspireRemove() {
+                $("#QualitySpecificationTitleInspire").val("");
+                $("#QualitySpecificationDateInspire").val("");
+                $("#QualitySpecificationDateTypeInspire").val("");
+                $("#QualitySpecificationExplanationInspire").val("");
+                $("#QualitySpecificationResultInspire").prop('checked', false);
+            };
+
+            var Sosi = function (event) {
+                if (event) {
+                    var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
+                    if (selectedSosi != "") {
+                        $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
+                        $("#QualitySpecificationDateSosi").val("01.01.2014");
+                        $("#QualitySpecificationDateTypeSosi").val("publication");
+                        $("#QualitySpecificationResultSosi").prop('checked', true);
+                    }
+                    else {
+                        $("#QualitySpecificationTitleSosi").val("");
+                        $("#QualitySpecificationDateSosi").val("");
+                        $("#QualitySpecificationDateTypeSosi").val("");
+                        //$("#QualitySpecificationExplanation").val("See the referenced specification");
+                        $("#QualitySpecificationResultSosi").prop('checked', false);
+                    }
+                }
+            };
+
+            $("#ProductSpecificationUrl").on("change", Sosi);
+            Sosi();
+
+
+            var otherSpec = function (event) {
+                if (event) {
+                    var selectedOtherSpec = $('#ProductSpecificationOther_Name').val();
+                    if (selectedOtherSpec != "") {
+                        $("#QualitySpecificationTitle").val("Produktspesifikasjon: " + selectedOtherSpec);
+                        $("#QualitySpecificationDate").val("01.01.2014");
+                        $("#QualitySpecificationDateType").val("publication");
+                        $("#QualitySpecificationResult").prop('checked', true);
+                    }
+                    else {
+                        $("#QualitySpecificationTitle").val("");
+                        $("#QualitySpecificationDate").val("");
+                        $("#QualitySpecificationDateType").val("");
+                        $("#QualitySpecificationResult").prop('checked', false);
+                    }
+                }
+            };
+
+            $("#ProductSpecificationOther_Name").on("change", otherSpec);
+            otherSpec();
+
 
             // bounding box
 
@@ -1039,6 +1118,8 @@
                     var $selectCodeList = $("select#" + $(this).data('list'));
                     if ($selectCodeList !== undefined) {
                         var selector = 'option:contains("' + $(this).data('list-value') + '")';
+                        if ($(this).data('list-value') == "Inspire")
+                            InspireRemove();
                         var option = $selectCodeList.children(selector);
                         option.removeAttr('disabled');
                     }
