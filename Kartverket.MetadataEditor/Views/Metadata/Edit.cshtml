@@ -778,9 +778,15 @@
             // conformity
 
             $('#QualitySpecificationTitleInspire').prop('readonly', true);
+            if ($('#QualitySpecificationTitleInspire').val() == "")
+                $('#QualitySpecificationInspire').hide();
             $('#QualitySpecificationTitleSosi').prop('readonly', true);
+            if ($('#QualitySpecificationTitleSosi').val() == "")
+                $('#QualitySpecificationSosi').hide();
             $('#QualitySpecificationTitle').prop('readonly', true);
-
+            if ($('#QualitySpecificationTitle').val() == "")
+                $('#QualitySpecificationCustom').hide();
+            
             $('#QualitySpecificationDateTypeInspire').prop('readonly', true);
             $('#QualitySpecificationDateTypeSosi').prop('readonly', true);
             $('#QualitySpecificationDateType').prop('readonly', true);
@@ -824,6 +830,8 @@
                             $("#QualitySpecificationDateInspire").val("08.12.2010");
                         if ($("#QualitySpecificationDateTypeInspire").val().trim() == "")
                             $("#QualitySpecificationDateTypeInspire").val("publication");
+
+                        $('#QualitySpecificationInspire').show();
                     }
                 }
             };
@@ -833,6 +841,7 @@
 
 
             function InspireRemove() {
+                alert("InspireRemove");
                 $("#QualitySpecificationTitleInspire").val("");
                 $("#QualitySpecificationDateInspire").val("");
                 $("#QualitySpecificationDateTypeInspire").val("");
@@ -846,6 +855,7 @@
                     var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
                     if (selectedSosi != "") {
                         $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
+                        $('#QualitySpecificationSosi').show();
                         //$("#QualitySpecificationDateSosi").val("01.01.2014");
                         if (selectedSosiUrl != null)
                         {
@@ -885,8 +895,9 @@
                         $("#QualitySpecificationTitleSosi").val("");
                         $("#QualitySpecificationDateSosi").val("");
                         $("#QualitySpecificationDateTypeSosi").val("");
-                        //$("#QualitySpecificationExplanation").val("See the referenced specification");
+                        $("#QualitySpecificationExplanationSosi").val("");
                         $("#QualitySpecificationResultSosi").prop('checked', false);
+                        $('#QualitySpecificationSosi').hide();
                     }
                 }
             };
@@ -900,15 +911,18 @@
                     var selectedOtherSpec = $('#ProductSpecificationOther_Name').val();
                     if (selectedOtherSpec != "") {
                         $("#QualitySpecificationTitle").val("Produktspesifikasjon: " + selectedOtherSpec);
-                        $("#QualitySpecificationDate").val("01.01.2014");
+                        $("#QualitySpecificationDate").val("");
                         $("#QualitySpecificationDateType").val("publication");
                         $("#QualitySpecificationResult").prop('checked', true);
+                        $('#QualitySpecificationCustom').show();
                     }
                     else {
                         $("#QualitySpecificationTitle").val("");
                         $("#QualitySpecificationDate").val("");
                         $("#QualitySpecificationDateType").val("");
+                        $("#QualitySpecificationExplanation").val("");
                         $("#QualitySpecificationResult").prop('checked', false);
+                        $('#QualitySpecificationCustom').hide();
                     }
                 }
             };
