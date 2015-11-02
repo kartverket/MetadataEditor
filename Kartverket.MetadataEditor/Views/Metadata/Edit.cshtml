@@ -841,12 +841,12 @@
 
 
             function InspireRemove() {
-                alert("InspireRemove");
                 $("#QualitySpecificationTitleInspire").val("");
                 $("#QualitySpecificationDateInspire").val("");
                 $("#QualitySpecificationDateTypeInspire").val("");
                 $("#QualitySpecificationExplanationInspire").val("");
                 $("#QualitySpecificationResultInspire").prop('checked', false);
+                $('#QualitySpecificationInspire').hide();
             };
 
             var Sosi = function (event) {
@@ -1164,7 +1164,6 @@
 
                 if (confirm('Er du sikker på at du vil slette nøkkelordet?')) {
                     var deleteId = $(this).data('delete');
-
                     var $selectCodeList = $("select#" + $(this).data('list'));
                     if ($selectCodeList !== undefined) {
                         var selector = 'option:contains("' + $(this).data('list-value') + '")';

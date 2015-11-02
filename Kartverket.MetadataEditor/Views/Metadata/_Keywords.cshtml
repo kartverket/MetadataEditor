@@ -81,7 +81,7 @@
                             var keyword = Model.KeywordsNationalInitiative[i];
                             <li id="keywords-national-initiative-@i">
                                 <span class="">@keyword</span>
-                                <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i"><small>Slett</small></a>
+                                <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i" data-list="keywords-national-initiative-text" data-list-value="@keyword"><small>Slett</small></a>
                                 <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
                             </li>
                         }

@@ -183,6 +183,9 @@ namespace Kartverket.MetadataEditor.Models
 
             bool qualityValid = false;
 
+            if ((string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation)) && (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire)) && (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi)))
+                qualityValid = true; // No quality
+
             if (string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation))
             { 
                 if (!string.IsNullOrEmpty(QualitySpecificationTitleInspire) && !string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
@@ -203,6 +206,9 @@ namespace Kartverket.MetadataEditor.Models
 
             bool qualityValid = false;
 
+            if ((string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation)) && (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire)) && (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi)))
+                qualityValid = true; // No quality
+
             if (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
             {
                 if (!string.IsNullOrEmpty(QualitySpecificationTitle) && !string.IsNullOrEmpty(QualitySpecificationExplanation))
@@ -222,6 +228,9 @@ namespace Kartverket.MetadataEditor.Models
                 return true;
 
             bool qualityValid = false;
+
+            if ((string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation)) && (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire)) && (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi)))
+                qualityValid = true; // No quality
 
             if (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
             {
