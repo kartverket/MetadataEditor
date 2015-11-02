@@ -26,12 +26,43 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             Log.Info("Start validating all metadata.");
 
-            new Thread(() => new ValidatorService().ValidateAllMetadata()).Start();
+            //new Thread(() => new ValidatorService().ValidateAllMetadata()).Start();
+            List<string> EmailsTo = new ValidatorService().ValidateAllMetadata();
 
-            TempData["message"] = "Validering og sending av epost startet!";
+            //TempData["message"] = "Validering og sending av epost startet!";
 
-            return RedirectToAction("Index");
+            return View("Index", EmailsTo);
         }
 
-    }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult SendEmail(FormCollection form)
+        {
+            Log.Info("Start sending email");
+
+            List<string> emails = GetFormData(form);
+
+            new Thread(() => new ValidatorService().SendEmail(emails)).Start();
+
+            TempData["message"] = "Sender epost";
+
+            return View("Index");
+        }
+
+
+        private List<string> GetFormData(FormCollection form)
+        {
+
+            List<string> emails = new List<string>();
+            if (form["emails"] != null)
+            {
+                emails = form["emails"].Split(',').ToList();
+            }
+
+            return emails;
+
+        }
+
+     }
 }

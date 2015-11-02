@@ -25,22 +25,38 @@ namespace Kartverket.MetadataEditor.Models
             _metadataService = new MetadataService();
         }
 
-        public void ValidateAllMetadata() 
+        public List<string> ValidateAllMetadata() 
         {
+            List<string> emails = new List<string>();
+
             try 
             { 
                 DeleteFiles(MvcApplication.Store);
                 GetAllMetadata();
-                SendEmail();
+                //SendEmail();
+                emails = GetEmails();
+
             }
             catch(Exception ex)
             {
                 Log.Error(ex.Message);
             }
 
+            return emails;
+
         }
 
- 
+        private List<string> GetEmails()
+        {
+            var session = MvcApplication.Store.OpenSession();
+            var results = session.Query<MetaDataEntry>().Take(1024).OrderBy(o => o.ContactEmail);
+
+            var resultsList = results.ToList();
+
+            var emailsTo = resultsList.Select(o => o.ContactEmail).Distinct().ToList();
+
+            return emailsTo;
+        }
 
         public void GetAllMetadata() 
         {
@@ -60,19 +76,19 @@ namespace Kartverket.MetadataEditor.Models
 
             try
             {
-            while (next < numberOfRecordsMatched)
-            {
-                model = _metadataService.SearchMetadata("", "", next, limit);
+            //while (next < numberOfRecordsMatched)
+            //{
+            //    model = _metadataService.SearchMetadata("", "", next, limit);
 
-                foreach (var item in model.MetadataItems)
-                {
-                    MetaDataEntry md = ValidateMetadata(item.Uuid);
-                    SaveValidationResult(md);
-                }
+            //    foreach (var item in model.MetadataItems)
+            //    {
+            //        MetaDataEntry md = ValidateMetadata(item.Uuid);
+            //        SaveValidationResult(md);
+            //    }
 
-                next = model.OffsetNext();
-                if (next == 0) break;
-            }
+            //    next = model.OffsetNext();
+            //    if (next == 0) break;
+            //}
             }
             catch (Exception e)
             {
@@ -124,7 +140,7 @@ namespace Kartverket.MetadataEditor.Models
         }
 
 
-        private void SendEmail()
+        public void SendEmail(List<string> emailsTo)
         {
             try 
             { 
@@ -132,6 +148,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 var session = MvcApplication.Store.OpenSession();
                 var results = session.Query<MetaDataEntry>().Take(1024).OrderBy(o => o.ContactEmail);
+                //var results = session.Query<MetaDataEntry>().Where(e => emailsTo.Contains(e.ContactEmail)).Take(1024).OrderBy(o => o.ContactEmail);
 
                 var resultsList = results.ToList();
                 List<ErrorReport> reports = new List<ErrorReport>();
