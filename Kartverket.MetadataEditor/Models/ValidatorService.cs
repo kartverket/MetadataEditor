@@ -147,15 +147,14 @@ namespace Kartverket.MetadataEditor.Models
                 //var cfg=(System.Web.Configuration.CompilationSection) System.Configuration.ConfigurationManager.GetSection("system.web/compilation");
 
                 var session = MvcApplication.Store.OpenSession();
-                var results = session.Query<MetaDataEntry>().Take(1024).OrderBy(o => o.ContactEmail);
-                //var results = session.Query<MetaDataEntry>().Where(e => emailsTo.Contains(e.ContactEmail)).Take(1024).OrderBy(o => o.ContactEmail);
+                var results = session.Query<MetaDataEntry>().Take(1024);
 
                 var resultsList = results.ToList();
                 List<ErrorReport> reports = new List<ErrorReport>();
 
                 var Organisations = resultsList.Select(o => o.ContactEmail).Distinct().ToList();
 
-                foreach (var contactEmail in Organisations) 
+                foreach (var contactEmail in emailsTo) 
                 {
                     var resultOrgs = resultsList.Where(r => r.ContactEmail == contactEmail).ToList();
                     ErrorReport errReport = new ErrorReport();
