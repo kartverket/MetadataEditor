@@ -457,7 +457,7 @@
                 }
 
                 //Mini
-                
+
                 var thumbnailType = "miniatyrbilde";
                 var $thumbnailUrl = $("#thumbnailUrlMini");
 
@@ -843,9 +843,41 @@
             var Sosi = function (event) {
                 if (event) {
                     var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
+                    var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
                     if (selectedSosi != "") {
                         $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
-                        $("#QualitySpecificationDateSosi").val("01.01.2014");
+                        //$("#QualitySpecificationDateSosi").val("01.01.2014");
+                        if (selectedSosiUrl != null)
+                        {
+                            var selectedSosiUrlApi = selectedSosiUrl;
+                            selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
+
+                            $.getJSON(selectedSosiUrlApi, function (result) {
+
+                                if (result != null)
+                                {
+                                    if (result.length != 0)
+                                    {
+                                        var QualitySpecificationDateSosiFromRegister = "";
+                                        var dateAccepted = result.dateAccepted;
+                                        if (dateAccepted != "0001-01-01T00:00:00") // Not accepted
+                                        {
+                                            var dateAccept = new Date(dateAccepted);
+                                            QualitySpecificationDateSosiFromRegister = dateAccept.getDate() + "." + (dateAccept.getMonth() + 1) + "." + dateAccept.getFullYear();
+                                        }
+                                        else
+                                        {
+                                            var dateSubmitted = result.dateSubmitted;
+                                            var dateSubmit = new Date(dateSubmitted);
+                                            QualitySpecificationDateSosiFromRegister = dateSubmit.getDate() + "." + (dateSubmit.getMonth() + 1) + "." + dateSubmit.getFullYear();
+                                        }
+
+                                        $("#QualitySpecificationDateSosi").val(QualitySpecificationDateSosiFromRegister);
+                                    }
+                                }
+                            }
+                        )};
+
                         $("#QualitySpecificationDateTypeSosi").val("publication");
                         $("#QualitySpecificationResultSosi").prop('checked', true);
                     }
