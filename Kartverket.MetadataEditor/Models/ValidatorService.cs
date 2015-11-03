@@ -76,19 +76,19 @@ namespace Kartverket.MetadataEditor.Models
 
             try
             {
-            //while (next < numberOfRecordsMatched)
-            //{
-            //    model = _metadataService.SearchMetadata("", "", next, limit);
+                while (next < numberOfRecordsMatched)
+                {
+                    model = _metadataService.SearchMetadata("", "", next, limit);
 
-            //    foreach (var item in model.MetadataItems)
-            //    {
-            //        MetaDataEntry md = ValidateMetadata(item.Uuid);
-            //        SaveValidationResult(md);
-            //    }
+                    foreach (var item in model.MetadataItems)
+                    {
+                        MetaDataEntry md = ValidateMetadata(item.Uuid);
+                        SaveValidationResult(md);
+                    }
 
-            //    next = model.OffsetNext();
-            //    if (next == 0) break;
-            //}
+                    next = model.OffsetNext();
+                    if (next == 0) break;
+                }
             }
             catch (Exception e)
             {

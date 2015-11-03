@@ -78,7 +78,19 @@
                         {
                             if (c.Value == "nd.metadata_admin")
                             {
-                                <a href="@Url.Action("ValidateAll", "Validator")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-envelope"></span> Send epost om feil</a>
+                                <a href="@Url.Action("ValidateAll", "Validator")" class="btn btn-sm btn-default" onclick="return clickAndDisable(this);"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
+                                <script>
+                                    function clickAndDisable(link) {
+
+                                    document.getElementById('link-email-error').innerText = 'Henter eposter, vennligst vent...';
+                                    if (link.className != "visited btn btn-sm btn-default") {
+                                        link.className = "visited btn btn-sm btn-default";
+                                        return true;
+                                    }
+
+                                    return false;
+                                }
+                                </script>
                                 break;
                             }
                         }                       
