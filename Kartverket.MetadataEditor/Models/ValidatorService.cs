@@ -152,8 +152,6 @@ namespace Kartverket.MetadataEditor.Models
                 var resultsList = results.ToList();
                 List<ErrorReport> reports = new List<ErrorReport>();
 
-                var Organisations = resultsList.Select(o => o.ContactEmail).Distinct().ToList();
-
                 foreach (var contactEmail in emailsTo) 
                 {
                     var resultOrgs = resultsList.Where(r => r.ContactEmail == contactEmail).ToList();
