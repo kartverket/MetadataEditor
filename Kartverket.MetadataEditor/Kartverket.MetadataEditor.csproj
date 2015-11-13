@@ -221,6 +221,7 @@
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\ServiceWfsController.cs" />
     <Compile Include="Controllers\ApiMetaController.cs" />
+    <Compile Include="Controllers\SimpleMetadataController.cs" />
     <Compile Include="Controllers\ValidatorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,6 +238,8 @@
     <Compile Include="Models\ReportService.cs" />
     <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />
+    <Compile Include="Models\SimpleMetadataService.cs" />
+    <Compile Include="Models\SimpleMetadataViewModel.cs" />
     <Compile Include="Models\ValidatorService.cs" />
     <Compile Include="Models\WfsGetCapabilities10Parser.cs" />
     <Compile Include="Models\WfsGetCapabilities11Parser.cs" />
@@ -460,6 +463,10 @@
     <Content Include="Views\Batch\_MetadataItem.cshtml" />
     <Content Include="Views\Batch\_BatchItems.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\SimpleMetadata\Edit.cshtml" />
+    <Content Include="Views\SimpleMetadata\Create.cshtml" />
+    <Content Include="Views\SimpleMetadata\_Basic.cshtml" />
+    <Content Include="Views\SimpleMetadata\_Optional.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

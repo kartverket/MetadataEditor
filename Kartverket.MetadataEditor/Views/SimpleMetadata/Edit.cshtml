@@ -1,0 +1,937 @@
+﻿@model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
+@using Resources
+@{
+    ViewBag.Title = @Resources.UI.EditMetadata;
+    bool showProductSheetGeneratorUrl = false;
+    var ProductSheetGeneratorUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"];
+    if (ProductSheetGeneratorUrl != null && ProductSheetGeneratorUrl != "")
+        showProductSheetGeneratorUrl = true;
+}
+
+<form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
+    @Html.HiddenFor(m => m.Uuid)
+    @Html.HiddenFor(m => m.DateMetadataUpdated)
+    @Html.HiddenFor(m => m.HierarchyLevel)
+
+    @section ActionMenu {
+        <div class="btn-group">
+            @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
+                    <i class="glyphicon glyphicon-file"></i> Last ned XML
+                </a>*@
+            <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
+                <span class="glyphicon glyphicon-share-alt"></span> Vis i kartkatalogen
+            </a>
+            @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
+            {
+                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WMS"))
+                {
+                    <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                    </a>
+                }
+                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WFS"))
+                {
+                    <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                    </a>
+                }
+            }
+            @if (Model.IsDataset() && showProductSheetGeneratorUrl)
+            {
+                <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
+            }
+
+            @if (Model.IsService())
+            {
+                <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
+            }
+        </div>
+    }
+
+
+    <div class="pull-right">
+        <p class="text-right">
+            <small>UUID: @Model.Uuid</small><br />
+            <small>Metadata sist oppdatert: @String.Format("{0:dd.MM.yyyy}", Model.DateMetadataUpdated)</small>
+            <br />
+            <small>
+                <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ParentIdentifier) && Model.HierarchyLevel == "service")
+                {
+                    <span>[<a href="@Url.Action("Edit", new { uuid = @Model.ParentIdentifier})">Lenke til tjenesten</a>]</span>
+                }
+
+            </small>
+        </p>
+        <script>
+            function hideshow(which) {
+                if (!document.getElementById)
+                    return;
+                if (which.style.visibility == "visible") {
+                    which.style.display = "none";
+                    which.style.visibility = "hidden";
+                }
+                else {
+                    which.style.display = "inline-block";
+                    which.style.visibility = "visible";
+                }
+            }
+        </script>
+        <div id="validation" style="display: none; visibility: hidden;">
+            Validert <span id="validatedDate"></span>: <span id="validationStatus"></span>, <a style="cursor:pointer" class="alert-info" onclick="javascript: hideshow(document.getElementById('validationResults'))">detaljer</a>
+        </div>
+        <div id="validationResults" style="display:inline-block; visibility:hidden; position:absolute; width: 400px; height: auto; z-index: 3; background-color: white; border: 1px solid black;">
+        </div>
+    </div>
+
+    <h3>@ViewBag.Title</h3>
+    <h2>@Model.Title</h2>
+
+    @if (ViewBag.Saved == true)
+    {
+        <div class="alert alert-success">
+            Metadata ble lagret.
+        </div>
+    }
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            Det har oppstått en feil: @ViewBag.ErrorMessage
+        </div>
+    }
+
+    @Html.ValidationSummary(false, "Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:", new { @class = "alert alert-danger" })
+
+
+
+    <ul class="nav nav-tabs" style="clear:both">
+        <li class="active"><a href="#home" id="homelink" data-toggle="tab">Påkrevd</a></li>
+        <li><a href="#optional" id="optionallink" data-toggle="tab">Valgfritt</a></li>
+    </ul>
+
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">
+            @Html.Partial("_Basic", Model)
+        </div>
+
+        <div class="tab-pane" id="optional">
+            @Html.Partial("_Optional", Model)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-12 text-right">
+            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="submit" class="btn btn-primary" value="">Slett</button>
+            @if (!Html.ViewData.ModelState.IsValid)
+            {
+                <input type="checkbox" name="ignoreValidationError" value="1" /> <span>Ignorer feil</span>
+            }
+            else
+            {
+                <input type="hidden" name="ignoreValidationError" value="0" />
+            }
+            <input type="checkbox" name="published" value="true" checked /> <span>Publiser</span>
+            <input type="hidden" name="published" value="false" />
+            <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
+
+        </div>
+    </div>
+
+
+</form>
+
+@section scripts {
+    <script>
+        $(function () {
+
+            //  add warning sign to tabs containing input fields with error.
+            $('.input-validation-error').each(function () {
+                var $inputElement = $(this);
+                $inputElement.closest('.form-group').addClass('has-error');
+
+                var id = $inputElement.closest(".tab-pane").attr('id');
+                var $tabLink = $('ul.nav-tabs a[href=#' + id + ']');
+
+                $tabLink.parent().addClass("has-error");
+
+                var warning = $tabLink.parent().find('span.glyphicon-warning-sign');
+                if (warning.length == 0) {
+                    $tabLink.before('<span class="glyphicon glyphicon-warning-sign" title="Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet."></span>');
+                }
+            });
+
+            var menu_state = $.cookie('navtabselected');
+
+            $('#homelink').click(function (event) {
+                $.cookie('navtabselected', 'home');
+            });
+
+            $('#timeandspacelink').click(function (event) {
+                $.cookie('navtabselected', 'optional');
+            });
+
+            if (menu_state == 'home' || menu_state == null)
+                $('#homelink').click();
+            else if (menu_state == 'optional')
+                $('#optional').click();
+
+            $('#Purpose').autosize();
+            $('#Abstract').autosize();
+            $('#SupplementalDescription').autosize();
+            $('#SpecificUsage').autosize();
+
+
+
+            $('#uploadThumbnailFile').fileupload({
+                dataType: 'json',
+                url: '/Metadata/UploadThumbnailGenerateMini',
+                add: function (e, data) {
+
+                    $("#uploadThumbnailButton").on("click", function (event) {
+                        event.preventDefault();
+
+                        console.log(data);
+                        data.formData = {
+                            "uuid": "@Model.Uuid"
+                        };
+
+                        data.submit();
+                    });
+                },
+                done: function (e, data) {
+                    console.log("File uploaded: " + data.result.filename);
+                    if (data.result.status == "ErrorWrongContent") {
+                        $("#thumbnailUrl").val('');
+                        $('#uploadThumbnailStatus').attr('style', 'color: red ;');
+                        $('#uploadThumbnailStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                    }
+                    else {
+                        $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                        $("#thumbnailUrlMini").val('@ViewBag.ThumbnailUrl' + data.result.filenamemini);
+                        $('#uploadThumbnailStatus').attr('style', 'text-info');
+                        //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                    }
+                }
+            });
+
+            $('#uploadCoverageFile').fileupload({
+                dataType: 'json',
+                url: '/Metadata/UploadThumbnail',
+                add: function (e, data) {
+
+                    $("#uploadCoverageButton").on("click", function (event) {
+                        event.preventDefault();
+
+                        console.log(data);
+                        data.formData = {
+                            "uuid": "@Model.Uuid",
+                            "scaleImage": $('#uploadScaleCoverage').prop('checked')
+                        };
+
+                        data.submit();
+                    });
+                },
+                done: function (e, data) {
+                    console.log("File uploaded: " + data.result.filename);
+                    if (data.result.status == "ErrorWrongContent") {
+                        $("#coverageUri").val('');
+                        $('#uploadCoverageStatus').attr('style', 'color: red ;');
+                        $('#uploadCoverageStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                    }
+                    else {
+                        $("#coverageUri").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                        $('#uploadCoverageStatus').attr('style', 'text-info');
+                        //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                    }
+                }
+            });
+
+            var checkExist = setInterval(function () {
+                if ($('#thumbnailUrl').val() && $('#uploadMode').val() == 'upload') {
+                    $("#thumbnailAdd").click();
+                    $('#uploadMode').val('reference');
+                }
+            }, 100); // check every 100ms
+
+            var checkExistCoverageImage = setInterval(function () {
+                if ($('#coverageUri').val() && $('#uploadMode').val() == 'upload') {
+                    $("#coverageAdd").click();
+                    $('#uploadMode').val('reference');
+                }
+            }, 100); // check every 100ms
+
+
+            $("#coverageAdd").click(function (event) {
+                event.preventDefault();
+                if ($('#coverageUri').val().trim() == '') { alert('URL mangler'); return false; }
+
+                var $item = $('#imageCoverage');
+
+                var $thumbnails = $("#thumbnails");
+                var itemIndex = $('li', $thumbnails).length;
+
+
+                var $thumbnailUrl = $("#coverageUri");
+
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: 'dekningsoversikt'
+                });
+
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+
+                if (!$("#coverageImageSelectedType").length) {
+                    $item.append($itemTypeHidden);
+                    $item.append($itemUrlHidden);
+                }
+                else {
+                    $("#coverageImageSelectedURL").val($thumbnailUrl.val());
+                }
+
+                $("#coverageImageSelected").removeAttr('src');
+                $("#coverageImageSelected").attr('src', $("#coverageUri").val());
+                $("#coverageImageNameSelected").text($("#coverageUri").val());
+
+
+            });
+
+
+            $("#thumbnailAdd").click(function (event) {
+                event.preventDefault();
+                if ($('#thumbnailUrl').val().trim() == '') { alert('URL mangler'); return false; }
+
+
+                var $thumbnails = $("#thumbnails");
+
+                var itemIndex = $('li', $thumbnails).length;
+
+                //Remove old images
+                $('li', $thumbnails).remove();
+
+                itemIndex = $('li', $thumbnails).length;
+
+
+                if ($("#coverageImageSelectedType").length) {
+                    itemIndex = itemIndex + 1;
+                }
+
+                //Mini
+
+                var thumbnailType = "miniatyrbilde";
+                var $thumbnailUrl = $("#thumbnailUrlMini");
+
+                var $itemMini = $('<li />', { "class": 'thumbnail clearfix' });
+
+                var $itemImage = $('<img />', {
+                    src: $thumbnailUrl.val(),
+                    width: '200',
+                });
+
+                var $itemType = $('<p />').append('<strong>Type</strong> ').append(thumbnailType);
+                var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
+
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: thumbnailType
+                });
+
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+                $itemMini.append($itemImage);
+                $itemMini.append($itemType);
+                $itemMini.append($itemTypeHidden);
+                $itemMini.append($itemUrl);
+                $itemMini.append($itemUrlHidden);
+                $itemMini.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
+
+
+                //Large Image
+                itemIndex = itemIndex + 1;
+                var $thumbnailType = $("#thumbnailType");
+                var $thumbnailUrl = $("#thumbnailUrl");
+
+                var $item = $('<li />', { "class": 'thumbnail clearfix' });
+
+                var $itemImage = $('<img />', {
+                    src: $thumbnailUrl.val(),
+                    width: '200',
+                });
+
+                var $itemType = $('<p />').append('<strong>Type</strong> ').append($thumbnailType.val());
+                var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
+
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: $thumbnailType.val()
+                });
+
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+                $item.append($itemImage);
+                $item.append($itemType);
+                $item.append($itemTypeHidden);
+                $item.append($itemUrl);
+                $item.append($itemUrlHidden);
+                $item.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
+
+
+                $thumbnailType.val('');
+                $thumbnailUrl.val('');
+
+                $thumbnails.append($itemMini);
+                $thumbnails.append($item);
+
+            });
+
+            $('button.thumbnailRemove').click(function (event) {
+                event.preventDefault();
+                $(this).parent().remove();
+
+                $('#thumbnails li').each(function (index, value) {
+                    var $hiddenItemsForRow = $('input[type=hidden]', value);
+                    $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
+                        var name = $(hiddenValue).attr("name");
+                        console.log(name);
+                        if (name.indexOf('.Type') !== -1) {
+                            $(hiddenValue).attr('name', 'Thumbnails[' + index + '].Type');
+                        } else if (name.indexOf('.URL') !== -1) {
+                            $(hiddenValue).attr('name', 'Thumbnails[' + index + '].URL');
+                        }
+                    });
+                });
+            });
+
+
+            // help text
+
+            $("a.help-text-toggle").click(function (event) {
+                event.preventDefault();
+                var helpTextId = $(this).data("help-text-id");
+                $("#" + helpTextId).toggle();
+            });
+
+            // add help icon to each help text paragraph
+            $(".help-text").prepend("<span class=\"badge\">?</span> ");
+
+            // format
+
+
+            $("#SpatialRepresentation").change(function (event) {
+                event.preventDefault();
+               
+
+            });
+
+            $("#SpatialRepresentation").trigger("change");
+
+            $("#newDistributionFormat").click(function (event) {
+                event.preventDefault();
+
+                var DistributionFormatCounts = parseInt($("#DistributionFormatsCount").val());
+                DistributionFormatCounts += 1;
+                var fIndex = DistributionFormatCounts - 1;
+
+                var dfHtm = "";
+
+                dfHtm += '<div id="formatRow' + fIndex + '" class="form-group required has-feedback">';
+                dfHtm += '<label for="distributionFormats[' + fIndex + '].Name" class="col-sm-2 control-label">Format</label>';
+                dfHtm += '<div class="col-sm-3">';
+
+                if ($("#DistributionFormatsType").val() == "dataset") {
+                    dfHtm += '<select id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" class="form-control">';
+                    dfHtm += '<option value=""></option>';
+                    dfHtm += '</select>';
+                }
+                else {
+                    dfHtm += '<input id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" type="text" value="" class="form-control" />';
+                }
+                dfHtm += '</div>';
+                dfHtm += '<label for="distributionFormats[' + fIndex + '].Version" class="col-sm-2" style="text-align: right;">Versjon</label>';
+                dfHtm += '<div class="col-sm-3">';
+                dfHtm += '<input type="text" id="distributionFormats[' + fIndex + '].Version" name="distributionFormats[' + fIndex + '].Version" value="" class="form-control" style="border-color: #ccc;" />';
+                dfHtm += '</div>';
+                dfHtm += '<div class="col-sm-2">';
+
+                dfHtm += '<button type="button" id="delDistributionFormat[' + fIndex + ']" class="btn btn-default" onclick="removeDistributionFormat(' + fIndex + ')">Slett</button>';
+
+                dfHtm += '</div>';
+
+                dfHtm += '</div>';
+
+                $("#distributionFormatDiv").append(dfHtm);
+                $("#DistributionFormatsCount").val(DistributionFormatCounts);
+
+                $("#SpatialRepresentation").trigger("change");
+
+            });
+
+
+            $("#newReferencesystem").click(function (event) {
+                event.preventDefault();
+                var ReferenceSystemCounts = parseInt($("#ReferenceSystemsCount").val());
+                ReferenceSystemCounts += 1;
+                var fIndex = ReferenceSystemCounts - 1;
+
+                var dfHtm = "";
+
+                dfHtm += '<div id="referenceRow' + fIndex + '" class="form-group">';
+                dfHtm += '<label for="referenceSystems[' + fIndex + '].CoordinateSystem" class="col-sm-2 control-label">Romlig<br>referansesystem</label>';
+                dfHtm += '<div class="col-sm-3">';
+
+
+                dfHtm += '<select id="referenceSystems[' + fIndex + '].CoordinateSystem" name="referenceSystems[' + fIndex + '].CoordinateSystem" class="form-control">';
+                @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
+            {
+            @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
+                                                                                        }
+                dfHtm += '</select>';
+
+                dfHtm += '</div>';
+                dfHtm += '<label for="referenceSystems[' + fIndex + '].Version" class="col-sm-2" style="text-align: right;">Koderom</label>';
+                dfHtm += '<div class="col-sm-3">';
+                dfHtm += '<input type="text" id="referenceSystems[' + fIndex + '].Namespace" name="referenceSystems[' + fIndex + '].Namespace" readonly value="EPSG" class="form-control" />';
+                dfHtm += '</div>';
+                dfHtm += '<div class="col-sm-2">';
+
+                dfHtm += '<button type="button" id="delReferenceSystem[' + fIndex + ']" class="btn btn-default" onclick="removeReferenceSystem(' + fIndex + ')">Slett</button>';
+
+                dfHtm += '</div>';
+
+                dfHtm += '</div>';
+
+                $("#ReferenceSystemsDiv").append(dfHtm);
+                $("#ReferenceSystemsCount").val(ReferenceSystemCounts);
+
+
+            });
+
+
+
+            // conformity
+
+            $('#QualitySpecificationTitleInspire').prop('readonly', true);
+            if ($('#QualitySpecificationTitleInspire').val() == "")
+                $('#QualitySpecificationInspire').hide();
+            $('#QualitySpecificationTitleSosi').prop('readonly', true);
+            if ($('#QualitySpecificationTitleSosi').val() == "")
+                $('#QualitySpecificationSosi').hide();
+            $('#QualitySpecificationTitle').prop('readonly', true);
+            if ($('#QualitySpecificationTitle').val() == "")
+                $('#QualitySpecificationCustom').hide();
+
+            $('#QualitySpecificationDateTypeInspire').prop('readonly', true);
+            $('#QualitySpecificationDateTypeSosi').prop('readonly', true);
+            $('#QualitySpecificationDateType').prop('readonly', true);
+
+            $('#QualitySpecificationDateInspire').prop('readonly', true);
+            $('#QualitySpecificationDateSosi').prop('readonly', true);
+
+
+            var Inspire = function (event) {
+                if (event) {
+                    var selectednationalinitiative = $('#keywords-national-initiative-text').val();
+                    if (selectednationalinitiative == "Inspire") {
+                        if ($("#QualitySpecificationTitleInspire").val().trim() == "")
+                            $("#QualitySpecificationTitleInspire").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
+                        if ($("#QualitySpecificationDateInspire").val().trim() == "")
+                            $("#QualitySpecificationDateInspire").val("08.12.2010");
+                        if ($("#QualitySpecificationDateTypeInspire").val().trim() == "")
+                            $("#QualitySpecificationDateTypeInspire").val("publication");
+
+                        $('#QualitySpecificationInspire').show();
+                    }
+                }
+            };
+
+            $("button#keywords-national-initiative-add").on("click", Inspire);
+            Inspire();
+
+
+            function InspireRemove() {
+                $("#QualitySpecificationTitleInspire").val("");
+                $("#QualitySpecificationDateInspire").val("");
+                $("#QualitySpecificationDateTypeInspire").val("");
+                $("#QualitySpecificationExplanationInspire").val("");
+                $("#QualitySpecificationResultInspire").prop('checked', false);
+                $('#QualitySpecificationInspire').hide();
+            };
+
+            var Sosi = function (event) {
+                if (event) {
+                    var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
+                    var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
+                    if (selectedSosi != "") {
+                        $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
+                        $('#QualitySpecificationSosi').show();
+                        //$("#QualitySpecificationDateSosi").val("01.01.2014");
+                        if (selectedSosiUrl != null)
+                        {
+                            var selectedSosiUrlApi = selectedSosiUrl;
+                            selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
+
+                            $.getJSON(selectedSosiUrlApi, function (result) {
+
+                                if (result != null)
+                                {
+                                    if (result.length != 0)
+                                    {
+                                        var QualitySpecificationDateSosiFromRegister = "";
+                                        var dateAccepted = result.dateAccepted;
+                                        if (dateAccepted != "0001-01-01T00:00:00") // Not accepted
+                                        {
+                                            var dateAccept = new Date(dateAccepted);
+                                            QualitySpecificationDateSosiFromRegister = dateAccept.getDate() + "." + (dateAccept.getMonth() + 1) + "." + dateAccept.getFullYear();
+                                        }
+                                        else
+                                        {
+                                            var dateSubmitted = result.dateSubmitted;
+                                            var dateSubmit = new Date(dateSubmitted);
+                                            QualitySpecificationDateSosiFromRegister = dateSubmit.getDate() + "." + (dateSubmit.getMonth() + 1) + "." + dateSubmit.getFullYear();
+                                        }
+
+                                        $("#QualitySpecificationDateSosi").val(QualitySpecificationDateSosiFromRegister);
+                                    }
+                                }
+                            }
+                        )};
+
+                        $("#QualitySpecificationDateTypeSosi").val("publication");
+                        $("#QualitySpecificationResultSosi").prop('checked', true);
+                    }
+                    else {
+                        $("#QualitySpecificationTitleSosi").val("");
+                        $("#QualitySpecificationDateSosi").val("");
+                        $("#QualitySpecificationDateTypeSosi").val("");
+                        $("#QualitySpecificationExplanationSosi").val("");
+                        $("#QualitySpecificationResultSosi").prop('checked', false);
+                        $('#QualitySpecificationSosi').hide();
+                    }
+                }
+            };
+
+            $("#ProductSpecificationUrl").on("change", Sosi);
+            Sosi();
+
+
+            var otherSpec = function (event) {
+                if (event) {
+                    var selectedOtherSpec = $('#ProductSpecificationOther_Name').val();
+                    if (selectedOtherSpec != "") {
+                        $("#QualitySpecificationTitle").val("Produktspesifikasjon: " + selectedOtherSpec);
+                        $("#QualitySpecificationDate").val("");
+                        $("#QualitySpecificationDateType").val("publication");
+                        $("#QualitySpecificationResult").prop('checked', true);
+                        $('#QualitySpecificationCustom').show();
+                    }
+                    else {
+                        $("#QualitySpecificationTitle").val("");
+                        $("#QualitySpecificationDate").val("");
+                        $("#QualitySpecificationDateType").val("");
+                        $("#QualitySpecificationExplanation").val("");
+                        $("#QualitySpecificationResult").prop('checked', false);
+                        $('#QualitySpecificationCustom').hide();
+                    }
+                }
+            };
+
+            $("#ProductSpecificationOther_Name").on("change", otherSpec);
+            otherSpec();
+
+
+            // bounding box
+
+            var $states = $('select#bboxState');
+            var $counties = $('select#bboxCounty');
+
+            var $countyList = $counties.find('option').clone();
+
+            $states.change(function () {
+                var $selectedStateNumber = $(this).find('option:selected').data('statenumber');
+                var regex = new RegExp("^" + $selectedStateNumber);
+                $counties.html($countyList.filter(function () {
+                    return regex.test($(this).attr('data-countynumber'));
+                }));
+            }).change();
+
+
+            $("button#bboxPrefill").click(function (event) {
+                event.preventDefault();
+                var $selectedCounty = $counties.find('option:selected');
+                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+            });
+
+            $("#bboxCounty").click(function (event) {
+                event.preventDefault();
+                var $selectedCounty = $counties.find('option:selected');
+                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+            });
+
+            $("#bboxState").click(function (event) {
+                event.preventDefault();
+                var $selectedCounty = $counties.find('option:selected');
+                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+            });
+
+            // Check date not in future
+            $("#DateUpdated").change(function (event) {
+                event.preventDefault();
+                var currentDate = new Date();
+                var selectedDateStr = $('#DateUpdated').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                if (selectedDate > currentDate) {
+                    alert('Dato kan ikke være i fremtiden');
+                    $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                }
+            });
+
+            $("#DatePublished").change(function (event) {
+                event.preventDefault();
+                var currentDate = new Date();
+                var selectedDateStr = $('#DatePublished').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                if (selectedDate > currentDate) {
+                    alert('Dato kan ikke være i fremtiden');
+                    $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                }
+            });
+
+            $("#DateCreated").change(function (event) {
+                event.preventDefault();
+                var currentDate = new Date();
+                var selectedDateStr = $('#DateCreated').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                if (selectedDate > currentDate) {
+                    alert('Dato kan ikke være i fremtiden');
+                    $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                }
+            });
+
+            $("#DateMetadataValidFrom").change(function (event) {
+                event.preventDefault();
+                var selectedDateStr = $('#DateMetadataValidFrom').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                var validToStr = $('#DateMetadataValidTo').val();
+                var validToArr = validToStr.split('.');
+                var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
+
+                if (ValidToDate < selectedDate) {
+                    alert('Gyldig fra dato må være mindre enn gyldig til dato');
+                    var newDate = new Date(ValidToDate);
+                    newDate.setDate(newDate.getDate() - 1);
+                    $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+                }
+            });
+
+            $("#DateMetadataValidTo").change(function (event) {
+                event.preventDefault();
+                var selectedDateStr = $('#DateMetadataValidTo').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                var validFromStr = $('#DateMetadataValidFrom').val();
+                var validFromArr = validFromStr.split('.');
+                var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
+
+                if (selectedDate < ValidFromDate) {
+                    alert('Gyldig til dato må være større enn gyldig fra dato');
+                    var newDate = new Date(ValidFromDate);
+                    newDate.setDate(newDate.getDate() + 1);
+                    $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+                }
+            });
+
+            $("#QualitySpecificationDate").change(function (event) {
+                event.preventDefault();
+                var currentDate = new Date();
+                var selectedDateStr = $('#QualitySpecificationDate').val();
+                var selectedDateArr = selectedDateStr.split('.');
+                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                if (selectedDate > currentDate) {
+                    alert('Dato kan ikke være i fremtiden');
+                    $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                }
+            });
+
+
+            // keywords
+
+            var keywordThreshold = 20;
+
+            function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
+                deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
+
+                var $keywordInput = $('#' + selectorPrefix + '-text');
+
+                var newKeyword = $keywordInput.val();
+
+                var elementId = $('ul#' + selectorPrefix + ' li').length;
+
+                var listItemId = selectorPrefix + "-" + elementId;
+
+                var li = $('<li />', { "id": listItemId });
+                li.append($('<span />', { "class": "", text: newKeyword }));
+                li.append('&nbsp;');
+
+                var link = $('<a />', {
+                    "href": "",
+                    "class": "keyword-delete",
+                    "data-delete": listItemId,
+                    "data-list": selectorPrefix + '-text',
+                    "data-list-value": newKeyword
+                });
+                link.append("<small>Slett</small>");
+
+                li.append(link);
+                li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
+
+                if (elementId < keywordThreshold)
+                    $('ul#' + selectorPrefix).append(li);
+                else
+                    alert('Maksimum antall nøkkelord er ' + keywordThreshold);
+
+                return $keywordInput;
+            };
+
+            function addKeywordFromCodeList(selectorPrefix, inputName) {
+                var $keywordInput = addKeyword(selectorPrefix, inputName);
+                var $selected = $keywordInput.find("option:selected");
+                $selected.attr("disabled", "disabled");
+                $selected.removeAttr("selected");
+            };
+
+            function addKeywordFromTextbox(selectorPrefix, inputName) {
+                var $keywordInput = addKeyword(selectorPrefix, inputName);
+                $keywordInput.val('');
+            }
+
+            $('button#keywords-theme-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-theme-text').val().trim() == '')
+                    alert('Vennligst fyll ut tema');
+                else
+                    addKeywordFromTextbox('keywords-theme', "KeywordsTheme");
+
+            });
+
+            $('button#keywords-place-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-place-text').val().trim() == '')
+                    alert('Vennligst fyll ut sted');
+                else
+                    addKeywordFromTextbox('keywords-place', "KeywordsPlace");
+            });
+
+            $('button#keywords-national-initiative-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-national-initiative-text').val().trim() == '')
+                    alert('Vennligst velg samarbeid og lov');
+                else
+                    addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
+            });
+
+            $('button#keywords-national-theme-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-national-theme-text').val().trim() == '')
+                    alert('Vennligst velg Nasjonal temainndeling');
+                else
+                    addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
+            });
+
+            $('button#keywords-inspire-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-inspire-text').val().trim() == '')
+                    alert('Vennligst velg inspire');
+                else
+                    addKeywordFromCodeList('keywords-inspire', "KeywordsInspire");
+            });
+
+            $('button#keywords-other-add').click(function (event) {
+                event.preventDefault();
+                if ($('#keywords-other-text').val().trim() == '')
+                    alert('Vennligst fyll ut annet');
+                else
+                    addKeywordFromTextbox('keywords-other', "KeywordsOther");
+            });
+
+            // use a delegated event handler to bind to all existing and future delete links
+            $('body').on("click", "a.keyword-delete", function (event) {
+                event.preventDefault();
+
+                if (confirm('Er du sikker på at du vil slette nøkkelordet?')) {
+                    var deleteId = $(this).data('delete');
+                    var $selectCodeList = $("select#" + $(this).data('list'));
+                    if ($selectCodeList !== undefined) {
+                        var selector = 'option:contains("' + $(this).data('list-value') + '")';
+                        if ($(this).data('list-value') == "Inspire")
+                            InspireRemove();
+                        var option = $selectCodeList.children(selector);
+                        option.removeAttr('disabled');
+                    }
+
+                    var $listItem = $('li#' + deleteId);
+                    var $parentList = $listItem.parent();
+                    $listItem.remove();
+
+                    $('li', $parentList).each(function (index, value) {
+                        var $hiddenItemsForRow = $('input[type=hidden]', value);
+                        $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
+                            var name = $(hiddenValue).attr("name");
+                            //console.log("hidden value old name: " + name);
+                            var inputName = name.substring(0, name.indexOf("["));
+                            var inputNameWithIndex = inputName + '[' + index + ']';
+                            //console.log("new name: " + inputNameWithIndex);
+                            $(hiddenValue).attr('name', inputNameWithIndex);
+                        });
+                    });
+
+
+                }
+            });
+
+        });
+
+        function removeDistributionFormat(formatID) {
+            var elem = document.getElementById("formatRow" + formatID);
+            elem.parentNode.removeChild(elem);
+            document.getElementById('DistributionFormatsCount').value -= 1;
+        };
+
+        function removeReferenceSystem(refID) {
+            var elem = document.getElementById("referenceRow" + refID);
+            elem.parentNode.removeChild(elem);
+            document.getElementById('ReferenceSystemsCount').value -= 1;
+        };
+
+    </script>
+}
