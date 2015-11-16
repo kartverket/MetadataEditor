@@ -174,13 +174,11 @@ namespace Kartverket.MetadataEditor.Models
                 ContactPublisher = new Contact(metadata.ContactPublisher, "publisher"),
                 ContactOwner = new Contact(metadata.ContactOwner, "owner"),
 
-                BoundingBoxEast = metadata.BoundingBox != null ? metadata.BoundingBox.EastBoundLongitude : null,
-                BoundingBoxWest = metadata.BoundingBox != null ? metadata.BoundingBox.WestBoundLongitude : null,
-                BoundingBoxNorth = metadata.BoundingBox != null ? metadata.BoundingBox.NorthBoundLatitude : null,
-                BoundingBoxSouth = metadata.BoundingBox != null ? metadata.BoundingBox.SouthBoundLatitude : null,
-
                 SupplementalDescription = metadata.SupplementalDescription,
                 SpecificUsage = metadata.SpecificUsage,
+
+                ProcessHistory = metadata.ProcessHistory,
+                ProductPageUrl = metadata.ProductPageUrl,
 
                 DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
 
@@ -193,6 +191,14 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsNationalTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_THEME)),
 
             };
+
+            if (metadata.BoundingBox != null)
+            {
+                model.BoundingBoxEast = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.EastBoundLongitude);
+                model.BoundingBoxWest = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.WestBoundLongitude);
+                model.BoundingBoxNorth = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.NorthBoundLatitude);
+                model.BoundingBoxSouth = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.SouthBoundLatitude);
+            }
 
             return model;
         }
@@ -251,6 +257,10 @@ namespace Kartverket.MetadataEditor.Models
             metadata.SupplementalDescription = model.SupplementalDescription;
 
             metadata.SpecificUsage = !string.IsNullOrWhiteSpace(model.SpecificUsage) ? model.SpecificUsage : " ";
+
+            metadata.ProcessHistory = !string.IsNullOrWhiteSpace(model.ProcessHistory) ? model.ProcessHistory : " ";
+
+            metadata.ProductPageUrl = model.ProductPageUrl;
 
             var contactMetadata = model.ContactMetadata.ToSimpleContact();
            

@@ -53,7 +53,10 @@ namespace Kartverket.MetadataEditor.Models
 
         public string SupplementalDescription { get; set; }
         public string SpecificUsage { get; set; }  // bruksområde
-              
+
+        public string ProcessHistory { get; set; }
+
+        public string ProductPageUrl { get; set; }
 
         [Display(Name = "Metadata_DateUpdated", ResourceType = typeof(UI))]
         [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
