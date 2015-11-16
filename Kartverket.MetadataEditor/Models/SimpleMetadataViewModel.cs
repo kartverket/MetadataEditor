@@ -68,8 +68,10 @@ namespace Kartverket.MetadataEditor.Models
         [Required(ErrorMessage = "Oppdateringshyppighet er påkrevd")]
         public string MaintenanceFrequency { get; set; }
 
+        [MustHaveOneElementAttribute(ErrorMessage = "Geografisk område er påkrevd")]
         public List<String> KeywordsPlace { get; set; }
         public List<String> KeywordsNationalInitiative { get; set; }
+        [MustHaveOneElementAttribute(ErrorMessage = "Nasjonal temainndeling er påkrevd")]
         public List<String> KeywordsNationalTheme { get; set; }
 
         public string Published { get; set; }
