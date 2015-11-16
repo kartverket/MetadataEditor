@@ -35,5 +35,10 @@ namespace Kartverket.MetadataEditor.Helpers
         {
             return WebConfigurationManager.AppSettings["KartkatalogUrl"];
         }
+
+        public static bool SimpleMetadataEnabled(this HtmlHelper helper)
+        {
+            return WebConfigurationManager.AppSettings["SimpleMetadataEnabled"] == "false" ? false : true;
+        }
     }
 }
