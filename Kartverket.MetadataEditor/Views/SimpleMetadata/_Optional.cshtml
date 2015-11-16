@@ -1,4 +1,18 @@
 ﻿@model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
+<div class="form-group">
+    <label for="SpecificUsage" class="col-sm-2 control-label">Bruksområde</label>
+    <div class="col-sm-9">
+        @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
+        <p class="help-text bg-success" id="help-text-usage" style="display: none">
+            Kort beskrivelse av hvordan datasettet kan/børbrukes.
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-usage" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
 @if (Model.IsDatasetOrSeriesOrSoftware())
 {
     <div class="form-group">
@@ -17,20 +31,6 @@
     </div>
 }
 
-<div class="form-group">
-    <label for="SpecificUsage" class="col-sm-2 control-label">Bruksområde</label>
-    <div class="col-sm-9">
-        @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
-        <p class="help-text bg-success" id="help-text-usage" style="display: none">
-            Kort beskrivelse av hvordan datasettet kan/børbrukes.
-        </p>
-    </div>
-    <div class="col-sm-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-usage" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
 <div class="form-group">
     <label for="ProcessHistory" class="col-sm-2 control-label">Prosesshistorie</label>
     <div class="col-sm-9">
