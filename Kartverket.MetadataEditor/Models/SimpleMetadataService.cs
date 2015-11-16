@@ -180,10 +180,14 @@ namespace Kartverket.MetadataEditor.Models
                 DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
 
                 MaintenanceFrequency = metadata.MaintenanceFrequency,
-                DateUpdated = metadata.DateUpdated
+                DateUpdated = metadata.DateUpdated,
+                DateMetadataUpdated = metadata.DateMetadataUpdated,
+
+                KeywordsPlace = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null)),
+                KeywordsNationalInitiative = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE)),
+                KeywordsNationalTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_THEME)),
 
             };
-
 
             return model;
         }
@@ -253,17 +257,21 @@ namespace Kartverket.MetadataEditor.Models
 
             var contactOwner = model.ContactOwner.ToSimpleContact();
            
-            metadata.ContactOwner = contactOwner;
-
-            // documents
-
-           
+            metadata.ContactOwner = contactOwner;         
 
             if (!string.IsNullOrWhiteSpace(model.MaintenanceFrequency))
                 metadata.MaintenanceFrequency = model.MaintenanceFrequency;
 
             metadata.DateUpdated = model.DateUpdated;
 
+            //Keep if other keywords than in model
+            List<SimpleKeyword> keywordsNotInModel = metadata.Keywords.Where(k => k.Type != SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE
+                                                        && k.Type != SimpleKeyword.THESAURUS_NATIONAL_THEME
+                                                        && k.Type != SimpleKeyword.TYPE_PLACE).ToList();
+            //Get keywords in model
+            List<SimpleKeyword> keywordsToUpdate = model.GetAllKeywords();
+
+            metadata.Keywords = keywordsNotInModel.Concat(keywordsToUpdate).ToList();
 
             SetDefaultValuesOnMetadata(metadata);
         }

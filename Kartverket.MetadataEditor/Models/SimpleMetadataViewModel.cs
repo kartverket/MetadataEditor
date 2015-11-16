@@ -13,7 +13,9 @@ namespace Kartverket.MetadataEditor.Models
 
         public SimpleMetadataViewModel()
         {
-
+            KeywordsPlace = new List<string>();
+            KeywordsNationalInitiative = new List<string>();
+            KeywordsNationalTheme = new List<string>();
         }
 
         public string Uuid { get; set; }
@@ -49,6 +51,9 @@ namespace Kartverket.MetadataEditor.Models
         [Required(ErrorMessage = "Oppdateringshyppighet er påkrevd")]
         public string MaintenanceFrequency { get; set; }
 
+        public List<String> KeywordsPlace { get; set; }
+        public List<String> KeywordsNationalInitiative { get; set; }
+        public List<String> KeywordsNationalTheme { get; set; }
 
         public string Published { get; set; }
 
@@ -118,6 +123,33 @@ namespace Kartverket.MetadataEditor.Models
             return t;
         }
 
+        internal List<SimpleKeyword> CreateKeywords(List<string> inputList, string prefix, string type = null, string thesaurus = null)
+        {
+            List<SimpleKeyword> output = new List<SimpleKeyword>();
+            if (inputList != null)
+            {
+                foreach (var keyword in inputList)
+                {
+                    output.Add(new SimpleKeyword
+                    {
+                        Keyword = keyword,
+                        Thesaurus = thesaurus,
+                        Type = type
+                    });
+                }
+            }
+            return output;
+        }
+
+
+        internal List<SimpleKeyword> GetAllKeywords()
+        {
+            List<SimpleKeyword> allKeywords = new List<SimpleKeyword>();
+            allKeywords.AddRange(CreateKeywords(KeywordsNationalInitiative, "NationalInitiative", null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE));
+            allKeywords.AddRange(CreateKeywords(KeywordsNationalTheme, "NationalTheme", null, SimpleKeyword.THESAURUS_NATIONAL_THEME));
+            allKeywords.AddRange(CreateKeywords(KeywordsPlace, "Place", SimpleKeyword.TYPE_PLACE, null));
+            return allKeywords;
+        }
 
     }
 
