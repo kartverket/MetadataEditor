@@ -79,13 +79,88 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label for="keywords" class="col-sm-2 control-label">Nasjonal temainndeling</label>
+    <div class="col-sm-5">
+
+        @if (!Model.IsSoftware())
+            {
+            <div class="col-sm-6">
+                <ul id="keywords-national-theme">
+                    @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
+                    {
+                        var keyword = Model.KeywordsNationalTheme[i];
+                        <li id="keywords-national-theme-@i">
+                            <span class="">@keyword</span>
+                            <a href="" class="keyword-delete" data-delete="keywords-national-theme-@i"><small>Slett</small></a>
+                            <input type="hidden" name="KeywordsNationalTheme[@i]" value="@keyword" />
+                        </li>
+                    }
+                </ul>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        @Html.DropDownList("keywords-national-theme-text", ViewBag.NationalThemeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-default btn-sm" id="keywords-national-theme-add">Legg til</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        <div class="col-sm-4">
+            <p class="keyword-header">Samarbeid og lover</p>
+            <ul id="keywords-national-initiative">
+                @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
+                {
+                    var keyword = Model.KeywordsNationalInitiative[i];
+                    <li id="keywords-national-initiative-@i">
+                        <span class="">@keyword</span>
+                        <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i" data-list="keywords-national-initiative-text" data-list-value="@keyword"><small>Slett</small></a>
+                        <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
+                    </li>
+                }
+            </ul>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.DropDownList("keywords-national-initiative-text", ViewBag.NationalInitiativeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-keyword" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-9">
+        <div class="help-text bg-success" id="help-text-keyword" style="display: none">
+            <b>Velkjente ord og begreper brukt som søkeord</b>
+            <p>
+                <b>Nasjonal tematisk inndeling (Nasjonal temainndeling)</b><br>
+                En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.
+            </p>
+            <p>
+                <b>Samarbeid og lover</b><br>
+                Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)
+            </p>
+        </div>
+    </div>
+</div>
 
 <div class="panel panel-default">
     <div class="panel-heading required">Metadatakontakt<div class="pull-right"><a href="#" data-help-text-id="help-text-ContactMetadata" class="badge help-text-toggle">?</a></div></div>
     <div class="panel-body">
-        <p class="help-text bg-success" id="help-text-ContactMetadata" style="display: none">@UI.Helptext_ContactMetadata</p>
+        <p class="help-text bg-success" id="help-text-ContactMetadata" style="display: none">Kontaktpunkt (person eller avdeling) som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</p>
         @Html.HiddenFor(m => Model.ContactMetadata.Role)
-        <div class="form-group has-feedback">
+        <div class="form-group has-feedback hidden">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactMetadata.Name, new { @class = "form-control" })
@@ -114,9 +189,9 @@
 <div class="panel panel-default">
     <div class="panel-heading required">Teknisk kontakt<div class="pull-right"><a href="#" data-help-text-id="help-text-ContactPublisher" class="badge help-text-toggle">?</a></div></div>
     <div class="panel-body">
-        <p class="help-text bg-success" id="help-text-ContactPublisher" style="display: none">@UI.Helptext_ContactPublisher</p>
+        <p class="help-text bg-success" id="help-text-ContactPublisher" style="display: none">Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</p>
         @Html.HiddenFor(m => Model.ContactPublisher.Role)
-        <div class="form-group has-feedback">
+        <div class="form-group has-feedback hidden">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactPublisher.Name, new { @class = "form-control" })
@@ -145,9 +220,9 @@
 <div class="panel panel-default">
     <div class="panel-heading required">Faglig kontakt<div class="pull-right"><a href="#" data-help-text-id="help-text-ContactOwner" class="badge help-text-toggle">?</a></div></div>
     <div class="panel-body">
-        <p class="help-text bg-success" id="help-text-ContactOwner" style="display: none">@UI.Helptext_ContactOwner</p>
+        <p class="help-text bg-success" id="help-text-ContactOwner" style="display: none">Kontaktpunkt (person eller avdeling) som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</p>
         @Html.HiddenFor(m => Model.ContactOwner.Role)
-        <div class="form-group has-feedback">
+        <div class="form-group has-feedback hidden">
             <label for="abstract" class="col-sm-2 control-label">Navn</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactOwner.Name, new { @class = "form-control" })
@@ -174,126 +249,12 @@
 </div>
 
 
-<div class="form-group">
-    <label for="keywords" class="col-sm-2 control-label">Nøkkelord</label>
-    <div class="col-sm-9">
 
-            @if (!Model.IsSoftware())
-            {
-                <div class="col-sm-6">
-                    <p class="keyword-header">Nasjonal temainndeling</p>
-                    <ul id="keywords-national-theme">
-                        @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
-                        {
-                            var keyword = Model.KeywordsNationalTheme[i];
-                            <li id="keywords-national-theme-@i">
-                                <span class="">@keyword</span>
-                                <a href="" class="keyword-delete" data-delete="keywords-national-theme-@i"><small>Slett</small></a>
-                                <input type="hidden" name="KeywordsNationalTheme[@i]" value="@keyword" />
-                            </li>
-                        }
-                    </ul>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            @Html.DropDownList("keywords-national-theme-text", ViewBag.NationalThemeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-default btn-sm" id="keywords-national-theme-add">Legg til</button>
-                        </div>
-                    </div>
-                </div>
-            }
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <p class="keyword-header">Samarbeid og lover</p>
-                    <ul id="keywords-national-initiative">
-                        @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
-                        {
-                            var keyword = Model.KeywordsNationalInitiative[i];
-                            <li id="keywords-national-initiative-@i">
-                                <span class="">@keyword</span>
-                                <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i" data-list="keywords-national-initiative-text" data-list-value="@keyword"><small>Slett</small></a>
-                                <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
-                            </li>
-                        }
-                    </ul>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            @Html.DropDownList("keywords-national-initiative-text", ViewBag.NationalInitiativeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
-                        </div>
-                    </div>
-                </div>
-
-    </div>
-    <div class="col-sm-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-keyword" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-9">
-        <div class="help-text bg-success" id="help-text-keyword" style="display: none">
-            <b>Velkjente ord og begreper brukt som søkeord</b>
-            <p>
-                <b>Samarbeid og lover</b><br>
-                Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)
-            </p>
-            <p>
-                <b>Nasjonal tematisk inndeling (Nasjonal temainndeling)</b><br>
-                En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.
-            </p>
-        </div>
-    </div>
-</div>
-
-<div class="form-group">
-    <label class="col-sm-3 control-label">Geografisk område</label>
-    <div class="col-sm-4">
-        <div class="form-group">
-            <ul id="keywords-place">
-                @for (int i = 0; i < Model.KeywordsPlace.Count; i++)
-                {
-                    var keyword = Model.KeywordsPlace[i];
-                    <li id="keywords-place-@i">
-                        <span class="">@keyword</span>
-                        <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>Slett</small></a>
-                        <input type="hidden" name="KeywordsPlace[@i]" value="@keyword" />
-                    </li>
-                }
-            </ul>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-5">
-                <input type="text" id="keywords-place-text" class="form-control" />
-            </div>
-            <div class="col-sm-2">
-                <button type="button" class="btn btn-default btn-sm" id="keywords-place-add">Legg til</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <p class="help-text bg-success" id="help-text-keyword-place" style="display: none">
-            Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker.
-        </p>
-    </div>
-    <div class="col-sm-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-keyword-place" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
 
 <div class="panel panel-default">
     <div class="panel-heading required">Geografisk utstrekning<div class="pull-right"><a href="#" data-help-text-id="help-text-BoundingBox" class="badge help-text-toggle">?</a></div></div>
-    <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">@UI.Helptext_BoundingBox</p>
+    <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">Bruk forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i kartet.</p>
     <div class="panel-group">
-        <div class="panel-heading bg-info">Angi avgrensningsområde:</div>
         <div class="panel-body">
             <div class="form-group">
                 <label for="state" class="control-label col-sm-3">Velg fast område:</label>
@@ -348,12 +309,49 @@
                     <div class="col-sm-8"></div>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Geografisk område</label>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <ul id="keywords-place">
+                            @for (int i = 0; i < Model.KeywordsPlace.Count; i++)
+                            {
+                                var keyword = Model.KeywordsPlace[i];
+                                <li id="keywords-place-@i">
+                                    <span class="">@keyword</span>
+                                    <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>Slett</small></a>
+                                    <input type="hidden" name="KeywordsPlace[@i]" value="@keyword" />
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input type="text" id="keywords-place-text" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-default btn-sm" id="keywords-place-add">Legg til</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="help-text bg-success" id="help-text-keyword-place" style="display: none">
+                        Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker.
+                    </p>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-text-id="help-text-keyword-place" class="badge help-text-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+            <div class="row hidden">
                 <div class="form-group col-sm-6">
                     <label class="col-sm-4 col-sm-offset-3 control-label">Koordinater:</label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hidden">
                 <div class="form-group col-sm-6 required has-feedback">
                     <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
                     <div class="col-sm-4">
@@ -369,7 +367,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hidden">
                 <div class="form-group col-sm-6 required has-feedback">
                     <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
                     <div class="col-sm-4">
