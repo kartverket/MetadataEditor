@@ -35,8 +35,22 @@ namespace Kartverket.MetadataEditor.Models
         public Contact ContactPublisher { get; set; }
         public Contact ContactOwner { get; set; }
 
+        [Required(ErrorMessage = "Geografisk utstrekning nord er påkrevd")]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        public string BoundingBoxEast { get; set; }
 
-        /* dataset only */
+        [Required(ErrorMessage = "Geografisk utstrekning vest er påkrevd")]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        public string BoundingBoxWest { get; set; }
+
+        [Required(ErrorMessage = "Geografisk utstrekning nord er påkrevd")]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        public string BoundingBoxNorth { get; set; }
+
+        [Required(ErrorMessage = "Geografisk utstrekning sør er påkrevd")]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        public string BoundingBoxSouth { get; set; }
+
         public string SupplementalDescription { get; set; }
         public string SpecificUsage { get; set; }  // bruksområde
               

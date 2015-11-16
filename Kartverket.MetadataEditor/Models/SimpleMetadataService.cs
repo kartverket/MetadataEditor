@@ -174,6 +174,11 @@ namespace Kartverket.MetadataEditor.Models
                 ContactPublisher = new Contact(metadata.ContactPublisher, "publisher"),
                 ContactOwner = new Contact(metadata.ContactOwner, "owner"),
 
+                BoundingBoxEast = metadata.BoundingBox != null ? metadata.BoundingBox.EastBoundLongitude : null,
+                BoundingBoxWest = metadata.BoundingBox != null ? metadata.BoundingBox.WestBoundLongitude : null,
+                BoundingBoxNorth = metadata.BoundingBox != null ? metadata.BoundingBox.NorthBoundLatitude : null,
+                BoundingBoxSouth = metadata.BoundingBox != null ? metadata.BoundingBox.SouthBoundLatitude : null,
+
                 SupplementalDescription = metadata.SupplementalDescription,
                 SpecificUsage = metadata.SpecificUsage,
 
@@ -257,7 +262,18 @@ namespace Kartverket.MetadataEditor.Models
 
             var contactOwner = model.ContactOwner.ToSimpleContact();
            
-            metadata.ContactOwner = contactOwner;         
+            metadata.ContactOwner = contactOwner;
+
+            if (!string.IsNullOrWhiteSpace(model.BoundingBoxEast))
+            {
+                metadata.BoundingBox = new SimpleBoundingBox
+                {
+                    EastBoundLongitude = model.BoundingBoxEast,
+                    WestBoundLongitude = model.BoundingBoxWest,
+                    NorthBoundLatitude = model.BoundingBoxNorth,
+                    SouthBoundLatitude = model.BoundingBoxSouth
+                };
+            }
 
             if (!string.IsNullOrWhiteSpace(model.MaintenanceFrequency))
                 metadata.MaintenanceFrequency = model.MaintenanceFrequency;

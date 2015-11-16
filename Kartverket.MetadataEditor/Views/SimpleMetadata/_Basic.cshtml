@@ -289,4 +289,105 @@
     </div>
 </div>
 
+<div class="panel panel-default">
+    <div class="panel-heading required">Geografisk utstrekning<div class="pull-right"><a href="#" data-help-text-id="help-text-BoundingBox" class="badge help-text-toggle">?</a></div></div>
+    <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">@UI.Helptext_BoundingBox</p>
+    <div class="panel-group">
+        <div class="panel-heading bg-info">Angi avgrensningsområde:</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="state" class="control-label col-sm-3">Velg fast område:</label>
+                <div class="col-sm-2">
+                    <select name="state" id="bboxState" class="form-control">
+                        <option data-statenumber="00">Hele landet</option>
+                        <option data-statenumber="02">Akershus</option>
+                        <option data-statenumber="09">Aust-Agder</option>
+                        <option data-statenumber="06">Buskerud</option>
+                        <option data-statenumber="20">Finnmark</option>
+                        <option data-statenumber="04">Hedmark</option>
+                        <option data-statenumber="12">Hordaland</option>
+                        <option data-statenumber="15">Møre og Romsdal</option>
+                        <option data-statenumber="17">Nord-Trøndelag</option>
+                        <option data-statenumber="18">Nordland</option>
+                        <option data-statenumber="05">Oppland</option>
+                        <option data-statenumber="21">Oslo</option>
+                        <option data-statenumber="11">Rogaland</option>
+                        <option data-statenumber="14">Sogn og Fjordane</option>
+                        <option data-statenumber="16">Sør-Trøndelag</option>
+                        <option data-statenumber="08">Telemark</option>
+                        <option data-statenumber="19">Troms</option>
+                        <option data-statenumber="10">Vest-Agder</option>
+                        <option data-statenumber="07">Vestfold</option>
+                        <option data-statenumber="01">Østfold</option>
+                    </select>
+                </div>
+                <label for="county" class="control-label col-sm-1">Delområde:</label>
+                <div class="col-sm-3">
+                    <select name="county" id="bboxCounty" class="form-control">
+                        <option data-countynumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
+                        @Html.Partial("~/Views/Metadata/_OptionsCountyList.cshtml")
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default hidden" id="bboxPrefill">Angi</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-3 col-sm-offset-1">
+                        <label for="state" class="control-label">Eller angi området i kartet:</label>
+                    </div>
+                    <div class="col-sm-2 col-sm-pull-1">
+                        <a href="#" role="button" data-toggle="modal" id="norgeskartLink" data-target="#norgeskart" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-globe"></span> Angi i kartet</a>
+                    </div>
+                    <div class="col-sm-1">
+                        <div id="norgeskart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="norgeskart" aria-hidden="true">
+                            @Html.Partial("~/Views/Metadata/_Norgeskart.cshtml")
+                        </div>
+                    </div>
+                    <div class="col-sm-8"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-4 col-sm-offset-3 control-label">Koordinater:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 required has-feedback">
+                    <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.BoundingBoxNorth)
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 required has-feedback">
+                    <label class="col-sm-2 control-label">Øst</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.BoundingBoxEast)
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 required has-feedback">
+                    <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.BoundingBoxSouth)
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 required has-feedback">
+                    <label class="col-sm-2 control-label">Vest</label>
+                    <div class="col-sm-4">
+                        @Html.EditorFor(m => m.BoundingBoxWest)
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
