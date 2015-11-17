@@ -64,6 +64,8 @@ namespace Kartverket.MetadataEditor.Models
         public DateTime? DateMetadataUpdated { get; set; }
 
         public string DistributionProtocol { get; set; }
+        [RequiredIf("IsDokDataset()", ErrorMessage = "URL til datasett er påkrevd for DOK-datasett")]
+        public string DistributionUrl { get; set; }
 
         [Required(ErrorMessage = "Oppdateringshyppighet er påkrevd")]
         public string MaintenanceFrequency { get; set; }
@@ -77,6 +79,10 @@ namespace Kartverket.MetadataEditor.Models
         public string Published { get; set; }
 
 
+        public bool IsDokDataset()
+        {
+            return KeywordsNationalInitiative.Contains("Det offentlige kartgrunnlaget");
+        }
 
         internal bool HasAccess(string organization)
         {

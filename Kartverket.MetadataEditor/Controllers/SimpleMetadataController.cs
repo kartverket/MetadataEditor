@@ -156,7 +156,7 @@ namespace Kartverket.MetadataEditor.Controllers
            
             ViewBag.CreateProductSheetUrl =
                 System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"] + model.Uuid;
-            ViewBag.ThumbnailUrl =
+            ViewBag.DatasetUrl =
                 System.Web.Configuration.WebConfigurationManager.AppSettings["EditorUrl"] + "thumbnails/";
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
@@ -479,7 +479,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [Authorize]
         [OutputCache(Duration = 0)]
-        public ActionResult UploadThumbnail(string uuid, bool scaleImage = false)
+        public ActionResult UploadDataset(string uuid)
         {
             string filename = null;
             var viewresult = Json(new { });
@@ -487,30 +487,13 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 HttpPostedFileBase file = Request.Files[0];
 
-                if (file.ContentType == "image/jpeg" || file.ContentType == "image/gif" || file.ContentType == "image/png")
-                {
-
                     var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
                     filename = uuid + "_" + timestamp + "_" + file.FileName;
                     string fullPath = Server.MapPath("~/thumbnails/" + filename);
-
-                    if (scaleImage)
-                    {
-                        var image = Image.FromStream(file.InputStream);
-                        var newImage = ScaleImage(image, 180, 1000);
-                        newImage.Save(fullPath);
-                    }
-                    else
-                    {
+                    
                         file.SaveAs(fullPath);
-                    }
 
                     viewresult = Json(new { status = "OK", filename = filename });
-                }
-                else
-                {
-                    viewresult = Json(new { status = "ErrorWrongContent" });
-                }
             }
 
             //for IE8 which does not accept application/json

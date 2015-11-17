@@ -237,6 +237,33 @@
                 }
             });
 
+
+            $('#uploadDatasetFile').fileupload({
+                dataType: 'json',
+                url: '/SimpleMetadata/UploadDataset',
+                add: function (e, data) {
+
+                    $("#uploadThumbnailButton").on("click", function (event) {
+                        event.preventDefault();
+
+                        console.log(data);
+                        data.formData = {
+                            "uuid": "@Model.Uuid"
+                        };
+
+                        data.submit();
+                    });
+                },
+                done: function (e, data) {
+                    console.log("File uploaded: " + data.result.filename);                   
+                        $("#DistributionUrl").val('@ViewBag.DatasetUrl' + data.result.filename);
+                        $('#uploadDatasetStatus').attr('style', 'text-info');
+                        $('#uploadDatasetStatus').text('Filen er lastet opp.');
+                }
+            });
+
+
+
             // keywords
 
             var keywordThreshold = 20;

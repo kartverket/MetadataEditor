@@ -180,6 +180,7 @@ namespace Kartverket.MetadataEditor.Models
                 ProcessHistory = metadata.ProcessHistory,
                 ProductPageUrl = metadata.ProductPageUrl,
 
+                DistributionUrl = metadata.DistributionDetails != null ? metadata.DistributionDetails.URL : null,
                 DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
 
                 MaintenanceFrequency = metadata.MaintenanceFrequency,
@@ -298,6 +299,14 @@ namespace Kartverket.MetadataEditor.Models
             List<SimpleKeyword> keywordsToUpdate = model.GetAllKeywords();
 
             metadata.Keywords = keywordsNotInModel.Concat(keywordsToUpdate).ToList();
+
+
+                metadata.DistributionDetails = new SimpleDistributionDetails
+                {
+                    URL = model.DistributionUrl,
+                    Protocol = "GEONORGE:FILEDOWNLOAD"
+                };
+   
 
             SetDefaultValuesOnMetadata(metadata);
         }
