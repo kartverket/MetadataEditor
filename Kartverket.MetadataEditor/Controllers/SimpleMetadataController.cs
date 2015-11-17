@@ -219,15 +219,6 @@ namespace Kartverket.MetadataEditor.Controllers
                 ViewBag.IsAdmin = "1";
             }
 
-            //ValidateModel(model);
-
-            if (ignoreValidationError == "1")
-            {
-                foreach (var modelValue in ModelState.Values)
-                {
-                    modelValue.Errors.Clear();
-                }
-            }
 
             if (ModelState.IsValid)
             {
@@ -253,16 +244,6 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
-        private void ValidateModel(MetadataViewModel model)
-        {
-            ViewBag.thumbnailMissingCSS = "";
-            var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
-            if (thumb.Count() == 0)
-            {
-                ModelState.AddModelError("thumbnailMissing", "Det er påkrevd å fylle ut illustrasjonsbilde");
-                ViewBag.thumbnailMissingCSS = "input-validation-error";
-            }
-        }
 
         private void SaveMetadataToCswServer(SimpleMetadataViewModel model)
         {
