@@ -204,6 +204,11 @@
                 $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
                 $("input#BoundingBoxEast").val($selectedCounty.data('east'));
                 $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+
+                $("#keywords-place-text").val($("#bboxCounty option:selected").text());
+                $("#keywords-place-add").click();
+                $("#keywords-place-text").val('');
+
             });
 
             $("#bboxCounty").click(function (event) {

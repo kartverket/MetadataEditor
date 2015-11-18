@@ -193,6 +193,7 @@
                 <label for="state" class="control-label col-sm-3">Velg fast område:</label>
                 <div class="col-sm-2">
                     <select name="state" id="bboxState" class="form-control">
+                        <option></option>
                         <option data-statenumber="00">Hele landet</option>
                         <option data-statenumber="02">Akershus</option>
                         <option data-statenumber="09">Aust-Agder</option>
@@ -218,12 +219,13 @@
                 <label for="county" class="control-label col-sm-1">Delområde:</label>
                 <div class="col-sm-3">
                     <select name="county" id="bboxCounty" class="form-control">
+                        <option></option>
                         <option data-countynumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
                         @Html.Partial("~/Views/Metadata/_OptionsCountyList.cshtml")
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn btn-default hidden" id="bboxPrefill">Angi</button>
+                    <button class="btn btn-default" id="bboxPrefill">Bruk</button>
                 </div>
             </div>
             <div class="form-group">
@@ -243,7 +245,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Geografisk område</label>
+                <label class="col-sm-3 control-label">Valgt geografisk område</label>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <ul id="keywords-place">
@@ -265,7 +267,7 @@
                             @Html.ValidationMessage("KeywordsPlace", "Påkrevd")
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-default btn-sm" id="keywords-place-add">Legg til</button>
+                            <button type="button" class="btn btn-default btn-sm" id="keywords-place-add">Legg til manuelt</button>
                         </div>
                     </div>
                 </div>

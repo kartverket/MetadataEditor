@@ -503,61 +503,6 @@ namespace Kartverket.MetadataEditor.Controllers
             return viewresult;
         }
 
-        [Authorize]
-        [OutputCache(Duration = 0)]
-        public ActionResult UploadThumbnailGenerateMini(string uuid)
-        {
-            string filename = null;
-            var viewresult = Json(new { });
-            if (Request.Files.Count > 0)
-            {
-                HttpPostedFileBase file = Request.Files[0];
-
-                if (file.ContentType == "image/jpeg" || file.ContentType == "image/gif" || file.ContentType == "image/png")
-                {
-                    var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                    filename = uuid + "_" + timestamp + "_" + file.FileName;
-                    string fullPath = Server.MapPath("~/thumbnails/" + filename);
-
-                    file.SaveAs(fullPath);
-
-                    var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
-                    fullPath = Server.MapPath("~/thumbnails/" + filenameMini);
-
-                    var image = Image.FromStream(file.InputStream);
-                    var miniImage = ScaleImage(image, 180, 1000);
-                    miniImage.Save(fullPath);
-
-
-                    viewresult = Json(new { status = "OK", filename = filename, filenamemini = filenameMini });
-                }
-                else
-                {
-                    viewresult = Json(new { status = "ErrorWrongContent" });
-                }
-            }
-
-            //for IE8 which does not accept application/json
-            if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
-                viewresult.ContentType = "text/plain";
-
-            return viewresult;
-        }
-
-
-        public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
-        {
-            var ratioX = (double)maxWidth / image.Width;
-            var ratioY = (double)maxHeight / image.Height;
-            var ratio = Math.Min(ratioX, ratioY);
-
-            var newWidth = (int)(image.Width * ratio);
-            var newHeight = (int)(image.Height * ratio);
-
-            var newImage = new Bitmap(newWidth, newHeight);
-            Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
-            return newImage;
-        }
 
         [Authorize]
         [HttpGet]

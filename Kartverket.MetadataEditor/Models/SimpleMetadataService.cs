@@ -294,7 +294,7 @@ namespace Kartverket.MetadataEditor.Models
             //Keep if other keywords than in model
             List<SimpleKeyword> keywordsNotInModel = metadata.Keywords.Where(k => k.Thesaurus != SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE
                                                         && k.Thesaurus != SimpleKeyword.THESAURUS_NATIONAL_THEME
-                                                        && k.Thesaurus != SimpleKeyword.TYPE_PLACE).ToList();
+                                                        && k.Type != SimpleKeyword.TYPE_PLACE).ToList();
             //Get keywords in model
             List<SimpleKeyword> keywordsToUpdate = model.GetAllKeywords();
 
