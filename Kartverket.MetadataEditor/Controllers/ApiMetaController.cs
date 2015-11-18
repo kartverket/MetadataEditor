@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kartverket.MetadataEditor.Models;
+using Kartverket.MetadataEditor.no.geonorge.ws;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -167,7 +169,27 @@ namespace Kartverket.MetadataEditor.Controllers
         
         }
 
-    }
+        /// <summary>
+        /// Get list of places for coordinates
+        /// </summary>
+        /// <param name="nordmin">Minimum nord verdi for omskreven boks.</param>
+        /// <param name="austmin"> Minimum aust verdi for omskreven boks.</param>
+        ///  <param name="nordmax">Maximum nord verdi for omskreven boks.</param>
+        ///  <param name="austmax">Maximum nord verdi for omskreven boks.</param>
+        ///  <param name="koordsysut">SOSI koordinat system for returnerte data. Må alltid være ulik 0.</param>
+        ///  <param name="koordsysinn">SOSI koordinat system for søke data. Må være ulik 0 hvis austMin, austMax, nordMin eller nordMax er ulik 0.</param>
+        [Route("api/places/{nordmin}/{austmin}/{nordmax}/{austmax}/{koordsysut}/{koordsysinn}")]
+        [HttpGet]
+        public List<string> GetPlaces(double nordmin, double austmin, double nordmax, double austmax, int koordsysut, int koordsysinn)
+        {
+            KomDataService test = new KomDataService();
+            List<string> result = test.GetPlaces(nordmin, austmin, nordmax, austmax, koordsysut, koordsysinn);
+
+            return result;
+        }
+
+
+        }
 
     public class MetaDataEntry 
     {
