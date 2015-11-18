@@ -14,10 +14,14 @@ namespace Kartverket.MetadataEditor.Models
         string username;
         string password;
 
+        Dictionary<string, string> fylker;
+
         public KomDataService()
         {
             username = settings["WebserviceGeonorgeUsername"];
             password = settings["WebserviceGeonorgePassword"];
+
+            fylker = GetFylkesList();
 
             result = new SokKomDataClient();
         }
@@ -57,6 +61,21 @@ namespace Kartverket.MetadataEditor.Models
 
             string fylkesnavn = "";
 
+            foreach (var code in fylker)
+            {
+                var codevalue = code.Key;
+                if (codevalue == fylke)
+                {
+                    fylkesnavn = code.Value;
+                    break;
+                }
+            }
+
+            return fylkesnavn;
+        }
+
+        Dictionary<string,string> GetFylkesList()
+        {
             string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/subregister/sosi-kodelister/kartverket/fylkesnummer";
             System.Net.WebClient c = new System.Net.WebClient();
             c.Encoding = System.Text.Encoding.UTF8;
@@ -65,18 +84,17 @@ namespace Kartverket.MetadataEditor.Models
 
             var codeList = response["containeditems"];
 
+            Dictionary<string, string> fylks = new Dictionary<string, string>();
+
             foreach (var code in codeList)
             {
-                var codevalue = code["codevalue"].ToString();
-                if (codevalue == fylke)
-                {
-                    fylkesnavn = code["label"].ToString();
-                    break;
-                }
+                if(!fylks.ContainsKey(code["codevalue"].ToString()))
+                    fylks.Add(code["codevalue"].ToString(), code["label"].ToString());               
             }
 
-            return fylkesnavn;
+            return fylks;
         }
+
     }
    
 }

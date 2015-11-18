@@ -488,6 +488,7 @@
     <Content Include="Views\SimpleMetadata\_Basic.cshtml" />
     <Content Include="Views\SimpleMetadata\_Optional.cshtml" />
     <None Include="Service References\no.geonorge.ws\SokKomData.wsdl" />
+    <Content Include="Views\SimpleMetadata\_Kart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
