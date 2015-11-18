@@ -786,5 +786,67 @@
             </summary>
             <param name="uuid">The identifier of the metadata</param>
         </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.GetPlaces(System.Double,System.Double,System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Get list of places for coordinates
+            </summary>
+            <param name="nordmin">Minimum nord verdi for omskreven boks.</param>
+            <param name="austmin"> Minimum aust verdi for omskreven boks.</param>
+             <param name="nordmax">Maximum nord verdi for omskreven boks.</param>
+             <param name="austmax">Maximum nord verdi for omskreven boks.</param>
+             <param name="koordsysut">SOSI koordinat system for returnerte data. Må alltid være ulik 0.</param>
+             <param name="koordsysinn">SOSI koordinat system for søke data. Må være ulik 0 hvis austMin, austMax, nordMin eller nordMax er ulik 0.</param>
+        </member>
+        <member name="T:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes.errorMsg">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes.ok">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes.resultat">
+            <remarks/>
+        </member>
+        <member name="T:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.boxAmax">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.boxAmin">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.boxNmax">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.boxNmin">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.gaust">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.gnord">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.kNavn">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.kSenter">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.kommNr">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.senterA">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.senterN">
+            <remarks/>
+        </member>
+        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.ssbNr">
+            <remarks/>
+        </member>
     </members>
 </doc>

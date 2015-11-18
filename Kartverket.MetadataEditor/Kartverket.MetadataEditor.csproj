@@ -112,6 +112,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -228,6 +229,7 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\BatchService.cs" />
+    <Compile Include="Models\KomDataService.cs" />
     <Compile Include="Models\MetadataCreateViewModel.cs" />
     <Compile Include="Models\MetadataIndexViewModel.cs" />
     <Compile Include="Models\MetadataItemViewModel.cs" />
@@ -260,6 +262,11 @@
       <DependentUpon>UI.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Service References\no.geonorge.ws\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Util\GeoNetworkUtil.cs" />
     <Compile Include="Util\MyRequiredAttributeAdapter.cs" />
   </ItemGroup>
@@ -398,6 +405,18 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Service References\no.geonorge.ws\configuration91.svcinfo" />
+    <None Include="Service References\no.geonorge.ws\configuration.svcinfo" />
+    <Content Include="Service References\no.geonorge.ws\Kartverket.MetadataEditor.no.geonorge.ws.kommuneSok1Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\no.geonorge.ws\Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\no.geonorge.ws\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -468,6 +487,7 @@
     <Content Include="Views\SimpleMetadata\Create.cshtml" />
     <Content Include="Views\SimpleMetadata\_Basic.cshtml" />
     <Content Include="Views\SimpleMetadata\_Optional.cshtml" />
+    <None Include="Service References\no.geonorge.ws\SokKomData.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -488,6 +508,12 @@
       <CustomToolNamespace>Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\no.geonorge.ws\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
