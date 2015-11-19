@@ -168,6 +168,7 @@ namespace Kartverket.MetadataEditor.Models
                 Title = metadata.Title,
                 HierarchyLevel = metadata.HierarchyLevel,
                 ParentIdentifier = metadata.ParentIdentifier,
+                MetadataStandard = metadata.MetadataStandard,
                 Abstract = metadata.Abstract != null ? metadata.Abstract.Replace("...", "") : "",
 
                 ContactMetadata = new Contact(metadata.ContactMetadata, "pointOfContact"),
@@ -350,7 +351,7 @@ namespace Kartverket.MetadataEditor.Models
         private void SetDefaultValuesOnMetadata(SimpleMetadata metadata)
         {
             metadata.DateMetadataUpdated = DateTime.Now;
-            metadata.MetadataStandard = "ISO19115";
+            metadata.MetadataStandard = "ISO19115:Norsk versjon";
             metadata.MetadataStandardVersion = "2003";
             metadata.MetadataLanguage = "nor";
         }

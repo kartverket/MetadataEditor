@@ -168,6 +168,7 @@ namespace Kartverket.MetadataEditor.Models
                 Title = metadata.Title,
                 HierarchyLevel = metadata.HierarchyLevel,
                 ParentIdentifier = metadata.ParentIdentifier,
+                MetadataStandard = metadata.MetadataStandard,
                 Abstract = metadata.Abstract != null ? metadata.Abstract.Replace("...", "") : "",
                 Purpose = metadata.Purpose,
 
