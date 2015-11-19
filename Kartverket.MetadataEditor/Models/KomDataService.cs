@@ -28,11 +28,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public List<string> GetPlaces(double nordMin, double austMin, double nordMax, double austMax,int koordSysUt, int koordSysInn)
         {
-            //Todo fix coordinate search
-            //result.kommuneSok1(username, password, null, 0 , "", 84, 84, 57, 2 , 72, 33); //Gir ikke resultat
-            //result.kommuneSok1(username, password, null, 0, "", koordSysUt, koordSysInn, nordMin, austMin, nordMax, austMax);
-            var kommuner = result.kommuneSok1(username, password, null, 0, "os*", 84, 0, 0, 0, 0, 0); // Gir resultat
-
+            var kommuner = result.kommuneSok1(username, password, null, 0, "", koordSysUt, koordSysInn, nordMin, austMin, nordMax, austMax);
             List<string> places = new List<string>();
 
             foreach (var kommune in kommuner.resultat)

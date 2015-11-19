@@ -5,7 +5,9 @@
 <div class="modal-dialog" id="norgeskartmodal" style="width: 85%;">
     <div class="modal-content">
         <div id="viewer" role="main" style="height:100%">
-            <div id="container"></div>
+            <div id="container">
+                @*<p id="result"></p>*@
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt</button><button id="setcoordinates" onclick="setBoundingBoxAndPlaces();" type="button" class="btn btn-default" data-dismiss="modal">Legg til område</button>
@@ -19,6 +21,11 @@
                 var BBSouth;
                 var BBEast;
                 var BBNorth;
+
+                var x1;
+                var y1;
+                var x2;
+                var y2;
 
                 // by Kartverket/Thomas Hirsch 2012 / public domain.
                 var socket = new easyXDM.Socket({
@@ -35,10 +42,10 @@
                         var c3 = coords[2];
                         var c4 = coords[3];
 
-                        var x1 = c1[0];
-                        var y1 = c1[1];
-                        var x2 = c2[0];
-                        var y2 = c3[1];
+                        x1 = c1[0];
+                        y1 = c1[1];
+                        x2 = c2[0];
+                        y2 = c3[1];
 
 
                         $.getJSON('http://norgeskart.no/ws/trans.py?ost=' + x1 + '&nord=' + y1 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
@@ -71,6 +78,7 @@
                 {
                     if (typeof BBWest != 'undefined')
                     {
+
                     BBWest = BBWest.toFixed(4);
                     BBSouth = BBSouth.toFixed(4);
                     BBEast = BBEast.toFixed(4);
@@ -81,7 +89,7 @@
                     document.getElementById('BoundingBoxEast').value = BBEast;
                     document.getElementById('BoundingBoxNorth').value = BBNorth;
 
-                    $.getJSON("/api/places/" + BBSouth + "/" + BBWest + "/" + BBNorth + "/" + BBEast + "/84/84", function (result) {
+                    $.getJSON("/api/places/" + y1 + "/" + x1 + "/" + y2 + "/" + x2 + "/84/23", function (result) {
             
                         if (result.length != 0) {
                             $("#keywords-place").empty();
