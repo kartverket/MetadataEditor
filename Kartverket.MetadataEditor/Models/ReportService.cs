@@ -28,12 +28,14 @@ namespace Kartverket.MetadataEditor.Models
 
             foreach (var item in model.MetadataItems)
             {
-                //if (item.Uuid != "b7dd7cbb-5cd2-4124-bf9c-fc83f9579982") 
-                //{ 
-                MetadataViewModel md = _metadataService.GetMetadataModel(item.Uuid);
-                if(md.IsDataset())
-                report.Add(md);
-                //}
+
+                try
+                {
+                    MetadataViewModel md = _metadataService.GetMetadataModel(item.Uuid);
+                    if (md.IsDataset())
+                        report.Add(md);
+                }
+                catch (Exception ex) { }
             }
 
             int numberOfRecordsMatched = model.TotalNumberOfRecords;
