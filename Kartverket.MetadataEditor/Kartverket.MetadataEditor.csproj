@@ -490,6 +490,7 @@
     <None Include="Service References\no.geonorge.ws\SokKomData.wsdl" />
     <Content Include="Views\SimpleMetadata\_Kart.cshtml" />
     <Content Include="Views\SimpleMetadata\ConfirmDelete.cshtml" />
+    <Content Include="Views\Shared\_SharedMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
