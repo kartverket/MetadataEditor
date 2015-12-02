@@ -74,7 +74,7 @@ ul#thumbnailsCoverage > li.thumbnail > img {
     float: left;
 }
 
-footer { margin-top: 20px; }
+/*footer { margin-top: 20px; }*/
 
 
 .btn-file {
@@ -123,7 +123,7 @@ input[readonly] {
 
 }
 
-.page-footer {
+/*.page-footer {
   margin-top: 7em;
   background-image: linear-gradient(#ededed, #dedcdc);
 }
@@ -164,4 +164,4 @@ input[readonly] {
 }
 .page-footer .no-margin-bottom {
   margin-bottom: 0;
-}
+}*/
