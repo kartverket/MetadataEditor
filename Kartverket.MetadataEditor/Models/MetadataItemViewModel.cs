@@ -25,11 +25,11 @@ namespace Kartverket.MetadataEditor.Models
         public string GetInnholdstypeCSS()
         {
             string t = "label-default";
-            if (Type == "dataset") t = "label-success";
-            else if (Type == "software") t = "label-warning";
-            else if (Type == "service" && (!string.IsNullOrWhiteSpace(Relation))) t = "label-info";
-            else if (Type == "service") t = "label-info";
-            else if (Type == "series") t = "label-primary";
+            if (Type == "dataset") t = "label-datasett";
+            else if (Type == "software") t = "label-applikasjon";
+            else if (Type == "service" && (!string.IsNullOrWhiteSpace(Relation))) t = "label-tjenestelag";
+            else if (Type == "service") t = "label-tjeneste";
+            else if (Type == "series") t = "label-datasettserie";
 
             return t;
         }
@@ -39,7 +39,7 @@ namespace Kartverket.MetadataEditor.Models
             string t = Type;
             if (Type == "dataset") t = "Datasett";
             else if (Type == "software") t = "Programvare";
-            else if (Type == "service" && (!string.IsNullOrWhiteSpace(Relation))) t = "WMS-lag (Tjenestelag)";
+            else if (Type == "service" && (!string.IsNullOrWhiteSpace(Relation))) t = "WMS-lag";
             else if (Type == "service") t = "Tjeneste";
             else if (Type == "series") t = "Datasettserie";
 

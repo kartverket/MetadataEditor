@@ -377,11 +377,11 @@ namespace Kartverket.MetadataEditor.Models
         public string GetInnholdstypeCSS()
         {
             string t = "label-default";
-            if (HierarchyLevel == "dataset") t = "label-success";
-            else if (HierarchyLevel == "software") t = "label-warning";
-            else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier))) t = "label-info";
-            else if (HierarchyLevel == "service") t = "label-info";
-            else if (HierarchyLevel == "series") t = "label-primary";
+            if (HierarchyLevel == "dataset") t = "label-datasett";
+            else if (HierarchyLevel == "software") t = "label-applikasjon";
+            else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier))) t = "label-tjenestelag";
+            else if (HierarchyLevel == "service") t = "label-tjeneste";
+            else if (HierarchyLevel == "series") t = "label-datasettserie";
 
             return t;
         }
@@ -391,8 +391,8 @@ namespace Kartverket.MetadataEditor.Models
             string t = HierarchyLevel;
             if (HierarchyLevel == "dataset") t = "Datasett";
             else if (HierarchyLevel == "software") t = "Programvare";
-            else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier)) && DistributionProtocol != null && DistributionProtocol.Contains("WFS")) t = "WFS-lag (Tjenestelag)";
-            else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier))) t = "WMS-lag (Tjenestelag)";
+            else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier)) && DistributionProtocol != null && DistributionProtocol.Contains("WFS")) t = "WFS-lag";
+            else if (HierarchyLevel == "service" && (!string.IsNullOrWhiteSpace(ParentIdentifier))) t = "WMS-lag";
             else if (HierarchyLevel == "service") t = "Tjeneste";
             else if (HierarchyLevel == "series") t = "Datasettserie";
 
