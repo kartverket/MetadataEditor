@@ -25,17 +25,17 @@ namespace Kartverket.MetadataEditor
                 "~/Scripts/jquery.autosize.js"/*,
                 "~/Scripts/jquery.cookie.js"*/));
 
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
-                "~/Content/themes/base/core.css",
-                "~/Content/themes/base/datepicker.css",
-                "~/Content/themes/base/theme.css"));
+            //bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+            //    "~/Content/themes/base/core.css",
+            //    "~/Content/themes/base/datepicker.css",
+            //    "~/Content/themes/base/theme.css"));
               
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                //"~/Content/bootstrap.css",
-                //"~/Content/common.css",
-                //"~/Content/navbar.css",
-                //"~/Content/searchbar.css",
-                "~/Content/site.css"));
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //    "~/Content/bootstrap.css",
+            //    "~/Content/common.css",
+            //    "~/Content/navbar.css",
+            //    "~/Content/searchbar.css",
+            //    "~/Content/site.css"));
         }
     }
 }
