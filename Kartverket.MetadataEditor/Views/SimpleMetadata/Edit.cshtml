@@ -206,11 +206,24 @@
 
             $("button#bboxPrefill").click(function (event) {
                 event.preventDefault();
+
+                if ($('#keywords-place li').length == 0)
+                {
+                    $("input#BoundingBoxNorth").val('');
+                    $("input#BoundingBoxSouth").val('');
+                    $("input#BoundingBoxEast").val('');
+                    $("input#BoundingBoxWest").val('');
+                }
+                
                 var $selectedCounty = $counties.find('option:selected');
-                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+                if ( !$("input#BoundingBoxNorth").val() || $selectedCounty.data('north') > $("input#BoundingBoxNorth").val())
+                    $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
+                if ( !$("input#BoundingBoxSouth").val() || $selectedCounty.data('south') < $("input#BoundingBoxSouth").val())
+                    $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
+                if ( !$("input#BoundingBoxEast").val() || $selectedCounty.data('east') > $("input#BoundingBoxEast").val())
+                    $("input#BoundingBoxEast").val($selectedCounty.data('east'));
+                if ( !$("input#BoundingBoxWest").val() || $selectedCounty.data('west') < $("input#BoundingBoxWest").val())
+                    $("input#BoundingBoxWest").val($selectedCounty.data('west'));
 
                 $("#keywords-place-text").val($("#bboxCounty option:selected").text());
                 $("#keywords-place-add").click();
@@ -218,23 +231,6 @@
 
             });
 
-            $("#bboxCounty").click(function (event) {
-                event.preventDefault();
-                var $selectedCounty = $counties.find('option:selected');
-                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
-            });
-
-            $("#bboxState").click(function (event) {
-                event.preventDefault();
-                var $selectedCounty = $counties.find('option:selected');
-                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
-            });
 
             // Check date not in future
             $("#DateUpdated").change(function (event) {
