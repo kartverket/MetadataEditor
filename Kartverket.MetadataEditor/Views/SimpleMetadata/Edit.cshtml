@@ -335,13 +335,6 @@
                     addKeywordFromTextbox('keywords-place', "KeywordsPlace");
             });
 
-            $('button#keywords-national-initiative-add').click(function (event) {
-                event.preventDefault();
-                if ($('#keywords-national-initiative-text').val().trim() == '')
-                    alert('Vennligst velg samarbeid og lov');
-                else
-                    addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
-            });
 
             $('button#keywords-national-theme-add').click(function (event) {
                 event.preventDefault();

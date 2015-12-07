@@ -112,24 +112,46 @@
     <div>
         <div class="col-sm-4">
             <p class="keyword-header">Samarbeid og lover</p>
-            <ul id="keywords-national-initiative">
-                @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
-                {
-                    var keyword = Model.KeywordsNationalInitiative[i];
-                    <li id="keywords-national-initiative-@i">
-                        <span class="">@keyword</span>
-                        <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i" data-list="keywords-national-initiative-text" data-list-value="@keyword"><small>Slett</small></a>
-                        <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
-                    </li>
-                }
-            </ul>
-            <div class="form-group">
-                <div class="col-sm-4">
-                    @Html.DropDownList("keywords-national-initiative-text", ViewBag.NationalInitiativeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
-                </div>
-                <div class="col-sm-2">
-                    <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
-                </div>
+            <div id="keywords-national-initiative">
+                @{ var nationalInitiative = ViewBag.NationalInitiativeValues as SelectList; int j = 0;
+                    foreach (var keyword in nationalInitiative)
+                    {
+                        if(keyword.Value == "Det offentlige kartgrunnlaget")
+                        {
+                            if (Model.KeywordsNationalInitiative.Contains(keyword.Value))
+                            {
+                                    <input type="checkbox" name="KeywordsNationalInitiative[@j]" checked value="@keyword.Value" />@keyword.Text<br />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="KeywordsNationalInitiative[@j]" value="@keyword.Value" />@keyword.Text<br />
+                            }
+                        j++;
+                        }
+                        else if(keyword.Value == "Åpne data")
+                        {
+      
+                            if (Model.KeywordsNationalInitiative.Contains(keyword.Value))
+                            {
+                             <input type="checkbox" name="KeywordsNationalInitiative[@j]" checked value="@keyword.Value" />@keyword.Text<br />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="KeywordsNationalInitiative[@j]" value="@keyword.Value" />@keyword.Text<br />
+                            }
+                        j++;
+                        }
+                        else
+                        {
+                            if (Model.KeywordsNationalInitiative.Contains(keyword.Value))
+                            {
+                                <input type = "hidden" name = "KeywordsNationalInitiative[@j]" value = "@keyword.Value" />
+                                j++;
+                            }
+                        }
+                    }
+                 }
+
             </div>
         </div>
 
