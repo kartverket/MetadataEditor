@@ -278,8 +278,6 @@
 
             // keywords
 
-            var keywordThreshold = 20;
-
             function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
                 deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
 
@@ -306,11 +304,8 @@
 
                 li.append(link);
                 li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
-
-                if (elementId < keywordThreshold)
-                    $('ul#' + selectorPrefix).append(li);
-                else
-                    alert('Maksimum antall nøkkelord er ' + keywordThreshold);
+  
+                $('ul#' + selectorPrefix).append(li);     
 
                 return $keywordInput;
             };

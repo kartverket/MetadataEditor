@@ -92,12 +92,17 @@
                     $.getJSON("/api/places/" + y1 + "/" + x1 + "/" + y2 + "/" + x2 + "/84/23", function (result) {
             
                         if (result.length != 0) {
+                            $("#map-message").text("");
                             $("#keywords-place").empty();
                             for (var r = 0 ; r < result.length; r++) {
                                 $("#keywords-place-text").val(result[r]);
                                 $("#keywords-place-add").click();
                                 $("#keywords-place-text").val('');
                             }
+                        }
+                        else
+                        {
+                            $("#map-message").text("Fant ingen områder i kartet. Vennligst prøv et større område eller velg fast område ovenfor"); 
                         }
 
                     });

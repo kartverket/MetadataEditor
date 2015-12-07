@@ -241,7 +241,7 @@
                             @Html.Partial("_Kart")
                         </div>
                     </div>
-                    <div class="col-sm-8"></div>
+                    <div class="col-sm-8"><span id="map-message" class="field-validation-error"></span></div>
                 </div>
             </div>
             <div class="form-group">
@@ -263,10 +263,10 @@
 
                     <div class="form-group">
                         <div class="col-sm-5">
-                            <input type="text" id="keywords-place-text" class="form-control" />
+                            <input type="text" id="keywords-place-text" class="form-control hidden" />
                             @Html.ValidationMessage("KeywordsPlace", "Påkrevd")
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 hidden">
                             <button type="button" class="btn btn-default btn-sm" id="keywords-place-add">Legg til manuelt</button>
                         </div>
                     </div>
