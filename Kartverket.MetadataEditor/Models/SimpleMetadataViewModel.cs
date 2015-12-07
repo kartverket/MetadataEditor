@@ -24,7 +24,7 @@ namespace Kartverket.MetadataEditor.Models
         public string MetadataStandard { get; set; }
 
         [Required(ErrorMessage = null)]
-        [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]
+        [Display(Name = "SimpleMetadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
 
 
