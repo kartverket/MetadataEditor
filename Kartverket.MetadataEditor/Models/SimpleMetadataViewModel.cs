@@ -77,6 +77,10 @@ namespace Kartverket.MetadataEditor.Models
         [MustHaveOneElementAttribute(ErrorMessage = "Nasjonal temainndeling er påkrevd")]
         public List<String> KeywordsNationalTheme { get; set; }
 
+        public string UseConstraints { get; set; }
+        public string OtherConstraintsLink { get; set; }
+        public string OtherConstraintsLinkText { get; set; }
+
         public string Published { get; set; }
 
 

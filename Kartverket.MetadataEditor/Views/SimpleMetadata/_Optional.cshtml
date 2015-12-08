@@ -52,3 +52,49 @@
         @Html.EditorFor(m => m.ProductPageUrl, new { htmlAttributes = new { @class = "form-control" } })
     </div>
 </div>
+
+<div class="form-group" id="licenses">
+    <label for="LicenseTypes" class="col-sm-2 control-label">Lisens</label>
+    <div class="col-sm-7">
+        @Html.DropDownList("LicenseTypes", ViewBag.LicenseTypesValues as SelectList, "-- Velg lisens --", new { @class = "form-control", @onchange = "setLicense()" })
+        <p class="help-text bg-success" id="help-text-LicenseTypes" style="display: none">
+            Lisens for datasettet/datatjenesten.
+        </p>
+    </div>
+    <div class="col-sm-1">
+    </div>
+    <div class="col-sm-2">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-LicenseTypes" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+
+
+<div class="form-group" id="LicenseLink" style="visibility:hidden; display: none;">
+    <label for="OtherConstraintsLinkText" class="col-sm-2 control-label">Valgt lisens</label>
+    <div class="col-sm-3">
+        @Html.EditorFor(m => m.OtherConstraintsLinkText)
+    </div>
+    <label for="OtherConstraintsLink" class="col-sm-1 control-label">URL</label>
+    <div class="col-sm-4">
+        @Html.EditorFor(m => m.OtherConstraintsLink)
+    </div>
+    <div class="col-sm-1">
+    </div>
+
+</div>
+<script>
+
+
+    function setLicense()
+    {
+        var e = document.getElementById("LicenseTypes");
+        var linkValue = e.options[e.selectedIndex].value;
+        var linkText = e.options[e.selectedIndex].text;
+
+        document.getElementById('OtherConstraintsLink').value = linkValue;
+        document.getElementById('OtherConstraintsLinkText').value = linkText;
+    }
+
+</script>

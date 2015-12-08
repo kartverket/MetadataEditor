@@ -192,6 +192,10 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsNationalInitiative = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE)),
                 KeywordsNationalTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_THEME)),
 
+                UseConstraints = metadata.Constraints != null ? metadata.Constraints.UseConstraints : null,
+                OtherConstraintsLink = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLink : null,
+                OtherConstraintsLinkText = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLinkText : null
+
             };
 
             if (metadata.BoundingBox != null)
@@ -307,7 +311,16 @@ namespace Kartverket.MetadataEditor.Models
                     URL = model.DistributionUrl,
                     Protocol = "GEONORGE:FILEDOWNLOAD"
                 };
-   
+
+
+            metadata.Constraints = new SimpleConstraints
+            {
+                UseConstraints = "license",
+                OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
+                OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null          
+            };
+
+
 
             SetDefaultValuesOnMetadata(metadata);
         }
