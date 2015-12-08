@@ -257,6 +257,9 @@ namespace Kartverket.MetadataEditor.Models
 
         private void UpdateMetadataFromModel(SimpleMetadataViewModel model, SimpleMetadata metadata)
         {
+
+            metadata.ParentIdentifier = model.ParentIdentifier;
+
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
 

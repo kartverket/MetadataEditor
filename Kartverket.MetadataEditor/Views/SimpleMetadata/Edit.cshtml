@@ -14,6 +14,10 @@
     @Html.HiddenFor(m => m.DateMetadataUpdated)
     @Html.HiddenFor(m => m.HierarchyLevel)
 
+    <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
+        @Html.Partial("_Parent", Model)
+    </div>
+
     @section ActionMenu {
         <div class="btn-group">
             @if (Html.SimpleMetadataEnabled())
@@ -45,10 +49,8 @@
                 <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
             }
 
-            @if (Model.IsService())
-            {
-                <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
-            }
+                <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til metadata</a>
+            
         </div>
     }
 

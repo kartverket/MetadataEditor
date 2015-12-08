@@ -491,6 +491,7 @@
     <Content Include="Views\SimpleMetadata\_Kart.cshtml" />
     <Content Include="Views\SimpleMetadata\ConfirmDelete.cshtml" />
     <Content Include="Views\Shared\_SharedMenu.cshtml" />
+    <Content Include="Views\SimpleMetadata\_Parent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
