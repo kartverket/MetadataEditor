@@ -7,15 +7,16 @@
 <div id="registerdata">
     <h1>Mine registerdata</h1>
     @{WebClient c = new WebClient();
-    c.Encoding = System.Text.Encoding.UTF8;
-    var data = c.DownloadString(ViewBag.RegisterOrganizationUrl);
-    var o = JArray.Parse(data);
-    foreach (var registerData in o)
-    {
+        c.Encoding = System.Text.Encoding.UTF8;
+        var data = c.DownloadString(ViewBag.RegisterOrganizationUrl);
+        var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+        var results = response["Results"];
+        foreach (var registerData in results)
+        {
         <div class="row">
-            <div class="col-sm-4"><a href="@registerData["showUrl"]" target="_blank">@registerData["name"]</a></div>
-            <div class="col-sm-4">@registerData["description"]</div>
-            <div class="col-sm-4">@registerData["status"]</div>
+            <div class="col-sm-4"><a href="@registerData["Url"]" target="_blank">@registerData["RegisterName"]</a></div>
+            <div class="col-sm-8">@registerData["RegisterDescription"]</div>
         </div>
     <hr />
     }
