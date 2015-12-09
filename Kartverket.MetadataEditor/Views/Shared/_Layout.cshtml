@@ -17,29 +17,19 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700" rel="stylesheet" type="text/css">
     <link href="//fonts.googleapis.com/css?family=Raleway:400,100,300,500,600,700" rel="stylesheet" type="text/css">
 
-    <!-- Shared menu: -->
-    <link href="@Html.KartkatalogUrl()bundles/shared-menu-styles" rel="stylesheet" type="text/css">
+    <!-- Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,100,300,500,600,700" rel="stylesheet" type="text/css">
 
-    <!-- Main css: -->
-    <link href="@Html.KartkatalogUrl()Content/css" rel="stylesheet" type="text/css">
-
-    <!-- Themes css: -->
-    <link href="@Html.KartkatalogUrl()Content/themes/base/css" rel="stylesheet" type="text/css">
-
-    <!-- Download: -->
-    <link href="@Html.KartkatalogUrl()Content/download" rel="stylesheet" type="text/css">
-
-    <!-- Shopping cart: -->
-    <link href="@Html.KartkatalogUrl()Content/shopping-cart" rel="stylesheet" type="text/css">
+    <!-- Stylesheets -->
+    @Styles.Render(@Html.KartkatalogUrl() + "bundles/shared-menu-styles")
+    @Styles.Render(@Html.KartkatalogUrl() + "Content/css")
+    @Styles.Render(@Html.KartkatalogUrl() + "Content/shopping-cart")
 
     <!-- Scripts -->
-    <script src="@Html.KartkatalogUrl()Scripts/easyXDM.js" type="text/javascript"></script>
-    <script src="@Html.KartkatalogUrl()bundles/jquery"></script>
-    <script src="@Html.KartkatalogUrl()bundles/modernizr"></script>
-    <script src="@Html.KartkatalogUrl()bundles/shared-menu-scripts"></script>
-    <script src="@Html.KartkatalogUrl()bundles/bootstrap"></script>
-    <script src="@Html.KartkatalogUrl()bundles/js"></script>
-    <script src="@Html.KartkatalogUrl()bundles/shopping-cart"></script>
+    @Scripts.Render(@Html.KartkatalogUrl() + "bundles/shared-menu-scripts")
+    @Scripts.Render(@Html.KartkatalogUrl() + "bundles/js")
+    @Scripts.Render(@Html.KartkatalogUrl() + "bundles/shopping-cart")
 
     @RenderSection("head", required: false)
     @Html.Partial("_Analytics")
