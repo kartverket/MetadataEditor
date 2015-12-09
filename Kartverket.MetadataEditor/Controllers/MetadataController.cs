@@ -215,7 +215,17 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(), "Key", "Value");
 
-            ViewBag.ProductspesificationValues = new SelectList(GetRegister("produktspesifikasjoner", model), "Key", "Value", model.ProductSpecificationUrl);
+            var productspesifications = GetRegister("produktspesifikasjoner", model);           
+            if(!string.IsNullOrEmpty(model.ProductSpecificationUrl))
+            {
+                KeyValuePair<string, string> prodspecSelected = new KeyValuePair<string, string>(model.ProductSpecificationUrl, model.ProductSpecificationUrl);
+                if (!productspesifications.ContainsKey(prodspecSelected.Key))
+                {
+                    productspesifications.Add(prodspecSelected.Key, prodspecSelected.Value);
+                }
+            }
+            ViewBag.ProductspesificationValues = new SelectList(productspesifications, "Key", "Value", model.ProductSpecificationUrl);
+
             ViewBag.ProductsheetValues = new SelectList(GetRegister("produktark", model), "Key", "Value", model.ProductSheetUrl);
             ViewBag.LegendDescriptionValues = new SelectList(GetRegister("tegneregler", model), "Key", "Value", model.LegendDescriptionUrl);
 
