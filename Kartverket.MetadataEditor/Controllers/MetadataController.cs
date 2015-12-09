@@ -768,7 +768,7 @@ namespace Kartverket.MetadataEditor.Controllers
         public ActionResult RegisterData()
         {
             string organization = GetSecurityClaim("organization");
-            ViewBag.RegisterOrganizationUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/search?facets[0]name=organization&facets[0]=" + organization;
+            ViewBag.RegisterOrganizationUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/search?facets[0]name=organization&facets[0]value=" + organization;
             return View();
         
         }
