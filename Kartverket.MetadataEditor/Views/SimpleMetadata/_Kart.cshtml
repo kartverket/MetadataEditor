@@ -17,114 +17,110 @@
 </div>
 <script>
 
-                var BBWest;
-                var BBSouth;
-                var BBEast;
-                var BBNorth;
+    var BBWest;
+    var BBSouth;
+    var BBEast;
+    var BBNorth;
 
-                var x1;
-                var y1;
-                var x2;
-                var y2;
+    var x1;
+    var y1;
+    var x2;
+    var y2;
 
-                // by Kartverket/Thomas Hirsch 2012 / public domain.
-                var socket = new easyXDM.Socket({
-                    remote: "@Html.NorgeskartUrl()select-rect.html",
-                    onMessage: function (message, origin) {
-                        //var reslist = document.getElementById('result');
-                        //reslist.innerHTML = message + "<br/>" + reslist.innerHTML;
-                        var obj = $.parseJSON(message);
-                        if (obj.feature != null)
-                        {
-                        var coords = obj.feature.geometry.coordinates[0];
-                        var c1 = coords[0];
-                        var c2 = coords[1];
-                        var c3 = coords[2];
-                        var c4 = coords[3];
+    // by Kartverket/Thomas Hirsch 2012 / public domain.
+    var socket = new easyXDM.Socket({
+        remote: "@Html.NorgeskartUrl()geoportal/staging/select-rect.html",
+        onMessage: function (message, origin) {
+            //var reslist = document.getElementById('result');
+            //reslist.innerHTML = message + "<br/>" + reslist.innerHTML;
+            var obj = $.parseJSON(message);
+            if (obj.feature != null) {
+                var coords = obj.feature.geometry.coordinates[0];
+                var c1 = coords[0];
+                var c2 = coords[1];
+                var c3 = coords[2];
+                var c4 = coords[3];
 
-                        x1 = c1[0];
-                        y1 = c1[1];
-                        x2 = c2[0];
-                        y2 = c3[1];
-
-
-                        $.getJSON('http://norgeskart.no/ws/trans.py?ost=' + x1 + '&nord=' + y1 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
-                            if (result.errKode == 0){
-                                BBWest = result.ost;
-                                BBSouth = result.nord
-                            }
-                        }
-                        );
-
-                        $.getJSON('http://norgeskart.no/ws/trans.py?ost=' + x2 + '&nord=' + y2 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
-                            if (result.errKode == 0) {
-                                BBEast = result.ost;
-                                BBNorth = result.nord
-                            }
-                        }
-                        );
+                x1 = c1[0];
+                y1 = c1[1];
+                x2 = c2[0];
+                y2 = c3[1];
 
 
-                        }
-
-                    },
-                    container: document.getElementById("container"),
-                    onReady: function () {
-                        this.container.getElementsByTagName("iframe")[0].style.width = "100%";
-                    }
-                });
-
-                function setBoundingBoxAndPlaces()
-                {
-                    if (typeof BBWest != 'undefined')
-                    {
-
-                    BBWest = BBWest.toFixed(4);
-                    BBSouth = BBSouth.toFixed(4);
-                    BBEast = BBEast.toFixed(4);
-                    BBNorth = BBNorth.toFixed(4);
-
-                    document.getElementById('BoundingBoxWest').value = BBWest;
-                    document.getElementById('BoundingBoxSouth').value = BBSouth;
-                    document.getElementById('BoundingBoxEast').value = BBEast;
-                    document.getElementById('BoundingBoxNorth').value = BBNorth;
-
-                    $.getJSON("/api/places/" + y1 + "/" + x1 + "/" + y2 + "/" + x2 + "/84/23", function (result) {
-            
-                        if (result.length != 0) {
-                            $("#map-message").text("");
-                            $("#keywords-place").empty();
-                            for (var r = 0 ; r < result.length; r++) {
-                                $("#keywords-place-text").val(result[r]);
-                                $("#keywords-place-add").click();
-                                $("#keywords-place-text").val('');
-                            }
-                        }
-                        else
-                        {
-                            $("#keywords-place").empty();
-                            $("#map-message").text("Fant ingen områder i kartet. Vennligst prøv et større område eller velg fast område ovenfor"); 
-                        }
-
-                    });
-
-
+                $.getJSON('@Html.NorgeskartUrl()/ws/trans.py?ost=' + x1 + '&nord=' + y1 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
+                    if (result.errKode == 0) {
+                        BBWest = result.ost;
+                        BBSouth = result.nord
                     }
                 }
+                );
+
+                $.getJSON('@Html.NorgeskartUrl()/ws/trans.py?ost=' + x2 + '&nord=' + y2 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
+                    if (result.errKode == 0) {
+                        BBEast = result.ost;
+                        BBNorth = result.nord
+                    }
+                }
+            );
 
 
-                function resizeIframe(iframe) {
-                    var windowHeight = $(window).height();
-                    var iframeHeight = windowHeight - 125;
-                    iframe.height(iframeHeight);
+            }
+
+        },
+        container: document.getElementById("container"),
+        onReady: function () {
+            this.container.getElementsByTagName("iframe")[0].style.width = "100%";
+        }
+    });
+
+    function setBoundingBoxAndPlaces() {
+        if (typeof BBWest != 'undefined') {
+
+            BBWest = BBWest.toFixed(4);
+            BBSouth = BBSouth.toFixed(4);
+            BBEast = BBEast.toFixed(4);
+            BBNorth = BBNorth.toFixed(4);
+
+            document.getElementById('BoundingBoxWest').value = BBWest;
+            document.getElementById('BoundingBoxSouth').value = BBSouth;
+            document.getElementById('BoundingBoxEast').value = BBEast;
+            document.getElementById('BoundingBoxNorth').value = BBNorth;
+
+            $.getJSON("/api/places/" + y1 + "/" + x1 + "/" + y2 + "/" + x2 + "/84/23", function (result) {
+
+                if (result.length != 0) {
+                    $("#map-message").text("");
+                    $("#keywords-place").empty();
+                    for (var r = 0 ; r < result.length; r++) {
+                        $("#keywords-place-text").val(result[r]);
+                        $("#keywords-place-add").click();
+                        $("#keywords-place-text").val('');
+                    }
+                }
+                else {
+                    $("#keywords-place").empty();
+                    $("#map-message").text("Fant ingen områder i kartet. Vennligst prøv et større område eller velg fast område ovenfor");
                 }
 
-                $(window).load(function () {
-                    var iframe = $('#viewer iframe');
-                    resizeIframe(iframe);
-                    window.onresize = function (event) {
-                        resizeIframe(iframe);
-                    };
-                });
+            });
+
+
+        }
+    }
+
+
+    function resizeIframe(iframe) {
+        var windowHeight = $(window).height();
+        var iframeHeight = windowHeight - 125;
+        iframe.height(iframeHeight);
+    }
+
+    $(window).load(function () {
+        var iframe = $('#viewer iframe');
+        resizeIframe(iframe);
+        window.onresize = function (event) {
+            resizeIframe(iframe);
+        };
+    });
 
 </script>

@@ -25,39 +25,38 @@
 
                 // by Kartverket/Thomas Hirsch 2012 / public domain.
                 var socket = new easyXDM.Socket({
-                    remote: "@Html.NorgeskartUrl()select-rect.html",
+                    remote: "@Html.NorgeskartUrl()geoportal/staging/select-rect.html",
                     onMessage: function (message, origin) {
                         //var reslist = document.getElementById('result');
                         //reslist.innerHTML = message + "<br/>" + reslist.innerHTML;
                         var obj = $.parseJSON(message);
-                        if (obj.feature != null)
-                        {
-                        var coords = obj.feature.geometry.coordinates[0];
-                        var c1 = coords[0];
-                        var c2 = coords[1];
-                        var c3 = coords[2];
-                        var c4 = coords[3];
+                        if (obj.feature != null) {
+                            var coords = obj.feature.geometry.coordinates[0];
+                            var c1 = coords[0];
+                            var c2 = coords[1];
+                            var c3 = coords[2];
+                            var c4 = coords[3];
 
-                        var x1 = c1[0];
-                        var y1 = c1[1];
-                        var x2 = c2[0];
-                        var y2 = c3[1];
+                            var x1 = c1[0];
+                            var y1 = c1[1];
+                            var x2 = c2[0];
+                            var y2 = c3[1];
 
-                        
-                        $.getJSON('http://norgeskart.no/ws/trans.py?ost=' + x1 + '&nord=' + y1 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
-                            if (result.errKode == 0){
-                                BBWest = result.ost;
-                                BBSouth = result.nord
+
+                            $.getJSON('@Html.NorgeskartUrl()ws/trans.py?ost=' + x1 + '&nord=' + y1 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
+                                if (result.errKode == 0) {
+                                    BBWest = result.ost;
+                                    BBSouth = result.nord
+                                }
                             }
-                        }
-                        );
-                        
-                        $.getJSON('http://norgeskart.no/ws/trans.py?ost=' + x2 + '&nord=' + y2 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
-                            if (result.errKode == 0) {
-                                BBEast = result.ost;
-                                BBNorth = result.nord
+                            );
+
+                            $.getJSON('@Html.NorgeskartUrl()ws/trans.py?ost=' + x2 + '&nord=' + y2 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
+                                if (result.errKode == 0) {
+                                    BBEast = result.ost;
+                                    BBNorth = result.nord
+                                }
                             }
-                        }
                         );
 
 
@@ -71,19 +70,17 @@
                     }
                 });
 
-                function setBoundingBox()
-                {
-                    if (typeof BBWest != 'undefined')
-                    {
-                    BBWest = BBWest.toFixed(4);
-                    BBSouth = BBSouth.toFixed(4);
-                    BBEast = BBEast.toFixed(4);
-                    BBNorth = BBNorth.toFixed(4);
+                function setBoundingBox() {
+                    if (typeof BBWest != 'undefined') {
+                        BBWest = BBWest.toFixed(4);
+                        BBSouth = BBSouth.toFixed(4);
+                        BBEast = BBEast.toFixed(4);
+                        BBNorth = BBNorth.toFixed(4);
 
-                    document.getElementById('BoundingBoxWest').value = BBWest;
-                    document.getElementById('BoundingBoxSouth').value = BBSouth;
-                    document.getElementById('BoundingBoxEast').value = BBEast;
-                    document.getElementById('BoundingBoxNorth').value = BBNorth;
+                        document.getElementById('BoundingBoxWest').value = BBWest;
+                        document.getElementById('BoundingBoxSouth').value = BBSouth;
+                        document.getElementById('BoundingBoxEast').value = BBEast;
+                        document.getElementById('BoundingBoxNorth').value = BBNorth;
                     }
                 }
 
