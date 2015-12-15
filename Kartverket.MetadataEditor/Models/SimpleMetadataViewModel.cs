@@ -61,6 +61,7 @@ namespace Kartverket.MetadataEditor.Models
 
         [Display(Name = "Metadata_DateUpdated", ResourceType = typeof(UI))]
         [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
+        [Required]
         public DateTime? DateUpdated { get; set; }
         public DateTime? DateMetadataUpdated { get; set; }
 
