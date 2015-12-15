@@ -7,11 +7,12 @@
     <meta name="geonorge-version" content="@Html.ApplicationVersionNumber()" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-    @ViewBag.Title
-    @if (ViewBag.Title != null) {
-         <text> - </text> 
-    }
-    @Resources.UI.AppPageTitle
+        @ViewBag.Title
+        @if (ViewBag.Title != null)
+        {
+            <text> - </text>
+        }
+        @Resources.UI.AppPageTitle
     </title>
     <!-- Fonts: -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700" rel="stylesheet" type="text/css">
@@ -34,7 +35,7 @@
     @RenderSection("head", required: false)
     @Html.Partial("_Analytics")
     <script>
-    var validationUUIDs = [];
+        var validationUUIDs = [];
     </script>
     @Scripts.Render("~/bundles/scripts")
     @RenderSection("scripts", required: false)
@@ -45,82 +46,84 @@
     @Html.Partial("_SharedMenu")
 
     @*<div class="navbar navbar-default" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Meny</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <span class="navbar-brand"><img class="logo" src="@Url.Content("~/Content/kartverket_logo.png")" width="117" height="39" /></span>
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Meny</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand"><img class="logo" src="@Url.Content("~/Content/kartverket_logo.png")" width="117" height="39" /></span>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="divider-vertical"></li>
+                        <li><a href="/">Metadataeditoren</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a target="_blank" href="http://www.geonorge.no">Geonorge forside</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="divider-vertical"></li>
-                    <li><a href="/">Metadataeditoren</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a target="_blank" href="http://www.geonorge.no">Geonorge forside</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>*@
+        </div>*@
     <div class="body-content">
         <div class="container">
-            <ol class="breadcrumb">
-                <li><a href="@Html.GeonorgeUrl()">Geonorge</a></li>
-                <li><a href="/">Metadataeditor</a></li>
-                @RenderSection("breadcrumb", false)
-            </ol>
+            <div class="container container-breadcrumbs" id="navTabCont">
+                <ul class="breadcrumbs col-md-12">
+                    <li><a href="@Html.GeonorgeUrl()">Geonorge</a></li>
+                    <li><a href="/">Metadataeditor</a></li>
+                    @RenderSection("breadcrumb", false)
+                </ul>
+            </div>
             <div class="menu clearfix">
                 @if (Request.IsAuthenticated)
                 {
                     if (IsSectionDefined("ActionMenu"))
                     {
-                    @RenderSection("ActionMenu")
+                        @RenderSection("ActionMenu")
                     }
                     else
                     {
-                    <div class="btn-group">
-                        <a href="@Url.Action("Index", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a>
-                        <a href="@Url.Action("RegisterData", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine registerdata</a>
-                        <a href="@Url.Action("Create","Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a>
-                        @if (Html.SimpleMetadataEnabled())
-                        {
-                            <a href="@Url.Action("Create","SimpleMetadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a>
-                        }
-                        <a href="@Url.Action("Index","Batch")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a>
-                        @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-                        {
-                            if (c.Value == "nd.metadata_admin")
+                        <div class="btn-group">
+                            <a href="@Url.Action("Index", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a>
+                            <a href="@Url.Action("RegisterData", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine registerdata</a>
+                            <a href="@Url.Action("Create","Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a>
+                            @if (Html.SimpleMetadataEnabled())
                             {
-                                <a href="@Url.Action("ValidateAll", "Validator")" class="btn btn-sm btn-default" onclick="return clickAndDisable(this);"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
-                                <script>
-                                    function clickAndDisable(link) {
-
-                                    document.getElementById('link-email-error').innerText = 'Henter eposter, vennligst vent...';
-                                    if (link.className != "visited btn btn-sm btn-default") {
-                                        link.className = "visited btn btn-sm btn-default";
-                                        return true;
-                                    }
-
-                                    return false;
-                                }
-                                </script>
-                                break;
+                                <a href="@Url.Action("Create","SimpleMetadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a>
                             }
-                        }                       
-                    </div>
+                            <a href="@Url.Action("Index","Batch")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a>
+                            @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                            {
+                                if (c.Value == "nd.metadata_admin")
+                                {
+                                    <a href="@Url.Action("ValidateAll", "Validator")" class="btn btn-sm btn-default" onclick="return clickAndDisable(this);"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
+                                    <script>
+                                        function clickAndDisable(link) {
+
+                                            document.getElementById('link-email-error').innerText = 'Henter eposter, vennligst vent...';
+                                            if (link.className != "visited btn btn-sm btn-default") {
+                                                link.className = "visited btn btn-sm btn-default";
+                                                return true;
+                                            }
+
+                                            return false;
+                                        }
+                                    </script>
+                                    break;
+                                }
+                            }
+                        </div>
                     }
                 }
 
             </div>
             @if (TempData["Message"] != null)
             {
-            <div class="alert alert-info">
-                @TempData["Message"]
-            </div>
+                <div class="alert alert-info">
+                    @TempData["Message"]
+                </div>
             }
 
             @if (TempData["success"] != null)
