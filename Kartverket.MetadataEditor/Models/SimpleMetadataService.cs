@@ -312,7 +312,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.DistributionDetails = new SimpleDistributionDetails
                 {
                     URL = model.DistributionUrl,
-                    Protocol = "GEONORGE:FILEDOWNLOAD"
+                    Protocol = model.DistributionProtocol
                 };
 
 

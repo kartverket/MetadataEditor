@@ -185,6 +185,7 @@
         <div id="uploadDatasetStatus"></div>
     </div>
 </div>
+@Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg distribusjonstype  --", new { @class = "form-control hidden" })
 <div class="form-group">
     <label for="DistributionUrl" class="col-sm-2 control-label">URL til datasett</label>
     <div class="col-sm-9">
@@ -427,4 +428,7 @@
         </div>
     </div>
 </div>
+<script>
+
+</script>
 

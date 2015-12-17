@@ -162,6 +162,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
             var seoUrl = new SeoUrl("", model.Title);
             ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + seoUrl.Title + "/" + model.Uuid;
+            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(), "Key", "Value");
 
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 

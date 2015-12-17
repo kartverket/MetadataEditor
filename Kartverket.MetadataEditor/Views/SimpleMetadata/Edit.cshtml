@@ -267,6 +267,7 @@
                 done: function (e, data) {
                     console.log("File uploaded: " + data.result.filename);                   
                         $("#DistributionUrl").val('@ViewBag.DatasetUrl' + data.result.filename);
+                        $('#DistributionProtocol option[value="GEONORGE:FILEDOWNLOAD"]').attr("selected", "selected");
                         $('#uploadDatasetStatus').attr('style', 'text-info');
                         $('#uploadDatasetStatus').text('Filen er lastet opp.');
                 }
