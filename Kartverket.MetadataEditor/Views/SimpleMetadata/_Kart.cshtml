@@ -109,18 +109,4 @@
     }
 
 
-    function resizeIframe(iframe) {
-        var windowHeight = $(window).height();
-        var iframeHeight = windowHeight - 125;
-        iframe.height(iframeHeight);
-    }
-
-    $(window).load(function () {
-        var iframe = $('#viewer iframe');
-        resizeIframe(iframe);
-        window.onresize = function (event) {
-            resizeIframe(iframe);
-        };
-    });
-
 </script>

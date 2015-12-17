@@ -2,20 +2,19 @@
 
 <script type="text/javascript" src="~/Scripts/easyXDM.js"></script>
 
-<div class="modal-dialog" style="width: 75%;">
+<div class="modal-dialog" id="norgeskartmodal">
     <div class="modal-content">
-        <div class="modal-header">
-            <h4>Norgeskart</h4>
-            <div style="right: 5px; top: 5px; position:absolute;"><button onclick="setBoundingBox();" type="button" class="btn btn-default" data-dismiss="modal">Ferdig</button> <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt</button></div>
-        </div>
-        <div class="modal-body">
-            <div id="viewer" role="main" style="height:100%">
-                    <div id="container"></div>
-                <p id="result"></p>
+        <div id="viewer" role="main" style="height:100%">
+            <div id="container">
+                @*<p id="result"></p>*@
             </div>
         </div>
-      </div>
- </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt</button><button id="setcoordinates" onclick="setBoundingBoxAndPlaces();" type="button" class="btn btn-default" data-dismiss="modal">Legg til område</button>
+        </div>
+
+    </div>
+</div>
             <script>
 
                 var BBWest;
@@ -63,10 +62,9 @@
                         }
 
                     },
-                    container: document.getElementById("container"),
-                    onReady: function () {
-                        this.container.getElementsByTagName("iframe")[0].style.height = "750px";
-                        this.container.getElementsByTagName("iframe")[0].style.width = "800px";
+                     container: document.getElementById("container"),
+                     onReady: function () {
+                        this.container.getElementsByTagName("iframe")[0].style.width = "100%";
                     }
                 });
 
