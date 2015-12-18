@@ -139,6 +139,16 @@
 
 
 </form>
+@{  bool IsAdmin = false;
+    foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+    {
+        if (c.Value == "nd.metadata_admin")
+        {
+            IsAdmin = true;
+            break;
+        }
+    }
+}
 
 @section scripts {
     <script>
@@ -273,7 +283,14 @@
                     }
                     else {
                         $("#DistributionUrl").val('@ViewBag.DatasetUrl' + data.result.filename);
-                        $('#DistributionProtocol option[value="GEONORGE:FILEDOWNLOAD"]').attr("selected", "selected");
+                        @if (IsAdmin)
+                        { 
+                        @:$('#DistributionProtocol option[value="GEONORGE:FILEDOWNLOAD"]').attr("selected", "selected");
+                        }
+                        else
+                        {
+                        @:$('#DistributionProtocol option[value="GEONORGE:OFFLINE"]').attr("selected", "selected");
+                        }
                         $('#uploadDatasetStatus').attr('style', 'text-info');
                         $('#uploadDatasetStatus').text('Filen er lastet opp.');
                     }
