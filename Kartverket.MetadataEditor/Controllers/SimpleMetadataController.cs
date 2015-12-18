@@ -491,13 +491,20 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 HttpPostedFileBase file = Request.Files[0];
 
+                if (file.ContentType == "application/x-zip-compressed")
+                {
                     var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                    filename = uuid + "_" + timestamp + "_" + file.FileName;
+                    filename = uuid + ".zip";
                     string fullPath = Server.MapPath("~/thumbnails/" + filename);
                     
                         file.SaveAs(fullPath);
 
                     viewresult = Json(new { status = "OK", filename = filename });
+                }
+                else
+                {
+                    viewresult = Json(new { status = "ErrorWrongContent" });
+                }
             }
 
             //for IE8 which does not accept application/json
