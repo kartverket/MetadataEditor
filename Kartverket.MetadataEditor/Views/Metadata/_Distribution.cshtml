@@ -76,7 +76,9 @@
 <div class="form-group required has-feedback">
     <label for="DistributionProtocol" class="col-sm-2 control-label">Distribusjonstype</label>
     <div class="col-sm-7">
-        @Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg distribusjonstype  --", new { @class = "form-control" })
+        <div class="custom-select">
+            @Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg distribusjonstype  --", new { @class = "form-control" })
+        </div>
         <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
     </div>
     <div class="col-sm-2"></div>

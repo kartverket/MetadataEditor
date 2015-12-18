@@ -21,7 +21,9 @@
 <div class="form-group">
     <label for="Status" class="col-sm-2 control-label">Status</label>
     <div class="col-sm-9">
-        @Html.DropDownList("Status", ViewBag.StatusValues as SelectList, String.Empty, new { @class = "form-control" })
+        <div class="custom-select">
+            @Html.DropDownList("Status", ViewBag.StatusValues as SelectList, String.Empty, new { @class = "form-control" })
+        </div>
         <p class="help-text bg-success" id="help-text-Status" style="display: none">
             Status for datasett eller datasett tjenesten opererer mot.
         </p>

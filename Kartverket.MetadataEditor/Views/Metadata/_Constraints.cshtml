@@ -17,7 +17,9 @@
 <div class="form-group">
     <label for="AccessConstraints" class="col-sm-2 control-label">Tilgangsrestriksjoner</label>
     <div class="col-sm-9">
-        @Html.DropDownList("AccessConstraints", ViewBag.AccessConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
+        <div class="custom-select">
+            @Html.DropDownList("AccessConstraints", ViewBag.AccessConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
+        </div>
         <p class="help-text bg-success" id="help-text-AccessConstraints" style="display: none">
             Restriksjoner eller krav som må være oppfylt for å få tilgang til datasettet. 
         </p>
@@ -31,7 +33,9 @@
 <div class="form-group">
     <label for="UseConstraints" class="col-sm-2 control-label">Brukerrestriksjoner</label>
     <div class="col-sm-9">
-        @Html.DropDownList("UseConstraints", ViewBag.UseConstraintValues as SelectList, String.Empty, new { @class = "form-control", @onchange = "licenseCheck(this.value)" })
+        <div class="custom-select">
+            @Html.DropDownList("UseConstraints", ViewBag.UseConstraintValues as SelectList, String.Empty, new { @class = "form-control", @onchange = "licenseCheck(this.value)" })
+        </div>
         <p class="help-text bg-success" id="help-text-UseConstraints" style="display: none">
             Krav som må være oppfylt for å anvende datasettet/tjenesten.
         </p>
@@ -45,7 +49,9 @@
 <div class="form-group" id="licenses" style="visibility:hidden; display: none;">
     <label for="LicenseTypes" class="col-sm-2 control-label">Lisens</label>
     <div class="col-sm-7">
-        @Html.DropDownList("LicenseTypes", ViewBag.LicenseTypesValues as SelectList, "-- Velg lisens --", new { @class = "form-control", @onchange = "setLicense()" })
+        <div class="custom-select">
+            @Html.DropDownList("LicenseTypes", ViewBag.LicenseTypesValues as SelectList, "-- Velg lisens --", new { @class = "form-control", @onchange = "setLicense()" })
+        </div>
         <p class="help-text bg-success" id="help-text-LicenseTypes" style="display: none">
             Lisens for datasettet/datatjenesten.
         </p>
@@ -94,7 +100,9 @@
 <div class="form-group">
     <label for="SecurityConstraints" class="col-sm-2 control-label">Sikkerhetsnivå</label>
     <div class="col-sm-9">
-        @Html.DropDownList("SecurityConstraints", ViewBag.SecurityConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
+        <div class="custom-select">
+            @Html.DropDownList("SecurityConstraints", ViewBag.SecurityConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
+        </div>
         <p class="help-text bg-success" id="help-text-SecurityConstraints" style="display: none">
             Sikkerhetsnivå på datasettet/datatjenesten.
         </p>

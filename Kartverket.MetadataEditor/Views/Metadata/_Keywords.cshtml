@@ -7,13 +7,13 @@
         <div class="row">
         <div class="col-sm-6">
             <p class="keyword-header">Tema</p>
-            <ul id="keywords-theme">
+            <ul id="keywords-theme" class="label-list">
                 @for (int i = 0; i < Model.KeywordsTheme.Count; i++)
                 {
                     var keyword = Model.KeywordsTheme[i];
                     <li id="keywords-theme-@i">
                         <span class="">@keyword</span>
-                        <a href="" class="keyword-delete" data-delete="keywords-theme-@i"><small>Slett</small></a>
+                        <a href="" class="keyword-delete label-list-remove" data-delete="keywords-theme-@i"></a>
                         <input type="hidden" name="KeywordsTheme[@i]" value="@keyword" />
                     </li>
                 }
@@ -34,13 +34,13 @@
         {
             <div class="col-sm-6">
                 <p class="keyword-header">Nasjonal temainndeling</p>
-                <ul id="keywords-national-theme">
+                <ul id="keywords-national-theme" class="label-list">
                     @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
                     {
                         var keyword = Model.KeywordsNationalTheme[i];
                         <li id="keywords-national-theme-@i">
                             <span class="">@keyword</span>
-                            <a href="" class="keyword-delete" data-delete="keywords-national-theme-@i"><small>Slett</small></a>
+                            <a href="" class="keyword-delete label-list-remove" data-delete="keywords-national-theme-@i"></a>
                             <input type="hidden" name="KeywordsNationalTheme[@i]" value="@keyword" />
                         </li>
                     }
@@ -75,13 +75,13 @@
         <div class="row">
                 <div class="col-sm-6">
                     <p class="keyword-header">Samarbeid og lover</p>
-                    <ul id="keywords-national-initiative">
+                    <ul id="keywords-national-initiative" class="label-list">
                         @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
                         {
                             var keyword = Model.KeywordsNationalInitiative[i];
                             <li id="keywords-national-initiative-@i">
                                 <span class="">@keyword</span>
-                                <a href="" class="keyword-delete" data-delete="keywords-national-initiative-@i" data-list="keywords-national-initiative-text" data-list-value="@keyword"><small>Slett</small></a>
+                                <a href="" class="keyword-delete label-list-remove" data-delete="keywords-national-initiative-@i" data-list="keywords-national-initiative-text" data-list-value="@keyword"></a>
                                 <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
                             </li>
                         }
@@ -108,13 +108,13 @@
 
                 <div class="col-sm-6">
                     <p class="keyword-header">Inspire-kategorier</p>
-                    <ul id="keywords-inspire">
+                    <ul id="keywords-inspire" class="label-list">
                         @for (int i = 0; i < Model.KeywordsInspire.Count; i++)
                         {
                             var keyword = Model.KeywordsInspire[i];
                             <li id="keywords-inspire-@i">
                                 <span class="">@keyword</span>
-                                <a href="" class="keyword-delete" data-delete="keywords-inspire-@i"><small>Slett</small></a>
+                                <a href="" class="keyword-delete label-list-remove" data-delete="keywords-inspire-@i"></a>
                                 <input type="hidden" name="KeywordsInspire[@i]" value="@keyword" />
                             </li>
                         }
@@ -170,13 +170,13 @@
         }
         <div class="col-sm-6">
             <p class="keyword-header">Ukategoriserte nøkkelord</p>
-            <ul id="keywords-other">
+            <ul id="keywords-other" class="label-list">
                 @for (int i = 0; i < Model.KeywordsOther.Count; i++)
                 {
                     var keyword = Model.KeywordsOther[i];
                     <li id="keywords-other-@i">
                         <span class="">@keyword</span>
-                        <a href="" class="keyword-delete" data-delete="keywords-other-@i"><small>Slett</small></a>
+                        <a href="" class="keyword-delete label-list-remove" data-delete="keywords-other-@i"></a>
                         <input type="hidden" name="KeywordsOther[@i]" value="@keyword" />
                     </li>
                 }

@@ -1086,12 +1086,11 @@
 
                 var link = $('<a />', {
                     "href": "",
-                    "class": "keyword-delete",
+                    "class": "keyword-delete label-list-remove",
                     "data-delete": listItemId,
                     "data-list": selectorPrefix + '-text',
                     "data-list-value": newKeyword
                 });
-                link.append("<small>Slett</small>");
 
                 li.append(link);
                 li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
