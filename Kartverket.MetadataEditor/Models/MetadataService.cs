@@ -412,14 +412,16 @@ namespace Kartverket.MetadataEditor.Models
             // documents
                 metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
 
+            if (metadata.IsDataset()) { 
                 metadata.ProductSpecificationOther = new SimpleOnlineResource
                 {
                     Name = model.ProductSpecificationOther.Name,
                     URL = model.ProductSpecificationOther.URL
                 };
+            }
 
 
-                metadata.ProductSheetUrl = model.ProductSheetUrl;
+            metadata.ProductSheetUrl = model.ProductSheetUrl;
                 metadata.ProductPageUrl = model.ProductPageUrl;
                 metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
                 metadata.CoverageUrl = model.CoverageUrl;
