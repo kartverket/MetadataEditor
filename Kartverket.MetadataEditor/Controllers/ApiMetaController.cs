@@ -113,47 +113,68 @@ namespace Kartverket.MetadataEditor.Controllers
                     metadata.Title = model.Title;
                     metadata.OrganizationName = model.ContactMetadata.Organization != null ? model.ContactMetadata.Organization : "";
                     metadata.ContactEmail = model.ContactMetadata.Email != null ? model.ContactMetadata.Email : "";
-                }
 
-                var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
-                if (thumb.Count() == 0)
-                    ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut illustrasjonsbilde");
-                else if (thumb.Count() > 0)
-                {
-                    try
+                    if (model.MetadataStandard == "ISO19115:Norsk versjon")
                     {
-                        //Disable SSL sertificate errors
-                        System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-                        delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
-                                                System.Security.Cryptography.X509Certificates.X509Chain chain,
-                                                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                        Kartverket.MetadataEditor.Models.SimpleMetadataService _simpleMetadataService = new Kartverket.MetadataEditor.Models.SimpleMetadataService();
+                        Kartverket.MetadataEditor.Models.SimpleMetadataViewModel modelSimple = _simpleMetadataService.GetMetadataModel(uuid);
+
+                        Validate(modelSimple);
+
+                        var errors = ModelState.Where(n => n.Value.Errors.Count > 0).ToList();
+
+                        foreach (var error in errors)
                         {
-                            return true; // **** Always accept
-                        };
-                        using (var client = new HttpClient())
+                            metadata.Errors.Add(new Error { Key = error.Key.ToString(), Message = error.Value.Errors[0].ErrorMessage });
+                        }
+
+                    }
+
+                    else
+                    {                
+
+                    var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
+                    if (thumb.Count() == 0)
+                        ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut illustrasjonsbilde");
+                    else if (thumb.Count() > 0)
+                    {
+                        try
                         {
-                            client.DefaultRequestHeaders.Accept.Clear();
-                            string Url = thumb.Select(t => t.URL).FirstOrDefault().ToString();
-                            HttpResponseMessage response = client.GetAsync(new Uri(Url)).Result;
-                            if (response.StatusCode != HttpStatusCode.OK)
+                            //Disable SSL sertificate errors
+                            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                            delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                                                    System.Security.Cryptography.X509Certificates.X509Chain chain,
+                                                    System.Net.Security.SslPolicyErrors sslPolicyErrors)
                             {
-                                metadata.Errors.Add(new Error { Key = "ThumbnailNotFound", Message = "Feil ressurslenke til illustrasjonsbilde" });
+                                return true; // **** Always accept
+                            };
+                            using (var client = new HttpClient())
+                            {
+                                client.DefaultRequestHeaders.Accept.Clear();
+                                string Url = thumb.Select(t => t.URL).FirstOrDefault().ToString();
+                                HttpResponseMessage response = client.GetAsync(new Uri(Url)).Result;
+                                if (response.StatusCode != HttpStatusCode.OK)
+                                {
+                                    metadata.Errors.Add(new Error { Key = "ThumbnailNotFound", Message = "Feil ressurslenke til illustrasjonsbilde" });
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            metadata.Errors.Add(new Error { Key = "Error", Message = ex.Message });
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        metadata.Errors.Add(new Error { Key = "Error", Message = ex.Message });
+
+                    Validate(model);
+
+                    var errors = ModelState.Where(n => n.Value.Errors.Count > 0).ToList();
+
+                    foreach (var error in errors) {
+                        metadata.Errors.Add(new Error{ Key = error.Key.ToString(), Message = error.Value.Errors[0].ErrorMessage } );
+                    }
+
                     }
                 }
-
-                Validate(model);
-
-                var errors = ModelState.Where(n => n.Value.Errors.Count > 0).ToList();
-
-                foreach (var error in errors) {
-                    metadata.Errors.Add(new Error{ Key = error.Key.ToString(), Message = error.Value.Errors[0].ErrorMessage } );
-                }                
 
             }
             catch (Exception ex) {
