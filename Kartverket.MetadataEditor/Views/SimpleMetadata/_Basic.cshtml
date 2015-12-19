@@ -56,10 +56,11 @@
 <div class="form-group has-feedback">
     <label class="col-sm-2 control-label">Oppdateringshyppighet</label>
     <div class="col-sm-2">
-        @Html.DropDownList("MaintenanceFrequency", ViewBag.MaintenanceFrequencyValues as SelectList, String.Empty, new { @class = "form-control" })
-        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        <div class="custom-select">
+            @Html.DropDownList("MaintenanceFrequency", ViewBag.MaintenanceFrequencyValues as SelectList, String.Empty, new { @class = "form-control" })
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        </div>
     </div>
-
     <div class="col-sm-7">
         <p class="help-text bg-success" id="help-text-maintenancefrequency" style="display: none">
             Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert.
@@ -92,8 +93,10 @@
                 </ul>
                 <div class="form-group">
                     <div class="col-sm-6">
-                        @Html.DropDownList("keywords-national-theme-text", ViewBag.NationalThemeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
-                        @Html.ValidationMessage("KeywordsNationalTheme", "Påkrevd")
+                        <div class="custom-select">
+                            @Html.DropDownList("keywords-national-theme-text", ViewBag.NationalThemeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
+                            @Html.ValidationMessage("KeywordsNationalTheme", "Påkrevd")
+                        </div>
                     </div>
                     <div class="col-sm-1">
                         <button type="button" class="btn btn-default btn-sm" id="keywords-national-theme-add">Legg til</button>
@@ -200,8 +203,10 @@
 <div class="form-group @displayDistributionProtocol">
     <label for="DistributionProtocol" class="col-sm-2 control-label">Distribusjonstype</label>
     <div class="col-sm-4">
-        @Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg distribusjonstype  --", new { @class = "form-control" })
-    </div>
+        <div class="custom-select">
+            @Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg distribusjonstype  --", new { @class = "form-control" })
+        </div>
+        </div>
     <div class="col-sm-6">
     </div>
 </div>
@@ -227,38 +232,42 @@
         <div class="form-group">
             <label for="state" class="control-label col-sm-3">Velg fast område:</label>
             <div class="col-sm-2">
-                <select name="state" id="bboxState" class="form-control">
-                    <option></option>
-                    <option data-statenumber="00">Hele landet</option>
-                    <option data-statenumber="02">Akershus</option>
-                    <option data-statenumber="09">Aust-Agder</option>
-                    <option data-statenumber="06">Buskerud</option>
-                    <option data-statenumber="20">Finnmark</option>
-                    <option data-statenumber="04">Hedmark</option>
-                    <option data-statenumber="12">Hordaland</option>
-                    <option data-statenumber="15">Møre og Romsdal</option>
-                    <option data-statenumber="17">Nord-Trøndelag</option>
-                    <option data-statenumber="18">Nordland</option>
-                    <option data-statenumber="05">Oppland</option>
-                    <option data-statenumber="21">Oslo</option>
-                    <option data-statenumber="11">Rogaland</option>
-                    <option data-statenumber="14">Sogn og Fjordane</option>
-                    <option data-statenumber="16">Sør-Trøndelag</option>
-                    <option data-statenumber="08">Telemark</option>
-                    <option data-statenumber="19">Troms</option>
-                    <option data-statenumber="10">Vest-Agder</option>
-                    <option data-statenumber="07">Vestfold</option>
-                    <option data-statenumber="01">Østfold</option>
-                </select>
-            </div>
+                <div class="custom-select">
+                    <select name="state" id="bboxState" class="form-control">
+                        <option></option>
+                        <option data-statenumber="00">Hele landet</option>
+                        <option data-statenumber="02">Akershus</option>
+                        <option data-statenumber="09">Aust-Agder</option>
+                        <option data-statenumber="06">Buskerud</option>
+                        <option data-statenumber="20">Finnmark</option>
+                        <option data-statenumber="04">Hedmark</option>
+                        <option data-statenumber="12">Hordaland</option>
+                        <option data-statenumber="15">Møre og Romsdal</option>
+                        <option data-statenumber="17">Nord-Trøndelag</option>
+                        <option data-statenumber="18">Nordland</option>
+                        <option data-statenumber="05">Oppland</option>
+                        <option data-statenumber="21">Oslo</option>
+                        <option data-statenumber="11">Rogaland</option>
+                        <option data-statenumber="14">Sogn og Fjordane</option>
+                        <option data-statenumber="16">Sør-Trøndelag</option>
+                        <option data-statenumber="08">Telemark</option>
+                        <option data-statenumber="19">Troms</option>
+                        <option data-statenumber="10">Vest-Agder</option>
+                        <option data-statenumber="07">Vestfold</option>
+                        <option data-statenumber="01">Østfold</option>
+                    </select>
+                    </div>
+                </div>
             <label for="county" class="control-label col-sm-2">Delområde:</label>
             <div class="col-sm-3">
-                <select name="county" id="bboxCounty" class="form-control">
-                    <option></option>
-                    <option data-countynumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
-                    @Html.Partial("~/Views/Metadata/_OptionsCountyList.cshtml")
-                </select>
-            </div>
+                <div class="custom-select">
+                    <select name="county" id="bboxCounty" class="form-control">
+                        <option></option>
+                        <option data-countynumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
+                        @Html.Partial("~/Views/Metadata/_OptionsCountyList.cshtml")
+                    </select>
+                    </div>
+                </div>
             <div class="col-sm-2">
                 <button class="btn btn-default" id="bboxPrefill">Bruk</button>
             </div>
@@ -377,11 +386,13 @@
         <div class="form-group has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
-                @Html.DropDownList("ContactMetadata.Organization", ViewBag.OrganizationContactMetadataValues as SelectList, Model.ContactMetadata.Organization != null ? Model.ContactMetadata.Organization : String.Empty, new { @class = "form-control" })
-                @Html.ValidationMessage("ContactMetadata.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
-                <input type="hidden" value="@Model.ContactMetadata.Organization" name="ContactMetadata.Organization.Old" />
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-            </div>
+                <div class="custom-select">
+                    @Html.DropDownList("ContactMetadata.Organization", ViewBag.OrganizationContactMetadataValues as SelectList, Model.ContactMetadata.Organization != null ? Model.ContactMetadata.Organization : String.Empty, new { @class = "form-control" })
+                </div>    
+                    @Html.ValidationMessage("ContactMetadata.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
+                    <input type="hidden" value="@Model.ContactMetadata.Organization" name="ContactMetadata.Organization.Old" />
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                </div>
         </div>
     </div>
 </div>
@@ -408,11 +419,13 @@
         <div class="form-group has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
-                @Html.DropDownList("ContactPublisher.Organization", ViewBag.OrganizationContactPublisherValues as SelectList, Model.ContactPublisher.Organization != null ? Model.ContactPublisher.Organization : String.Empty, new { @class = "form-control" })
-                @Html.ValidationMessage("ContactPublisher.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
-                <input type="hidden" value="@Model.ContactPublisher.Organization" name="ContactPublisher.Organization.Old" />
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-            </div>
+                <div class="custom-select">
+                    @Html.DropDownList("ContactPublisher.Organization", ViewBag.OrganizationContactPublisherValues as SelectList, Model.ContactPublisher.Organization != null ? Model.ContactPublisher.Organization : String.Empty, new { @class = "form-control" })
+                 </div>   
+                    @Html.ValidationMessage("ContactPublisher.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
+                    <input type="hidden" value="@Model.ContactPublisher.Organization" name="ContactPublisher.Organization.Old" />
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                </div>
         </div>
     </div>
 </div>
@@ -439,11 +452,13 @@
         <div class="form-group has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
-                @Html.DropDownList("ContactOwner.Organization", ViewBag.OrganizationContactOwnerValues as SelectList, Model.ContactOwner.Organization != null ? Model.ContactOwner.Organization : String.Empty, new { @class = "form-control" })
-                @Html.ValidationMessage("ContactOwner.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
-                <input type="hidden" value="@Model.ContactOwner.Organization" name="ContactOwner.Organization.Old" />
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-            </div>
+                <div class="custom-select">
+                    @Html.DropDownList("ContactOwner.Organization", ViewBag.OrganizationContactOwnerValues as SelectList, Model.ContactOwner.Organization != null ? Model.ContactOwner.Organization : String.Empty, new { @class = "form-control" })
+                </div>    
+                    @Html.ValidationMessage("ContactOwner.Organization", "Organisasjonsnavn er feil, vennligst velg rett i listen")
+                    <input type="hidden" value="@Model.ContactOwner.Organization" name="ContactOwner.Organization.Old" />
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                </div>
         </div>
     </div>
 </div>
