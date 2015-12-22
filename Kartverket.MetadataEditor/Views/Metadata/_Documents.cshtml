@@ -6,7 +6,9 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Produktspesifikasjon</label>
         <div class="col-sm-9">
-            @Html.DropDownList("ProductSpecificationUrl", ViewBag.ProductspesificationValues as SelectList, String.Empty, new { @class = "form-control" })
+            <div class="custom-select">
+                @Html.DropDownList("ProductSpecificationUrl", ViewBag.ProductspesificationValues as SelectList, String.Empty, new { @class = "form-control" })
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -27,13 +29,17 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Produktark</label>
         <div class="col-sm-9">
-            @Html.DropDownList("ProductSheetUrl", ViewBag.ProductsheetValues as SelectList, String.Empty, new { @class = "form-control" })
+            <div class="custom-select">
+                @Html.DropDownList("ProductSheetUrl", ViewBag.ProductsheetValues as SelectList, String.Empty, new { @class = "form-control" })
+            </div>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Tegneregler</label>
         <div class="col-sm-9">
-            @Html.DropDownList("LegendDescriptionUrl", ViewBag.LegendDescriptionValues as SelectList, String.Empty, new { @class = "form-control" })
+            <div class="custom-select">
+                @Html.DropDownList("LegendDescriptionUrl", ViewBag.LegendDescriptionValues as SelectList, String.Empty, new { @class = "form-control" })
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -55,66 +61,66 @@
                 <input type="hidden" value="large_thumbnail" id="thumbnailType">
                 <div class="@ViewBag.thumbnailMissingCSS" style="margin-top:7px;">Stort bilde</div>
                 @*<select id="thumbnailType" class="@ViewBag.thumbnailMissingCSS form-control">
-                <option value="miniatyrbilde">Miniatyrbilde</option>
-                <option value="large_thumbnail" selected>Stort bilde</option>
-                <option value="dekningsoversikt">Dekningsoversikt</option>
-            </select>*@
+                        <option value="miniatyrbilde">Miniatyrbilde</option>
+                        <option value="large_thumbnail" selected>Stort bilde</option>
+                        <option value="dekningsoversikt">Dekningsoversikt</option>
+                    </select>*@
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
             <div style="margin-top:7px;">
                 @Html.ValidationMessage("thumbnailMissing", "Du må angi bildefil for illustrasjonsbilde")
             </div>
         </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Angi bildefil</label>
-                <div class="col-sm-8">
-                    <div class="form-group" id="uploadThumbnail">
-                        <div class="col-sm-7">
-                            <input type="file" id="uploadThumbnailFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';"  />
-                        </div>
-                        <div class="col-sm-3 hidden">
-                            <label class="control-label"><input type="checkbox" id="uploadScaleImage" name="scaleImage" /> Tilpass størrelsen til liten visning</label>
-
-                        </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-default" type="submit" id="uploadThumbnailButton" onclick="return checkIfUrlRef();">Last opp</button>
-                        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Angi bildefil</label>
+            <div class="col-sm-8">
+                <div class="form-group" id="uploadThumbnail">
+                    <div class="col-sm-7">
+                        <input type="file" id="uploadThumbnailFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';" />
                     </div>
-                    <div id="uploadThumbnailStatus"></div>
+                    <div class="col-sm-3 hidden">
+                        <label class="control-label"><input type="checkbox" id="uploadScaleImage" name="scaleImage" /> Tilpass størrelsen til liten visning</label>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-default" type="submit" id="uploadThumbnailButton" onclick="return checkIfUrlRef();">Last opp</button>
+                    </div>
                 </div>
+                <div id="uploadThumbnailStatus"></div>
             </div>
+        </div>
 
 
-            <div class="form-group" style="display: none; visibility: hidden;">
-                <label class="col-sm-2 control-label">Eller angi URL</label>
-                <div class="col-sm-5">
-                    <input id="thumbnailUrl" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
-                    <input id="thumbnailUrlMini" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
-                </div>
-                <div class="col-sm-3">
-                </div>
-                    <div class="col-sm-1">
-                        <input type="hidden" id="uploadMode" value="reference" />
-                        <button class="btn btn-default" style="display: none; visibility:hidden;" id="thumbnailAdd"></button>
-                        
-                        <script>
-                            function checkIfUrlRef() {
-                                if (document.getElementById('thumbnailUrl').value != '' && document.getElementById('uploadMode').value == 'reference') {
-                                    document.getElementById('thumbnailAdd').click();
-                                    return false;
-                                }
-                            }
-                        </script>
+        <div class="form-group" style="display: none; visibility: hidden;">
+            <label class="col-sm-2 control-label">Eller angi URL</label>
+            <div class="col-sm-5">
+                <input id="thumbnailUrl" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
+                <input id="thumbnailUrlMini" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-1">
+                <input type="hidden" id="uploadMode" value="reference" />
+                <button class="btn btn-default" style="display: none; visibility:hidden;" id="thumbnailAdd"></button>
 
-                    </div>
-                </div>
+                <script>
+                    function checkIfUrlRef() {
+                        if (document.getElementById('thumbnailUrl').value != '' && document.getElementById('uploadMode').value == 'reference') {
+                            document.getElementById('thumbnailAdd').click();
+                            return false;
+                        }
+                    }
+                </script>
 
-            <ul id="thumbnails">
-                @for (int i = 0; i < Model.Thumbnails.Count; i++)
+            </div>
+        </div>
+
+        <ul id="thumbnails">
+            @for (int i = 0; i < Model.Thumbnails.Count; i++)
+            {
+                var thumbnail = Model.Thumbnails[i];
+                if (thumbnail.Type != "dekningsoversikt")
                 {
-                    var thumbnail = Model.Thumbnails[i];
-                    if (thumbnail.Type != "dekningsoversikt")
-                    { 
                     <li class="thumbnail clearfix">
                         <input type="hidden" name="Thumbnails[@i].Type" value="@thumbnail.Type" />
                         <input type="hidden" name="Thumbnails[@i].URL" value="@thumbnail.URL" />
@@ -123,10 +129,10 @@
                         <p><strong>URL:</strong> <small>@thumbnail.URL</small></p>
                         <button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>
                     </li>
-                    }
                 }
-            </ul>
+            }
+        </ul>
 
-        </div>
+    </div>
 </div>
 

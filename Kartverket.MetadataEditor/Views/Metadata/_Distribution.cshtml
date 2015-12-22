@@ -5,35 +5,40 @@
     <div class="form-group">
         <label for="SpatialRepresentation" class="col-sm-2 control-label">Representasjonsform</label>
         <div class="col-sm-2">
-            @Html.DropDownList("SpatialRepresentation", ViewBag.SpatialRepresentationValues as SelectList, String.Empty, new { @class = "form-control" })
+            <div class="custom-select">
+                @Html.DropDownList("SpatialRepresentation", ViewBag.SpatialRepresentationValues as SelectList, String.Empty, new { @class = "form-control" })
+            </div>
         </div>
-        
+
     </div>
 }
 @if (Model.IsDataset() || Model.IsDatasetSeries())
 {
-<hr style="border-bottom:medium 1px black;" />
+    <hr style="border-bottom:medium 1px black;" />
 }
-@{string classFormat="form-control";
-  if (ViewContext.ViewData.ModelState.ContainsKey("DistributionFormats"))
-  {
-      classFormat = "input-validation-error form-control";
-  }
+@{string classFormat = "form-control";
+if (ViewContext.ViewData.ModelState.ContainsKey("DistributionFormats"))
+{
+    classFormat = "input-validation-error form-control";
+}
 }
 <div id="distributionFormatDiv">
     @{ string modelDatatype = "service"; }
     @for (int f = 0; f < Model.DistributionFormats.Count; f++)
-    {         string rowID = "formatRow" + f;
+    {
+        string rowID = "formatRow" + f;
         <div id="@rowID" class="form-group required has-feedback">
             <label for="distributionFormats[@f].Name" class="col-sm-2 control-label">Format</label>
             <div class="col-sm-3">
                 @if (Model.IsDataset() || Model.IsDatasetSeries())
                 {
                     modelDatatype = "dataset";
-                    <select class="@classFormat" id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" onclick="checkForSpatialRepresentation(@f)">
-                        <option value="@Model.DistributionFormats[f].Name">@Model.DistributionFormats[f].Name</option>
-                    </select>
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <div class="custom-select">
+                        <select class="@classFormat" id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" onclick="checkForSpatialRepresentation(@f)">
+                            <option value="@Model.DistributionFormats[f].Name">@Model.DistributionFormats[f].Name</option>
+                        </select>
+                    </div>
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                 }
                 else
                 {
@@ -95,116 +100,115 @@
             Velg riktig lenketype for ressursen (datasette/tjenesten/websiden)
         </p>
     </div>
- </div>
+</div>
 
+<div class="form-group">
+    <label for="DistributionUrl" class="col-sm-2 control-label">URL</label>
+    <div class="col-sm-9">
+        @Html.EditorFor(m => m.DistributionUrl)
+        <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
+            Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).
+        </p>
+    </div>
+    <div class="col-sm-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-DistributionUrl" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="UnitsOfDistribution" class="col-sm-2 control-label">Geografisk distribusjonsinndeling</label>
+    <div class="col-sm-9">
+        @{ int distrID = 0;
+         string UnitsOfDistribution = Model.UnitsOfDistribution != null ? Model.UnitsOfDistribution : "";
+         var selectedUnits = System.Text.RegularExpressions.Regex.Split(UnitsOfDistribution, ", ");
+         foreach (var distribution in ViewBag.UnitsOfDistributionValues as SelectList)
+         {
+             string inputName = "UnitsOfDistribution" + distrID;
+             string unitschecked = "";
+             if (selectedUnits.Contains(distribution.Value))
+             { unitschecked = "checked"; }
+            <input onchange="getUnitsOfDistribution()" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distribution.Value"> @distribution.Text
+             distrID++;
+         }
+
+        }
+        <script type="text/javascript">
+            function getUnitsOfDistribution() {
+                var numberOfUnits = document.getElementById('UnitsOfDistributionCount').value;
+                var UnitsOfDistributionString = '';
+                for (var n = 0; n < numberOfUnits; n++) {
+                    var unitValue = document.getElementById('UnitsOfDistribution' + n).value;
+                    var unitChecked = document.getElementById('UnitsOfDistribution' + n).checked;
+                    if (unitChecked) {
+                        UnitsOfDistributionString = UnitsOfDistributionString + unitValue + ', ';
+                    }
+                }
+                UnitsOfDistributionString = UnitsOfDistributionString.slice(0, -2);
+                document.getElementById('UnitsOfDistribution').value = UnitsOfDistributionString;
+            }
+
+            function checkForSpatialRepresentation(formatID) {
+                if (document.getElementById('distributionFormats[' + formatID + '].Name').length <= 1)
+                    alert('Vennligst velg først representasjonsform');
+
+            }
+
+        </script>
+        <input type="hidden" id="UnitsOfDistribution" name="UnitsOfDistribution" value="@Model.UnitsOfDistribution">
+        <input type="hidden" id="UnitsOfDistributionCount" name="UnitsOfDistributionCount" value="@distrID">
+    </div>
+</div>
+
+@if (!Model.IsDatasetOrSeriesOrSoftware())
+{
     <div class="form-group">
-        <label for="DistributionUrl" class="col-sm-2 control-label">URL</label>
+        <label for="DistributionName" class="col-sm-2 control-label">Lagnavn</label>
         <div class="col-sm-9">
-            @Html.EditorFor(m => m.DistributionUrl)
-            <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
-                Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).
+            @Html.EditorFor(m => m.DistributionName)
+            <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
+                Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten.
             </p>
         </div>
         <div class="col-sm-1">
             <p class="form-control-static">
-                <a href="#" data-help-text-id="help-text-DistributionUrl" class="badge help-text-toggle">?</a>
+                <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
             </p>
         </div>
     </div>
+}
 
-    <div class="form-group">
-        <label for="UnitsOfDistribution" class="col-sm-2 control-label">Geografisk distribusjonsinndeling</label>
-        <div class="col-sm-9">
-            @{ int distrID = 0;
-             string UnitsOfDistribution = Model.UnitsOfDistribution != null ? Model.UnitsOfDistribution : "";
-             var selectedUnits = System.Text.RegularExpressions.Regex.Split(UnitsOfDistribution, ", ");
-             foreach (var distribution in ViewBag.UnitsOfDistributionValues as SelectList)
-             {
-                 string inputName = "UnitsOfDistribution" + distrID;
-                 string unitschecked = "";
-                 if (selectedUnits.Contains(distribution.Value))
-                 { unitschecked = "checked"; }
-                <input onchange="getUnitsOfDistribution()" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distribution.Value"> @distribution.Text
-                 distrID++;
-             }
-
-            }
-            <script type="text/javascript">
-                function getUnitsOfDistribution()
-                {
-                    var numberOfUnits = document.getElementById('UnitsOfDistributionCount').value;
-                    var UnitsOfDistributionString = '';
-                    for (var n = 0; n < numberOfUnits; n++)
-                    {
-                        var unitValue = document.getElementById('UnitsOfDistribution' + n).value;
-                        var unitChecked = document.getElementById('UnitsOfDistribution' + n).checked;
-                        if (unitChecked)
-                        {
-                            UnitsOfDistributionString = UnitsOfDistributionString + unitValue + ', ';
-                        }
-                    }
-                    UnitsOfDistributionString = UnitsOfDistributionString.slice(0, -2);
-                    document.getElementById('UnitsOfDistribution').value = UnitsOfDistributionString;
-                }
-
-                function checkForSpatialRepresentation(formatID)
-                {
-                    if (document.getElementById('distributionFormats[' + formatID + '].Name').length <= 1)
-                        alert('Vennligst velg først representasjonsform');
-
-                }
-
-            </script>
-            <input type="hidden" id="UnitsOfDistribution" name="UnitsOfDistribution" value="@Model.UnitsOfDistribution">
-            <input type="hidden" id="UnitsOfDistributionCount" name="UnitsOfDistributionCount" value="@distrID">
-        </div>
-    </div>
-
-    @if (!Model.IsDatasetOrSeriesOrSoftware())
-    {
-        <div class="form-group">
-            <label for="DistributionName" class="col-sm-2 control-label">Lagnavn</label>
-            <div class="col-sm-9">
-                @Html.EditorFor(m => m.DistributionName)
-                <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
-                    Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten.
-                </p>
-            </div>
-            <div class="col-sm-1">
-                <p class="form-control-static">
-                    <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
-                </p>
-            </div>
-        </div>
-    }
-
-    @if (Model.IsDataset() || Model.IsDatasetSeries())
-    {
-        <hr style="border-bottom:medium 1px black;" /> 
-        <div id="ReferenceSystemsDiv">
-            @if (Model.ReferenceSystems == null) { 
+@if (Model.IsDataset() || Model.IsDatasetSeries())
+{
+    <hr style="border-bottom:medium 1px black;" />
+    <div id="ReferenceSystemsDiv">
+        @if (Model.ReferenceSystems == null)
+        {
             <button class="btn btn-default" id="newReferencesystem">Nytt referansesystem</button>
-            }
-            
-            @if (Model.ReferenceSystems != null) 
-            { 
-               
+        }
+
+        @if (Model.ReferenceSystems != null)
+        {
+
             for (int f = 0; f < Model.ReferenceSystems.Count; f++)
             {
                 string rowID = "referenceRow" + f;
                 <div id="@rowID" class="form-group">
                     <label for="referenceSystems[@f].CoordinateSystem" class="col-sm-2 control-label">Romlig<br />referansesystem</label>
-                    <div class="col-sm-3">                        
-                        <select class="@classFormat" id="referenceSystems[@f].CoordinateSystem" name="referenceSystems[@f].CoordinateSystem" onchange="document.getElementById('referenceSystems[@f].Namespace').value='EPSG'">
-                            <option value="@Model.ReferenceSystems[f].CoordinateSystem">
-                                @Model.ReferenceSystems[f].CoordinateSystem
-                            </option>
-                            @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
-                            {
-                                string selectedRef = opt.Value == Model.ReferenceSystems[f].CoordinateSystem ? "selected" : "";
-                                <option value="@opt.Value" @selectedRef>@opt.Text</option>
-                            }
-                        </select>                       
+                    <div class="col-sm-3">
+                        <div class="custom-select">
+                            <select class="@classFormat" id="referenceSystems[@f].CoordinateSystem" name="referenceSystems[@f].CoordinateSystem" onchange="document.getElementById('referenceSystems[@f].Namespace').value='EPSG'">
+                                <option value="@Model.ReferenceSystems[f].CoordinateSystem">
+                                    @Model.ReferenceSystems[f].CoordinateSystem
+                                </option>
+                                @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
+                                {
+                                    string selectedRef = opt.Value == Model.ReferenceSystems[f].CoordinateSystem ? "selected" : "";
+                                    <option value="@opt.Value" @selectedRef>@opt.Text</option>
+                                }
+                            </select>
+                        </div>
                     </div>
                     <label for="referenceSystems[@f].Namespace" class="col-sm-2" style="text-align: right;">Koderom</label>
                     <div class="col-sm-3">
@@ -221,7 +225,7 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <p class="help-text bg-success" id="help-text-ReferenceSystem" style="display: none">
-                                     Her legger man inn referanser til unik identifisering av datasett og datasettserier som beskrives.
+                                        Her legger man inn referanser til unik identifisering av datasett og datasettserier som beskrives.
                                     </p>
                                 </div>
                             </div>
@@ -235,14 +239,15 @@
 
                 </div>
             }
-            }
-        </div>
-     if (Model.ReferenceSystems != null) {
-    <input type="hidden" name="ReferenceSystemsCount" id="ReferenceSystemsCount" value="@Model.ReferenceSystems.Count" />
-     }
-     else
-     {
-        <input type="hidden" name="ReferenceSystemsCount" id="ReferenceSystemsCount" value="0" />
-     }
-
+        }
+    </div>
+    if (Model.ReferenceSystems != null)
+    {
+        <input type="hidden" name="ReferenceSystemsCount" id="ReferenceSystemsCount" value="@Model.ReferenceSystems.Count" />
     }
+    else
+    {
+        <input type="hidden" name="ReferenceSystemsCount" id="ReferenceSystemsCount" value="0" />
+    }
+
+}

@@ -243,11 +243,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Velg type dekningskart:</label>
                         <div class="col-sm-9">
-                            <select id="coverageType" name="coverageType" class="form-control" onchange="showCoverageType(this.value);">
-                                <option value="webpage">Webside</option>
-                                <option value="mapservice">Karttjenestelag</option>
-                                <option value="imageCoverage">Bildefil</option>
-                            </select>
+                            <div class="custom-select">
+                                <select id="coverageType" name="coverageType" class="form-control" onchange="showCoverageType(this.value);">
+                                    <option value="webpage">Webside</option>
+                                    <option value="mapservice">Karttjenestelag</option>
+                                    <option value="imageCoverage">Bildefil</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group" id="coverageWebsite">
@@ -419,18 +421,18 @@
             @if (!string.IsNullOrEmpty(Model.CoverageUrl) && Model.CoverageUrl.IndexOf("TYPE:") > -1)
                             {
                                 @: showCoverageType('mapservice')
-                                @: document.getElementById('coverageType').options[1].selected = true;
-                                @: getCoverage();
-                            }
+                                            @: document.getElementById('coverageType').options[1].selected = true;
+                                            @: getCoverage();
+                                        }
                             else if(coverageImageFound)
                             {
                                 @: document.getElementById('coverageType').options[2].selected = true;
-                                @: showCoverageType('imageCoverage')
-                            }
+                                            @: showCoverageType('imageCoverage')
+                                        }
                             else
                             {
                                 @: showCoverageType('webpage')
-                            }
+                                        }
         </script>
     }
 

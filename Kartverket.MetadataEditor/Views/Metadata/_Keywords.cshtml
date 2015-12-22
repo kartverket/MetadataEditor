@@ -47,24 +47,26 @@
                 </ul>
                 <div class="form-group">
                     <div class="col-sm-6">
-                        @*<select class="input-sm form-control" id="keywords-national-theme-text">
-                            <option></option>
-                            <option value="Basis geodata">Basis geodata</option>
-                            <option value="Samferdsel">Samferdsel</option>
-                            <option value="Samfunnssikkerhet">Samfunnssikkerhet</option>
-                            <option value="Forurensning">Forurensning</option>
-                            <option value="Friluftsliv">Friluftsliv</option>
-                            <option value="Landskap">Landskap</option>
-                            <option value="Natur">Natur</option>
-                            <option value="Kulturminner">Kulturminner</option>
-                            <option value="Landbruk">Landbruk</option>
-                            <option value="Energi">Energi</option>
-                            <option value="Geologi">Geologi</option>
-                            <option value="Kyst / fiskeri">Kyst / fiskeri</option>
-                            <option value="Plandata">Plandata</option>
-                            <option value="Annen">Annen</option>
-                        </select>*@
-                        @Html.DropDownList("keywords-national-theme-text", ViewBag.NationalThemeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
+                        <div class="custom-select">
+                            @*<select class="input-sm form-control" id="keywords-national-theme-text">
+                <option></option>
+                <option value="Basis geodata">Basis geodata</option>
+                <option value="Samferdsel">Samferdsel</option>
+                <option value="Samfunnssikkerhet">Samfunnssikkerhet</option>
+                <option value="Forurensning">Forurensning</option>
+                <option value="Friluftsliv">Friluftsliv</option>
+                <option value="Landskap">Landskap</option>
+                <option value="Natur">Natur</option>
+                <option value="Kulturminner">Kulturminner</option>
+                <option value="Landbruk">Landbruk</option>
+                <option value="Energi">Energi</option>
+                <option value="Geologi">Geologi</option>
+                <option value="Kyst / fiskeri">Kyst / fiskeri</option>
+                <option value="Plandata">Plandata</option>
+                <option value="Annen">Annen</option>
+            </select>*@
+                            @Html.DropDownList("keywords-national-theme-text", ViewBag.NationalThemeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
+                        </div>
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-default btn-sm" id="keywords-national-theme-add">Legg til</button>
@@ -88,17 +90,19 @@
                     </ul>
                     <div class="form-group">
                         <div class="col-sm-6">
-                            @*<select class="input-sm form-control" id="keywords-national-initiative-text">
-                                <option></option>
-                                <option value="Inspire">Inspire</option>
-                                <option value="Det offentlige kartgrunnlaget">Det offentlige kartgrunnlaget</option>
-                                <option value="Barentswatch">Barentswatch</option>
-                                <option value="Norge digitalt">Norge digitalt</option>
-                                <option value="European Location Framework">European Location Framework</option>
-                                <option value="Arctic SDI">Arctic SDI</option>
-                                <option value="Åpne data">Åpne data</option>
-                            </select>*@
-                            @Html.DropDownList("keywords-national-initiative-text", ViewBag.NationalInitiativeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
+                            <div class="custom-select">
+                                @*<select class="input-sm form-control" id="keywords-national-initiative-text">
+                <option></option>
+                <option value="Inspire">Inspire</option>
+                <option value="Det offentlige kartgrunnlaget">Det offentlige kartgrunnlaget</option>
+                <option value="Barentswatch">Barentswatch</option>
+                <option value="Norge digitalt">Norge digitalt</option>
+                <option value="European Location Framework">European Location Framework</option>
+                <option value="Arctic SDI">Arctic SDI</option>
+                <option value="Åpne data">Åpne data</option>
+            </select>*@
+                                @Html.DropDownList("keywords-national-initiative-text", ViewBag.NationalInitiativeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
+                            </div>
                         </div>
                         <div class="col-sm-2">
                             <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
@@ -121,6 +125,7 @@
                     </ul>
                     <div class="form-group">
                         <div class="col-sm-6">
+                            <div class="custom-select">
                             @Html.DropDownList("keywords-inspire-text", ViewBag.InspireValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
                             @*<select class="input-sm form-control" id="keywords-inspire-text">
                                 <option></option>
@@ -159,6 +164,7 @@
                                 <option value="Transport networks">Transport networks</option>
                                 <option value="Utility and governmental services">Utility and governmental services</option>
                             </select>*@
+                                </div>
                         </div>
                         <div class="col-sm-2">
                             <button type="button" class="btn btn-default btn-sm" id="keywords-inspire-add">Legg til</button>
@@ -231,7 +237,9 @@
 <div class="form-group">
     <label for="TopicCategory" class="col-sm-2 control-label">Tematisk hovedkategori</label>
     <div class="col-sm-9">
-        @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
+        <div class="custom-select">
+            @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
+        </div>
         <p class="help-text bg-success" id="help-text-topicCategory" style="display: none">
             Tematisk inndeling definert i metadatastandarden.
         </p>
