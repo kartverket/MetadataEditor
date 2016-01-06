@@ -40,5 +40,10 @@ namespace Kartverket.MetadataEditor.Helpers
         {
             return WebConfigurationManager.AppSettings["SimpleMetadataEnabled"] == "false" ? false : true;
         }
+
+        public static string EnvironmentName(this HtmlHelper helper)
+        {
+            return WebConfigurationManager.AppSettings["EnvironmentName"];
+        }
     }
 }
