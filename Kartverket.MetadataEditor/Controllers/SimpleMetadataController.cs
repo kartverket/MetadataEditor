@@ -495,7 +495,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 {
                     var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
                     filename = uuid + ".zip";
-                    string fullPath = Server.MapPath("~/thumbnails/" + filename);
+                    string fullPath = Server.MapPath("~/datasets/" + filename);
                     
                         file.SaveAs(fullPath);
 
