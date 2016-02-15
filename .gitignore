@@ -2,6 +2,7 @@
 settings.config
 
 Kartverket.MetadataEditor/thumbnails
+Kartverket.MetadataEditor/datasets
 
 *.pubxml
 
