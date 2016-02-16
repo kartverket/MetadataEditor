@@ -98,6 +98,14 @@
             </div>
         </div>
         <div class="form-group required has-feedback">
+            <label class="col-sm-2 control-label">Datakonformitet</label>
+            <div class="col-sm-9">
+                <input class="radio-inline" id="QualitySpecificationResultInspireConform" name="QualitySpecificationResultInspire" @{if (Model.QualitySpecificationResultInspire) { <text> checked="checked"</text> } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
+                <br />
+                <input class="radio-inline" id="QualitySpecificationResultInspireNotConform" name="QualitySpecificationResultInspire" @{if (!Model.QualitySpecificationResultInspire) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
+            </div>
+        </div>
+        <div class="form-group required has-feedback">
             <label class="col-sm-2 control-label">Forklaring av resultat</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationExplanationInspire, new { @class = "form-control" })
@@ -110,12 +118,6 @@
                 <p class="form-control-static">
                     <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationInspire" class="badge help-text-toggle">?</a>
                 </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                <label class="control-label">Er datasettet produsert iht angitt produktspesifikasjon?</label>
-                @Html.EditorFor(m => m.QualitySpecificationResultInspire)
             </div>
         </div>
     </div>
@@ -148,6 +150,14 @@
             </div>
         </div>
         <div class="form-group required has-feedback">
+            <label class="col-sm-2 control-label">Datakonformitet</label>
+            <div class="col-sm-9">
+                <input class="radio-inline" id="QualitySpecificationResultSosiConform" name="QualitySpecificationResultSosi" @{if (Model.QualitySpecificationResultSosi) { <text> checked="checked"</text> } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
+                <br />
+                <input class="radio-inline" id="QualitySpecificationResultSosiNotConform" name="QualitySpecificationResultSosi" @{if (!Model.QualitySpecificationResultSosi) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
+            </div>
+        </div>
+        <div class="form-group required has-feedback">
             <label class="col-sm-2 control-label">Forklaring av resultat</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationExplanationSosi, new { @class = "form-control" })
@@ -160,12 +170,6 @@
                 <p class="form-control-static">
                     <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationSosi" class="badge help-text-toggle">?</a>
                 </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                <label class="control-label">Er datasettet produsert iht angitt produktspesifikasjon?</label>
-                @Html.EditorFor(m => m.QualitySpecificationResultSosi)
             </div>
         </div>
     </div>
@@ -198,6 +202,14 @@
             </div>
         </div>
         <div class="form-group required has-feedback">
+            <label class="col-sm-2 control-label">Datakonformitet</label>
+            <div class="col-sm-9">
+                <input class="radio-inline" id="QualitySpecificationResultConform" name="QualitySpecificationResult" @{if (Model.QualitySpecificationResult) { <text> checked="checked"</text> } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
+                <br />
+                <input class="radio-inline" id="QualitySpecificationResultNotConform" name="QualitySpecificationResult" @{if (!Model.QualitySpecificationResult) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
+            </div>
+        </div>
+        <div class="form-group required has-feedback">
             <label class="col-sm-2 control-label">Forklaring av resultat</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationExplanation, new { @class = "form-control" })
@@ -210,12 +222,6 @@
                 <p class="form-control-static">
                     <a href="#" data-help-text-id="help-text-QualitySpecificationExplanation" class="badge help-text-toggle">?</a>
                 </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                <label class="control-label">Er datasettet produsert iht angitt produktspesifikasjon?</label>
-                @Html.EditorFor(m => m.QualitySpecificationResult)
             </div>
         </div>
     </div>

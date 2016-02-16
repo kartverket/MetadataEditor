@@ -122,8 +122,11 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationExplanationInspire { get; set; }
         [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Forklaring av resultat er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationExplanationSosi { get; set; }
+        [Required(ErrorMessage = "Datakonformitet er påkrevd")]
         public bool QualitySpecificationResult { get; set; }
+        [Required(ErrorMessage = "Datakonformitet inspire er påkrevd")]
         public bool QualitySpecificationResultInspire { get; set; }
+        [Required(ErrorMessage = "Datakonformitet sosi er påkrevd")]
         public bool QualitySpecificationResultSosi { get; set; }
         [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationTitle { get; set; }

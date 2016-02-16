@@ -852,7 +852,7 @@
                 $("#QualitySpecificationDateInspire").val("");
                 $("#QualitySpecificationDateTypeInspire").val("");
                 $("#QualitySpecificationExplanationInspire").val("");
-                $("#QualitySpecificationResultInspire").prop('checked', false);
+                $("#QualitySpecificationResultInspireConform").prop('checked', false);
                 $('#QualitySpecificationInspire').hide();
             };
 
@@ -896,14 +896,14 @@
                         )};
 
                         $("#QualitySpecificationDateTypeSosi").val("publication");
-                        $("#QualitySpecificationResultSosi").prop('checked', true);
+                        $("#QualitySpecificationResultSosiConform").prop('checked', true);
                     }
                     else {
                         $("#QualitySpecificationTitleSosi").val("");
                         $("#QualitySpecificationDateSosi").val("");
                         $("#QualitySpecificationDateTypeSosi").val("");
                         $("#QualitySpecificationExplanationSosi").val("");
-                        $("#QualitySpecificationResultSosi").prop('checked', false);
+                        $("#QualitySpecificationResultSosiNotConform").prop('checked', false);
                         $('#QualitySpecificationSosi').hide();
                     }
                 }
@@ -937,6 +937,25 @@
             $("#ProductSpecificationOther_Name").on("change", otherSpec);
             otherSpec();
 
+            var conformExplanation = "Dataene er i henhold til produktspesifikasjonen"
+
+            $("#QualitySpecificationResultInspireConform").change(function () {
+                if (this.checked) {
+                    $("#QualitySpecificationExplanationInspire").val(conformExplanation);
+                }
+            });
+
+            $("#QualitySpecificationResultSosiConform").change(function () {
+                if (this.checked) {
+                    $("#QualitySpecificationExplanationSosi").val(conformExplanation);
+                }
+            });
+
+            $("#QualitySpecificationResultConform").change(function () {
+                if (this.checked) {
+                    $("#QualitySpecificationExplanation").val(conformExplanation);
+                }
+            });
 
             // bounding box
 
