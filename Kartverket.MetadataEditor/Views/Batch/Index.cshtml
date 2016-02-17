@@ -75,7 +75,7 @@
 @section scripts {
     <script>
     $(function () {
-        $.cookie('navtabselected', null, { path: '/Metadata' });
+        Cookies.remove('navtabselected', { path: '/Metadata' });
 
         $("#checkAll").click(function () {
             $(".check").prop('checked', $(this).prop('checked'));

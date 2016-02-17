@@ -259,42 +259,43 @@
                 }
             });
 
-            var menu_state = $.cookie('navtabselected');
+            var menu_state = Cookies.get('navtabselected');
 
             $('#homelink').click(function (event) {
-                $.cookie('navtabselected', 'home');
+                Cookies.set('navtabselected', 'home');
             });
 
             $('#timeandspacelink').click(function (event) {
-                $.cookie('navtabselected', 'timeandspace');
+                Cookies.set('navtabselected', 'timeandspace');
+                alert(Cookies.get('navtabselected'));
             });
 
             $('#contactlink').click(function (event) {
-                $.cookie('navtabselected', 'contact');
+                Cookies.set('navtabselected', 'contact');
             });
 
             $('#distributionlink').click(function (event) {
-                $.cookie('navtabselected', 'distribution');
+                Cookies.set('navtabselected', 'distribution');
             });
 
             $('#documentslink').click(function (event) {
-                $.cookie('navtabselected', 'documents');
+                Cookies.set('navtabselected', 'documents');
             });
 
             $('#constraintslink').click(function (event) {
-                $.cookie('navtabselected', 'constraints');
+                Cookies.set('navtabselected', 'constraints');
             });
 
             $('#qualitylink').click(function (event) {
-                $.cookie('navtabselected', 'quality');
+                Cookies.set('navtabselected', 'quality');
             });
 
             $('#keywordslink').click(function (event) {
-                $.cookie('navtabselected', 'keywords');
+                Cookies.set('navtabselected', 'keywords');
             });
 
             $('#englishlink').click(function (event) {
-                $.cookie('navtabselected', 'english');
+                Cookies.set('navtabselected', 'english');
             });
 
 

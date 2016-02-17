@@ -170,14 +170,14 @@
                 }
             });
 
-            var menu_state = $.cookie('navtabselected');
+            var menu_state = Cookies.get('navtabselected');
 
             $('#homelink').click(function (event) {
-                $.cookie('navtabselected', 'home');
+                Cookies.set('navtabselected', 'home');
             });
 
             $('#timeandspacelink').click(function (event) {
-                $.cookie('navtabselected', 'optional');
+                Cookies.set('navtabselected', 'optional');
             });
 
             if (menu_state == 'home' || menu_state == null)
