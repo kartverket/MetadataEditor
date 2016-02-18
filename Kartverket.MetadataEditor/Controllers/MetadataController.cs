@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Kartverket.MetadataEditor.Util;
 using Resources;
 using log4net;
+using System.Net;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -303,6 +304,47 @@ namespace Kartverket.MetadataEditor.Controllers
                 ModelState.AddModelError("thumbnailMissing", "Det er påkrevd å fylle ut illustrasjonsbilde");
                 ViewBag.thumbnailMissingCSS = "input-validation-error";
                 }
+        }
+
+        public ActionResult CreatePdf(string uuid)
+        {
+            if (uuid == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var imagePath = Server.MapPath("~/Content/");
+
+            
+            var metadata = _metadataService.GetMetadataModel(uuid);
+            if (metadata == null)
+            {
+                return HttpNotFound();
+            }
+
+            Models.ProductSheet.ProductSheet productSheet = new Models.ProductSheet.ProductSheet();
+            productSheet.Metadata = metadata;
+
+            Models.ProductSheet.ProductSheetService productSheetService = new Models.ProductSheet.ProductSheetService();
+
+            string logoPath = "";
+            string logo = productSheetService.GetLogoForOrganization(productSheet.Metadata.ContactOwner.Organization);
+            if (logo != null)
+                logoPath = logo;
+
+            Stream fileStream = new Models.ProductSheet.PdfGenerator(productSheet, imagePath, logoPath).CreatePdf();
+            var fileStreamResult = new FileStreamResult(fileStream, "application/pdf");
+            fileStreamResult.FileDownloadName = GetSafeFilename(productSheet.Metadata.Title + ".pdf");
+
+            Log.Info(string.Format("Creating PDF for {0} [{1}]", productSheet.Metadata.Title, productSheet.Metadata.Uuid));
+
+            return fileStreamResult;
+        }
+
+        public string GetSafeFilename(string filename)
+        {
+            filename = filename.Replace(" ", "_");
+            return string.Join("_", filename.Split(Path.GetInvalidFileNameChars()));
         }
 
         private void SaveMetadataToCswServer(MetadataViewModel model)

@@ -81,6 +81,10 @@
       <HintPath>..\packages\iTextSharp.5.5.8\lib\itextsharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Kartverket.Geonorge.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Kartverket.Geonorge.Utilities.1.0.18\lib\net45\Kartverket.Geonorge.Utilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Kentor.AuthServices, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Kentor.AuthServices.0.10.0.0\lib\net45\Kentor.AuthServices.dll</HintPath>
@@ -94,8 +98,8 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Kartverket.Geonorge.Utilities.1.0.18\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Raven.Abstractions">
       <HintPath>..\packages\RavenDB.Database.3.0.3690\lib\net45\Raven.Abstractions.dll</HintPath>
@@ -112,8 +116,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.identitymodel.services" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\packages\Kartverket.Geonorge.Utilities.1.0.18\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -242,6 +246,10 @@
     <Compile Include="Models\MustHaveOneElementAttribute.cs" />
     <Compile Include="Models\NotFoundModel.cs" />
     <Compile Include="Models\ObjectExtensions.cs" />
+    <Compile Include="Models\ProductSheet\PdfGenerator.cs" />
+    <Compile Include="Models\ProductSheet\PdfHeaderFooter.cs" />
+    <Compile Include="Models\ProductSheet\ProductSheet.cs" />
+    <Compile Include="Models\ProductSheet\ProductSheetService.cs" />
     <Compile Include="Models\ReportService.cs" />
     <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />

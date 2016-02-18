@@ -49,7 +49,7 @@
             }
             @if (Model.IsDataset() && showProductSheetGeneratorUrl)
             {
-                <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
+                <a href="@Url.Action("CreatePdf", "Metadata", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
             }
 
             @if (Model.IsService())
