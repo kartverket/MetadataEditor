@@ -12,22 +12,6 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
     public class ProductSheetService
     {
 
-        public string CreateKeywords(IEnumerable<SimpleKeyword> keywords)
-        {
-            return String.Join(", ", keywords.Select(simpleKeyword => simpleKeyword.Keyword));
-        }
-
-        public Contact CreateContact(SimpleContact contact)
-        {
-            return new Contact
-            {
-                Email = contact.Email != null ? contact.Email : "",
-                Name = contact.Name != null ? contact.Name : "",
-                Organization = contact.Organization != null ? contact.Organization : ""
-            };
-        }
-
-
         public string GetLogoForOrganization(string organization)
         {
             if (organization != null)
@@ -43,24 +27,6 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
 
             return null;
         }
-
-
-
-
-        public string getProjections(List<SimpleReferenceSystem> refsys)
-        {
-            string projections = "";
-
-            for (int r = 0; r < refsys.Count; r++)
-            {
-                projections = projections + GetReferenceSystemName(refsys[r].CoordinateSystem);
-                if (r != refsys.Count - 1)
-                    projections = projections + "\r\n";
-            }
-
-            return projections;
-        }
-
 
 
         public string GetReferenceSystemName(string coordinateSystem)

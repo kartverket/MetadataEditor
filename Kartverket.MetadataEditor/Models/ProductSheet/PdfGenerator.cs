@@ -30,6 +30,8 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
         PdfContentByte cb;
         ColumnText ct;
 
+        ProductSheetService psService = new ProductSheetService();
+
         public PdfGenerator(ProductSheet productSheet, string imagePath, string logoPath)
         {
             this.productsheet = productSheet;
@@ -40,8 +42,6 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
 
         public Stream CreatePdf()
         {
-
-
             Startup();
 
             AddDescription();
@@ -54,6 +54,7 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
             AddDistribution();
             //Todo get from application schema
             //AddFeatureTypes();
+            //Todo get from application schema
             //AddAttributes();
             AddLinks();
 
@@ -276,7 +277,7 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
                 List format = new List(List.UNORDERED);
                 format.SetListSymbol("\u2022");
                 format.IndentationLeft = 5;
-                string formatVersion = productsheet.Metadata.DistributionName;
+                string formatVersion = productsheet.Metadata.DistributionFormatName;
                 if (!string.IsNullOrWhiteSpace(productsheet.Metadata.DistributionFormatVersion))
                 {
                     formatVersion = formatVersion + ", " + productsheet.Metadata.DistributionFormatVersion;
@@ -292,8 +293,6 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
             {
                 Phrase projectionsHeading = new Phrase("\n" + "Projeksjoner", font3Bold);
                 ct.AddElement(projectionsHeading);
-                //Phrase projections = new Phrase(productsheet.Projections, font3);
-                //ct.AddElement(projections);
 
                 List listOfProjections = new List(List.UNORDERED);
                 listOfProjections.SetListSymbol("\u2022");
@@ -302,24 +301,23 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
                 var Projections = productsheet.Metadata.ReferenceSystems;
                 foreach (var projection in Projections)
                 {
-                    ListItem liProjection = new ListItem(projection.CoordinateSystem, font3);
+                    ListItem liProjection = new ListItem(psService.GetReferenceSystemName(projection.CoordinateSystem), font3);
                     listOfProjections.Add(liProjection);
                 }
 
                 ct.AddElement(listOfProjections);
 
             }
-            //Todo get AccessConstraints
-            //if (productsheet.Metadata.Constraints != null && productsheet.Metadata.Constraints.AccessConstraints != null)
-            //{
-            //    Phrase accessConstraintsHeading = new Phrase("\n" + "Tilgangsrestriksjoner", font3Bold);
-            //    ct.AddElement(accessConstraintsHeading);
-            //    //todo get GetAccessConstraintsTranslated
-            //    //Phrase accessConstraints = new Phrase(productsheet.GetAccessConstraintsTranslated(), font3);
-            //    //ct.AddElement(accessConstraints);
-            //}
 
-            //Todo get form metadata
+            if (productsheet.Metadata.AccessConstraints != null )
+            {
+                Phrase accessConstraintsHeading = new Phrase("\n" + "Tilgangsrestriksjoner", font3Bold);
+                ct.AddElement(accessConstraintsHeading);
+                Phrase accessConstraints = new Phrase(productsheet.AccessConstraintFromRegister, font3);
+                ct.AddElement(accessConstraints);
+            }
+
+            //Todo get ServiceDetails
             //if (!string.IsNullOrWhiteSpace(productsheet.ServiceDetails))
             //{
             //    Phrase serviceDetailsHeading = new Phrase("\n" + "Tjeneste", font3Bold);
@@ -334,20 +332,18 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
         {
             ct.AddElement(writeTblHeader("AJOURFØRING OG OPPDATERING"));
 
-            if (!string.IsNullOrWhiteSpace(productsheet.Metadata.MaintenanceFrequency))
+            if (!string.IsNullOrWhiteSpace(productsheet.MaintenanceFrequencyFromRegister))
             {
-                // todo GetMaintenanceFrequencyTranslated
-                //Phrase maintenanceFrequency = new Phrase(productsheet.GetMaintenanceFrequencyTranslated(), font3);
-                //ct.AddElement(maintenanceFrequency);
+                Phrase maintenanceFrequency = new Phrase(productsheet.MaintenanceFrequencyFromRegister, font3);
+                ct.AddElement(maintenanceFrequency);
             }
 
             if (!string.IsNullOrWhiteSpace(productsheet.Metadata.Status))
             {
                 Phrase statusHeading = new Phrase("Status", font3Bold);
                 ct.AddElement(statusHeading);
-                //Todo GetStatusTranslated
-                //Phrase statusValue = new Phrase(productsheet.GetStatusTranslated(), font3);
-                //ct.AddElement(statusValue);
+                Phrase statusValue = new Phrase(productsheet.StatusFromRegister, font3);
+                ct.AddElement(statusValue);
             }
 
             ct.AddElement(writeTblFooter(""));
@@ -370,13 +366,12 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
         {
             ct.AddElement(writeTblHeader("UTSTREKNINGSINFORMASJON"));
 
-            //todo get keywordplace
-            //if (productsheet.KeywordsPlace != null)
-            //{
-            //    Phrase keywordsPlaceHeading = new Phrase("Utstrekningsbeskrivelse", font3Bold);
-            //    ct.AddElement(keywordsPlaceHeading);
-            //    ct.AddElement(new Phrase(productsheet.KeywordsPlace, font3));
-            //}
+            if (productsheet.Metadata.KeywordsPlace != null)
+            {
+                Phrase keywordsPlaceHeading = new Phrase("Utstrekningsbeskrivelse", font3Bold);
+                ct.AddElement(keywordsPlaceHeading);
+                ct.AddElement(new Phrase(string.Join(",", productsheet.Metadata.KeywordsPlace), font3));
+            }
 
             //todo get CoverageArea
             //if (!string.IsNullOrWhiteSpace(productsheet.CoverageArea))
@@ -407,7 +402,7 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
                 ct.AddElement(resolutionScale);
             }
 
-            //Todo get from metadata
+            //Todo get from somewhere
             //if (!string.IsNullOrWhiteSpace(productsheet.PrecisionInMeters))
             //{
             //    Chunk precisionInMetersHeading = new Chunk("Stedfestingsnøyaktighet (meter): ", font3Bold);
@@ -482,12 +477,11 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
                 ct.AddElement(specificUsage);
             }
 
-            //Todo get UseLimitations
-            //if (!string.IsNullOrWhiteSpace(productsheet.Metadata.Constraints.UseLimitations))
-            //{
-            //    Paragraph useLimitations = new Paragraph("\n" + productsheet.Metadata.Constraints.UseLimitations, font3);
-            //    ct.AddElement(useLimitations);
-            //}
+            if (!string.IsNullOrWhiteSpace(productsheet.Metadata.UseLimitations))
+            {
+                Paragraph useLimitations = new Paragraph("\n" + productsheet.Metadata.UseLimitations, font3);
+                ct.AddElement(useLimitations);
+            }
 
             ct.AddElement(writeTblFooter(""));
         }
@@ -496,25 +490,24 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
         {
             ct.AddElement(writeTblHeader("BESKRIVELSE"));
 
-            //Todo
-            //if (!string.IsNullOrWhiteSpace(productsheet.Thumbnail))
-            //{
-            //    Paragraph descriptionHeading = new Paragraph();
-            //    try
-            //    {
-            //        var imageMap = Image.GetInstance(new Uri(productsheet.Thumbnail), true);
-            //        imageMap.Alt = "Bilde av karteksempel";
-            //        imageMap.ScaleToFit(140f, 100f);
-            //        imageMap.SpacingBefore = 4;
-            //        ct.AddElement(imageMap);
-            //        ct.AddElement(descriptionHeading);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Log.Error(ex.Message, ex);
-            //    }
+            if (!string.IsNullOrWhiteSpace(productsheet.GetThumbnail()))
+            {
+                Paragraph descriptionHeading = new Paragraph();
+                try
+                {
+                    var imageMap = Image.GetInstance(new Uri(productsheet.GetThumbnail()), true);
+                    imageMap.Alt = "Bilde av karteksempel";
+                    imageMap.ScaleToFit(140f, 100f);
+                    imageMap.SpacingBefore = 4;
+                    ct.AddElement(imageMap);
+                    ct.AddElement(descriptionHeading);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.Message, ex);
+                }
 
-            //}
+            }
 
             if (!string.IsNullOrWhiteSpace(productsheet.Metadata.Abstract))
             {
@@ -558,7 +551,6 @@ namespace Kartverket.MetadataEditor.Models.ProductSheet
 
             PdfPTable table = new PdfPTable(1);
             table.WidthPercentage = 100;
-            //table.SpacingBefore = 2;
             table.SpacingAfter = 20;
             PdfPCell cell = new PdfPCell();
             cell.Border = 0;

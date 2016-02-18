@@ -324,6 +324,9 @@ namespace Kartverket.MetadataEditor.Controllers
 
             Models.ProductSheet.ProductSheet productSheet = new Models.ProductSheet.ProductSheet();
             productSheet.Metadata = metadata;
+            productSheet.SetAccessConstraint(GetListOfRestrictionValues());
+            productSheet.SetMaintenanceFrequency(GetListOfMaintenanceFrequencyValues());
+            productSheet.SetStatus(GetListOfStatusValues());
 
             Models.ProductSheet.ProductSheetService productSheetService = new Models.ProductSheet.ProductSheetService();
 
