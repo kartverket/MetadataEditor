@@ -937,23 +937,57 @@
             $("#ProductSpecificationOther_Name").on("change", otherSpec);
             otherSpec();
 
-            var conformExplanation = "Dataene er i henhold til produktspesifikasjonen"
+            var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
+            var conformExplainPlaceholder = "Beskriv avvikene fra spesifikasjonen";
 
             $("#QualitySpecificationResultInspireConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanationInspire").val(conformExplanation);
+                    $("#QualitySpecificationExplanationInspireDiv").removeClass("show");
+                    $("#QualitySpecificationExplanationInspireDiv").addClass("hidden");
+                }
+            });
+
+            $("#QualitySpecificationResultInspireNotConform").change(function () {
+                if (this.checked) {
+                    $("#QualitySpecificationExplanationInspire").val("");
+                    $("#QualitySpecificationExplanationInspire").attr("placeholder", conformExplainPlaceholder);
+                    $("#QualitySpecificationExplanationInspireDiv").removeClass("hidden");
+                    $("#QualitySpecificationExplanationInspireDiv").addClass("show");
                 }
             });
 
             $("#QualitySpecificationResultSosiConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanationSosi").val(conformExplanation);
+                    $("#QualitySpecificationExplanationSosiDiv").removeClass("show");
+                    $("#QualitySpecificationExplanationSosiDiv").addClass("hidden");
+                }
+            });
+
+            $("#QualitySpecificationResultSosiNotConform").change(function () {
+                if (this.checked) {
+                    $("#QualitySpecificationExplanationSosi").val("");
+                    $("#QualitySpecificationExplanationSosi").attr("placeholder", conformExplainPlaceholder);
+                    $("#QualitySpecificationExplanationSosiDiv").removeClass("hidden");
+                    $("#QualitySpecificationExplanationSosiDiv").addClass("show");
                 }
             });
 
             $("#QualitySpecificationResultConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanation").val(conformExplanation);
+                    $("#QualitySpecificationExplanationDiv").removeClass("show");
+                    $("#QualitySpecificationExplanationDiv").addClass("hidden");
+                }
+            });
+
+            $("#QualitySpecificationResultNotConform").change(function () {
+                if (this.checked) {
+                    $("#QualitySpecificationExplanation").val("");
+                    $("#QualitySpecificationExplanation").attr("placeholder", conformExplainPlaceholder);
+                    $("#QualitySpecificationExplanationDiv").removeClass("hidden");
+                    $("#QualitySpecificationExplanationDiv").addClass("show");
                 }
             });
 

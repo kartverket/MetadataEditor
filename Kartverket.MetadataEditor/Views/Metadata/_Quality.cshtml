@@ -73,7 +73,7 @@
         <div class="panel-heading bg-info">Inspire:</div>
         <div><br /></div>
         <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Standard (produktspesifikasjon)</label>
+            <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationTitleInspire, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -105,8 +105,8 @@
                 <input class="radio-inline" id="QualitySpecificationResultInspireNotConform" name="QualitySpecificationResultInspire" @{if (!Model.QualitySpecificationResultInspire) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
             </div>
         </div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Forklaring av resultat</label>
+        <div id="QualitySpecificationExplanationInspireDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResultInspire) { <text> hidden</text> } }">
+            <label class="col-sm-2 control-label">Avvik fra produktspesifikasjonen</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationExplanationInspire, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -125,7 +125,7 @@
         <div class="panel-heading bg-info">Sosi:</div>
         <div><br /></div>
         <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Standard (produktspesifikasjon)</label>
+            <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationTitleSosi, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -157,8 +157,8 @@
                 <input class="radio-inline" id="QualitySpecificationResultSosiNotConform" name="QualitySpecificationResultSosi" @{if (!Model.QualitySpecificationResultSosi) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
             </div>
         </div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Forklaring av resultat</label>
+        <div id="QualitySpecificationExplanationSosiDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResultSosi) { <text> hidden</text> } }">
+            <label class="col-sm-2 control-label">Avvik fra produktspesifikasjonen</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationExplanationSosi, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -177,7 +177,7 @@
         <div class="panel-heading bg-info">Annen standard/ egen dokumentasjon:</div>
         <div><br /></div>
         <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Standard (produktspesifikasjon)</label>
+            <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationTitle, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -209,8 +209,8 @@
                 <input class="radio-inline" id="QualitySpecificationResultNotConform" name="QualitySpecificationResult" @{if (!Model.QualitySpecificationResult) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
             </div>
         </div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Forklaring av resultat</label>
+        <div id="QualitySpecificationExplanationDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResult) { <text> hidden</text> } }">
+            <label class="col-sm-2 control-label">Avvik fra produktspesifikasjonen</label>
             <div class="col-sm-9">
                 @Html.EditorFor(m => m.QualitySpecificationExplanation, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
