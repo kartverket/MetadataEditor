@@ -14,7 +14,7 @@
     <div class="form-group required has-feedback">
         <label class="col-sm-2 control-label">Tittel</label>
         <div class="col-sm-10 col-md-5">
-            @Html.EditorFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title, new { placeholder = "Skriv inn" })
         </div>
     </div>
 
@@ -38,13 +38,13 @@
                     <div class="form-group hidden">
                         <label class="col-sm-3 control-label">Navn</label>
                         <div class="col-sm-9">
-                            @Html.EditorFor(m => m.MetadataContactName)
+                            @Html.TextBoxFor(m => m.MetadataContactName, new { placeholder = "Skriv inn" })
                         </div>
                     </div>
                     <div class="form-group required has-feedback">
                         <label class="col-sm-3 control-label">Epost</label>
                         <div class="col-sm-9">
-                            @Html.TextBoxFor(m => m.MetadataContactEmail, new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.MetadataContactEmail, new { @class = "form-control", placeholder = "Skriv inn" })
                         </div>
                     </div>
                     <div class="form-group">

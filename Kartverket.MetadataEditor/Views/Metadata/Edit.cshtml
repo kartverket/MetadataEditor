@@ -1266,5 +1266,18 @@
             document.getElementById('ReferenceSystemsCount').value -= 1;
         };
 
+        //Setting placeholders
+        var placeholderText = "Skriv inn";
+
+        $(document).ready(function () {
+            $('form').find("input[type=textarea], input[type=text], textarea").each(function(ev)
+            {
+                if(!$(this).val()) { 
+                    $(this).attr("placeholder", placeholderText);
+                }
+            });
+
+        });
+
     </script>
 }
