@@ -35,7 +35,14 @@ if (ViewContext.ViewData.ModelState.ContainsKey("DistributionFormats"))
                     modelDatatype = "dataset";
                     <div class="custom-select">
                         <select class="@classFormat" id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" onclick="checkForSpatialRepresentation(@f)">
+                            @if (!string.IsNullOrEmpty(Model.DistributionFormats[f].Name))
+                            { 
                             <option value="@Model.DistributionFormats[f].Name">@Model.DistributionFormats[f].Name</option>
+                            }
+                            else
+                            {
+                                <option value="" disabled>Klikk for å velge</option>
+                            }
                         </select>
                     </div>
                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
