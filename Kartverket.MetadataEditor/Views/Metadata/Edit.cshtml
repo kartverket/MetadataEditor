@@ -1268,12 +1268,21 @@
 
         //Setting placeholders
         var placeholderText = "Skriv inn";
+        var placeholderTextChoose = "Klikk for å velge";
 
         $(document).ready(function () {
             $('form').find("input[type=textarea], input[type=text], textarea").each(function(ev)
             {
-                if(!$(this).val()) { 
+                if (!$(this).val() && !$(this).prop("disabled")) {
                     $(this).attr("placeholder", placeholderText);
+                }
+            });
+
+            $('form').find("select").each(function (ev) {
+                if ($(this).val() === '') {
+                    idElem = $(this)[0].id;
+                    $("#" + idElem + " option[value='']").text(placeholderTextChoose);
+                    $("#" + idElem + " option[value='']").attr("disabled", "disabled");
                 }
             });
 
