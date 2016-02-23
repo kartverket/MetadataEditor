@@ -683,9 +683,7 @@ namespace Kartverket.MetadataEditor.Controllers
              
                     if (scaleImage)
                     {
-                        var image = Image.FromStream(file.InputStream);
-                        var newImage = ScaleImage(image, 180, 1000);
-                        newImage.Save(fullPath);
+                        OptimizeImage(file, 180, 1000, fullPath);
                     }
                     else
                     {
@@ -726,12 +724,10 @@ namespace Kartverket.MetadataEditor.Controllers
                     file.SaveAs(fullPath);
 
                     var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
-                    fullPath = Server.MapPath("~/thumbnails/" + filenameMini);
+                    var fullPathMini = Server.MapPath("~/thumbnails/" + filenameMini);
 
-                    var image = Image.FromStream(file.InputStream);
-                    var miniImage = ScaleImage(image, 180, 1000);
-                    miniImage.Save(fullPath);
-                   
+                    OptimizeImage(file, 180, 1000, fullPathMini);
+
 
                     viewresult = Json(new { status = "OK", filename = filename, filenamemini = filenameMini });
                 }
@@ -762,7 +758,16 @@ namespace Kartverket.MetadataEditor.Controllers
             Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
             return newImage;
         }
-        
+
+        public static void OptimizeImage(HttpPostedFileBase file, int maxWidth, int maxHeight, string outputPath, int quality = 70)
+        {
+            ImageResizer.ImageJob newImage = 
+                new ImageResizer.ImageJob(file, outputPath,
+                new ImageResizer.Instructions("maxwidth=" + maxWidth + ";maxheight=" + maxHeight + ";quality=" + quality));
+
+            newImage.Build();
+        }
+
         [Authorize]
         [HttpGet]
         public ActionResult ConfirmDelete(string uuid)

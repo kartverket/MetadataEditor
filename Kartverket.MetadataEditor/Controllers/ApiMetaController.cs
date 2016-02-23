@@ -46,9 +46,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                         if (scaleImage)
                         {
-                            var image = Image.FromStream(file.InputStream);
-                            var newImage = ScaleImage(image, 180, 1000);
-                            newImage.Save(fullPath);
+                            OptimizeImage(file, 180, 1000, fullPath);
                         }
                         else
                         {
@@ -87,6 +85,15 @@ namespace Kartverket.MetadataEditor.Controllers
             var newImage = new Bitmap(newWidth, newHeight);
             Graphics.FromImage(newImage).DrawImage(image, 0, 0, newWidth, newHeight);
             return newImage;
+        }
+
+        public static void OptimizeImage(HttpPostedFile file, int maxWidth, int maxHeight, string outputPath, int quality = 70)
+        {
+            ImageResizer.ImageJob newImage =
+                new ImageResizer.ImageJob(file, outputPath,
+                new ImageResizer.Instructions("maxwidth=" + maxWidth + ";maxheight=" + maxHeight + ";quality=" + quality));
+
+            newImage.Build();
         }
 
 
