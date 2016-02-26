@@ -327,9 +327,31 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfpredefinedDistributionProtocols()
         {
+            Dictionary<string, string> dic = GetCodeList("94B5A165-7176-4F43-B6EC-1063F7ADE9EA");
 
-            return GetCodeList("94B5A165-7176-4F43-B6EC-1063F7ADE9EA");
+            // Get only simplemetadata dataset related values
+            var keysToSelect = new List<string>
+            {
+               {"GEONORGE:FILEDOWNLOAD"},
+               {"GEONORGE:DOWNLOAD"},
+               {"GEONORGE:OFFLINE"},
+               {"WWW:DOWNLOAD-1.0-http--download"},
+               {"W3C:REST"},
+               {"W3C:WS"},
+               {"WWW:LINK-1.0-http--link"},
+            };
 
+            Dictionary<string, string> newDic = new Dictionary<string, string>();
+            foreach (var key in keysToSelect)
+            {
+                if (dic.ContainsKey(key))
+                {
+                    var elem = new KeyValuePair<string, string>(key, dic[key]);
+                    newDic.Add(elem.Key, elem.Value);
+                }
+                   
+            }
+            return newDic;
         }
 
 
