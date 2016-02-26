@@ -75,7 +75,8 @@
         <div class="form-group required has-feedback">
             <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
             <div class="col-sm-9">
-                @Html.EditorFor(m => m.QualitySpecificationTitleInspire, new { @class = "form-control" })
+                @Html.HiddenFor(m => m.QualitySpecificationTitleInspire)
+                <input class="form-control" id="InspireLabel" name="InspireLabel" type="text" value="Inspire" readonly="readonly" disabled="disabled">
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                 <p class="help-text bg-success" id="help-text-QualitySpecificationTitleInspire" style="display: none">
                     Referansenavn på datakilde/tjeneste. Du må registrere nøkkelord "Inspire" under "Samarbeid og lover" under fanen "Nøkkelord"
