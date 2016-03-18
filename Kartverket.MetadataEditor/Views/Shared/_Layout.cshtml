@@ -21,19 +21,21 @@
     <link href="//fonts.googleapis.com/css?family=Raleway:400,100,300,500,600,700" rel="stylesheet" type="text/css">
 
     <!-- Stylesheets -->
-    @Styles.Render(@Html.KartkatalogUrl() + "bundles/shared-menu-styles")
-    @Styles.Render(@Html.KartkatalogUrl() + "Content/css")
-    @Styles.Render(@Html.KartkatalogUrl() + "Content/shopping-cart")
+    @Styles.Render("~/Content/bower-styles");
 
     <!-- Scripts -->
-    @Scripts.Render(@Html.KartkatalogUrl() + "bundles/kartkatalog-scripts")
 
     @RenderSection("head", required: false)
     @Html.Partial("_Analytics")
     <script>
         var validationUUIDs = [];
     </script>
-    @Scripts.Render("~/bundles/scripts")
+    <script>
+        var applicationEnvironment = '@Html.EnvironmentName()';
+    </script>
+
+    @Scripts.Render("~/bundles/bower-scripts")
+    @Scripts.Render("~/bundles/local-scripts")
     @RenderSection("scripts", required: false)
 
 </head>
