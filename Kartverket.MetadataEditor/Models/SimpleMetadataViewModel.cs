@@ -16,6 +16,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsPlace = new List<string>();
             KeywordsNationalInitiative = new List<string>();
             KeywordsNationalTheme = new List<string>();
+            KeywordsEnglish = new Dictionary<string, string>();
         }
 
         public string Uuid { get; set; }
@@ -77,12 +78,20 @@ namespace Kartverket.MetadataEditor.Models
         public List<String> KeywordsNationalInitiative { get; set; }
         [MustHaveOneElementAttribute(ErrorMessage = "Nasjonal temainndeling er påkrevd")]
         public List<String> KeywordsNationalTheme { get; set; }
+        public Dictionary<string, string> KeywordsEnglish { get; set; }
 
         public string UseConstraints { get; set; }
         public string OtherConstraintsLink { get; set; }
         public string OtherConstraintsLinkText { get; set; }
 
         public string Published { get; set; }
+
+        public string EnglishTitle { get; set; }
+        public string EnglishAbstract { get; set; }
+
+        public string EnglishContactMetadataOrganization { get; set; }
+        public string EnglishContactPublisherOrganization { get; set; }
+        public string EnglishContactOwnerOrganization { get; set; }
 
 
         public bool IsDokDataset()
@@ -161,11 +170,19 @@ namespace Kartverket.MetadataEditor.Models
             {
                 foreach (var keyword in inputList)
                 {
+                    string englishTranslation = null;
+                    string keyForEnglishTranslation = prefix + "_" + keyword;
+                    if (KeywordsEnglish != null && KeywordsEnglish.ContainsKey(keyForEnglishTranslation))
+                    {
+                        englishTranslation = KeywordsEnglish[keyForEnglishTranslation];
+                    }
+
                     output.Add(new SimpleKeyword
                     {
                         Keyword = keyword,
                         Thesaurus = thesaurus,
-                        Type = type
+                        Type = type,
+                        EnglishKeyword = englishTranslation,
                     });
                 }
             }

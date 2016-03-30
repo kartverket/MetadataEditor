@@ -114,6 +114,7 @@
     <ul class="nav nav-tabs" style="clear:both">
         <li class="active"><a href="#home" id="homelink" data-toggle="tab">Påkrevd</a></li>
         <li><a href="#optional" id="optionallink" data-toggle="tab">Valgfritt</a></li>
+        <li><a href="#english" id="englishlink" data-toggle="tab">Engelsk</a></li>
     </ul>
 
 
@@ -125,6 +126,11 @@
         <div class="tab-pane" id="optional">
             @Html.Partial("_Optional", Model)
         </div>
+
+        <div class="tab-pane" id="english">
+            @Html.Partial("_English", Model)
+        </div>
+
     </div>
 
 
@@ -180,10 +186,17 @@
                 Cookies.set('navtabselected', 'optional');
             });
 
+            $('#englishlink').click(function (event) {
+                Cookies.set('navtabselected', 'english');
+            });
+
             if (menu_state == 'home' || menu_state == null)
                 $('#homelink').click();
             else if (menu_state == 'optional')
                 $('#optional').click();
+            else if (menu_state == 'english')
+                $('#englishlink').click();
+
 
             $('#Abstract').autosize();
             $('#SupplementalDescription').autosize();

@@ -191,10 +191,17 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsPlace = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null)),
                 KeywordsNationalInitiative = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE)),
                 KeywordsNationalTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_THEME)),
+                KeywordsEnglish = CreateDictionaryOfEnglishKeywords(metadata.Keywords),
 
                 UseConstraints = metadata.Constraints != null ? metadata.Constraints.UseConstraints : null,
                 OtherConstraintsLink = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLink : null,
-                OtherConstraintsLinkText = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLinkText : null
+                OtherConstraintsLinkText = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLinkText : null,
+
+                EnglishTitle = metadata.EnglishTitle,
+                EnglishAbstract = metadata.EnglishAbstract,
+                EnglishContactMetadataOrganization = metadata.ContactMetadata != null ? metadata.ContactMetadata.OrganizationEnglish : null,
+                EnglishContactPublisherOrganization = metadata.ContactPublisher != null ? metadata.ContactPublisher.OrganizationEnglish : null,
+                EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null
 
             };
 
@@ -272,15 +279,27 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ProductPageUrl = model.ProductPageUrl;
 
             var contactMetadata = model.ContactMetadata.ToSimpleContact();
-           
+            if (!string.IsNullOrWhiteSpace(model.EnglishContactMetadataOrganization))
+            {
+                contactMetadata.OrganizationEnglish = model.EnglishContactMetadataOrganization;
+            }
+
             metadata.ContactMetadata = contactMetadata;
 
             var contactPublisher = model.ContactPublisher.ToSimpleContact();
-           
+            if (!string.IsNullOrWhiteSpace(model.EnglishContactPublisherOrganization))
+            {
+                contactPublisher.OrganizationEnglish = model.EnglishContactPublisherOrganization;
+            }
+
             metadata.ContactPublisher = contactPublisher;
 
             var contactOwner = model.ContactOwner.ToSimpleContact();
-           
+            if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
+            {
+                contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
+            }
+
             metadata.ContactOwner = contactOwner;
 
             if (!string.IsNullOrWhiteSpace(model.BoundingBoxEast))
@@ -305,6 +324,23 @@ namespace Kartverket.MetadataEditor.Models
                                                         && k.Type != SimpleKeyword.TYPE_PLACE).ToList();
             //Get keywords in model
             List<SimpleKeyword> keywordsToUpdate = model.GetAllKeywords();
+
+            bool hasEnglishFields = false;
+            // don't create PT_FreeText fields if it isn't necessary
+            if (!string.IsNullOrWhiteSpace(model.EnglishTitle))
+            {
+                metadata.EnglishTitle = model.EnglishTitle;
+                hasEnglishFields = true;
+            }
+            if (!string.IsNullOrWhiteSpace(model.EnglishAbstract))
+            {
+                metadata.EnglishAbstract = model.EnglishAbstract;
+                hasEnglishFields = true;
+            }
+
+            if (hasEnglishFields)
+                metadata.SetLocale(SimpleMetadata.LOCALE_ENG);
+
 
             metadata.Keywords = keywordsNotInModel.Concat(keywordsToUpdate).ToList();
 
