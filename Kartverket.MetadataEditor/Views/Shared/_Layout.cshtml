@@ -21,7 +21,7 @@
     <link href="//fonts.googleapis.com/css?family=Raleway:400,100,300,500,600,700" rel="stylesheet" type="text/css">
 
     <!-- Stylesheets -->
-    @Styles.Render("~/Content/bower-styles");
+    @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
 
     <!-- Scripts -->
 
@@ -34,8 +34,8 @@
         var applicationEnvironment = '@Html.EnvironmentName()';
     </script>
 
-    @Scripts.Render("~/bundles/bower-scripts")
-    @Scripts.Render("~/bundles/local-scripts")
+    @Scripts.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts")
+    @Scripts.Render("~/Scripts/local-scripts")
     @RenderSection("scripts", required: false)
 
 </head>
