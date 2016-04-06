@@ -10,7 +10,7 @@ if (authenticationData !== {}) {
 }
 
 
-var geonorgeUrl = (applicationEnvironment === "") ? "https://www.test.geonorge.no/" : "https://www.geonorge.no/";
+var geonorgeUrl = (applicationEnvironment === "") ? "https://www.geonorge.no/" : "https://www.test.geonorge.no/";
 
 
 $(window).load(function () {
