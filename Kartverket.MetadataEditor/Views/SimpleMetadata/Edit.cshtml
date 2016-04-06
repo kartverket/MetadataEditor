@@ -49,8 +49,8 @@
                 <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
             }
 
-                <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til metadata</a>
-            
+            <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til metadata</a>
+
         </div>
     }
 
@@ -215,45 +215,74 @@
 
             // bounding box
 
-            var $states = $('select#bboxState');
-            var $counties = $('select#bboxCounty');
+            var states = $('select#bboxState');
+            var counties = $('select#bboxCounty');
 
-            var $countyList = $counties.find('option').clone();
+            var countyList = counties.find('option').clone();
 
-            $states.change(function () {
-                var $selectedStateNumber = $(this).find('option:selected').data('statenumber');
-                var regex = new RegExp("^" + $selectedStateNumber);
-                $counties.html($countyList.filter(function () {
-                    return regex.test($(this).attr('data-countynumber'));
-                }));
-            }).change();
+            function populatePlaceList() {
+                $('select#bboxState optgroup').each(function () {
+                    var regex = new RegExp("^" + $(this).data('statenumber'));
+                    var optgroup = $(this);
+                    optgroup.html(countyList.filter(function () {
+                        return (regex.test($(this).attr('data-countynumber')));
+                    }));
+                });
+            }
+
+            function setSelectedInPlaceList() {
+                var selectedPlacesList = $("#keywords-place li");
+                var selectedPlaces = [];
+                $(selectedPlacesList).each(function (key, value) {
+                    var selectedPlace = $(value).find('input').val();
+                    selectedPlaces.push(selectedPlace);
+                });
+
+                $('select#bboxState option').each(function () {
+                    optionValue = $(this);
+                    selectedPlaces.forEach(function (entry) {
+                        if (optionValue.val() == entry) {
+                            optionValue.prop('selected', true);
+                        }
+                    });
+                });
+            }
 
 
-            $("button#bboxPrefill").click(function (event) {
+            $(document).ready(function () {
+                populatePlaceList();
+                setSelectedInPlaceList();
+                $('#setcoordinates').click(function () {
+                    setSelectedInPlaceList();
+                });
+            });
+
+            $("select#bboxState").change(function (event) {
                 event.preventDefault();
+                $("#keywords-place").html("");
 
-                if ($('#keywords-place li').length == 0)
-                {
+                if ($('#keywords-place li').length == 0) {
                     $("input#BoundingBoxNorth").val('');
                     $("input#BoundingBoxSouth").val('');
                     $("input#BoundingBoxEast").val('');
                     $("input#BoundingBoxWest").val('');
                 }
-                
-                var $selectedCounty = $counties.find('option:selected');
-                if ( !$("input#BoundingBoxNorth").val() || $selectedCounty.data('north') > $("input#BoundingBoxNorth").val())
-                    $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-                if ( !$("input#BoundingBoxSouth").val() || $selectedCounty.data('south') < $("input#BoundingBoxSouth").val())
-                    $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-                if ( !$("input#BoundingBoxEast").val() || $selectedCounty.data('east') > $("input#BoundingBoxEast").val())
-                    $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-                if ( !$("input#BoundingBoxWest").val() || $selectedCounty.data('west') < $("input#BoundingBoxWest").val())
-                    $("input#BoundingBoxWest").val($selectedCounty.data('west'));
 
-                $("#keywords-place-text").val($("#bboxCounty option:selected").text());
-                $("#keywords-place-add").click();
+                var selectedCounties = $(this).find('option:selected');
+
+                selectedCounties.each(function () {
+                    if (!$("input#BoundingBoxNorth").val() || $(this).data('north') > $("input#BoundingBoxNorth").val())
+                        $("input#BoundingBoxNorth").val($(this).data('north'));
+                    if (!$("input#BoundingBoxSouth").val() || $(this).data('south') < $("input#BoundingBoxSouth").val())
+                        $("input#BoundingBoxSouth").val($(this).data('south'));
+                    if (!$("input#BoundingBoxEast").val() || $(this).data('east') > $("input#BoundingBoxEast").val())
+                        $("input#BoundingBoxEast").val($(this).data('east'));
+                    if (!$("input#BoundingBoxWest").val() || $(this).data('west') < $("input#BoundingBoxWest").val())
+                        $("input#BoundingBoxWest").val($(this).data('west'));
+                    $("#keywords-place-text").val($(this).val());
+                    addKeywordFromTextbox('keywords-place', "KeywordsPlace");
+                })
                 $("#keywords-place-text").val('');
-
             });
 
 
@@ -297,13 +326,13 @@
                     else {
                         $("#DistributionUrl").val('@ViewBag.DatasetUrl' + data.result.filename);
                         @if (IsAdmin)
-                        { 
+                        {
                         @:$('#DistributionProtocol option[value="GEONORGE:FILEDOWNLOAD"]').attr("selected", "selected");
-                        }
+                                                                                                                            }
                         else
                         {
                         @:$('#DistributionProtocol option[value="GEONORGE:OFFLINE"]').attr("selected", "selected");
-                        }
+                                                                                                                            }
                         $('#uploadDatasetStatus').attr('style', 'text-info');
                         $('#uploadDatasetStatus').text('Filen er lastet opp.');
                     }
@@ -340,8 +369,8 @@
 
                 li.append(link);
                 li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
-  
-                $('ul#' + selectorPrefix).append(li);     
+
+                $('ul#' + selectorPrefix).append(li);
 
                 return $keywordInput;
             };
