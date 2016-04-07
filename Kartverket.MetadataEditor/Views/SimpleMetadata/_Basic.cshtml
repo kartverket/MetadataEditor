@@ -1,7 +1,7 @@
 ﻿@model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
 @using Resources
-<div class="form-group has-feedback">
-    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 text-right" })
+<div class="form-group required has-feedback">
+    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-name" style="display: none">
             Offisiell tittel (navn) på metadataene. Navnet skal være konsist, beskrive tjenesten/datasettet best mulig og baseres på norsk rettskriving. Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon, nedlastningsløsninger og på etatens hjemmesider. Navnet kan også inneholde årstall og geografisk område.
@@ -17,7 +17,7 @@
 
 </div>
 
-<div class="form-group has-feedback">
+<div class="form-group required has-feedback">
     @Html.LabelFor(m => m.Abstract, new { @class = "col-md-2 control-label" })
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-abstract" style="display: none">
@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<div class="form-group has-feedback">
+<div class="form-group required has-feedback">
     <label for="DateUpdated" class="col-md-2 control-label">Dato sist oppdatert</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-date" style="display: none">
@@ -51,8 +51,8 @@
 
 
 
-<div class="form-group has-feedback">
-    <label class="col-md-2 control-label">Oppdateringshyppighet</label>
+<div class="form-group required has-feedback">
+    <label class="col-md-2 control-label">Oppdaterings<span class="hypernation">-</span>hyppighet</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-maintenancefrequency" style="display: none">
             Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert.
@@ -69,7 +69,7 @@
     </div>
 </div>
 
-<div class="form-group has-feedback">
+<div class="form-group required has-feedback">
     <label for="keywords" class="col-md-2 control-label">Nasjonal temainndeling</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-keyword-national-theme" style="display: none">
@@ -77,12 +77,12 @@
         </p>
         @if (!Model.IsSoftware())
         {
-            <div class="form-group">
+            
                 <div class="input-group chosen-input-group input-group-omraade full-width">
                     @Html.ListBox("KeywordsNationalTheme", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select form-control", @multiple = "multiple" })
                     @Html.ValidationMessage("KeywordsNationalTheme", "Påkrevd")
                 </div>
-            </div>
+            
         }
     </div>
     <div class="col-md-1">
@@ -93,13 +93,13 @@
 </div>
 
 
-<div class="form-group has-feedback">
+<div class="form-group required has-feedback">
     <label for="keywords" class="col-md-2 control-label">Samarbeid og lover</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-keyword-national-initiative" style="display: none">
             Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)
         </p>
-        <div id="keywords-national-initiative">
+        <div id="keywords-national-initiative" class="checkbox">
             @{ var nationalInitiative = ViewBag.NationalInitiativeValues as SelectList; int j = 0;
                 foreach (var keyword in nationalInitiative)
                 {
@@ -107,11 +107,11 @@
                     {
                         if (Model.KeywordsNationalInitiative.Contains(keyword.Value))
                         {
-                            <input type="checkbox" name="KeywordsNationalInitiative[@j]" checked value="@keyword.Value" />@keyword.Text<br />
+                            <label class="checkbox-inline"><input type="checkbox" name="KeywordsNationalInitiative[@j]" checked value="@keyword.Value" />@keyword.Text</label>
                         }
                         else
                         {
-                            <input type="checkbox" name="KeywordsNationalInitiative[@j]" value="@keyword.Value" />@keyword.Text<br />
+                            <label class="checkbox-inline"><input type="checkbox" name="KeywordsNationalInitiative[@j]" value="@keyword.Value" />@keyword.Text</label>
                         }
                         @: <input type="hidden" name="KeywordsNationalInitiative[@j]" />
                             j++;
@@ -121,11 +121,11 @@
 
                         if (Model.KeywordsNationalInitiative.Contains(keyword.Value))
                         {
-                            <input type="checkbox" name="KeywordsNationalInitiative[@j]" checked value="@keyword.Value" />@keyword.Text<br />
+                            <label class="checkbox-inline"><input type="checkbox" name="KeywordsNationalInitiative[@j]" checked value="@keyword.Value" />@keyword.Text</label>
                         }
                         else
                         {
-                            <input type="checkbox" name="KeywordsNationalInitiative[@j]" value="@keyword.Value" />@keyword.Text<br />
+                            <label class="checkbox-inline"><input type="checkbox" name="KeywordsNationalInitiative[@j]" value="@keyword.Value" />@keyword.Text</label>
                         }
                         j++;
                     }
@@ -162,7 +162,7 @@
     }
 }
 
-<div class="form-group @displayDistributionProtocol">
+<div class="form-group required @displayDistributionProtocol">
     <label for="DistributionProtocol" class="col-md-2 control-label">Distribusjonstype</label>
     <div class="col-md-9">
         <div class="custom-select">
@@ -171,7 +171,7 @@
     </div>
 </div>
 
-<div class="form-group">
+<div class="form-group required">
     <label for="DistributionUrl" class="col-md-2 control-label">URL til datasett</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
@@ -187,139 +187,143 @@
 </div>
 
 
-<div class="form-group">
+<div class="form-group required">
     <label class="col-md-2 control-label">Datasett fil</label>
     <div class="col-md-9">
-        <div class="form-group no-border-radius" id="uploadDataset">
+        <div class="no-border-radius upload-group" id="uploadDataset">
             <input type="file" id="uploadDatasetFile" class="filestyle" data-buttontext="Velg fil" />
-            <button class="btn btn-default" type="submit" id="uploadThumbnailButton">Last opp</button>
+            <button class="btn btn-default upload-btn" type="submit" id="uploadThumbnailButton">Last opp</button>
         </div>
         <div id="uploadDatasetStatus"></div>
     </div>
 </div>
 
 
+<div class="form-group required">
 
+    <label class="col-md-2 control-label">Geografisk ustrekning</label>
+    <div class="col-md-9">
+        <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">Bruk forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i kartet.</p>
 
-<label class="col-md-2 control-label">Geografisk ustrekning</label>
-<div class="col-md-9">
-    <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">Bruk forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i kartet.</p>
-    <div class="form-group">
-        <div class="input-group chosen-input-group">
-            <select name="state" id="bboxState" multiple="multiple" class="chosen-select form-control">
-                <option></option>
-                <option data-statenumber="00">Hele landet</option>
-                <optgroup label="Akershus" data-statenumber="02"></optgroup>
-                <optgroup label="Aust-Agder" data-statenumber="09"></optgroup>
-                <optgroup label="Buskerud" data-statenumber="06"></optgroup>
-                <optgroup label="Finnmark" data-statenumber="20"></optgroup>
-                <optgroup label="Hedmark" data-statenumber="04"></optgroup>
-                <optgroup label="Hordaland" data-statenumber="12"></optgroup>
-                <optgroup label="Møre og Romsdal" data-statenumber="15"></optgroup>
-                <optgroup label="Nord-Trøndelag" data-statenumber="17"></optgroup>
-                <optgroup label="Nordland" data-statenumber="18"></optgroup>
-                <optgroup label="Oppland" data-statenumber="05"></optgroup>
-                <optgroup label="Oslo" data-statenumber="21"></optgroup>
-                <optgroup label="Rogaland" data-statenumber="11"></optgroup>
-                <optgroup label="Sogn og Fjordane" data-statenumber="14"></optgroup>
-                <optgroup label="Sør-Trøndelag" data-statenumber="16"></optgroup>
-                <optgroup label="Telemark" data-statenumber="08"></optgroup>
-                <optgroup label="Troms" data-statenumber="19"></optgroup>
-                <optgroup label="Vest-Agder" data-statenumber="10"></optgroup>
-                <optgroup label="Vestfold" data-statenumber="07"></optgroup>
-                <optgroup label="Østfold" data-statenumber="01"></optgroup>
-            </select>
-            <span class="input-group-btn" data-toggle="modal" data-target="#norgeskart">
-                <button onclick="event.preventDefault();" id="norgeskartLink" class="btn btn-fullheight"><span class="glyphicon glyphicon-globe"></span></button>
-            </span>
-        </div>
-
-        <div class="hidden">
-            <select name="county" id="bboxCounty">
-                <option></option>
-                <option data-countynumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
-                @Html.Partial("~/Views/Metadata/_OptionsCountyList.cshtml")
-            </select>
-            <ul id="keywords-place">
-                @for (int i = 0; i < Model.KeywordsPlace.Count; i++)
-                {
-                    var keyword = Model.KeywordsPlace[i];
-                    <li id="keywords-place-@i">
-                        <span class="">@keyword</span>
-                        <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>Slett</small></a>
-                        <input type="hidden" name="KeywordsPlace[@i]" value="@keyword" />
-                    </li>
-                }
-            </ul>
-            <div class="form-group">
-                <div class="col-sm-5">
-                    <input type="text" id="keywords-place-text" class="form-control" />
-                    @Html.ValidationMessage("KeywordsPlace", "Påkrevd")
-                </div>
-                <div class="col-sm-2 hidden">
-                    <button type="button" class="btn btn-default btn-sm" id="keywords-place-add">Legg til manuelt</button>
-                </div>
+            <div class="input-group chosen-input-group">
+                <select name="state" id="bboxState" multiple="multiple" class="chosen-select form-control">
+                    <option></option>
+                    <option data-statenumber="00">Hele landet</option>
+                    <optgroup label="Akershus" data-statenumber="02"></optgroup>
+                    <optgroup label="Aust-Agder" data-statenumber="09"></optgroup>
+                    <optgroup label="Buskerud" data-statenumber="06"></optgroup>
+                    <optgroup label="Finnmark" data-statenumber="20"></optgroup>
+                    <optgroup label="Hedmark" data-statenumber="04"></optgroup>
+                    <optgroup label="Hordaland" data-statenumber="12"></optgroup>
+                    <optgroup label="Møre og Romsdal" data-statenumber="15"></optgroup>
+                    <optgroup label="Nord-Trøndelag" data-statenumber="17"></optgroup>
+                    <optgroup label="Nordland" data-statenumber="18"></optgroup>
+                    <optgroup label="Oppland" data-statenumber="05"></optgroup>
+                    <optgroup label="Oslo" data-statenumber="21"></optgroup>
+                    <optgroup label="Rogaland" data-statenumber="11"></optgroup>
+                    <optgroup label="Sogn og Fjordane" data-statenumber="14"></optgroup>
+                    <optgroup label="Sør-Trøndelag" data-statenumber="16"></optgroup>
+                    <optgroup label="Telemark" data-statenumber="08"></optgroup>
+                    <optgroup label="Troms" data-statenumber="19"></optgroup>
+                    <optgroup label="Vest-Agder" data-statenumber="10"></optgroup>
+                    <optgroup label="Vestfold" data-statenumber="07"></optgroup>
+                    <optgroup label="Østfold" data-statenumber="01"></optgroup>
+                </select>
+                <span class="input-group-btn" data-toggle="modal" data-target="#norgeskart">
+                    <button onclick="event.preventDefault();" id="norgeskartLink" class="btn btn-fullheight"><span class="glyphicon glyphicon-globe"></span></button>
+                </span>
             </div>
-
-            <div class="form-group col-sm-6 has-feedback">
-                <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.BoundingBoxNorth)
-                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                </div>
-            </div>
-            <div class="form-group col-sm-6 has-feedback">
-                <label class="col-sm-2 control-label">Øst</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.BoundingBoxEast)
-                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                </div>
-            </div>
-            <div class="form-group col-sm-6 has-feedback">
-                <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.BoundingBoxSouth)
-                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                </div>
-            </div>
-            <div class="form-group col-sm-6 has-feedback">
-                <label class="col-sm-2 control-label">Vest</label>
-                <div class="col-sm-4">
-                    @Html.EditorFor(m => m.BoundingBoxWest)
-                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-4">
-                    <p class="help-text bg-success" id="help-text-keyword-place">
-                        Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker.
-                    </p>
-                </div>
-                <div class="col-sm-1">
-                    <p class="form-control-static">
-                        <a href="#" data-help-text-id="help-text-keyword-place" class="badge help-text-toggle">?</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
+    
     </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-sm-1">
-                <div id="norgeskart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="norgeskart" aria-hidden="true">
-                    @Html.Partial("_Kart")
-                </div>
-            </div>
-            <div class="col-sm-8"><span id="map-message" class="field-validation-error"></span></div>
-        </div>
+    <div class="col-md-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-BoundingBox" class="badge help-text-toggle">?</a>
+        </p>
     </div>
-
-
-
 </div>
-<div class="col-md-1"><a href="#" data-help-text-id="help-text-BoundingBox" class="badge help-text-toggle">?</a></div>
+
+<div class="hidden">
+    <select name="county" id="bboxCounty">
+        <option></option>
+        <option data-countynumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
+        @Html.Partial("~/Views/Metadata/_OptionsCountyList.cshtml")
+    </select>
+    <ul id="keywords-place">
+        @for (int i = 0; i < Model.KeywordsPlace.Count; i++)
+            {
+                var keyword = Model.KeywordsPlace[i];
+        <li id="keywords-place-@i">
+            <span class="">@keyword</span>
+            <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>Slett</small></a>
+            <input type="hidden" name="KeywordsPlace[@i]" value="@keyword" />
+        </li>
+        }
+    </ul>
+    <div class="form-group">
+        <div class="col-sm-5">
+            <input type="text" id="keywords-place-text" class="form-control" />
+            @Html.ValidationMessage("KeywordsPlace", "Påkrevd")
+        </div>
+        <div class="col-sm-2 hidden">
+            <button type="button" class="btn btn-default btn-sm" id="keywords-place-add">Legg til manuelt</button>
+        </div>
+    </div>
+
+    <div class="form-group col-sm-6 has-feedback">
+        <label class="col-sm-2 col-sm-offset-4 control-label">Nord</label>
+        <div class="col-sm-4">
+            @Html.EditorFor(m => m.BoundingBoxNorth)
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        </div>
+    </div>
+    <div class="form-group col-sm-6 has-feedback">
+        <label class="col-sm-2 control-label">Øst</label>
+        <div class="col-sm-4">
+            @Html.EditorFor(m => m.BoundingBoxEast)
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        </div>
+    </div>
+    <div class="form-group col-sm-6 has-feedback">
+        <label class="col-sm-2 col-sm-offset-4 control-label">Sør</label>
+        <div class="col-sm-4">
+            @Html.EditorFor(m => m.BoundingBoxSouth)
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        </div>
+    </div>
+    <div class="form-group col-sm-6 has-feedback">
+        <label class="col-sm-2 control-label">Vest</label>
+        <div class="col-sm-4">
+            @Html.EditorFor(m => m.BoundingBoxWest)
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <p class="help-text bg-success" id="help-text-keyword-place">
+                Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker.
+            </p>
+        </div>
+        <div class="col-sm-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-keyword-place" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-1">
+            <div id="norgeskart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="norgeskart" aria-hidden="true">
+                @Html.Partial("_Kart")
+            </div>
+        </div>
+        <div class="col-sm-8"><span id="map-message" class="field-validation-error"></span></div>
+    </div>
+</div>
+
+
+
 <div class="clearfix"></div>
 
 <div class="panel panel-default">
@@ -334,14 +338,14 @@
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
         </div>
-        <div class="form-group has-feedback">
+        <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Epost</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactMetadata.Email, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
         </div>
-        <div class="form-group has-feedback">
+        <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
                 <div class="custom-select">
@@ -367,14 +371,14 @@
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
         </div>
-        <div class="form-group has-feedback">
+        <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Epost</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactPublisher.Email, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
         </div>
-        <div class="form-group has-feedback">
+        <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
                 <div class="custom-select">
@@ -400,14 +404,14 @@
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
         </div>
-        <div class="form-group has-feedback">
+        <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Epost</label>
             <div class="col-sm-9">
                 @Html.TextBoxFor(m => Model.ContactOwner.Email, new { @class = "form-control" })
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
         </div>
-        <div class="form-group has-feedback">
+        <div class="form-group required has-feedback">
             <label for="abstract" class="col-sm-2 control-label">Organisasjon</label>
             <div class="col-sm-9">
                 <div class="custom-select">
