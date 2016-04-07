@@ -1776,6 +1776,22 @@ a {
 aside ul li, .container-footer ul li {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/arrow-right.svg"); }
 
+.help-text-toggle,
+.panel-default > .panel-heading .help-text-toggle {
+  background-color: #3867C8;
+  transition: all .35s linear 0s; }
+  .help-text-toggle:hover, .help-text-toggle.active,
+  .panel-default > .panel-heading .help-text-toggle:hover,
+  .panel-default > .panel-heading .help-text-toggle.active {
+    background-color: #fe5000; }
+
+.help-text-toggle:hover,
+.help-text-toggle.active,
+.panel-default > .panel-heading .help-text-toggle:hover,
+.panel-default > .panel-heading .help-text-toggle.active {
+  background-color: #fe5000;
+  color: #fff; }
+
 .btn {
   font-family: "Open Sans", sans-serif;
   font-weight: normal;
@@ -2238,6 +2254,18 @@ aside.facet-sok-emne ul li a:hover {
 input[readonly] {
   cursor: default !important; }
 
+.form-horizontal .has-feedback .form-control-feedback {
+  right: -15px; }
+
+.form-horizontal .form-group {
+  padding-bottom: 10px; }
+
+.form-horizontal .control-label {
+  padding-top: 2px; }
+
+.form-control-static {
+  padding-top: 4px; }
+
 .form-group.required .control-label:after, .panel-heading.required:after {
   content: " *";
   color: red; }
@@ -2247,6 +2275,24 @@ input[readonly] {
 
 .form-group.has-feedback.has-error .form-control-feedback {
   display: block; }
+
+.checkbox-inline {
+  margin-right: 10px; }
+
+.upload-group .bootstrap-filestyle {
+  width: calc(100% - 93px);
+  display: inline-table; }
+  @media (max-width: 480px) {
+    .upload-group .bootstrap-filestyle {
+      display: table;
+      width: auto; } }
+
+.upload-group .upload-btn {
+  position: relative;
+  top: -9.5px; }
+  @media (max-width: 480px) {
+    .upload-group .upload-btn {
+      display: block; } }
 
 .no-padding {
   padding: 0; }
@@ -2260,6 +2306,10 @@ input[readonly] {
 .no-border-radius, .help-text, .panel, .panel-heading,
 .no-border-radius input, .help-text input, .panel input, .panel-heading input {
   border-radius: 0 !important; }
+
+@media (max-width: 991px) {
+  span.hypernation {
+    display: none; } }
 
 img {
   max-width: 100%; }
@@ -2405,6 +2455,15 @@ textarea, textarea.form-control {
 .form-horizontal .form-group {
   margin-right: 0;
   margin-left: 0; }
+  .form-horizontal .form-group .control-label {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto; }
 
 .required-indicator::after,
 .form-group.required .control-label::after,
