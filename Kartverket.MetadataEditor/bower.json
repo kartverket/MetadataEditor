@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "kartverket-felleskomponenter": "0.0.40"
+    "kartverket-felleskomponenter": "0.0.41"
   },
   "license": "MIT",
   "name": "MetadataEditor",
