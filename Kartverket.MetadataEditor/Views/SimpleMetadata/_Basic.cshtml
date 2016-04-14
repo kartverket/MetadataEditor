@@ -79,7 +79,7 @@
         {
             
                 <div class="input-group chosen-input-group input-group-omraade full-width">
-                    @Html.ListBox("KeywordsNationalTheme", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select form-control", @multiple = "multiple" })
+                    @Html.ListBox("KeywordsNationalTheme", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select form-control", @multiple = "multiple",  data_placeholder = "Velg nasjonal temainndeling" })
                     @Html.ValidationMessage("KeywordsNationalTheme", "Påkrevd")
                 </div>
             
@@ -206,7 +206,7 @@
         <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">Bruk forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i kartet.</p>
 
             <div class="input-group chosen-input-group">
-                <select name="state" id="bboxState" multiple="multiple" class="chosen-select form-control">
+                <select name="state" id="bboxState" multiple="multiple" class="chosen-select form-control" data-placeholder="Velg område">
                     <option></option>
                     <option data-statenumber="00">Hele landet</option>
                     <optgroup label="Akershus" data-statenumber="02"></optgroup>
