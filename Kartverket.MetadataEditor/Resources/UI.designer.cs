@@ -358,6 +358,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nasjonal temakategori.
+        /// </summary>
+        public static string Metadata_NationalTheme_Label {
+            get {
+                return ResourceManager.GetString("Metadata_NationalTheme_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organisasjon.
         /// </summary>
         public static string Metadata_Organization {

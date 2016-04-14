@@ -221,6 +221,11 @@
               Looks up a localized string similar to Lenker.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_NationalTheme_Label">
+            <summary>
+              Looks up a localized string similar to Nasjonal temakategori.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Organization">
             <summary>
               Looks up a localized string similar to Organisasjon.

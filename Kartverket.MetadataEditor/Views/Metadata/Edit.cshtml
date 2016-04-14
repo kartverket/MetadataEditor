@@ -793,7 +793,7 @@
             $('#QualitySpecificationTitle').prop('readonly', true);
             if ($('#QualitySpecificationTitle').val() == "")
                 $('#QualitySpecificationCustom').hide();
-            
+
             $('#QualitySpecificationDateTypeInspire').prop('readonly', true);
             $('#QualitySpecificationDateTypeSosi').prop('readonly', true);
             $('#QualitySpecificationDateType').prop('readonly', true);
@@ -1196,7 +1196,7 @@
             $('button#keywords-national-theme-add').click(function (event) {
                 event.preventDefault();
                 if ($('#keywords-national-theme-text').val().trim() == '')
-                    alert('Vennligst velg Nasjonal temainndeling');
+                    alert('Vennligst velg @UI.Metadata_NationalTheme_Label');
                 else
                     addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
             });

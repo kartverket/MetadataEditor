@@ -1,4 +1,5 @@
 ﻿@model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
+@using Resources
 <p>
     Fyll ut engelsk oversettinger som motsvarer de norske tekstene. Merk at de norske tekstene er de som sist er lagret i databasen.
 </p>
@@ -99,5 +100,5 @@
 @ShowInputFieldsEnglishKeywords(Model.KeywordsPlace, "Sted", "Place")
 @*@ShowInputFieldsEnglishKeywords(Model.KeywordsInspire, "Inspire-kategorier", "Inspire")*@
 @ShowInputFieldsEnglishKeywords(Model.KeywordsNationalInitiative, "Samarbeid og lover", "NationalInitiative")
-@ShowInputFieldsEnglishKeywords(Model.KeywordsNationalTheme, "Nasjonal temainndeling", "NationalTheme")
+@ShowInputFieldsEnglishKeywords(Model.KeywordsNationalTheme, UI.Metadata_NationalTheme_Label, "NationalTheme")
 @*@ShowInputFieldsEnglishKeywords(Model.KeywordsOther, "Annet", "Other")*@

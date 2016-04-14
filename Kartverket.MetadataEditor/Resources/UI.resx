@@ -216,6 +216,9 @@
   <data name="Metadata_Links" xml:space="preserve">
     <value>Lenker</value>
   </data>
+  <data name="Metadata_NationalTheme_Label" xml:space="preserve">
+    <value>Nasjonal temakategori</value>
+  </data>
   <data name="Metadata_Organization" xml:space="preserve">
     <value>Organisasjon</value>
   </data>

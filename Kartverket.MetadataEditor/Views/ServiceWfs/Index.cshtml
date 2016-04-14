@@ -1,5 +1,5 @@
 ﻿@model Kartverket.MetadataEditor.Models.WfsServiceLayerViewModel
-
+@using Resources
 <h4>Tjeneste:</h4>
 <h1>@Model.Metadata.Title</h1>
 @section ActionMenu {}
@@ -59,7 +59,7 @@
         @if (Model.Metadata.KeywordsNationalTheme != null && Model.Metadata.KeywordsNationalTheme.Count > 0)
         {
             <div class="col-sm-6 col-md-4">
-                <p class="keyword-header">Nasjonal temainndeling</p>
+                <p class="keyword-header">@UI.Metadata_NationalTheme_Label</p>
                 <ul>
                     @foreach (var k in Model.Metadata.KeywordsNationalTheme)
                     {

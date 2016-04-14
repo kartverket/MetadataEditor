@@ -76,7 +76,7 @@ namespace Kartverket.MetadataEditor.Models
         [MustHaveOneElementAttribute(ErrorMessage = "Geografisk område er påkrevd")]
         public List<String> KeywordsPlace { get; set; }
         public List<String> KeywordsNationalInitiative { get; set; }
-        [MustHaveOneElementAttribute(ErrorMessage = "Nasjonal temainndeling er påkrevd")]
+        [MustHaveOneElementAttribute(ErrorMessage = "Nasjonal temakategori er påkrevd")]
         public List<String> KeywordsNationalTheme { get; set; }
         public Dictionary<string, string> KeywordsEnglish { get; set; }
 
