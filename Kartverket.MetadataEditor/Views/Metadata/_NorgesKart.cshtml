@@ -24,7 +24,7 @@
 
                 // by Kartverket/Thomas Hirsch 2012 / public domain.
                 var socket = new easyXDM.Socket({
-                    remote: "@Html.NorgeskartUrl()geoportal/staging/select-rect.html",
+                    remote: "@Html.NorgeskartUrl()geoportal/@(!string.IsNullOrEmpty(Html.EnvironmentName()) ? "staging/" : "")select-rect.html",
                     onMessage: function (message, origin) {
                         //var reslist = document.getElementById('result');
                         //reslist.innerHTML = message + "<br/>" + reslist.innerHTML;
