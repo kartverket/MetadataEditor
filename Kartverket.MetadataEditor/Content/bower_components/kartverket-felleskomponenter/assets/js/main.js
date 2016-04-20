@@ -653,7 +653,7 @@ function updateShoppingCart() {
         orderItemsObj = JSON.parse(orderItems);
         cookieValue = orderItemsObj.length;
         shoppingCartElement.html(cookieValue);
-    } else if (Cookies.get(cookieName) !== undefined && Cookies.get(cookieName) !== 0) {
+    } else if (Cookies.get(cookieName) !== undefined && Cookies.get(cookieName) !== 0 && Cookies.get(cookieName) !== "0") {
         cookieValue = Cookies.get(cookieName);
         shoppingCartElement.css("display", "block");
         shoppingCartElement.html(cookieValue);
