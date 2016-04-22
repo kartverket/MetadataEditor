@@ -1976,13 +1976,19 @@ aside ul li, .container-footer ul li {
 
 /* Open data */
 .custom-icon.custom-icon-hengelaas-open-green {
-  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-green.svg"); }
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-green.svg");
+  width: 30px;
+  margin-right: -8px; }
 
 .custom-icon.custom-icon-hengelaas-open-red {
-  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-red.svg"); }
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-red.svg");
+  width: 30px;
+  margin-right: -8px; }
 
 .custom-icon.custom-icon-hengelaas-open-yellow {
-  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-yellow.svg"); }
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-yellow.svg");
+  width: 30px;
+  margin-right: -8px; }
 
 .custom-icon.custom-icon-hengelaas-closed-green {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-lukket-green.svg"); }
