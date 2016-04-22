@@ -1851,7 +1851,8 @@ aside ul li, .container-footer ul li {
 .btn-xs {
   font-size: 10pt !important;
   padding: 3px;
-  height: 22px !important; }
+  height: 25px !important;
+  line-height: 19px; }
 
 .input-group-btn > .btn {
   padding: 6px 12px;
@@ -1972,6 +1973,51 @@ aside ul li, .container-footer ul li {
 
 .disabled .custom-icon.custom-icon-eksternlink {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/ekternlink-disabled.svg"); }
+
+/* Open data */
+.custom-icon.custom-icon-hengelaas-open-green {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-green.svg");
+  width: 30px;
+  margin-right: -8px; }
+
+.custom-icon.custom-icon-hengelaas-open-red {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-red.svg");
+  width: 30px;
+  margin-right: -8px; }
+
+.custom-icon.custom-icon-hengelaas-open-yellow {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-yellow.svg");
+  width: 30px;
+  margin-right: -8px; }
+
+.custom-icon.custom-icon-hengelaas-closed-green {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-lukket-green.svg"); }
+
+.custom-icon.custom-icon-hengelaas-closed-red {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-lukket-red.svg"); }
+
+.custom-icon.custom-icon-hengelaas-closed-yellow {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-lukket-yellow.svg"); }
+
+.btn .custom-icon.custom-icon-hengelaas-open-green,
+.btn .custom-icon.custom-icon-hengelaas-open-red,
+.btn .custom-icon.custom-icon-hengelaas-open-yellow {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-white.svg"); }
+
+.btn .custom-icon.custom-icon-hengelaas-closed-green,
+.btn .custom-icon.custom-icon-hengelaas-closed-red,
+.btn .custom-icon.custom-icon-hengelaas-closed-yellow {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-lukket-white.svg"); }
+
+.disabled .custom-icon.custom-icon-hengelaas-open-green,
+.disabled .custom-icon.custom-icon-hengelaas-open-red,
+.disabled .custom-icon.custom-icon-hengelaas-open-yellow {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-aapen-disabled.svg"); }
+
+.disabled .custom-icon.custom-icon-hengelaas-closed-green,
+.disabled .custom-icon.custom-icon-hengelaas-closed-red,
+.disabled .custom-icon.custom-icon-hengelaas-closed-yellow {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/hengelaas-lukket-disabled.svg"); }
 
 .download-form p {
   margin-bottom: 0; }
@@ -2326,7 +2372,6 @@ img {
   font-weight: 600;
   font-size: 10pt;
   line-height: 14pt;
-  text-indent: 10px;
   text-align: left;
   vertical-align: middle;
   border: none;
