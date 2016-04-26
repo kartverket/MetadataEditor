@@ -22,7 +22,6 @@
 
     <!-- Stylesheets -->
     @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
-
     <!-- Scripts -->
 
     @RenderSection("head", required: false)
@@ -57,28 +56,6 @@
 
     @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_SharedMenu.min.cshtml")
 
-    @*<div class="navbar navbar-default" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Meny</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <span class="navbar-brand"><img class="logo" src="@Url.Content("~/Content/kartverket_logo.png")" width="117" height="39" /></span>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="divider-vertical"></li>
-                        <li><a href="/">Metadataeditoren</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a target="_blank" href="http://www.geonorge.no">Geonorge forside</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>*@
     <div class="body-content">
         <div class="container">
             <div class="container container-breadcrumbs" id="navTabCont">
@@ -88,7 +65,8 @@
                     @RenderSection("breadcrumb", false)
                 </ul>
             </div>
-            <div class="menu clearfix">
+
+            <div class="menu clearfix margin-top-10">
                 @if (Request.IsAuthenticated)
                 {
                     if (IsSectionDefined("ActionMenu"))
@@ -97,21 +75,21 @@
                     }
                     else
                     {
-                        <div class="btn-group">
-                            <a href="@Url.Action("Index", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a>
-                            @*<a href="@Url.Action("RegisterData", "Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Mine registerdata</a>*@
-                            <a href="@Url.Action("Create","Metadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a>
+                        <ul class="nav nav-tabs link-tabs">
+                            <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a></li>
+                            <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create","Metadata")"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a></li>
                             @if (Html.SimpleMetadataEnabled())
                             {
-                                <a href="@Url.Action("Create","SimpleMetadata")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a>
+                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create","SimpleMetadata")"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a></li>
                             }
-                            <a href="@Url.Action("Index","Batch")" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a>
-                            @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-                            {
+                            <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index","Batch")"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
+                            <li class="pull-right">
+                                @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                                {
                                 if (c.Value == "nd.metadata_admin")
                                 {
-                                    <a href="@Url.Action("ValidateAll", "Validator")" class="btn btn-sm btn-default" onclick="return clickAndDisable(this);"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
-                                    <script>
+                                <a href="@Url.Action("ValidateAll", "Validator")" class="btn" onclick="return clickAndDisable(this);"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
+                                <script>
                                         function clickAndDisable(link) {
 
                                             document.getElementById('link-email-error').innerText = 'Henter eposter, vennligst vent...';
@@ -122,11 +100,13 @@
 
                                             return false;
                                         }
-                                    </script>
-                                    break;
+                                </script>
+                                break;
                                 }
-                            }
-                        </div>
+                                }
+                            </li>
+                        </ul>
+                        
                     }
                 }
 
@@ -152,7 +132,7 @@
                 </div>
             }
 
-            @RenderBody()
+            <div id="tab-content">@RenderBody()</div>
         </div>
     </div>
     <footer class="page-footer">
