@@ -128,7 +128,6 @@
         <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
     </ul>
 
-
     <div class="tab-content">
         <div class="tab-pane active" id="home">
             @Html.Partial("_Basic", Model)
@@ -182,12 +181,12 @@
             @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_SaveAsXml">@UI.Button_SaveAsXml</button>*@
 
             @*@if (ViewBag.ValidModel == true)
-        {*@
+                {*@
             <input type="checkbox" name="published" value="true" checked /> <span>Publiser</span>
             @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Validate">@UI.Button_Validate</button>*@
             @*}
-        else
-        {*@
+                else
+                {*@
             <input type="hidden" name="published" value="false" />
             @*}*@
             <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
@@ -243,19 +242,22 @@
             });
         }*@
 
+
+
             //  add warning sign to tabs containing input fields with error.
             $('.input-validation-error').each(function () {
-                var $inputElement = $(this);
-                $inputElement.closest('.form-group').addClass('has-error');
+                var inputElement = $(this);
+                inputElement.closest('.form-group').addClass('has-error');
 
-                var id = $inputElement.closest(".tab-pane").attr('id');
-                var $tabLink = $('ul.nav-tabs a[href="#' + id + '"]');
+                var id = inputElement.closest(".tab-pane").attr('id');
+                var tabLink = $('ul.nav-tabs a[href="#' + id + '"]');
 
-                $tabLink.parent().addClass("has-error");
+                tabLink.parent().addClass("has-error");
 
-                var warning = $tabLink.parent().find('span.glyphicon-warning-sign');
+                var warning = tabLink.parent().find('span.glyphicon-warning-sign');
                 if (warning.length == 0) {
-                    $tabLink.before('<span class="glyphicon glyphicon-warning-sign" title="Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet."></span>');
+                    tabLink.parent().attr('data-toggle', 'tooltip');
+                    tabLink.parent().prop('title', 'Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet');
                 }
             });
 
@@ -862,17 +864,14 @@
                         $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
                         $('#QualitySpecificationSosi').show();
                         //$("#QualitySpecificationDateSosi").val("01.01.2014");
-                        if (selectedSosiUrl != null)
-                        {
+                        if (selectedSosiUrl != null) {
                             var selectedSosiUrlApi = selectedSosiUrl;
                             selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
 
                             $.getJSON(selectedSosiUrlApi, function (result) {
 
-                                if (result != null)
-                                {
-                                    if (result.length != 0)
-                                    {
+                                if (result != null) {
+                                    if (result.length != 0) {
                                         var QualitySpecificationDateSosiFromRegister = "";
                                         var dateAccepted = result.dateAccepted;
                                         if (dateAccepted != "0001-01-01T00:00:00") // Not accepted
@@ -880,8 +879,7 @@
                                             var dateAccept = new Date(dateAccepted);
                                             QualitySpecificationDateSosiFromRegister = dateAccept.getDate() + "." + (dateAccept.getMonth() + 1) + "." + dateAccept.getFullYear();
                                         }
-                                        else
-                                        {
+                                        else {
                                             var dateSubmitted = result.dateSubmitted;
                                             var dateSubmit = new Date(dateSubmitted);
                                             QualitySpecificationDateSosiFromRegister = dateSubmit.getDate() + "." + (dateSubmit.getMonth() + 1) + "." + dateSubmit.getFullYear();
@@ -891,7 +889,8 @@
                                     }
                                 }
                             }
-                        )};
+                        )
+                        };
 
                         $("#QualitySpecificationDateTypeSosi").val("publication");
                         $("#QualitySpecificationResultSosiConform").prop('checked', true);
@@ -1269,8 +1268,7 @@
         var placeholderTextChoose = "Klikk for å velge";
 
         $(document).ready(function () {
-            $('form').find("input[type=textarea], input[type=text], textarea").each(function(ev)
-            {
+            $('form').find("input[type=textarea], input[type=text], textarea").each(function (ev) {
                 if (!$(this).val() && !$(this).prop("disabled")) {
                     $(this).attr("placeholder", placeholderText);
                 }
