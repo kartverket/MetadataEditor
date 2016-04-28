@@ -1,13 +1,13 @@
 ﻿@model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
 <div class="form-group">
     <label for="SpecificUsage" class="col-sm-2 control-label">Bruksområde</label>
-    <div class="col-sm-9">
-        @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-usage" style="display: none">
             Kort beskrivelse av hvordan datasettet kan/børbrukes.
         </p>
+        @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-usage" class="badge help-text-toggle">?</a>
         </p>
@@ -17,13 +17,13 @@
 {
     <div class="form-group">
         <label for="SupplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
-        <div class="col-sm-9">
-            @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
+        <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-supplementalDescription" style="display: none">
                 Annen informasjon som er ønskelig å opplyse om, men som ikke hører hjemme i sammendraget.
             </p>
+            @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
         </div>
-        <div class="col-sm-1">
+        <div class="col-md-1">
             <p class="form-control-static">
                 <a href="#" data-help-text-id="help-text-supplementalDescription" class="badge help-text-toggle">?</a>
             </p>
@@ -33,13 +33,13 @@
 
 <div class="form-group">
     <label for="ProcessHistory" class="col-sm-2 control-label">Prosesshistorie</label>
-    <div class="col-sm-9">
-        @Html.TextAreaFor(m => m.ProcessHistory, new { @class = "form-control", cols = "", rows = "5" })
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-ProcessHistory" style="display: none">
             Overordna informasjon om kildedata og bearbeiding som ble gjort for å etablere datasettet. Hvis det ikke finnes dokumentert prosesshistorie eller at denne ikke er lagt inn kan en skrive "Ingen tilgjengelig prosesshistorie"
         </p>
+        @Html.TextAreaFor(m => m.ProcessHistory, new { @class = "form-control", cols = "", rows = "5" })
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-ProcessHistory" class="badge help-text-toggle">?</a>
         </p>
@@ -48,22 +48,22 @@
 
 <div class="form-group">
     <label class="col-sm-2 control-label">Produktside (URL)</label>
-    <div class="col-sm-9">
+    <div class="col-md-9">
         @Html.EditorFor(m => m.ProductPageUrl, new { htmlAttributes = new { @class = "form-control" } })
     </div>
 </div>
 
 <div class="form-group" id="licenses">
     <label for="LicenseTypes" class="col-sm-2 control-label">Lisens</label>
-    <div class="col-sm-7">
-        @Html.DropDownList("LicenseTypes", ViewBag.LicenseTypesValues as SelectList, "-- Velg lisens --", new { @class = "form-control", @onchange = "setLicense()" })
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-LicenseTypes" style="display: none">
             Lisens for datasettet/datatjenesten.
         </p>
+        <div class="custom-select">
+            @Html.DropDownList("LicenseTypes", ViewBag.LicenseTypesValues as SelectList, "-- Velg lisens --", new { @class = "form-control", @onchange = "setLicense()" })
+        </div>
     </div>
-    <div class="col-sm-1">
-    </div>
-    <div class="col-sm-2">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-LicenseTypes" class="badge help-text-toggle">?</a>
         </p>
@@ -73,14 +73,14 @@
 
 <div class="form-group" id="LicenseLink" style="visibility:hidden; display: none;">
     <label for="OtherConstraintsLinkText" class="col-sm-2 control-label">Valgt lisens</label>
-    <div class="col-sm-3">
+    <div class="col-md-3">
         @Html.EditorFor(m => m.OtherConstraintsLinkText)
     </div>
     <label for="OtherConstraintsLink" class="col-sm-1 control-label">URL</label>
-    <div class="col-sm-4">
+    <div class="col-md-4">
         @Html.EditorFor(m => m.OtherConstraintsLink)
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
     </div>
 
 </div>

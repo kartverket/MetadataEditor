@@ -2,14 +2,14 @@
 
 <div class="form-group required has-feedback">
     @Html.LabelFor(m => m.Title, new { @class = "col-sm-2 control-label" })
-    <div class="col-sm-9">
-        @Html.EditorFor(m => m.Title)
-        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-name" style="display: none">
             Offisiell tittel (navn) på metadataene. Navnet skal være konsist, beskrive tjenesten/datasettet best mulig og baseres på norsk rettskriving. Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon, nedlastningsløsninger og på etatens hjemmesider. Navnet kan også inneholde årstall og geografisk område.
         </p>
+        @Html.EditorFor(m => m.Title)
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-name" class="badge help-text-toggle">?</a>
         </p>
@@ -20,13 +20,13 @@
 {
     <div class="form-group">
         <label for="ResourceReferenceCodespace" class="col-sm-2 control-label">Navnerom til datasett</label>
-        <div class="col-sm-9">
-            @Html.EditorFor(m => m.ResourceReferenceCodespace)
+        <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-ResourceReferenceCodespace" style="display: none">
-                Oppbygging av navnerom er ikke avklart enda men vurderes å være en URL som peker til et felles navnerom for geografiske datasett, og administreres av nasjonal geodatakoordinator. Det kan for eksempel være: "http://data.geonorge.no/so/" 
+                Oppbygging av navnerom er ikke avklart enda men vurderes å være en URL som peker til et felles navnerom for geografiske datasett, og administreres av nasjonal geodatakoordinator. Det kan for eksempel være: "http://data.geonorge.no/so/"
             </p>
+            @Html.EditorFor(m => m.ResourceReferenceCodespace)
         </div>
-        <div class="col-sm-1">
+        <div class="col-md-1">
             <p class="form-control-static">
                 <a href="#" data-help-text-id="help-text-ResourceReferenceCodespace" class="badge help-text-toggle">?</a>
             </p>
@@ -34,13 +34,13 @@
     </div>
     <div class="form-group">
         <label for="ResourceReferenceCode" class="col-sm-2 control-label">Navn på datasett</label>
-        <div class="col-sm-9">
-            @Html.EditorFor(m => m.ResourceReferenceCode)
+        <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-ResourceReferenceCode" style="display: none">
                 Dette navnet kombinert med navnerom må være unikt for datasettet.
             </p>
+            @Html.EditorFor(m => m.ResourceReferenceCode)
         </div>
-        <div class="col-sm-1">
+        <div class="col-md-1">
             <p class="form-control-static">
                 <a href="#" data-help-text-id="help-text-ResourceReferenceCode" class="badge help-text-toggle">?</a>
             </p>
@@ -49,13 +49,13 @@
 }
 <div class="form-group">
     @Html.LabelFor(m => m.Purpose, new { @class = "col-sm-2 control-label" })
-    <div class="col-sm-9">
-        @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-purpose" style="display: none">
             Kortfattet tekst om hva som er formålet med tjenesten / datasettet / datasettserien.
         </p>
+        @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-purpose" class="badge help-text-toggle">?</a>
         </p>
@@ -64,14 +64,14 @@
 
 <div class="form-group required has-feedback">
     @Html.LabelFor(m => m.Abstract, new { @class = "col-sm-2 control-label" })
-    <div class="col-sm-9">
-        @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
-        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-abstract" style="display: none">
             Kortfattet tekst om hva som er innholdet i tjenesten/datasettet.
         </p>
+        @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-abstract" class="badge help-text-toggle">?</a>
         </p>
@@ -81,13 +81,13 @@
 {
 <div class="form-group">
     <label for="SupplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
-    <div class="col-sm-9">
-        @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-supplementalDescription" style="display: none">
             Annen informasjon som er ønskelig å opplyse om, men som ikke hører hjemme i sammendraget.
         </p>
+        @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-supplementalDescription" class="badge help-text-toggle">?</a>
         </p>
@@ -97,13 +97,13 @@
 
 <div class="form-group">
     <label for="SpecificUsage" class="col-sm-2 control-label">Bruksområde</label>
-    <div class="col-sm-9">
-        @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-usage" style="display: none">
             Kort beskrivelse av hvordan datasettet kan/børbrukes.
         </p>
+        @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-usage" class="badge help-text-toggle">?</a>
         </p>
