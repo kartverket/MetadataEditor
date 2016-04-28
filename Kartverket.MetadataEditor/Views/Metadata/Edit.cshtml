@@ -568,8 +568,6 @@
                 $("#" + helpTextId).toggle();
             });
 
-            // add help icon to each help text paragraph
-            $(".help-text").prepend("<span class=\"badge\">?</span> ");
 
             // format
 
@@ -611,7 +609,7 @@
                         @foreach (var df in ViewBag.VectorFormats as SelectList)
                     {
                         @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
-                                                                                    }
+                                                                                                            }
 
                     }
 
@@ -642,7 +640,7 @@
                         @foreach (var df in ViewBag.RasterFormats as SelectList)
                 {
                     @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
-                                                                                }
+                                                                                                        }
 
                     }
 
@@ -758,7 +756,7 @@
                 @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
             {
             @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
-                                                                                        }
+                                                                                                        }
                 dfHtm += '</select>';
 
                 dfHtm += '</div>';

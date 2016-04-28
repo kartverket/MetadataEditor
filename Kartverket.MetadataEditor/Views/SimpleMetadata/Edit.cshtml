@@ -209,7 +209,7 @@
                 var toggleButton = $(this);
                 var helpTextId = $(this).data("help-text-id");
                 $("#" + helpTextId).toggle();
-                if ($("#" + helpTextId).hasClass('active')){
+                if ($("#" + helpTextId).hasClass('active')) {
                     $("#" + helpTextId).removeClass('active');
                     toggleButton.removeClass('active');
                 } else {
@@ -218,8 +218,6 @@
                 }
             });
 
-            // add help icon to each help text paragraph
-            //$(".help-text").prepend("<span class=\"badge\">?</span> ");
 
             // bounding box
 
@@ -336,11 +334,11 @@
                         @if (IsAdmin)
                         {
                         @:$('#DistributionProtocol option[value="GEONORGE:FILEDOWNLOAD"]').attr("selected", "selected");
-                                                                                                                            }
+                                                                                                                                                    }
                         else
                         {
                         @:$('#DistributionProtocol option[value="GEONORGE:OFFLINE"]').attr("selected", "selected");
-                                                                                                                            }
+                                                                                                                                                    }
                         $('#uploadDatasetStatus').attr('style', 'text-info');
                         $('#uploadDatasetStatus').text('Filen er lastet opp.');
                     }
