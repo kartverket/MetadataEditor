@@ -89,13 +89,17 @@
       <HintPath>..\packages\Kartverket.Geonorge.Utilities.1.0.18\lib\net45\Kartverket.Geonorge.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Kentor.AuthServices, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kentor.AuthServices.0.10.0.0\lib\net45\Kentor.AuthServices.dll</HintPath>
+    <Reference Include="Kentor.AuthServices, Version=0.17.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Kentor.AuthServices.0.17.2\lib\net45\Kentor.AuthServices.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Kentor.AuthServices.Mvc, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Kentor.AuthServices.Mvc.0.10.0.0\lib\net45\Kentor.AuthServices.Mvc.dll</HintPath>
+    <Reference Include="Kentor.AuthServices.HttpModule, Version=0.17.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Kentor.AuthServices.HttpModule.0.17.2\lib\net45\Kentor.AuthServices.HttpModule.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Kentor.AuthServices.Mvc, Version=0.17.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Kentor.AuthServices.Mvc.0.17.2\lib\net45\Kentor.AuthServices.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
