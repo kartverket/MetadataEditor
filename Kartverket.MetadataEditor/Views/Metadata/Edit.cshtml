@@ -990,46 +990,76 @@
 
             // bounding box
 
-            var $states = $('select#bboxState');
-            var $counties = $('select#bboxCounty');
+            var states = $('select#bboxState');
+            var counties = $('select#bboxCounty');
 
-            var $countyList = $counties.find('option').clone();
+            var countyList = counties.find('option').clone();
 
-            $states.change(function () {
-                var $selectedStateNumber = $(this).find('option:selected').data('statenumber');
-                var regex = new RegExp("^" + $selectedStateNumber);
-                $counties.html($countyList.filter(function () {
-                    return regex.test($(this).attr('data-countynumber'));
-                }));
-            }).change();
+            function populatePlaceList() {
+                $('select#bboxState optgroup').each(function () {
+                    var regex = new RegExp("^" + $(this).data('statenumber'));
+                    var optgroup = $(this);
+                    optgroup.html(countyList.filter(function () {
+                        return (regex.test($(this).attr('data-countynumber')));
+                    }));
+                });
+            }
+
+            function setSelectedInPlaceList() {
+                var selectedPlacesList = $("#keywords-place li");
+                var selectedPlaces = [];
+                $(selectedPlacesList).each(function (key, value) {
+                    var selectedPlace = $(value).find('input').val();
+                    selectedPlaces.push(selectedPlace);
+                });
+
+                $('select#bboxState option').each(function () {
+                    optionValue = $(this);
+                    selectedPlaces.forEach(function (entry) {
+                        if (optionValue.val() == entry) {
+                            optionValue.prop('selected', true);
+                        }
+                    });
+                });
+            }
 
 
-            $("button#bboxPrefill").click(function (event) {
+           $(document).ready(function () {
+                populatePlaceList();
+                setSelectedInPlaceList();
+                $('#setcoordinates').click(function () {
+                    setSelectedInPlaceList();
+                });
+            });
+            
+            $("select#bboxState").change(function (event) {
                 event.preventDefault();
-                var $selectedCounty = $counties.find('option:selected');
-                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
+                $("#place-list").html("");
+
+                if ($('#place-list li').length == 0) {
+                    $("input#BoundingBoxNorth").val('');
+                    $("input#BoundingBoxSouth").val('');
+                    $("input#BoundingBoxEast").val('');
+                    $("input#BoundingBoxWest").val('');
+                }
+
+                var selectedCounties = $(this).find('option:selected');
+
+                selectedCounties.each(function () {
+                    if (!$("input#BoundingBoxNorth").val() || $(this).data('north') > $("input#BoundingBoxNorth").val())
+                        $("input#BoundingBoxNorth").val($(this).data('north'));
+                    if (!$("input#BoundingBoxSouth").val() || $(this).data('south') < $("input#BoundingBoxSouth").val())
+                        $("input#BoundingBoxSouth").val($(this).data('south'));
+                    if (!$("input#BoundingBoxEast").val() || $(this).data('east') > $("input#BoundingBoxEast").val())
+                        $("input#BoundingBoxEast").val($(this).data('east'));
+                    if (!$("input#BoundingBoxWest").val() || $(this).data('west') < $("input#BoundingBoxWest").val())
+                        $("input#BoundingBoxWest").val($(this).data('west'));
+                   // $("#keywords-place-text").val($(this).val());
+                    addKeywordFromTextbox('place-list', "KeywordsPlace");
+                })
+               // $("#keywords-place-text").val('');
             });
 
-            $("#bboxCounty").click(function (event) {
-                event.preventDefault();
-                var $selectedCounty = $counties.find('option:selected');
-                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
-            });
-
-            $("#bboxState").click(function (event) {
-                event.preventDefault();
-                var $selectedCounty = $counties.find('option:selected');
-                $("input#BoundingBoxNorth").val($selectedCounty.data('north'));
-                $("input#BoundingBoxSouth").val($selectedCounty.data('south'));
-                $("input#BoundingBoxEast").val($selectedCounty.data('east'));
-                $("input#BoundingBoxWest").val($selectedCounty.data('west'));
-            });
 
             // Check date not in future
             $("#DateUpdated").change(function (event) {
