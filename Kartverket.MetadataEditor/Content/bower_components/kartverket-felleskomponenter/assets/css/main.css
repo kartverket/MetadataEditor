@@ -1624,8 +1624,7 @@ iframe {
   padding-left: 34.6px; }
 
 .auto-results-inner,
-.auto-results-inner:hover
-.auto-results-inner[data-ng-class="highlight"] {
+.auto-results-inner:hover .auto-results-inner[data-ng-class="highlight"] {
   color: #3867c8;
   font-family: 'Open Sans', sans-serif;
   font-size: 14pt;
@@ -1977,6 +1976,19 @@ aside ul li, .container-footer ul li {
 
 .disabled .custom-icon.custom-icon-eksternlink {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/ekternlink-disabled.svg"); }
+
+/* Smileys */
+.custom-icon.custom-icon-smile-green {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/smile-green.svg");
+  width: 30px; }
+
+.custom-icon.custom-icon-smile-yellow {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/smile-yellow.svg");
+  width: 30px; }
+
+.custom-icon.custom-icon-smile-red {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/smile-red.svg");
+  width: 30px; }
 
 /* Open data */
 .custom-icon.custom-icon-hengelaas-open-green {
@@ -2344,8 +2356,26 @@ input[readonly] {
     .upload-group .upload-btn {
       display: block; } }
 
+.container .input-group .form-control,
+.container .input-group .form-control:not(:first-child):not(:last-child),
+.container .input-group input {
+  border-top-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  padding: 0 10px; }
+
+input.form-control, input[type=text], textarea {
+  padding: 0 10px; }
+
 .no-padding {
   padding: 0; }
+
+.no-padding-bottom {
+  padding-bottom: 0 !important; }
+
+.no-margin-bottom {
+  margin-bottom: 0 !important; }
 
 .margin-bottom-10 {
   margin-bottom: 10px; }
@@ -2359,6 +2389,9 @@ input[readonly] {
 .no-border-radius, .help-text, .panel, .panel-heading,
 .no-border-radius input, .help-text input, .panel input, .panel-heading input {
   border-radius: 0 !important; }
+
+.text-left {
+  text-align: left !important; }
 
 @media (max-width: 991px) {
   span.hypernation {
@@ -2712,6 +2745,9 @@ ul#thumbnailsCoverage {
 .search-button-wrapper .btn:focus, .search-button-wrapper .btn:hover {
   background-color: #FFF; }
 
+.container .search .searchbar input {
+  padding: 0 10px; }
+
 @media (max-width: 767px) {
   .container-login {
     display: none; }
@@ -2723,7 +2759,9 @@ ul#thumbnailsCoverage {
     width: 0; }
   .top-row .col-xs-2 {
     width: 250px;
-    text-align: right; } }
+    text-align: right; }
+  .container .search .searchbar .input {
+    padding-left: 34.6px !important; } }
 
 #norgeskartmodal {
   width: 90%;

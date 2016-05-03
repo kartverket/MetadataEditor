@@ -21,6 +21,9 @@ $(window).load(function () {
     $(".chosen-select").chosen(options);
     $("[data-toggle='tooltip']").tooltip();
     $("li.has-error[data-toggle='tooltip']").tooltip("option", "position", { my: "center", at: "center bottom+30" });
+    $("li[data-toggle='tooltip']").mouseleave(function () {
+        $(".ui-helper-hidden-accessible").remove();
+    });
 
     // Get useragent
     var doc = document.documentElement;
@@ -46,11 +49,11 @@ $("document").ready( function(){
       $("#container-login").append("<ul></ul>");
       $("#container-login ul").append("<li><a href='" + geonorgeUrl + "kartdata/oppslagsverk/Brukernavn-og-passord/'>Ny bruker</a></li>");
       if (authenticationData.isAuthenticated){
-         $("#container-login ul").append("<li id='login'><a href='" + authenticationData.urlActionSignOut + "' class='geonorge-aut' title='Logg ut " + authenticationData.userName + "'> Logg ut</a></li>");
-     }else{
-         $("#container-login ul").append("<li id='login'><a href='" + authenticationData.urlActionSignIn + "' class='geonorge-aut'> Logg inn</a></li>");
-     }
- }
+       $("#container-login ul").append("<li id='login'><a href='" + authenticationData.urlActionSignOut + "' class='geonorge-aut' title='Logg ut " + authenticationData.userName + "'> Logg ut</a></li>");
+   }else{
+       $("#container-login ul").append("<li id='login'><a href='" + authenticationData.urlActionSignIn + "' class='geonorge-aut'> Logg inn</a></li>");
+   }
+}
 });
 
 
