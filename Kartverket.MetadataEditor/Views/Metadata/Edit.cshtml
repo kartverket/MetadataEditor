@@ -709,9 +709,12 @@
                 var dfHtm = "";
 
                 dfHtm += '<div id="formatRow' + fIndex + '" class="form-group required has-feedback">';
-                dfHtm += '<label for="distributionFormats[' + fIndex + '].Name" class="col-sm-2 control-label">Format</label>';
-                dfHtm += '<div class="col-sm-3">';
+                dfHtm += '<label for="distributionFormats[' + fIndex + '].Name" class="col-md-3 control-label">Format</label>';
+                dfHtm += '<div class="col-md-8">';
+                dfHtm += '<div class="row">';
 
+
+                dfHtm += '<div class="col-md-4">';
                 if ($("#DistributionFormatsType").val() == "dataset") {
                     dfHtm += '<select id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" class="form-control">';
                     dfHtm += '<option value="" disabled>Klikk for å velge</option>';
@@ -721,16 +724,20 @@
                     dfHtm += '<input id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" type="text" value="" class="form-control" />';
                 }
                 dfHtm += '</div>';
-                dfHtm += '<label for="distributionFormats[' + fIndex + '].Version" class="col-sm-2" style="text-align: right;">Versjon</label>';
-                dfHtm += '<div class="col-sm-3">';
+
+                dfHtm += '<label for="distributionFormats[' + fIndex + '].Version" class="col-md-2 control-label" style="text-align: right;">Versjon</label>';
+
+                dfHtm += '<div class="col-md-3">';
                 dfHtm += '<input type="text" id="distributionFormats[' + fIndex + '].Version" name="distributionFormats[' + fIndex + '].Version" value="" class="form-control" placeholder="Skriv inn" style="border-color: #ccc;" />';
                 dfHtm += '</div>';
-                dfHtm += '<div class="col-sm-2">';
 
+                dfHtm += '<div class="col-md-3">';
                 dfHtm += '<button type="button" id="delDistributionFormat[' + fIndex + ']" class="btn btn-default" onclick="removeDistributionFormat(' + fIndex + ')">Slett</button>';
-
                 dfHtm += '</div>';
 
+
+                dfHtm += '</div>';
+                dfHtm += '</div>';
                 dfHtm += '</div>';
 
                 $("#distributionFormatDiv").append(dfHtm);
