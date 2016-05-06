@@ -4,56 +4,56 @@
     Fyll ut engelsk oversettinger som motsvarer de norske tekstene. Merk at de norske tekstene er de som sist er lagret i databasen.
 </p>
 <div class="form-group">
-    <div class="col-sm-5 col-sm-offset-7"><b>Norske tekster:</b></div>
+    <div class="col-md-3 col-md-offset-8"><b>Norske tekster:</b></div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Tittel</label>
-    <div class="col-sm-5">
+    <label class="col-md-3 control-label">Tittel</label>
+    <div class="col-md-5">
         @Html.EditorFor(m => m.EnglishTitle)
     </div>
-    <div class="col-sm-5 control-text">
+    <div class="col-md-3 control-text">
         @Html.DisplayFor(m => m.Title)
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Sammendrag</label>
-    <div class="col-sm-5">
+    <label class="col-md-3 control-label">Sammendrag</label>
+    <div class="col-md-5">
         @Html.TextAreaFor(m => m.EnglishAbstract, new { @class = "form-control", cols = "", rows = "8" })
     </div>
-    <div class="col-sm-5 control-text">
+    <div class="col-md-3 control-text">
         @Html.DisplayFor(m => m.Abstract)
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Organisasjonsnavn - Metadatakontakt</label>
-    <div class="col-sm-5">
+    <label class="col-md-3 control-label">Organisasjonsnavn - Metadatakontakt</label>
+    <div class="col-md-5">
         @Html.EditorFor(m => m.EnglishContactMetadataOrganization)
     </div>
-    <div class="col-sm-5 control-text">
+    <div class="col-md-3 control-text">
         @if (Model.ContactMetadata != null)
         {
-            @Html.DisplayFor(m => m.ContactMetadata.Organization)    
+            @Html.DisplayFor(m => m.ContactMetadata.Organization)
         }
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Organisasjonsnavn - Teknisk kontakt</label>
-    <div class="col-sm-5">
+    <label class="col-md-3 control-label">Organisasjonsnavn - Teknisk kontakt</label>
+    <div class="col-md-5">
         @Html.EditorFor(m => m.EnglishContactPublisherOrganization)
     </div>
-    <div class="col-sm-5 control-text">
+    <div class="col-md-3 control-text">
         @if (Model.ContactPublisher != null)
         {
             @Html.DisplayFor(m => m.ContactPublisher.Organization)
-        }        
+        }
     </div>
 </div>
 <div class="form-group">
-    <label class="col-sm-2 control-label">Organisasjonsnavn - Faglig kontakt</label>
-    <div class="col-sm-5">
+    <label class="col-md-3 control-label">Organisasjonsnavn - Faglig kontakt</label>
+    <div class="col-md-5">
         @Html.EditorFor(m => m.EnglishContactOwnerOrganization)
     </div>
-    <div class="col-sm-5 control-text">
+    <div class="col-md-3 control-text">
         @if (Model.ContactOwner != null)
         {
             @Html.DisplayFor(m => m.ContactOwner.Organization)
@@ -62,37 +62,29 @@
 </div>
 
 
-@helper ShowInputFieldsEnglishKeywords(List<string> listOfKeywords, string label, string keywordPrefix) 
+@helper ShowInputFieldsEnglishKeywords(List<string> listOfKeywords, string label, string keywordPrefix)
 {
-    if (listOfKeywords != null && listOfKeywords.Count > 0)
+if (listOfKeywords != null && listOfKeywords.Count > 0)
+{
+    foreach (var keyword in listOfKeywords)
     {
-        
-        
-        <div class="row">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Nøkkelord - @label</label>
+        string key = keywordPrefix + "_" + keyword;
+        string value = null;
+        if (Model.KeywordsEnglish.ContainsKey(key))
+        {
+            value = Model.KeywordsEnglish[key];
+        }
+
+        <div class="form-group" @{ string displayStyle = ""; { if (@keyword == "infoMapAccessService") { displayStyle = "display:none; visibility:hidden;"; } } } style="@displayStyle">
+            <label class="col-md-3 control-label">Nøkkelord - @keyword</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="KeywordsEnglish[@(keywordPrefix)_@keyword]" value="@value" />
+            </div>
+            <div class="col-md-3">
+                @keyword
             </div>
         </div>
-        <div class="row">
-            @foreach (var keyword in listOfKeywords)
-            {
-                string key = keywordPrefix + "_" + keyword;
-                string value = null;
-                if (Model.KeywordsEnglish.ContainsKey(key))
-                {
-                    value = Model.KeywordsEnglish[key];
-                }
-
-                <div class="form-group" @{ string displayStyle = ""; { if (@keyword == "infoMapAccessService") { displayStyle = "display:none; visibility:hidden;"; } } } style="@displayStyle">
-                    <div class="col-sm-5 col-sm-offset-2">
-                        <input type="text" class="form-control" name="KeywordsEnglish[@(keywordPrefix)_@keyword]" value="@value" />
-                    </div>
-                    <div class="col-sm-5">
-                        @keyword
-                    </div>
-                </div>
-            }
-        </div>
+        }
     }
 }
 
