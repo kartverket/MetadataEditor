@@ -116,7 +116,7 @@
 
 
 
-    <ul class="nav nav-tabs" style="clear:both">
+    <ul id="editor-tabs" class="nav nav-tabs">
         <li class="active"><a href="#home" id="homelink" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
         <li><a href="#timeandspace" id="timeandspacelink" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Tid og rom</a></li>
         <li><a href="#contact" id="contactlink" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
@@ -200,58 +200,24 @@
 @section scripts {
     <script>
         $(function () {
-            @*var valideringsUrl = '@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]';
-        if (valideringsUrl != '') {
-            $.getJSON("@ViewBag.ValideringUrl", function (result) {
 
-                if (result != null) {
-                    if (result.length != 0) {
-                        $("#validation").css('visibility', 'visible');
-                        $("#validation").css('display', 'block');
-                        var date = new Date(result.ValidationResults[0].Timestamp);
-                        $("#validatedDate").text(date.toLocaleDateString() + ' ' + date.toLocaleTimeString());
+            // Textarea auto size
+            $('textarea').autosize();
 
-                        var validationStatus = result.ValidationResults[0].Result;
-                        if (validationStatus == 1) {
-                            $("#validationStatus").text("OK");
-                            $("#validationStatus").addClass("label label-success");
-                        }
-                        else if (validationStatus == 0) {
-                            $("#validationStatus").text("FEIL");
-                            $("#validationStatus").addClass("label label-danger");
-                        }
-                        else {
-                            $("#validationStatus").text("Ikke validert");
-                            $("#validationStatus").addClass("label label-warning");
-                        }
-
-                        var Messages = result.ValidationResults[0].Messages.split('\n');
-
-                        var message = "<ul>";
-
-                        for (m = 0; m < Messages.length; m++) {
-                            message = message + "<li>" + Messages[m] + '</li>'
-                        }
-
-                        message = message + "</ul>";
-
-                        $("#validationResults").html(message);
-
-                    }
-                }
+            // help text
+            $("a.help-text-toggle").click(function (event) {
+                event.preventDefault();
+                var helpTextId = $(this).data("help-text-id");
+                $("#" + helpTextId).toggle();
             });
-        }*@
-
-
 
             //  add warning sign to tabs containing input fields with error.
             $('.input-validation-error').each(function () {
                 var inputElement = $(this);
-                inputElement.closest('.form-group').addClass('has-error');
-
                 var id = inputElement.closest(".tab-pane").attr('id');
                 var tabLink = $('ul.nav-tabs a[href="#' + id + '"]');
 
+                inputElement.closest('.form-group').addClass('has-error');
                 tabLink.parent().addClass("has-error");
 
                 var warning = tabLink.parent().find('span.glyphicon-warning-sign');
@@ -261,70 +227,16 @@
                 }
             });
 
+            // Set selected tab
             var menu_state = Cookies.get('navtabselected');
+            (menu_state !== null) ? $('#' + menu_state).click() : $('#homelink').click();
 
-            $('#homelink').click(function (event) {
-                Cookies.set('navtabselected', 'home');
+            // Get selected tab
+            $("#editor-tabs li a").click(function () {
+                var cookieVal = this.id;
+                console.log(cookieVal);
+                Cookies.set('navtabselected', cookieVal);
             });
-
-            $('#timeandspacelink').click(function (event) {
-                Cookies.set('navtabselected', 'timeandspace');
-            });
-
-            $('#contactlink').click(function (event) {
-                Cookies.set('navtabselected', 'contact');
-            });
-
-            $('#distributionlink').click(function (event) {
-                Cookies.set('navtabselected', 'distribution');
-            });
-
-            $('#documentslink').click(function (event) {
-                Cookies.set('navtabselected', 'documents');
-            });
-
-            $('#constraintslink').click(function (event) {
-                Cookies.set('navtabselected', 'constraints');
-            });
-
-            $('#qualitylink').click(function (event) {
-                Cookies.set('navtabselected', 'quality');
-            });
-
-            $('#keywordslink').click(function (event) {
-                Cookies.set('navtabselected', 'keywords');
-            });
-
-            $('#englishlink').click(function (event) {
-                Cookies.set('navtabselected', 'english');
-            });
-
-
-            if (menu_state == 'home' || menu_state == null)
-                $('#homelink').click();
-            else if (menu_state == 'timeandspace')
-                $('#timeandspacelink').click();
-            else if (menu_state == 'contact')
-                $('#contactlink').click();
-            else if (menu_state == 'distribution')
-                $('#distributionlink').click();
-            else if (menu_state == 'documents')
-                $('#documentslink').click();
-            else if (menu_state == 'constraints')
-                $('#constraintslink').click();
-            else if (menu_state == 'quality')
-                $('#qualitylink').click();
-            else if (menu_state == 'keywords')
-                $('#keywordslink').click();
-            else if (menu_state == 'english')
-                $('#englishlink').click();
-
-            $('#Purpose').autosize();
-            $('#Abstract').autosize();
-            $('#SupplementalDescription').autosize();
-            $('#SpecificUsage').autosize();
-
-
 
             $('#uploadThumbnailFile').fileupload({
                 dataType: 'json',
@@ -333,12 +245,9 @@
 
                     $("#uploadThumbnailButton").on("click", function (event) {
                         event.preventDefault();
-
-                        console.log(data);
                         data.formData = {
                             "uuid": "@Model.Uuid"
                         };
-
                         data.submit();
                     });
                 },
@@ -362,11 +271,8 @@
                 dataType: 'json',
                 url: '/Metadata/UploadThumbnail',
                 add: function (e, data) {
-
                     $("#uploadCoverageButton").on("click", function (event) {
                         event.preventDefault();
-
-                        console.log(data);
                         data.formData = {
                             "uuid": "@Model.Uuid",
                             "scaleImage": $('#uploadScaleCoverage').prop('checked')
@@ -452,7 +358,6 @@
 
 
                 var $thumbnails = $("#thumbnails");
-
                 var itemIndex = $('li', $thumbnails).length;
 
                 //Remove old images
@@ -460,32 +365,25 @@
 
                 itemIndex = $('li', $thumbnails).length;
 
-
                 if ($("#coverageImageSelectedType").length) {
                     itemIndex = itemIndex + 1;
                 }
 
                 //Mini
-
                 var thumbnailType = "miniatyrbilde";
                 var $thumbnailUrl = $("#thumbnailUrlMini");
-
                 var $itemMini = $('<li />', { "class": 'thumbnail clearfix' });
-
                 var $itemImage = $('<img />', {
                     src: $thumbnailUrl.val(),
                     width: '200',
                 });
-
                 var $itemType = $('<p />').append('<strong>Type</strong> ').append(thumbnailType);
                 var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
-
                 var $itemTypeHidden = $('<input />', {
                     type: 'hidden',
                     name: 'Thumbnails[' + itemIndex + '].Type',
                     value: thumbnailType
                 });
-
                 var $itemUrlHidden = $('<input />', {
                     type: 'hidden',
                     name: 'Thumbnails[' + itemIndex + '].URL',
@@ -504,23 +402,18 @@
                 itemIndex = itemIndex + 1;
                 var $thumbnailType = $("#thumbnailType");
                 var $thumbnailUrl = $("#thumbnailUrl");
-
                 var $item = $('<li />', { "class": 'thumbnail clearfix' });
-
                 var $itemImage = $('<img />', {
                     src: $thumbnailUrl.val(),
                     width: '200',
                 });
-
                 var $itemType = $('<p />').append('<strong>Type</strong> ').append($thumbnailType.val());
                 var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
-
                 var $itemTypeHidden = $('<input />', {
                     type: 'hidden',
                     name: 'Thumbnails[' + itemIndex + '].Type',
                     value: $thumbnailType.val()
                 });
-
                 var $itemUrlHidden = $('<input />', {
                     type: 'hidden',
                     name: 'Thumbnails[' + itemIndex + '].URL',
@@ -561,125 +454,37 @@
                 });
             });
 
-
-            // help text
-
-            $("a.help-text-toggle").click(function (event) {
-                event.preventDefault();
-                var helpTextId = $(this).data("help-text-id");
-                $("#" + helpTextId).toggle();
-            });
-
-
             // format
-
-
             $("#SpatialRepresentation").change(function (event) {
                 event.preventDefault();
                 var selectedSpatialRepresentation = $("#SpatialRepresentation").val();
-
                 for (var f = 0; f < $('#DistributionFormatsCount').val() ; f++) {
-
                     if (selectedSpatialRepresentation == "vector") {
-
                         $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val=""></option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SOSI">SOSI</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DOS/OPeNDAP">DOS/OPeNDAP</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DXF">DXF</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Filgeodatabase">ESRI Filgeodatabase</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Geodatabase">ESRI Geodatabase</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI Shape">ESRI Shape</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoJSON">GeoJSON</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GML">GML</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GPX">GPX</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KML">KML</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="KMZ">KMZ</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAS">LAS</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LAZ">LAZ</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (MIF/MID)">MapInfo (MIF/MID)</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MapInfo (TAB)">MapInfo (TAB)</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microstation DGN">Microstation DGN</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="OLEX">OLEX</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PDF">PDF</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RDF">RDF</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="S57">S57</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="SQLite/SpatialLite">SQLite/SpatialLite</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="XML">XML</option>');
-
                         @foreach (var df in ViewBag.VectorFormats as SelectList)
-                    {
-                        @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
-                                                                                                            }
-
-                    }
-
-                    else if (selectedSpatialRepresentation == "grid") {
-
+                        { <text> $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');</text>}
+                    } else if (selectedSpatialRepresentation == "grid") {
                         $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc ASCII Grid">Arc ASCII Grid</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Arc SDE Raster">Arc SDE Raster</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASCII x,y,z">ASCII x,y,z</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="BMP">BMP</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="USGS DEM">USGS DEM</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DTED">DTED</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas ECW">Erdas ECW</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GeoTIFF">GeoTIFF</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GFX">GFX</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRASS raster format">GRASS raster format</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GRIB">GRIB</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Erdas IMG">Erdas IMG</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG2000">JPEG2000</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MrSID">MrSID</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="NetCDF">NetCDF</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PNG">PNG</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="PPT">PPT</option>');
-                        //$('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="TIFF">TIFF</option>');
-
                         @foreach (var df in ViewBag.RasterFormats as SelectList)
-                {
-                    @: $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');
-                                                                                                        }
-
-                    }
-
-                    else if (selectedSpatialRepresentation == "textTable") {
-
+                        { <text> $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');</text>}                                                                                                                                                                                                       
+                    } else if (selectedSpatialRepresentation == "textTable") {
                         $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="CSV">CSV</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microsoft Excel">Microsoft Excel</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DBF">DBF</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Tekstfil">Tekstfil</option>');
-
-                    }
-
-                    else if (selectedSpatialRepresentation == "tin") {
-
+                    } else if (selectedSpatialRepresentation == "tin") {
                         $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Intergraph TIN">Intergraph TIN</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI TIN">ESRI TIN</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GEOPAK TIN">GEOPAK TIN</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LandXML TIN">LandXML TIN</option>');
-
-                    }
-
-                    else if (selectedSpatialRepresentation == "stereoModel") {
-
+                    } else if (selectedSpatialRepresentation == "stereoModel") {
                         $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Intergraph TIN">Intergraph TIN</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
-                    }
-
-                    else if (selectedSpatialRepresentation == "video") {
-
+                    } else if (selectedSpatialRepresentation == "video") {
                         $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MPEG">MPEG</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="AVI">AVI</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MOV">MOV</option>');
@@ -692,9 +497,7 @@
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MP4">MP4</option>');
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="QuickTime">QuickTime</option>');
                     }
-
                 }
-
             });
 
             $("#SpatialRepresentation").trigger("change");
@@ -765,7 +568,7 @@
                 @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
             {
             @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
-                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                }
                 dfHtm += '</select>';
 
                 dfHtm += '</div>';
@@ -1030,15 +833,14 @@
                 });
             }
 
-
-           $(document).ready(function () {
+            $(document).ready(function () {
                 populatePlaceList();
                 setSelectedInPlaceList();
                 $('#setcoordinates').click(function () {
                     setSelectedInPlaceList();
                 });
             });
-            
+
             $("select#bboxState").change(function (event) {
                 event.preventDefault();
                 $("#place-list").html("");
@@ -1061,12 +863,9 @@
                         $("input#BoundingBoxEast").val($(this).data('east'));
                     if (!$("input#BoundingBoxWest").val() || $(this).data('west') < $("input#BoundingBoxWest").val())
                         $("input#BoundingBoxWest").val($(this).data('west'));
-                   // $("#keywords-place-text").val($(this).val());
                     addKeywordFromTextbox('place-list', "KeywordsPlace");
                 })
-               // $("#keywords-place-text").val('');
             });
-
 
             // Check date not in future
             $("#DateUpdated").change(function (event) {
@@ -1151,20 +950,14 @@
                 }
             });
 
-
             // keywords
-
             var keywordThreshold = 20;
 
             function addKeyword(selectorPrefix, inputName, deleteLinkAttributes) {
                 deleteLinkAttributes = (typeof deleteLinkAttributes === "undefined") ? null : deleteLinkAttributes;
-
                 var $keywordInput = $('#' + selectorPrefix + '-text');
-
                 var newKeyword = $keywordInput.val();
-
                 var elementId = $('ul#' + selectorPrefix + ' li').length;
-
                 var listItemId = selectorPrefix + "-" + elementId;
 
                 var li = $('<li />', { "id": listItemId });
@@ -1281,11 +1074,8 @@
                             $(hiddenValue).attr('name', inputNameWithIndex);
                         });
                     });
-
-
                 }
             });
-
         });
 
         function removeDistributionFormat(formatID) {
