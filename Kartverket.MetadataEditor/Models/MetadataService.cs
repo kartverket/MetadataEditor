@@ -104,6 +104,10 @@ namespace Kartverket.MetadataEditor.Models
                     string type = null;
                     string relation = null;
 
+                    string uri = null;
+                    string uriProtocol = null;
+                    string uriName = null;
+
                     for (int i = 0; i < record.ItemsElementName.Length; i++)
                     {
                         var name = record.ItemsElementName[i];
@@ -121,7 +125,19 @@ namespace Kartverket.MetadataEditor.Models
                             type = value;
                         else if (name == ItemsChoiceType24.relation)
                             relation = value;
-                    }
+                        else if (name == ItemsChoiceType24.URI)
+                        {
+                            uri = value;
+                            var uriAttributes = (SimpleUriLiteral)record.Items[i];
+                            if (uriAttributes != null)
+                            {
+                                if (!string.IsNullOrEmpty(uriAttributes.protocol))
+                                    uriProtocol = uriAttributes.protocol;
+                                if (!string.IsNullOrEmpty(uriAttributes.name))
+                                    uriName = uriAttributes.name;
+                            }
+                        }
+                    } 
 
                     if (!string.IsNullOrWhiteSpace(publisher))
                     {
@@ -140,7 +156,10 @@ namespace Kartverket.MetadataEditor.Models
                         Type = type,
                         Relation = relation,
                         GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(uuid),
-                        GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(uuid)
+                        GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(uuid),
+                        Uri = uri,
+                        UriProtocol = uriProtocol,
+                        UriName = uriName
                     };
 
                     if (uuid != null)
