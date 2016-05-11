@@ -3,15 +3,14 @@
 @if (!Model.IsService())
 {
     <div class="form-group">
-        <label for="ResolutionScale" class="col-sm-2 control-label">Målestokkstall</label>
-        <div class="col-sm-9">
-            @Html.EditorFor(m => m.ResolutionScale)
+        <label for="ResolutionScale" class="col-md-2 control-label">Målestokkstall</label>
+        <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-ResolutionScale" style="display: none">
                 Målestokkstallet skal legges inn som et heltall (eks: 5000)
             </p>
+            @Html.EditorFor(m => m.ResolutionScale)
         </div>
-
-        <div class="col-sm-1">
+        <div class="col-md-1">
             <p class="form-control-static">
                 <a href="#" data-help-text-id="help-text-ResolutionScale" class="badge help-text-toggle">?</a>
             </p>
@@ -19,30 +18,30 @@
     </div>
 }
 <div class="form-group">
-    <label for="Status" class="col-sm-2 control-label">Status</label>
-    <div class="col-sm-9">
-        <div class="custom-select">
-            @Html.DropDownList("Status", ViewBag.StatusValues as SelectList, String.Empty, new { @class = "form-control" })
-        </div>
+    <label for="Status" class="col-md-2 control-label">Status</label>
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-Status" style="display: none">
             Status for datasett eller datasett tjenesten opererer mot.
         </p>
+        <div class="custom-select">
+            @Html.DropDownList("Status", ViewBag.StatusValues as SelectList, String.Empty, new { @class = "form-control" })
+        </div>
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-Status" class="badge help-text-toggle">?</a>
         </p>
     </div>
 </div>
 <div class="form-group">
-    <label for="ProcessHistory" class="col-sm-2 control-label">Prosesshistorie</label>
-    <div class="col-sm-9">
-        @Html.TextAreaFor(m => m.ProcessHistory, new { @class = "form-control", cols = "", rows = "5" })
+    <label for="ProcessHistory" class="col-md-2 control-label">Prosesshistorie</label>
+    <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-ProcessHistory" style="display: none">
             Overordna informasjon om kildedata og bearbeiding som ble gjort for å etablere datasettet. Hvis det ikke finnes dokumentert prosesshistorie eller at denne ikke er lagt inn kan en skrive "Ingen tilgjengelig prosesshistorie"
         </p>
+        @Html.TextAreaFor(m => m.ProcessHistory, new { @class = "form-control", cols = "", rows = "5" })
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-ProcessHistory" class="badge help-text-toggle">?</a>
         </p>
@@ -51,180 +50,178 @@
 
 @if (!Model.IsSoftware())
 {
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Konformitet
-        <div class="pull-right"><a href="#" data-help-text-id="help-text-Conformity" class="badge help-text-toggle">?</a></div>
-    </div>
-    <div class="panel-body">
-        <p class="help-text bg-success" id="help-text-Conformity" style="display: none; ">
-            <b>Inspiredata:</b> Referanse til Inspire er nødvendig for datasett som er omfattet av Inspire-direktivet. Datasettet eller tjenesten trenger ikke være harmonisert med datasettspesifikasjonen. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man skal velge/registrere nøkkelordet "Inspire" under samarbeid og lover.
-            <br />
-            <b>Nasjonale SOSI-standardiserte data:</b> Referanse til SOSI-produktspesifikasjon eller SOSI-fagområde kan legges inn for nasjonale datasett. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med SOSI. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man må velge/registere produktspesifikasjon.
-            <br />
-            <b>Nasjonale eller internasjonale fagdata:</b> Datasett som følger egen standard, fagstandard eller internasjonal standard skal referere til denne. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med standarden, men da skal det heller ikke hukes av for "Er datasettet produsert iht angitt produktspesifikasjon?". Man må velge/registere produktspesifikasjon annen (navn).
-            <br />
-            <b>Datasett og tjenester som ikke bygger på en standard:</b> Det skal her refereres til egen dokumentasjon, eller fylles inn "Mangler"
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Konformitet
+            <div class="pull-right"><a href="#" data-help-text-id="help-text-Conformity" class="badge help-text-toggle">?</a></div>
+        </div>
+        <div class="panel-body">
+            <p class="help-text bg-success" id="help-text-Conformity" style="display: none; ">
+                <b>Inspiredata:</b> Referanse til Inspire er nødvendig for datasett som er omfattet av Inspire-direktivet. Datasettet eller tjenesten trenger ikke være harmonisert med datasettspesifikasjonen. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man skal velge/registrere nøkkelordet "Inspire" under samarbeid og lover.
+                <br />
+                <b>Nasjonale SOSI-standardiserte data:</b> Referanse til SOSI-produktspesifikasjon eller SOSI-fagområde kan legges inn for nasjonale datasett. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med SOSI. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man må velge/registere produktspesifikasjon.
+                <br />
+                <b>Nasjonale eller internasjonale fagdata:</b> Datasett som følger egen standard, fagstandard eller internasjonal standard skal referere til denne. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med standarden, men da skal det heller ikke hukes av for "Er datasettet produsert iht angitt produktspesifikasjon?". Man må velge/registere produktspesifikasjon annen (navn).
+                <br />
+                <b>Datasett og tjenester som ikke bygger på en standard:</b> Det skal her refereres til egen dokumentasjon, eller fylles inn "Mangler"
 
-        </p>
-        @*<p>Forhåndsutfylling: <button id="prefillConformityInspire" class="btn btn-default">INSPIRE</button> <button id="prefillConformitySosi" class="btn btn-default">SOSI-fagområde</button> <button id="prefillConformitySosiSpec" class="btn btn-default">SOSI-produktspesifikasjon</button></p>*@
+            </p>
+            @*<p>Forhåndsutfylling: <button id="prefillConformityInspire" class="btn btn-default">INSPIRE</button> <button id="prefillConformitySosi" class="btn btn-default">SOSI-fagområde</button> <button id="prefillConformitySosiSpec" class="btn btn-default">SOSI-produktspesifikasjon</button></p>*@
+        </div>
+        <div id="QualitySpecificationInspire" class="panel-group">
+            <p class="panel-heading bg-info">Inspire:</p>
+            <div class="form-group required has-feedback">
+                <label class="col-md-3 control-label">Angitt produktspesifikasjon</label>
+                <div class="col-md-8">
+                    @Html.HiddenFor(m => m.QualitySpecificationTitleInspire)
+                    <input class="form-control" id="InspireLabel" name="InspireLabel" type="text" value="Inspire" readonly="readonly" disabled="disabled">
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <p class="help-text bg-success" id="help-text-QualitySpecificationTitleInspire" style="display: none">
+                        Referansenavn på datakilde/tjeneste. Du må registrere nøkkelord "Inspire" under "Samarbeid og lover" under fanen "Nøkkelord"
+                    </p>
+                </div>
+                <div class="col-md-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-text-id="help-text-QualitySpecificationTitleInspire" class="badge help-text-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">Dato</label>
+                <div class="col-md-2">
+                    @Html.EditorFor(m => m.QualitySpecificationDateInspire, new { cssClass = "" })
+                </div>
+                <label class="col-sm-2 control-label hidden">Type dato</label>
+                <div class="col-sm-2 hidden">
+                    @Html.EditorFor(m => m.QualitySpecificationDateTypeInspire)
+                </div>
+            </div>
+            <div class="form-group required has-feedback">
+                <label class="col-md-3 control-label">Datakonformitet</label>
+                <div class="col-md-8">
+                    <input class="radio-inline" id="QualitySpecificationResultInspireConform" name="QualitySpecificationResultInspire" @{if (Model.QualitySpecificationResultInspire) { <text> checked="checked" </text>   } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
+                    <br />
+                    <input class="radio-inline" id="QualitySpecificationResultInspireNotConform" name="QualitySpecificationResultInspire" @{if (!Model.QualitySpecificationResultInspire) { <text> checked="checked" </text>   } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
+                </div>
+            </div>
+            <div id="QualitySpecificationExplanationInspireDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResultInspire) { <text> hidden</text> } }">
+                <label class="col-md-3 control-label">Avvik fra produktspesifikasjonen</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(m => m.QualitySpecificationExplanationInspire, new { @class = "form-control" })
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <p class="help-text bg-success" id="help-text-QualitySpecificationExplanationInspire" style="display: none">
+                        Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
+                    </p>
+                </div>
+                <div class="col-md-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationInspire" class="badge help-text-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="QualitySpecificationSosi" class="panel-group">
+            <div class="panel-heading bg-info">Sosi:</div>
+            <div class="form-group required has-feedback">
+                <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.QualitySpecificationTitleSosi, new { @class = "form-control" })
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <p class="help-text bg-success" id="help-text-QualitySpecificationTitleSosi" style="display: none">
+                        Referansenavn på datakilde/tjeneste. Du må velge "Produktspesifikasjon" under fanen "Dokumentasjon". Dersom ønsket ikke finnes i listen må du først registrere produktspesifikasjonen i registeret.
+                    </p>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-text-id="help-text-QualitySpecificationTitleSosi" class="badge help-text-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Dato</label>
+                <div class="col-sm-2">
+                    @Html.EditorFor(m => m.QualitySpecificationDateSosi, new { cssClass = "" })
+                </div>
+                <label class="col-sm-2 control-label hidden">Type dato</label>
+                <div class="col-sm-2 hidden">
+                    @Html.EditorFor(m => m.QualitySpecificationDateTypeSosi)
+                </div>
+            </div>
+            <div class="form-group required has-feedback">
+                <label class="col-sm-2 control-label">Datakonformitet</label>
+                <div class="col-sm-9">
+                    <input class="radio-inline" id="QualitySpecificationResultSosiConform" name="QualitySpecificationResultSosi" @{if (Model.QualitySpecificationResultSosi) { <text> checked="checked" </text>   } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
+                    <br />
+                    <input class="radio-inline" id="QualitySpecificationResultSosiNotConform" name="QualitySpecificationResultSosi" @{if (!Model.QualitySpecificationResultSosi) { <text> checked="checked" </text>   } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
+                </div>
+            </div>
+            <div id="QualitySpecificationExplanationSosiDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResultSosi) { <text> hidden</text> } }">
+                <label class="col-sm-2 control-label">Avvik fra produktspesifikasjonen</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.QualitySpecificationExplanationSosi, new { @class = "form-control" })
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <p class="help-text bg-success" id="help-text-QualitySpecificationExplanationSosi" style="display: none">
+                        Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
+                    </p>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationSosi" class="badge help-text-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="QualitySpecificationCustom" class="panel-group">
+            <div class="panel-heading bg-info">Annen standard/ egen dokumentasjon:</div>
+            <div><br /></div>
+            <div class="form-group required has-feedback">
+                <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.QualitySpecificationTitle, new { @class = "form-control" })
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <p class="help-text bg-success" id="help-text-QualitySpecificationTitle" style="display: none">
+                        Referansenavn på datakilde/tjeneste. Du må først skrive inn "Produktspesifikasjon annen (navn)" under fanen "Dokumentasjon"
+                    </p>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-text-id="help-text-QualitySpecificationTitle" class="badge help-text-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Dato</label>
+                <div class="col-sm-2">
+                    @Html.EditorFor(m => m.QualitySpecificationDate, new { cssClass = "date" })
+                </div>
+                <label class="col-sm-2 control-label hidden">Type dato</label>
+                <div class="col-sm-2 hidden">
+                    @Html.EditorFor(m => m.QualitySpecificationDateType)
+                </div>
+            </div>
+            <div class="form-group required has-feedback">
+                <label class="col-sm-2 control-label">Datakonformitet</label>
+                <div class="col-sm-9">
+                    <input class="radio-inline" id="QualitySpecificationResultConform" name="QualitySpecificationResult" @{if (Model.QualitySpecificationResult) { <text> checked="checked" </text>   } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
+                    <br />
+                    <input class="radio-inline" id="QualitySpecificationResultNotConform" name="QualitySpecificationResult" @{if (!Model.QualitySpecificationResult) { <text> checked="checked" </text>   } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
+                </div>
+            </div>
+            <div id="QualitySpecificationExplanationDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResult) { <text> hidden</text> } }">
+                <label class="col-sm-2 control-label">Avvik fra produktspesifikasjonen</label>
+                <div class="col-sm-9">
+                    @Html.EditorFor(m => m.QualitySpecificationExplanation, new { @class = "form-control" })
+                    <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    <p class="help-text bg-success" id="help-text-QualitySpecificationExplanation" style="display: none">
+                        Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
+                    </p>
+                </div>
+                <div class="col-sm-1">
+                    <p class="form-control-static">
+                        <a href="#" data-help-text-id="help-text-QualitySpecificationExplanation" class="badge help-text-toggle">?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="QualitySpecificationInspire" class="panel-group">
-        <div class="panel-heading bg-info">Inspire:</div>
-        <div><br /></div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
-            <div class="col-sm-9">
-                @Html.HiddenFor(m => m.QualitySpecificationTitleInspire)
-                <input class="form-control" id="InspireLabel" name="InspireLabel" type="text" value="Inspire" readonly="readonly" disabled="disabled">
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                <p class="help-text bg-success" id="help-text-QualitySpecificationTitleInspire" style="display: none">
-                    Referansenavn på datakilde/tjeneste. Du må registrere nøkkelord "Inspire" under "Samarbeid og lover" under fanen "Nøkkelord"
-                </p>
-            </div>
-            <div class="col-sm-1">
-                <p class="form-control-static">
-                    <a href="#" data-help-text-id="help-text-QualitySpecificationTitleInspire" class="badge help-text-toggle">?</a>
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Dato</label>
-            <div class="col-sm-2">
-                @Html.EditorFor(m => m.QualitySpecificationDateInspire, new { cssClass = "" })
-            </div>
-            <label class="col-sm-2 control-label hidden">Type dato</label>
-            <div class="col-sm-2 hidden">
-                @Html.EditorFor(m => m.QualitySpecificationDateTypeInspire)
-            </div>
-        </div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Datakonformitet</label>
-            <div class="col-sm-9">
-                <input class="radio-inline" id="QualitySpecificationResultInspireConform" name="QualitySpecificationResultInspire" @{if (Model.QualitySpecificationResultInspire) { <text> checked="checked"</text> } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
-                <br />
-                <input class="radio-inline" id="QualitySpecificationResultInspireNotConform" name="QualitySpecificationResultInspire" @{if (!Model.QualitySpecificationResultInspire) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
-            </div>
-        </div>
-        <div id="QualitySpecificationExplanationInspireDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResultInspire) { <text> hidden</text> } }">
-            <label class="col-sm-2 control-label">Avvik fra produktspesifikasjonen</label>
-            <div class="col-sm-9">
-                @Html.EditorFor(m => m.QualitySpecificationExplanationInspire, new { @class = "form-control" })
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                <p class="help-text bg-success" id="help-text-QualitySpecificationExplanationInspire" style="display: none">
-                    Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
-                </p>
-            </div>
-            <div class="col-sm-1">
-                <p class="form-control-static">
-                    <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationInspire" class="badge help-text-toggle">?</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div id="QualitySpecificationSosi" class="panel-group">
-        <div class="panel-heading bg-info">Sosi:</div>
-        <div><br /></div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
-            <div class="col-sm-9">
-                @Html.EditorFor(m => m.QualitySpecificationTitleSosi, new { @class = "form-control" })
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                <p class="help-text bg-success" id="help-text-QualitySpecificationTitleSosi" style="display: none">
-                    Referansenavn på datakilde/tjeneste. Du må velge "Produktspesifikasjon" under fanen "Dokumentasjon". Dersom ønsket ikke finnes i listen må du først registrere produktspesifikasjonen i registeret.
-                </p>
-            </div>
-            <div class="col-sm-1">
-                <p class="form-control-static">
-                    <a href="#" data-help-text-id="help-text-QualitySpecificationTitleSosi" class="badge help-text-toggle">?</a>
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Dato</label>
-            <div class="col-sm-2">
-                @Html.EditorFor(m => m.QualitySpecificationDateSosi, new { cssClass = "" })
-            </div>
-            <label class="col-sm-2 control-label hidden">Type dato</label>
-            <div class="col-sm-2 hidden">
-                @Html.EditorFor(m => m.QualitySpecificationDateTypeSosi)
-            </div>
-        </div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Datakonformitet</label>
-            <div class="col-sm-9">
-                <input class="radio-inline" id="QualitySpecificationResultSosiConform" name="QualitySpecificationResultSosi" @{if (Model.QualitySpecificationResultSosi) { <text> checked="checked"</text> } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
-                <br />
-                <input class="radio-inline" id="QualitySpecificationResultSosiNotConform" name="QualitySpecificationResultSosi" @{if (!Model.QualitySpecificationResultSosi) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
-            </div>
-        </div>
-        <div id="QualitySpecificationExplanationSosiDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResultSosi) { <text> hidden</text> } }">
-            <label class="col-sm-2 control-label">Avvik fra produktspesifikasjonen</label>
-            <div class="col-sm-9">
-                @Html.EditorFor(m => m.QualitySpecificationExplanationSosi, new { @class = "form-control" })
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                <p class="help-text bg-success" id="help-text-QualitySpecificationExplanationSosi" style="display: none">
-                    Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
-                </p>
-            </div>
-            <div class="col-sm-1">
-                <p class="form-control-static">
-                    <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationSosi" class="badge help-text-toggle">?</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div id="QualitySpecificationCustom" class="panel-group">
-        <div class="panel-heading bg-info">Annen standard/ egen dokumentasjon:</div>
-        <div><br /></div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Angitt produktspesifikasjon</label>
-            <div class="col-sm-9">
-                @Html.EditorFor(m => m.QualitySpecificationTitle, new { @class = "form-control" })
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                <p class="help-text bg-success" id="help-text-QualitySpecificationTitle" style="display: none">
-                    Referansenavn på datakilde/tjeneste. Du må først skrive inn "Produktspesifikasjon annen (navn)" under fanen "Dokumentasjon"
-                </p>
-            </div>
-            <div class="col-sm-1">
-                <p class="form-control-static">
-                    <a href="#" data-help-text-id="help-text-QualitySpecificationTitle" class="badge help-text-toggle">?</a>
-                </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Dato</label>
-            <div class="col-sm-2">
-                @Html.EditorFor(m => m.QualitySpecificationDate, new { cssClass = "date" })
-            </div>
-            <label class="col-sm-2 control-label hidden">Type dato</label>
-            <div class="col-sm-2 hidden">
-                @Html.EditorFor(m => m.QualitySpecificationDateType)
-            </div>
-        </div>
-        <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Datakonformitet</label>
-            <div class="col-sm-9">
-                <input class="radio-inline" id="QualitySpecificationResultConform" name="QualitySpecificationResult" @{if (Model.QualitySpecificationResult) { <text> checked="checked"</text> } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
-                <br />
-                <input class="radio-inline" id="QualitySpecificationResultNotConform" name="QualitySpecificationResult" @{if (!Model.QualitySpecificationResult) { <text> checked="checked"</text> } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
-            </div>
-        </div>
-        <div id="QualitySpecificationExplanationDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResult) { <text> hidden</text> } }">
-            <label class="col-sm-2 control-label">Avvik fra produktspesifikasjonen</label>
-            <div class="col-sm-9">
-                @Html.EditorFor(m => m.QualitySpecificationExplanation, new { @class = "form-control" })
-                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                <p class="help-text bg-success" id="help-text-QualitySpecificationExplanation" style="display: none">
-                    Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
-                </p>
-            </div>
-            <div class="col-sm-1">
-                <p class="form-control-static">
-                    <a href="#" data-help-text-id="help-text-QualitySpecificationExplanation" class="badge help-text-toggle">?</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-}
+    }
