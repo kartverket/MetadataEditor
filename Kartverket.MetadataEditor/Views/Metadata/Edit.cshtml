@@ -466,7 +466,7 @@
                     } else if (selectedSpatialRepresentation == "grid") {
                         $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
                         @foreach (var df in ViewBag.RasterFormats as SelectList)
-                        { <text> $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');</text>}                                                                                                                                                                                                       
+                        { <text> $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');</text>}
                     } else if (selectedSpatialRepresentation == "textTable") {
                         $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
                         $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="CSV">CSV</option>');
@@ -610,32 +610,7 @@
 
             $('#QualitySpecificationDateInspire').prop('readonly', true);
             $('#QualitySpecificationDateSosi').prop('readonly', true);
-            //$('#QualitySpecificationDate').prop('readonly', true);
 
-            //$("button#prefillConformityInspire").click(function (event) {
-            //    event.preventDefault();
-            //    $("#QualitySpecificationTitle").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
-            //    $("#QualitySpecificationDate").val("08.12.2010");
-            //    $("#QualitySpecificationDateType").val("publication");
-            //    //$("#QualitySpecificationExplanation").val("See the referenced specification");
-            //    $("#QualitySpecificationResult").prop('checked', true);
-            //});
-            //$("button#prefillConformitySosi").click(function (event) {
-            //    event.preventDefault();
-            //    $("#QualitySpecificationTitle").val("SOSI-fagområde: (Navn på fagområde)");
-            //    $("#QualitySpecificationDate").val("01.01.2014");
-            //    $("#QualitySpecificationDateType").val("publication");
-            //    //$("#QualitySpecificationExplanation").val("See the referenced specification");
-            //    $("#QualitySpecificationResult").prop('checked', true);
-            //});
-            //$("button#prefillConformitySosiSpec").click(function (event) {
-            //    event.preventDefault();
-            //    $("#QualitySpecificationTitle").val("SOSI-produktspesifikasjon: (Navn på produktspesifikasjon)");
-            //    $("#QualitySpecificationDate").val("01.01.2014");
-            //    $("#QualitySpecificationDateType").val("publication");
-            //    //$("#QualitySpecificationExplanation").val("See the referenced specification");
-            //    $("#QualitySpecificationResult").prop('checked', true);
-            //});
 
             var Inspire = function (event) {
                 if (event) {
@@ -1020,12 +995,43 @@
                     addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
             });
 
-            $('button#keywords-national-theme-add').click(function (event) {
-                event.preventDefault();
-                if ($('#keywords-national-theme-text').val().trim() == '')
-                    alert('Vennligst velg @UI.Metadata_NationalTheme_Label');
-                else
-                    addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
+
+            /* Chosen selects */
+            function setSelectedKeywords() {
+                var selectedKeywordsLists = $(".chosen-selected-keywords"); 
+                selectedKeywordsLists.each(function () {
+                    var selectedKeywords = [];
+                    var selectorPrefix = $(this).data('selectorprefix');
+                    var listItems = $(this).find('li');
+                    $(listItems).each(function (key, value) {
+                        var selectedKeyword = $(value).find('input').val();
+                        console.log(selectedKeyword);
+                        selectedKeywords.push(selectedKeyword);
+                    });
+                    $('select#' + selectorPrefix + '-text option').each(function () {
+                        optionValue = $(this);
+                        selectedKeywords.forEach(function (entry) {
+                            if (optionValue.val() == entry) {
+                                optionValue.prop('selected', true);
+                            }
+                        });
+                    });
+                });
+            }
+
+            $(document).ready(function () {
+                setSelectedKeywords();
+            });
+
+            $('.chosen-keyword-select').change(function (event) {
+                var selectorPrefix = $(this).data('selectorprefix');
+                var inputName = $(this).data('inputname');
+                var selected = $(this).find(":selected");
+                $('#' + selectorPrefix + '-list').html("");
+                selected.each(function (key, val) {
+                    var value = $(val).val();
+                    $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
+                });
             });
 
             $('button#keywords-inspire-add').click(function (event) {

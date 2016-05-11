@@ -1,253 +1,191 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 @using Resources
-<div class="form-group">
-    <label for="keywords" class="col-sm-2 control-label">Nøkkelord</label>
-    <div class="col-sm-9">
 
-        <div class="row">
-        <div class="col-sm-6">
-            <p class="keyword-header">Tema</p>
-            <ul id="keywords-theme" class="label-list">
-                @for (int i = 0; i < Model.KeywordsTheme.Count; i++)
-                {
-                    var keyword = Model.KeywordsTheme[i];
-                    <li id="keywords-theme-@i">
-                        <span class="">@keyword</span>
-                        <a href="" class="keyword-delete label-list-remove" data-delete="keywords-theme-@i"></a>
-                        <input type="hidden" name="KeywordsTheme[@i]" value="@keyword" />
-                    </li>
-                }
-            </ul>
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <input type="text" id="keywords-theme-text" class="form-control" />
-                </div>
-                <div class="col-sm-2">
-                    <button type="button" class="btn btn-default btn-sm" id="keywords-theme-add">Legg til</button>
-                </div>
+@if (Model.IsDataset())
+            {
+    <div class="form-group">
+        <label for="TopicCategory" class="col-md-2 control-label">Tematisk hovedkategori</label>
+        <div class="col-md-9">
+            <p class="help-text bg-success" id="help-text-topicCategory" style="display: none">
+                Tematisk inndeling definert i metadatastandarden.
+            </p>
+            <div class="custom-select">
+                @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
             </div>
         </div>
+        <div class="col-md-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-topicCategory" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
+    </div>
+}
 
 
+<div class="form-group">
+    <label for="keywords-theme" class="col-md-2 control-label">Tema</label>
+    <div class="col-md-9">
+        <p class="help-text bg-success" id="help-text-keywords-theme" style="display: none">
+            Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.
+        </p>
 
-        @if (!Model.IsSoftware())
-        {
-            <div class="col-sm-6">
-                <p class="keyword-header">@UI.Metadata_NationalTheme_Label</p>
-                <ul id="keywords-national-theme" class="label-list">
-                    @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" id="keywords-theme-text" class="form-control" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn" id="keywords-theme-add">Legg til</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ul id="keywords-theme" class="label-list">
+                    @for (int i = 0; i < Model.KeywordsTheme.Count; i++)
                     {
-                        var keyword = Model.KeywordsNationalTheme[i];
-                        <li id="keywords-national-theme-@i">
+                        var keyword = Model.KeywordsTheme[i];
+                        <li id="keywords-theme-@i">
                             <span class="">@keyword</span>
-                            <a href="" class="keyword-delete label-list-remove" data-delete="keywords-national-theme-@i"></a>
-                            <input type="hidden" name="KeywordsNationalTheme[@i]" value="@keyword" />
+                            <a href="" class="keyword-delete label-list-remove" data-delete="keywords-theme-@i"></a>
+                            <input type="hidden" name="KeywordsTheme[@i]" value="@keyword" />
                         </li>
                     }
                 </ul>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <div class="custom-select">
-                            @*<select class="input-sm form-control" id="keywords-national-theme-text">
-                <option></option>
-                <option value="Basis geodata">Basis geodata</option>
-                <option value="Samferdsel">Samferdsel</option>
-                <option value="Samfunnssikkerhet">Samfunnssikkerhet</option>
-                <option value="Forurensning">Forurensning</option>
-                <option value="Friluftsliv">Friluftsliv</option>
-                <option value="Landskap">Landskap</option>
-                <option value="Natur">Natur</option>
-                <option value="Kulturminner">Kulturminner</option>
-                <option value="Landbruk">Landbruk</option>
-                <option value="Energi">Energi</option>
-                <option value="Geologi">Geologi</option>
-                <option value="Kyst / fiskeri">Kyst / fiskeri</option>
-                <option value="Plandata">Plandata</option>
-                <option value="Annen">Annen</option>
-            </select>*@
-                            @Html.DropDownList("keywords-national-theme-text", ViewBag.NationalThemeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-default btn-sm" id="keywords-national-theme-add">Legg til</button>
-                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-keywords-theme" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+
+@if (!Model.IsSoftware())
+{
+    <div class="form-group">
+        <label for="keywords-national-theme" class="col-md-2 control-label">@UI.Metadata_NationalTheme_Label</label>
+        <div class="col-md-9">
+            <p class="help-text bg-success" id="help-text-keywords-national-theme" style="display: none">
+                En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.ListBox("keywords-national-theme-text", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_selectorprefix = "keywords-national-theme", data_inputname = "KeywordsNationalTheme", data_placeholder = "Velg " + UI.Metadata_NationalTheme_Label })
+                </div>
+                <div class="col-sm-6 hidden">
+                    <ul id="keywords-national-theme-list" class="chosen-selected-keywords" data-selectorprefix="keywords-national-theme">
+                        @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
+                        {
+                            var keyword = Model.KeywordsNationalTheme[i];
+                            <li id="keywords-national-theme-@i">
+                                <input type="text" name="KeywordsNationalTheme[@i]" value="@keyword" />
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
-        @:</div>
-        <div class="row">
-                <div class="col-sm-6">
-                    <p class="keyword-header">Samarbeid og lover</p>
-                    <ul id="keywords-national-initiative" class="label-list">
+        </div>
+        <div class="col-md-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-keywords-national-theme" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="keywords-national-initiative" class="col-md-2 control-label">Samarbeid og lover</label>
+        <div class="col-md-9">
+            <p class="help-text bg-success" id="help-text-keywords-national-initiative" style="display: none">
+                Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.ListBox("keywords-national-initiative-text", ViewBag.NationalInitiativeValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_selectorprefix = "keywords-national-initiative", data_inputname = "KeywordsNationalInitiative", data_placeholder = "Velg fra listen" })
+                </div>
+                <div class="col-md-6 hidden">
+                    <ul id="keywords-national-initiative-list" class="chosen-selected-keywords" data-selectorprefix="keywords-national-initiative">
                         @for (int i = 0; i < Model.KeywordsNationalInitiative.Count; i++)
                         {
                             var keyword = Model.KeywordsNationalInitiative[i];
                             <li id="keywords-national-initiative-@i">
-                                <span class="">@keyword</span>
-                                <a href="" class="keyword-delete label-list-remove" data-delete="keywords-national-initiative-@i" data-list="keywords-national-initiative-text" data-list-value="@keyword"></a>
-                                <input type="hidden" name="KeywordsNationalInitiative[@i]" value="@keyword" />
+                                <input type="text" name="KeywordsNationalInitiative[@i]" value="@keyword" />
                             </li>
                         }
                     </ul>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <div class="custom-select">
-                                @*<select class="input-sm form-control" id="keywords-national-initiative-text">
-                <option></option>
-                <option value="Inspire">Inspire</option>
-                <option value="Det offentlige kartgrunnlaget">Det offentlige kartgrunnlaget</option>
-                <option value="Barentswatch">Barentswatch</option>
-                <option value="Norge digitalt">Norge digitalt</option>
-                <option value="European Location Framework">European Location Framework</option>
-                <option value="Arctic SDI">Arctic SDI</option>
-                <option value="Åpne data">Åpne data</option>
-            </select>*@
-                                @Html.DropDownList("keywords-national-initiative-text", ViewBag.NationalInitiativeValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-default btn-sm" id="keywords-national-initiative-add">Legg til</button>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="col-sm-6">
-                    <p class="keyword-header">Inspire-kategorier</p>
-                    <ul id="keywords-inspire" class="label-list">
+            </div>
+        </div>
+        <div class="col-md-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-keywords-national-initiative" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="keywords-national-initiative" class="col-md-2 control-label">Inspire-kategorier</label>
+        <div class="col-md-9">
+            <p class="help-text bg-success" id="help-text-keywords-inspire" style="display: none">
+                Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste).
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.ListBox("keywords-inspire-text", ViewBag.InspireValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_selectorprefix = "keywords-inspire", data_inputname = "KeywordsInspire", data_placeholder = "Velg fra listen" })
+                </div>
+                <div class="col-md-6 hidden">
+                    <ul id="keywords-inspire-list" class="chosen-selected-keywords" data-selectorprefix="keywords-inspire">
                         @for (int i = 0; i < Model.KeywordsInspire.Count; i++)
                         {
                             var keyword = Model.KeywordsInspire[i];
                             <li id="keywords-inspire-@i">
-                                <span class="">@keyword</span>
-                                <a href="" class="keyword-delete label-list-remove" data-delete="keywords-inspire-@i"></a>
-                                <input type="hidden" name="KeywordsInspire[@i]" value="@keyword" />
+                                <input type="text" name="KeywordsInspire[@i]" value="@keyword" />
                             </li>
                         }
                     </ul>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <div class="custom-select">
-                            @Html.DropDownList("keywords-inspire-text", ViewBag.InspireValues as SelectList, String.Empty, new { @class = "input-sm form-control" })
-                            @*<select class="input-sm form-control" id="keywords-inspire-text">
-                                <option></option>
-                                <option value="Addresses">Addresses</option>
-                                <option value="Administrative units">Administrative units</option>
-                                <option value="Agricultural and aquaculture facilities">Agricultural and aquaculture facilities</option>
-                                <option value="Area management/restriction/regulation zones and reporting units">Area management/restriction/regulation zones and reporting units</option>
-                                <option value="Atmospheric conditions">Atmospheric conditions</option>
-                                <option value="Bio-geographical regions">Bio-geographical regions</option>
-                                <option value="Buildings">Buildings</option>
-                                <option value="Cadastral parcels">Cadastral parcels</option>
-                                <option value="Coordinate reference systems">Coordinate reference systems</option>
-                                <option value="Elevation">Elevation</option>
-                                <option value="Energy resources">Energy resources</option>
-                                <option value="Environmental monitoring facilities">Environmental monitoring facilities</option>
-                                <option value="Geographical grid systems">Geographical grid systems</option>
-                                <option value="Geographical names">Geographical names</option>
-                                <option value="Geology">Geology</option>
-                                <option value="Habitats and biotopes">Habitats and biotopes</option>
-                                <option value="Human health and safety">Human health and safety</option>
-                                <option value="Hydrography">Hydrography</option>
-                                <option value="Land cover">Land cover</option>
-                                <option value="Land use">Land use</option>
-                                <option value="Meteorological geographical features">Meteorological geographical features</option>
-                                <option value="Mineral resources">Mineral resources</option>
-                                <option value="Natural risk zones">Natural risk zones</option>
-                                <option value="Oceanographic geographical features">Oceanographic geographical features</option>
-                                <option value="Orthoimagery">Orthoimagery</option>
-                                <option value="Population distribution — demography">Population distribution — demography</option>
-                                <option value="Production and industrial facilities">Production and industrial facilities</option>
-                                <option value="Protected sites">Protected sites</option>
-                                <option value="Sea regions">Sea regions</option>
-                                <option value="Soil">Soil</option>
-                                <option value="Species distribution">Species distribution</option>
-                                <option value="Statistical units<">Statistical units</option>
-                                <option value="Transport networks">Transport networks</option>
-                                <option value="Utility and governmental services">Utility and governmental services</option>
-                            </select>*@
-                                </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-default btn-sm" id="keywords-inspire-add">Legg til</button>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        @:<div class="row">
-        }
-        <div class="col-sm-6">
-            <p class="keyword-header">Ukategoriserte nøkkelord</p>
-            <ul id="keywords-other" class="label-list">
-                @for (int i = 0; i < Model.KeywordsOther.Count; i++)
-                {
-                    var keyword = Model.KeywordsOther[i];
-                    <li id="keywords-other-@i">
-                        <span class="">@keyword</span>
-                        <a href="" class="keyword-delete label-list-remove" data-delete="keywords-other-@i"></a>
-                        <input type="hidden" name="KeywordsOther[@i]" value="@keyword" />
-                    </li>
-                }
-            </ul>
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <input type="text" id="keywords-other-text" class="form-control" />
-                </div>
-                <div class="col-sm-2">
-                    <button type="button" class="btn btn-default btn-sm" id="keywords-other-add">Legg til</button>
                 </div>
             </div>
         </div>
+        <div class="col-md-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-keywords-inspire" class="badge help-text-toggle">?</a>
+            </p>
         </div>
     </div>
-    <div class="col-sm-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-keyword" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-9">
-        <div class="help-text bg-success" id="help-text-keyword" style="display: none">
-            <b>Velkjente ord og begreper brukt som søkeord</b>
 
-            <p>
-                <b>Tema</b><br>
-                Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.
-            </p>
-            <p>
-                <b>Inspire</b><br>
-                Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste).
-            </p>
-            <p>
-                <b>Samarbeid og lover</b><br>
-                Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)
-            </p>
-            <p>
-                <b>Ukategoriserte nøkkelord</b><br>
-                Denne nøkkelordtypen skal helst ikke brukes, men her vises nøkkelord som ikke er spesifisert å tilhøre en spesifikk nøkkelordkategori. Det anbefales at nøkkelord fjernes fra denne kategorien og legges inn under riktig kategori. 
-            </p>
-            <p>
-                <b>Nasjonal tematisk inndeling (@UI.Metadata_NationalTheme_Label)</b><br>
-                En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.
-            </p>
-        </div>
-    </div>
-</div>
-@if (Model.IsDataset())
-{
-<div class="form-group">
-    <label for="TopicCategory" class="col-sm-2 control-label">Tematisk hovedkategori</label>
-    <div class="col-sm-9">
-        <div class="custom-select">
-            @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
-        </div>
-        <p class="help-text bg-success" id="help-text-topicCategory" style="display: none">
-            Tematisk inndeling definert i metadatastandarden.
-        </p>
-    </div>
-    <div class="col-sm-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-topicCategory" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
 }
+<div class="form-group">
+    <label for="keywords-other" class="col-md-2 control-label">Ukategoriserte nøkkelord</label>
+    <div class="col-md-9">
+        <p class="help-text bg-success" id="help-text-keywords-other" style="display: none">
+            Denne nøkkelordtypen skal helst ikke brukes, men her vises nøkkelord som ikke er spesifisert å tilhøre en spesifikk nøkkelordkategori. Det anbefales at nøkkelord fjernes fra denne kategorien og legges inn under riktig kategori.
+        </p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" id="keywords-other-text" class="form-control" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn" id="keywords-other-add">Legg til</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <ul id="keywords-other" class="label-list">
+                    @for (int i = 0; i < Model.KeywordsOther.Count; i++)
+            {
+                var keyword = Model.KeywordsOther[i];
+                        <li id="keywords-other-@i">
+                            <span class="">@keyword</span>
+                            <a href="" class="keyword-delete label-list-remove" data-delete="keywords-other-@i"></a>
+                            <input type="hidden" name="KeywordsOther[@i]" value="@keyword" />
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-keywords-other" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+
+</div>
