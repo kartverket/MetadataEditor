@@ -72,7 +72,7 @@
                 <div class="col-md-6">
                     @Html.ListBox("keywords-national-theme-text", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_selectorprefix = "keywords-national-theme", data_inputname = "KeywordsNationalTheme", data_placeholder = "Velg " + UI.Metadata_NationalTheme_Label })
                 </div>
-                <div class="col-sm-6 hidden">
+                <div class="col-md-6 hidden">
                     <ul id="keywords-national-theme-list" class="chosen-selected-keywords" data-selectorprefix="keywords-national-theme">
                         @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
                         {

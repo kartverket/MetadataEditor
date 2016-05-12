@@ -56,15 +56,10 @@
     <div class="panel-body">
         <p class="help-text bg-success" id="help-text-Image" style="display: none">@UI.Helptext_Image</p>
         <div class="form-group required has-feedback">
-            <label class="col-sm-2 control-label">Type</label>
-            <div class="col-sm-2 bottom-left">
+            <label class="col-md-2 control-label">Type</label>
+            <div class="col-md-2 bottom-left">
                 <input type="hidden" value="large_thumbnail" id="thumbnailType">
                 <div class="@ViewBag.thumbnailMissingCSS" style="margin-top:7px;">Stort bilde</div>
-                @*<select id="thumbnailType" class="@ViewBag.thumbnailMissingCSS form-control">
-                        <option value="miniatyrbilde">Miniatyrbilde</option>
-                        <option value="large_thumbnail" selected>Stort bilde</option>
-                        <option value="dekningsoversikt">Dekningsoversikt</option>
-                    </select>*@
                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
             </div>
             <div style="margin-top:7px;">
@@ -72,17 +67,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Angi bildefil</label>
-            <div class="col-sm-8">
+            <label class="col-md-2 control-label">Angi bildefil</label>
+            <div class="col-md-8">
                 <div class="form-group" id="uploadThumbnail">
-                    <div class="col-sm-7">
+                    <div class="col-md-7">
                         <input type="file" id="uploadThumbnailFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';" />
                     </div>
-                    <div class="col-sm-3 hidden">
+                    <div class="col-md-3 hidden">
                         <label class="control-label"><input type="checkbox" id="uploadScaleImage" name="scaleImage" /> Tilpass størrelsen til liten visning</label>
 
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-md-2">
                         <button class="btn btn-default" type="submit" id="uploadThumbnailButton" onclick="return checkIfUrlRef();">Last opp</button>
                     </div>
                 </div>
@@ -92,14 +87,14 @@
 
 
         <div class="form-group" style="display: none; visibility: hidden;">
-            <label class="col-sm-2 control-label">Eller angi URL</label>
-            <div class="col-sm-5">
+            <label class="col-md-2 control-label">Eller angi URL</label>
+            <div class="col-md-5">
                 <input id="thumbnailUrl" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
                 <input id="thumbnailUrlMini" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
             </div>
-            <div class="col-sm-1">
+            <div class="col-md-1">
                 <input type="hidden" id="uploadMode" value="reference" />
                 <button class="btn btn-default" style="display: none; visibility:hidden;" id="thumbnailAdd"></button>
 

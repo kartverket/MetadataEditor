@@ -44,7 +44,7 @@
 </div>
 <div class="col-md-6">
     <div class="row">
-        <div class="col-sm-10">
+        <div class="col-md-10">
             <p class="help-text bg-success" id="help-text-date" style="display: none">
                 Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes.  Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Datoene refererer til datasett/tjeneste og ikke metadata. Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.
 
@@ -92,7 +92,7 @@
                 <div class="input-group">
                     <input type="text" id="keywords-place-text" class="" />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default btn-sm" id="keywords-place-add">Legg til</button>
+                        <button type="button" class="btn" id="keywords-place-add">Legg til</button>
                     </span>
                 </div>
             </div>
@@ -111,7 +111,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-keyword-place" class="badge help-text-toggle">?</a>
         </p>
@@ -128,7 +128,7 @@
             </select>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-md-2">
         <button class="btn btn-default hidden" id="bboxPrefill">Angi</button>
     </div>
     <ul id="place-list"></ul>
@@ -137,7 +137,13 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        Geografisk utstrekning
+        <div class="row">
+            <div class="col-md-11">Geografisk utstrekning</div>
+            <div class="col-md-1">
+                <a href="#" data-help-text-id="help-text-BoundingBox" class="badge help-text-toggle">?</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
     </div>
     <div class="panel-body">
         <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">@UI.Helptext_BoundingBox</p>
@@ -204,9 +210,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1">
-                <a href="#" data-help-text-id="help-text-BoundingBox" class="badge help-text-toggle">?</a>
-            </div>
+
         </div>
     </div>
 </div>
@@ -219,8 +223,8 @@
         </div>
         <div class="panel-body">
             <div class="form-group">
-                <label class="col-sm-2 control-label">Type dekningskart:</label>
-                <div class="col-sm-3">
+                <label class="col-md-2 control-label">Type dekningskart:</label>
+                <div class="col-md-3">
                     <div class="custom-select">
                         <select id="coverageType" name="coverageType" class="form-control" onchange="showCoverageType(this.value);">
                             <option value="webpage">Webside</option>
@@ -233,7 +237,7 @@
             <div id="coverageWebsite">
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="CoverageUrl">Webside:</label>
-                    <div class="col-sm-5">
+                    <div class="col-md-5">
                         @Html.EditorFor(m => m.CoverageUrl, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
@@ -261,39 +265,39 @@
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="coverageLayer">Kartlagsnavn</label>
-                    <div class="col-sm-9">
+                    <div class="col-md-9">
                         <input class="form-control" type="text" id="coverageLayer" name="coverageLayer" onchange="setCoverage()" />
                     </div>
                     <div class="col-md-6"></div>
                 </div>
             </div>
             <div class="form-group" id="imageCoverage">
-                <label class="col-sm-2 control-label">Angi bildefil</label>
+                <label class="col-md-2 control-label">Angi bildefil</label>
                 <div class="col-md-4">
                     <input type="file" id="uploadCoverageFile" class="filestyle" data-buttontext="Velg fil" onchange="document.getElementById('uploadMode').value = 'upload';" />
                 </div>
                 <div class="col-md-2">
-               
-                        <button class="btn btn-default" type="submit" id="uploadCoverageButton" onclick="return checkIfUrlReference();">Last opp</button>
-              
 
-                   
+                    <button class="btn btn-default" type="submit" id="uploadCoverageButton" onclick="return checkIfUrlReference();">Last opp</button>
+
+
+
 
 
                 </div>
-                <div class="col-sm-3 hidden">
+                <div class="col-md-3 hidden">
                     <label class="control-label"><input type="checkbox" id="uploadScaleCoverage" name="scaleImage" /> Skalering til miniatyrbilde</label>
                 </div>
                 <div id="uploadCoverageStatus"></div>
             </div>
             <div class="hidden">
-                <label class="col-sm-2 control-label">Eller angi URL</label>
-                <div class="col-sm-5">
+                <label class="col-md-2 control-label">Eller angi URL</label>
+                <div class="col-md-5">
                     <input id="coverageUri" onfocus="document.getElementById('uploadMode').value = 'reference';" type="text" class="form-control" />
                 </div>
-                <div class="col-sm-3">
+                <div class="col-md-3">
                 </div>
-                <div class="col-sm-1">
+                <div class="col-md-1">
                     <button class="btn btn-default" style="display: none; visibility:hidden;" id="coverageAdd"></button>
                     <script>
                         function checkIfUrlReference() {
@@ -411,17 +415,17 @@
         @if (!string.IsNullOrEmpty(Model.CoverageUrl) && Model.CoverageUrl.IndexOf("TYPE:") > -1)
                             {
                                 @: showCoverageType('mapservice')
-                                                                                                                                                                                                                                                                                                                @: document.getElementById('coverageType').options[1].selected = true;
-                                                                                                                                                                                                                                                                                                                @: getCoverage();
-                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                        @: document.getElementById('coverageType').options[1].selected = true;
+                                                                                                                                                                                                                                                                                                                        @: getCoverage();
+                                                                                                                                                                                                                                                                                                                    }
                             else if(coverageImageFound)
                             {
                                 @: document.getElementById('coverageType').options[2].selected = true;
-                                                                                                                                                                                                                                                                                                                @: showCoverageType('imageCoverage')
-                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                        @: showCoverageType('imageCoverage')
+                                                                                                                                                                                                                                                                                                                    }
                             else
                             {
                                 @: showCoverageType('webpage')
-                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                    }
     </script>
 }
