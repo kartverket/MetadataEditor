@@ -2344,7 +2344,7 @@ input[readonly] {
 .form-control-static {
   padding-top: 4px; }
 
-.form-group.required .control-label:after, .panel-heading.required:after {
+.form-group.required .control-label:after, .panel-heading.required:after, .panel-heading span.required:after {
   content: " *";
   color: red; }
 
