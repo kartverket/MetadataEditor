@@ -25,7 +25,7 @@
                 <div class="panel-body">
                     <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
                         <div class="form-group">
-                            <label for="searchString">Fritekst søk:</label>
+                            <label for="searchString">Fritekst:</label>
                             <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
                         </div>
                         <div class="form-group">
@@ -35,7 +35,7 @@
                             <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
                             }
                         </div>
-                        <button type="submit" class="btn btn-primary">Søk</button>
+                        <button type="submit" class="btn no-margin-bottom">Søk</button>
                     </form>
                 </div>
             </div>
