@@ -199,12 +199,6 @@
             // Textarea auto size
             $('textarea').autosize();
 
-            // help text
-            $("a.help-text-toggle").click(function (event) {
-                event.preventDefault();
-                var helpTextId = $(this).data("help-text-id");
-                $("#" + helpTextId).toggle();
-            });
 
             //  add warning sign to tabs containing input fields with error.
             $('.input-validation-error').each(function () {
