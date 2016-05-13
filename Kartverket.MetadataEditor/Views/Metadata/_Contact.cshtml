@@ -2,7 +2,17 @@
 @using Resources
 
 <div class="panel panel-default">
-    <div class="panel-heading required">Metadatakontakt<div class="pull-right"><a href="#" data-help-text-id="help-text-ContactMetadata" class="badge help-text-toggle">?</a></div></div>
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-11">
+                <span class="required">Metadatakontakt</span>
+            </div>
+            <div class="col-md-1">
+                <a href="#" data-help-text-id="help-text-ContactMetadata" class="badge help-text-toggle">?</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
     <div class="panel-body">
         <p class="help-text bg-success" id="help-text-ContactMetadata" style="display: none">@UI.Helptext_ContactMetadata</p>
         @Html.HiddenFor(m => Model.ContactMetadata.Role)
@@ -35,7 +45,17 @@
 </div>
 
 <div class="panel panel-default">
-    <div class="panel-heading required">Teknisk kontakt<div class="pull-right"><a href="#" data-help-text-id="help-text-ContactPublisher" class="badge help-text-toggle">?</a></div></div>
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-11">
+                <span class="required">Teknisk kontakt</span>
+            </div>
+            <div class="col-md-1">
+                <a href="#" data-help-text-id="help-text-ContactPublisher" class="badge help-text-toggle">?</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
     <div class="panel-body">
         <p class="help-text bg-success" id="help-text-ContactPublisher" style="display: none">@UI.Helptext_ContactPublisher</p>
         @Html.HiddenFor(m => Model.ContactPublisher.Role)
@@ -68,7 +88,17 @@
 </div>
 
 <div class="panel panel-default">
-    <div class="panel-heading required">Faglig kontakt<div class="pull-right"><a href="#" data-help-text-id="help-text-ContactOwner" class="badge help-text-toggle">?</a></div></div>
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-11">
+                <span class="required">Faglig kontakt</span>
+            </div>
+            <div class="col-md-1">
+                <a href="#" data-help-text-id="help-text-ContactOwner" class="badge help-text-toggle">?</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
     <div class="panel-body">
         <p class="help-text bg-success" id="help-text-ContactOwner" style="display: none">@UI.Helptext_ContactOwner</p>
         @Html.HiddenFor(m => Model.ContactOwner.Role)
