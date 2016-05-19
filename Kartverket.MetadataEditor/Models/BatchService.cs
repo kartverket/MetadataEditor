@@ -103,6 +103,51 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
+        public void Update(HttpPostedFileBase file, string username)
+        {
+            Dictionary<string, string> listOfAllowedNationalThemes =  GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
+
+            var excelPackage = new OfficeOpenXml.ExcelPackage();
+            excelPackage.Load(file.InputStream);
+            var workSheet = excelPackage.Workbook.Worksheets[1];
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                { 
+                    var theme = workSheet.Cells[row, 2].Text;
+                    var uuid = workSheet.Cells[row, 1].Text; 
+
+                    if (!string.IsNullOrWhiteSpace(theme) && !string.IsNullOrWhiteSpace(uuid))
+                    {
+                    var key = new KeyValuePair<string, string>(theme, theme);
+
+                    if (listOfAllowedNationalThemes.Contains(key))
+                        UpdateTheme(uuid, theme, username);
+                    }
+                } 
+
+            }
+
+        void UpdateTheme(string uuid, string theme, string username)
+        {
+            try
+            { 
+            MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+            var keyword = new List<string>();
+            keyword.Add(theme);
+            metadata.KeywordsNationalTheme = keyword;
+            _metadataService.SaveMetadataModel(metadata, username);
+
+            Log.Info("Batch update uuid: " + uuid + ", KeywordsNationalTheme: " + theme);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid ,ex);
+            }
+        }
+
         public void UpdateAll(BatchData data, string username, string organization)
         {
             try
@@ -149,6 +194,36 @@ namespace Kartverket.MetadataEditor.Models
                 Log.Error(ex.Message);
             }
         }
+
+
+        public Dictionary<string, string> GetCodeList(string systemid)
+        {
+            Dictionary<string, string> CodeValues = new Dictionary<string, string>();
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(url);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var codeList = response["containeditems"];
+
+            foreach (var code in codeList)
+            {
+                var codevalue = code["codevalue"].ToString();
+                if (string.IsNullOrWhiteSpace(codevalue))
+                    codevalue = code["label"].ToString();
+
+                if (!CodeValues.ContainsKey(codevalue))
+                {
+                    CodeValues.Add(codevalue, code["label"].ToString());
+                }
+            }
+
+            CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return CodeValues;
+        }
+
     }
 
     public class BatchData

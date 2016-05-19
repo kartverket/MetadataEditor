@@ -14,133 +14,177 @@
 }
 @if (Request.IsAuthenticated)
 {
-    <div class="row">
-        @{ string colSm = "5";
-         if (Model.UserIsAdmin)
-         { colSm = "8"; }
-        }
-        <div class="col-sm col-sm-@colSm">
-            <div class="panel panel-info" style="">
-                <div class="panel-heading">Søk</div>
-                <div class="panel-body">
-                    <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
-                        <div class="form-group">
-                            <label for="searchString">Fritekst søk:</label>
-                            <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
-                        </div>
-                        <div class="form-group">
-                            @if (Model.UserIsAdmin)
-                            {
-                                <label for="searchOrganization">Organisasjon:</label>
-                                <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
-                            }
-                        </div>
-                        <button type="submit" class="btn btn-primary">Søk</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-</div>
-}
-    @if (Request.IsAuthenticated)
+    if (Model.UserIsAdmin)
     {
-        <form action="@Url.Action("BatchUpdate")" method="post">
-            @Html.Partial("_BatchItems")
-            @if (Model.MetadataItems.Count > 0)
-            {
-                @Html.Partial("_MetadataList", Model.MetadataItems)
-                <div class="clearfix">
-                    <p class="text-right">
-                        Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
-                    </p>
-                    <div class="pull-right btn-group">
-                        <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn btn-default btn-sm" @Model.OffsetPreviousState()>Forrige</a>
-                        <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn btn-default btn-sm" @Model.OffsetNextState()>Neste</a>
+        <div class="row">     
+                <div class="col-sm col-sm-8">
+                    <div class="panel panel-info" style="">
+                        <div class="panel-heading">Filopplasting</div>
+                        <div class="panel-body">
+                            <form action="@Url.Action("UploadFile","Batch")" method="post" enctype="multipart/form-data" class="form-inline" role="form">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label for="batchfile">Excel fil:</label>
+                                        <input type="file" class="filestyle" data-buttontext="Velg fil" name="batchfile" />  
+                                    </div>      
+                                    <div class="col-md-4">
+                                        <button style="" type="submit" class="btn btn-primary" onclick="return clickDisable(this);"><span id="update-metadata">Oppdater metadata</span></button>
+                                        <script>
+                                            function clickDisable(link) {
+
+                                                document.getElementById('update-metadata').innerText = 'Oppdaterer metadata, vennligst vent...';
+                                                if (link.className != "visited btn btn-sm btn-default") {
+                                                    link.className = "visited btn btn-sm btn-default";
+                                                    return true;
+                                                }
+
+                                                return false;
+                                            }
+                                        </script>
+                                    </div>                         
+                                </div>
+                                <div class="row table-responsive">
+                                    <div class="col-md-12">
+                                        <table class="table table-bordered">
+                                            <caption>Excel-ark skal ha følgende struktur i de 2 første kolonnene for å oppdatere nasjonal temakategori :</caption>
+                                            <thead><tr><th>uuid</th><th>tema</th></tr></thead>
+                                            <tbody>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Plan</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+        </div>       
+     }
+            <div class="row">
+                @{ string colSm = "5";
+                    if (Model.UserIsAdmin)
+                    { colSm = "8"; }
+                }
+                <div class="col-sm col-sm-@colSm">
+                    <div class="panel panel-info" style="">
+                        <div class="panel-heading">Søk</div>
+                        <div class="panel-body">
+                            <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
+                                <div class="form-group">
+                                    <label for="searchString">Fritekst søk:</label>
+                                    <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
+                                </div>
+                                <div class="form-group">
+                                    @if (Model.UserIsAdmin)
+                                    {
+                                        <label for="searchOrganization">Organisasjon:</label>
+                                        <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
+                                    }
+                                </div>
+                                <button type="submit" class="btn btn-primary">Søk</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            }
+            @if (Request.IsAuthenticated)
+            {
+                <form action="@Url.Action("BatchUpdate")" method="post">
+                    @Html.Partial("_BatchItems")
+                    @if (Model.MetadataItems.Count > 0)
+                    {
+                        @Html.Partial("_MetadataList", Model.MetadataItems)
+                        <div class="clearfix">
+                            <p class="text-right">
+                                Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
+                            </p>
+                            <div class="pull-right btn-group">
+                                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn btn-default btn-sm" @Model.OffsetPreviousState()>Forrige</a>
+                                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn btn-default btn-sm" @Model.OffsetNextState()>Neste</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>Ingen treff.</p>
+                    }
+                </form>
             }
             else
             {
-                <p>Ingen treff.</p>
+                <p style="font-style: italic">Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata.</p>
             }
-        </form>
-    }
-    else
-    {
-        <p style="font-style: italic">Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata.</p>
-        }
-    
-
-@section scripts {
-    <script>
-    activateTab('batch-oppdatering');
-        
-    $(function () {
-        Cookies.remove('navtabselected', { path: '/Metadata' });
-
-        $("#checkAll").click(function () {
-            $(".check").prop('checked', $(this).prop('checked'));
-        });
-
-    });
 
 
-    function getValidationStatus(uuid) {
+            @section scripts {
+                <script>
+                    activateTab('batch-oppdatering');
 
-        $("#status-" + uuid).text("Ikke validert");
-        $("#status-" + uuid).addClass("label label-warning");
+                    $(function () {
+                        Cookies.remove('navtabselected', { path: '/Metadata' });
 
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]api/validatemetadata/" + uuid, function (result) {
+                        $("#checkAll").click(function () {
+                            $(".check").prop('checked', $(this).prop('checked'));
+                        });
 
-            if (result != null)
-            {
-                if (result.length != 0) {
-                    var validationStatus = result.Status;
-                    if (validationStatus == "OK") {
-                        $("#status-" + uuid).text("OK");
-                        $("#status-" + uuid).removeClass("label label-warning");
-                        $("#status-" + uuid).addClass("label label-success");
+                    });
+
+
+                    function getValidationStatus(uuid) {
+
+                        $("#status-" + uuid).text("Ikke validert");
+                        $("#status-" + uuid).addClass("label label-warning");
+
+                        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"]api/validatemetadata/" + uuid, function (result) {
+
+                            if (result != null) {
+                                if (result.length != 0) {
+                                    var validationStatus = result.Status;
+                                    if (validationStatus == "OK") {
+                                        $("#status-" + uuid).text("OK");
+                                        $("#status-" + uuid).removeClass("label label-warning");
+                                        $("#status-" + uuid).addClass("label label-success");
+                                    }
+                                    else if (validationStatus == "ERRORS") {
+                                        $("#status-" + uuid).text("FEIL");
+                                        $("#status-" + uuid).removeClass("label label-warning");
+                                        $("#status-" + uuid).addClass("label label-danger");
+                                        var errorMsg = "";
+                                        for (e = 0; e < result.Errors.length; e++) {
+                                            errorMsg = errorMsg + result.Errors[e].Message + "</br>";
+                                        }
+                                        $("#statusMsg-" + uuid).html(errorMsg);
+                                    }
+                                }
+                            }
+                        });
+                    };
+
+                    function getAdditionalData(uuid) {
+                        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+                            if (result.length != 0) {
+
+                                var DistributionProtocol = result.Results[0].DistributionProtocol;
+                                if (DistributionProtocol.indexOf("WFS") > -1) {
+                                    $("#type-" + uuid).text("WFS tjeneste");
+                                }
+
+                            }
+                        });
                     }
-                    else if (validationStatus == "ERRORS") {
-                        $("#status-" + uuid).text("FEIL");
-                        $("#status-" + uuid).removeClass("label label-warning");
-                        $("#status-" + uuid).addClass("label label-danger");
-                        var errorMsg = "";
-                        for (e = 0; e < result.Errors.length; e++)
-                        {
-                            errorMsg = errorMsg + result.Errors[e].Message + "</br>";
-                        }
-                        $("#statusMsg-" + uuid).html(errorMsg);
-                    }
-                }
+
+                </script>
             }
-        });
-    };
 
-    function getAdditionalData(uuid) {
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
-
-            if (result.length != 0) {
-
-                var DistributionProtocol = result.Results[0].DistributionProtocol;
-                if (DistributionProtocol.indexOf("WFS") > -1)
-                {
-                    $("#type-" + uuid).text("WFS tjeneste");
-                }
-
-            }
-        });
-    }
-
-    </script>
-}
-
-<script>
+            <script>
     @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
     {
         @:for (v = 0; v < validationUUIDs.length; v++) {
-        @:    getValidationStatus(validationUUIDs[v]);
-        @:}
+                        @:    getValidationStatus(validationUUIDs[v]);
+                        @:
+            }
     }
-</script>
+            </script>

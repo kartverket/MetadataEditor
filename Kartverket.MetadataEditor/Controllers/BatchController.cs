@@ -60,6 +60,30 @@ namespace Kartverket.MetadataEditor.Controllers
                 return RedirectToAction("Index");
         }
 
+        [Authorize]
+        [OutputCache(Duration = 0)]
+        public ActionResult UploadFile()
+        {
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase file = Request.Files[0];
+
+                if (file.ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                {
+                    BatchService batchService = new BatchService();
+                    batchService.Update(file, GetUsername());
+
+                    TempData["Message"] = "Metadataene ble oppdatert";
+                }
+                else
+                {
+                    TempData["failure"] = "Vennligst velg .xlsx filtype";
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
         private BatchData GetFormData(FormCollection batch)
         {
 
