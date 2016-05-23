@@ -1,23 +1,38 @@
 ﻿@model List<Kartverket.MetadataEditor.Models.MetadataItemViewModel>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Resources.UI.Metadata_Title</th>
-            <th>@Resources.UI.Metadata_Organization</th>
-            <th style="width: 15%">@Resources.UI.Metadata_Type</th>
-            <th style="width: 10%">
-            @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "") { 
-            @Resources.UI.Metadata_Status
-            }
-            </th>
-            <th class="text-center" style="width: 25%">@Resources.UI.Metadata_Links</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var metadata in Model)
-        {
+
+
+<div class="list-group panel panel-default" style="border: none;">
+    <div class="list-group-item panel-heading hidden-sm hidden-xs">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="panel-title">@Resources.UI.Metadata_Title</p>
+                    </div>
+                    <div class="col-md-6"><p class="panel-title">@Resources.UI.Metadata_Organization</p></div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-2"><p class="panel-title">@Resources.UI.Metadata_Type</p></div>
+                    <div class="col-md-2">
+                        @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
+                        {
+                            <p class="panel-title">@Resources.UI.Metadata_Status</p>
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <p class="panel-title">@Resources.UI.Metadata_Links</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @foreach (var metadata in Model)
+    {
+        <div class="list-group-item">
             @Html.Partial("_MetadataItem", metadata)
-        }
-    </tbody>
-</table>
+        </div>
+    }
+</div>

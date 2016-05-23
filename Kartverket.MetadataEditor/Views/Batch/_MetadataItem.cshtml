@@ -4,36 +4,63 @@
 @{
     string css = "";
     string relationIcon = "";
-    if (ViewData.ContainsKey("Relation")) {
+    if (ViewData.ContainsKey("Relation"))
+    {
         css = "relation";
         relationIcon = "<span class=\"relation-icon\"><img src=\"" + Url.Content("~/Content/arrow-down-right.png") + "\" width=\"9\" height=\"17\" alt=\"pil ned og til høyre.\"></span>";
-    }   
+    }
 }
 <script>validationUUIDs[validationUUIDs.length] = '@Model.Uuid';</script>
-<tr @css>
-    <td>
-        <input type="checkbox" class="check" name="uuids" value="@Model.Uuid">
-    </td>
-    <td>
-        @Html.Raw(relationIcon)
-        <a href="@Url.Action("../Metadata/Edit", new { uuid=@Model.Uuid })">
-            @Model.Title
-        </a>
-    </td>
-    <td>@Model.Organization</td>
-    <th>
-        <div id="type-@Model.Uuid" class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
-    </th>
-    <td>
-        <span id="status-@Model.Uuid"></span>
-    </td>
-    <td>
-        <div id="statusMsg-@Model.Uuid">
 
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-md-1 hidden-sm hidden-xs"><input type="checkbox" class="check" name="uuids" value="@Model.Uuid"></div>
+            <div class="col-md-6">
+                <div class="visible-sm-inline-block visible-xs-inline-block">
+                    <label>
+                        <input type="checkbox" class="check" name="uuids" value="@Model.Uuid">
+                    </label>
+                </div>
+                @Html.Raw(relationIcon)
+                <a href="@Url.Action("../Metadata/Edit", new { uuid=@Model.Uuid })">
+                    @Model.Title
+                </a>
+            </div>
+            <div class="col-md-5">
+                <div class="visible-sm-inline-block visible-xs-inline-block"><label>@Resources.UI.Metadata_Organization</label></div>
+                @Model.Organization
+            </div>
         </div>
-    </td>
-</tr>
-@if (Model.Type == "service" && !string.IsNullOrWhiteSpace(Model.Relation)) 
+    </div>
+    <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="visible-sm-inline-block visible-xs-inline-block">
+                    <label>@Resources.UI.Metadata_Type</label>
+                </div>
+                <div id="type-@Model.Uuid" class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
+            </div>
+            <div class="col-md-2">
+                <div class="visible-sm-inline-block visible-xs-inline-block">
+                    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
+                    {
+                        <label>@Resources.UI.Metadata_Status</label>
+                    }
+                </div>
+                <span id="status-@Model.Uuid"></span>
+            </div>
+            <div class="col-md-8">
+                <div id="statusMsg-@Model.Uuid">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Type == "service" && !string.IsNullOrWhiteSpace(Model.Relation))
 {
-<script>getAdditionalData('@Model.Uuid')</script>
+    <script>getAdditionalData('@Model.Uuid')</script>
 }
