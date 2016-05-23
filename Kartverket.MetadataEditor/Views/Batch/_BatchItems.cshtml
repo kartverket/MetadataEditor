@@ -1,51 +1,45 @@
-﻿<div class="col-sm col-sm-12" style="left: -13px">
-    <div class="panel panel-info" >
-        <div class="panel-heading">Hva ønsker du å oppdatere?</div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label>Metadata felt:</label>
-                <select name="batchField" id="batchFieldID" class="form-control" onchange="displayInput(this.value);">
-                    <option value="">Vennligst velg</option>
-                    @*@if (Model.UserIsAdmin)
-            {*@
-                    <option value="ContactMetadata_Organization">Metadatakontakt organisasjon</option>
-                    }
-                    <option value="ContactMetadata_Name">Metadatakontakt navn</option>
-                    <option value="ContactMetadata_Email">Metadatakontakt e-post</option>
-                    @*@if (Model.UserIsAdmin)
-            {*@
-                    <option value="ContactPublisher_Organization">Teknisk kontakt organisasjon</option>
-                    //}
-                    <option value="ContactPublisher_Name">Teknisk kontakt navn</option>
-                    <option value="ContactPublisher_Email">Teknisk kontakt e-post</option>
-                    @*@if (Model.UserIsAdmin)
-            {*@
-                    <option value="ContactOwner_Organization">Faglig kontakt organisasjon</option>
-                    @*}*@
-                    <option value="ContactOwner_Name">Faglig kontakt navn</option>
-                    <option value="ContactOwner_Email">Faglig kontakt e-post</option>
-
-                    <option value="MaintenanceFrequency">Oppdateringshyppighet</option>
-                </select>
-            </div>
-            <div class="form-group" >
-                <label>Ny verdi: </label>
-                <input type="text" id="batchValueText" name="batchValue" class="form-control" />
-                @Html.DropDownList("OrganizationContactMetadata", ViewBag.OrganizationContactMetadata as SelectList, String.Empty, new { @class = "form-control" })
-                @Html.DropDownList("MaintenanceFrequency", ViewBag.MaintenanceFrequency as SelectList, String.Empty, new { @class = "form-control" })
-            </div>
-            <div class="form-group text-right">
-                <input type="submit" class="btn btn-primary" value="Oppdater valgte metadata">
-                <input type="submit" class="btn btn-primary" name="updateAll" value="Oppdater alle mine metadata">
-            </div>
-            @if (TempData["Message"] != null)
-            {
-            <div class="form-group text-right">
-                <div class="alert alert-info">
-                    @TempData["Message"]
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Hva ønsker du å oppdatere?</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>Metadata felt:</label>
+                    <div class="custom-select">
+                        <select name="batchField" id="batchFieldID" class="form-control" onchange="displayInput(this.value);">
+                            <option value="">Vennligst velg</option>
+                            <option value="ContactMetadata_Organization">Metadatakontakt organisasjon</option>
+                            <option value="ContactMetadata_Name">Metadatakontakt navn</option>
+                            <option value="ContactMetadata_Email">Metadatakontakt e-post</option>
+                            <option value="ContactPublisher_Organization">Teknisk kontakt organisasjon</option>
+                            <option value="ContactPublisher_Name">Teknisk kontakt navn</option>
+                            <option value="ContactPublisher_Email">Teknisk kontakt e-post</option>
+                            <option value="ContactOwner_Organization">Faglig kontakt organisasjon</option>
+                            <option value="ContactOwner_Name">Faglig kontakt navn</option>
+                            <option value="ContactOwner_Email">Faglig kontakt e-post</option>
+                            <option value="MaintenanceFrequency">Oppdateringshyppighet</option>
+                        </select>
+                    </div>
                 </div>
+                <div class="form-group">
+                    <label>Ny verdi: </label>
+                    <input type="text" id="batchValueText" name="batchValue" class="form-control" />
+                    @Html.DropDownList("OrganizationContactMetadata", ViewBag.OrganizationContactMetadata as SelectList, String.Empty, new { @class = "form-control" })
+                    @Html.DropDownList("MaintenanceFrequency", ViewBag.MaintenanceFrequency as SelectList, String.Empty, new { @class = "form-control" })
+                </div>
+                <div class="form-group text-right">
+                    <input type="submit" class="btn btn-primary" value="Oppdater valgte metadata">
+                    <input type="submit" class="btn btn-primary" name="updateAll" value="Oppdater alle mine metadata">
+                </div>
+                @if (TempData["Message"] != null)
+            {
+                    <div class="form-group text-right">
+                        <div class="alert alert-info">
+                            @TempData["Message"]
+                        </div>
+                    </div>
+                }
             </div>
-            }
         </div>
     </div>
 </div>
