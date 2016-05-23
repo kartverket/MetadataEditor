@@ -1855,9 +1855,12 @@ aside ul li, .container-footer ul li {
 
 .btn-xs {
   font-size: 10pt !important;
-  padding: 3px;
+  padding: 3px 9px;
   height: 25px !important;
-  line-height: 19px; }
+  line-height: 14pt; }
+  .btn-xs:hover {
+    line-height: 14pt;
+    font-size: 10pt; }
 
 .input-group-btn > .btn {
   padding: 6px 12px;
