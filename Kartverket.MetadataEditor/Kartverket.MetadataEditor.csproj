@@ -376,6 +376,9 @@
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\info-white.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\info.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-disabled.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-warning-disabled.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-warning-white.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-warning.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer-white.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\kartmarkoer.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\lastned-disabled.svg" />

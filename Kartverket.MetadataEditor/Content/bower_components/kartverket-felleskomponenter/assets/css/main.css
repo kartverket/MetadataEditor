@@ -1859,7 +1859,7 @@ aside ul li, .container-footer ul li {
   height: 25px !important;
   line-height: 14pt; }
   .btn-xs:hover {
-    line-height: 14pt;
+    line-height: 14pt !important;
     font-size: 10pt; }
 
 .input-group-btn > .btn {
@@ -1964,6 +1964,15 @@ aside ul li, .container-footer ul li {
 
 .disabled .custom-icon.custom-icon-kartmarkoer {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-disabled.svg"); }
+
+.custom-icon.custom-icon-kartmarkoer-warning {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-warning.svg"); }
+
+.btn .custom-icon.custom-icon-kartmarkoer-warning {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-warning-white.svg"); }
+
+.disabled .custom-icon.custom-icon-kartmarkoer-warning {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-warning-disabled.svg"); }
 
 /* Handlekurv*/
 .custom-icon.custom-icon-handlekurv {
@@ -2758,6 +2767,25 @@ ul#thumbnailsCoverage {
     margin-right: 10px;
     float: left; }
 
+/* Metadata lists */
+@media (max-width: 991px) {
+  .metadata-list {
+    box-shadow: none; }
+    .metadata-list .metadata-list-item {
+      border-left: none;
+      border-right: none; }
+      .metadata-list .metadata-list-item .metadata-list-item-title {
+        font-size: 1.2em; }
+        .metadata-list .metadata-list-item .metadata-list-item-title small {
+          font-size: .8em; }
+    .metadata-list .metadata-list-item-mobile-row {
+      margin-bottom: 6px; }
+      .metadata-list .metadata-list-item-mobile-row .btn, .metadata-list .metadata-list-item-mobile-row .btn-xs {
+        font-size: 12pt !important;
+        line-height: 16pt;
+        height: 34px !important;
+        padding: 6px 12px; } }
+
 .menu {
   margin-bottom: 20px; }
 
@@ -2946,7 +2974,9 @@ input[type="checkbox"].input-validation-error {
       position: absolute;
       bottom: 0;
       line-height: inherit;
-      margin-bottom: 4px; }
+      margin-bottom: 4px;
+      font-size: 12pt;
+      line-height: 14pt; }
       #tableView .search-results-table-heading > div > p a, .table-view .search-results-table-heading > div > p a {
         font-size: 12pt;
         line-height: 14pt;
