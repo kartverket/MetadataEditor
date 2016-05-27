@@ -253,7 +253,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             foreach (var thumbnail in Thumbnails)
             {
-                if (!thumbnail.URL.StartsWith("http"))
+                if (!string.IsNullOrEmpty(thumbnail.URL) && !thumbnail.URL.StartsWith("http"))
                 {
                     thumbnail.URL = "https://www.geonorge.no/geonetwork/srv/nor/resources.get?uuid=" + Uuid + "&access=public&fname=" + thumbnail.URL;
                 }
