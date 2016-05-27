@@ -17,7 +17,7 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-md-1 hidden-sm hidden-xs"><input type="checkbox" class="check" name="uuids" value="@Model.Uuid"></div>
-            <div class="col-md-6">
+            <div class="col-md-6 metadata-list-item-mobile-row metadata-list-item-title">
                 <div class="visible-sm-inline-block visible-xs-inline-block">
                     <label>
                         <input type="checkbox" class="check" name="uuids" value="@Model.Uuid">
@@ -28,7 +28,7 @@
                     @Model.Title
                 </a>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 metadata-list-item-mobile-row">
                 <div class="visible-sm-inline-block visible-xs-inline-block"><label>@Resources.UI.Metadata_Organization</label></div>
                 @Model.Organization
             </div>
@@ -36,13 +36,13 @@
     </div>
     <div class="col-md-7">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 metadata-list-item-mobile-row">
                 <div class="visible-sm-inline-block visible-xs-inline-block">
                     <label>@Resources.UI.Metadata_Type</label>
                 </div>
                 <div id="type-@Model.Uuid" class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 metadata-list-item-mobile-row">
                 <div class="visible-sm-inline-block visible-xs-inline-block">
                     @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
                     {
@@ -51,7 +51,7 @@
                 </div>
                 <span id="status-@Model.Uuid"></span>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 metadata-list-item-mobile-row">
                 <div id="statusMsg-@Model.Uuid">
 
                 </div>
