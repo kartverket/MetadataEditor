@@ -458,7 +458,6 @@ var baseurl_local = searchOption.baseUrl;
                           var currResult = curr.data.Results[y];
 
                           item.title = getType(currResult.Type);
-                          item.url = searchOption.url;
 
 
                           item.list.push({
@@ -477,6 +476,7 @@ var baseurl_local = searchOption.baseUrl;
           }
 
           function getType(type) {
+
               switch (type) {
                   case "dataset":
                       return "Datasett";
@@ -488,6 +488,7 @@ var baseurl_local = searchOption.baseUrl;
                       return "Datapakker";
                   default:
               }
+
           }
 
           var categoryCount = null;
