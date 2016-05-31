@@ -603,8 +603,14 @@
 
             var Inspire = function (event) {
                 if (event) {
+                    var foundInspire = false;
                     var selectednationalinitiative = $('#keywords-national-initiative-text').val();
-                    if (selectednationalinitiative == "Inspire") {
+                    var i;
+                    for (i = 0; i < selectednationalinitiative.length; i++) {
+                        if (selectednationalinitiative[i] == "Inspire")
+                            foundInspire = true;
+                    }
+                    if (foundInspire) {
                         if ($("#QualitySpecificationTitleInspire").val().trim() == "")
                             $("#QualitySpecificationTitleInspire").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
                         if ($("#QualitySpecificationDateInspire").val().trim() == "")
@@ -614,10 +620,13 @@
 
                         $('#QualitySpecificationInspire').show();
                     }
+                    else {
+                        InspireRemove();
+                    }
                 }
             };
 
-            $("button#keywords-national-initiative-add").on("click", Inspire);
+            $("#keywords-national-initiative-text").on("change", Inspire);
             Inspire();
 
 
@@ -668,6 +677,8 @@
 
                         $("#QualitySpecificationDateTypeSosi").val("publication");
                         $("#QualitySpecificationResultSosiConform").prop('checked', true);
+                        $("#QualitySpecificationExplanationSosi").val(conformExplanation);
+                        $('#QualitySpecificationExplanationSosiDiv').hide();
                     }
                     else {
                         $("#QualitySpecificationTitleSosi").val("");
@@ -691,7 +702,9 @@
                         $("#QualitySpecificationTitle").val("Produktspesifikasjon: " + selectedOtherSpec);
                         $("#QualitySpecificationDate").val("");
                         $("#QualitySpecificationDateType").val("publication");
-                        $("#QualitySpecificationResult").prop('checked', true);
+                        $("#QualitySpecificationResultConform").prop('checked', true);
+                        $("#QualitySpecificationExplanation").val(conformExplanation);
+                        $('#QualitySpecificationExplanationDiv').hide();
                         $('#QualitySpecificationCustom').show();
                     }
                     else {
@@ -699,7 +712,7 @@
                         $("#QualitySpecificationDate").val("");
                         $("#QualitySpecificationDateType").val("");
                         $("#QualitySpecificationExplanation").val("");
-                        $("#QualitySpecificationResult").prop('checked', false);
+                        $("#QualitySpecificationResultConform").prop('checked', false);
                         $('#QualitySpecificationCustom').hide();
                     }
                 }
