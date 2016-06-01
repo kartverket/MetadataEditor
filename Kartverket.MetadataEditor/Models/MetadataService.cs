@@ -390,7 +390,9 @@ namespace Kartverket.MetadataEditor.Models
 
             UpdateMetadataFromModel(model, metadata);
 
-            _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username, model.Published));
+            var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username, model.Published));
+            if (transaction.TotalUpdated == "0")
+                throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
         }
 
         private void UpdateMetadataFromModel(MetadataViewModel model, SimpleMetadata metadata)
