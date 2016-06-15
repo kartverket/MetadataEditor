@@ -511,7 +511,6 @@
     <Content Include="Scripts\bootstrap-filestyle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\easyXDM.js" />
     <Content Include="Scripts\expressive.annotations.validate.js" />
     <Content Include="Scripts\geonorge-editor.js" />
     <Content Include="Scripts\globalize-custom.js" />

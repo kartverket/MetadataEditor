@@ -1,7 +1,5 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
 
-<script type="text/javascript" src="~/Scripts/easyXDM.js"></script>
-
 <div class="modal-dialog" id="norgeskartmodal">
     <div class="modal-content">
         <div id="viewer" role="main" style="height:100%">
@@ -22,13 +20,36 @@
                 var BBEast;
                 var BBNorth;
 
-                // by Kartverket/Thomas Hirsch 2012 / public domain.
-                var socket = new easyXDM.Socket({
-                    remote: "@Html.NorgeskartUrl()geoportal/@(!string.IsNullOrEmpty(Html.EnvironmentName()) ? "staging/" : "")select-rect.html",
-                    onMessage: function (message, origin) {
-                        //var reslist = document.getElementById('result');
-                        //reslist.innerHTML = message + "<br/>" + reslist.innerHTML;
-                        var obj = $.parseJSON(message);
+                function sendMessage(msg) {
+                    var win = document.getElementById("iframe").contentWindow;
+                    win.postMessage(JSON.stringify(msg), '*');
+                }
+
+                conf = {
+                    center_latitude: "7226208",
+                    center_longitude: "378604",
+                    grid_folder: "/sites/all/modules/custom/kms_widget/grid/",
+                    koordinatsystem: "UTM32-EUREF89",
+                    selection_type: "3525",
+                    service_name: "fylker-utm32",
+                    zoom_level: "4",
+                };
+
+                window.addEventListener('message', function (e) {
+                    console.log(e.data);
+                    var msg = JSON.parse(e.data);
+                    if (msg.type === "mapInitialized") {
+                        sendMessage({
+                            "cmd": "setCenter",
+                            "x": conf.center_longitude,
+                            "y": conf.center_latitude,
+                            "zoom": conf.zoom_level
+                        });
+                    } else {
+
+                        if (msg.cmd === "setVisible") return;
+
+                        var obj = msg;
                         if (obj.feature != null) {
                             var coords = obj.feature.geometry.coordinates[0];
                             var c1 = coords[0];
@@ -58,15 +79,15 @@
                             }
                         );
 
-
                         }
 
-                    },
-                     container: document.getElementById("container"),
-                     onReady: function () {
-                        this.container.getElementsByTagName("iframe")[0].style.width = "100%";
                     }
-                });
+                    console.log(e.data);
+                }, false);
+
+
+                $("#container").html("<iframe src='@Html.NorgeskartUrl()geoportal/select-rect.html' id='iframe' name='iframe'></iframe>");
+
 
                 function setBoundingBox() {
                     if (typeof BBWest != 'undefined') {
