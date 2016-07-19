@@ -1794,15 +1794,75 @@ aside ul li, .container-footer ul li {
   background-color: #fe5000;
   color: #fff; }
 
-.btn {
+.btn,
+a.btn,
+button.btn {
   font-family: "Open Sans", sans-serif;
   font-weight: normal;
   font-size: 12pt;
+  font-style: normal;
   margin-bottom: 7px;
+  border: none;
   border-radius: 0;
   height: 34px;
   line-height: 16pt;
-  text-decoration: none; }
+  text-decoration: none;
+  background-color: #7da1c4;
+  color: #FFF;
+  transition: all 0.35s linear 0s; }
+  .btn:hover, .btn:focus,
+  a.btn:hover,
+  a.btn:focus,
+  button.btn:hover,
+  button.btn:focus {
+    background-color: #fe5000;
+    color: #FFFFFF !important;
+    border: none;
+    font-style: normal;
+    font-size: 12pt;
+    line-height: 16pt; }
+    .btn:hover span, .btn:focus span,
+    a.btn:hover span,
+    a.btn:focus span,
+    button.btn:hover span,
+    button.btn:focus span {
+      color: #FFFFFF; }
+  .btn.disabled, .btn[disabled],
+  a.btn.disabled,
+  a.btn[disabled],
+  button.btn.disabled,
+  button.btn[disabled] {
+    background-color: #FFFFFF;
+    color: #CFCFCF;
+    border: 1px solid #CFCFCF;
+    opacity: 1;
+    cursor: not-allowed; }
+    .btn.disabled:hover, .btn[disabled]:hover,
+    a.btn.disabled:hover,
+    a.btn[disabled]:hover,
+    button.btn.disabled:hover,
+    button.btn[disabled]:hover {
+      color: #CFCFCF; }
+      .btn.disabled:hover span, .btn[disabled]:hover span,
+      a.btn.disabled:hover span,
+      a.btn[disabled]:hover span,
+      button.btn.disabled:hover span,
+      button.btn[disabled]:hover span {
+        color: #CFCFCF; }
+    .btn.disabled span:hover, .btn[disabled] span:hover,
+    a.btn.disabled span:hover,
+    a.btn[disabled] span:hover,
+    button.btn.disabled span:hover,
+    button.btn[disabled] span:hover {
+      color: #CFCFCF; }
+  .btn span:hover,
+  a.btn span:hover,
+  button.btn span:hover {
+    color: #FFFFFF; }
+  .btn.btn-purple,
+  a.btn.btn-purple,
+  button.btn.btn-purple {
+    background-color: #5d4777; }
 
 .btn-file {
   position: relative;
@@ -1821,37 +1881,6 @@ aside ul li, .container-footer ul li {
     background: white;
     cursor: inherit;
     display: block; }
-
-.btn, .col-actions .btn {
-  background-color: #7da1c4;
-  transition: all 0.35s linear 0s;
-  color: #FFF;
-  border: none;
-  font-style: normal; }
-
-.btn.btn-purple {
-  background-color: #5d4777; }
-
-.btn:hover, .btn:focus, a.btn:hover, a.btn:focus {
-  background-color: #fe5000;
-  color: #FFFFFF !important;
-  border: none;
-  font-style: normal;
-  font-size: 12pt;
-  line-height: 16pt; }
-
-.btn:hover span, .btn span:hover {
-  color: #FFFFFF !important; }
-
-.btn.disabled {
-  background-color: #FFF !important;
-  color: #cfcfcf;
-  border: 1px solid #cfcfcf;
-  opacity: 1;
-  cursor: not-allowed; }
-
-.btn.disabled:hover, .btn.disabled:hover span {
-  color: #cfcfcf !important; }
 
 .btn-xs {
   font-size: 10pt !important;
@@ -2121,7 +2150,8 @@ aside ul li, .container-footer ul li {
   font-size: 14pt;
   font-style: normal;
   font-variant: normal;
-  font-weight: 400; }
+  font-weight: 400;
+  min-height: 30px; }
 
 .chosen-input-group {
   width: calc(100% - 37px); }
