@@ -227,6 +227,17 @@ namespace Kartverket.MetadataEditor.Controllers
             }
             ViewBag.ProductspesificationValues = new SelectList(productspesifications, "Key", "Value", model.ProductSpecificationUrl);
 
+            var orderingInstructions = GetSubRegister("metadata-kodelister/kartverket/norge-digitalt-tjenesteerklaering", model);
+            if (!string.IsNullOrEmpty(model.OrderingInstructions))
+            {
+                KeyValuePair<string, string> orderingInstructionsSelected = new KeyValuePair<string, string>(model.OrderingInstructions, model.OrderingInstructions);
+                if (!orderingInstructions.ContainsKey(orderingInstructionsSelected.Key))
+                {
+                    orderingInstructions.Add(orderingInstructionsSelected.Key, orderingInstructionsSelected.Value);
+                }
+            }
+            ViewBag.OrderingInstructionsValues = new SelectList(orderingInstructions, "Key", "Value", model.OrderingInstructions);
+
             ViewBag.ProductsheetValues = new SelectList(GetRegister("produktark", model), "Key", "Value", model.ProductSheetUrl);
             ViewBag.LegendDescriptionValues = new SelectList(GetRegister("tegneregler", model), "Key", "Value", model.LegendDescriptionUrl);
 
@@ -644,6 +655,37 @@ namespace Kartverket.MetadataEditor.Controllers
                 {
                     if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
                     RegisterItems.Add(id, item["label"].ToString());
+                }
+            }
+
+            RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return RegisterItems;
+        }
+
+        public Dictionary<string, string> GetSubRegister(string registername, MetadataViewModel model)
+        {
+            string role = GetSecurityClaim("role");
+
+            Dictionary<string, string> RegisterItems = new Dictionary<string, string>();
+
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/subregister/" + registername);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var items = response["containeditems"];
+
+            foreach (var item in items)
+            {
+                var id = item["id"].ToString();
+                var owner = item["owner"].ToString();
+                string organization = item["owner"].ToString();
+
+                if (!RegisterItems.ContainsKey(id))
+                {
+                    if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
+                        RegisterItems.Add(id, item["label"].ToString());
                 }
             }
 

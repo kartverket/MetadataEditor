@@ -65,6 +65,7 @@ namespace Kartverket.MetadataEditor.Models
         public List<Thumbnail> Thumbnails { get; set; }
 
         public string Status { get; set; }
+        public string OrderingInstructions { get; set; }    
 
         [Required (ErrorMessage="Geografisk utstrekning nord er påkrevd")]
         [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage=null)]

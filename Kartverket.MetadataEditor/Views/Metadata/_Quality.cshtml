@@ -47,7 +47,25 @@
         </p>
     </div>
 </div>
-
+@if (Model.IsService())
+{
+<div class="form-group">
+    <label for="OrderingInstructions" class="col-md-2 control-label">Tjenesteerklæring</label>
+    <div class="col-md-9">
+        <p class="help-text bg-success" id="help-text-OrderingInstructions" style="display: none">
+            For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens "generelle vilkår" oppgis.
+        </p>
+        <div class="custom-select">
+            @Html.DropDownList("OrderingInstructions", ViewBag.OrderingInstructionsValues as SelectList, String.Empty, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-OrderingInstructions" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+}
 @if (!Model.IsSoftware())
 {
     <div class="panel panel-default">

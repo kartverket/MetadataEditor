@@ -227,7 +227,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 ReferenceSystemCoordinateSystem = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.CoordinateSystem : null,
                 ReferenceSystemNamespace = metadata.ReferenceSystem != null ? metadata.ReferenceSystem.Namespace : null,
-                ReferenceSystems = metadata.ReferenceSystems!=null && metadata.ReferenceSystems.Count == 0 ? null : metadata.ReferenceSystems,
+                ReferenceSystems = metadata.ReferenceSystems != null && metadata.ReferenceSystems.Count == 0 ? null : metadata.ReferenceSystems,
 
                 //QualitySpecificationDate = (metadata.QualitySpecification != null && !string.IsNullOrWhiteSpace(metadata.QualitySpecification.Date)) ? DateTime.Parse(metadata.QualitySpecification.Date) : (DateTime?)null,
                 //QualitySpecificationDateType = metadata.QualitySpecification != null ? metadata.QualitySpecification.DateType : null,
@@ -255,6 +255,7 @@ namespace Kartverket.MetadataEditor.Models
                 DateMetadataValidTo = string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidTo) ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidTo),
 
                 Status = metadata.Status,
+                OrderingInstructions = (metadata.AccessProperties != null && !string.IsNullOrEmpty(metadata.AccessProperties.OrderingInstructions)) ? metadata.AccessProperties.OrderingInstructions : "",
 
                 BoundingBoxEast = metadata.BoundingBox != null ? metadata.BoundingBox.EastBoundLongitude : null,
                 BoundingBoxWest = metadata.BoundingBox != null ? metadata.BoundingBox.WestBoundLongitude : null,
@@ -607,6 +608,9 @@ namespace Kartverket.MetadataEditor.Models
                  Codespace = model.ResourceReferenceCodespace != null ? model.ResourceReferenceCodespace : null 
                 };
             }
+
+            if (model.IsService())
+                metadata.AccessProperties = new SimpleAccessProperties { OrderingInstructions = model.OrderingInstructions }  ;
 
             SetDefaultValuesOnMetadata(metadata);
         }
