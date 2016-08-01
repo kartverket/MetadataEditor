@@ -1,6 +1,5 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
 
-<script type="text/javascript" src="~/Scripts/easyXDM.js"></script>
 
 <div class="modal-dialog" id="norgeskartmodal" style="width: 85%;">
     <div class="modal-content">
@@ -27,51 +26,73 @@
     var x2;
     var y2;
 
-    // by Kartverket/Thomas Hirsch 2012 / public domain.
-    var socket = new easyXDM.Socket({
-        remote: "@Html.NorgeskartUrl()geoportal/@(!string.IsNullOrEmpty(Html.EnvironmentName()) ? "staging/" : "")select-rect.html",
-        onMessage: function (message, origin) {
-            //var reslist = document.getElementById('result');
-            //reslist.innerHTML = message + "<br/>" + reslist.innerHTML;
-            var obj = $.parseJSON(message);
-            if (obj.feature != null) {
-                var coords = obj.feature.geometry.coordinates[0];
-                var c1 = coords[0];
-                var c2 = coords[1];
-                var c3 = coords[2];
-                var c4 = coords[3];
+        function sendMessage(msg) {
+            var win = document.getElementById("iframe").contentWindow;
+            win.postMessage(JSON.stringify(msg), '*');
+        }
 
-                x1 = c1[0];
-                y1 = c1[1];
-                x2 = c2[0];
-                y2 = c3[1];
+        conf = {
+            center_latitude: "7226208",
+            center_longitude: "378604",
+            grid_folder: "/sites/all/modules/custom/kms_widget/grid/",
+            koordinatsystem: "UTM32-EUREF89",
+            selection_type: "3525",
+            service_name: "fylker-utm32",
+            zoom_level: "4",
+        };
+
+        window.addEventListener('message', function (e) {
+            console.log(e.data);
+            var msg = JSON.parse(e.data);
+            if (msg.type === "mapInitialized") {
+                sendMessage({
+                    "cmd": "setCenter",
+                    "x": conf.center_longitude,
+                    "y": conf.center_latitude,
+                    "zoom": conf.zoom_level
+                });
+            } else {
+
+                if (msg.cmd === "setVisible") return;
+
+                var obj = msg;
+                if (obj.feature != null) {
+                    var coords = obj.feature.geometry.coordinates[0];
+                    var c1 = coords[0];
+                    var c2 = coords[1];
+                    var c3 = coords[2];
+                    var c4 = coords[3];
+
+                    x1 = c1[0];
+                    y1 = c1[1];
+                    x2 = c2[0];
+                    y2 = c3[1];
 
 
-                $.getJSON('@Html.NorgeskartUrl()/ws/trans.py?ost=' + x1 + '&nord=' + y1 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
-                    if (result.errKode == 0) {
-                        BBWest = result.ost;
-                        BBSouth = result.nord
+                    $.getJSON('@Html.NorgeskartUrl()ws/trans.py?ost=' + x1 + '&nord=' + y1 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
+                        if (result.errKode == 0) {
+                            BBWest = result.ost;
+                            BBSouth = result.nord
+                        }
                     }
-                }
+                    );
+
+                    $.getJSON('@Html.NorgeskartUrl()ws/trans.py?ost=' + x2 + '&nord=' + y2 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
+                        if (result.errKode == 0) {
+                            BBEast = result.ost;
+                            BBNorth = result.nord
+                        }
+                    }
                 );
 
-                $.getJSON('@Html.NorgeskartUrl()/ws/trans.py?ost=' + x2 + '&nord=' + y2 + '&sosiKoordSys=23&resSosiKoordSys=84', function (result) {
-                    if (result.errKode == 0) {
-                        BBEast = result.ost;
-                        BBNorth = result.nord
-                    }
                 }
-            );
-
 
             }
+            console.log(e.data);
+        }, false);
 
-        },
-        container: document.getElementById("container"),
-        onReady: function () {
-            this.container.getElementsByTagName("iframe")[0].style.width = "100%";
-        }
-    });
+
+        $("#container").html("<iframe src='@Html.NorgeskartUrl()geoportal/select-rect.html' id='iframe' name='iframe'></iframe>");
 
     function setBoundingBoxAndPlaces() {
         if (typeof BBWest != 'undefined') {
