@@ -117,11 +117,11 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationDateTypeInspire { get; set; }
         public string QualitySpecificationDateTypeSosi { get; set; }
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
-        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Forklaring av resultat er påkrevd for enten inspire, sosi eller annen standard")]
+        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
         public string QualitySpecificationExplanation { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Forklaring av resultat er påkrevd for enten inspire, sosi eller annen standard")]
+        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
         public string QualitySpecificationExplanationInspire { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Forklaring av resultat er påkrevd for enten inspire, sosi eller annen standard")]
+        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
         public string QualitySpecificationExplanationSosi { get; set; }
         [Required(ErrorMessage = "Datakonformitet er påkrevd")]
         public bool QualitySpecificationResult { get; set; }
@@ -129,11 +129,8 @@ namespace Kartverket.MetadataEditor.Models
         public bool QualitySpecificationResultInspire { get; set; }
         [Required(ErrorMessage = "Datakonformitet sosi er påkrevd")]
         public bool QualitySpecificationResultSosi { get; set; }
-        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationTitle { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd  for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationTitleInspire { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Standard (produktspesifikasjon) er påkrevd for enten inspire, sosi eller annen standard")]
         public string QualitySpecificationTitleSosi { get; set; }
         //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
