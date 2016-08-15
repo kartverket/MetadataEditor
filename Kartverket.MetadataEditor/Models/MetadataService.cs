@@ -396,10 +396,10 @@ namespace Kartverket.MetadataEditor.Models
             if (transaction.TotalUpdated == "0")
                 throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
 
-            Task.Run(() => ReIndexOperatesOn(metadata));
+            Task.Run(() => ReIndexOperatesOn(model));
         }
 
-        private void ReIndexOperatesOn(SimpleMetadata metadata)
+        private void ReIndexOperatesOn(MetadataViewModel metadata)
         {
             if (metadata.OperatesOn != null)
             {
