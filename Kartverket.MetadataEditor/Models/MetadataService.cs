@@ -8,6 +8,7 @@ using Arkitektum.GIS.Lib.SerializeUtil;
 using Kartverket.MetadataEditor.Util;
 using www.opengis.net;
 using GeoNorgeAPI;
+using System.Threading.Tasks;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -394,6 +395,23 @@ namespace Kartverket.MetadataEditor.Models
             var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username, model.Published));
             if (transaction.TotalUpdated == "0")
                 throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
+
+            Task.Run(() => ReIndexOperatesOn(metadata));
+        }
+
+        private void ReIndexOperatesOn(SimpleMetadata metadata)
+        {
+            if (metadata.OperatesOn != null)
+            {
+                foreach (var uuid in metadata.OperatesOn)
+                {
+                    HttpWebRequest request = (HttpWebRequest)
+                    WebRequest.Create(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "index/indexsingle?uuid=" + uuid);
+
+                    HttpWebResponse response = (HttpWebResponse)
+                    request.GetResponse();
+                }
+            }
         }
 
         private void UpdateMetadataFromModel(MetadataViewModel model, SimpleMetadata metadata)
