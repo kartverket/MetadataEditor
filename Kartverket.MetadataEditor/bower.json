@@ -1,0 +1,7 @@
+{
+  "name": "MetadataEditor",
+  "private": true,
+  "dependencies": {
+    "kartverket-felleskomponenter": "5.2.4"
+  }
+}
