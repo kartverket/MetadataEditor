@@ -146,6 +146,7 @@ namespace Kartverket.MetadataEditor.Models
         public string OtherConstraints { get; set; }
         public string OtherConstraintsLink { get; set; }
         public string OtherConstraintsLinkText { get; set; }
+        public string OtherConstraintsAccess { get; set; }
         public string SecurityConstraints { get; set; }
         public string SecurityConstraintsNote { get; set; }
 

@@ -168,7 +168,11 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(), "Key", "Value", model.SecurityConstraints);
             ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.UseConstraints);
             ViewBag.LicenseTypesValues = new SelectList(GetListOfLicenseTypes(), "Key", "Value", model.OtherConstraintsLink);
-            ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.AccessConstraints);
+            if (model.OtherConstraintsAccess == "No restrictions" || model.OtherConstraintsAccess == "Norway Digital restricted")
+            {
+                model.AccessConstraints = model.OtherConstraintsAccess; 
+            }
+            ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValuesAdjusted(), "Key", "Value", model.AccessConstraints);
             ViewBag.CreateProductSheetUrl =
                 System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"] + model.Uuid;
             ViewBag.ThumbnailUrl =
@@ -516,6 +520,23 @@ namespace Kartverket.MetadataEditor.Controllers
             //};
 
             return GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57");
+
+        }
+
+        public Dictionary<string, string> GetListOfRestrictionValuesAdjusted()
+        {
+            Dictionary<string, string> restricted = GetListOfRestrictionValues();
+            restricted.Add("No restrictions", "Åpne data");
+            restricted.Add("Norway Digital restricted", "Norge digtalt beskyttelse");
+
+            restricted.Remove("copyright");
+            restricted.Remove("license");
+            restricted.Remove("patentert");
+            restricted.Remove("patentPending");
+            restricted.Remove("trademark");
+            restricted.Remove("intellectualPropertyRights");
+
+            return restricted;
 
         }
 
