@@ -525,16 +525,10 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfRestrictionValuesAdjusted()
         {
-            Dictionary<string, string> restricted = GetListOfRestrictionValues();
+            Dictionary<string, string> restricted = new Dictionary<string, string>(); 
             restricted.Add("No restrictions", "Åpne data");
             restricted.Add("Norway Digital restricted", "Norge digtalt beskyttelse");
-
-            restricted.Remove("copyright");
-            restricted.Remove("license");
-            restricted.Remove("patentert");
-            restricted.Remove("patentPending");
-            restricted.Remove("trademark");
-            restricted.Remove("intellectualPropertyRights");
+            restricted.Add("restricted", "Beskyttet");
 
             return restricted;
 
