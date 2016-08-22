@@ -83,6 +83,7 @@ namespace Kartverket.MetadataEditor.Models
         public string UseConstraints { get; set; }
         public string OtherConstraintsLink { get; set; }
         public string OtherConstraintsLinkText { get; set; }
+        public string OtherConstraintsAccess { get; set; }
 
         public string Published { get; set; }
 

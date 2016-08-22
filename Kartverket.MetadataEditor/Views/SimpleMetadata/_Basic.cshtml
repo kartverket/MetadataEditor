@@ -116,19 +116,6 @@
                         @: <input type="hidden" name="KeywordsNationalInitiative[@j]" />
                             j++;
                     }
-                    else if (keyword.Value == "Åpne data")
-                    {
-
-                        if (Model.KeywordsNationalInitiative.Contains(keyword.Value))
-                        {
-                            <label class="checkbox-inline"><input type="checkbox" name="KeywordsNationalInitiative[@j]" checked value="@keyword.Value" />@keyword.Text</label>
-                        }
-                        else
-                        {
-                            <label class="checkbox-inline"><input type="checkbox" name="KeywordsNationalInitiative[@j]" value="@keyword.Value" />@keyword.Text</label>
-                        }
-                        j++;
-                    }
                     else
                     {
                         if (Model.KeywordsNationalInitiative.Contains(keyword.Value))
@@ -138,6 +125,15 @@
                         }
                     }
                 }
+            }
+
+            @if (Model.OtherConstraintsAccess != null && Model.OtherConstraintsAccess == "No restrictions")
+            {
+            <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" checked value="No restrictions" />Åpne data</label>
+            }
+            else
+            {
+            <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" value="No restrictions" />Åpne data</label>
             }
 
         </div>

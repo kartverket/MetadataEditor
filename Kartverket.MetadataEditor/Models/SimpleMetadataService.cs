@@ -196,6 +196,7 @@ namespace Kartverket.MetadataEditor.Models
                 UseConstraints = metadata.Constraints != null ? metadata.Constraints.UseConstraints : null,
                 OtherConstraintsLink = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLink : null,
                 OtherConstraintsLinkText = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLinkText : null,
+                OtherConstraintsAccess = !string.IsNullOrWhiteSpace(metadata.Constraints.OtherConstraintsAccess) ? metadata.Constraints.OtherConstraintsAccess : null,
 
                 EnglishTitle = metadata.EnglishTitle,
                 EnglishAbstract = metadata.EnglishAbstract,
@@ -313,6 +314,17 @@ namespace Kartverket.MetadataEditor.Models
                 };
             }
 
+            string accessConstraintsSelected = "";
+            if (!string.IsNullOrEmpty(model.OtherConstraintsAccess))
+            {
+                if (model.OtherConstraintsAccess == "No restrictions")
+                {
+                    accessConstraintsSelected = "otherRestrictions";
+                }
+            }
+
+
+
             if (!string.IsNullOrWhiteSpace(model.MaintenanceFrequency))
                 metadata.MaintenanceFrequency = model.MaintenanceFrequency;
 
@@ -355,8 +367,10 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Constraints = new SimpleConstraints
             {
                 UseConstraints = "license",
+                OtherConstraints = !string.IsNullOrWhiteSpace(accessConstraintsSelected) ? accessConstraintsSelected : null,
                 OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
-                OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null          
+                OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
+                OtherConstraintsAccess = !string.IsNullOrWhiteSpace(model.OtherConstraintsAccess) ? model.OtherConstraintsAccess : null
             };
 
 
