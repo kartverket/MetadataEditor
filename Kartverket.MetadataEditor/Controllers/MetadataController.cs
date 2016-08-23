@@ -527,8 +527,8 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             Dictionary<string, string> restricted = new Dictionary<string, string>(); 
             restricted.Add("No restrictions", "Åpne data");
-            restricted.Add("Norway Digital restricted", "Norge digtalt beskyttelse");
-            restricted.Add("restricted", "Beskyttet");
+            restricted.Add("Norway Digital restricted", "Norge digitalt-begrenset");
+            restricted.Add("restricted", "Skjermede data");
 
             return restricted;
 
