@@ -140,13 +140,13 @@ namespace Kartverket.MetadataEditor.Models
                         }
                     } 
 
-                    if (!string.IsNullOrWhiteSpace(publisher))
+                    if (!string.IsNullOrWhiteSpace(creator))
                     {
-                        organization = publisher;
+                        organization = creator;
                     }
                     else
                     {
-                        organization = creator;
+                        organization = publisher;
                     }
 
                     var metadataItem = new MetadataItemViewModel
