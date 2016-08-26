@@ -105,7 +105,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public void Update(HttpPostedFileBase file, string username)
         {
-            Dictionary<string, string> listOfAllowedNationalThemes =  GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
+            Dictionary<string, string> listOfAllowedRestrictionValues =  GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D");
 
             var excelPackage = new OfficeOpenXml.ExcelPackage();
             excelPackage.Load(file.InputStream);
@@ -116,31 +116,31 @@ namespace Kartverket.MetadataEditor.Models
 
                 for (int row = start.Row + 1; row <= end.Row; row++)
                 { 
-                    var theme = workSheet.Cells[row, 2].Text;
+                    var restriction = workSheet.Cells[row, 2].Text;
                     var uuid = workSheet.Cells[row, 1].Text; 
 
-                    if (!string.IsNullOrWhiteSpace(theme) && !string.IsNullOrWhiteSpace(uuid))
+                    if (!string.IsNullOrWhiteSpace(restriction) && !string.IsNullOrWhiteSpace(uuid))
                     {
-                    var key = new KeyValuePair<string, string>(theme, theme);
 
-                    if (listOfAllowedNationalThemes.Contains(key))
-                        UpdateTheme(uuid, theme, username);
+                    if (listOfAllowedRestrictionValues.ContainsKey(restriction))
+                        UpdateRestriction(uuid, restriction, username);
                     }
                 } 
 
             }
 
-        void UpdateTheme(string uuid, string theme, string username)
+        void UpdateRestriction(string uuid, string restriction, string username)
         {
             try
             { 
             MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
-            var keyword = new List<string>();
-            keyword.Add(theme);
-            metadata.KeywordsNationalTheme = keyword;
+
+            metadata.AccessConstraints = restriction;    
+
             _metadataService.SaveMetadataModel(metadata, username);
 
-            Log.Info("Batch update uuid: " + uuid + ", KeywordsNationalTheme: " + theme);
+            Log.Info("Batch update uuid: " + uuid + ", AccessConstraints: " + restriction);
+
             }
             catch (Exception ex)
             {
