@@ -525,12 +525,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfRestrictionValuesAdjusted()
         {
-            Dictionary<string, string> restricted = new Dictionary<string, string>(); 
-            restricted.Add("No restrictions", "Åpne data");
-            restricted.Add("Norway Digital restricted", "Norge digitalt-begrenset");
-            restricted.Add("restricted", "Skjermede data");
-
-            return restricted;
+            return GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D");
 
         }
 
