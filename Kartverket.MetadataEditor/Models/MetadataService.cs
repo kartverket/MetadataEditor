@@ -590,7 +590,7 @@ namespace Kartverket.MetadataEditor.Models
 
             if (!string.IsNullOrEmpty(accessConstraintsSelected))
             {
-                if (accessConstraintsSelected == "No restrictions" || accessConstraintsSelected == "Norway Digital restricted")
+                if (accessConstraintsSelected.ToLower() == "no restrictions" || accessConstraintsSelected.ToLower() == "norway digital restricted")
                 {
                     otherConstraintsAccess = accessConstraintsSelected;
                     accessConstraintsSelected = "otherRestrictions";

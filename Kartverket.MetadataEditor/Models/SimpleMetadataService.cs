@@ -317,7 +317,7 @@ namespace Kartverket.MetadataEditor.Models
             string accessConstraintsSelected = "";
             if (!string.IsNullOrEmpty(model.OtherConstraintsAccess))
             {
-                if (model.OtherConstraintsAccess == "No restrictions")
+                if (model.OtherConstraintsAccess.ToLower() == "no restrictions")
                 {
                     accessConstraintsSelected = "otherRestrictions";
                 }

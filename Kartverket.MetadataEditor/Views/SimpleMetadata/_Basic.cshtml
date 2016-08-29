@@ -127,13 +127,13 @@
                 }
             }
 
-            @if (Model.OtherConstraintsAccess != null && Model.OtherConstraintsAccess == "No restrictions")
+            @if (Model.OtherConstraintsAccess != null && Model.OtherConstraintsAccess.ToLower() == "no restrictions")
             {
-            <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" checked value="No restrictions" />Åpne data</label>
+            <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" checked value="no restrictions" />Åpne data</label>
             }
             else
             {
-            <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" value="No restrictions" />Åpne data</label>
+            <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" value="no restrictions" />Åpne data</label>
             }
 
         </div>
