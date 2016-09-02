@@ -25,6 +25,15 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="col-md-3 control-label">Formål</label>
+    <div class="col-md-5">
+        @Html.TextAreaFor(m => m.EnglishPurpose, new { @class = "form-control", cols = "", rows = "8" })
+    </div>
+    <div class="col-md-3 control-text">
+        @Html.DisplayFor(m => m.Purpose)
+    </div>
+</div>
+<div class="form-group">
     <label class="col-md-3 control-label">Organisasjonsnavn - Metadatakontakt</label>
     <div class="col-md-5">
         @Html.EditorFor(m => m.EnglishContactMetadataOrganization)
