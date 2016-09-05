@@ -18,7 +18,7 @@
     <label for="AccessConstraints" class="col-md-3 control-label">Tilgangsrestriksjoner</label>
     <div class="col-md-8">
         <p class="help-text bg-success" id="help-text-AccessConstraints" style="display: none">
-            Restriksjoner eller krav som må være oppfylt for å få tilgang til datasettet.
+            <b>Åpne data</b>: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn) <b>Norge digital-begrenset</b>: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). <b>Skjermede data</b>: Data som ikke er tilgjengelige for nedlasting (rød).
         </p>
         <div class="custom-select">
             @Html.DropDownList("AccessConstraints", ViewBag.AccessConstraintValues as SelectList, String.Empty, new { @class = "form-control" })
@@ -86,15 +86,9 @@
 <div class="form-group">
     <label for="OtherConstraints" class="col-md-3 control-label">Andre restriksjoner</label>
     <div class="col-md-8">
-        <p class="help-text bg-success" id="help-text-OtherConstraints" style="display: none">
-            Andre restriksjoner knyttet til datasettet/datatjenesten. Her kan en henvise til lisens.
-        </p>
         @Html.EditorFor(m => m.OtherConstraints)
     </div>
     <div class="col-md-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-OtherConstraints" class="badge help-text-toggle">?</a>
-        </p>
     </div>
 </div>
 <div class="form-group">

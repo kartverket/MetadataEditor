@@ -4,7 +4,7 @@
     @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-name" style="display: none">
-            Offisiell tittel (navn) på metadataene. Navnet skal være konsist, beskrive tjenesten/datasettet best mulig og baseres på norsk rettskriving. Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon, nedlastningsløsninger og på etatens hjemmesider. Navnet kan også inneholde årstall og geografisk område.
+            Navn på metadataoppføringen. Navnet skal være kort og konsist og beskrive tjenesten/datasettet best mulig. Generelle begreper må settes inn i en faglig kontekst (eks: Kulturminner - lokaliteter). Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon. Navnet kan også inneholde årstall og geografisk område.
         </p>
         @Html.EditorFor(m => m.Title)
         <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -36,7 +36,7 @@
         <label for="ResourceReferenceCode" class="col-md-2 control-label">Navn på datasett</label>
         <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-ResourceReferenceCode" style="display: none">
-                Dette navnet kombinert med navnerom må være unikt for datasettet.
+                Fullstendig navn på selve datasettet.
             </p>
             @Html.EditorFor(m => m.ResourceReferenceCode)
         </div>
@@ -51,7 +51,7 @@
     @Html.LabelFor(m => m.Purpose, new { @class = "col-md-2 control-label" })
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-purpose" style="display: none">
-            Kortfattet tekst om hva som er formålet med tjenesten / datasettet / datasettserien.
+            Hvis datasettet er samlet inn med tanke på et spesielt formål, og ikke kan brukes til andre formål uten videre, skal dette oppgis. Hvis ikke, trengs det ikke angis noe her.
         </p>
         @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
     </div>
@@ -83,7 +83,7 @@
     <label for="SupplementalDescription" class="col-md-2 control-label">Supplerende beskrivelse</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-supplementalDescription" style="display: none">
-            Annen informasjon som er ønskelig å opplyse om, men som ikke hører hjemme i sammendraget.
+            Annen informasjon som er ønskelig å opplyse om, men som ikke hører hjemme i beskrivelsen.
         </p>
         @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
     </div>
@@ -99,7 +99,7 @@
     <label for="SpecificUsage" class="col-md-2 control-label">Bruksområde</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-usage" style="display: none">
-            Kort beskrivelse av hvordan datasettet kan/børbrukes.
+            Kort beskrivelse av hvilke oppgaver datasettet kan/bør brukes til.
         </p>
         @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
     </div>

@@ -37,7 +37,7 @@
     <label for="ProcessHistory" class="col-md-2 control-label">Prosesshistorie</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-ProcessHistory" style="display: none">
-            Overordna informasjon om kildedata og bearbeiding som ble gjort for å etablere datasettet. Hvis det ikke finnes dokumentert prosesshistorie eller at denne ikke er lagt inn kan en skrive "Ingen tilgjengelig prosesshistorie"
+            Dataprodusentens generelle kunnskap om opprinnelsen og prosesshistorien til et datasett eller tjeneste. Forklar kort hvilke vikte operasjoner som er gjort fra datafangst til leveranse, og hvordan dette eventuelt påvirker kvalitet og innhold i datasettet
         </p>
         @Html.TextAreaFor(m => m.ProcessHistory, new { @class = "form-control", cols = "", rows = "5" })
     </div>
