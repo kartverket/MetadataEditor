@@ -4,7 +4,7 @@
     <label for="DistributionProtocol" class="col-md-3 control-label">Distribusjonstype</label>
     <div class="col-md-6">
         <p class="help-text bg-success" id="help-text-DistributionProtocol" style="display: none">
-            Velg riktig lenketype for ressursen (datasette/tjenesten/websiden)
+            Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden)
         </p>
         <div class="custom-select">
             @Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg distribusjonstype  --", new { @class = "form-control" })
@@ -234,7 +234,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <p class="help-text bg-success" id="help-text-ReferenceSystem" style="display: none">
-                                        Her legger man inn referanser til unik identifisering av datasett og datasettserier som beskrives.
+                                        Oppgi hvilke koordinatsystemer datasettet leveres i
                                     </p>
                                 </div>
                             </div>

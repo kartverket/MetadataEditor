@@ -157,19 +157,19 @@
     <value>Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i Norgeskart.</value>
   </data>
   <data name="Helptext_ContactMetadata" xml:space="preserve">
-    <value>Kontaktpunkt (person eller avdeling) som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</value>
+    <value>Kontaktpunkt (person eller avdeling) som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
   </data>
   <data name="Helptext_ContactOwner" xml:space="preserve">
-    <value>Kontaktpunkt (person eller avdeling) som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</value>
+    <value>Kontaktpunkt (person eller avdeling) som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
   </data>
   <data name="Helptext_ContactPublisher" xml:space="preserve">
-    <value>Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no</value>
+    <value>Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
   </data>
   <data name="Helptext_Image" xml:space="preserve">
     <value>Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde.</value>
   </data>
   <data name="Metadata_Abstract" xml:space="preserve">
-    <value>Sammendrag</value>
+    <value>Beskrivelse</value>
   </data>
   <data name="Metadata_BoundingBox_East_Invalid" xml:space="preserve">
     <value>Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>

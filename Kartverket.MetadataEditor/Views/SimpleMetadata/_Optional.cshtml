@@ -3,7 +3,7 @@
     <label for="SpecificUsage" class="col-sm-2 control-label">Bruksområde</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-usage" style="display: none">
-            Kort beskrivelse av hvordan datasettet kan/børbrukes.
+            Kort beskrivelse av hvilke oppgaver datasettet kan/bør brukes til.
         </p>
         @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
     </div>
@@ -19,7 +19,7 @@
         <label for="SupplementalDescription" class="col-sm-2 control-label">Supplerende beskrivelse</label>
         <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-supplementalDescription" style="display: none">
-                Annen informasjon som er ønskelig å opplyse om, men som ikke hører hjemme i sammendraget.
+                Annen informasjon som er ønskelig å opplyse om, men som ikke hører hjemme i beskrivelsen.
             </p>
             @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
         </div>
@@ -35,7 +35,7 @@
     <label for="ProcessHistory" class="col-sm-2 control-label">Prosesshistorie</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-ProcessHistory" style="display: none">
-            Overordna informasjon om kildedata og bearbeiding som ble gjort for å etablere datasettet. Hvis det ikke finnes dokumentert prosesshistorie eller at denne ikke er lagt inn kan en skrive "Ingen tilgjengelig prosesshistorie"
+            Dataprodusentens generelle kunnskap om opprinnelsen og prosesshistorien til et datasett eller tjeneste. Forklar kort hvilke vikte operasjoner som er gjort fra datafangst til leveranse, og hvordan dette eventuelt påvirker kvalitet og innhold i datasettet
         </p>
         @Html.TextAreaFor(m => m.ProcessHistory, new { @class = "form-control", cols = "", rows = "5" })
     </div>

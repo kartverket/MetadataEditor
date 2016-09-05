@@ -123,17 +123,17 @@
         </member>
         <member name="P:Resources.UI.Helptext_ContactMetadata">
             <summary>
-              Looks up a localized string similar to Kontaktpunkt (person eller avdeling) som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse. &quot;Navn&quot; kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no.
+              Looks up a localized string similar to Kontaktpunkt (person eller avdeling) som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse. &quot;Navn&quot; kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no.
             </summary>
         </member>
         <member name="P:Resources.UI.Helptext_ContactOwner">
             <summary>
-              Looks up a localized string similar to Kontaktpunkt (person eller avdeling) som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. &quot;Navn&quot; kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no.
+              Looks up a localized string similar to Kontaktpunkt (person eller avdeling) som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. &quot;Navn&quot; kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no.
             </summary>
         </member>
         <member name="P:Resources.UI.Helptext_ContactPublisher">
             <summary>
-              Looks up a localized string similar to Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. &quot;Navn&quot; kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost kan gå til fellesadresse som drift@etat.no.
+              Looks up a localized string similar to Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. &quot;Navn&quot; kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no.
             </summary>
         </member>
         <member name="P:Resources.UI.Helptext_Image">
@@ -143,7 +143,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Abstract">
             <summary>
-              Looks up a localized string similar to Sammendrag.
+              Looks up a localized string similar to Beskrivelse.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_East_Invalid">
