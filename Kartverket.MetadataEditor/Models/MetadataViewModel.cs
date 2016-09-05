@@ -170,6 +170,7 @@ namespace Kartverket.MetadataEditor.Models
         public string EnglishTitle { get; set; }
         public string EnglishAbstract { get; set; }
         public string EnglishPurpose { get; set; }
+        public string EnglishSupplementalDescription { get; set; }
 
         public string EnglishContactMetadataOrganization { get; set; }
         public string EnglishContactPublisherOrganization { get; set; }

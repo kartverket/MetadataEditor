@@ -16,7 +16,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label class="col-md-3 control-label">Sammendrag</label>
+    <label class="col-md-3 control-label">Beskrivelse</label>
     <div class="col-md-5">
         @Html.TextAreaFor(m => m.EnglishAbstract, new { @class = "form-control", cols = "", rows = "8" })
     </div>
@@ -31,6 +31,15 @@
     </div>
     <div class="col-md-3 control-text">
         @Html.DisplayFor(m => m.Purpose)
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-3 control-label">Supplerende beskrivelse</label>
+    <div class="col-md-5">
+        @Html.TextAreaFor(m => m.EnglishSupplementalDescription, new { @class = "form-control", cols = "", rows = "8" })
+    </div>
+    <div class="col-md-3 control-text">
+        @Html.DisplayFor(m => m.SupplementalDescription)
     </div>
 </div>
 <div class="form-group">
