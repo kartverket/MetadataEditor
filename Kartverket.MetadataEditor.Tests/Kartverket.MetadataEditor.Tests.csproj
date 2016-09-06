@@ -59,8 +59,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FluentAssertions.3.1.229\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=3.0.15.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoNorgeAPI.3.0.15.0\lib\net40\GeoNorgeAPI.dll</HintPath>
+    <Reference Include="GeoNorgeAPI, Version=3.0.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoNorgeAPI.3.0.16.0\lib\net40\GeoNorgeAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Kartverket.Geonorge.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

@@ -269,6 +269,7 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishPurpose = metadata.EnglishPurpose,
                 EnglishSupplementalDescription = metadata.EnglishSupplementalDescription,
                 EnglishSpecificUsage = metadata.EnglishSpecificUsage,
+                EnglishProcessHistory = metadata.EnglishProcessHistory,
                 EnglishContactMetadataOrganization = metadata.ContactMetadata != null ? metadata.ContactMetadata.OrganizationEnglish : null,
                 EnglishContactPublisherOrganization = metadata.ContactPublisher != null ? metadata.ContactPublisher.OrganizationEnglish : null,
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
@@ -644,6 +645,12 @@ namespace Kartverket.MetadataEditor.Models
             if (!string.IsNullOrWhiteSpace(model.EnglishSpecificUsage))
             {
                 metadata.EnglishSpecificUsage = model.EnglishSpecificUsage;
+                hasEnglishFields = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.EnglishProcessHistory))
+            {
+                metadata.EnglishProcessHistory = model.EnglishProcessHistory;
                 hasEnglishFields = true;
             }
 

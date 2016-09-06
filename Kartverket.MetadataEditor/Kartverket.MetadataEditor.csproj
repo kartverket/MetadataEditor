@@ -77,8 +77,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExpressiveAnnotations.2.2.7\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=3.0.15.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoNorgeAPI.3.0.15.0\lib\net40\GeoNorgeAPI.dll</HintPath>
+    <Reference Include="GeoNorgeAPI, Version=3.0.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoNorgeAPI.3.0.16.0\lib\net40\GeoNorgeAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
