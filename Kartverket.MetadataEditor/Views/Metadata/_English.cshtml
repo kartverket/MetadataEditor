@@ -43,6 +43,15 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="col-md-3 control-label">Bruksområde</label>
+    <div class="col-md-5">
+        @Html.TextAreaFor(m => m.EnglishSpecificUsage, new { @class = "form-control", cols = "", rows = "8" })
+    </div>
+    <div class="col-md-3 control-text">
+        @Html.DisplayFor(m => m.SpecificUsage)
+    </div>
+</div>
+<div class="form-group">
     <label class="col-md-3 control-label">Organisasjonsnavn - Metadatakontakt</label>
     <div class="col-md-5">
         @Html.EditorFor(m => m.EnglishContactMetadataOrganization)
