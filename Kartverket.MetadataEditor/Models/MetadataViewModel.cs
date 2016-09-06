@@ -141,6 +141,7 @@ namespace Kartverket.MetadataEditor.Models
 
         // constraints
         public string UseLimitations { get; set; }
+        public string EnglishUseLimitations { get; set; }
         public string AccessConstraints { get; set; }
         public string UseConstraints { get; set; }
         public string OtherConstraints { get; set; }

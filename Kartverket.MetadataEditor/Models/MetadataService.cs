@@ -240,6 +240,7 @@ namespace Kartverket.MetadataEditor.Models
                 ResolutionScale = metadata.ResolutionScale,
 
                 UseLimitations = metadata.Constraints != null ? metadata.Constraints.UseLimitations : null,
+                EnglishUseLimitations = metadata.Constraints != null ? metadata.Constraints.EnglishUseLimitations : null,
                 UseConstraints = metadata.Constraints != null ? metadata.Constraints.UseConstraints : null,
                 AccessConstraints = metadata.Constraints != null ? metadata.Constraints.AccessConstraints : null,
                 SecurityConstraints = metadata.Constraints != null ? metadata.Constraints.SecurityConstraints : null,
@@ -612,6 +613,7 @@ namespace Kartverket.MetadataEditor.Models
                     SecurityConstraintsNote = !string.IsNullOrWhiteSpace(model.SecurityConstraintsNote) ? model.SecurityConstraintsNote : "",
                     UseConstraints = !string.IsNullOrWhiteSpace(model.UseConstraints) ? model.UseConstraints : "",
                     UseLimitations = !string.IsNullOrWhiteSpace(model.UseLimitations) ? model.UseLimitations : "",
+                    EnglishUseLimitations = !string.IsNullOrWhiteSpace(model.EnglishUseLimitations) ? model.EnglishUseLimitations : "",
                     OtherConstraintsAccess = !string.IsNullOrWhiteSpace(otherConstraintsAccess) ? otherConstraintsAccess : "",
             };
 
