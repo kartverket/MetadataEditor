@@ -11,6 +11,7 @@ using Kartverket.MetadataEditor.Util;
 using Resources;
 using log4net;
 using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -576,7 +577,9 @@ namespace Kartverket.MetadataEditor.Controllers
 
             foreach (var code in codeList)
             {
-                var codevalue = code["codevalue"].ToString();
+                JToken codevalueToken = code["codevalue"];
+                string codevalue = codevalueToken?.ToString();
+                                
                 if (string.IsNullOrWhiteSpace(codevalue))
                     codevalue = code["label"].ToString();
 
