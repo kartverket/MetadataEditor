@@ -70,6 +70,15 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="col-md-3 control-label">Andre restriksjoner</label>
+    <div class="col-md-5">
+        @Html.EditorFor(m => m.EnglishOtherConstraints)
+    </div>
+    <div class="col-md-3 control-text">
+        @Html.DisplayFor(m => m.OtherConstraints)
+    </div>
+</div>
+<div class="form-group">
     <label class="col-md-3 control-label">Organisasjonsnavn - Metadatakontakt</label>
     <div class="col-md-5">
         @Html.EditorFor(m => m.EnglishContactMetadataOrganization)
