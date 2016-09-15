@@ -33,6 +33,8 @@
         @Html.DisplayFor(m => m.Purpose)
     </div>
 </div>
+@if (Model.IsDatasetOrSeriesOrSoftware())
+{
 <div class="form-group">
     <label class="col-md-3 control-label">Supplerende beskrivelse</label>
     <div class="col-md-5">
@@ -42,6 +44,7 @@
         @Html.DisplayFor(m => m.SupplementalDescription)
     </div>
 </div>
+}
 <div class="form-group">
     <label class="col-md-3 control-label">Bruksområde</label>
     <div class="col-md-5">
