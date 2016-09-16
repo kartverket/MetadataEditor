@@ -122,6 +122,8 @@ namespace Kartverket.MetadataEditor.Models
                 UpdateKeywordsInspire(username, metadatafield);
             else if (metadatafield == "DistributionFormats")
                 UpdateDistributionFormats(username, metadatafield);
+            else if (metadatafield == "ReferenceSystems")
+                UpdateReferenceSystems(username, metadatafield);
 
             excelPackage.Dispose();
 
@@ -243,6 +245,30 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+        void UpdateReferenceSystems(string username, string metadatafield)
+        {
+            Dictionary<string, string> listOfAllowedReferenceSystems = GetListOfReferenceSystems();
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var uuidDelete = workSheet.Cells[row, 1].Text;
+                RemoveReferencesystems(uuidDelete, username);
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var coordinatesystem = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(coordinatesystem) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    if (listOfAllowedReferenceSystems.ContainsKey(coordinatesystem))
+                        SaveReferenceSystems(uuid, coordinatesystem, username);
+                }
+            }
+        }
+
         void SaveRestriction(string uuid, string restriction, string username)
         {
             try
@@ -349,6 +375,25 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+        void SaveReferenceSystems(string uuid, string referencesystem, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                if (metadata.ReferenceSystems == null)
+                    metadata.ReferenceSystems = new List<SimpleReferenceSystem>();
+                metadata.ReferenceSystems.Add(new SimpleReferenceSystem { CoordinateSystem   = referencesystem, Namespace="EPSG" });
+
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", referencesystem: " + referencesystem);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
         void RemoveKeywordNationalInitiative(string uuid, string username)
         {
             try
@@ -395,6 +440,48 @@ namespace Kartverket.MetadataEditor.Models
             {
                 Log.Error("Error getting metadata uuid=" + uuid, ex);
             }
+        }
+
+        void RemoveReferencesystems(string uuid, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                metadata.ReferenceSystems = new List<SimpleReferenceSystem>();
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch remove Referencesystems, uuid: " + uuid);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        public Dictionary<string, string> GetListOfReferenceSystems()
+        {
+            Dictionary<string, string> ReferenceSystems = new Dictionary<string, string>();
+
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/epsg-koder");
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var refs = response["containeditems"];
+
+            foreach (var refsys in refs)
+            {
+
+                var documentreference = refsys["documentreference"].ToString();
+                if (!ReferenceSystems.ContainsKey(documentreference))
+                {
+                    ReferenceSystems.Add(documentreference, refsys["label"].ToString());
+                }
+            }
+
+            ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return ReferenceSystems;
         }
 
         public void UpdateAll(BatchData data, string username, string organization)

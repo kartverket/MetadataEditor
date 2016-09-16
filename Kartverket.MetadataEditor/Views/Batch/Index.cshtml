@@ -49,6 +49,7 @@
                                     <input type="radio" name="metadatafield" value="KeywordsNationalInitiative" id="KeywordsNationalInitiative" /><label for="KeywordsNationalInitiative">Samarbeid og lover</label>
                                     <input type="radio" name="metadatafield" value="KeywordsInspire" id="KeywordsInspire" /><label for="KeywordsInspire">Inspire-kategorier</label>
                                     <input type="radio" name="metadatafield" value="DistributionFormats" id="DistributionFormats" /><label for="DistributionFormats">Distribusjonsformater</label>
+                                    <input type="radio" name="metadatafield" value="ReferenceSystems" id="ReferenceSystems" /><label for="ReferenceSystems">Romlig referansesystem</label>
                                  </div>
                             </div>
                             <div id="KeywordsNationalThemeInfo" class="row table-responsive">
@@ -108,6 +109,18 @@
                                         <tbody>
                                             <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>SOSI</td><td>4.5</td></tr>
                                             <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>SOSI</td><td>4.3</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="ReferenceSystemsInfo" class="row table-responsive">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <caption>Excel-ark skal ha følgende struktur for å oppdatere romlig referansesystem:</caption>
+                                        <thead><tr><th>uuid</th><th>koordinatsystem</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>041f1e6e-bdbc-4091-b48f-8a5990f3cc5b</td><td>http://www.opengis.net/def/crs/EPSG/0/23032</td></tr>
+                                            <tr><td>041f1e6e-bdbc-4091-b48f-8a5990f3cc5b</td><td>http://www.opengis.net/def/crs/EPSG/0/3035</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -225,6 +238,9 @@ else
                 else if (selectedField == "DistributionFormats") {
                     $("#DistributionFormatsInfo").show();
                 }
+                else if (selectedField == "ReferenceSystems") {
+                    $("#ReferenceSystemsInfo").show();
+                }
             });
 
         });
@@ -236,6 +252,7 @@ else
             $("#KeywordsNationalInitiativeInfo").hide();
             $("#KeywordsInspireInfo").hide();
             $("#DistributionFormatsInfo").hide();
+            $("#ReferenceSystemsInfo").hide();
         }
 
 
