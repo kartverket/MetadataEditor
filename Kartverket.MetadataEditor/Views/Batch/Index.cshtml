@@ -20,7 +20,7 @@
                 <div class="panel panel-default" style="">
                     <div class="panel-heading">Filopplasting</div>
                     <div class="panel-body">
-                        <form action="@Url.Action("UploadFile","Batch")" method="post" enctype="multipart/form-data" class="form-inline" role="form">
+                        <form action="@Url.Action("UploadFile","Batch")" method="post" enctype="multipart/form-data" class="form-inline" role="form" id="uploadform">
                             <div class="row">
                                 <div class="col-md-9">
                                     <label for="batchfile">Excel fil:</label>
@@ -42,6 +42,24 @@
                                 </div>
                             </div>
                             <div class="row table-responsive">
+                                <div class="col-md-12">
+                                    <b>Hvilket felt skal oppdateres?</b>
+                                    <input type="radio" name="metadatafield" value="KeywordsNationalTheme" id="KeywordsNationalTheme" /><label for="KeywordsNationalTheme">Nasjonal temakategori</label>
+                                    <input type="radio" name="metadatafield" value="AccessConstraints" id="AccessConstraints" /><label for="AccessConstraints">Tilgangsrestriksjoner</label>
+                                 </div>
+                            </div>
+                            <div id="KeywordsNationalThemeInfo" class="row table-responsive">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <caption>Excel-ark skal ha følgende struktur i de 2 første kolonnene for å oppdatere nasjonal temakategori :</caption>
+                                        <thead><tr><th>uuid</th><th>tema</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Plan</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="AccessConstraintsInfo" class="row table-responsive">
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
                                         <caption>Excel-ark skal ha følgende struktur i de 2 første kolonnene for å oppdatere tilgangsrestriksjoner :</caption>
@@ -141,8 +159,25 @@ else
         $(function () {
             Cookies.remove('navtabselected', { path: '/Metadata' });
 
+            $("#KeywordsNationalThemeInfo").hide();
+            $("#AccessConstraintsInfo").hide();
+
             $("#checkAll").click(function () {
                 $(".check").prop('checked', $(this).prop('checked'));
+            });
+
+            $("input[name='metadatafield']").click(function () {
+
+                var selectedField = $('input[name=metadatafield]:checked', '#uploadform').val();
+
+                $("#KeywordsNationalThemeInfo").hide();
+                $("#AccessConstraintsInfo").hide();
+
+                if (selectedField == "KeywordsNationalTheme") {
+                    $("#KeywordsNationalThemeInfo").show();
+                } else if (selectedField == "AccessConstraints") {
+                    $("#AccessConstraintsInfo").show();
+                }
             });
 
         });

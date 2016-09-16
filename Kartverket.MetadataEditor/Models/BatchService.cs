@@ -103,31 +103,66 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
-        public void Update(HttpPostedFileBase file, string username)
-        {
-            Dictionary<string, string> listOfAllowedRestrictionValues =  GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D");
+        OfficeOpenXml.ExcelPackage excelPackage;
+        OfficeOpenXml.ExcelWorksheet workSheet;
 
-            var excelPackage = new OfficeOpenXml.ExcelPackage();
+        public void Update(HttpPostedFileBase file, string username, string metadatafield)
+        {
+            excelPackage = new OfficeOpenXml.ExcelPackage();
             excelPackage.Load(file.InputStream);
-            var workSheet = excelPackage.Workbook.Worksheets[1];
+            workSheet = excelPackage.Workbook.Worksheets[1];
+
+            if (metadatafield == "AccessConstraints")
+                GetRestriction(username, metadatafield);
+            else if (metadatafield == "KeywordsNationalTheme")
+                GetTheme(username, metadatafield);
+
+            excelPackage.Dispose();
+
+        }
+
+        void GetTheme(string username, string metadatafield)
+        {
+            Dictionary<string, string> listOfAllowedNationalThemes = GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
 
             var start = workSheet.Dimension.Start;
             var end = workSheet.Dimension.End;
 
-                for (int row = start.Row + 1; row <= end.Row; row++)
-                { 
-                    var restriction = workSheet.Cells[row, 2].Text;
-                    var uuid = workSheet.Cells[row, 1].Text; 
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var theme = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
 
-                    if (!string.IsNullOrWhiteSpace(restriction) && !string.IsNullOrWhiteSpace(uuid))
-                    {
+                if (!string.IsNullOrWhiteSpace(theme) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    var key = new KeyValuePair<string, string>(theme, theme);
+
+                    if (listOfAllowedNationalThemes.Contains(key))
+                        UpdateTheme(uuid, theme, username);
+                }
+            }
+        }
+
+        void GetRestriction(string username, string metadatafield)
+        {
+            Dictionary<string, string> listOfAllowedRestrictionValues = GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D");
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var restriction = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(restriction) && !string.IsNullOrWhiteSpace(uuid))
+                {
 
                     if (listOfAllowedRestrictionValues.ContainsKey(restriction))
                         UpdateRestriction(uuid, restriction, username);
-                    }
-                } 
-
+                }
             }
+        }
 
         void UpdateRestriction(string uuid, string restriction, string username)
         {
@@ -145,6 +180,24 @@ namespace Kartverket.MetadataEditor.Models
             catch (Exception ex)
             {
                 Log.Error("Error getting metadata uuid=" + uuid ,ex);
+            }
+        }
+
+        void UpdateTheme(string uuid, string theme, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                var keyword = new List<string>();
+                keyword.Add(theme);
+                metadata.KeywordsNationalTheme = keyword;
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", KeywordsNationalTheme: " + theme);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
             }
         }
 
