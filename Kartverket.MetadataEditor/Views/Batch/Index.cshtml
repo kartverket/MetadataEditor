@@ -48,7 +48,7 @@
                                     <input type="radio" name="metadatafield" value="AccessConstraints" id="AccessConstraints" /><label for="AccessConstraints">Tilgangsrestriksjoner</label>
                                     <input type="radio" name="metadatafield" value="KeywordsNationalInitiative" id="KeywordsNationalInitiative" /><label for="KeywordsNationalInitiative">Samarbeid og lover</label>
                                     <input type="radio" name="metadatafield" value="KeywordsInspire" id="KeywordsInspire" /><label for="KeywordsInspire">Inspire-kategorier</label>
-                                    
+                                    <input type="radio" name="metadatafield" value="DistributionFormats" id="DistributionFormats" /><label for="DistributionFormats">Distribusjonsformater</label>
                                  </div>
                             </div>
                             <div id="KeywordsNationalThemeInfo" class="row table-responsive">
@@ -96,6 +96,18 @@
                                         <tbody>
                                             <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Administrative units</td></tr>
                                             <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Addresses</td></tr>  
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="DistributionFormatsInfo" class="row table-responsive">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <caption>Excel-ark skal ha følgende struktur for å oppdatere distribusjonsformater:</caption>
+                                        <thead><tr><th>uuid</th><th>format</th><th>versjon</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>SOSI</td><td>4.5</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>SOSI</td><td>4.3</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -210,6 +222,9 @@ else
                 else if (selectedField == "KeywordsInspire") {
                     $("#KeywordsInspireInfo").show();
                 }
+                else if (selectedField == "DistributionFormats") {
+                    $("#DistributionFormatsInfo").show();
+                }
             });
 
         });
@@ -220,6 +235,7 @@ else
             $("#AccessConstraintsInfo").hide();
             $("#KeywordsNationalInitiativeInfo").hide();
             $("#KeywordsInspireInfo").hide();
+            $("#DistributionFormatsInfo").hide();
         }
 
 

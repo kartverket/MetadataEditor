@@ -120,7 +120,8 @@ namespace Kartverket.MetadataEditor.Models
                 UpdateKeywordsNationalInitiative(username, metadatafield);
             else if (metadatafield == "KeywordsInspire")
                 UpdateKeywordsInspire(username, metadatafield);
-
+            else if (metadatafield == "DistributionFormats")
+                UpdateDistributionFormats(username, metadatafield);
 
             excelPackage.Dispose();
 
@@ -220,6 +221,28 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+        void UpdateDistributionFormats(string username, string metadatafield)
+        {
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var uuidDelete = workSheet.Cells[row, 1].Text;
+                RemoveDistributionformats(uuidDelete, username);
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var format = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+                var version = workSheet.Cells[row, 3].Text;
+
+                if (!string.IsNullOrWhiteSpace(format) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    SaveDistributionformats(uuid, format, version, username);
+                }
+            }
+        }
+
         void SaveRestriction(string uuid, string restriction, string username)
         {
             try
@@ -303,6 +326,29 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+        void SaveDistributionformats(string uuid, string format, string version, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                if(metadata.DistributionFormats.Count == 1 && string.IsNullOrEmpty(metadata.DistributionFormats[0].Name))
+                {
+                    metadata.DistributionFormats[0].Name = format;
+                    metadata.DistributionFormats[0].Version = version;
+                }
+                else
+                metadata.DistributionFormats.Add(new SimpleDistributionFormat { Name = format, Version = version });
+                
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", distributionformat: " + format);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
         void RemoveKeywordNationalInitiative(string uuid, string username)
         {
             try
@@ -328,6 +374,22 @@ namespace Kartverket.MetadataEditor.Models
                 _metadataService.SaveMetadataModel(metadata, username);
 
                 Log.Info("Batch remove KeywordsInspire, uuid: " + uuid);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        void RemoveDistributionformats(string uuid, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                metadata.DistributionFormats = new List<SimpleDistributionFormat>();
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch remove Distributionformats, uuid: " + uuid);
             }
             catch (Exception ex)
             {
