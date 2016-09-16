@@ -113,15 +113,17 @@ namespace Kartverket.MetadataEditor.Models
             workSheet = excelPackage.Workbook.Worksheets[1];
 
             if (metadatafield == "AccessConstraints")
-                GetRestriction(username, metadatafield);
+                UpdateRestriction(username, metadatafield);
             else if (metadatafield == "KeywordsNationalTheme")
-                GetTheme(username, metadatafield);
+                UpdateTheme(username, metadatafield);
+            else if (metadatafield == "KeywordsNationalInitiative")
+                UpdateKeywordsNationalInitiative(username, metadatafield);
 
             excelPackage.Dispose();
 
         }
 
-        void GetTheme(string username, string metadatafield)
+        void UpdateTheme(string username, string metadatafield)
         {
             Dictionary<string, string> listOfAllowedNationalThemes = GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
 
@@ -138,12 +140,12 @@ namespace Kartverket.MetadataEditor.Models
                     var key = new KeyValuePair<string, string>(theme, theme);
 
                     if (listOfAllowedNationalThemes.Contains(key))
-                        UpdateTheme(uuid, theme, username);
+                        SaveTheme(uuid, theme, username);
                 }
             }
         }
 
-        void GetRestriction(string username, string metadatafield)
+        void UpdateRestriction(string username, string metadatafield)
         {
             Dictionary<string, string> listOfAllowedRestrictionValues = GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D");
 
@@ -159,12 +161,39 @@ namespace Kartverket.MetadataEditor.Models
                 {
 
                     if (listOfAllowedRestrictionValues.ContainsKey(restriction))
-                        UpdateRestriction(uuid, restriction, username);
+                        SaveRestriction(uuid, restriction, username);
                 }
             }
         }
 
-        void UpdateRestriction(string uuid, string restriction, string username)
+
+        void UpdateKeywordsNationalInitiative(string username, string metadatafield)
+        {
+            Dictionary<string, string> listOfAllowedKeywordsNationalInitiative = GetCodeList("37204b11-4802-44b6-80a1-519968bd072f");
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var uuidDelete = workSheet.Cells[row, 1].Text;
+                RemoveKeywordNationalInitiative(uuidDelete, username);
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var keywordNationalInitiative = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+                var quality = workSheet.Cells[row, 3].Text;
+                var qualityExplain = workSheet.Cells[row, 4].Text;
+
+                if (!string.IsNullOrWhiteSpace(keywordNationalInitiative) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    if (listOfAllowedKeywordsNationalInitiative.ContainsKey(keywordNationalInitiative))
+                        SaveKeywordNationalInitiative(uuid, keywordNationalInitiative, quality, qualityExplain, username);
+                }
+            }
+        }
+
+        void SaveRestriction(string uuid, string restriction, string username)
         {
             try
             { 
@@ -183,7 +212,7 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        void UpdateTheme(string uuid, string theme, string username)
+        void SaveTheme(string uuid, string theme, string username)
         {
             try
             {
@@ -194,6 +223,52 @@ namespace Kartverket.MetadataEditor.Models
                 _metadataService.SaveMetadataModel(metadata, username);
 
                 Log.Info("Batch update uuid: " + uuid + ", KeywordsNationalTheme: " + theme);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        void SaveKeywordNationalInitiative(string uuid, string keyword, string quality,string qualityExplain, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                metadata.KeywordsNationalInitiative.Add(keyword);
+                if(keyword == "Inspire" && !string.IsNullOrEmpty(quality))
+                {
+                    metadata.QualitySpecificationDateInspire = new DateTime(2010, 12, 8 );
+                    metadata.QualitySpecificationDateTypeInspire = "publication";
+                    string explain = (quality == "godkjent" ? "Dataene er produsert iht produktspesifikasjonen" : qualityExplain);
+                    if (string.IsNullOrEmpty(explain))
+                        explain = metadata.QualitySpecificationExplanationInspire;
+                    if (string.IsNullOrEmpty(explain))
+                        explain = "Dataene er ikke produsert iht produktspesifikasjonen";
+                    metadata.QualitySpecificationExplanationInspire = explain;
+                    metadata.QualitySpecificationResultInspire = (quality == "godkjent" ? true : false);
+                    metadata.QualitySpecificationTitleInspire = "Inspire";
+
+                }
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", KeywordsNationalInitiative: " + keyword);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        void RemoveKeywordNationalInitiative(string uuid, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                metadata.KeywordsNationalInitiative = null;
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch remove KeywordsNationalTheme, uuid: " + uuid );
             }
             catch (Exception ex)
             {

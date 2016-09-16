@@ -322,7 +322,7 @@ namespace Kartverket.MetadataEditor.Models
                     string title = qualitySpecification.Title != null ? qualitySpecification.Title : "";
                     title = title.ToLower();
 
-                    if (title.Contains("commission regulation"))
+                    if (title.Contains("commission regulation") || title.Contains("Inspire"))
                         responsible = "inspire";
                     else if (title.Contains("sosi"))
                         responsible = "sosi";
