@@ -430,7 +430,7 @@ namespace Kartverket.MetadataEditor.Models
 
             if (!string.IsNullOrWhiteSpace(model.TopicCategory))
                 metadata.TopicCategory = model.TopicCategory;
-            if(model.IsDatasetOrSeriesOrSoftware())
+            if(!string.IsNullOrWhiteSpace(model.SupplementalDescription))
                 metadata.SupplementalDescription = model.SupplementalDescription;
 
             metadata.SpecificUsage = !string.IsNullOrWhiteSpace(model.SpecificUsage) ? model.SpecificUsage : " ";
