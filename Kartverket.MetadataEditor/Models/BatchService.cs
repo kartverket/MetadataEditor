@@ -113,23 +113,23 @@ namespace Kartverket.MetadataEditor.Models
             workSheet = excelPackage.Workbook.Worksheets[1];
 
             if (metadatafield == "AccessConstraints")
-                UpdateRestriction(username, metadatafield);
+                UpdateRestriction(username);
             else if (metadatafield == "KeywordsNationalTheme")
-                UpdateTheme(username, metadatafield);
+                UpdateTheme(username);
             else if (metadatafield == "KeywordsNationalInitiative")
-                UpdateKeywordsNationalInitiative(username, metadatafield);
+                UpdateKeywordsNationalInitiative(username);
             else if (metadatafield == "KeywordsInspire")
-                UpdateKeywordsInspire(username, metadatafield);
+                UpdateKeywordsInspire(username);
             else if (metadatafield == "DistributionFormats")
-                UpdateDistributionFormats(username, metadatafield);
+                UpdateDistributionFormats(username);
             else if (metadatafield == "ReferenceSystems")
-                UpdateReferenceSystems(username, metadatafield);
+                UpdateReferenceSystems(username);
 
             excelPackage.Dispose();
 
         }
 
-        void UpdateTheme(string username, string metadatafield)
+        void UpdateTheme(string username)
         {
             Dictionary<string, string> listOfAllowedNationalThemes = GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
 
@@ -151,7 +151,7 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        void UpdateRestriction(string username, string metadatafield)
+        void UpdateRestriction(string username)
         {
             Dictionary<string, string> listOfAllowedRestrictionValues = GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D");
 
@@ -173,7 +173,7 @@ namespace Kartverket.MetadataEditor.Models
         }
 
 
-        void UpdateKeywordsNationalInitiative(string username, string metadatafield)
+        void UpdateKeywordsNationalInitiative(string username)
         {
             Dictionary<string, string> listOfAllowedKeywordsNationalInitiative = GetCodeList("37204b11-4802-44b6-80a1-519968bd072f");
 
@@ -199,7 +199,7 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        void UpdateKeywordsInspire(string username, string metadatafield)
+        void UpdateKeywordsInspire(string username)
         {
             Dictionary<string, string> listOfAllowedKeywordsInspire = GetCodeList("e7e48bc6-47c6-4e37-be12-08fb9b2fede6");
 
@@ -223,7 +223,7 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        void UpdateDistributionFormats(string username, string metadatafield)
+        void UpdateDistributionFormats(string username)
         {
             var start = workSheet.Dimension.Start;
             var end = workSheet.Dimension.End;
@@ -245,7 +245,7 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        void UpdateReferenceSystems(string username, string metadatafield)
+        void UpdateReferenceSystems(string username)
         {
             Dictionary<string, string> listOfAllowedReferenceSystems = GetListOfReferenceSystems();
 
