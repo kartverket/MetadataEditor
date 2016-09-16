@@ -118,6 +118,9 @@ namespace Kartverket.MetadataEditor.Models
                 UpdateTheme(username, metadatafield);
             else if (metadatafield == "KeywordsNationalInitiative")
                 UpdateKeywordsNationalInitiative(username, metadatafield);
+            else if (metadatafield == "KeywordsInspire")
+                UpdateKeywordsInspire(username, metadatafield);
+
 
             excelPackage.Dispose();
 
@@ -193,6 +196,30 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+        void UpdateKeywordsInspire(string username, string metadatafield)
+        {
+            Dictionary<string, string> listOfAllowedKeywordsInspire = GetCodeList("e7e48bc6-47c6-4e37-be12-08fb9b2fede6");
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var uuidDelete = workSheet.Cells[row, 1].Text;
+                RemoveKeywordInspire(uuidDelete, username);
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var keywordInspire = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(keywordInspire) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    if (listOfAllowedKeywordsInspire.ContainsKey(keywordInspire))
+                        SaveKeywordInspire(uuid, keywordInspire, username);
+                }
+            }
+        }
+
         void SaveRestriction(string uuid, string restriction, string username)
         {
             try
@@ -260,6 +287,22 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+        void SaveKeywordInspire(string uuid, string keyword, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                metadata.KeywordsInspire.Add(keyword);
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", KeywordsInspire: " + keyword);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
         void RemoveKeywordNationalInitiative(string uuid, string username)
         {
             try
@@ -269,6 +312,22 @@ namespace Kartverket.MetadataEditor.Models
                 _metadataService.SaveMetadataModel(metadata, username);
 
                 Log.Info("Batch remove KeywordsNationalTheme, uuid: " + uuid );
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        void RemoveKeywordInspire(string uuid, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                metadata.KeywordsInspire = null;
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch remove KeywordsInspire, uuid: " + uuid);
             }
             catch (Exception ex)
             {
