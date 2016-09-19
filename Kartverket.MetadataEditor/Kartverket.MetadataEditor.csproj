@@ -643,6 +643,7 @@
     <Content Include="Views\Shared\_SharedMenu.cshtml" />
     <Content Include="Views\SimpleMetadata\_Parent.cshtml" />
     <Content Include="Views\SimpleMetadata\_English.cshtml" />
+    <Content Include="Views\Metadata\_ParentIdentifier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

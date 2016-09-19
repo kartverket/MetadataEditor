@@ -426,6 +426,9 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
 
+            if (!string.IsNullOrEmpty(model.ParentIdentifier))
+                metadata.ParentIdentifier = model.ParentIdentifier;
+
             metadata.Purpose = !string.IsNullOrWhiteSpace(model.Purpose) ? model.Purpose : " ";
 
             if (!string.IsNullOrWhiteSpace(model.TopicCategory))
