@@ -138,8 +138,7 @@
         <div class="col-sm-12 text-right">
             <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="submit" class="btn btn-primary" value="">Slett</button>
             <input type="hidden" name="published" value="true" />
-            <button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Save">@UI.Button_Save</button>
-
+            <button name="action" type="submit" class="btn btn-primary show-loading-animation" value="@UI.Button_Save" data-loading-message="Lagrer metadata">@UI.Button_Save</button>
         </div>
     </div>
 

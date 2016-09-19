@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-6 metadata-list-item-mobile-row metadata-list-item-title">
                 @Html.Raw(relationIcon)
-                <a href="@Url.Action("Edit", new { uuid=@Model.Uuid })">
+                <a href="@Url.Action("Edit", new { uuid=@Model.Uuid })" data-loading-message="Henter innhold" class="show-loading-animation">
                     @Model.Title
                 </a>
                 @if (!string.IsNullOrWhiteSpace(Model.Relation) && Model.Type == "service")
