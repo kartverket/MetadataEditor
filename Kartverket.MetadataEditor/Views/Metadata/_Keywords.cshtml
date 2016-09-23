@@ -171,7 +171,7 @@
                     @for (int i = 0; i < Model.KeywordsOther.Count; i++)
             {
                 var keyword = Model.KeywordsOther[i];
-                        <li id="keywords-other-@i">
+                        <li id="keywords-other-@i" @{ string displayStyle = ""; { if (Model.ServiceDistributionKeywords.ContainsKey(keyword)) { displayStyle = "display:none; visibility:hidden;"; } } } style="@displayStyle">
                             <span class="">@keyword</span>
                             <a href="" class="keyword-delete label-list-remove" data-delete="keywords-other-@i"></a>
                             <input type="hidden" name="KeywordsOther[@i]" value="@keyword" />

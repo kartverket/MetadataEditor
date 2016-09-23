@@ -622,6 +622,9 @@ namespace Kartverket.MetadataEditor.Models
                 OtherConstraintsAccess = !string.IsNullOrWhiteSpace(otherConstraintsAccess) ? otherConstraintsAccess : "",
             };
 
+            if(model.IsService() && !string.IsNullOrEmpty(model.DistributionProtocol))
+                model.KeywordsOther = AddKeywordForService(model.DistributionProtocol, model.KeywordsOther);
+
             metadata.Keywords = model.GetAllKeywords();
 
             bool hasEnglishFields = false;
@@ -681,6 +684,7 @@ namespace Kartverket.MetadataEditor.Models
 
             SetDefaultValuesOnMetadata(metadata);
         }
+
 
         private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "")
         {
@@ -1158,6 +1162,50 @@ namespace Kartverket.MetadataEditor.Models
             var simpleMetadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(model.Uuid));
             UpdateMetadataFromModel(model, simpleMetadata);
             return SerializeUtil.SerializeToStream(simpleMetadata.GetMetadata());
+        }
+
+        string GetServiceKeyword(string distributionProtocol)
+        {
+            string keyword = null;
+
+            switch (distributionProtocol)
+            {
+                case "OGC:WMS":
+                    keyword = "infoMapAccessService";
+                    break;
+                case "OGC:WMTS":
+                    keyword = "infoMapAccessService";
+                    break;
+                case "OGC:WFS":
+                    keyword = "infoFeatureAccessService";
+                    break;
+                case "OGC:WCS":
+                    keyword = "infoCoverageAccessService";
+                    break;
+                case "OGC:CSW":
+                    keyword = "infoCatalogueService";
+                    break;
+                case "OGC:WPS":
+                    keyword = "spatialProcessingService";
+                    break;
+                case "OGC:SOS":
+                    keyword = "";
+                    break;
+                case "REST-API":
+                    keyword = "infoFeatureAccessService";
+                    break;
+            }
+
+            return keyword;
+        }
+
+        private List<string> AddKeywordForService(string distributionProtocol, List<string> keywordsOther)
+        {
+            string serviceKeyword = GetServiceKeyword(distributionProtocol);
+            if (!string.IsNullOrEmpty(serviceKeyword) && !keywordsOther.Contains(serviceKeyword))
+                keywordsOther.Add(serviceKeyword);
+
+            return keywordsOther;
         }
     }
 }

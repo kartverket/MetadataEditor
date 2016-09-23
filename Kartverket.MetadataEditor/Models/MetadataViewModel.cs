@@ -406,7 +406,15 @@ namespace Kartverket.MetadataEditor.Models
             return t;
         }
 
-
+        public Dictionary<string, string> ServiceDistributionKeywords = 
+            new Dictionary<string, string>
+            {
+                { "infoMapAccessService"  , "infoMapAccessService" },
+                { "infoFeatureAccessService"  , "infoFeatureAccessService" },
+                { "infoCoverageAccessService"  , "infoCoverageAccessService" },
+                { "infoCatalogueService"  , "infoCatalogueService" },
+                { "spatialProcessingService"  , "spatialProcessingService" }
+            };
 
     }
 

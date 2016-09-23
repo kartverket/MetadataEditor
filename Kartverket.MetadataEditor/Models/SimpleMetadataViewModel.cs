@@ -164,6 +164,16 @@ namespace Kartverket.MetadataEditor.Models
             return t;
         }
 
+        public Dictionary<string, string> ServiceDistributionKeywords =
+            new Dictionary<string, string>
+            {
+                        { "infoMapAccessService"  , "infoMapAccessService" },
+                        { "infoFeatureAccessService"  , "infoFeatureAccessService" },
+                        { "infoCoverageAccessService"  , "infoCoverageAccessService" },
+                        { "infoCatalogueService"  , "infoCatalogueService" },
+                        { "spatialProcessingService"  , "spatialProcessingService" }
+            };
+
         internal List<SimpleKeyword> CreateKeywords(List<string> inputList, string prefix, string type = null, string thesaurus = null)
         {
             List<SimpleKeyword> output = new List<SimpleKeyword>();
