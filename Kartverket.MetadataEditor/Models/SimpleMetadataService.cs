@@ -196,7 +196,7 @@ namespace Kartverket.MetadataEditor.Models
                 UseConstraints = metadata.Constraints != null ? metadata.Constraints.UseConstraints : null,
                 OtherConstraintsLink = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLink : null,
                 OtherConstraintsLinkText = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsLinkText : null,
-                OtherConstraintsAccess = !string.IsNullOrWhiteSpace(metadata.Constraints.OtherConstraintsAccess) ? metadata.Constraints.OtherConstraintsAccess : null,
+                OtherConstraintsAccess = metadata.Constraints != null ? metadata.Constraints.OtherConstraintsAccess : null,
 
                 EnglishTitle = metadata.EnglishTitle,
                 EnglishAbstract = metadata.EnglishAbstract,
