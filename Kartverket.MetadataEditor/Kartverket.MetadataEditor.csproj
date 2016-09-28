@@ -130,6 +130,7 @@
       <HintPath>..\packages\Kartverket.Geonorge.Utilities.1.0.18\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
@@ -249,6 +250,7 @@
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\BatchService.cs" />
     <Compile Include="Models\KomDataService.cs" />
+    <Compile Include="Models\MemoryCacher.cs" />
     <Compile Include="Models\MetadataCreateViewModel.cs" />
     <Compile Include="Models\MetadataIndexViewModel.cs" />
     <Compile Include="Models\MetadataItemViewModel.cs" />

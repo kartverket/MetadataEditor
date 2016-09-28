@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using Kartverket.MetadataEditor.Util;
 using Resources;
 using log4net;
+using Newtonsoft.Json.Linq;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -196,9 +197,6 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", model.ContactPublisher.Organization);
             ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", model.ContactOwner.Organization);
 
-            Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
-            ViewBag.ReferenceSystemsValues = new SelectList(ReferenceSystemsList, "Key", "Value");
-
             ViewBag.NationalThemeValues = new SelectList(GetListOfNationalTheme(), "Key", "Value");
             ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(), "Key", "Value");
@@ -383,28 +381,42 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetCodeList(string systemid)
         {
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue(systemid);
+
             Dictionary<string, string> CodeValues = new Dictionary<string, string>();
-            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(url);
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
 
-            var codeList = response["containeditems"];
-
-            foreach (var code in codeList)
+            if (cache != null)
             {
-                var codevalue = code["codevalue"].ToString();
-                if (string.IsNullOrWhiteSpace(codevalue))
-                    codevalue = code["label"].ToString();
+                CodeValues = cache as Dictionary<string, string>;
+            }
+            else
+            {
+                string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(url);
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
 
-                if (!CodeValues.ContainsKey(codevalue))
+                var codeList = response["containeditems"];
+
+                foreach (var code in codeList)
                 {
-                    CodeValues.Add(codevalue, code["label"].ToString());
+                    JToken codevalueToken = code["codevalue"];
+                    string codevalue = codevalueToken?.ToString();
+
+                    if (string.IsNullOrWhiteSpace(codevalue))
+                        codevalue = code["label"].ToString();
+
+                    if (!CodeValues.ContainsKey(codevalue))
+                    {
+                        CodeValues.Add(codevalue, code["label"].ToString());
+                    }
                 }
             }
-
             CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+            memCacher.Add(systemid, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return CodeValues;
         }
@@ -412,85 +424,38 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfOrganizations()
         {
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue("organizations");
+
             Dictionary<string, string> Organizations = new Dictionary<string, string>();
 
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/organisasjoner");
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
-
-            var orgs = response["containeditems"];
-
-            foreach (var org in orgs)
+            if (cache != null)
             {
-                if (!Organizations.ContainsKey(org["label"].ToString()))
+                Organizations = cache as Dictionary<string, string>;
+            }
+            else
+            {
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/organisasjoner");
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                var orgs = response["containeditems"];
+
+                foreach (var org in orgs)
                 {
-                    Organizations.Add(org["label"].ToString(), org["label"].ToString());
+                    if (!Organizations.ContainsKey(org["label"].ToString()))
+                    {
+                        Organizations.Add(org["label"].ToString(), org["label"].ToString());
+                    }
                 }
             }
-
             Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+            memCacher.Add("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return Organizations;
         }
-
-        public Dictionary<string, string> GetListOfReferenceSystems()
-        {
-            Dictionary<string, string> ReferenceSystems = new Dictionary<string, string>();
-
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/epsg-koder");
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
-
-            var refs = response["containeditems"];
-
-            foreach (var refsys in refs)
-            {
-
-                var documentreference = refsys["documentreference"].ToString();
-                if (!ReferenceSystems.ContainsKey(documentreference))
-                {
-                    ReferenceSystems.Add(documentreference, refsys["label"].ToString());
-                }
-            }
-
-            ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-
-            return ReferenceSystems;
-        }
-
-        public Dictionary<string, string> GetRegister(string registername, SimpleMetadataViewModel model)
-        {
-            string role = GetSecurityClaim("role");
-
-            Dictionary<string, string> RegisterItems = new Dictionary<string, string>();
-
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/" + registername);
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
-
-            var items = response["containeditems"];
-
-            foreach (var item in items)
-            {
-                var id = item["id"].ToString();
-                var owner = item["owner"].ToString();
-                string organization = item["owner"].ToString();
-
-                if (!RegisterItems.ContainsKey(id))
-                {
-                    if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
-                        RegisterItems.Add(id, item["label"].ToString());
-                }
-            }
-
-            RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-
-            return RegisterItems;
-        }
-
 
         public Dictionary<string, string> GetListOfLicenseTypes()
         {

@@ -360,6 +360,14 @@ namespace Kartverket.MetadataEditor.Controllers
             return fileStreamResult;
         }
 
+        [HttpGet]
+        public ActionResult FlushCache()
+        {
+            MemoryCacher memCacher = new MemoryCacher();
+            memCacher.DeleteAll();
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
         public string GetSafeFilename(string filename)
         {
             filename = filename.Replace(" ", "_");
@@ -402,123 +410,37 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfTopicCategories()
         {
-            //return new Dictionary<string, string> 
-            //{
-            //    {"farming", "Landbruk og havbruk"}, 
-            //    {"biota", "Biologisk mangfold"},
-            //    {"boundaries", "Administrative grenser"},
-            //    {"climatologyMeteorologyAtmosphere","Klima, meteorologi og atomsfære"},
-            //    {"economy","Økonomi"},
-            //    {"elevation","Høydedata"},
-            //    {"environment","Miljødata"},
-            //    {"geoscientificInformation","Geovitenskapelig informasjon"},
-            //    {"health","Helse"},
-            //    {"imageryBaseMapsEarthCover","Basisdata"},
-            //    {"intelligenceMilitary","Militære data"},
-            //    {"inlandWaters","Innsjø og vassdrag"},
-            //    {"location","Posisjonsdata"},
-            //    {"oceans","Kyst og sjø"},
-            //    {"planningCadastre","Plan og eiendom"},
-            //    {"society","Samfunn"},
-            //    {"structure","Konstruksjoner"},
-            //    {"transportation","Transport"},
-            //    {"utilitiesCommunication","Ledningsinformasjon"},
-            //};
-
             return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB100");
         }
 
         public Dictionary<string, string> GetListOfUnitsOfDistribution()
         {
-            //return new Dictionary<string, string> 
-            //{
-            //    {"kommunevis", "Kommunevis"}, 
-            //    {"fylkesvis", "Fylkesvis"}, 
-            //    {"landsfiler", "Landsfiler"}, 
-            //    {"regional inndeling", "Regional inndeling"}, 
-            //    {"kartbladvis", "Kartbladvis"}, 
-            //};
 
             return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB119");
         }
 
         public Dictionary<string, string> GetListOfSpatialRepresentations()
         {
-            //return new Dictionary<string, string> 
-            //{
-            //    {"vector", "Vektordata"}, 
-            //    {"grid", "Rasterdata/grid"}, 
-            //    {"textTable", "Teksttabell"}, 
-            //    {"tin", "TIN-modell"}, 
-            //    {"stereoModel", "Stereomodel"}, 
-            //    {"video", "Video"}, 
-            //};
-
             return GetCodeList("4C54EB31-714E-4457-AF6A-44FE6DBE76C1");
         }
 
         public Dictionary<string, string> GetListOfMaintenanceFrequencyValues()
         {
-            //return new Dictionary<string, string>
-            //{
-            //    {"continual", "Kontinuerlig"},
-            //    {"daily", "Daglig"},
-            //    {"weekly", "Ukentlig"},
-            //    {"fortnightly", "Annenhver uke"},
-            //    {"monthly", "Månedlig"},
-            //    {"quarterly", "Hvert kvartal"},
-            //    {"biannually", "Hvert halvår"},
-            //    {"annually", "Årlig"},
-            //    {"asNeeded", "Etter behov"},
-            //    {"irregular", "Ujevnt"},
-            //    {"notPlanned", "Ikke planlagt"},
-            //    {"unknown", "Ukjent"},
-            //};
-
             return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB124");
         }
 
         public Dictionary<string, string> GetListOfStatusValues()
         {
-            //return new Dictionary<string, string>
-            //{
-            //    {"completed", "Fullført"},
-            //    {"historicalArchive", "Arkivert"},
-            //    {"obsolete", "Utdatert"},
-            //    {"onGoing", "Kontinuerlig oppdatert"},
-            //    {"planned", "Planlagt"},
-            //    {"required", "Må oppdateres"},
-            //    {"underDevelopment", "Under arbeid"},
-            //};
             return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB137");
         }
 
         public Dictionary<string, string> GetListOfClassificationValues()
         {
-            //return new Dictionary<string, string>
-            //{
-            //    {"unclassified", "Ugradert"},
-            //    {"restricted", "Begrenset"},
-            //    {"confidential", "Konfidensielt"},
-            //    {"secret", "Hemmelig"},
-            //    {"topSecret", "Topp hemmelig"},
-            //};
-
             return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB145");
         }
 
         public Dictionary<string, string> GetListOfRestrictionValues()
         {
-            //return new Dictionary<string, string>
-            //{
-            //    {"otherRestrictions", "Andre restriksjoner"},    
-            //    {"restricted", "Beskyttet"},
-            //    {"copyright", "Kopibeskyttet"},
-            //    {"license", "Lisens"},
-            //    {"patent", "Patentert"},
-            //    {"patentPending", "Påvente av patent"},
-            //    {"trademark", "Registrert varemerke"},
-            //};
 
             return GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57");
 
@@ -562,34 +484,45 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             return GetCodeList("25EF67D3-974F-4B0C-841D-BDD0B29CE78B");
         }
-        
 
         public Dictionary<string, string> GetCodeList(string systemid)
         {
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue(systemid);
+
             Dictionary<string, string> CodeValues = new Dictionary<string, string>();
-            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(url);
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
 
-            var codeList = response["containeditems"];
-
-            foreach (var code in codeList)
+            if (cache != null)
             {
-                JToken codevalueToken = code["codevalue"];
-                string codevalue = codevalueToken?.ToString();
-                                
-                if (string.IsNullOrWhiteSpace(codevalue))
-                    codevalue = code["label"].ToString();
+                CodeValues = cache as Dictionary<string, string>;
+            }
+            else
+            {
+                string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(url);
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
 
-                if (!CodeValues.ContainsKey(codevalue))
+                var codeList = response["containeditems"];
+
+                foreach (var code in codeList)
                 {
-                    CodeValues.Add(codevalue, code["label"].ToString());
+                    JToken codevalueToken = code["codevalue"];
+                    string codevalue = codevalueToken?.ToString();
+
+                    if (string.IsNullOrWhiteSpace(codevalue))
+                        codevalue = code["label"].ToString();
+
+                    if (!CodeValues.ContainsKey(codevalue))
+                    {
+                        CodeValues.Add(codevalue, code["label"].ToString());
+                    }
                 }
             }
-
             CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+            memCacher.Add(systemid, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return CodeValues;
         }
@@ -597,50 +530,74 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfOrganizations()
         {
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue("organizations");
+
             Dictionary<string, string> Organizations = new Dictionary<string, string>();
 
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/organisasjoner");
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
-
-            var orgs = response["containeditems"];
-
-            foreach (var org in orgs)
+            if (cache != null)
             {
-                if (!Organizations.ContainsKey(org["label"].ToString())) 
+                Organizations = cache as Dictionary<string, string>;
+            }
+            else
+            {
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/organisasjoner");
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                var orgs = response["containeditems"];
+
+                foreach (var org in orgs)
                 {
-                    Organizations.Add(org["label"].ToString(), org["label"].ToString());
+                    if (!Organizations.ContainsKey(org["label"].ToString()))
+                    {
+                        Organizations.Add(org["label"].ToString(), org["label"].ToString());
+                    }
                 }
             }
-
             Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+            memCacher.Add("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return Organizations;
         }
 
         public Dictionary<string, string> GetListOfReferenceSystems()
         {
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue("referencesystems");
+
             Dictionary<string, string> ReferenceSystems = new Dictionary<string, string>();
 
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/epsg-koder");
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
-
-            var refs = response["containeditems"];
-
-            foreach (var refsys in refs)
+            if (cache != null)
+            {
+                ReferenceSystems = cache as Dictionary<string, string>;
+            }
+            else
             {
 
-                var documentreference = refsys["documentreference"].ToString();
-                if (!ReferenceSystems.ContainsKey(documentreference))
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/epsg-koder");
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                var refs = response["containeditems"];
+
+                foreach (var refsys in refs)
                 {
-                    ReferenceSystems.Add(documentreference, refsys["label"].ToString());
+
+                    var documentreference = refsys["documentreference"].ToString();
+                    if (!ReferenceSystems.ContainsKey(documentreference))
+                    {
+                        ReferenceSystems.Add(documentreference, refsys["label"].ToString());
+                    }
                 }
             }
 
             ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+            memCacher.Add("referencesystems", ReferenceSystems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return ReferenceSystems;
         }
@@ -649,29 +606,42 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             string role = GetSecurityClaim("role");
 
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue("registeritem");
+
             Dictionary<string, string> RegisterItems = new Dictionary<string, string>();
 
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/" + registername);
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
-
-            var items = response["containeditems"];
-
-            foreach (var item in items)
+            if (cache != null)
             {
-                var id = item["id"].ToString();
-                var owner = item["owner"].ToString();
-                string organization = item["owner"].ToString();
+                RegisterItems = cache as Dictionary<string, string>;
+            }
+            else
+            {
 
-                if (!RegisterItems.ContainsKey(id))
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/" + registername);
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                var items = response["containeditems"];
+
+                foreach (var item in items)
                 {
-                    if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
-                    RegisterItems.Add(id, item["label"].ToString());
+                    var id = item["id"].ToString();
+                    var owner = item["owner"].ToString();
+                    string organization = item["owner"].ToString();
+
+                    if (!RegisterItems.ContainsKey(id))
+                    {
+                        if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
+                            RegisterItems.Add(id, item["label"].ToString());
+                    }
                 }
             }
 
             RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+            memCacher.Add("registeritem", RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return RegisterItems;
         }
@@ -680,29 +650,43 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             string role = GetSecurityClaim("role");
 
+
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue("subregisteritem");
+
             Dictionary<string, string> RegisterItems = new Dictionary<string, string>();
 
-            System.Net.WebClient c = new System.Net.WebClient();
-            c.Encoding = System.Text.Encoding.UTF8;
-            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/subregister/" + registername);
-            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
-
-            var items = response["containeditems"];
-
-            foreach (var item in items)
+            if (cache != null)
             {
-                var id = item["id"].ToString();
-                var owner = item["owner"].ToString();
-                string organization = item["owner"].ToString();
+                RegisterItems = cache as Dictionary<string, string>;
+            }
+            else
+            {
 
-                if (!RegisterItems.ContainsKey(id))
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/subregister/" + registername);
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                var items = response["containeditems"];
+
+                foreach (var item in items)
                 {
-                    if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
-                        RegisterItems.Add(id, item["label"].ToString());
+                    var id = item["id"].ToString();
+                    var owner = item["owner"].ToString();
+                    string organization = item["owner"].ToString();
+
+                    if (!RegisterItems.ContainsKey(id))
+                    {
+                        if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
+                            RegisterItems.Add(id, item["label"].ToString());
+                    }
                 }
             }
 
             RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+            memCacher.Add("subregisteritem", RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return RegisterItems;
         }
