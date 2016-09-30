@@ -623,8 +623,10 @@ namespace Kartverket.MetadataEditor.Models
             };
 
             if(model.IsService() && !string.IsNullOrEmpty(model.DistributionProtocol))
+            { 
                 model.KeywordsOther = AddKeywordForService(model.DistributionProtocol, model.KeywordsOther);
-
+                metadata.ServiceType = GetServiceType(model.DistributionProtocol);
+            }
             metadata.Keywords = model.GetAllKeywords();
 
             bool hasEnglishFields = false;
@@ -685,6 +687,40 @@ namespace Kartverket.MetadataEditor.Models
             SetDefaultValuesOnMetadata(metadata);
         }
 
+        private string GetServiceType(string distributionProtocol)
+        {
+            string serviceType = "other";
+
+            switch (distributionProtocol)
+            {
+                case "OGC:WMS":
+                    serviceType = "view";
+                    break;
+                case "OGC:WMTS":
+                    serviceType = "view";
+                    break;
+                case "OGC:WFS":
+                    serviceType = "download";
+                    break;
+                case "OGC:WCS":
+                    serviceType = "download";
+                    break;
+                case "OGC:CSW":
+                    serviceType = "discovery";
+                    break;
+                case "OGC:WPS":
+                    serviceType = "other";
+                    break;
+                case "OGC:SOS":
+                    serviceType = "other";
+                    break;
+                case "REST-API":
+                    serviceType = "other";
+                    break;
+            }
+
+            return serviceType;
+        }
 
         private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "")
         {
