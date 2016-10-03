@@ -35,7 +35,7 @@
                             <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
                             }
                         </div>
-                        <button type="submit" class="btn no-margin-bottom">Søk</button>
+                        <button type="submit" class="btn no-margin-bottom show-loading-animation" data-loading-message="Henter søkeresultater">Søk</button>
                     </form>
                 </div>
             </div>
@@ -53,8 +53,8 @@
                 Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
             </p>
             <div class="pull-right btn-group">
-                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn @Model.OffsetPreviousState()" @Model.OffsetPreviousState()>Forrige</a>
-                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn @Model.OffsetNextState()" @Model.OffsetNextState()>Neste</a>
+                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn @Model.OffsetPreviousState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetPreviousState()>Forrige</a>
+                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn @Model.OffsetNextState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetNextState()>Neste</a>
             </div>
         </div>
     }

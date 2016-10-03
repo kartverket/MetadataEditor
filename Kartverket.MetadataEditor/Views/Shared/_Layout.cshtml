@@ -88,19 +88,19 @@
                     else
                     {
                         <ul class="nav nav-tabs link-tabs">
-                            <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a></li>
-                            <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create","Metadata")"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a></li>
+                            <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a></li>
+                            <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create","Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a></li>
                             @if (Html.SimpleMetadataEnabled())
                             {
-                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create","SimpleMetadata")"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a></li>
+                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create","SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a></li>
                             }
-                            <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index","Batch")"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
+                            <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index","Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
                             <li class="pull-right">
                                 @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
                                 {
                                     if (c.Value == "nd.metadata_admin")
                                     {
-                                        <a href="@Url.Action("ValidateAll", "Validator")" class="btn" onclick="return clickAndDisable(this);"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
+                                        <a href="@Url.Action("ValidateAll", "Validator")" onclick="return clickAndDisable(this);" class="btn show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
                                         <script>
                                             function clickAndDisable(link) {
 
