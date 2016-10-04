@@ -53,8 +53,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Arkitektum.GIS.Lib.SerializeUtil, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Arkitektum.GIS.Lib.SerializeUtil.1.3.0.0\lib\net40\Arkitektum.GIS.Lib.SerializeUtil.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -76,8 +76,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExpressiveAnnotations.2.2.7\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=3.0.21.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoNorgeAPI.3.0.21.0\lib\net40\GeoNorgeAPI.dll</HintPath>
+    <Reference Include="GeoNorgeAPI, Version=3.0.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoNorgeAPI.3.0.22\lib\net40\GeoNorgeAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
