@@ -595,7 +595,7 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             var accessConstraintsSelected = model.AccessConstraints;
-            string otherConstraintsAccess = ""; 
+            string otherConstraintsAccess = model.OtherConstraintsAccess; 
 
             if (!string.IsNullOrEmpty(accessConstraintsSelected))
             {
