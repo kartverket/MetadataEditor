@@ -62,7 +62,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [Authorize]
         [OutputCache(Duration = 0)]
-        public ActionResult UploadFile(string metadatafield)
+        public ActionResult UploadFile(string metadatafield, bool deleteData = false)
         {
             if (Request.Files.Count > 0)
             {
@@ -71,7 +71,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 if (file.ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 {
                     BatchService batchService = new BatchService();
-                    batchService.Update(file, GetUsername(), metadatafield);
+                    batchService.Update(file, GetUsername(), metadatafield, deleteData);
 
                     TempData["Message"] = "Metadataene ble oppdatert";
                 }

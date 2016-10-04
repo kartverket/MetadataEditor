@@ -106,7 +106,7 @@ namespace Kartverket.MetadataEditor.Models
         OfficeOpenXml.ExcelPackage excelPackage;
         OfficeOpenXml.ExcelWorksheet workSheet;
 
-        public void Update(HttpPostedFileBase file, string username, string metadatafield)
+        public void Update(HttpPostedFileBase file, string username, string metadatafield, bool deleteData)
         {
             excelPackage = new OfficeOpenXml.ExcelPackage();
             excelPackage.Load(file.InputStream);
@@ -117,13 +117,13 @@ namespace Kartverket.MetadataEditor.Models
             else if (metadatafield == "KeywordsNationalTheme")
                 UpdateTheme(username);
             else if (metadatafield == "KeywordsNationalInitiative")
-                UpdateKeywordsNationalInitiative(username);
+                UpdateKeywordsNationalInitiative(username, deleteData);
             else if (metadatafield == "KeywordsInspire")
-                UpdateKeywordsInspire(username);
+                UpdateKeywordsInspire(username, deleteData);
             else if (metadatafield == "DistributionFormats")
-                UpdateDistributionFormats(username);
+                UpdateDistributionFormats(username, deleteData);
             else if (metadatafield == "ReferenceSystems")
-                UpdateReferenceSystems(username);
+                UpdateReferenceSystems(username, deleteData);
 
             excelPackage.Dispose();
 
@@ -173,16 +173,19 @@ namespace Kartverket.MetadataEditor.Models
         }
 
 
-        void UpdateKeywordsNationalInitiative(string username)
+        void UpdateKeywordsNationalInitiative(string username, bool deleteData)
         {
             Dictionary<string, string> listOfAllowedKeywordsNationalInitiative = GetCodeList("37204b11-4802-44b6-80a1-519968bd072f");
 
             var start = workSheet.Dimension.Start;
             var end = workSheet.Dimension.End;
-            for (int row = start.Row + 1; row <= end.Row; row++)
-            {
-                var uuidDelete = workSheet.Cells[row, 1].Text;
-                RemoveKeywordNationalInitiative(uuidDelete, username);
+            if (deleteData)
+            { 
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveKeywordNationalInitiative(uuidDelete, username);
+                }
             }
             for (int row = start.Row + 1; row <= end.Row; row++)
             {
@@ -199,16 +202,19 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        void UpdateKeywordsInspire(string username)
+        void UpdateKeywordsInspire(string username, bool deleteData)
         {
             Dictionary<string, string> listOfAllowedKeywordsInspire = GetCodeList("e7e48bc6-47c6-4e37-be12-08fb9b2fede6");
 
             var start = workSheet.Dimension.Start;
             var end = workSheet.Dimension.End;
-            for (int row = start.Row + 1; row <= end.Row; row++)
-            {
-                var uuidDelete = workSheet.Cells[row, 1].Text;
-                RemoveKeywordInspire(uuidDelete, username);
+            if (deleteData)
+            { 
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveKeywordInspire(uuidDelete, username);
+                }
             }
             for (int row = start.Row + 1; row <= end.Row; row++)
             {
@@ -223,14 +229,18 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        void UpdateDistributionFormats(string username)
+        void UpdateDistributionFormats(string username, bool deleteData)
         {
             var start = workSheet.Dimension.Start;
             var end = workSheet.Dimension.End;
-            for (int row = start.Row + 1; row <= end.Row; row++)
-            {
-                var uuidDelete = workSheet.Cells[row, 1].Text;
-                RemoveDistributionformats(uuidDelete, username);
+
+            if (deleteData)
+            { 
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveDistributionformats(uuidDelete, username);
+                }
             }
             for (int row = start.Row + 1; row <= end.Row; row++)
             {
@@ -245,16 +255,19 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
-        void UpdateReferenceSystems(string username)
+        void UpdateReferenceSystems(string username, bool deleteData)
         {
             Dictionary<string, string> listOfAllowedReferenceSystems = GetListOfReferenceSystems();
 
             var start = workSheet.Dimension.Start;
             var end = workSheet.Dimension.End;
-            for (int row = start.Row + 1; row <= end.Row; row++)
-            {
-                var uuidDelete = workSheet.Cells[row, 1].Text;
-                RemoveReferencesystems(uuidDelete, username);
+            if (deleteData)
+            { 
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveReferencesystems(uuidDelete, username);
+                }
             }
             for (int row = start.Row + 1; row <= end.Row; row++)
             {
@@ -311,6 +324,8 @@ namespace Kartverket.MetadataEditor.Models
             try
             {
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+
+                metadata.KeywordsNationalInitiative.Remove(keyword);
                 metadata.KeywordsNationalInitiative.Add(keyword);
                 if(keyword == "Inspire" && !string.IsNullOrEmpty(quality))
                 {
@@ -341,6 +356,7 @@ namespace Kartverket.MetadataEditor.Models
             try
             {
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                metadata.KeywordsInspire.Remove(keyword);
                 metadata.KeywordsInspire.Add(keyword);
                 _metadataService.SaveMetadataModel(metadata, username);
 
@@ -363,8 +379,13 @@ namespace Kartverket.MetadataEditor.Models
                     metadata.DistributionFormats[0].Version = version;
                 }
                 else
-                metadata.DistributionFormats.Add(new SimpleDistributionFormat { Name = format, Version = version });
-                
+                {
+                    var dsFormat = new SimpleDistributionFormat { Name = format, Version = version };
+                    var exists = metadata.DistributionFormats.Where(f => f.Name == format && f.Version == version).ToList().Count();
+                    if (exists == 0)
+                        metadata.DistributionFormats.Add(dsFormat);
+                }
+
                 _metadataService.SaveMetadataModel(metadata, username);
 
                 Log.Info("Batch update uuid: " + uuid + ", distributionformat: " + format);
@@ -382,7 +403,10 @@ namespace Kartverket.MetadataEditor.Models
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
                 if (metadata.ReferenceSystems == null)
                     metadata.ReferenceSystems = new List<SimpleReferenceSystem>();
-                metadata.ReferenceSystems.Add(new SimpleReferenceSystem { CoordinateSystem   = referencesystem, Namespace="EPSG" });
+                var refSys = new SimpleReferenceSystem { CoordinateSystem = referencesystem, Namespace = "EPSG" };
+                var exists = metadata.ReferenceSystems.Where(r => r.CoordinateSystem == refSys.CoordinateSystem && r.Namespace == refSys.Namespace).ToList().Count();
+                    if(exists == 0)
+                    metadata.ReferenceSystems.Add(refSys);
 
                 _metadataService.SaveMetadataModel(metadata, username);
 
