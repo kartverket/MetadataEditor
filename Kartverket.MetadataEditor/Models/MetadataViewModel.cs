@@ -59,6 +59,7 @@ namespace Kartverket.MetadataEditor.Models
         public string ProductPageUrl { get; set; }
         public string ProductSheetUrl { get; set; }
         public string ProductSpecificationUrl { get; set; }
+        public string ApplicationSchema { get; set; }
         public SimpleOnlineResource ProductSpecificationOther { get; set; }
         public string CoverageUrl { get; set; }
 

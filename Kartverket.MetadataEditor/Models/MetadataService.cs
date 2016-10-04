@@ -212,6 +212,7 @@ namespace Kartverket.MetadataEditor.Models
                 ProductPageUrl = metadata.ProductPageUrl,
                 ProductSheetUrl = metadata.ProductSheetUrl,
                 ProductSpecificationUrl = metadata.ProductSpecificationUrl,
+                ApplicationSchema = metadata.ApplicationSchema,
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
                 CoverageUrl = metadata.CoverageUrl,
 
@@ -460,7 +461,9 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ContactOwner = contactOwner;
 
             // documents
-                metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
+            metadata.ProductSpecificationUrl = model.ProductSpecificationUrl;
+
+            metadata.ApplicationSchema = model.ApplicationSchema;
 
             if (metadata.IsDataset()) { 
                 metadata.ProductSpecificationOther = new SimpleOnlineResource
