@@ -2,6 +2,6 @@
   "name": "MetadataEditor",
   "private": true,
   "dependencies": {
-    "kartverket-felleskomponenter": "5.4.16"
+    "kartverket-felleskomponenter": "5.4.18"
   }
 }

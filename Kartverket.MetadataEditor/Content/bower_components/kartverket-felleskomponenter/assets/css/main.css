@@ -3164,7 +3164,7 @@ header.main-header {
   position: static; }
 
 .menu-separator {
-  z-index: 4;
+  z-index: 1;
   position: relative; }
 
 .modal-footer .btn {
