@@ -20,7 +20,7 @@ namespace Kartverket.MetadataEditor.Models
                 WfsServiceViewModel serviceModel = new WfsServiceViewModel();
 
                 wfsUrl = RemoveQueryString(wfsUrl); 
-                wfsUrl = wfsUrl + "service=wfs&request=GetCapabilities";
+                wfsUrl = wfsUrl + "?service=wfs&request=GetCapabilities";
 
                 XDocument xmlDocument = XDocument.Load(wfsUrl);
 
