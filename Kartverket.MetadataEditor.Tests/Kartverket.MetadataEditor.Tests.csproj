@@ -154,6 +154,7 @@
   <ItemGroup>
     <Compile Include="Models\WfsGetCapabilities10ParserTest.cs" />
     <Compile Include="Models\WfsGetCapabilities11ParserTest.cs" />
+    <Compile Include="Models\WfsGetCapabilities20ParserTest.cs" />
     <Compile Include="Models\WmsGetCapabilities11ParserTest.cs" />
     <Compile Include="Models\WmsGetCapabilities13ParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,6 +165,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="xml\WFS_1_1_GetCapabilitiesWithFeatureTypes.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="xml\WFS_2_0_GetCapabilitiesWithFeatureTypes.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="xml\WMS_1_1_GetCapabilitiesWithLayerGroups.xml">

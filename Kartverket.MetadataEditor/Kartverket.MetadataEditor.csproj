@@ -271,6 +271,7 @@
     <Compile Include="Models\ValidatorService.cs" />
     <Compile Include="Models\WfsGetCapabilities10Parser.cs" />
     <Compile Include="Models\WfsGetCapabilities11Parser.cs" />
+    <Compile Include="Models\WfsGetCapabilities20Parser.cs" />
     <Compile Include="Models\WfsLayerViewModel.cs" />
     <Compile Include="Models\WfsServiceLayerViewModel.cs" />
     <Compile Include="Models\WfsServiceParser.cs" />

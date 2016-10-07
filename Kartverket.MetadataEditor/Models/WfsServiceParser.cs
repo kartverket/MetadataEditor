@@ -9,6 +9,7 @@ namespace Kartverket.MetadataEditor.Models
     public class WfsServiceParser
     {
         private static XNamespace WFS = "http://www.opengis.net/wfs";
+        private static XNamespace WFS2 = "http://www.opengis.net/wfs/2.0";
         private static XNamespace INSPIRE = "http://inspire.ec.europa.eu/schemas/inspire_vs/1.0";
         private static XNamespace INSPIRE_COMMON = "http://inspire.ec.europa.eu/schemas/common/1.0";
 
@@ -18,14 +19,8 @@ namespace Kartverket.MetadataEditor.Models
             {
                 WfsServiceViewModel serviceModel = new WfsServiceViewModel();
 
-                if (!wfsUrl.EndsWith("?"))
-                {
-                    wfsUrl = wfsUrl + "?";
-                }
+                wfsUrl = RemoveQueryString(wfsUrl); 
                 wfsUrl = wfsUrl + "service=wfs&request=GetCapabilities";
-
-                //test version
-                wfsUrl = wfsUrl + "&version=1.0.0";
 
                 XDocument xmlDocument = XDocument.Load(wfsUrl);
 
@@ -46,36 +41,39 @@ namespace Kartverket.MetadataEditor.Models
                     WfsGetCapabilities11Parser parser = new WfsGetCapabilities11Parser();
                     serviceModel = parser.Parse(xmlDocument);
                     }
-
-                    else if (version == "2.0")
-                    {
-                        WfsGetCapabilities11Parser parser = new WfsGetCapabilities11Parser();
-                        serviceModel = parser.Parse(xmlDocument);
-                    }
                     else
                     {
                         WfsGetCapabilities11Parser parser = new WfsGetCapabilities11Parser();
                         serviceModel = parser.Parse(xmlDocument);
                     }
 
-                    //Implement english later
-                    //if (serviceModel.SupportsEnglishGetCapabilities)
-                    //{
-                    //    XDocument getCapabilitiesEnglish = XDocument.Load(wfsUrl + "&language=eng");
-                    //    Dictionary<string, Dictionary<string, string>> englishInformation = parser.ParseEnglishGetCapabilities(getCapabilitiesEnglish);
-                    //    serviceModel.AppendEnglishInformation(englishInformation);
-                    //}
                 }
                 else
                 {
-                   // Implement other version (2.0)?
-                    serviceModel = null;
+                    XElement root2 = xmlDocument.Element(WFS2 + "WFS_Capabilities");
+                    if (root2 != null)
+                    {
+                        WfsGetCapabilities20Parser parser = new WfsGetCapabilities20Parser();
+                        serviceModel = parser.Parse(xmlDocument);
+                    }
+                    else
+                        serviceModel = null;
                 }
 
                 return serviceModel;
             }
             else
                 return null;
+        }
+
+        string RemoveQueryString(string URL)
+        {
+            int startQueryString = URL.IndexOf("?");
+
+            if (startQueryString != -1)
+                URL = URL.Substring(0, startQueryString);
+
+            return URL;
         }
     }
 }
