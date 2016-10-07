@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding="iso-8859-1" ?>
+<WFS_Capabilities
+   version="1.0.0"
+   updateSequence="0"
+   xmlns="http://www.opengis.net/wfs"
+   xmlns:ogc="http://www.opengis.net/ogc"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengeospatial.net/wfs/1.0.0/WFS-capabilities.xsd">
+
+  <!-- MapServer version 6.4.1 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=KML SUPPORTS=PROJ SUPPORTS=GD SUPPORTS=AGG SUPPORTS=FREETYPE SUPPORTS=CAIRO SUPPORTS=SVG_SYMBOLS SUPPORTS=SVGCAIRO SUPPORTS=ICONV SUPPORTS=FRIBIDI SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=SOS_SERVER SUPPORTS=FASTCGI SUPPORTS=THREADS SUPPORTS=GEOS INPUT=JPEG INPUT=POSTGIS INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE -->
+
+  <Service>
+    <Name>MapServer WFS</Name>
+    <Title>Data fra Artskart</Title>
+    <Abstract>Artsdatabanken publiserer via denne tjenesten data fra tjenesten Artskart</Abstract>
+    <Keywords>
+      Funn av arter
+      species observations
+    </Keywords>
+    <OnlineResource>http://artskart.artsdatabanken.no</OnlineResource>
+    <Fees>free</Fees>
+    <AccessConstraints>read online</AccessConstraints>
+  </Service>
+
+  <Capability>
+    <Request>
+      <GetCapabilities>
+        <DCPType>
+          <HTTP>
+            <Get onlineResource="http://kart.artsdatabanken.no/WMS/artskart.aspx?" />
+          </HTTP>
+        </DCPType>
+        <DCPType>
+          <HTTP>
+            <Post onlineResource="http://kart.artsdatabanken.no/WMS/artskart.aspx?" />
+          </HTTP>
+        </DCPType>
+      </GetCapabilities>
+      <DescribeFeatureType>
+        <SchemaDescriptionLanguage>
+          <XMLSCHEMA/>
+        </SchemaDescriptionLanguage>
+        <DCPType>
+          <HTTP>
+            <Get onlineResource="http://kart.artsdatabanken.no/WMS/artskart.aspx?" />
+          </HTTP>
+        </DCPType>
+        <DCPType>
+          <HTTP>
+            <Post onlineResource="http://kart.artsdatabanken.no/WMS/artskart.aspx?" />
+          </HTTP>
+        </DCPType>
+      </DescribeFeatureType>
+      <GetFeature>
+        <ResultFormat>
+          <GML2/>
+        </ResultFormat>
+        <DCPType>
+          <HTTP>
+            <Get onlineResource="http://kart.artsdatabanken.no/WMS/artskart.aspx?" />
+          </HTTP>
+        </DCPType>
+        <DCPType>
+          <HTTP>
+            <Post onlineResource="http://kart.artsdatabanken.no/WMS/artskart.aspx?" />
+          </HTTP>
+        </DCPType>
+      </GetFeature>
+    </Request>
+  </Capability>
+
+  <FeatureTypeList>
+    <Operations>
+      <Query/>
+    </Operations>
+    <FeatureType>
+      <!-- WARNING: The layer name 'DD Presisjon' might contain spaces or invalid characters or may start with a number. This could lead to potential problems. -->
+      <Name>DD Presisjon</Name>
+      <Title>DD - symbolisering av presisjon</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <!-- WARNING: Required Feature Id attribute (fid) not specified for this feature type. Make sure you set one of wfs_featureid, ows_featureid or gml_featureid metadata. -->
+    </FeatureType>
+    <FeatureType>
+      <!-- WARNING: The layer name 'NT Presisjon' might contain spaces or invalid characters or may start with a number. This could lead to potential problems. -->
+      <Name>NT Presisjon</Name>
+      <Title>NT - symbolisering av presisjon</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <!-- WARNING: Required Feature Id attribute (fid) not specified for this feature type. Make sure you set one of wfs_featureid, ows_featureid or gml_featureid metadata. -->
+    </FeatureType>
+    <FeatureType>
+      <!-- WARNING: The layer name 'VU Presisjon' might contain spaces or invalid characters or may start with a number. This could lead to potential problems. -->
+      <Name>VU Presisjon</Name>
+      <Title>VU - symbolisering av presisjon</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <!-- WARNING: Required Feature Id attribute (fid) not specified for this feature type. Make sure you set one of wfs_featureid, ows_featureid or gml_featureid metadata. -->
+    </FeatureType>
+    <FeatureType>
+      <!-- WARNING: The layer name 'EN Presisjon' might contain spaces or invalid characters or may start with a number. This could lead to potential problems. -->
+      <Name>EN Presisjon</Name>
+      <Title>EN - symbolisering av presisjon</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <!-- WARNING: Required Feature Id attribute (fid) not specified for this feature type. Make sure you set one of wfs_featureid, ows_featureid or gml_featureid metadata. -->
+    </FeatureType>
+    <FeatureType>
+      <!-- WARNING: The layer name 'CR Presisjon' might contain spaces or invalid characters or may start with a number. This could lead to potential problems. -->
+      <Name>CR Presisjon</Name>
+      <Title>CR - symbolisering av presisjon</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <!-- WARNING: Required Feature Id attribute (fid) not specified for this feature type. Make sure you set one of wfs_featureid, ows_featureid or gml_featureid metadata. -->
+    </FeatureType>
+    <FeatureType>
+      <!-- WARNING: The layer name 'RE Presisjon' might contain spaces or invalid characters or may start with a number. This could lead to potential problems. -->
+      <Name>RE Presisjon</Name>
+      <Title>RE - symbolisering av presisjon</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <!-- WARNING: Required Feature Id attribute (fid) not specified for this feature type. Make sure you set one of wfs_featureid, ows_featureid or gml_featureid metadata. -->
+    </FeatureType>
+    <FeatureType>
+      <Name>DD_punkt</Name>
+      <Title>DD - Datamangel</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <MetadataURL type="FGDC" format="TXT">http://www.artsdatabanken.no</MetadataURL>
+    </FeatureType>
+    <FeatureType>
+      <Name>NT_punkt</Name>
+      <Title>NT - Nær truet</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <MetadataURL type="FGDC" format="TXT">http://www.artsdatabanken.no</MetadataURL>
+    </FeatureType>
+    <FeatureType>
+      <Name>VU_punkt</Name>
+      <Title>VU - Sårbar</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <MetadataURL type="FGDC" format="TXT">http://www.artsdatabanken.no</MetadataURL>
+    </FeatureType>
+    <FeatureType>
+      <Name>EN_punkt</Name>
+      <Title>EN - Sterkt truet</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <MetadataURL type="FGDC" format="TXT">http://www.artsdatabanken.no</MetadataURL>
+    </FeatureType>
+    <FeatureType>
+      <Name>CR_punkt</Name>
+      <Title>CR - Kritisk truet</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <MetadataURL type="FGDC" format="TXT">http://www.artsdatabanken.no</MetadataURL>
+    </FeatureType>
+    <FeatureType>
+      <Name>RE_punkt</Name>
+      <Title>RE - Regionalt utdødd</Title>
+      <Abstract>Funn av rødlistede arter fra tjenesten artskart.artsdatabanken.no</Abstract>
+      <Keywords>
+        Species observation
+        artsobservasjoner
+      </Keywords>
+      <SRS>EPSG:32633</SRS>
+      <LatLongBoundingBox minx="-300000" miny="5e+006" maxx="1e+006" maxy="9e+006" />
+      <MetadataURL type="FGDC" format="TXT">http://www.artsdatabanken.no</MetadataURL>
+    </FeatureType>
+  </FeatureTypeList>
+
+  <ogc:Filter_Capabilities>
+    <ogc:Spatial_Capabilities>
+      <ogc:Spatial_Operators>
+        <ogc:Equals/>
+        <ogc:Disjoint/>
+        <ogc:Touches/>
+        <ogc:Within/>
+        <ogc:Overlaps/>
+        <ogc:Crosses/>
+        <ogc:Intersect/>
+        <ogc:Contains/>
+        <ogc:DWithin/>
+        <ogc:BBOX/>
+      </ogc:Spatial_Operators>
+    </ogc:Spatial_Capabilities>
+    <ogc:Scalar_Capabilities>
+      <ogc:Logical_Operators />
+      <ogc:Comparison_Operators>
+        <ogc:Simple_Comparisons />
+        <ogc:Like />
+        <ogc:Between />
+      </ogc:Comparison_Operators>
+    </ogc:Scalar_Capabilities>
+  </ogc:Filter_Capabilities>
+
+</WFS_Capabilities>

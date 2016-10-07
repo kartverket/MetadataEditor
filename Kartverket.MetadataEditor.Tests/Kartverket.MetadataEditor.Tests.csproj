@@ -152,6 +152,7 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\WfsGetCapabilities10ParserTest.cs" />
     <Compile Include="Models\WfsGetCapabilities11ParserTest.cs" />
     <Compile Include="Models\WmsGetCapabilities11ParserTest.cs" />
     <Compile Include="Models\WmsGetCapabilities13ParserTest.cs" />
@@ -159,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="xml\WFS_1_0_GetCapabilitiesWithFeatureTypes.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="xml\WFS_1_1_GetCapabilitiesWithFeatureTypes.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

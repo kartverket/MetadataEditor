@@ -11,24 +11,24 @@ using System.Xml.Linq;
 namespace Kartverket.MetadataEditor.Tests.Models
 {
     [TestFixture]
-    class WfsGetCapabilities11ParserTest
+    class WfsGetCapabilities10ParserTest
     {
         private string xmlFile;
         [SetUp]
         public void SetUp()
         {
-            xmlFile = File.ReadAllText("xml\\WFS_1_1_GetCapabilitiesWithFeatureTypes.xml");
+            xmlFile = File.ReadAllText("xml\\WFS_1_0_GetCapabilitiesWithFeatureTypes.xml");
         }
 
 
         [Test]
-        public void ShouldParseFeatureTypesFromWfs1_1_GetCapabilitiesDocument()
+        public void ShouldParseFeatureTypesFromWfs1_0_GetCapabilitiesDocument()
         {
             XDocument doc = XDocument.Parse(xmlFile);
-            WfsServiceViewModel serviceModel = new WfsGetCapabilities11Parser().Parse(doc);
+            WfsServiceViewModel serviceModel = new WfsGetCapabilities10Parser().Parse(doc);
 
             Assert.NotNull(serviceModel.Layers, "No features/layers found");
-            Assert.AreEqual(5, serviceModel.Layers.Count, "Should have many featureTypes");
+            Assert.AreEqual(12, serviceModel.Layers.Count, "Should have many featureTypes");
         }
     }
 }
