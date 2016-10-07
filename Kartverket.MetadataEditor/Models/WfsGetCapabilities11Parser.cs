@@ -50,15 +50,21 @@ namespace Kartverket.MetadataEditor.Models
 
             if (boundingBox != null) 
             { 
-            var LowerCorner = boundingBox.Element(ows + "LowerCorner").Value;
-            var LowerCornerElements = LowerCorner.Split(' ');
-            WestBoundLongitude = LowerCornerElements[0];
-            SouthBoundLatitude = LowerCornerElements[1];
+                var LowerCorner = boundingBox.Element(ows + "LowerCorner");
+                if(LowerCorner != null)
+                { 
+                    var LowerCornerElements = LowerCorner.Value.Split(' ');
+                    WestBoundLongitude = LowerCornerElements[0];
+                    SouthBoundLatitude = LowerCornerElements[1];
+                }
 
-            var UpperCorner = boundingBox.Element(ows + "UpperCorner").Value;
-            var UpperCornerElements = UpperCorner.Split(' ');
-            EastBoundLongitude = UpperCornerElements[0];
-            NorthBoundLatitude = UpperCornerElements[1];
+                var UpperCorner = boundingBox.Element(ows + "UpperCorner");
+                if(UpperCorner != null)
+                { 
+                    var UpperCornerElements = UpperCorner.Value.Split(' ');
+                    EastBoundLongitude = UpperCornerElements[0];
+                    NorthBoundLatitude = UpperCornerElements[1];
+                }
 
             }
 
