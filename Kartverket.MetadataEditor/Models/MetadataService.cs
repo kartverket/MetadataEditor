@@ -405,6 +405,7 @@ namespace Kartverket.MetadataEditor.Models
                 throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
 
             Task.Run(() => ReIndexOperatesOn(model));
+            Task.Run(() => RemoveCache(model));
         }
 
         private void ReIndexOperatesOn(MetadataViewModel metadata)
@@ -420,6 +421,16 @@ namespace Kartverket.MetadataEditor.Models
                     request.GetResponse();
                 }
             }
+        }
+
+        private void RemoveCache(MetadataViewModel metadata)
+        {            
+            HttpWebRequest request = (HttpWebRequest)
+            WebRequest.Create(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "thumbnail/removecache/" + metadata.Uuid);
+
+            HttpWebResponse response = (HttpWebResponse)
+            request.GetResponse();
+
         }
 
         private void UpdateMetadataFromModel(MetadataViewModel model, SimpleMetadata metadata)
