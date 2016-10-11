@@ -91,6 +91,52 @@ namespace Kartverket.MetadataEditor.Models
             return fylks;
         }
 
+        public List<MunicipalityViewModel> GetListOfMunicipalityOrganizations()
+        {
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue("municipalityorganizations");
+
+            List<MunicipalityViewModel> Organizations = new List<MunicipalityViewModel>();
+
+            if (cache != null)
+            {
+                Organizations = cache as List<MunicipalityViewModel>;
+            }
+            else
+            {
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var json = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/v2/organisasjoner/kommuner");
+                dynamic result = Newtonsoft.Json.Linq.JArray.Parse(json);
+
+                if (result != null)
+                {
+                    foreach (var item in result)
+                    {
+                        Organizations.Add(
+                            new MunicipalityViewModel
+                            {
+                                Name = item.Name,
+                                OrganizationNumber = item.OrganizationNumber,
+                                MunicipalityCode = item.MunicipalityCode,
+                                BoundingBoxEast = item.BoundingBoxEast,
+                                BoundingBoxNorth = item.BoundingBoxNorth,
+                                BoundingBoxSouth = item.BoundingBoxSouth,
+                                BoundingBoxWest = item.BoundingBoxWest,
+                                GeographicCenterX = item.GeographicCenterX,
+                                GeographicCenterY = item.GeographicCenterY
+                            });
+                    }
+                }
+            }
+
+            Organizations = Organizations.OrderBy(o => o.Name).ToList();
+            memCacher.Add("municipalityorganizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
+
+            return Organizations;
+        }
+
     }
    
 }

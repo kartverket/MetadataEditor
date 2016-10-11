@@ -248,6 +248,8 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
 
+            ViewBag.Municipalities = new KomDataService().GetListOfMunicipalityOrganizations();
+
             ViewBag.ValidModel = true;
             if (Request.QueryString["metadatacreated"] == null )
             {

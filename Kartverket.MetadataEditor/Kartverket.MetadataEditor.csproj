@@ -256,6 +256,7 @@
     <Compile Include="Models\MetadataItemViewModel.cs" />
     <Compile Include="Models\MetadataService.cs" />
     <Compile Include="Models\MetadataViewModel.cs" />
+    <Compile Include="Models\MunicipalityViewModel.cs" />
     <Compile Include="Models\MustHaveOneElementAttribute.cs" />
     <Compile Include="Models\NotFoundModel.cs" />
     <Compile Include="Models\ObjectExtensions.cs" />
