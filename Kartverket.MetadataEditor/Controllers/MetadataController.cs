@@ -608,7 +608,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
             MemoryCacher memCacher = new MemoryCacher();
 
-            var cache = memCacher.GetValue("registeritem");
+            var cache = memCacher.GetValue("registeritem-"+ registername);
 
             Dictionary<string, string> RegisterItems = new Dictionary<string, string>();
 
@@ -641,7 +641,7 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
             RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Add("registeritem", RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            memCacher.Add("registeritem-" + registername, RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return RegisterItems;
         }
