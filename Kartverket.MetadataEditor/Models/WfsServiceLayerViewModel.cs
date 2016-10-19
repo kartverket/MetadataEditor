@@ -17,17 +17,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public string GetCapabilitiesUrl()
         {
-            if (WfsUrl != null)
-            {
-                if (!WfsUrl.EndsWith("?"))
-                {
-                    WfsUrl = WfsUrl + "?";
-                }
-                return WfsUrl + "service=wfs&request=GetCapabilities";
-            }
-            else
-                return null;
-
+            return WfsUrl;
         }
     }
 }
