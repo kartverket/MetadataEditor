@@ -507,6 +507,10 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Type = SimpleKeyword.TYPE_PLACE };
                     }
+                    else if (keyword.StartsWith("Concept_"))
+                    {
+                        simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Type = SimpleKeyword.TYPE_CONCEPT };
+                    }
                     else if (keyword.StartsWith("NationalInitiative_"))
                     {
                         simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE };

@@ -19,6 +19,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsServiceTaxonomy = new List<string>();
             KeywordsNationalInitiative = new List<string>();
             KeywordsNationalTheme = new List<string>();
+            KeywordsConcept = new List<string>();
             KeywordsOther = new List<string>();
             KeywordsEnglish = new Dictionary<string, string>();
             Thumbnails = new List<Thumbnail>();
@@ -52,6 +53,7 @@ namespace Kartverket.MetadataEditor.Models
         public List<String> KeywordsServiceTaxonomy { get; set; }
         public List<String> KeywordsNationalInitiative { get; set; }
         public List<String> KeywordsNationalTheme { get; set; }
+        public List<String> KeywordsConcept { get; set; }
         public List<String> KeywordsOther { get; set; }
         public Dictionary<string, string> KeywordsEnglish { get; set; }
 
@@ -301,6 +303,7 @@ namespace Kartverket.MetadataEditor.Models
             allKeywords.AddRange(CreateKeywords(KeywordsServiceTaxonomy, "Service", null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY));
             allKeywords.AddRange(CreateKeywords(KeywordsPlace, "Place", SimpleKeyword.TYPE_PLACE, null));
             allKeywords.AddRange(CreateKeywords(KeywordsTheme, "Theme", SimpleKeyword.TYPE_THEME, null));
+            allKeywords.AddRange(CreateKeywords(KeywordsConcept, "Concept", SimpleKeyword.TYPE_CONCEPT, null));
             allKeywords.AddRange(CreateKeywords(KeywordsOther, "Other", null, null));
             return allKeywords;
         }

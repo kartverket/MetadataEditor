@@ -1125,5 +1125,30 @@
 
         });
 
+
+        function loadConcepts() {
+            $.ajax({
+                headers: {          
+                    Accept: "application/rdf+xml",
+                    "Content-Type": "text/plain; charset=utf-8"   
+                },    
+                type: "GET",
+                url: $("#ApplicationSchema").val(),
+                success: setConcepts
+            });
+        }
+
+        function setConcepts(xml) {
+            console.log(xml);
+            $("#KeywordsConcept option").remove();
+            $(xml).find("Concept").each(function () {
+                var prefLabel = $(this).find("prefLabel").text();
+                console.log(prefLabel);
+                $('#KeywordsConcept').append($("<option selected></option>")
+                    .attr("value", prefLabel)
+                    .text(prefLabel));
+            });
+        }
+
     </script>
 }

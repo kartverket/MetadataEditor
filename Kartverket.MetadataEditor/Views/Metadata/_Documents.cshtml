@@ -18,6 +18,15 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-md-3 control-label">Begreper</label>
+        <div class="col-md-7">
+            @Html.ListBoxFor(m => m.KeywordsConcept, new MultiSelectList(Model.KeywordsConcept),  new { @class = "form-control" } )
+        </div>
+        <div class="col-md-2">
+            <input class="btn btn-default" type="button" value="Hent" onclick="loadConcepts()" />
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-md-3 control-label">Annen produktspesifikasjon</label>
         <div class="col-md-4">
             <div class="input-group">
