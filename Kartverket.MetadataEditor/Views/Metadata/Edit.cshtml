@@ -1140,6 +1140,9 @@
 
         function setConcepts(xml) {
             console.log(xml);
+            var conceptFound = false;
+            $('#KeywordsConceptAlert').removeClass("alert alert-warning");
+            $('#KeywordsConceptAlert').html("");
             $("#KeywordsConcept option").remove();
             $(xml).find("Concept").each(function () {
                 var prefLabel = $(this).find("prefLabel").text();
@@ -1147,8 +1150,13 @@
                 $('#KeywordsConcept').append($("<option selected></option>")
                     .attr("value", prefLabel)
                     .text(prefLabel));
+                conceptFound = true;
             });
             $('#KeywordsConcept').trigger("chosen:updated");
+            if (!conceptFound) {
+                $('#KeywordsConceptAlert').addClass("alert alert-warning");
+                $('#KeywordsConceptAlert').html("Fant ingen begreper");
+            }
         }
 
     </script>
