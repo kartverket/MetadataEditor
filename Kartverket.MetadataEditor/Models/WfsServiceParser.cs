@@ -19,9 +19,6 @@ namespace Kartverket.MetadataEditor.Models
             {
                 WfsServiceViewModel serviceModel = new WfsServiceViewModel();
 
-                wfsUrl = RemoveQueryString(wfsUrl); 
-                wfsUrl = wfsUrl + "?service=wfs&request=GetCapabilities";
-
                 XDocument xmlDocument = XDocument.Load(wfsUrl);
 
                 XElement root = xmlDocument.Element(WFS + "WFS_Capabilities");
@@ -64,16 +61,6 @@ namespace Kartverket.MetadataEditor.Models
             }
             else
                 return null;
-        }
-
-        string RemoveQueryString(string URL)
-        {
-            int startQueryString = URL.IndexOf("?");
-
-            if (startQueryString != -1)
-                URL = URL.Substring(0, startQueryString);
-
-            return URL;
         }
     }
 }

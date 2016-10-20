@@ -18,12 +18,6 @@ namespace Kartverket.MetadataEditor.Models
             {
             WmsServiceViewModel serviceModel = new WmsServiceViewModel();
 
-            if (!wmsUrl.EndsWith("?"))
-            {
-                wmsUrl = wmsUrl + "?";
-            }
-            wmsUrl = wmsUrl + "service=wms&request=GetCapabilities";
-
             XDocument xmlDocument = XDocument.Load(wmsUrl);
 
             XElement root = xmlDocument.Element(WMS + "WMS_Capabilities");
