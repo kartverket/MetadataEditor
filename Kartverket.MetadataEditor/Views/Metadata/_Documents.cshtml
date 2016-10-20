@@ -20,7 +20,7 @@
     <div class="form-group">
         <label class="col-md-3 control-label">Begreper</label>
         <div class="col-md-7">
-            @Html.ListBoxFor(m => m.KeywordsConcept, new MultiSelectList(Model.KeywordsConcept),  new { @class = "form-control" } )
+            @Html.ListBoxFor(m => m.KeywordsConcept, new MultiSelectList(Model.KeywordsConcept), new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple" })
         </div>
         <div class="col-md-2">
             <input class="btn btn-default" type="button" value="Hent" onclick="loadConcepts()" />
