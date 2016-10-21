@@ -303,7 +303,7 @@ namespace Kartverket.MetadataEditor.Models
             allKeywords.AddRange(CreateKeywords(KeywordsServiceTaxonomy, "Service", null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY));
             allKeywords.AddRange(CreateKeywords(KeywordsPlace, "Place", SimpleKeyword.TYPE_PLACE, null));
             allKeywords.AddRange(CreateKeywords(KeywordsTheme, "Theme", SimpleKeyword.TYPE_THEME, null));
-            allKeywords.AddRange(CreateKeywords(KeywordsConcept, "Concept", SimpleKeyword.TYPE_CONCEPT, null));
+            allKeywords.AddRange(CreateKeywords(KeywordsConcept, "Concept", null , SimpleKeyword.THESAURUS_CONCEPT));
             allKeywords.AddRange(CreateKeywords(KeywordsOther, "Other", null, null));
             return allKeywords;
         }
