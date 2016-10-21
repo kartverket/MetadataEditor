@@ -647,7 +647,7 @@
             };
 
             var Sosi = function (event) {
-                if (event) {
+
                     var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
                     var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
                     if (selectedSosi != "") {
@@ -659,7 +659,7 @@
                             selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
 
                             $.getJSON(selectedSosiUrlApi, function (result) {
-
+                                console.log(result);
                                 if (result != null) {
                                     if (result.length != 0) {
                                         var QualitySpecificationDateSosiFromRegister = "";
@@ -674,6 +674,12 @@
                                             var dateSubmit = new Date(dateSubmitted);
                                             QualitySpecificationDateSosiFromRegister = dateSubmit.getDate() + "." + (dateSubmit.getMonth() + 1) + "." + dateSubmit.getFullYear();
                                         }
+
+                                        var applicationSchema = result.ApplicationSchema;
+                                        if (applicationSchema != null)
+                                            $("#ApplicationSchema").val(applicationSchema);
+                                        else
+                                            $("#ApplicationSchema").val('');
 
                                         $("#QualitySpecificationDateSosi").val(QualitySpecificationDateSosiFromRegister);
                                     }
@@ -695,7 +701,6 @@
                         $("#QualitySpecificationResultSosiNotConform").prop('checked', false);
                         $('#QualitySpecificationSosi').hide();
                     }
-                }
             };
 
             $("#ProductSpecificationUrl").on("change", Sosi);
