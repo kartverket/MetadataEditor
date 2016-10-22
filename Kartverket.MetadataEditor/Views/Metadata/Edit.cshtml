@@ -590,6 +590,9 @@
 
             // conformity
 
+            var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
+            var conformExplainPlaceholder = "Beskriv avvikene fra spesifikasjonen";
+
             $('#QualitySpecificationTitleInspire').prop('readonly', true);
             if ($('#QualitySpecificationTitleInspire').val() == "")
                 $('#QualitySpecificationInspire').hide();
@@ -732,9 +735,6 @@
 
             $("#ProductSpecificationOther_Name").on("change", otherSpec);
             otherSpec();
-
-            var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
-            var conformExplainPlaceholder = "Beskriv avvikene fra spesifikasjonen";
 
             $("#QualitySpecificationResultInspireConform").change(function () {
                 if (this.checked) {
