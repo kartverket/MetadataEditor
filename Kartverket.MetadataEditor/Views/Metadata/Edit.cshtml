@@ -1151,9 +1151,10 @@
             $("#KeywordsConcept option").remove();
             $(xml).find("Concept").each(function () {
                 var prefLabel = $(this).find("prefLabel").text();
-                console.log(prefLabel);
+                var about = $(this).attr("rdf:about");
+                console.log(about);
                 $('#KeywordsConcept').append($("<option selected></option>")
-                    .attr("value", prefLabel)
+                    .attr("value", prefLabel + "|" + about)
                     .text(prefLabel));
                 conceptFound = true;
             });

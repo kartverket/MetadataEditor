@@ -389,6 +389,9 @@ namespace Kartverket.MetadataEditor.Models
             {
                 foreach (var keyword in input)
                 {
+                    if(!string.IsNullOrEmpty(keyword.KeywordLink))
+                        output.Add(keyword.Keyword + "|" + keyword.KeywordLink);
+                    else
                     output.Add(keyword.Keyword);
                 }
             }

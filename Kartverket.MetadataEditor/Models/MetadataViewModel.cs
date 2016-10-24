@@ -275,8 +275,14 @@ namespace Kartverket.MetadataEditor.Models
             {
                 foreach (var keyword in inputList)
                 {
+                    string keywordString = keyword;
+                    string keywordLink = null;
+                    if (keyword.Contains("|")) { 
+                        keywordString = keyword.Split('|')[0];
+                        keywordLink = keyword.Split('|')[1];
+                    }
                     string englishTranslation = null;
-                    string keyForEnglishTranslation = prefix + "_" + keyword;
+                    string keyForEnglishTranslation = prefix + "_" + keywordString;
                     if (KeywordsEnglish != null && KeywordsEnglish.ContainsKey(keyForEnglishTranslation))
                     {
                         englishTranslation = KeywordsEnglish[keyForEnglishTranslation];
@@ -284,7 +290,8 @@ namespace Kartverket.MetadataEditor.Models
 
                     output.Add(new SimpleKeyword
                     {
-                        Keyword = keyword,
+                        Keyword = keywordString,
+                        KeywordLink = keywordLink,
                         Thesaurus = thesaurus,
                         Type = type,
                         EnglishKeyword = englishTranslation,
