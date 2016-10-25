@@ -64,7 +64,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 : "";
 
             MetadataIndexViewModel model = new MetadataIndexViewModel();
-            
+
             if (User.Identity.IsAuthenticated)
             {
                 string userOrganization = GetSecurityClaim("organization");
@@ -106,7 +106,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     break;
                 }
             }
-            
+
             // bad hack, must fix BAAT
             if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
             {
@@ -125,12 +125,12 @@ namespace Kartverket.MetadataEditor.Controllers
                 return HttpNotFound();
 
             try
-            {   
+            {
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
                 string role = GetSecurityClaim("role");
                 if (HasAccessToMetadata(model))
                 {
-                    if(model.MetadataStandard == "ISO19115:Norsk versjon" && Request.QueryString["editor"] == null)
+                    if (model.MetadataStandard == "ISO19115:Norsk versjon" && Request.QueryString["editor"] == null)
                         return RedirectToAction("Edit", "SimpleMetadata", new { uuid = uuid });
 
                     PrepareViewBagForEditing(model);
@@ -150,7 +150,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 //return View("Error");
             }
 
-            
+
         }
 
 
@@ -171,7 +171,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.LicenseTypesValues = new SelectList(GetListOfLicenseTypes(), "Key", "Value", model.OtherConstraintsLink);
             if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && (model.OtherConstraintsAccess.ToLower() == "no restrictions" || model.OtherConstraintsAccess.ToLower() == "norway digital restricted"))
             {
-                model.AccessConstraints = model.OtherConstraintsAccess; 
+                model.AccessConstraints = model.OtherConstraintsAccess;
             }
             ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValuesAdjusted(), "Key", "Value", model.AccessConstraints);
             ViewBag.CreateProductSheetUrl =
@@ -186,27 +186,27 @@ namespace Kartverket.MetadataEditor.Controllers
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 
 
-            if (string.IsNullOrEmpty(model.ContactMetadata.Organization)) 
+            if (string.IsNullOrEmpty(model.ContactMetadata.Organization))
             {
                 if (Request.Form["ContactMetadata.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactMetadata.Organization.Old"]))
-                { 
-                model.ContactMetadata.Organization = Request.Form["ContactMetadata.Organization.Old"].ToString();
+                {
+                    model.ContactMetadata.Organization = Request.Form["ContactMetadata.Organization.Old"].ToString();
                 }
             }
 
-            if (string.IsNullOrEmpty(model.ContactPublisher.Organization)) 
+            if (string.IsNullOrEmpty(model.ContactPublisher.Organization))
             {
                 if (Request.Form["ContactPublisher.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactPublisher.Organization.Old"]))
-                { 
-                model.ContactPublisher.Organization = Request["ContactPublisher.Organization.Old"].ToString();
+                {
+                    model.ContactPublisher.Organization = Request["ContactPublisher.Organization.Old"].ToString();
                 }
             }
 
 
-            if (string.IsNullOrEmpty(model.ContactOwner.Organization)) 
+            if (string.IsNullOrEmpty(model.ContactOwner.Organization))
             {
-                if (Request.Form["ContactOwner.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactOwner.Organization.Old"])) { 
-                model.ContactOwner.Organization = Request["ContactOwner.Organization.Old"].ToString();
+                if (Request.Form["ContactOwner.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactOwner.Organization.Old"])) {
+                    model.ContactOwner.Organization = Request["ContactOwner.Organization.Old"].ToString();
                 }
             }
 
@@ -220,6 +220,15 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.NationalThemeValues = new SelectList(GetListOfNationalTheme(), "Key", "Value");
             ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(), "Key", "Value");
+
+            IEnumerable<SelectListItem> conceptItems = from concept in model.KeywordsConcept
+                                                select new SelectListItem
+                                                {
+                                                    Text = concept.Split('|')[0].ToString(),
+                                                    Value = concept.ToString(),
+                                                    Selected = true,
+                                                };
+            ViewBag.Concepts = new MultiSelectList(conceptItems,"Value", "Text", conceptItems.Select(c => c.Value).ToArray());
 
             var productspesifications = GetRegister("produktspesifikasjoner", model);           
             if(!string.IsNullOrEmpty(model.ProductSpecificationUrl))
