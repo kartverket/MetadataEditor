@@ -705,13 +705,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfLicenseTypes()
         {
-            return new Dictionary<string, string>
-            {
-                {"http://data.norge.no/nlod/no/1.0", "Norsk lisens for offentlige data (NLOD)"},    
-                {"http://creativecommons.org/licenses/by/3.0/no/", "Creative Commons BY 3.0 (CC BY 3.0)"},
-                {"http://creativecommons.org/licenses/by/4.0/no/", "Creative Commons BY 4.0 (CC BY 4.0)"},
-                {"https://www.geonorge.no/Geodataarbeid/geografisk-infrastruktur/Norge-digitalt/Avtaler-og-maler/Norge-digitalt-lisens/", "Norge digitalt-lisens"}
-            };
+            return GetCodeList("5b2a3f96-f092-41f9-8196-0e1dd5c2c134"); //Todo use uuid from production
         }
 
         [Authorize]
