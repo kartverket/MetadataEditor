@@ -460,7 +460,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfLicenseTypes()
         {
-            return GetCodeList("5b2a3f96-f092-41f9-8196-0e1dd5c2c134"); //Todo use uuid from production
+            return GetCodeList("B7A92D72-7AB4-4C2C-8A01-516A0A00344A"); //Todo use uuid from production
         }
 
         [Authorize]
