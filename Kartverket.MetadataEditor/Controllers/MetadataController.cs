@@ -333,44 +333,6 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
         }
 
-        public ActionResult CreatePdf(string uuid)
-        {
-            if (uuid == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var imagePath = Server.MapPath("~/Content/");
-
-            
-            var metadata = _metadataService.GetMetadataModel(uuid);
-            if (metadata == null)
-            {
-                return HttpNotFound();
-            }
-
-            Models.ProductSheet.ProductSheet productSheet = new Models.ProductSheet.ProductSheet();
-            productSheet.Metadata = metadata;
-            productSheet.SetAccessConstraint(GetListOfRestrictionValues());
-            productSheet.SetMaintenanceFrequency(GetListOfMaintenanceFrequencyValues());
-            productSheet.SetStatus(GetListOfStatusValues());
-
-            Models.ProductSheet.ProductSheetService productSheetService = new Models.ProductSheet.ProductSheetService();
-
-            string logoPath = "";
-            string logo = productSheetService.GetLogoForOrganization(productSheet.Metadata.ContactOwner.Organization);
-            if (logo != null)
-                logoPath = logo;
-
-            Stream fileStream = new Models.ProductSheet.PdfGenerator(productSheet, imagePath, logoPath).CreatePdf();
-            var fileStreamResult = new FileStreamResult(fileStream, "application/pdf");
-            fileStreamResult.FileDownloadName = GetSafeFilename(productSheet.Metadata.Title + ".pdf");
-
-            Log.Info(string.Format("Creating PDF for {0} [{1}]", productSheet.Metadata.Title, productSheet.Metadata.Uuid));
-
-            return fileStreamResult;
-        }
-
         [HttpGet]
         public ActionResult FlushCache()
         {
