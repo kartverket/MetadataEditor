@@ -416,13 +416,26 @@ namespace Kartverket.MetadataEditor.Models
         {
             if (metadata.OperatesOn != null)
             {
+                System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
+                string username = settings["KartkatalogUsername"];
+                string password = settings["KartkatalogPassword"];
+
                 foreach (var uuid in metadata.OperatesOn)
                 {
-                    HttpWebRequest request = (HttpWebRequest)
-                    WebRequest.Create(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "index/indexsingle?uuid=" + uuid);
-
-                    HttpWebResponse response = (HttpWebResponse)
-                    request.GetResponse();
+                    string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    request.Method = WebRequestMethods.Http.Post;
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    using (var writer = new StreamWriter(request.GetRequestStream()))
+                    {
+                        writer.Write("uuid="+ uuid);
+                        writer.Write("&action=post");
+                    }
+                    NetworkCredential networkCredential = new NetworkCredential(username, password);
+                    CredentialCache myCredentialCache = new CredentialCache { { new Uri(url), "Basic", networkCredential } };
+                    request.PreAuthenticate = true;
+                    request.Credentials = myCredentialCache;
+                    HttpWebResponse response = (HttpWebResponse) request.GetResponse();
                 }
             }
         }
