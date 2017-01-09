@@ -470,7 +470,8 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 CodeValues = cache as Dictionary<string, string>;
             }
-            else
+
+            if (CodeValues.Count < 1)
             {
                 string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
                 System.Net.WebClient c = new System.Net.WebClient();
@@ -513,7 +514,8 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 Organizations = cache as Dictionary<string, string>;
             }
-            else
+
+            if (Organizations.Count < 1)
             {
                 System.Net.WebClient c = new System.Net.WebClient();
                 c.Encoding = System.Text.Encoding.UTF8;
@@ -548,7 +550,8 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 ReferenceSystems = cache as Dictionary<string, string>;
             }
-            else
+
+            if (ReferenceSystems.Count < 1)
             {
 
                 System.Net.WebClient c = new System.Net.WebClient();
@@ -589,7 +592,8 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 RegisterItems = cache as Dictionary<string, string>;
             }
-            else
+
+            if(RegisterItems.Count < 1)
             {
 
                 System.Net.WebClient c = new System.Net.WebClient();
@@ -634,7 +638,8 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 RegisterItems = cache as Dictionary<string, string>;
             }
-            else
+
+            if (RegisterItems.Count < 1)
             {
 
                 System.Net.WebClient c = new System.Net.WebClient();

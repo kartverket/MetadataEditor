@@ -103,7 +103,8 @@ namespace Kartverket.MetadataEditor.Models
             {
                 Organizations = cache as List<MunicipalityViewModel>;
             }
-            else
+
+            if (Organizations.Count < 1)
             {
                 System.Net.WebClient c = new System.Net.WebClient();
                 c.Encoding = System.Text.Encoding.UTF8;
