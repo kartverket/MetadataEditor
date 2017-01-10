@@ -326,7 +326,7 @@ namespace Kartverket.MetadataEditor.Models
 
                     if (title.Contains("commission regulation") || title.Contains("Inspire"))
                         responsible = "inspire";
-                    else if (title.Contains("sosi") && responsible != "uml-sosi")
+                    else if (title.Contains("sosi") && title != "sosi applikasjonsskjema")
                         responsible = "sosi";
 
                     if (responsible == "inspire")
