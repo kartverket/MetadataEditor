@@ -586,7 +586,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 qualityList.Add(new SimpleQualitySpecification
                 {
-                    Title = "uml-sosi",
+                    Title = "Sosi applikasjonsskjema",
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
                     DateType = model.QualitySpecificationDateTypeSosi,
                     Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
@@ -598,7 +598,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 qualityList.Add(new SimpleQualitySpecification
                 {
-                    Title = "uml-gml",
+                    Title = "Sosi applikasjonsskjema",
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
                     DateType = model.QualitySpecificationDateTypeSosi,
                     Explanation = "GML-filer er i henhold til applikasjonsskjema",
