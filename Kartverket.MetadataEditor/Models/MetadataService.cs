@@ -326,32 +326,40 @@ namespace Kartverket.MetadataEditor.Models
 
                     if (title.Contains("commission regulation") || title.Contains("Inspire"))
                         responsible = "inspire";
-                    else if (title.Contains("sosi"))
+                    else if (title.Contains("sosi") && responsible != "uml-sosi")
                         responsible = "sosi";
 
-                    if (responsible == "inspire") 
+                    if (responsible == "inspire")
                     {
                         model.QualitySpecificationDateInspire = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
                         model.QualitySpecificationDateTypeInspire = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanationInspire = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
-                        model.QualitySpecificationResultInspire =  qualitySpecification.Result;
+                        model.QualitySpecificationResultInspire = qualitySpecification.Result;
                         model.QualitySpecificationTitleInspire = qualitySpecification.Title != null ? qualitySpecification.Title : null;
- 
+
                     }
                     else if (responsible == "sosi")
                     {
                         model.QualitySpecificationDateSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
                         model.QualitySpecificationDateTypeSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanationSosi = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
-                        model.QualitySpecificationResultSosi =  qualitySpecification.Result;
+                        model.QualitySpecificationResultSosi = qualitySpecification.Result;
                         model.QualitySpecificationTitleSosi = qualitySpecification.Title != null ? qualitySpecification.Title : null;
                     }
-                    else 
+                    else if (responsible == "uml-sosi")
+                    {
+                        model.QualitySpecificationResultSosiConformApplicationSchema = qualitySpecification.Result;
+                    }
+                    else if (responsible == "uml-gml")
+                    {
+                        model.QualitySpecificationResultSosiConformGmlApplicationSchema = qualitySpecification.Result;
+                    }
+                    else
                     {
                         model.QualitySpecificationDate = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
                         model.QualitySpecificationDateType = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanation = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
-                        model.QualitySpecificationResult =  qualitySpecification.Result;
+                        model.QualitySpecificationResult = qualitySpecification.Result;
                         model.QualitySpecificationTitle = qualitySpecification.Title != null ? qualitySpecification.Title : null;
                     }
                 }
@@ -572,6 +580,30 @@ namespace Kartverket.MetadataEditor.Models
                     Explanation = model.QualitySpecificationExplanationSosi,
                     Result = model.QualitySpecificationResultSosi,
                     Responsible = "sosi"
+                });
+            }
+            if (model.QualitySpecificationResultSosiConformApplicationSchema)
+            {
+                qualityList.Add(new SimpleQualitySpecification
+                {
+                    Title = "uml-sosi",
+                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                    DateType = model.QualitySpecificationDateTypeSosi,
+                    Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
+                    Result = true,
+                    Responsible = "uml-sosi"
+                });
+            }
+            if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
+            {
+                qualityList.Add(new SimpleQualitySpecification
+                {
+                    Title = "uml-gml",
+                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                    DateType = model.QualitySpecificationDateTypeSosi,
+                    Explanation = "GML-filer er i henhold til applikasjonsskjema",
+                    Result = true,
+                    Responsible = "uml-gml"
                 });
             }
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))

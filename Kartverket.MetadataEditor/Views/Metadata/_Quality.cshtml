@@ -175,7 +175,7 @@
                 <p class="help-text bg-success" id="help-text-Conformity-sosi" style="display: none; ">
                     Referanse til SOSI-produktspesifikasjon eller SOSI-fagområde kan legges inn for nasjonale datasett. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med SOSI. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man må velge/registere produktspesifikasjon.
                 </p>
-                <div class="form-group required has-feedback">
+                <div id="QualitySpecificationSosiTitle" class="form-group required has-feedback">
                     <div class="row">
                         <label class="col-md-2 control-label">Angitt produktspesifikasjon</label>
                         <div class="col-md-9">
@@ -192,7 +192,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div id="QualitySpecificationSosiDate" class="form-group">
                     <div class="row">
                         <label class="col-md-2 control-label">Dato</label>
                         <div class="col-md-2">
@@ -207,7 +207,7 @@
                 <div class="form-group required has-feedback">
                     <div class="row">
                         <label class="col-md-2 control-label">Datakonformitet</label>
-                        <div class="col-md-9">
+                        <div id="QualitySpecificationSosiResult" class="col-md-9">
                             <div class="radio">
                                 <label>
                                     <input id="QualitySpecificationResultSosiConform" name="QualitySpecificationResultSosi" @{if (Model.QualitySpecificationResultSosi) { <text> checked="checked" </text>           } } type="radio" value="true" /> Dataene er produsert iht produktspesifikasjonen
@@ -234,6 +234,22 @@
                         <p class="form-control-static">
                             <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationSosi" class="badge help-text-toggle">?</a>
                         </p>
+                    </div>
+                </div>
+                <div id="QualitySpecificationSosiConformApplicationSchema" class="form-group">
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-9">
+                            <div class="radio">
+                                <label>
+                                    <input id="QualitySpecificationResultSosiConformApplicationSchema" name="QualitySpecificationResultSosiConformApplicationSchema" @{if (Model.QualitySpecificationResultSosiConformApplicationSchema) { <text> checked="checked" </text>             } } type="checkbox" value="true" /> SOSI-filer er i henhold til applikasjonsskjema
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input id="QualitySpecificationResultSosiConformGmlApplicationSchema" name="QualitySpecificationResultSosiConformGmlApplicationSchema" @{if (Model.QualitySpecificationResultSosiConformGmlApplicationSchema) { <text> checked="checked" </text>            } } type="checkbox" value="true" /> GML-filer er i henhold til applikasjonsskjema
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

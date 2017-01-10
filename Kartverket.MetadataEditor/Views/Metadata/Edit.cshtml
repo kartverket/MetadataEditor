@@ -653,9 +653,14 @@
 
                     var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
                     var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
+                    console.log("selectedSosi: " + selectedSosi);
                     if (selectedSosi != "") {
                         $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
                         $('#QualitySpecificationSosi').show();
+                        $("#QualitySpecificationSosiTitle").show();
+                        $("#QualitySpecificationSosiDate").show();
+                        $("#QualitySpecificationSosiResult").show();
+                        $("#QualitySpecificationExplanationSosiDiv").show();
                         //$("#QualitySpecificationDateSosi").val("01.01.2014");
                         if (selectedSosiUrl != null) {
                             var selectedSosiUrlApi = selectedSosiUrl;
@@ -702,9 +707,27 @@
                         $("#QualitySpecificationResultSosiNotConform").prop('checked', false);
                         $('#QualitySpecificationSosi').hide();
                     }
+
+                    if ($("#ApplicationSchema").val() != '') {
+                        $('#QualitySpecificationSosi').show();
+                        $("#QualitySpecificationSosiConformApplicationSchema").show();
+                        if (selectedSosi.length == 0) {
+                            $("#QualitySpecificationSosiTitle").hide();
+                            $("#QualitySpecificationSosiDate").hide();
+                            $("#QualitySpecificationSosiResult").hide();
+                            $("#QualitySpecificationExplanationSosiDiv").hide();
+                        }
+                    }
+                    else
+                    {
+                        $("#QualitySpecificationSosiConformApplicationSchema").hide();
+                        $("#QualitySpecificationResultSosiConformApplicationSchema").prop('checked', false);
+                        $("#QualitySpecificationResultSosiConformGmlApplicationSchema").prop('checked', false);
+                    }
             };
 
             $("#ProductSpecificationUrl").on("change", Sosi);
+            $("#ApplicationSchema").on("change", Sosi);
             Sosi();
 
 
