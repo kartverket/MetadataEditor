@@ -59,11 +59,11 @@ namespace Kartverket.MetadataEditor.Models
             {
                 if (!string.IsNullOrWhiteSpace(searchString))
                 {
-                    results = _geoNorge.SearchFreeTextWithOrganisationName(searchString, organizationName, offset, limit);
+                    results = _geoNorge.SearchFreeTextWithOrganisationMetadataPointOfContact(searchString, organizationName, offset, limit);
                 }
                 else
                 {
-                    results = _geoNorge.SearchWithOrganisationName(organizationName, offset, limit, true);
+                    results = _geoNorge.SearchWithOrganisationMetadataPointOfContact(organizationName, offset, limit, true);
                 }
             }
             else
