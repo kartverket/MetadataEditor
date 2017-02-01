@@ -687,7 +687,7 @@ namespace Kartverket.MetadataEditor.Models
 
             if(model.IsService() && !string.IsNullOrEmpty(model.DistributionProtocol))
             { 
-                model.KeywordsOther = AddKeywordForService(model.DistributionProtocol, model.KeywordsOther);
+                model.KeywordsOther = AddKeywordForService(model);
                 metadata.ServiceType = GetServiceType(model.DistributionProtocol);
             }
             metadata.Keywords = model.GetAllKeywords();
@@ -1302,13 +1302,19 @@ namespace Kartverket.MetadataEditor.Models
             return keyword;
         }
 
-        private List<string> AddKeywordForService(string distributionProtocol, List<string> keywordsOther)
+        private List<string> AddKeywordForService(MetadataViewModel model)
         {
-            string serviceKeyword = GetServiceKeyword(distributionProtocol);
-            if (!string.IsNullOrEmpty(serviceKeyword) && !keywordsOther.Contains(serviceKeyword))
-                keywordsOther.Add(serviceKeyword);
+            string serviceKeyword = GetServiceKeyword(model.DistributionProtocol);
+            if (!string.IsNullOrEmpty(serviceKeyword) && !model.KeywordsOther.Contains(serviceKeyword)) {
+                foreach (var serviceDistribution in model.ServiceDistributionKeywords)
+                {
+                    model.KeywordsOther.Remove(serviceDistribution.Key);
+                }
 
-            return keywordsOther;
+                model.KeywordsOther.Add(serviceKeyword);
+            }
+
+            return model.KeywordsOther;
         }
     }
 }
