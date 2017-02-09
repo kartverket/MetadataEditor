@@ -17,8 +17,10 @@ namespace Kartverket.MetadataEditor.Models
 
         public bool Add(string key, object value, DateTimeOffset absExpiration)
         {
+            CacheItemPolicy policy = 
+                new CacheItemPolicy { AbsoluteExpiration = absExpiration, Priority = CacheItemPriority.NotRemovable };
             MemoryCache memoryCache = MemoryCache.Default;
-            return memoryCache.Add(key, value, absExpiration);
+            return memoryCache.Add(key, value, policy);
         }
 
         public void Delete(string key)
