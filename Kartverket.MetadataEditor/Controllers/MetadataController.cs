@@ -219,6 +219,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ViewBag.NationalThemeValues = new SelectList(GetListOfNationalTheme(), "Key", "Value");
             ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
+            ViewBag.CatalogValues = new SelectList(GetListOfCatalogs(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(), "Key", "Value");
 
             IEnumerable<SelectListItem> conceptItems = from concept in model.KeywordsConcept
@@ -441,6 +442,14 @@ namespace Kartverket.MetadataEditor.Controllers
         public Dictionary<string, string> GetListOfNationalInitiative()
         {
             return GetCodeList("37204B11-4802-44B6-80A1-519968BD072F");
+        }
+
+        public Dictionary<string, string> GetListOfCatalogs()
+        {
+            Dictionary<string, string> catalogs = GetCodeList("65baf580-fee4-443c-8d6b-e5104280c4d4");
+            catalogs.Remove("Inspire");
+
+            return catalogs;
         }
 
         public Dictionary<string, string> GetListOfInspire()

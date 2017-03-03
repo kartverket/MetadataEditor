@@ -1,2 +1,37 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
-<div></div>
+<div class="row">
+    <div class="col-md-12">
+        <input type="checkbox" value="Det offentlige kartgrunnlaget" name="keyword-dok-valid-kmd" id="keyword-dok-valid-kmd">
+        <label for="keyword-dok-valid-kmd">DOK i henhold til KMD-definisjon</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input type="checkbox" value="Inspire" name="keyword-inspire-valid" id="keyword-inspire-valid">
+        <label for="keyword-inspire-valid">Inspire i henhold rapportering</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input type="checkbox" value="geodataloven" name="keyword-geodatalaw" id="keyword-geodatalaw">
+        <label for="keyword-geodatalaw">Underlagt Geodataloven</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <label for="keyword-catalogs">Høsting til ulike samarbeid:</label>
+        @Html.ListBox("KeywordsCatalogs", ViewBag.CatalogValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_placeholder = "Velg fra listen" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input type="checkbox" value="Norge digitalt" name="KeywordNorgedigitalt" id="keyword-norgedigitalt">
+        <label for="keyword-norgedigitalt">Norge digitalt-avtale</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input type="checkbox" value="arealplanerPBL" name="keyword-areal-plans" id="keyword-areal-plans">
+        <label for="keyword-areal-plans">Arealplaner underlagt Pbl</label>
+    </div>
+</div>
