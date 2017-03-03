@@ -266,18 +266,19 @@ namespace Kartverket.MetadataEditor.Controllers
                 ViewBag.ValidModel = TryValidateModel(model);
             }
 
+            ViewBag.IsAdmin = "0";
+            string role = GetSecurityClaim("role");
+            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+            {
+                ViewBag.IsAdmin = "1";
+            }
+
         }
 
         [HttpPost]
         [Authorize]
         public ActionResult Edit(string uuid, string action, MetadataViewModel model, string ignoreValidationError)
         {
-            ViewBag.IsAdmin = "0";
-            string role = GetSecurityClaim("role");
-            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin")) {
-                ViewBag.IsAdmin = "1";
-            }
-
             ValidateModel(model);
 
             if (ignoreValidationError == "1" /*&& ViewBag.IsAdmin == "1"*/) 

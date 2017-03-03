@@ -129,7 +129,9 @@
         <li><a href="#keywords" id="keywordslink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
         <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
         <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
+        @if(ViewBag.IsAdmin == "1") {
         <li><a href="#admin" id="adminlink" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Administrativt</a></li>
+        }
     </ul>
 
     <div class="tab-content">
