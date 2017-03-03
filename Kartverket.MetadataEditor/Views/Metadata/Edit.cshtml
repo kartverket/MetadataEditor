@@ -1037,7 +1037,6 @@
                     addKeywordFromCodeList('keywords-national-initiative', "KeywordsNationalInitiative");
             });
 
-
             /* Chosen selects */
             function setSelectedKeywords() {
                 var selectedKeywordsLists = $(".chosen-selected-keywords"); 
@@ -1047,7 +1046,6 @@
                     var listItems = $(this).find('li');
                     $(listItems).each(function (key, value) {
                         var selectedKeyword = $(value).find('input').val();
-                        console.log(selectedKeyword);
                         selectedKeywords.push(selectedKeyword);
                     });
                     $('select#' + selectorPrefix + '-text option').each(function () {
@@ -1059,6 +1057,7 @@
                         });
                     });
                 });
+                SetAdministrativeKeyWords();
             }
 
             $(document).ready(function () {
@@ -1074,6 +1073,8 @@
                     var value = $(val).val();
                     $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
                 });
+                if (inputName == "KeywordsNationalInitiative")
+                    AddAdministrativeKeyWords();
             });
 
             $('button#keywords-inspire-add').click(function (event) {
@@ -1125,6 +1126,76 @@
                 }
             });
         });
+
+        function SetAdministrativeKeyWords() {
+
+            var items = $('#keywords-national-initiative-list li');
+            $(items).each(function (key, value) {
+                var keyword = $(value).find('input').val();
+                if (keyword == "Det offentlige kartgrunnlaget")
+                    $('#keyword-dok-valid-kmd').prop("checked", true);
+                if (keyword == "Inspire")
+                    $('#keyword-inspire-valid').prop("checked", true);
+                if (keyword == "geodataloven")
+                    $('#keyword-geodatalaw').prop("checked", true);
+                if (keyword == "Norge digitalt")
+                    $('#keyword-norgedigitalt').prop("checked", true);
+                if (keyword == "arealplanerPBL")
+                    $('#keyword-areal-plans').prop("checked", true);
+
+                $('#KeywordsCatalogs option').each(function () {
+                    optionValue = $(this);
+                    if (optionValue.val() == keyword) {
+                        optionValue.prop('selected', true);
+                    }
+                });
+
+            });
+        }
+
+        function AddAdministrativeKeyWords() {
+
+            var selectorPrefix = "keywords-national-initiative";
+            var inputName = "KeywordsNationalInitiative";
+            var key = $('#keywords-national-initiative-list li').length;
+
+            if ($('#keyword-dok-valid-kmd').prop('checked')){
+            var value = $('#keyword-dok-valid-kmd').val();
+            $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
+            key = key + 1;
+            }
+
+            if ($('#keyword-inspire-valid').prop('checked')) {
+                var value = $('#keyword-inspire-valid').val();
+                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
+                key = key + 1;
+            }
+
+            if ($('#keyword-geodatalaw').prop('checked')) {
+                var value = $('#keyword-geodatalaw').val();
+                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
+                key = key + 1;
+            }
+
+            if ($('#keyword-norgedigitalt').prop('checked')) {
+                var value = $('#keyword-norgedigitalt').val();
+                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
+                key = key + 1;
+            }
+
+            if ($('#keyword-areal-plans').prop('checked')) {
+                var value = $('#keyword-areal-plans').val();
+                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
+                key = key + 1;
+            }
+
+            $('#KeywordsCatalogs :selected').each(function () {
+                optionValue = $(this);
+                var value = optionValue.val();
+                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
+                key = key + 1;
+            });
+        }
 
         function removeDistributionFormat(formatID) {
             var elem = document.getElementById("formatRow" + formatID);

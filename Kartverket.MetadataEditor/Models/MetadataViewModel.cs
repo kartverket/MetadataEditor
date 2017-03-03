@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Resources;
+using System.Linq;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -273,8 +274,11 @@ namespace Kartverket.MetadataEditor.Models
         internal List<SimpleKeyword> CreateKeywords(List<string> inputList, string prefix, string type = null, string thesaurus = null)
         {
             List<SimpleKeyword> output = new List<SimpleKeyword>();
+            
             if (inputList != null)
             {
+                inputList = inputList.Distinct().ToList();
+
                 foreach (var keyword in inputList)
                 {
                     string keywordString = keyword;
