@@ -93,7 +93,22 @@
         </p>
     </div>
 </div>
+<div class="form-group">
+    <label for="HelpUrl" class="col-md-2 control-label">Hjelp url</label>
+    <div class="col-md-9">
+        <p class="help-text bg-success" id="help-text-helpurl" style="display: none">
+            Link til ekstern side eller PDF med detaljert informasjon
+        </p>
+        @Html.EditorFor(m => m.HelpUrl)
+    </div>
+    <div class="col-md-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-helpurl" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
 }
+
 
 <div class="form-group">
     <label for="SpecificUsage" class="col-md-2 control-label">Bruksområde</label>

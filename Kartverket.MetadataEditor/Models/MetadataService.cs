@@ -216,6 +216,7 @@ namespace Kartverket.MetadataEditor.Models
                 ApplicationSchema = metadata.ApplicationSchema,
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
                 CoverageUrl = metadata.CoverageUrl,
+                HelpUrl = metadata.HelpUrl,
 
                 Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails),
 
@@ -514,6 +515,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.ProductPageUrl = model.ProductPageUrl;
                 metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
                 metadata.CoverageUrl = model.CoverageUrl;
+            metadata.HelpUrl = model.HelpUrl;
 
             metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);
 
