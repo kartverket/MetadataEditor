@@ -80,10 +80,10 @@
 @if (Model.IsDatasetOrSeriesOrSoftware() )
 {
 <div class="form-group">
-    <label for="SupplementalDescription" class="col-md-2 control-label">Supplerende beskrivelse</label>
+    <label for="SupplementalDescription" class="col-md-2 control-label">Hjelp for bruk</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-supplementalDescription" style="display: none">
-            Annen informasjon som er ønskelig å opplyse om, men som ikke hører hjemme i beskrivelsen.
+            Her kan du oppgi informasjon og veiledning om hvordan datasettet er organisert og mulige tekniske forhold ved formater eller annet, slik at det blir lettere for brukeren å ta i bruk datasettet.
         </p>
         @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
     </div>
