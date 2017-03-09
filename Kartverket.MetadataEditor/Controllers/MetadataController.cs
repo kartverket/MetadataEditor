@@ -506,7 +506,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
             }
             CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Add(systemid, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            memCacher.Set(systemid, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return CodeValues;
         }
@@ -543,7 +543,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
             }
             Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Add("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            memCacher.Set("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return Organizations;
         }
@@ -583,7 +583,7 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
             ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Add("referencesystems", ReferenceSystems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            memCacher.Set("referencesystems", ReferenceSystems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return ReferenceSystems;
         }
@@ -628,7 +628,7 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
             RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Add("registeritem-" + registername, RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            memCacher.Set("registeritem-" + registername, RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return RegisterItems;
         }
@@ -674,7 +674,7 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
             RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Add("subregisteritem", RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            memCacher.Set("subregisteritem", RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return RegisterItems;
         }

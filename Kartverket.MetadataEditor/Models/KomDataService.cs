@@ -133,7 +133,7 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             Organizations = Organizations.OrderBy(o => o.Name).ToList();
-            memCacher.Add("municipalityorganizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            memCacher.Set("municipalityorganizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return Organizations;
         }
