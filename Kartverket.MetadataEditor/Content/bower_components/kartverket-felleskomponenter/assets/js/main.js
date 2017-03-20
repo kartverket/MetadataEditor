@@ -853,20 +853,30 @@ function updateAllCartButtons(storedOrderItems) {
 	$('.add-to-cart-btn').each(function () {
 		var uuid = $(this).attr('itemuuid');
 		if ($.inArray(uuid, storedOrderItems) > -1) {
-			$(this).addClass('disabled');
+			$(this).addClass('added');
 			$(this).attr('title', 'Allerede lagt til i kurv');
 			$(this).children('.button-text').text(' Lagt i kurv');
 		}
 	});
 }
 
-function updateCartButton(element) {
+function updateCartButton(element, storedOrderItems) {
 	var uuid = $(element).attr('itemuuid');
-	$('.add-to-cart-btn[itemuuid="' + uuid + '"]').each(function () {
-		$(this).addClass('disabled');
-		$(this).attr('data-original-title', 'Allerede lagt til i kurv');
-		$(this).children('.button-text').text(' Lagt i kurv');
-	});
+	if ($.inArray(uuid, storedOrderItems) > -1) {
+		$('.add-to-cart-btn[itemuuid="' + uuid + '"]').each(function () {
+			var itemname = $(this).attr('itemname') !== undefined ? ' ' + $(this).attr('itemname') + ' ' : '';
+			$(this).addClass('added');
+			$(this).attr('data-original-title', 'Fjern' + itemname + 'fra kurv');
+			$(this).children('.button-text').text(' Fjern fra kurv');
+		});
+	} else {
+		$('.add-to-cart-btn[itemuuid="' + uuid + '"]').each(function () {
+			var itemname = $(this).attr('itemname') !== undefined ? ' ' + $(this).attr('itemname') + ' ' : '';
+			$(this).removeClass('added');
+			$(this).attr('data-original-title', 'Legg til' + itemname + 'i kurv');
+			$(this).children('.button-text').text(' Legg i kurv');
+		});
+	}
 }
 
 

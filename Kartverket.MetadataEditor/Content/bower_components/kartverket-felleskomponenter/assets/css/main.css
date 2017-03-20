@@ -1769,11 +1769,6 @@ a {
 .control-text {
   padding-top: 7px; }
 
-.help-text {
-  margin: 5px;
-  padding: 10px;
-  border-radius: 4px; }
-
 aside ul li, .container-footer ul li {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/arrow-right.svg"); }
 
@@ -1952,6 +1947,17 @@ button.btn {
   height: 25px;
   display: inline-block;
   vertical-align: middle; }
+  .custom-icon .custom-icon-overlay {
+    background-color: #fe5000;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    font-size: 10px;
+    display: inline-block;
+    text-align: center;
+    color: #FFF;
+    margin-left: 12px;
+    margin-top: 11px; }
 
 .custom-icon-sm {
   background-repeat: no-repeat;
@@ -2015,15 +2021,73 @@ button.btn {
 .disabled .custom-icon.custom-icon-kartmarkoer-warning {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-warning-disabled.svg"); }
 
-/* Handlekurv*/
+.custom-icon.custom-icon-kartmarkoer-needs-permission {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-needs-permission.svg"); }
+
+.btn .custom-icon.custom-icon-kartmarkoer-needs-permission {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-needs-permission-white.svg"); }
+
+.disabled .custom-icon.custom-icon-kartmarkoer-needs-permission {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-needs-permission-disabled.svg"); }
+
+.custom-icon.custom-icon-kartmarkoer-unavailable {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-unavailable.svg"); }
+
+.btn .custom-icon.custom-icon-kartmarkoer-unavailable {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-unavailable-white.svg"); }
+
+.disabled .custom-icon.custom-icon-kartmarkoer-unavailable {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/kartmarkoer-unavailable-disabled.svg"); }
+
+/* Checkboxes */
+.custom-icon.custom-icon-checkbox-checked {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked.svg"); }
+
+.custom-icon.custom-icon-checkbox-unchecked {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked.svg"); }
+
+.disabled.custom-icon.custom-icon-checkbox-checked,
+.disabled .custom-icon.custom-icon-checkbox-checked {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-disabled.svg"); }
+
+.disabled.custom-icon.custom-icon-checkbox-unchecked,
+.disabled .custom-icon.custom-icon-checkbox-unchecked {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-disabled.svg"); }
+
+/* Radio buttons */
+.custom-icon.custom-icon-radio-checked {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/radio-checked.svg"); }
+
+.custom-icon.custom-icon-radio-unchecked {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/radio-unchecked.svg"); }
+
+.disabled.custom-icon.custom-icon-radio-checked,
+.disabled .custom-icon.custom-icon-radio-checked {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/radio-checked-disabled.svg"); }
+
+.disabled.custom-icon.custom-icon-radio-unchecked,
+.disabled .custom-icon.custom-icon-radio-unchecked {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/radio-unchecked-disabled.svg"); }
+
+/* Handlekurv */
 .custom-icon.custom-icon-handlekurv {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/handlekurv.svg"); }
+
+.added .custom-icon.custom-icon-handlekurv {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/handlekurv-added.svg"); }
 
 .btn .custom-icon.custom-icon-handlekurv {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/handlekurv-white.svg"); }
 
+.btn.added .custom-icon.custom-icon-handlekurv {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/handlekurv-white-added.svg"); }
+
 .disabled .custom-icon.custom-icon-handlekurv {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/handlekurv-disabled.svg"); }
+
+.disabled.added .custom-icon.custom-icon-handlekurv,
+.btn.disabled.added .custom-icon.custom-icon-handlekurv {
+  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/handlekurv-disabled-added.svg"); }
 
 /* Last ned */
 .custom-icon.custom-icon-lastned {
@@ -2390,69 +2454,87 @@ button.btn {
       background-position: 100% -36px; }
 
 /* Nedlastingskvittering */
-.download-list a.list-group-item {
-  color: #3867C8; }
+.download-list .list-group-item a {
+  color: #3867C8;
+  text-decoration: none; }
 
 .download-list .list-group-item span {
   padding-right: 10px;
-  border-right: 1px solid #ccc;
   margin-right: 5px; }
-
-.facet-sok-tittel {
-  display: block;
-  margin-top: 6px; }
-  .facet-sok-tittel p {
-    display: inline;
-    font-size: 12pt;
-    line-height: 16pt; }
-  .facet-sok-tittel .indicator {
-    background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/arrow-down.svg");
-    width: 11px;
-    height: 12px;
-    padding: 0;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
+  .download-list .list-group-item span.custom-icon {
     display: inline-block;
-    margin-right: 7px; }
-    .facet-sok-tittel .indicator :before {
-      /* content: "\e113";*/ }
+    width: 24px;
+    height: 24px; }
+  .download-list .list-group-item span.download-list-item-name {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14pt;
+    line-height: 16pt; }
+    .download-list .list-group-item span.download-list-item-name small {
+      display: block;
+      margin: 0;
+      line-height: 1; }
 
-.facet-sok-tittel.collapsed .indicator {
-  background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/arrow-right.svg"); }
-
-.facet-sok-undertitler li {
-  font-size: 12pt;
-  line-height: 18pt; }
-  .facet-sok-undertitler li a {
-    font-size: 12pt;
-    line-height: 18pt;
-    font-style: normal;
-    color: #3867C8; }
-    .facet-sok-undertitler li a :hover {
-      font-size: 12pt !important;
-      line-height: 18pt !important;
-      color: #3867C8; }
-  .facet-sok-undertitler li .btn-link.active {
-    color: #414042;
-    font-style: normal; }
-    .facet-sok-undertitler li .btn-link.active:hover {
-      color: #414042;
-      text-decoration: none; }
-
-.facet-sok-emne {
+.facet-filter-container {
+  padding: 15px 0;
   margin-top: 4px; }
-  .facet-sok-emne ul li {
-    background-image: none;
-    padding-left: 30px; }
-    .facet-sok-emne ul li ul li {
-      padding-left: 15px; }
-  .facet-sok-emne ul li.hide-children > ul > li.filter-options {
-    display: none; }
 
-aside.facet-sok-emne ul li a:hover {
+.facet-filter .facet-filter-item {
+  color: #3867C8;
   font-size: 12pt;
   line-height: 18pt; }
+  .facet-filter .facet-filter-item .facet-filter-title {
+    cursor: pointer; }
+  .facet-filter .facet-filter-item .facet-filter-sub-item-list {
+    display: none; }
+    .facet-filter .facet-filter-item .facet-filter-sub-item-list.active {
+      display: block;
+      margin-left: 10pt; }
+
+.facet-filter .indicator {
+  background-image: url(/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/arrow-right.svg);
+  width: 11px;
+  height: 12px;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 50%;
+  display: inline-block;
+  margin-right: 2px; }
+  .facet-filter .indicator.active {
+    background-image: url(/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/arrow-down.svg); }
+  .facet-filter .indicator.no-indicator {
+    background: none; }
+
+.facet-filter .facet-checkbox {
+  display: inline; }
+  .facet-filter .facet-checkbox .facet-checkbox-icon:before {
+    display: inline-block;
+    cursor: pointer;
+    width: 12pt;
+    height: 13pt;
+    line-height: 12pt;
+    vertical-align: middle;
+    content: url(/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked.svg); }
+
+.facet-filter .is-empty {
+  display: none; }
+  .facet-filter .is-empty .facet-checkbox {
+    color: #CFCFCF; }
+    .facet-filter .is-empty .facet-checkbox .facet-checkbox-icon:before {
+      content: url(/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-disabled.svg); }
+    .facet-filter .is-empty .facet-checkbox .text-muted {
+      color: #CFCFCF; }
+
+.facet-filter .selected {
+  display: block; }
+  .facet-filter .selected .facet-checkbox .facet-checkbox-icon:before {
+    content: url(/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked.svg); }
+
+.facet-filter .is-empty.selected {
+  display: block; }
+  .facet-filter .is-empty.selected .facet-checkbox .facet-checkbox-icon:before {
+    content: url(/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-disabled.svg); }
 
 input[readonly] {
   cursor: default !important; }
@@ -2471,7 +2553,7 @@ input[readonly] {
 
 .form-group.required .control-label:after, .panel-heading.required:after, .panel-heading span.required:after {
   content: " *";
-  color: #EE382B; }
+  color: #EE432a; }
 
 .form-group.has-feedback .form-control-feedback {
   display: none; }
@@ -2551,6 +2633,8 @@ textarea, textarea.form-control {
   background-size: 16px 16px;
   background-position: right 8px center;
   border-radius: 0; }
+  .custom-select .input-group-btn {
+    width: 0; }
 
 .custom-select:hover {
   background-image: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/arrow-down.svg"); }
@@ -2597,6 +2681,186 @@ textarea, textarea.form-control {
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto; }
+
+.custom-checkbox input[type="checkbox"],
+input[type="checkbox"].custom-checkbox,
+.custom-checkbox input[type="checkbox"]:checked,
+input[type="checkbox"]:checked.custom-checkbox,
+.custom-radio input[type="radio"],
+input[type="radio"].custom-radio,
+.custom-radio input[type="radio"]:checked,
+input[type="radio"]:checked.custom-radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  o-appearance: none;
+  ms-appearance: none;
+  outline: none;
+  border: none; }
+  .custom-checkbox input[type="checkbox"]:focus,
+  input[type="checkbox"].custom-checkbox:focus,
+  .custom-checkbox input[type="checkbox"]:checked:focus,
+  input[type="checkbox"]:checked.custom-checkbox:focus,
+  .custom-radio input[type="radio"]:focus,
+  input[type="radio"].custom-radio:focus,
+  .custom-radio input[type="radio"]:checked:focus,
+  input[type="radio"]:checked.custom-radio:focus {
+    outline: none;
+    border: none; }
+  .custom-checkbox input[type="checkbox"] + .checkbox-icon,
+  .custom-checkbox input[type="checkbox"] + input[type="hidden"] + .checkbox-icon,
+  input[type="checkbox"].custom-checkbox + .checkbox-icon,
+  input[type="checkbox"].custom-checkbox + input[type="hidden"] + .checkbox-icon,
+  .custom-checkbox input[type="checkbox"]:checked + .checkbox-icon,
+  .custom-checkbox input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon,
+  input[type="checkbox"]:checked.custom-checkbox + .checkbox-icon,
+  input[type="checkbox"]:checked.custom-checkbox + input[type="hidden"] + .checkbox-icon,
+  .custom-radio input[type="radio"] + .checkbox-icon,
+  .custom-radio input[type="radio"] + input[type="hidden"] + .checkbox-icon,
+  input[type="radio"].custom-radio + .checkbox-icon,
+  input[type="radio"].custom-radio + input[type="hidden"] + .checkbox-icon,
+  .custom-radio input[type="radio"]:checked + .checkbox-icon,
+  .custom-radio input[type="radio"]:checked + input[type="hidden"] + .checkbox-icon,
+  input[type="radio"]:checked.custom-radio + .checkbox-icon,
+  input[type="radio"]:checked.custom-radio + input[type="hidden"] + .checkbox-icon {
+    cursor: pointer; }
+    .custom-checkbox input[type="checkbox"] + .checkbox-icon:after,
+    .custom-checkbox input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after,
+    input[type="checkbox"].custom-checkbox + .checkbox-icon:after,
+    input[type="checkbox"].custom-checkbox + input[type="hidden"] + .checkbox-icon:after,
+    .custom-checkbox input[type="checkbox"]:checked + .checkbox-icon:after,
+    .custom-checkbox input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after,
+    input[type="checkbox"]:checked.custom-checkbox + .checkbox-icon:after,
+    input[type="checkbox"]:checked.custom-checkbox + input[type="hidden"] + .checkbox-icon:after,
+    .custom-radio input[type="radio"] + .checkbox-icon:after,
+    .custom-radio input[type="radio"] + input[type="hidden"] + .checkbox-icon:after,
+    input[type="radio"].custom-radio + .checkbox-icon:after,
+    input[type="radio"].custom-radio + input[type="hidden"] + .checkbox-icon:after,
+    .custom-radio input[type="radio"]:checked + .checkbox-icon:after,
+    .custom-radio input[type="radio"]:checked + input[type="hidden"] + .checkbox-icon:after,
+    input[type="radio"]:checked.custom-radio + .checkbox-icon:after,
+    input[type="radio"]:checked.custom-radio + input[type="hidden"] + .checkbox-icon:after {
+      display: inline-block;
+      width: 16px;
+      height: 19px;
+      vertical-align: middle; }
+
+.custom-checkbox input[type="checkbox"],
+input[type="checkbox"].custom-checkbox {
+  display: none; }
+  .custom-checkbox input[type="checkbox"] + .checkbox-icon:after,
+  .custom-checkbox input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after,
+  input[type="checkbox"].custom-checkbox + .checkbox-icon:after,
+  input[type="checkbox"].custom-checkbox + input[type="hidden"] + .checkbox-icon:after {
+    content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked.svg"); }
+
+.custom-checkbox input[type="checkbox"]:checked,
+input[type="checkbox"]:checked.custom-checkbox {
+  display: none; }
+  .custom-checkbox input[type="checkbox"]:checked + .checkbox-icon:after,
+  .custom-checkbox input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after,
+  input[type="checkbox"]:checked.custom-checkbox + .checkbox-icon:after,
+  input[type="checkbox"]:checked.custom-checkbox + input[type="hidden"] + .checkbox-icon:after {
+    content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked.svg"); }
+
+/* Default checkbox */
+.custom-checkbox.custom-checkbox-0 input[type="checkbox"] + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-0 input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-default.svg"); }
+
+.custom-checkbox.custom-checkbox-0 input[type="checkbox"]:checked + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-0 input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-default.svg"); }
+
+/* Red checkbox */
+.custom-checkbox.custom-checkbox-1 input[type="checkbox"] + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-1 input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-red.svg"); }
+
+.custom-checkbox.custom-checkbox-1 input[type="checkbox"]:checked + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-1 input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-red.svg"); }
+
+/* Orange checkbox */
+.custom-checkbox.custom-checkbox-2 input[type="checkbox"] + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-2 input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-orange.svg"); }
+
+.custom-checkbox.custom-checkbox-2 input[type="checkbox"]:checked + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-2 input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-orange.svg"); }
+
+/* Yellow checkbox */
+.custom-checkbox.custom-checkbox-3 input[type="checkbox"] + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-3 input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-yellow.svg"); }
+
+.custom-checkbox.custom-checkbox-3 input[type="checkbox"]:checked + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-3 input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-yellow.svg"); }
+
+/* Lime checkbox */
+.custom-checkbox.custom-checkbox-4 input[type="checkbox"] + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-4 input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-lime.svg"); }
+
+.custom-checkbox.custom-checkbox-4 input[type="checkbox"]:checked + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-4 input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-lime.svg"); }
+
+/* Green checkbox */
+.custom-checkbox.custom-checkbox-5 input[type="checkbox"] + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-5 input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-green.svg"); }
+
+.custom-checkbox.custom-checkbox-5 input[type="checkbox"]:checked + .checkbox-icon:after,
+.custom-checkbox.custom-checkbox-5 input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-green.svg"); }
+
+.custom-checkbox input[type="checkbox"]:disabled .checkbox-icon:after,
+.custom-checkbox input[type="checkbox"]:disabled + input[type="hidden"] + .checkbox-icon:after,
+input[type="checkbox"]:disabled.custom-checkbox .checkbox-icon:after,
+input[type="checkbox"]:disabled.custom-checkbox + input[type="hidden"] + .checkbox-icon:after,
+.custom-checkbox.disabled input[type="checkbox"] .checkbox-icon:after,
+.custom-checkbox.disabled input[type="checkbox"] + input[type="hidden"] + .checkbox-icon:after,
+input[type="checkbox"].custom-checkbox.disabled .checkbox-icon:after,
+input[type="checkbox"].custom-checkbox.disabled + input[type="hidden"] + .checkbox-icon:after,
+.disabled input[type="checkbox"].custom-checkbox .checkbox-icon:after,
+.disabled input[type="checkbox"].custom-checkbox + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-unchecked-disabled.svg"); }
+
+.custom-checkbox input[type="checkbox"]:checked:disabled .checkbox-icon:after,
+.custom-checkbox input[type="checkbox"]:checked:disabled + input[type="hidden"] + .checkbox-icon:after,
+input[type="checkbox"]:checked:disabled.custom-checkbox .checkbox-icon:after,
+input[type="checkbox"]:checked:disabled.custom-checkbox + input[type="hidden"] + .checkbox-icon:after,
+.custom-checkbox.disabled input[type="checkbox"]:checked .checkbox-icon:after,
+.custom-checkbox.disabled input[type="checkbox"]:checked + input[type="hidden"] + .checkbox-icon:after,
+input[type="checkbox"]:checked.custom-checkbox.disabled .checkbox-icon:after,
+input[type="checkbox"]:checked.custom-checkbox.disabled + input[type="hidden"] + .checkbox-icon:after,
+.disabled input[type="checkbox"]:checked.custom-checkbox .checkbox-icon:after,
+.disabled input[type="checkbox"]:checked.custom-checkbox + input[type="hidden"] + .checkbox-icon:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/checkbox-checked-disabled.svg"); }
+
+.custom-radio input[type="radio"]:after,
+input[type="radio"].custom-radio:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/radio-unchecked.svg"); }
+
+.custom-radio input[type="radio"]:checked:after,
+input[type="radio"]:checked.custom-radio:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/radio-checked.svg"); }
+
+.custom-radio input[type="radio"]:disabled:after,
+input[type="radio"]:disabled.custom-radio:after,
+.custom-radio.disabled input[type="radio"]:after,
+input[type="radio"].custom-radio.disabled:after,
+.disabled input[type="radio"].custom-radio:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/radio-unchecked-disabled.svg") !important; }
+
+.custom-radio input[type="radio"]:checked:disabled:after,
+input[type="radio"]:checked:disabled.custom-radio:after,
+.custom-radio.disabled input[type="radio"]:checked:after,
+input[type="radio"]:checked.custom-radio.disabled:after,
+.disabled input[type="radio"]:checked.custom-radio:after {
+  content: url("/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/radio-checked-disabled.svg") !important; }
 
 .help-page h1, .help-page .h1 {
   font-size: 24pt;
@@ -2675,6 +2939,18 @@ textarea, textarea.form-control {
     font-family: inherit;
     font-size: 100%; }
 
+.help-text {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 4px; }
+  .help-text.bg-success {
+    border-left: 8px solid #36c545; }
+  .help-text.bg-info {
+    border-left: 8px solid #7da1c4; }
+  .help-text.form-element-help-text {
+    margin: 0px;
+    padding: 6px 10px; }
+
 .no-padding {
   padding: 0; }
 
@@ -2699,6 +2975,12 @@ textarea, textarea.form-control {
 .no-border-radius, .help-text, .panel, .panel-heading,
 .no-border-radius input, .help-text input, .panel input, .panel-heading input {
   border-radius: 0 !important; }
+
+.inline-block {
+  display: inline-block !important; }
+
+.auto-width {
+  width: auto !important; }
 
 .text-left {
   text-align: left !important; }
@@ -2754,13 +3036,13 @@ h1 .label {
   border-color: #968c84; }
 
 .label-danger {
-  border-color: #EE382B; }
+  border-color: #EE432a; }
 
 .label-warning {
-  border-color: #FFBA33; }
+  border-color: #FED633; }
 
 .label-success {
-  border-color: #26C045; }
+  border-color: #36c545; }
 
 .label-info {
   border-color: #7da1c4; }
@@ -2769,7 +3051,7 @@ h1 .label {
 .form-group.required .control-label::after,
 .panel-heading.required::after {
   content: "*";
-  color: #EE382B; }
+  color: #EE432a; }
 
 .pagination {
   margin: 0; }
@@ -2821,22 +3103,25 @@ h1 .label {
     background-color: #7da1c4;
     transition: all 0.35s linear 0s;
     color: #FFF;
-    border-bottom: none;
+    border-bottom: 1px solid transparent;
+    background-clip: padding-box;
     border-radius: 0;
     font-size: 13px;
     margin-bottom: 0; }
+    .nav-tabs > li > a:hover {
+      border-color: transparent; }
     .nav-tabs > li > a.btn {
       border: none;
       font-size: 12pt;
       line-height: 16pt;
       padding: 6px 12px; }
   .nav-tabs > li.active.has-error a {
-    color: #EE382B;
+    color: #EE432a;
     background-color: #FFF; }
   .nav-tabs li.has-error > span.glyphicon-warning-sign {
     position: absolute;
     z-index: 2;
-    color: #EE382B; }
+    color: #EE432a; }
   .nav-tabs li.has-error a {
     background-color: #C47D7D; }
 
@@ -3028,16 +3313,17 @@ ul#thumbnailsCoverage {
     position: fixed; }
   #norgeskartmodal .modal-footer {
     position: fixed;
-    bottom: 0px;
+    bottom: 10px;
     width: auto;
-    right: 0;
-    background-color: rgba(220, 220, 220, 0.85);
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.7); }
+    right: 103px;
+    background-color: #DEDCD9;
+    border-top: none;
+    padding: 9.5pt; }
 
 #feedback-alert {
   display: none;
   position: fixed;
-  z-index: 2;
+  z-index: 15;
   bottom: 0px;
   width: 100%;
   left: 0px;
@@ -3064,13 +3350,13 @@ ul#thumbnailsCoverage {
 
 /* styles for validation helpers */
 .field-validation-error {
-  color: #EE382B; }
+  color: #EE432a; }
 
 .field-validation-valid {
   display: none; }
 
 input.input-validation-error {
-  border: 1px solid #EE382B; }
+  border: 1px solid #EE432a; }
 
 input[type="checkbox"].input-validation-error {
   border: 0 none; }
@@ -3078,7 +3364,7 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-errors {
   color: #333;
   border: none;
-  border-left: 8px solid #EE382B;
+  border-left: 8px solid #EE432a;
   border-radius: 0;
   background-color: #FFF; }
 
@@ -3094,9 +3380,6 @@ input[type="checkbox"].input-validation-error {
   border-radius: 4px 4px 0 0;
   border-style: solid; }
 
-.help-text.bg-success {
-  border-left: 8px solid #26C045; }
-
 .has-error.checkbox-inline label,
 .has-error.checkbox label,
 .has-error.radio-inline label, .has-error.radio,
@@ -3107,7 +3390,7 @@ input[type="checkbox"].input-validation-error {
 .has-error .radio,
 .has-error .radio-inline,
 .has-error .form-control-feedback {
-  color: #EE382B; }
+  color: #EE432a; }
 
 .toggle-content {
   text-decoration: none;
@@ -3134,7 +3417,7 @@ input[type="checkbox"].input-validation-error {
     line-height: 39pt; }
 
 .loading-animation {
-  z-index: 10;
+  z-index: 15;
   position: fixed;
   background-repeat: no-repeat;
   background-position: 50% 15px;
@@ -3473,52 +3756,52 @@ a.status-icon-link:hover {
 
 .statusIcon-vedtatt:after, .statusIcon-Valid:after {
   content: "\e600";
-  color: #26C045; }
+  color: #36c545; }
 
 .statusIcon-vedtatt:before, .statusIcon-Valid:before {
   content: ""; }
 
 .statusIcon-vedtatt:after, .statusIcon-Sosi-valid:after {
   content: "\e600";
-  color: #26C045; }
+  color: #36c545; }
 
 .statusIcon-vedtatt:before, .statusIcon-Sosi-valid:before {
   content: ""; }
 
 .statusIcon-avvist:after {
   content: "\e600";
-  color: #EE382B; }
+  color: #EE432a; }
 
 .statusIcon-avvist:before {
   content: ""; }
 
 .statusIcon-underarbeid:after {
   content: "\e602";
-  color: #FFBA33;
+  color: #FED633;
   margin-left: -1em;
   display: inline-block; }
 
 .statusIcon-InProgress:after {
   content: "\e601";
-  color: #26C045;
+  color: #36c545;
   margin-left: -1em;
   display: inline-block; }
 
 .statusIcon-Superseded:after {
   content: "\e600";
-  color: #FFBA33;
+  color: #FED633;
   margin-left: -1em;
   display: inline-block; }
 
 .statusIcon-Candidate:after, .statusIcon-Draft:after {
   content: "\e602";
-  color: #26C045;
+  color: #36c545;
   margin-left: -1em;
   display: inline-block; }
 
 .statusIcon-Accepted:after {
   content: "\e600";
-  color: #26C045; }
+  color: #36c545; }
 
 .statusIcon-Accepted:before {
   content: ""; }
@@ -3613,6 +3896,82 @@ a.status-icon-link:hover {
   position: absolute;
   top: -5px;
   color: transparent; }
+
+.custom-select .v-select .open-indicator {
+  display: none; }
+
+.custom-select .v-select .selected-tag {
+  background: #efeeed !important;
+  border: none;
+  border-radius: 0;
+  line-height: 18px;
+  box-shadow: none;
+  font-family: Open Sans,sans-serif;
+  font-size: 12pt;
+  color: #414042;
+  height: 25px;
+  padding: .2em 2em .3em .6em;
+  vertical-align: baseline;
+  position: relative;
+  margin: 3px 5px 3px 0;
+  cursor: default; }
+  .custom-select .v-select .selected-tag .close {
+    background: #7da1c4;
+    position: absolute;
+    top: 0;
+    line-height: 19pt;
+    color: #fff;
+    font-size: 10pt;
+    padding: 0 5px;
+    display: table !important;
+    opacity: 1;
+    right: 0;
+    height: 25px;
+    display: inline-block;
+    width: 23px;
+    transition: all .35s linear 0s; }
+    .custom-select .v-select .selected-tag .close:hover {
+      background-color: #fe5000; }
+    .custom-select .v-select .selected-tag .close span {
+      font-size: 18pt !important;
+      line-height: 18pt !important; }
+
+.custom-select .v-select .dropdown-toggle {
+  border: 1px solid #CFCFCF !important;
+  border-radius: 0;
+  padding: 0 8px; }
+
+.custom-select .v-select ul.dropdown-menu {
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+  padding-left: 16px;
+  overflow-x: hidden; }
+  .custom-select .v-select ul.dropdown-menu > li:before {
+    content: none; }
+  .custom-select .v-select ul.dropdown-menu > li.highlight > a, .custom-select .v-select ul.dropdown-menu > li:hover > a {
+    background: none;
+    text-decoration: underline !important; }
+  .custom-select .v-select ul.dropdown-menu > li.active, .custom-select .v-select ul.dropdown-menu > li.active > a {
+    background: none;
+    color: #968c83 !important; }
+  .custom-select .v-select ul.dropdown-menu > li > a {
+    color: inherit; }
+  .custom-select .v-select ul.dropdown-menu > a {
+    padding-left: 15px; }
+  .custom-select .v-select ul.dropdown-menu > li, .custom-select .v-select ul.dropdown-menu > a {
+    color: #3867C8;
+    font-weight: 400;
+    padding: 0;
+    margin-left: 0; }
+  .custom-select .v-select ul.dropdown-menu > li, .custom-select .v-select ul.dropdown-menu > li > a, .custom-select .v-select ul.dropdown-menu > li:hover, .custom-select .v-select ul.dropdown-menu > li:hover > a, .custom-select .v-select ul.dropdown-menu > li > a:hover {
+    font-size: 13pt !important;
+    line-height: 18pt !important; }
+    .custom-select .v-select ul.dropdown-menu > li .area-list-heading, .custom-select .v-select ul.dropdown-menu > li > a .area-list-heading, .custom-select .v-select ul.dropdown-menu > li:hover .area-list-heading, .custom-select .v-select ul.dropdown-menu > li:hover > a .area-list-heading, .custom-select .v-select ul.dropdown-menu > li > a:hover .area-list-heading {
+      color: #414041 !important;
+      font-weight: 600 !important;
+      text-transform: capitalize !important;
+      margin-bottom: 5px !important;
+      margin-top: 17px !important;
+      display: block; }
 
 html[data-useragent*='MSIE 10.0'] .chosen-input-group .input-group-btn {
   display: table-row; }
