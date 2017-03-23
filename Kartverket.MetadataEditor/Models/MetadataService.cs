@@ -300,6 +300,7 @@ namespace Kartverket.MetadataEditor.Models
             model.FixThumbnailUrls();
 
             model.OperatesOn = metadata.OperatesOn !=null ? metadata.OperatesOn : new List<string>();
+            model.CrossReference = metadata.CrossReference != null ? metadata.CrossReference : new List<string>();
 
             if (metadata.ResourceReference != null)
             {
@@ -445,6 +446,24 @@ namespace Kartverket.MetadataEditor.Models
                     request.PreAuthenticate = true;
                     request.Credentials = myCredentialCache;
                     HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                }
+
+                foreach (var uuid in metadata.CrossReference)
+                {
+                    string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    request.Method = WebRequestMethods.Http.Post;
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    using (var writer = new StreamWriter(request.GetRequestStream()))
+                    {
+                        writer.Write("uuid=" + uuid);
+                        writer.Write("&action=post");
+                    }
+                    NetworkCredential networkCredential = new NetworkCredential(username, password);
+                    CredentialCache myCredentialCache = new CredentialCache { { new Uri(url), "Basic", networkCredential } };
+                    request.PreAuthenticate = true;
+                    request.Credentials = myCredentialCache;
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 }
             }
         }
@@ -736,6 +755,9 @@ namespace Kartverket.MetadataEditor.Models
 
             if (model.OperatesOn != null)
                 metadata.OperatesOn = model.OperatesOn;
+
+            if (model.CrossReference != null)
+                metadata.CrossReference = model.CrossReference;
 
             if (!string.IsNullOrWhiteSpace(model.ResourceReferenceCode) || !string.IsNullOrWhiteSpace(model.ResourceReferenceCodespace))
             {

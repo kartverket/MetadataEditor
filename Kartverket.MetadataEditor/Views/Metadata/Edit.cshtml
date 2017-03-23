@@ -17,13 +17,21 @@
     @Html.HiddenFor(m => m.Uuid)
     @Html.HiddenFor(m => m.DateMetadataUpdated)
     @Html.HiddenFor(m => m.HierarchyLevel)
-
+    @if (Model.IsService())
+    {
     <div id="operatesOn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
         @Html.Partial("_OperatesOn", Model)
     </div>
     <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
         @Html.Partial("_ParentIdentifier", Model)
     </div>
+    }
+    @if (Model.IsSoftware())
+    {
+    <div id="crossReference" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
+        @Html.Partial("_CrossReference", Model)
+    </div>
+    }
 
     @section ActionMenu {
         <div class="btn-group">
@@ -58,6 +66,10 @@
             {
                 <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
                 <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til tjeneste</a>
+            }
+            @if (Model.IsSoftware())
+            {
+                <a href="#" role="button" data-toggle="modal" id="crossReferenceLink" data-target="#crossReference" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
             }
         </div>
     }

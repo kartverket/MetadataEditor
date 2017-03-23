@@ -25,6 +25,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsEnglish = new Dictionary<string, string>();
             Thumbnails = new List<Thumbnail>();
             OperatesOn = new List<string>();
+            CrossReference = new List<string>();
         }
         
         public string Uuid { get; set; }
@@ -188,6 +189,8 @@ namespace Kartverket.MetadataEditor.Models
         public string EnglishContactOwnerOrganization { get; set; }
 
         public List<string> OperatesOn { get; set; }
+
+        public List<string> CrossReference { get; set; }
 
         public string Published { get; set; }
 
