@@ -99,10 +99,13 @@ namespace Kartverket.MetadataEditor.Models
 
         public string DistributionFormatName { get; set; }
         public string DistributionFormatVersion { get; set; }
-        [AssertThat("IsValidDistributionFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
+        //[AssertThat("IsValidDistributionFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
         public List<SimpleDistributionFormat> DistributionFormats { get; set; }
+        [AssertThat("IsValidDistributionsFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
+        public List<SimpleDistribution> DistributionsFormats { get; set; }
+        public Dictionary<DistributionGroup, Distribution> FormatDistributions{ get; set; }
         public string DistributionUrl { get; set; }
-        [Required(ErrorMessage = "Distribusjonstype er påkrevd")]
+        //[Required(ErrorMessage = "Distribusjonstype er påkrevd")]
         public string DistributionProtocol { get; set; }
         public string DistributionName { get; set; }
         public string UnitsOfDistribution { get; set; }
@@ -325,20 +328,27 @@ namespace Kartverket.MetadataEditor.Models
             return allKeywords;
         }
 
-        internal List<SimpleDistributionFormat> GetDistributionFormats() 
+        internal List<SimpleDistribution> GetDistributionsFormats()
         {
-            List<SimpleDistributionFormat> distributionFormats = new List<SimpleDistributionFormat>();
+            List<SimpleDistribution> distributionsFormats = new List<SimpleDistribution>();
 
-            for(int d=0; d<DistributionFormats.Count; d++)
-            {
-                SimpleDistributionFormat distributionFormat = new SimpleDistributionFormat();
-                distributionFormat.Name = DistributionFormats[d].Name;
-                distributionFormat.Version = DistributionFormats[d].Version;
-                distributionFormats.Add(distributionFormat);
+            if(DistributionsFormats != null)
+            { 
+                for (int d = 0; d < DistributionsFormats.Count; d++)
+                {
+                    SimpleDistribution distributionFormat = new SimpleDistribution();
+                    distributionFormat.Organization = DistributionsFormats[d].Organization;
+                    distributionFormat.FormatName = DistributionsFormats[d].FormatName;
+                    distributionFormat.FormatVersion = DistributionsFormats[d].FormatVersion;
+                    distributionFormat.Protocol = DistributionsFormats[d].Protocol;
+                    distributionFormat.URL = DistributionsFormats[d].URL;
+                    distributionFormat.Name = DistributionsFormats[d].Name;
+                    distributionFormat.UnitsOfDistribution = DistributionsFormats[d].UnitsOfDistribution;
+                    distributionsFormats.Add(distributionFormat);
+                }
             }
+            return distributionsFormats;
 
-            return distributionFormats;
-        
         }
 
         internal List<SimpleReferenceSystem> GetReferenceSystems()
@@ -399,8 +409,13 @@ namespace Kartverket.MetadataEditor.Models
             return IsDataset() || IsDatasetSeries() || IsSoftware();
         }
 
-        public bool IsValidDistributionFormat() {
-            return  (!string.IsNullOrWhiteSpace(DistributionFormats[0].Name));
+        public bool IsValidDistributionsFormat() {
+            return  (DistributionsFormats != null && DistributionsFormats.Count > 0 &&  !string.IsNullOrWhiteSpace(DistributionsFormats[0].FormatName) || IsSoftware());
+        }
+
+        public bool IsValidDistributionFormat()
+        {
+            return (!string.IsNullOrWhiteSpace(DistributionFormats[0].Name) || IsSoftware());
         }
 
         public string GetInnholdstypeCSS()
@@ -590,6 +605,40 @@ namespace Kartverket.MetadataEditor.Models
 
             return output;
         }
+    }
+
+    public class DistributionGroup
+    {
+        public string Organization { get; set; }
+        public string Protocol { get; set; }
+        public string Url { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            DistributionGroup other = obj as DistributionGroup;
+            return other.Organization == Organization && other.Protocol == Protocol && other.Url == Url;
+        }
+        public override int GetHashCode()
+        {
+            int hash = 0;
+
+            if (Organization != null)
+                hash = hash + Organization.GetHashCode();
+
+            if (Protocol != null)
+                hash = hash + Protocol.GetHashCode();
+
+            if (Url != null)
+                hash = hash + Url.GetHashCode();
+
+            return hash;
+        }
+    }
+
+    public class Distribution
+    {
+        public SimpleDistribution Details { get; set; }
+        public List<SimpleDistributionFormat> Formats { get; set; }
     }
 
 }

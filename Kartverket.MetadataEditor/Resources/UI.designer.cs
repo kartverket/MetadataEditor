@@ -70,6 +70,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Legg til distribusjonsløsning.
+        /// </summary>
+        public static string Button_Add_Distribution {
+            get {
+                return ResourceManager.GetString("Button_Add_Distribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fjern distribusjonsløsning.
+        /// </summary>
+        public static string Button_Remove_Distribution {
+            get {
+                return ResourceManager.GetString("Button_Remove_Distribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lagre.
         /// </summary>
         public static string Button_Save {

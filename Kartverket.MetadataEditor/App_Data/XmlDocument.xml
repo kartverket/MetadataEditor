@@ -61,6 +61,16 @@
               Looks up a localized string similar to Geonorge - metadataeditor.
             </summary>
         </member>
+        <member name="P:Resources.UI.Button_Add_Distribution">
+            <summary>
+              Looks up a localized string similar to Legg til distribusjonsløsning.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Button_Remove_Distribution">
+            <summary>
+              Looks up a localized string similar to Fjern distribusjonsløsning.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Button_Save">
             <summary>
               Looks up a localized string similar to Lagre.

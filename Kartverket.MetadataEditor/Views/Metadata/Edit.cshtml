@@ -473,97 +473,50 @@
             $("#SpatialRepresentation").change(function (event) {
                 event.preventDefault();
                 var selectedSpatialRepresentation = $("#SpatialRepresentation").val();
+                console.log($('#DistributionFormatsCount').val());
                 for (var f = 0; f < $('#DistributionFormatsCount').val() ; f++) {
                     if (selectedSpatialRepresentation == "vector") {
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
                         @foreach (var df in ViewBag.VectorFormats as SelectList)
-                        { <text> $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');</text>}
+                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="@df.Value">@df.Text</option>');</text>}
                     } else if (selectedSpatialRepresentation == "grid") {
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
                         @foreach (var df in ViewBag.RasterFormats as SelectList)
-                        { <text> $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="@df.Value">@df.Text</option>');</text>}
+                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="@df.Value">@df.Text</option>');</text>}
                     } else if (selectedSpatialRepresentation == "textTable") {
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="CSV">CSV</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Microsoft Excel">Microsoft Excel</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="DBF">DBF</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Tekstfil">Tekstfil</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="CSV">CSV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Microsoft Excel">Microsoft Excel</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="DBF">DBF</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Tekstfil">Tekstfil</option>');
                     } else if (selectedSpatialRepresentation == "tin") {
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Intergraph TIN">Intergraph TIN</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ESRI TIN">ESRI TIN</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="GEOPAK TIN">GEOPAK TIN</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="LandXML TIN">LandXML TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Intergraph TIN">Intergraph TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="ESRI TIN">ESRI TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="GEOPAK TIN">GEOPAK TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="LandXML TIN">LandXML TIN</option>');
                     } else if (selectedSpatialRepresentation == "stereoModel") {
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="Intergraph TIN">Intergraph TIN</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="JPEG">JPEG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Intergraph TIN">Intergraph TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="JPEG">JPEG</option>');
                     } else if (selectedSpatialRepresentation == "video") {
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').children('option:not(:first)').remove();
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MPEG">MPEG</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="AVI">AVI</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MOV">MOV</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="OGG">OGG</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="WMV">WMV</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RealVideo">RealVideo</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="RMVB">RMVB</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="FLASH">FLASH</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="ASF">ASF</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="MP4">MP4</option>');
-                        $('#distributionFormats\\[' + f + '\\]\\.Name').append('<option val="QuickTime">QuickTime</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MPEG">MPEG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="AVI">AVI</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MOV">MOV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="OGG">OGG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="WMV">WMV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="RealVideo">RealVideo</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="RMVB">RMVB</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="FLASH">FLASH</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="ASF">ASF</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MP4">MP4</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="QuickTime">QuickTime</option>');
                     }
                 }
             });
 
             $("#SpatialRepresentation").trigger("change");
-
-            $("#newDistributionFormat").click(function (event) {
-                event.preventDefault();
-
-                var DistributionFormatCounts = parseInt($("#DistributionFormatsCount").val());
-                DistributionFormatCounts += 1;
-                var fIndex = DistributionFormatCounts - 1;
-
-                var dfHtm = "";
-
-                dfHtm += '<div id="formatRow' + fIndex + '" class="form-group required has-feedback">';
-                dfHtm += '<label for="distributionFormats[' + fIndex + '].Name" class="col-md-3 control-label">Format</label>';
-                dfHtm += '<div class="col-md-8">';
-                dfHtm += '<div class="row">';
-
-
-                dfHtm += '<div class="col-md-4">';
-                if ($("#DistributionFormatsType").val() == "dataset") {
-                    dfHtm += '<select id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" class="form-control">';
-                    dfHtm += '<option value="" disabled>Klikk for å velge</option>';
-                    dfHtm += '</select>';
-                }
-                else {
-                    dfHtm += '<input id="distributionFormats[' + fIndex + '].Name" name="distributionFormats[' + fIndex + '].Name" type="text" value="" class="form-control" />';
-                }
-                dfHtm += '</div>';
-
-                dfHtm += '<label for="distributionFormats[' + fIndex + '].Version" class="col-md-2 control-label" style="text-align: right;">Versjon</label>';
-
-                dfHtm += '<div class="col-md-3">';
-                dfHtm += '<input type="text" id="distributionFormats[' + fIndex + '].Version" name="distributionFormats[' + fIndex + '].Version" value="" class="form-control" placeholder="Skriv inn" style="border-color: #ccc;" />';
-                dfHtm += '</div>';
-
-                dfHtm += '<div class="col-md-3">';
-                dfHtm += '<button type="button" id="delDistributionFormat[' + fIndex + ']" class="btn btn-default" onclick="removeDistributionFormat(' + fIndex + ')">Slett</button>';
-                dfHtm += '</div>';
-
-
-                dfHtm += '</div>';
-                dfHtm += '</div>';
-                dfHtm += '</div>';
-
-                $("#distributionFormatDiv").append(dfHtm);
-                $("#DistributionFormatsCount").val(DistributionFormatCounts);
-
-                $("#SpatialRepresentation").trigger("change");
-
-            });
 
 
             $("#newReferencesystem").click(function (event) {
@@ -580,6 +533,7 @@
 
 
                 dfHtm += '<select id="referenceSystems[' + fIndex + '].CoordinateSystem" name="referenceSystems[' + fIndex + '].CoordinateSystem" class="form-control">';
+                dfHtm += '<option value="">Velg</option>';
                 @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
             {
             @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
@@ -1051,7 +1005,7 @@
 
             /* Chosen selects */
             function setSelectedKeywords() {
-                var selectedKeywordsLists = $(".chosen-selected-keywords"); 
+                var selectedKeywordsLists = $(".chosen-selected-keywords");
                 selectedKeywordsLists.each(function () {
                     var selectedKeywords = [];
                     var selectorPrefix = $(this).data('selectorprefix');
@@ -1209,8 +1163,8 @@
             });
         }
 
-        function removeDistributionFormat(formatID) {
-            var elem = document.getElementById("formatRow" + formatID);
+        function removeDistributionFormat(dist, formatID) {
+            var elem = document.getElementById("formatRow" + dist + "_" + formatID);
             elem.parentNode.removeChild(elem);
             document.getElementById('DistributionFormatsCount').value -= 1;
         };
@@ -1244,10 +1198,10 @@
 
         function loadConcepts() {
             $.ajax({
-                headers: {          
+                headers: {
                     Accept: "application/rdf+xml",
-                    "Content-Type": "text/plain; charset=utf-8"   
-                },    
+                    "Content-Type": "text/plain; charset=utf-8"
+                },
                 type: "GET",
                 url: $("#ApplicationSchema").val(),
                 success: setConcepts
@@ -1275,6 +1229,66 @@
                 $('#KeywordsConceptAlert').html("Fant ingen begreper");
             }
         }
+
+        function AddDistributionFormat(dist, format) {
+            event.preventDefault();
+
+            var DistributionFormatCounts = parseInt($("#DistributionFormatsCount").val());
+            DistributionFormatCounts += 1;
+            var fIndex = DistributionFormatCounts - 1;
+
+            var dfHtm = "";
+
+            dfHtm += '<div id="formatRow' + dist + '_' + format +1 + '" class="form-group required has-feedback">';
+            dfHtm += '<label for="DistributionsFormats[' + fIndex + '].FormatName" class="col-md-3 control-label">Format</label>';
+            dfHtm += '<div class="col-md-8">';
+            dfHtm += '<div class="row">';
+
+
+            dfHtm += '<div class="col-md-4">';
+            if ($("#DistributionFormatsType").val() == "dataset") {
+                dfHtm += '<select id="DistributionsFormats[' + fIndex + '].FormatName" name="DistributionsFormats[' + fIndex + '].FormatName" class="form-control" onchange="UpdateModel();">';
+                dfHtm += '<option value="" disabled>Klikk for å velge</option>';
+                dfHtm += '</select>';
+            }
+            else {
+                dfHtm += '<input id="DistributionsFormats[' + fIndex + '].FormatName" name="DistributionsFormats[' + fIndex + '].FormatName" type="text" value="" class="form-control" onchange="UpdateModel();" />';
+            }
+            dfHtm += '</div>';
+
+            dfHtm += '<label for="DistributionsFormats[' + fIndex + '].FormatVersion" class="col-md-2 control-label" style="text-align: right;">Versjon</label>';
+
+            dfHtm += '<div class="col-md-3">';
+            dfHtm += '<input type="text" id="DistributionsFormats[' + fIndex + '].FormatVersion" name="DistributionsFormats[' + fIndex + '].FormatVersion" value="" class="form-control" placeholder="Skriv inn" style="border-color: #ccc;" onchange="UpdateModel();" />';
+            dfHtm += '</div>';
+
+            dfHtm += '<div class="col-md-3">';
+            dfHtm += '<button type="button" class="btn btn-default" onclick="removeDistributionFormat(' + dist + ',' + format + ')">Slett</button>';
+            dfHtm += '</div>';
+
+
+            dfHtm += '</div>';
+            dfHtm += '</div>';
+            dfHtm += '</div>';
+
+            var layerName = "";
+            if (typeof $("#DistributionsFormats\\[" + dist + "\\]\\.Name").val() != 'undefined')
+                layerName = $("#DistributionsFormats\\[" + dist + "\\]\\.Name").val();
+
+            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].Protocol" name="DistributionsFormats[' + fIndex + '].Protocol" data-distribution="' + dist + '" />';
+            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].Name" name="DistributionsFormats[' + fIndex + '].Name" data-distribution="' + dist + '" />';
+            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].URL" name="DistributionsFormats[' + fIndex + '].URL" data-distribution="' + dist + '" />';
+            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].UnitsOfDistribution" name="DistributionsFormats[' + fIndex + '].UnitsOfDistribution" data-distribution="' + dist + '" />';
+            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].Organization" name="DistributionsFormats[' + fIndex + '].Organization" data-distribution="' + dist + '" />';
+
+            dfHtm += '<input type="hidden" name="DistributionsFormats.Index" value="' + fIndex + '" />';
+
+            $("#distributionFormatDiv-" + dist).append(dfHtm);
+            $("#DistributionFormatsCount").val(DistributionFormatCounts);
+
+            $("#SpatialRepresentation").trigger("change");
+
+        };
 
     </script>
 }

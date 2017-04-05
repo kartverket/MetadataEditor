@@ -224,6 +224,8 @@ namespace Kartverket.MetadataEditor.Models
                 DistributionFormatName = metadata.DistributionFormat != null ? metadata.DistributionFormat.Name : null,
                 DistributionFormatVersion = metadata.DistributionFormat != null ? metadata.DistributionFormat.Version : null,
                 DistributionFormats = metadata.DistributionFormats != null ? metadata.DistributionFormats : new List<SimpleDistributionFormat> { new SimpleDistributionFormat() },
+                DistributionsFormats = metadata.DistributionsFormats != null ? metadata.DistributionsFormats : new List<SimpleDistribution> { new SimpleDistribution() },
+                FormatDistributions = GetFormatDistributions(metadata.DistributionsFormats),
                 DistributionUrl = metadata.DistributionDetails != null ? metadata.DistributionDetails.URL : null,
                 DistributionProtocol = metadata.DistributionDetails != null ? metadata.DistributionDetails.Protocol : null,
                 DistributionName = metadata.DistributionDetails != null ? metadata.DistributionDetails.Name : null,
@@ -312,6 +314,67 @@ namespace Kartverket.MetadataEditor.Models
 
 
             return model;
+        }
+
+        public Dictionary<DistributionGroup, Distribution> GetFormatDistributions(List<SimpleDistribution> distributions)
+        {
+            Dictionary<DistributionGroup, Distribution> formatDistributions = new Dictionary<DistributionGroup, Distribution>();
+            if (distributions != null && distributions.Count > 0)
+            {
+                foreach (var distributionFormat in distributions)
+                {
+                    DistributionGroup group = new DistributionGroup();
+                    group.Organization = distributionFormat.Organization;
+                    group.Protocol = distributionFormat.Protocol;
+                    group.Url = distributionFormat.URL;
+
+                    SimpleDistribution details = new SimpleDistribution();
+                    details.Organization = distributionFormat.Organization;
+                    details.Protocol = distributionFormat.Protocol;
+                    details.URL = distributionFormat.URL;
+                    details.UnitsOfDistribution = distributionFormat.UnitsOfDistribution;
+                    details.Name = distributionFormat.Name;
+
+
+                    SimpleDistributionFormat format = new SimpleDistributionFormat();
+                    format.Name = distributionFormat.FormatName;
+                    format.Version = distributionFormat.FormatVersion;
+
+
+                    if (!formatDistributions.ContainsKey(group))
+                    {
+                        List<SimpleDistributionFormat> formatList = new List<SimpleDistributionFormat>();
+                        formatList.Add(format);
+                        formatDistributions.Add(group, new Distribution
+                        {
+                            Details = details,
+                            Formats = formatList
+
+                        });
+                    }
+                    else
+                    {
+                        Distribution distro = formatDistributions[group];
+                        distro.Formats.Add(format);
+                        formatDistributions[group] = distro;
+                    }
+
+                }
+            }
+
+            if (formatDistributions.Count < 1)
+            {
+                List<SimpleDistributionFormat> formatList = new List<SimpleDistributionFormat>();
+                formatList.Add(new SimpleDistributionFormat { Name = "", Version="" });
+                formatDistributions.Add(new DistributionGroup { Organization="", Protocol="", Url="" }, new Distribution
+                {
+                    Details = new SimpleDistribution(),
+                    Formats = formatList
+
+                });
+            }
+
+            return formatDistributions;
         }
 
         private void getQualitySpecifications(MetadataViewModel model, SimpleMetadata metadata)
@@ -539,42 +602,24 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);
 
             // distribution
-            //if (!string.IsNullOrWhiteSpace(model.SpatialRepresentation))
-                metadata.SpatialRepresentation = model.SpatialRepresentation;
+            metadata.SpatialRepresentation = model.SpatialRepresentation;
 
-            //if (!string.IsNullOrWhiteSpace(model.ReferenceSystemCoordinateSystem))
-            //{
-            //    metadata.ReferenceSystem = new SimpleReferenceSystem
-            //    {
-            //        CoordinateSystem = model.ReferenceSystemCoordinateSystem,
-            //        Namespace = model.ReferenceSystemNamespace
-            //    };
-            //}
-                var refsys = model.GetReferenceSystems();
-                if (refsys != null)
-                    metadata.ReferenceSystems = refsys;
-               
+            var refsys = model.GetReferenceSystems();
+            if (refsys != null)
+                metadata.ReferenceSystems = refsys;
 
-            //Upgraded to multiple distribution formats
-            //if (!string.IsNullOrWhiteSpace(model.DistributionFormatName) ||
-            //    !string.IsNullOrWhiteSpace(model.DistributionFormatVersion))
-            //{
-            //    metadata.DistributionFormat = new SimpleDistributionFormat
-            //    {
-            //        Name = model.DistributionFormatName,
-            //        Version = model.DistributionFormatVersion
-            //    };
-            //}
+            metadata.DistributionsFormats = model.GetDistributionsFormats();
 
-            metadata.DistributionFormats = model.GetDistributionFormats();
-
-            metadata.DistributionDetails = new SimpleDistributionDetails
+            if (metadata.DistributionsFormats != null && metadata.DistributionsFormats.Count > 0)
             {
-                URL = model.DistributionUrl,
-                Protocol = model.DistributionProtocol,
-                Name = model.DistributionName,
-                UnitsOfDistribution = model.UnitsOfDistribution
-            };
+                metadata.DistributionDetails = new SimpleDistributionDetails
+                {
+                    URL = metadata.DistributionsFormats[0].URL,
+                    Protocol = metadata.DistributionsFormats[0].Protocol,
+                    Name = metadata.DistributionsFormats[0].Name,
+                    UnitsOfDistribution = metadata.DistributionsFormats[0].UnitsOfDistribution
+                };
+            }
 
 
             // quality

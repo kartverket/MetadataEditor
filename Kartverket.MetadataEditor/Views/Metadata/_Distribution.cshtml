@@ -1,39 +1,6 @@
-﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
-
-<div class="form-group required has-feedback">
-    <label for="DistributionProtocol" class="col-md-3 control-label">Distribusjonstype</label>
-    <div class="col-md-6">
-        <p class="help-text bg-success" id="help-text-DistributionProtocol" style="display: none">
-            Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden)
-        </p>
-        <div class="custom-select">
-            @Html.DropDownList("DistributionProtocol", ViewBag.predefinedDistributionProtocols as SelectList, "-- Velg distribusjonstype  --", new { @class = "form-control" })
-        </div>
-        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-    </div>
-    <div class="col-md-1 col-md-offset-2">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-DistributionProtocol" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
-
-
-<div class="form-group">
-    <label for="DistributionUrl" class="col-md-3 control-label">URL</label>
-    <div class="col-md-8">
-        <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
-            Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).
-        </p>
-        @Html.EditorFor(m => m.DistributionUrl)
-    </div>
-    <div class="col-md-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-DistributionUrl" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
-
+﻿@using Resources;
+@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@{string classFormat = "form-control"; }
 
 @if (Model.IsDataset() || Model.IsDatasetSeries())
 {
@@ -46,153 +13,235 @@
         </div>
     </div>
 }
-@if (Model.IsDataset() || Model.IsDatasetSeries())
+@{int index = 0; int indexDistribution = 0; int indexFirstDistributionElement = 0; }
+@if (Model.FormatDistributions != null)
 {
-    <hr style="border-bottom:medium 1px black;" />
-}
-@{string classFormat = "form-control";
-    if (ViewContext.ViewData.ModelState.ContainsKey("DistributionFormats"))
+    foreach (var distr in Model.FormatDistributions)
     {
-        classFormat = "input-validation-error form-control";
-    }
-}
-<div id="distributionFormatDiv">
-    @{ string modelDatatype = "service"; }
-    @for (int f = 0; f < Model.DistributionFormats.Count; f++)
-    {
-        string rowID = "formatRow" + f;
-        <div id="@rowID" class="form-group required has-feedback">
-            <label for="distributionFormats[@f].Name" class="col-md-3 control-label">Format</label>
-            <div class="col-md-8">
-                @if (f == 0)
-                {
-                    <p class="help-text bg-success" id="help-text-DistributionFormat" style="display: none">
-                        Flere format kan angis. Versjon av formatet som leveres via filer eller tjenester, for eksempel gml 3.2.1.
-                    </p>
-                }
+        var distribution = distr.Value;
+        indexFirstDistributionElement = index;
+        <div class="panel panel-default" id="distribution-@indexDistribution">
+            <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-4">
-                        @if (Model.IsDataset() || Model.IsDatasetSeries())
-                {
-                    modelDatatype = "dataset";
-                            <div class="custom-select">
-                                <select class="form-control @classFormat" id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" onclick="checkForSpatialRepresentation(@f)">
-                                    @if (!string.IsNullOrEmpty(Model.DistributionFormats[f].Name))
+                    <div class="col-md-11">
+                        <span class="required">Distribusjon</span>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="abstract" class="col-md-3 control-label">Organisasjon</label>
+                    <div class="col-md-6">
+                        <div class="custom-select">
+                            <select class="form-control" id="DistributionsFormats[@index].Organization" name="DistributionsFormats[@index].Organization" data-distribution="@indexDistribution" onchange="UpdateModel();">
+                                <option value="">Velg</option>
+                                @foreach (SelectListItem option in ViewBag.OrganizationDistributorValues)
+                                {
+                                    <option value="@option.Value" @(option.Value == distribution.Details.Organization ? "selected='selected'" : "")>@option.Text</option>
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group required has-feedback">
+                    <label for="DistributionsFormats[@index].Protocol" class="col-md-3 control-label">Distribusjonstype</label>
+                    <div class="col-md-6">
+                        <p class="help-text bg-success" id="help-text-DistributionProtocol" style="display: none">
+                            Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden)
+                        </p>
+                        <div class="custom-select">
+                            <select class="form-control" id="DistributionsFormats[@index].Protocol" name="DistributionsFormats[@index].Protocol" data-distribution="@indexDistribution" onchange="UpdateModel();">
+                                @foreach (SelectListItem option in ViewBag.predefinedDistributionProtocols)
+                                {
+                                    <option value="@option.Value" @(option.Value == distribution.Details.Protocol ? "selected='selected'" : "")>@option.Text</option>
+
+                                }
+                            </select>
+                        </div>
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                    <div class="col-md-1 col-md-offset-2">
+                        <p class="form-control-static">
+                            <a href="#" data-help-text-id="help-text-DistributionProtocol" class="badge help-text-toggle">?</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="DistributionsFormats[@index].URL" class="col-md-3 control-label">URL</label>
+                    <div class="col-md-8">
+                        <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
+                            Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).
+                        </p>
+                        <input class="form-control" id="DistributionsFormats[@index].URL" name="DistributionsFormats[@index].URL" type="text" value="@distribution.Details.URL" data-distribution="@indexDistribution" onchange="UpdateModel();">
+                    </div>
+                    <div class="col-md-1">
+                        <p class="form-control-static">
+                            <a href="#" data-help-text-id="help-text-DistributionUrl" class="badge help-text-toggle">?</a>
+                        </p>
+                    </div>
+                </div>
+
+                @{
+                    if (ViewContext.ViewData.ModelState.ContainsKey("DistributionFormats"))
+                    {
+                        classFormat = "input-validation-error form-control";
+                    }
+                }
+                <div id="distributionFormatDiv-@indexDistribution">
+                    @{ string modelDatatype = "service"; }
+                    @if (distribution != null && distribution.Formats != null)
+                    {
+                        for (int indexFormat = 0; indexFormat < distribution.Formats.Count; indexFormat++)
+                        {
+                            string rowID = "formatRow" + indexDistribution + "_" + indexFormat;
+                            <div id="@rowID" class="form-group @(Model.IsSoftware() ? "" : "required has-feedback")">
+                                <label for="DistributionsFormats[@index].FormatName" class="col-md-3 control-label">Format</label>
+                                <input type="hidden" name="DistributionsFormats.Index" value="@index" />
+                                <div class="col-md-8">
+                                    @if (indexFormat == 0)
                                     {
-                                        <option value="@Model.DistributionFormats[f].Name">@Model.DistributionFormats[f].Name</option>
+                                        <p class="help-text bg-success" id="help-text-DistributionFormat" style="display: none">
+                                            Flere format kan angis. Versjon av formatet som leveres via filer eller tjenester, for eksempel gml 3.2.1.
+                                        </p>
+                                    }
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            @if (Model.IsDataset() || Model.IsDatasetSeries())
+                                            {
+                                                modelDatatype = "dataset";
+                                                <div class="custom-select">
+                                                    <select class="form-control @classFormat" id="DistributionsFormats[@index].FormatName" name="DistributionsFormats[@index].FormatName" onclick="checkForSpatialRepresentation(); UpdateModel();" data-distribution="@indexDistribution">
+                                                        @if (!string.IsNullOrEmpty(distribution.Formats[indexFormat].Name))
+                                                        {
+                                                            <option value="@distribution.Formats[indexFormat].Name">@distribution.Formats[indexFormat].Name</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="" disabled>Klikk for å velge</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                                            }
+                                            else
+                                            {
+                                                <input id="DistributionsFormats[@index].FormatName" name="DistributionsFormats[@index].FormatName" type="text" value="@distribution.Formats[indexFormat].Name" class="@classFormat" data-distribution="@indexDistribution" onchange="UpdateModel();" />
+                                                <span class="@(Model.IsSoftware() ? "" :"glyphicon glyphicon-warning-sign form-control-feedback")"></span>
+                                            }
+                                        </div>
+                                        <label for="DistributionsFormats[@index].FormatVersion" class="col-md-2 control-label">Versjon</label>
+                                        <div class="col-md-3">
+                                            <input type="text" id="DistributionsFormats[@index].FormatVersion" name="DistributionsFormats[@index].FormatVersion" value="@distribution.Formats[indexFormat].Version" data-distribution="@indexDistribution" onchange="UpdateModel();" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            @if (indexFormat == 0)
+                                            {<button class="btn btn-default" onclick="AddDistributionFormat(@indexDistribution, @indexFormat);">Nytt format</button>}
+                                            @if (indexFormat > 0)
+                                            {<button class="btn btn-default" onclick="removeDistributionFormat(@indexDistribution, @indexFormat)">Slett</button>}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    @if (indexFormat == 0)
+                                    {
+                                        <span class="form-control-static">
+                                            <a href="#" data-help-text-id="help-text-DistributionFormat" class="badge help-text-toggle">?</a>
+                                        </span>
+                                    }
+                                </div>
+
+                            </div>
+                            index++;
+                        }
+                    }
+                </div>
+                <hr style="border-bottom:medium 1px black;" />
+                <input type="hidden" name="DistributionFormatsType" id="DistributionFormatsType" value="@modelDatatype" />
+                @for (int hidden = indexFirstDistributionElement; hidden < distribution.Formats.Count + indexFirstDistributionElement; hidden++)
+                {
+                    if (hidden == indexFirstDistributionElement)
+                    {
+                        <div class="form-group">
+                            <label for="UnitsOfDistribution" class="col-md-3 control-label">Geografisk distribusjonsinndeling</label>
+                            <div class="col-md-8">
+                                @{ int distrID = 0;
+                                    string UnitsOfDistribution = distribution.Details.UnitsOfDistribution != null ? distribution.Details.UnitsOfDistribution : "";
+                                    var selectedUnits = System.Text.RegularExpressions.Regex.Split(UnitsOfDistribution, ", ");
+                                    foreach (var distro in ViewBag.UnitsOfDistributionValues as SelectList)
+                                    {
+                                        string inputName = "DistributionsFormats[" + indexFirstDistributionElement + "].UnitsOfDistribution" + distrID;
+                                        string unitschecked = "";
+                                        if (selectedUnits.Contains(distro.Value))
+                                        {
+                                            unitschecked = "checked";
+                                        }
+                                        <label class="checkbox-inline"><input onchange="getUnitsOfDistribution(@indexFirstDistributionElement, @distrID);UpdateModel();" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distro.Value"> @distro.Text</label>
+                                        distrID++;
+                                    }
+
+                                }
+                                <input type="hidden" id="DistributionsFormats[@(indexFirstDistributionElement)].UnitsOfDistribution" name="DistributionsFormats[@(indexFirstDistributionElement)].UnitsOfDistribution" value="@distribution.Details.UnitsOfDistribution" data-distribution="@indexDistribution">
+                                <input type="hidden" id="DistributionsFormats[@(indexFirstDistributionElement)].UnitsOfDistributionCount" name="DistributionsFormats[@(indexFirstDistributionElement)].UnitsOfDistributionCount" value="@distrID">
+                            </div>
+                        </div>
+
+                                    if (!Model.IsDatasetOrSeriesOrSoftware())
+                                    {
+                                        <div class="form-group">
+                                            <label for="DistributionName" class="col-md-2 control-label">Lagnavn</label>
+                                            <div class="col-md-9">
+                                                <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
+                                                    Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten.
+                                                </p>
+                                                <input class="form-control" id="DistributionsFormats[@indexFirstDistributionElement].Name" name="DistributionsFormats[@indexFirstDistributionElement].Name" type="text" value="@distribution.Details.Name" placeholder="Skriv inn" data-distribution="@indexDistribution" onchange="UpdateModel();">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <p class="form-control-static">
+                                                    <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        }
                                     }
                                     else
                                     {
-                                        <option value="" disabled>Klikk for å velge</option>
-                                    }
-                                </select>
-                            </div>
-                            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                        }
-                        else
-                        {
-                            <input id="distributionFormats[@f].Name" name="distributionFormats[@f].Name" type="text" value="@Model.DistributionFormats[f].Name" class="@classFormat" />
-                            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                        }
-                    </div>
-                    <label for="distributionFormats[@f].Version" class="col-md-2 control-label">Versjon</label>
-                    <div class="col-md-3">
-                        <input type="text" id="distributionFormats[@f].Version" name="distributionFormats[@f].Version" value="@Model.DistributionFormats[f].Version" />
-                    </div>
-                    <div class="col-md-3">
-                        @if (f == 0)
-                        {<button class="btn btn-default" id="newDistributionFormat">Nytt format</button>}
-                        @if (f > 0)
-                        {<button class="btn btn-default" id="delDistributionFormat[@f]" onclick="removeDistributionFormat(@f)">Slett</button>}
-                    </div>
-                </div>
-            </div>
+                                        <input type="hidden" id="DistributionsFormats[@hidden].Organization" name="DistributionsFormats[@hidden].Organization" value="@distribution.Details.Organization" data-distribution="@indexDistribution" />
+                                        <input type="hidden" id="DistributionsFormats[@hidden].Protocol" name="DistributionsFormats[@hidden].Protocol" value="@distribution.Details.Protocol" data-distribution="@indexDistribution" />
+                                        <input type="hidden" id="DistributionsFormats[@hidden].URL" name="DistributionsFormats[@hidden].URL" value="@distribution.Details.URL" data-distribution="@indexDistribution" />
+                                        <input type="hidden" id="DistributionsFormats[@hidden].UnitsOfDistribution" name="DistributionsFormats[@hidden].UnitsOfDistribution" value="@distribution.Details.UnitsOfDistribution" data-distribution="@indexDistribution" />
+                                        <input type="hidden" id="DistributionsFormats[@hidden].Name" name="DistributionsFormats[@hidden].Name" value="@distribution.Details.Name" data-distribution="@indexDistribution" />
+                                        }
+                      }
 
-
-
-            <div class="col-md-1">
-                @if (f == 0)
+                @if ((Model.IsDataset() || Model.IsDatasetSeries()) && indexDistribution > 0)
                 {
-                    <span class="form-control-static">
-                        <a href="#" data-help-text-id="help-text-DistributionFormat" class="badge help-text-toggle">?</a>
-                    </span>
+                    <div class="row">
+                        <div class="col-md-12"><button name="action" value="@UI.Button_Remove_Distribution-@(indexFirstDistributionElement)-@(distribution.Formats.Count + indexFirstDistributionElement)" class="btn btn-default pull-right">@UI.Button_Remove_Distribution</button></div>
+                    </div>
                 }
             </div>
-
         </div>
-    }
-</div>
-<hr style="border-bottom:medium 1px black;" />
-<input type="hidden" name="DistributionFormatsCount" id="DistributionFormatsCount" value="@Model.DistributionFormats.Count" />
-<input type="hidden" name="DistributionFormatsType" id="DistributionFormatsType" value="@modelDatatype" />
-
-
-
-<div class="form-group">
-    <label for="UnitsOfDistribution" class="col-md-3 control-label">Geografisk distribusjonsinndeling</label>
-    <div class="col-md-8">
-        @{ int distrID = 0;
-            string UnitsOfDistribution = Model.UnitsOfDistribution != null ? Model.UnitsOfDistribution : "";
-            var selectedUnits = System.Text.RegularExpressions.Regex.Split(UnitsOfDistribution, ", ");
-            foreach (var distribution in ViewBag.UnitsOfDistributionValues as SelectList)
-            {
-                string inputName = "UnitsOfDistribution" + distrID;
-                string unitschecked = "";
-                if (selectedUnits.Contains(distribution.Value))
-                { unitschecked = "checked"; }
-                <label class="checkbox-inline"><input onchange="getUnitsOfDistribution()" type="checkbox" id="@inputName" @unitschecked name="@inputName" value="@distribution.Value"> @distribution.Text</label>
-                distrID++;
-            }
-
-        }
-        <script type="text/javascript">
-            function getUnitsOfDistribution() {
-                var numberOfUnits = document.getElementById('UnitsOfDistributionCount').value;
-                var UnitsOfDistributionString = '';
-                for (var n = 0; n < numberOfUnits; n++) {
-                    var unitValue = document.getElementById('UnitsOfDistribution' + n).value;
-                    var unitChecked = document.getElementById('UnitsOfDistribution' + n).checked;
-                    if (unitChecked) {
-                        UnitsOfDistributionString = UnitsOfDistributionString + unitValue + ', ';
-                    }
-                }
-                UnitsOfDistributionString = UnitsOfDistributionString.slice(0, -2);
-                document.getElementById('UnitsOfDistribution').value = UnitsOfDistributionString;
-            }
-
-            function checkForSpatialRepresentation(formatID) {
-                if (document.getElementById('distributionFormats[' + formatID + '].Name').length <= 1)
-                    alert('Vennligst velg først representasjonsform');
-
-            }
-
-        </script>
-        <input type="hidden" id="UnitsOfDistribution" name="UnitsOfDistribution" value="@Model.UnitsOfDistribution">
-        <input type="hidden" id="UnitsOfDistributionCount" name="UnitsOfDistributionCount" value="@distrID">
-    </div>
-</div>
-
-@if (!Model.IsDatasetOrSeriesOrSoftware())
-{
-    <div class="form-group">
-        <label for="DistributionName" class="col-md-2 control-label">Lagnavn</label>
-        <div class="col-md-9">
-            <p class="help-text bg-success" id="help-text-DistributionName" style="display: none">
-                Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten.
-            </p>
-            @Html.EditorFor(m => m.DistributionName)
-        </div>
-        <div class="col-md-1">
-            <p class="form-control-static">
-                <a href="#" data-help-text-id="help-text-DistributionName" class="badge help-text-toggle">?</a>
-            </p>
-        </div>
-    </div>
-}
-
+                                            if (distribution.Formats.Count == 0)
+                                            {
+                                                index++;
+                                            }
+                                            indexDistribution++;
+                                        }
+                                    }
 @if (Model.IsDataset() || Model.IsDatasetSeries())
 {
-    <hr style="border-bottom:medium 1px black;" />
+    <div class="row">
+        <div class="col-md-12"><button name="action" value="@UI.Button_Add_Distribution" class="btn btn-default pull-right">@UI.Button_Add_Distribution</button></div>
+    </div>
+}
+<hr style="border-bottom:medium 1px black;" />
+@if (Model.IsDataset() || Model.IsDatasetSeries())
+{
     <div id="ReferenceSystemsDiv">
         @if (Model.ReferenceSystems == null)
         {
@@ -202,32 +251,32 @@
         @if (Model.ReferenceSystems != null)
         {
 
-            for (int f = 0; f < Model.ReferenceSystems.Count; f++)
+            for (int r = 0; r < Model.ReferenceSystems.Count; r++)
             {
-                string rowID = "referenceRow" + f;
+                string rowID = "referenceRow" + r;
                 <div id="@rowID" class="form-group">
-                    <label for="referenceSystems[@f].CoordinateSystem" class="col-md-3 control-label">Romlig<br />referansesystem</label>
+                    <label for="referenceSystems[@r].CoordinateSystem" class="col-md-3 control-label">Romlig<br />referansesystem</label>
                     <div class="col-md-3">
                         <div class="custom-select">
-                            <select class="@classFormat" id="referenceSystems[@f].CoordinateSystem" name="referenceSystems[@f].CoordinateSystem" onchange="document.getElementById('referenceSystems[@f].Namespace').value='EPSG'">
-                                <option value="@Model.ReferenceSystems[f].CoordinateSystem">
-                                    @Model.ReferenceSystems[f].CoordinateSystem
+                            <select class="@classFormat" id="referenceSystems[@r].CoordinateSystem" name="referenceSystems[@r].CoordinateSystem" onchange="document.getElementById('referenceSystems[@r].Namespace').value='EPSG'">
+                                <option value="@Model.ReferenceSystems[r].CoordinateSystem">
+                                    @Model.ReferenceSystems[r].CoordinateSystem
                                 </option>
                                 @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
                                 {
-                                    string selectedRef = opt.Value == Model.ReferenceSystems[f].CoordinateSystem ? "selected" : "";
+                                    string selectedRef = opt.Value == Model.ReferenceSystems[r].CoordinateSystem ? "selected" : "";
                                     <option value="@opt.Value" @selectedRef>@opt.Text</option>
                                 }
                             </select>
                         </div>
                     </div>
-                    <label for="referenceSystems[@f].Namespace" class="col-md-1" style="text-align: right;">Koderom</label>
+                    <label for="referenceSystems[@r].Namespace" class="col-md-1" style="text-align: right;">Koderom</label>
                     <div class="col-md-2">
-                        @{string refspaceValue = Model.ReferenceSystems[f].Namespace != null ? Model.ReferenceSystems[f].Namespace : "EPSG";}
-                        <input type="text" id="referenceSystems[@f].Namespace" name="referenceSystems[@f].Namespace" value="@refspaceValue" readonly class="form-control" />
+                        @{string refspaceValue = Model.ReferenceSystems[r].Namespace != null ? Model.ReferenceSystems[r].Namespace : "EPSG";}
+                        <input type="text" id="referenceSystems[@r].Namespace" name="referenceSystems[@r].Namespace" value="@refspaceValue" readonly class="form-control" />
                     </div>
                     <div class="col-md-2">
-                        @if (f == 0)
+                        @if (r == 0)
                         {
                             <button class="btn btn-default" id="newReferencesystem">Nytt ref.sy.</button>
 
@@ -240,9 +289,9 @@
                             </div>
 
                         }
-                        @if (f > 0)
+                        @if (r > 0)
                         {
-                            <button class="btn btn-default" id="delReferenceSystem[@f]" onclick="removeReferenceSystem(@f)">Slett</button>
+                            <button class="btn btn-default" id="delReferenceSystem[@r]" onclick="removeReferenceSystem(@r)">Slett</button>
                         }
                     </div>
                     <div class="col-md-1">
@@ -264,3 +313,85 @@
                                 }
 
                             }
+<input type="hidden" name="DistributionFormatsCount" id="DistributionFormatsCount" value="@(((Model.DistributionsFormats == null || Model.DistributionsFormats.Count == 0)  ? "1" : Model.DistributionsFormats.Count.ToString()))" />
+<script type="text/javascript">
+    function getUnitsOfDistribution(i, distr) {
+        var numberOfUnits = document.getElementById('DistributionsFormats[' + i + '].UnitsOfDistributionCount').value;
+        var UnitsOfDistributionString = '';
+        for (var n = 0; n < numberOfUnits; n++) {
+            var unitValue = document.getElementById('DistributionsFormats[' + i + '].UnitsOfDistribution' + n).value;
+            var unitChecked = document.getElementById('DistributionsFormats[' + i + '].UnitsOfDistribution' + n).checked;
+            if (unitChecked) {
+                UnitsOfDistributionString = UnitsOfDistributionString + unitValue + ', ';
+            }
+        }
+        UnitsOfDistributionString = UnitsOfDistributionString.slice(0, -2);
+        console.log("UnitsOfDistributionString:" + UnitsOfDistributionString);
+        document.getElementById('DistributionsFormats[' + i + '].UnitsOfDistribution').value = UnitsOfDistributionString;
+    }
+
+    function checkForSpatialRepresentation() {
+        if ($('#SpatialRepresentation').val() == "")
+            alert('Vennligst velg først representasjonsform');
+
+    }
+
+    @if(ViewBag.NewDistribution)
+    {
+        @:location.hash = "#distribution-@(indexDistribution -1)";
+        }
+
+
+    function UpdateModel()
+    {
+
+        var previousDistribution = "";
+        var organization = "";
+        var protocol = "";
+        var url = "";
+        var formatName = "";
+        var formatVersion = "";
+        var unitsOfDistribution = "";
+        var name = "";
+
+        var DistributionFormatCounts = parseInt($("#DistributionFormatsCount").val());
+
+        for(j=0; j<DistributionFormatCounts ;j++)
+        {
+
+            var distribution = $('#DistributionsFormats\\['+ j+'\\]\\.Protocol').attr('data-distribution');
+            console.log("Distribution: " + distribution + "-prev=" +previousDistribution );
+
+            if(distribution != previousDistribution)
+            {
+                console.log("UpdateValues");
+                organization = $('#DistributionsFormats\\[' + j + '\\]\\.Organization').val();
+                protocol = $('#DistributionsFormats\\['+ j+'\\]\\.Protocol').val();
+                console.log("Protocol: " + protocol);
+                url = $('#DistributionsFormats\\['+ j+'\\]\\.URL').val();
+                console.log("Url: " + url);
+                formatName = $('#DistributionsFormats\\['+ j+'\\]\\.FormatName').val();
+                console.log("FormatName: " + formatName);
+                formatVersion = $('#DistributionsFormats\\['+ j+'\\]\\.FormatVersion').val();
+                console.log("FormatVersion: " + formatVersion);
+                unitsOfDistribution = $('#DistributionsFormats\\['+ j+'\\]\\.UnitsOfDistribution').val();
+                console.log("unitsOfDistribution: " + unitsOfDistribution);
+                var name = $('#DistributionsFormats\\['+ j+'\\]\\.Name').val();
+                if (typeof name == 'undefined')
+                    name = "";
+                console.log("Name: " + name);
+            }
+
+            $('#DistributionsFormats\\[' + j + '\\]\\.Organization').val(organization);
+            $('#DistributionsFormats\\['+ j+'\\]\\.Protocol').val(protocol);
+            $('#DistributionsFormats\\['+ j+'\\]\\.URL').val(url);
+            $('#DistributionsFormats\\[' + j + '\\]\\.UnitsOfDistribution').val(unitsOfDistribution);
+            $('#DistributionsFormats\\[' + j + '\\]\\.Name').val(name);
+
+            previousDistribution = distribution;
+
+        }
+
+    }
+
+</script>

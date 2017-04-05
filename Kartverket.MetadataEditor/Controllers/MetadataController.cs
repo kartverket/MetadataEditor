@@ -213,6 +213,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", model.ContactMetadata.Organization);
             ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", model.ContactPublisher.Organization);
             ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", model.ContactOwner.Organization);
+            ViewBag.OrganizationDistributorValues = new SelectList(OrganizationList, "Key", "Value");
 
             Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
             ViewBag.ReferenceSystemsValues = new SelectList(ReferenceSystemsList, "Key", "Value");
@@ -266,6 +267,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 ViewBag.ValidModel = TryValidateModel(model);
             }
 
+            ViewBag.NewDistribution = false;
+
             ViewBag.IsAdmin = "0";
             string role = GetSecurityClaim("role");
             if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
@@ -301,15 +304,41 @@ namespace Kartverket.MetadataEditor.Controllers
 
                     return fileStreamResult;
                 }
+                else if (action.Equals(UI.Button_Add_Distribution))
+                {
+                    model.DistributionsFormats.Add(new GeoNorgeAPI.SimpleDistribution {  FormatName ="", FormatVersion ="", Name = "", Organization = "", Protocol="", UnitsOfDistribution="", URL=""});
+                    model.FormatDistributions = _metadataService.GetFormatDistributions(model.DistributionsFormats);
+                    PrepareViewBagForEditing(model);
+                    ViewBag.NewDistribution = true;
+                    return View(model);
+                }
+                else if (action.Contains(UI.Button_Remove_Distribution))
+                {
+                    int deleteIndexStart = -1; int deleteIndexStop = -1;
+                    var index = action.Split('-');
+                    var indexStart = index[1];
+                    var indexStop= index[2];
+                    int.TryParse(indexStart, out deleteIndexStart);
+                    int.TryParse(indexStop, out deleteIndexStop);
+                    if (deleteIndexStart > -1 && deleteIndexStop > -1)
+                    {
+                        for (int i = deleteIndexStart; i < deleteIndexStop; i++  )
+                            model.DistributionsFormats.RemoveAt(i);
+                    }
+                            
+                    model.FormatDistributions = _metadataService.GetFormatDistributions(model.DistributionsFormats);
+                    PrepareViewBagForEditing(model);
+                    return View(model);
+                }
                 else
                 {
                     SaveMetadataToCswServer(model);
-                    if (action.Equals(UI.Button_Validate)) 
+                    if (action.Equals(UI.Button_Validate))
                     {
                         ValidateMetadata(uuid);
                     }
 
-                    return RedirectToAction("Edit", new {uuid = model.Uuid});
+                    return RedirectToAction("Edit", new { uuid = model.Uuid });
                 }
             }
             else
