@@ -292,6 +292,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
             }
 
+            model.FormatDistributions = _metadataService.GetFormatDistributions(model.DistributionsFormats);
+
             if (ModelState.IsValid)
             {
                 if (action.Equals(UI.Button_SaveAsXml))

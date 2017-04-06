@@ -410,7 +410,21 @@ namespace Kartverket.MetadataEditor.Models
         }
 
         public bool IsValidDistributionsFormat() {
-            return  (DistributionsFormats != null && DistributionsFormats.Count > 0 &&  !string.IsNullOrWhiteSpace(DistributionsFormats[0].FormatName) || IsSoftware());
+
+            bool valid = false;
+
+            if (IsSoftware())
+                return true;
+
+            if ((IsDataset() || IsDatasetSeries()) && DistributionsFormats != null && DistributionsFormats.Count > 0 &&
+               !string.IsNullOrWhiteSpace(DistributionsFormats[0].FormatName) && !string.IsNullOrWhiteSpace(DistributionsFormats[0].Organization))
+                return true;
+
+            if ((!IsDataset() && !IsDatasetSeries()) &&  DistributionsFormats != null && DistributionsFormats.Count > 0 &&
+               !string.IsNullOrWhiteSpace(DistributionsFormats[0].FormatName))
+                return true;
+
+            return valid;
         }
 
         public bool IsValidDistributionFormat()

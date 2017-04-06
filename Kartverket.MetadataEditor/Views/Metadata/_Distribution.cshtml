@@ -35,7 +35,7 @@
             <div class="panel-body">
                 @if (Model.IsDataset() || Model.IsDatasetSeries())
                 {
-                <div class="form-group">
+                <div class="form-group required has-feedback">
                     <label for="abstract" class="col-md-3 control-label">Organisasjon</label>
                     <div class="col-md-6">
                         <div class="custom-select">
@@ -48,6 +48,7 @@
                                 }
                             </select>
                         </div>
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                     </div>
                 </div>
                 }
