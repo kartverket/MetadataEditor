@@ -33,6 +33,8 @@
                 </div>
             </div>
             <div class="panel-body">
+                @if (Model.IsDataset() || Model.IsDatasetSeries())
+                {
                 <div class="form-group">
                     <label for="abstract" class="col-md-3 control-label">Organisasjon</label>
                     <div class="col-md-6">
@@ -48,6 +50,7 @@
                         </div>
                     </div>
                 </div>
+                }
                 <div class="form-group required has-feedback">
                     <label for="DistributionsFormats[@index].Protocol" class="col-md-3 control-label">Distribusjonstype</label>
                     <div class="col-md-6">
