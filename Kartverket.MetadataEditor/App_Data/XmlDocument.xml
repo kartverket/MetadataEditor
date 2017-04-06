@@ -63,7 +63,7 @@
         </member>
         <member name="P:Resources.UI.Button_Add_Distribution">
             <summary>
-              Looks up a localized string similar to Legg til distribusjonsløsning.
+              Looks up a localized string similar to Legg til ny distribusjonsløsning.
             </summary>
         </member>
         <member name="P:Resources.UI.Button_Remove_Distribution">

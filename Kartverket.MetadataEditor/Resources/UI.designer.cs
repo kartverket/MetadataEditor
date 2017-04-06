@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Legg til distribusjonsløsning.
+        ///   Looks up a localized string similar to Legg til ny distribusjonsløsning.
         /// </summary>
         public static string Button_Add_Distribution {
             get {

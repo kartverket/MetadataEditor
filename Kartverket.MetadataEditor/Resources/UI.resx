@@ -121,7 +121,7 @@
     <value>Geonorge - metadataeditor</value>
   </data>
   <data name="Button_Add_Distribution" xml:space="preserve">
-    <value>Legg til distribusjonsløsning</value>
+    <value>Legg til ny distribusjonsløsning</value>
   </data>
   <data name="Button_Remove_Distribution" xml:space="preserve">
     <value>Fjern distribusjonsløsning</value>
