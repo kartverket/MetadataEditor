@@ -47,20 +47,6 @@
         </div>
     </div>
 }
-<div class="form-group">
-    @Html.LabelFor(m => m.Purpose, new { @class = "col-md-2 control-label" })
-    <div class="col-md-9">
-        <p class="help-text bg-success" id="help-text-purpose" style="display: none">
-            Hvis datasettet er samlet inn med tanke på et spesielt formål, og ikke kan brukes til andre formål uten videre, skal dette oppgis. Hvis ikke, trengs det ikke angis noe her.
-        </p>
-        @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
-    </div>
-    <div class="col-md-1">
-        <p class="form-control-static">
-            <a href="#" data-help-text-id="help-text-purpose" class="badge help-text-toggle">?</a>
-        </p>
-    </div>
-</div>
 
 <div class="form-group required has-feedback">
     @Html.LabelFor(m => m.Abstract, new { @class = "col-md-2 control-label" })
@@ -121,6 +107,21 @@
     <div class="col-md-1">
         <p class="form-control-static">
             <a href="#" data-help-text-id="help-text-usage" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Purpose, new { @class = "col-md-2 control-label" })
+    <div class="col-md-9">
+        <p class="help-text bg-success" id="help-text-purpose" style="display: none">
+            Hvis datasettet er samlet inn med tanke på et spesielt formål, og ikke kan brukes til andre formål uten videre, skal dette oppgis. Hvis ikke, trengs det ikke angis noe her.
+        </p>
+        @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
+    </div>
+    <div class="col-md-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-purpose" class="badge help-text-toggle">?</a>
         </p>
     </div>
 </div>
