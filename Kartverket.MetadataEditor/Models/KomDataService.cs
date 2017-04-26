@@ -130,10 +130,10 @@ namespace Kartverket.MetadataEditor.Models
                             });
                     }
                 }
-            }
 
-            Organizations = Organizations.OrderBy(o => o.Name).ToList();
-            memCacher.Set("municipalityorganizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
+                Organizations = Organizations.OrderBy(o => o.Name).ToList();
+                memCacher.Set("municipalityorganizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            }
 
             return Organizations;
         }

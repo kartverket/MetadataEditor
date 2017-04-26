@@ -416,9 +416,11 @@ namespace Kartverket.MetadataEditor.Controllers
                         CodeValues.Add(codevalue, code["label"].ToString());
                     }
                 }
+
+                CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+                memCacher.Set(systemid, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
+
             }
-            CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Set(systemid, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return CodeValues;
         }
@@ -453,9 +455,11 @@ namespace Kartverket.MetadataEditor.Controllers
                         Organizations.Add(org["label"].ToString(), org["label"].ToString());
                     }
                 }
+
+                Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+                memCacher.Set("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
+
             }
-            Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Set("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return Organizations;
         }

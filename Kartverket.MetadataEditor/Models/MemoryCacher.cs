@@ -9,6 +9,8 @@ namespace Kartverket.MetadataEditor.Models
 {
     public class MemoryCacher
     {
+        static readonly object addLock = new object();
+
         public object GetValue(string key)
         {
             MemoryCache memoryCache = MemoryCache.Default;
@@ -17,10 +19,13 @@ namespace Kartverket.MetadataEditor.Models
 
         public void Set(string key, object value, DateTimeOffset absExpiration)
         {
-            CacheItemPolicy policy = 
+            lock (addLock)
+            {
+                CacheItemPolicy policy =
                 new CacheItemPolicy { AbsoluteExpiration = absExpiration, Priority = CacheItemPriority.NotRemovable };
-            MemoryCache memoryCache = MemoryCache.Default;
-            memoryCache.Set(key, value, policy);
+                MemoryCache memoryCache = MemoryCache.Default;
+                memoryCache.Set(key, value, policy);
+            }
         }
 
         public void Delete(string key)
