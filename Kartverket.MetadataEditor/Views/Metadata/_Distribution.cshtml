@@ -41,9 +41,18 @@
                         <div class="custom-select">
                             <select class="form-control" id="DistributionsFormats[@index].Organization" name="DistributionsFormats[@index].Organization" data-distribution="@indexDistribution" onchange="UpdateModel();">
                                 <option value="">Velg</option>
+                                @{string selectedOrganization = distribution.Details.Organization;
+                                    if (string.IsNullOrEmpty(selectedOrganization))
+                                    {
+                                        if (Model.ContactPublisher != null && !string.IsNullOrEmpty(Model.ContactPublisher.Organization))
+                                        { selectedOrganization = Model.ContactPublisher.Organization; }
+
+                                    }
+
+                                  }
                                 @foreach (SelectListItem option in ViewBag.OrganizationDistributorValues)
                                 {
-                                    <option value="@option.Value" @(option.Value == distribution.Details.Organization ? "selected='selected'" : "")>@option.Text</option>
+                                    <option value="@option.Value" @(option.Value == selectedOrganization ? "selected='selected'" : "")>@option.Text</option>
 
                                 }
                             </select>
