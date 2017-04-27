@@ -740,7 +740,7 @@ namespace Kartverket.MetadataEditor.Controllers
              
                     if (scaleImage)
                     {
-                        OptimizeImage(file, 180, 1000, fullPath);
+                        OptimizeImage(file, 300, 1000, fullPath);
                     }
                     else
                     {
@@ -783,7 +783,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
                     var fullPathMini = Server.MapPath("~/thumbnails/" + filenameMini);
 
-                    OptimizeImage(file, 180, 1000, fullPathMini);
+                    OptimizeImage(file, 300, 1000, fullPathMini);
 
 
                     viewresult = Json(new { status = "OK", filename = filename, filenamemini = filenameMini });
