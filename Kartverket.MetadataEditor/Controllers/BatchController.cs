@@ -84,6 +84,13 @@ namespace Kartverket.MetadataEditor.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
+        public ActionResult UpdateFormatOrganization(FormCollection batch)
+        {
+            new Thread(() => new BatchService().UpdateFormatOrganization(GetUsername())).Start();
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+        }
+
         private BatchData GetFormData(FormCollection batch)
         {
 
