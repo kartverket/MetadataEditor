@@ -573,7 +573,13 @@ namespace Kartverket.MetadataEditor.Models
                 System.Net.WebClient c = new System.Net.WebClient();
                 c.Encoding = System.Text.Encoding.UTF8;
 
-                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/search?limit=3000&facets[0]name=type&facets[0]value=dataset");
+                string protocol = "https:";
+                string kartkatalogenUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"];
+                if (!kartkatalogenUrl.StartsWith("http"))
+                    kartkatalogenUrl = protocol + kartkatalogenUrl;
+
+
+                var data = c.DownloadString(kartkatalogenUrl + "api/search?limit=3000&facets[0]name=type&facets[0]value=dataset");
                 var response = Newtonsoft.Json.Linq.JObject.Parse(data);
                 var result = response.SelectToken("Results").ToList();
 
