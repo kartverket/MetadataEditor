@@ -555,6 +555,74 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+        public void UpdateFormatOrganization(string username)
+        {
+            string uuid = "";
+
+            try
+            {
+                //Disable SSL sertificate errors
+                System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                delegate (object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                                        System.Security.Cryptography.X509Certificates.X509Chain chain,
+                                        System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true; // **** Always accept
+                };
+
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+
+                string protocol = "https:";
+                string kartkatalogenUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"];
+                if (!kartkatalogenUrl.StartsWith("http"))
+                    kartkatalogenUrl = protocol + kartkatalogenUrl;
+
+
+                var data = c.DownloadString(kartkatalogenUrl + "api/search?limit=3000&facets[0]name=type&facets[0]value=dataset");
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+                var result = response.SelectToken("Results").ToList();
+
+
+                foreach (var dataset in result.ToList())
+                {
+                    try
+                    {
+                        uuid = dataset["Uuid"].ToString();
+
+                        MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+
+                        if (metadata.DistributionsFormats != null && metadata.DistributionsFormats.Count > 0 
+                            && metadata.ContactPublisher != null && !string.IsNullOrEmpty(metadata.ContactPublisher.Organization))
+                        {
+                            bool updated = false;
+                            for (int f=0; f < metadata.DistributionsFormats.Count; f++)
+                            {
+                                if (string.IsNullOrEmpty(metadata.DistributionsFormats[f].Organization))
+                                { 
+                                    metadata.DistributionsFormats[f].Organization = metadata.ContactPublisher.Organization;
+                                    updated = true;
+                                }
+                            }
+
+                            if(updated)
+                                _metadataService.SaveMetadataModel(metadata, username);
+
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Info("Batch UpdateFormatOrganization error, uuid: " + uuid, e);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Batch UpdateFormatOrganization error", ex);
+            }
+
+        }
+
 
         public Dictionary<string, string> GetCodeList(string systemid)
         {

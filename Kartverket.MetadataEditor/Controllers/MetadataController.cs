@@ -535,9 +535,10 @@ namespace Kartverket.MetadataEditor.Controllers
                         CodeValues.Add(codevalue, code["label"].ToString());
                     }
                 }
-            }
+
             CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
             memCacher.Set(systemid, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            }
 
             return CodeValues;
         }
@@ -572,9 +573,11 @@ namespace Kartverket.MetadataEditor.Controllers
                         Organizations.Add(org["label"].ToString(), org["label"].ToString());
                     }
                 }
+
+                Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+                memCacher.Set("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
+
             }
-            Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Set("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             return Organizations;
         }
@@ -611,10 +614,11 @@ namespace Kartverket.MetadataEditor.Controllers
                         ReferenceSystems.Add(documentreference, refsys["label"].ToString());
                     }
                 }
-            }
 
-            ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Set("referencesystems", ReferenceSystems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+                ReferenceSystems = ReferenceSystems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+                memCacher.Set("referencesystems", ReferenceSystems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+
+            }
 
             return ReferenceSystems;
         }
@@ -656,10 +660,11 @@ namespace Kartverket.MetadataEditor.Controllers
                             RegisterItems.Add(id, item["label"].ToString());
                     }
                 }
-            }
 
-            RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Set("registeritem-" + registername, RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+                RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+                memCacher.Set("registeritem-" + registername, RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+
+            }
 
             return RegisterItems;
         }
@@ -702,10 +707,10 @@ namespace Kartverket.MetadataEditor.Controllers
                             RegisterItems.Add(id, item["label"].ToString());
                     }
                 }
-            }
 
-            RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Set("subregisteritem", RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+                RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+                memCacher.Set("subregisteritem", RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            }
 
             return RegisterItems;
         }
@@ -735,7 +740,7 @@ namespace Kartverket.MetadataEditor.Controllers
              
                     if (scaleImage)
                     {
-                        OptimizeImage(file, 180, 1000, fullPath);
+                        OptimizeImage(file, 300, 1000, fullPath);
                     }
                     else
                     {
@@ -778,7 +783,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
                     var fullPathMini = Server.MapPath("~/thumbnails/" + filenameMini);
 
-                    OptimizeImage(file, 180, 1000, fullPathMini);
+                    OptimizeImage(file, 300, 1000, fullPathMini);
 
 
                     viewresult = Json(new { status = "OK", filename = filename, filenamemini = filenameMini });
