@@ -85,9 +85,16 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [Authorize]
-        public ActionResult UpdateFormatOrganization(FormCollection batch)
+        public ActionResult UpdateFormatOrganization()
         {
             new Thread(() => new BatchService().UpdateFormatOrganization(GetUsername())).Start();
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+        }
+
+        [Authorize]
+        public ActionResult UpdateKeywordServiceType()
+        {
+            new Thread(() => new BatchService().UpdateKeywordServiceType(GetUsername())).Start();
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
         }
 
