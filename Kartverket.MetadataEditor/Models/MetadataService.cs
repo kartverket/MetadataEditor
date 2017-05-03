@@ -203,6 +203,7 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsConcept = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_CONCEPT)),
                 KeywordsInspire = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1)),
                 KeywordsServiceTaxonomy = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY)),
+                KeywordsServiceType = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICE_TYPE)),
                 KeywordsOther = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, null)),
                 KeywordsEnglish = CreateDictionaryOfEnglishKeywords(metadata.Keywords),
 
@@ -776,10 +777,10 @@ namespace Kartverket.MetadataEditor.Models
                 OtherConstraintsAccess = !string.IsNullOrWhiteSpace(otherConstraintsAccess) ? otherConstraintsAccess : "",
             };
 
-            if(model.IsService() && !string.IsNullOrEmpty(model.DistributionProtocol))
+            if(model.IsService() && model.DistributionsFormats != null && model.DistributionsFormats.Count > 0)
             { 
-                model.KeywordsOther = AddKeywordForService(model);
-                metadata.ServiceType = GetServiceType(model.DistributionProtocol);
+                model.KeywordsServiceType = AddKeywordForService(model);
+                metadata.ServiceType = GetServiceType(model.DistributionsFormats[0].Protocol);
             }
             metadata.Keywords = model.GetAllKeywords();
 
@@ -1398,17 +1399,18 @@ namespace Kartverket.MetadataEditor.Models
 
         private List<string> AddKeywordForService(MetadataViewModel model)
         {
-            string serviceKeyword = GetServiceKeyword(model.DistributionProtocol);
-            if (!string.IsNullOrEmpty(serviceKeyword) && !model.KeywordsOther.Contains(serviceKeyword)) {
+            string serviceKeyword = GetServiceKeyword(model.DistributionsFormats[0].Protocol);
+            if (!string.IsNullOrEmpty(serviceKeyword) && !model.KeywordsServiceType.Contains(serviceKeyword)) {
                 foreach (var serviceDistribution in model.ServiceDistributionKeywords)
                 {
-                    model.KeywordsOther.Remove(serviceDistribution.Key);
+                    model.KeywordsOther.Remove(serviceDistribution.Key); // Remove from old storage
+                    model.KeywordsServiceType.Remove(serviceDistribution.Key);
                 }
 
-                model.KeywordsOther.Add(serviceKeyword);
+                model.KeywordsServiceType.Add(serviceKeyword);
             }
 
-            return model.KeywordsOther;
+            return model.KeywordsServiceType;
         }
     }
 }
