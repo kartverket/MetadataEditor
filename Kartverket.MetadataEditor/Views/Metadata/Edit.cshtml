@@ -247,7 +247,8 @@
             (menu_state !== null) ? $('#' + menu_state).click() : $('#homelink').click();
 
             // Get selected tab
-            $("#editor-tabs li a").click(function () {
+            $("#editor-tabs li a").click(function (event) {
+                event.preventDefault();
                 var cookieVal = this.id;
                 console.log(cookieVal);
                 Cookies.set('navtabselected', cookieVal);

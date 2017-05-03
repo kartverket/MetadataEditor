@@ -183,14 +183,17 @@
             var menu_state = Cookies.get('navtabselected');
 
             $('#homelink').click(function (event) {
+                event.preventDefault();
                 Cookies.set('navtabselected', 'home');
             });
 
-            $('#timeandspacelink').click(function (event) {
+            $('#optional').click(function (event) {
+                event.preventDefault();
                 Cookies.set('navtabselected', 'optional');
             });
 
             $('#englishlink').click(function (event) {
+                event.preventDefault();
                 Cookies.set('navtabselected', 'english');
             });
 
