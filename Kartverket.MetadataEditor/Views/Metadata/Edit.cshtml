@@ -19,18 +19,18 @@
     @Html.HiddenFor(m => m.HierarchyLevel)
     @if (Model.IsService())
     {
-    <div id="operatesOn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
-        @Html.Partial("_OperatesOn", Model)
-    </div>
-    <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
-        @Html.Partial("_ParentIdentifier", Model)
-    </div>
+        <div id="operatesOn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
+            @Html.Partial("_OperatesOn", Model)
+        </div>
+        <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
+            @Html.Partial("_ParentIdentifier", Model)
+        </div>
     }
     @if (Model.IsSoftware())
     {
-    <div id="crossReference" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
-        @Html.Partial("_CrossReference", Model)
-    </div>
+        <div id="crossReference" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
+            @Html.Partial("_CrossReference", Model)
+        </div>
     }
 
     @section ActionMenu {
@@ -38,7 +38,7 @@
             @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
                     <i class="glyphicon glyphicon-file"></i> Last ned XML
                 </a>*@
-   
+
             <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
                 <span class="glyphicon glyphicon-share-alt"></span> Vis i kartkatalogen
             </a>
@@ -141,8 +141,9 @@
         <li><a href="#keywords" id="keywordslink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
         <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
         <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
-        @if(ViewBag.IsAdmin == "1") {
-        <li><a href="#admin" id="adminlink" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Administrativt</a></li>
+        @if (ViewBag.IsAdmin == "1")
+        {
+            <li><a href="#admin" id="adminlink" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Administrativt</a></li>
         }
     </ul>
 
@@ -250,7 +251,6 @@
             $("#editor-tabs li a").click(function (event) {
                 event.preventDefault();
                 var cookieVal = this.id;
-                console.log(cookieVal);
                 Cookies.set('navtabselected', cookieVal);
             });
 
@@ -538,7 +538,7 @@
                 @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
             {
             @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
-                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                }
                 dfHtm += '</select>';
 
                 dfHtm += '</div>';
@@ -625,79 +625,78 @@
 
             var Sosi = function (event) {
 
-                    var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
-                    var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
-                    console.log("selectedSosi: " + selectedSosi);
-                    if (selectedSosi != "") {
-                        $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
-                        $('#QualitySpecificationSosi').show();
-                        $("#QualitySpecificationSosiTitle").show();
-                        $("#QualitySpecificationSosiDate").show();
-                        $("#QualitySpecificationSosiResult").show();
-                        $("#QualitySpecificationExplanationSosiDiv").show();
-                        //$("#QualitySpecificationDateSosi").val("01.01.2014");
-                        if (selectedSosiUrl != null) {
-                            var selectedSosiUrlApi = selectedSosiUrl;
-                            selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
+                var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
+                var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
+                console.log("selectedSosi: " + selectedSosi);
+                if (selectedSosi != "") {
+                    $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
+                    $('#QualitySpecificationSosi').show();
+                    $("#QualitySpecificationSosiTitle").show();
+                    $("#QualitySpecificationSosiDate").show();
+                    $("#QualitySpecificationSosiResult").show();
+                    $("#QualitySpecificationExplanationSosiDiv").show();
+                    //$("#QualitySpecificationDateSosi").val("01.01.2014");
+                    if (selectedSosiUrl != null) {
+                        var selectedSosiUrlApi = selectedSosiUrl;
+                        selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
 
-                            $.getJSON(selectedSosiUrlApi, function (result) {
-                                console.log(result);
-                                if (result != null) {
-                                    if (result.length != 0) {
-                                        var QualitySpecificationDateSosiFromRegister = "";
-                                        var dateAccepted = result.dateAccepted;
-                                        if (dateAccepted != "0001-01-01T00:00:00") // Not accepted
-                                        {
-                                            var dateAccept = new Date(dateAccepted);
-                                            QualitySpecificationDateSosiFromRegister = dateAccept.getDate() + "." + (dateAccept.getMonth() + 1) + "." + dateAccept.getFullYear();
-                                        }
-                                        else {
-                                            var dateSubmitted = result.dateSubmitted;
-                                            var dateSubmit = new Date(dateSubmitted);
-                                            QualitySpecificationDateSosiFromRegister = dateSubmit.getDate() + "." + (dateSubmit.getMonth() + 1) + "." + dateSubmit.getFullYear();
-                                        }
-
-                                        var applicationSchema = result.ApplicationSchema;
-                                        if (applicationSchema != null)
-                                            $("#ApplicationSchema").val(applicationSchema);
-
-                                        $("#QualitySpecificationDateSosi").val(QualitySpecificationDateSosiFromRegister);
+                        $.getJSON(selectedSosiUrlApi, function (result) {
+                            console.log(result);
+                            if (result != null) {
+                                if (result.length != 0) {
+                                    var QualitySpecificationDateSosiFromRegister = "";
+                                    var dateAccepted = result.dateAccepted;
+                                    if (dateAccepted != "0001-01-01T00:00:00") // Not accepted
+                                    {
+                                        var dateAccept = new Date(dateAccepted);
+                                        QualitySpecificationDateSosiFromRegister = dateAccept.getDate() + "." + (dateAccept.getMonth() + 1) + "." + dateAccept.getFullYear();
                                     }
+                                    else {
+                                        var dateSubmitted = result.dateSubmitted;
+                                        var dateSubmit = new Date(dateSubmitted);
+                                        QualitySpecificationDateSosiFromRegister = dateSubmit.getDate() + "." + (dateSubmit.getMonth() + 1) + "." + dateSubmit.getFullYear();
+                                    }
+
+                                    var applicationSchema = result.ApplicationSchema;
+                                    if (applicationSchema != null)
+                                        $("#ApplicationSchema").val(applicationSchema);
+
+                                    $("#QualitySpecificationDateSosi").val(QualitySpecificationDateSosiFromRegister);
                                 }
                             }
-                        )
-                        };
-
-                        $("#QualitySpecificationDateTypeSosi").val("publication");
-                        $("#QualitySpecificationResultSosiConform").prop('checked', true);
-                        $("#QualitySpecificationExplanationSosi").val(conformExplanation);
-                        $('#QualitySpecificationExplanationSosiDiv').hide();
-                    }
-                    else {
-                        $("#QualitySpecificationTitleSosi").val("");
-                        $("#QualitySpecificationDateSosi").val("");
-                        $("#QualitySpecificationDateTypeSosi").val("");
-                        $("#QualitySpecificationExplanationSosi").val("");
-                        $("#QualitySpecificationResultSosiNotConform").prop('checked', false);
-                        $('#QualitySpecificationSosi').hide();
-                    }
-
-                    if ($("#ApplicationSchema").val() != '') {
-                        $('#QualitySpecificationSosi').show();
-                        $("#QualitySpecificationSosiConformApplicationSchema").show();
-                        if (selectedSosi.length == 0) {
-                            $("#QualitySpecificationSosiTitle").hide();
-                            $("#QualitySpecificationSosiDate").hide();
-                            $("#QualitySpecificationSosiResult").hide();
-                            $("#QualitySpecificationExplanationSosiDiv").hide();
                         }
+                    )
+                    };
+
+                    $("#QualitySpecificationDateTypeSosi").val("publication");
+                    $("#QualitySpecificationResultSosiConform").prop('checked', true);
+                    $("#QualitySpecificationExplanationSosi").val(conformExplanation);
+                    $('#QualitySpecificationExplanationSosiDiv').hide();
+                }
+                else {
+                    $("#QualitySpecificationTitleSosi").val("");
+                    $("#QualitySpecificationDateSosi").val("");
+                    $("#QualitySpecificationDateTypeSosi").val("");
+                    $("#QualitySpecificationExplanationSosi").val("");
+                    $("#QualitySpecificationResultSosiNotConform").prop('checked', false);
+                    $('#QualitySpecificationSosi').hide();
+                }
+
+                if ($("#ApplicationSchema").val() != '') {
+                    $('#QualitySpecificationSosi').show();
+                    $("#QualitySpecificationSosiConformApplicationSchema").show();
+                    if (selectedSosi.length == 0) {
+                        $("#QualitySpecificationSosiTitle").hide();
+                        $("#QualitySpecificationSosiDate").hide();
+                        $("#QualitySpecificationSosiResult").hide();
+                        $("#QualitySpecificationExplanationSosiDiv").hide();
                     }
-                    else
-                    {
-                        $("#QualitySpecificationSosiConformApplicationSchema").hide();
-                        $("#QualitySpecificationResultSosiConformApplicationSchema").prop('checked', false);
-                        $("#QualitySpecificationResultSosiConformGmlApplicationSchema").prop('checked', false);
-                    }
+                }
+                else {
+                    $("#QualitySpecificationSosiConformApplicationSchema").hide();
+                    $("#QualitySpecificationResultSosiConformApplicationSchema").prop('checked', false);
+                    $("#QualitySpecificationResultSosiConformGmlApplicationSchema").prop('checked', false);
+                }
             };
 
             $("#ProductSpecificationUrl").on("change", Sosi);
@@ -1083,10 +1082,8 @@
                         var $hiddenItemsForRow = $('input[type=hidden]', value);
                         $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
                             var name = $(hiddenValue).attr("name");
-                            //console.log("hidden value old name: " + name);
                             var inputName = name.substring(0, name.indexOf("["));
                             var inputNameWithIndex = inputName + '[' + index + ']';
-                            //console.log("new name: " + inputNameWithIndex);
                             $(hiddenValue).attr('name', inputNameWithIndex);
                         });
                     });
@@ -1126,10 +1123,10 @@
             var inputName = "KeywordsNationalInitiative";
             var key = $('#keywords-national-initiative-list li').length;
 
-            if ($('#keyword-dok-valid-kmd').prop('checked')){
-            var value = $('#keyword-dok-valid-kmd').val();
-            $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
-            key = key + 1;
+            if ($('#keyword-dok-valid-kmd').prop('checked')) {
+                var value = $('#keyword-dok-valid-kmd').val();
+                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
+                key = key + 1;
             }
 
             if ($('#keyword-inspire-valid').prop('checked')) {
@@ -1240,7 +1237,7 @@
 
             var dfHtm = "";
 
-            dfHtm += '<div id="formatRow' + dist + '_' + format +1 + '" class="form-group required has-feedback">';
+            dfHtm += '<div id="formatRow' + dist + '_' + format + 1 + '" class="form-group required has-feedback">';
             dfHtm += '<label for="DistributionsFormats[' + fIndex + '].FormatName" class="col-md-3 control-label">Format</label>';
             dfHtm += '<div class="col-md-8">';
             dfHtm += '<div class="row">';

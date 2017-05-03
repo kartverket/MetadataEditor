@@ -323,11 +323,11 @@
                         @if (IsAdmin)
                         {
                         @:$('#DistributionProtocol option[value="GEONORGE:FILEDOWNLOAD"]').attr("selected", "selected");
-                                                                                                                                                    }
+                                                                                                                                                                            }
                         else
                         {
                         @:$('#DistributionProtocol option[value="GEONORGE:OFFLINE"]').attr("selected", "selected");
-                                                                                                                                                    }
+                                                                                                                                                                            }
                         $('#uploadDatasetStatus').attr('style', 'text-info');
                         $('#uploadDatasetStatus').text('Filen er lastet opp.');
                     }
@@ -447,10 +447,8 @@
                         var $hiddenItemsForRow = $('input[type=hidden]', value);
                         $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
                             var name = $(hiddenValue).attr("name");
-                            //console.log("hidden value old name: " + name);
                             var inputName = name.substring(0, name.indexOf("["));
                             var inputNameWithIndex = inputName + '[' + index + ']';
-                            //console.log("new name: " + inputNameWithIndex);
                             $(hiddenValue).attr('name', inputNameWithIndex);
                         });
                     });
