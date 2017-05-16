@@ -22,7 +22,8 @@
         <label for="ResourceReferenceCodespace" class="col-md-2 control-label">Navnerom til datasett</label>
         <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-ResourceReferenceCodespace" style="display: none">
-                Oppbygging av navnerom er ikke avklart enda men vurderes å være en URL som peker til et felles navnerom for geografiske datasett, og administreres av nasjonal geodatakoordinator. Det kan for eksempel være: "http://data.geonorge.no/so/"
+                Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.<br />
+                Eksempel: http://data.geonorge.no/so/
             </p>
             @Html.EditorFor(m => m.ResourceReferenceCodespace)
         </div>
@@ -52,7 +53,7 @@
     @Html.LabelFor(m => m.Abstract, new { @class = "col-md-2 control-label" })
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-abstract" style="display: none">
-            Kortfattet tekst om hva som er innholdet i tjenesten/datasettet.
+            Oppgi hva tjenesten/datasettet inneholder. Hva finner brukeren i denne tjenesten/datasettet.
         </p>
         @Html.TextAreaFor(m => m.Abstract, new { @class = "form-control", cols = "", rows = "6" })
         <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -69,7 +70,7 @@
     <label for="SupplementalDescription" class="col-md-2 control-label">Hjelp for bruk</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-supplementalDescription" style="display: none">
-            Her kan du oppgi informasjon og veiledning om hvordan datasettet er organisert og mulige tekniske forhold ved formater eller annet, slik at det blir lettere for brukeren å ta i bruk datasettet.
+            Oppgi informasjon og veiledning om hvordan datasettet er organisert, mulige tekniske forhold ved formater og annet som gjør det lettere å ta i bruk datasettet.
         </p>
         @Html.TextAreaFor(m => m.SupplementalDescription, new { @class = "form-control", cols = "", rows = "3" })
     </div>
@@ -83,7 +84,7 @@
     <label for="HelpUrl" class="col-md-2 control-label">Hjelp url</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-helpurl" style="display: none">
-            Link til ekstern side eller PDF med detaljert informasjon
+            Oppgi link til ekstern side eller PDF-dokument med informasjon og veiledning som gjør det lettere å ta i bruk datasettet.
         </p>
         @Html.EditorFor(m => m.HelpUrl)
     </div>
@@ -100,7 +101,9 @@
     <label for="SpecificUsage" class="col-md-2 control-label">Bruksområde</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-usage" style="display: none">
-            Kort beskrivelse av hvilke oppgaver datasettet kan/bør brukes til.
+            Oppgi hvilke oppgaver datasettet kan/bør brukes til.<br />
+            For DOK-data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå.<br />
+            Bruksbegrensninger fylles inn i fanen «Restriksjoner»
         </p>
         @Html.TextAreaFor(m => m.SpecificUsage, new { @class = "form-control", cols = "", rows = "3" })
     </div>
@@ -115,7 +118,9 @@
     @Html.LabelFor(m => m.Purpose, new { @class = "col-md-2 control-label" })
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-purpose" style="display: none">
-            Hvis datasettet er samlet inn med tanke på et spesielt formål, og ikke kan brukes til andre formål uten videre, skal dette oppgis. Hvis ikke, trengs det ikke angis noe her.
+            Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her.<br />
+            Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert.<br />
+            Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene.
         </p>
         @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", cols = "", rows = "3" })
     </div>
