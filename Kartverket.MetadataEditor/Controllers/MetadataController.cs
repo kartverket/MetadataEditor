@@ -662,6 +662,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
 
                 RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+                var logLines = RegisterItems.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
+                Log.Info(string.Format("Setting cache for registername: {0}, items: "+ Environment.NewLine + " {1}", registername, string.Join(Environment.NewLine, logLines)));
                 memCacher.Set("registeritem-" + registername, RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             }
