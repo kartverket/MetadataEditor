@@ -631,11 +631,11 @@ namespace Kartverket.MetadataEditor.Controllers
 
             var cache = memCacher.GetValue("registeritem-"+ registername);
 
-            Dictionary<string, string> RegisterItems = new Dictionary<string, string>();
+            List<RegisterItem> RegisterItems = new List<RegisterItem>();
 
             if (cache != null)
             {
-                RegisterItems = cache as Dictionary<string, string>;
+                RegisterItems = cache as List<RegisterItem>;
             }
 
             if(RegisterItems.Count < 1)
@@ -654,21 +654,34 @@ namespace Kartverket.MetadataEditor.Controllers
                     var owner = item["owner"].ToString();
                     string organization = item["owner"].ToString();
 
-                    if (!RegisterItems.ContainsKey(id))
+                    var registerItem = new RegisterItem { Id = id, Label = item["label"].ToString(), Organization = organization };
+
+                    if (!RegisterItems.Contains(registerItem))
                     {
-                        if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
-                            RegisterItems.Add(id, item["label"].ToString());
+                       RegisterItems.Add(registerItem);
                     }
                 }
 
-                RegisterItems = RegisterItems.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-                var logLines = RegisterItems.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
+                var logLines = RegisterItems.Select(l => l.Id + ": " + l.Label);
                 Log.Info(string.Format("Setting cache for registername: {0}, items: "+ Environment.NewLine + " {1}", registername, string.Join(Environment.NewLine, logLines)));
                 memCacher.Set("registeritem-" + registername, RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             }
 
-            return RegisterItems;
+            Dictionary<string, string> RegisterItemsForUser = new Dictionary<string, string>();
+
+            foreach(var item in RegisterItems)
+            {
+                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(item.Organization))
+                {
+                    RegisterItemsForUser.Add(item.Id, item.Label);
+                }
+            
+            }
+
+            RegisterItemsForUser = RegisterItemsForUser.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return RegisterItemsForUser;
         }
 
         public Dictionary<string, string> GetSubRegister(string registername, MetadataViewModel model)
@@ -705,7 +718,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
                     if (!RegisterItems.ContainsKey(id))
                     {
-                        if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(organization))
                             RegisterItems.Add(id, item["label"].ToString());
                     }
                 }
@@ -892,5 +904,12 @@ namespace Kartverket.MetadataEditor.Controllers
     public enum MetadataMessages
     {
         InvalidUuid
+    }
+
+    class RegisterItem
+    {
+        public string Id { get; set; }
+        public string Label { get; set; }
+        public string Organization { get; set; }
     }
 }
