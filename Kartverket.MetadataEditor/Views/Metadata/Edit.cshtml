@@ -587,14 +587,11 @@
 
             var Inspire = function (event) {
                 if (event) {
-                    var foundInspire = false;
-                    var selectednationalinitiative = $('#keywords-national-initiative-text').val();
-                    var i;
-                    for (i = 0; i < selectednationalinitiative.length; i++) {
-                        if (selectednationalinitiative[i] == "Inspire")
-                            foundInspire = true;
+                    if (!$('#keyword-inspire-valid').prop('checked'))
+                    {
+                        InspireRemove();
                     }
-                    if (foundInspire) {
+                    else {
                         if ($("#QualitySpecificationTitleInspire").val().trim() == "")
                             $("#QualitySpecificationTitleInspire").val("COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services");
                         if ($("#QualitySpecificationDateInspire").val().trim() == "")
@@ -604,13 +601,10 @@
 
                         $('#QualitySpecificationInspire').show();
                     }
-                    else {
-                        InspireRemove();
-                    }
                 }
             };
 
-            $("#keywords-national-initiative-text").on("change", Inspire);
+            $("#keyword-inspire-valid").on("change", Inspire);
             Inspire();
 
 
