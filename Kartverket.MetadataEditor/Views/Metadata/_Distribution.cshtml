@@ -69,6 +69,7 @@
                         </p>
                         <div class="custom-select">
                             <select class="form-control" id="DistributionsFormats[@index].Protocol" name="DistributionsFormats[@index].Protocol" data-distribution="@indexDistribution" onchange="UpdateModel();">
+                                <option value="">Klikk for å velge</option>
                                 @foreach (SelectListItem option in ViewBag.predefinedDistributionProtocols)
                                 {
                                     <option value="@option.Value" @(option.Value == distribution.Details.Protocol ? "selected='selected'" : "")>@option.Text</option>

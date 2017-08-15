@@ -334,6 +334,19 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
                 else
                 {
+                    if (ignoreValidationError != "1")
+                    {
+                        foreach (var distro in model.FormatDistributions)
+                        {
+                            if (distro.Key.Protocol == null)
+                            {
+                                ModelState.AddModelError("distributionProtocolMissing", "Vennligst fyll ut distribusjonstype");
+                                PrepareViewBagForEditing(model);
+                                return View(model);
+                            }
+                        }
+                    }
+
                     SaveMetadataToCswServer(model);
                     if (action.Equals(UI.Button_Validate))
                     {
