@@ -46,7 +46,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                         if (scaleImage)
                         {
-                            OptimizeImage(file, 300, 1000, fullPath);
+                            OptimizeImage(file, 180, 1000, fullPath);
                         }
                         else
                         {
