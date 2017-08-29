@@ -767,7 +767,7 @@ namespace Kartverket.MetadataEditor.Controllers
              
                     if (scaleImage)
                     {
-                        OptimizeImage(file, 300, 1000, fullPath);
+                        OptimizeImage(file, 180, 1000, fullPath);
                     }
                     else
                     {
@@ -810,10 +810,54 @@ namespace Kartverket.MetadataEditor.Controllers
                     var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
                     var fullPathMini = Server.MapPath("~/thumbnails/" + filenameMini);
 
-                    OptimizeImage(file, 300, 1000, fullPathMini);
+                    OptimizeImage(file, 180, 1000, fullPathMini);
 
 
                     viewresult = Json(new { status = "OK", filename = filename, filenamemini = filenameMini });
+                }
+                else
+                {
+                    viewresult = Json(new { status = "ErrorWrongContent" });
+                }
+            }
+
+            //for IE8 which does not accept application/json
+            if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
+                viewresult.ContentType = "text/plain";
+
+            return viewresult;
+        }
+
+        [Authorize]
+        [OutputCache(Duration = 0)]
+        public ActionResult UploadThumbnailGenerateMiniAndMedium(string uuid)
+        {
+            string filename = null;
+            var viewresult = Json(new { });
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase file = Request.Files[0];
+
+                if (file.ContentType == "image/jpeg" || file.ContentType == "image/gif" || file.ContentType == "image/png")
+                {
+                    var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    filename = uuid + "_" + timestamp + "_" + file.FileName;
+                    string fullPath = Server.MapPath("~/thumbnails/" + filename);
+
+                    file.SaveAs(fullPath);
+
+                    var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
+                    var fullPathMini = Server.MapPath("~/thumbnails/" + filenameMini);
+
+                    OptimizeImage(file, 180, 1000, fullPathMini);
+
+                    var filenameMedium = uuid + "_" + timestamp + "_medium_" + file.FileName;
+                    var fullPathMedium = Server.MapPath("~/thumbnails/" + filenameMedium);
+
+                    OptimizeImage(file, 300, 1000, fullPathMedium);
+
+
+                    viewresult = Json(new { status = "OK", filename = filename, filenamemini = filenameMini, filenameMedium = filenameMedium });
                 }
                 else
                 {

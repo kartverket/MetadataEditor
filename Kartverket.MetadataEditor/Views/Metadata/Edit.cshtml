@@ -256,7 +256,7 @@
 
             $('#uploadThumbnailFile').fileupload({
                 dataType: 'json',
-                url: '/Metadata/UploadThumbnailGenerateMini',
+                url: '/Metadata/UploadThumbnailGenerateMiniAndMedium',
                 add: function (e, data) {
 
                     $("#uploadThumbnailButton").on("click", function (event) {
@@ -277,6 +277,7 @@
                     else {
                         $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
                         $("#thumbnailUrlMini").val('@ViewBag.ThumbnailUrl' + data.result.filenamemini);
+                        $("#thumbnailUrlMedium").val('@ViewBag.ThumbnailUrl' + data.result.filenameMedium);
                         $('#uploadThumbnailStatus').attr('style', 'text-info');
                         //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
                     }
@@ -413,6 +414,35 @@
                 $itemMini.append($itemUrlHidden);
                 $itemMini.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
 
+                //Medium Image
+                itemIndex = itemIndex + 1;
+                var thumbnailType = "medium";
+                var $thumbnailUrl = $("#thumbnailUrlMedium");
+                var $itemMedium = $('<li />', { "class": 'thumbnail clearfix' });
+                var $itemImage = $('<img />', {
+                    src: $thumbnailUrl.val(),
+                    width: '200',
+                });
+                var $itemType = $('<p />').append('<strong>Type</strong> ').append(thumbnailType);
+                var $itemUrl = $('<p />').append('<strong>Url</strong> ').append($thumbnailUrl.val());
+                var $itemTypeHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].Type',
+                    value: thumbnailType
+                });
+                var $itemUrlHidden = $('<input />', {
+                    type: 'hidden',
+                    name: 'Thumbnails[' + itemIndex + '].URL',
+                    value: $thumbnailUrl.val()
+                });
+
+                $itemMedium.append($itemImage);
+                $itemMedium.append($itemType);
+                $itemMedium.append($itemTypeHidden);
+                $itemMedium.append($itemUrl);
+                $itemMedium.append($itemUrlHidden);
+                $itemMedium.append('<button class="thumbnailRemove btn btn-default pull-right"><span class="glyphicon glyphicon-trash"></span> Slett</button>');
+
 
                 //Large Image
                 itemIndex = itemIndex + 1;
@@ -448,6 +478,7 @@
                 $thumbnailUrl.val('');
 
                 $thumbnails.append($itemMini);
+                $thumbnails.append($itemMedium);
                 $thumbnails.append($item);
 
             });
