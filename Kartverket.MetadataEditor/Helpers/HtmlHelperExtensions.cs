@@ -23,6 +23,11 @@ namespace Kartverket.MetadataEditor.Helpers
         {
             return WebConfigurationManager.AppSettings["NorgeskartUrl"];
         }
+
+        public static string GeonorgeWebserviceUrl(this HtmlHelper helper)
+        {
+            return WebConfigurationManager.AppSettings["GeonorgeWebserviceUrl"];
+        }
         public static string RegistryUrl(this HtmlHelper helper)
         {
             return WebConfigurationManager.AppSettings["RegistryUrl"];
