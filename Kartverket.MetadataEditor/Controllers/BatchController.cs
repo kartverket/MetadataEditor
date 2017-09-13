@@ -61,6 +61,28 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [Authorize]
+        public ActionResult ThumbnailGeneration()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string userOrganization = GetSecurityClaim("organization");
+                string role = GetSecurityClaim("role");
+                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                { 
+                    Log.Info("Starting batch update thumbnail generation.");
+                    new Thread(() => new BatchService().GenerateMediumThumbnails(GetUsername(), GetSecurityClaim("organization"), Server.MapPath("~/thumbnails/"))).Start();
+                    TempData["message"] = "Batch-oppdatering: generering av thumbnails er startet og kjører i bakgrunnen!";
+                }
+                else
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        [Authorize]
         [OutputCache(Duration = 0)]
         public ActionResult UploadFile(string metadatafield, bool deleteData = false)
         {

@@ -3,8 +3,11 @@ using Kartverket.MetadataEditor.Controllers;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.IO;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -12,6 +15,7 @@ namespace Kartverket.MetadataEditor.Models
     {
         private MetadataService _metadataService;
         private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        string thumbnailFolder;
 
         public BatchService() 
         {
@@ -689,6 +693,146 @@ namespace Kartverket.MetadataEditor.Models
             }
         }
 
+
+        internal void GenerateMediumThumbnails(string username, string organization, string folder)
+        {
+            this.thumbnailFolder = folder;
+            try
+            {
+                BatchData data = new BatchData();
+                MetadataIndexViewModel model = new MetadataIndexViewModel();
+                int offset = 1;
+                int limit = 50;
+                model = _metadataService.SearchMetadata("", "", offset, limit);
+                model.UserOrganization = organization;
+
+                foreach (var item in model.MetadataItems)
+                {
+                    data.MetaData.Add(new MetaDataEntry { Uuid = item.Uuid });
+                }
+
+                CheckThumbnails(data, username);
+
+                int numberOfRecordsMatched = model.TotalNumberOfRecords;
+                int next = model.OffsetNext();
+
+                while (next < numberOfRecordsMatched)
+                {
+                    data.MetaData = null; data.MetaData = new List<MetaDataEntry>();
+
+                    model = _metadataService.SearchMetadata(organization, "", next, limit);
+                    model.UserOrganization = organization;
+
+                    foreach (var item in model.MetadataItems)
+                    {
+                        data.MetaData.Add(new MetaDataEntry { Uuid = item.Uuid });
+                    }
+
+                    CheckThumbnails(data, username);
+
+                    next = model.OffsetNext();
+                    if (next == 0) break;
+                }
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+
+        }
+
+        private void CheckThumbnails(BatchData data, string username)
+        {
+            try
+            {
+                foreach (var md in data.MetaData)
+                {
+                    try
+                    {
+                        bool metadataUpdated = false;
+
+                        MetadataViewModel metadata = _metadataService.GetMetadataModel(md.Uuid);
+
+                        if (metadata.Thumbnails != null)
+                        {
+                            var largeThumbnail = metadata.Thumbnails.Where(t => t.Type == "large_thumbnail").FirstOrDefault();
+                            var mediumThumbnail = metadata.Thumbnails.Where(t => t.Type == "medium").FirstOrDefault();
+
+                            if (largeThumbnail != null && largeThumbnail.URL.Contains("geonorge.no/thumbnails") && mediumThumbnail == null)
+                            {
+                                var urlLarge = largeThumbnail.URL;
+
+                                string filenamePathLarge;
+                                string filename;
+                                Uri uri = new Uri(urlLarge);
+                                filename = System.IO.Path.GetFileName(uri.LocalPath);
+                                filenamePathLarge = thumbnailFolder + filename;
+
+
+                                if (!string.IsNullOrEmpty(filenamePathLarge))
+                                {
+                                    var filenameMedium = filename.Replace(".", "_medium.");
+                                    var url = System.Web.Configuration.WebConfigurationManager.AppSettings["EditorUrl"] + "thumbnails/" + filenameMedium;
+                                    var fullPathMedium = thumbnailFolder + filenameMedium;
+
+                                    if (File.Exists(filenamePathLarge))
+                                    {
+                                        var imageInfo = ImageResizer.ImageBuilder.Current.LoadImageInfo(filenamePathLarge, null);
+                                        var widthSource = imageInfo["source.width"]?.ToString();
+                                        int width = 0;
+                                        Int32.TryParse(widthSource, out width);
+                                        int maxWidth = 300;
+
+                                        if (width > maxWidth)
+                                        {
+                                            OptimizeImage(filenamePathLarge, maxWidth, 1000, fullPathMedium);
+
+                                            metadata.Thumbnails.Add(new Thumbnail { Type = "medium", URL = url });
+                                            metadataUpdated = true;
+                                        }
+                                        else
+                                        {
+                                            Log.Info("Metadata with uuid: " + md.Uuid + " has a large image width width: " + width.ToString());
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            if (metadataUpdated)
+                            {
+                                _metadataService.SaveMetadataModel(metadata, username);
+                                Log.Info("Batch update medium thumbnail uuid: " + metadata.Uuid);
+                            }
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("Metadata with uuid:" + md.Uuid + " failed to generate thumbnail with error: " + ex.Message);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+
+        }
+
+        public static void OptimizeImage(string file, int maxWidth, int maxHeight, string outputPath, int quality = 70)
+        {
+            ImageResizer.ImageJob newImage =
+                new ImageResizer.ImageJob(file, outputPath,
+                new ImageResizer.Instructions("maxwidth=" + maxWidth + ";maxheight=" + maxHeight + ";quality=" + quality));
+
+            newImage.Build();
+   
+        }
 
         public Dictionary<string, string> GetCodeList(string systemid)
         {
