@@ -1270,9 +1270,11 @@
 
             dfHtm += '<div class="col-md-4">';
             if ($("#DistributionFormatsType").val() == "dataset") {
+                dfHtm += '<div class="custom-select">';
                 dfHtm += '<select id="DistributionsFormats[' + fIndex + '].FormatName" name="DistributionsFormats[' + fIndex + '].FormatName" class="form-control" onchange="UpdateModel();">';
                 dfHtm += '<option value="" disabled>Klikk for å velge</option>';
                 dfHtm += '</select>';
+                dfHtm += '</div>';
             }
             else {
                 dfHtm += '<input id="DistributionsFormats[' + fIndex + '].FormatName" name="DistributionsFormats[' + fIndex + '].FormatName" type="text" value="" class="form-control" onchange="UpdateModel();" />';
