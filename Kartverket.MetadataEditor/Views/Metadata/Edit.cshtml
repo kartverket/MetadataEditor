@@ -1254,9 +1254,8 @@
             }
         }
 
-        function AddDistributionFormat(dist, format) {
+        function AddDistributionFormat(event, dist, format) {
             event.preventDefault();
-
             var DistributionFormatCounts = parseInt($("#DistributionFormatsCount").val());
             DistributionFormatCounts += 1;
             var fIndex = DistributionFormatCounts - 1;
