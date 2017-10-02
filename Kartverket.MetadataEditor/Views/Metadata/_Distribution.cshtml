@@ -154,7 +154,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             @if (indexFormat == 0)
-                                            {<button class="btn btn-default" onclick="AddDistributionFormat(@indexDistribution, @indexFormat);">Nytt format</button>}
+                                            {<button class="btn btn-default" onclick="AddDistributionFormat(event, @indexDistribution, @indexFormat);">Nytt format</button>}
                                             @if (indexFormat > 0)
                                             {<button class="btn btn-default" onclick="removeDistributionFormat(@indexDistribution, @indexFormat)">Slett</button>}
                                         </div>
