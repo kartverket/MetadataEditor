@@ -34,6 +34,8 @@ namespace Kartverket.MetadataEditor
                 "~/Scripts/jquery.autosize.js",
                 "~/Scripts/site.js"
            ));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
