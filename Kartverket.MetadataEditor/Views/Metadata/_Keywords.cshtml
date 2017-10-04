@@ -10,7 +10,7 @@
                 Tematisk inndeling definert i metadatastandarden.
             </p>
             <div class="custom-select">
-                @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, String.Empty, new { @class = "form-control" })
+                @Html.DropDownList("TopicCategory", ViewBag.TopicCategoryValues as SelectList, (string.IsNullOrEmpty(Model.TopicCategory) ? String.Empty : null), new { @class = "form-control" })
             </div>
         </div>
         <div class="col-md-1">
