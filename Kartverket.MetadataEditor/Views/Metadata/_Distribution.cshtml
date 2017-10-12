@@ -124,8 +124,8 @@
                                 <div class="distribution-format-row">
                                     <div class="form-group @(Model.IsSoftware() ? "" : "required has-feedback")">
                                         <div class="row">
-                                            <label for="DistributionsFormats[@index].FormatName" class="col-md-3 control-label">Format</label>
-                                            <input type="hidden" name="DistributionsFormats.Index" value="@index" />
+                                            <label for="DistributionsFormats[@indexFormat].FormatName" class="col-md-3 control-label">Format</label>
+                                            <input type="hidden" name="DistributionsFormats.Index" value="@indexFormat" />
 
                                             <div class="col-md-8">
                                                 @if (indexFormat == 0)
@@ -140,7 +140,7 @@
                                                         {
                                                             modelDatatype = "dataset";
                                                             <div class="custom-select">
-                                                                <select class="distributionFormats-formatName form-control" id="DistributionsFormats[@index].FormatName" name="DistributionsFormats[@index].FormatName" onclick="checkForSpatialRepresentation();">
+                                                                <select value="@distribution.Formats[indexFormat].Name" class="distributionFormats-formatName form-control" id="DistributionsFormats[@indexFormat].FormatName" name="DistributionsFormats[@indexFormat].FormatName" onclick="checkForSpatialRepresentation();">
                                                                     @if (!string.IsNullOrEmpty(distribution.Formats[indexFormat].Name))
                                                                     {
                                                                         <option value="@distribution.Formats[indexFormat].Name">@distribution.Formats[indexFormat].Name</option>
@@ -155,13 +155,13 @@
                                                         }
                                                         else
                                                         {
-                                                            <input id="DistributionsFormats[@index].FormatName" name="DistributionsFormats[@index].FormatName" type="text" value="@distribution.Formats[indexFormat].Name" class="@classFormat" />
+                                                            <input id="DistributionsFormats[@indexFormat].FormatName" name="DistributionsFormats[@indexFormat].FormatName" type="text" value="@distribution.Formats[indexFormat].Name" class="distributionFormats-formatName @classFormat" />
                                                             <span class="@(Model.IsSoftware() ? "" :"glyphicon glyphicon-warning-sign form-control-feedback")"></span>
                                                         }
                                                     </div>
-                                                    <label class="col-md-2 control-label" for="DistributionsFormats[@index].FormatVersion">Versjon</label>
+                                                    <label class="col-md-2 control-label" for="DistributionsFormats[@indexFormat].FormatVersion">Versjon</label>
                                                     <div class="col-md-3">
-                                                        <input type="text" id="DistributionsFormats[@index].FormatVersion" name="DistributionsFormats[@index].FormatVersion" value="@distribution.Formats[indexFormat].Version" />
+                                                        <input type="text" id="DistributionsFormats[@indexFormat].FormatVersion" name="DistributionsFormats[@indexFormat].FormatVersion" value="@distribution.Formats[indexFormat].Version" />
                                                     </div>
                                                     <div class="col-md-3">
                                                         <span class="btn" onclick="removeDistributionFormat(event)">Slett</span>
@@ -178,11 +178,11 @@
                                             </div>
                                         </div>
                                         @* Hidden fields *@
-                                        <input type="hidden" id="DistributionsFormats[@index].Protocol" name="DistributionsFormats[@index].Protocol" value="@distribution.Details.Protocol" />
-                                        <input type="hidden" class="distributionFormats-name" id="DistributionsFormats[@index].Name" name="DistributionsFormats[@index].Name" value="@distribution.Details.Name" />
-                                        <input type="hidden" class="distributionFormats-url" id="DistributionsFormats[@index].URL" name="DistributionsFormats[@index].URL" value="@distribution.Details.URL" />
-                                        <input type="hidden" class="distributionFormats-unitsOfDistribution" id="DistributionsFormats[@index].UnitsOfDistribution" name="DistributionsFormats[@index].UnitsOfDistribution" value="@distribution.Details.UnitsOfDistribution" />
-                                        <input type="hidden" class="distributionFormats-organization" id="DistributionsFormats[@index].Organization" name="DistributionsFormats[@index].Organization" value="@distribution.Details.Organization" />
+                                        <input type="hidden" class="distributionFormats-protocol" id="DistributionsFormats[@indexFormat].Protocol" name="DistributionsFormats[@indexFormat].Protocol" value="@distribution.Details.Protocol" />
+                                        <input type="hidden" class="distributionFormats-name" id="DistributionsFormats[@indexFormat].Name" name="DistributionsFormats[@indexFormat].Name" value="@distribution.Details.Name" />
+                                        <input type="hidden" class="distributionFormats-url" id="DistributionsFormats[@indexFormat].URL" name="DistributionsFormats[@indexFormat].URL" value="@distribution.Details.URL" />
+                                        <input type="hidden" class="distributionFormats-unitsOfDistribution" id="DistributionsFormats[@indexFormat].UnitsOfDistribution" name="DistributionsFormats[@indexFormat].UnitsOfDistribution" value="@distribution.Details.UnitsOfDistribution" />
+                                        <input type="hidden" class="distributionFormats-organization" id="DistributionsFormats[@indexFormat].Organization" name="DistributionsFormats[@indexFormat].Organization" value="@distribution.Details.Organization" />
                                     </div>
                                 </div>
                             }
