@@ -1382,7 +1382,7 @@
             unitsOfDistributionRow.find("input:checked").each(function () {
                 unitsOfDistribution.push($(this).val());
             });
-            var value = unitsOfDistribution.toString();
+            var value = unitsOfDistribution.join(', ');
             setUnitsOfDistributionHiddenFieldElements(event, value);
         }
 
