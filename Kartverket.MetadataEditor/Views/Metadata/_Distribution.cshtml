@@ -16,6 +16,7 @@
 @{int index = 0; int indexDistribution = 0; int indexFirstDistributionElement = 0; }
 @if (Model.FormatDistributions != null)
 {
+    int indexFormat = 0;
     foreach (var distr in Model.FormatDistributions)
     {
         var distribution = distr.Value;
@@ -118,7 +119,7 @@
                         @{ string modelDatatype = "service"; }
                         @if (distribution != null && distribution.Formats != null)
                     {
-                        for (int indexFormat = 0; indexFormat < distribution.Formats.Count; indexFormat++)
+                        foreach(var distributionFormat in distribution.Formats)
                         {
                             string rowID = "formatRow" + indexDistribution + "_" + indexFormat;
                                 <div class="distribution-format-row">
@@ -140,10 +141,10 @@
                                                         {
                                                             modelDatatype = "dataset";
                                                             <div class="custom-select">
-                                                                <select value="@distribution.Formats[indexFormat].Name" class="distributionFormats-formatName form-control" id="DistributionsFormats[@indexFormat].FormatName" name="DistributionsFormats[@indexFormat].FormatName" onclick="checkForSpatialRepresentation();">
-                                                                    @if (!string.IsNullOrEmpty(distribution.Formats[indexFormat].Name))
+                                                                <select value="@distributionFormat.Name" class="distributionFormats-formatName form-control" id="DistributionsFormats[@indexFormat].FormatName" name="DistributionsFormats[@indexFormat].FormatName" onclick="checkForSpatialRepresentation();">
+                                                                    @if (!string.IsNullOrEmpty(distributionFormat.Name))
                                                                     {
-                                                                        <option value="@distribution.Formats[indexFormat].Name">@distribution.Formats[indexFormat].Name</option>
+                                                                        <option value="@distributionFormat.Name">@distributionFormat.Name</option>
                                                                     }
                                                                     else
                                                                     {
@@ -155,13 +156,13 @@
                                                         }
                                                         else
                                                         {
-                                                            <input id="DistributionsFormats[@indexFormat].FormatName" name="DistributionsFormats[@indexFormat].FormatName" type="text" value="@distribution.Formats[indexFormat].Name" class="distributionFormats-formatName @classFormat" />
+                                                            <input id="DistributionsFormats[@indexFormat].FormatName" name="DistributionsFormats[@indexFormat].FormatName" type="text" value="@distributionFormat.Name" class="distributionFormats-formatName @classFormat" />
                                                             <span class="@(Model.IsSoftware() ? "" :"glyphicon glyphicon-warning-sign form-control-feedback")"></span>
                                                         }
                                                     </div>
                                                     <label class="col-md-2 control-label" for="DistributionsFormats[@indexFormat].FormatVersion">Versjon</label>
                                                     <div class="col-md-3">
-                                                        <input type="text" id="DistributionsFormats[@indexFormat].FormatVersion" name="DistributionsFormats[@indexFormat].FormatVersion" value="@distribution.Formats[indexFormat].Version" />
+                                                        <input type="text" id="DistributionsFormats[@indexFormat].FormatVersion" name="DistributionsFormats[@indexFormat].FormatVersion" value="@distributionFormat.Version" />
                                                     </div>
                                                     <div class="col-md-3">
                                                         <span class="btn" onclick="removeDistributionFormat(event)">Slett</span>
@@ -185,6 +186,10 @@
                                         <input type="hidden" class="distributionFormats-organization" id="DistributionsFormats[@indexFormat].Organization" name="DistributionsFormats[@indexFormat].Organization" value="@distribution.Details.Organization" />
                                     </div>
                                 </div>
+                                if (indexFormat < distribution.Formats.Count)
+                                {
+                                    indexFormat++;
+                                }
                             }
                         }
                     </div>
