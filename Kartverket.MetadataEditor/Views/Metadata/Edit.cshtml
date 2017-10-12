@@ -222,6 +222,50 @@
 
 @section scripts {
     <script>
+        var spatialRepresentationOptions = {
+                vector: [],
+                grid: [],
+                textTable: [
+                    "CSV",
+                    "Microsoft Excel",
+                    "DBF",
+                    "Tekstfil"
+                ],
+                tin: [
+                    "Intergraph TIN",
+                    "ESRI TIN",
+                    "GEOPAK TIN",
+                    "LandXML TIN"
+                ],
+                stereoModel: [
+                    "Intergraph TIN",
+                    "JPEG"
+                ],
+                video: [
+                    "MPEG",
+                    "AVI",
+                    "MOV",
+                    "OGG",
+                    "WMV",
+                    "RealVideo",
+                    "RMVB",
+                    "FLASH",
+                    "ASF",
+                    "MP4",
+                    "QuickTime"
+                ]
+            };
+
+             @foreach (var distributionFormat in ViewBag.VectorFormats as SelectList)
+              {
+                  @:spatialRepresentationOptions.vector.push("@distributionFormat.Value");
+              }
+
+              @foreach (var distributionFormat in ViewBag.RasterFormats as SelectList)
+              {
+                  @:spatialRepresentationOptions.grid.push("@distributionFormat.Value");
+              }
+
         $(function () {
 
             // Textarea auto size
@@ -492,7 +536,6 @@
                     var $hiddenItemsForRow = $('input[type=hidden]', value);
                     $hiddenItemsForRow.each(function (hiddenIndex, hiddenValue) {
                         var name = $(hiddenValue).attr("name");
-                        console.log(name);
                         if (name.indexOf('.Type') !== -1) {
                             $(hiddenValue).attr('name', 'Thumbnails[' + index + '].Type');
                         } else if (name.indexOf('.URL') !== -1) {
@@ -502,11 +545,12 @@
                 });
             });
 
+
+
             // format
             $("#SpatialRepresentation").change(function (event) {
                 event.preventDefault();
                 var selectedSpatialRepresentation = $("#SpatialRepresentation").val();
-                console.log($('#DistributionFormatsCount').val());
                 for (var f = 0; f < $('#DistributionFormatsCount').val() ; f++) {
                     if (selectedSpatialRepresentation == "vector") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
@@ -653,7 +697,6 @@
 
                 var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
                 var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
-                console.log("selectedSosi: " + selectedSosi);
                 if (selectedSosi != "") {
                     $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
                     $('#QualitySpecificationSosi').show();
@@ -661,13 +704,11 @@
                     $("#QualitySpecificationSosiDate").show();
                     $("#QualitySpecificationSosiResult").show();
                     $("#QualitySpecificationExplanationSosiDiv").show();
-                    //$("#QualitySpecificationDateSosi").val("01.01.2014");
                     if (selectedSosiUrl != null) {
                         var selectedSosiUrlApi = selectedSosiUrl;
                         selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
 
                         $.getJSON(selectedSosiUrlApi, function (result) {
-                            console.log(result);
                             if (result != null) {
                                 if (result.length != 0) {
                                     var QualitySpecificationDateSosiFromRegister = "";
@@ -1234,7 +1275,6 @@
         }
 
         function setConcepts(xml) {
-            console.log(xml);
             var conceptFound = false;
             $('#KeywordsConceptAlert').removeClass("alert alert-warning");
             $('#KeywordsConceptAlert').html("");
@@ -1242,7 +1282,6 @@
             $(xml).find("skos\\:Concept, Concept").each(function () {
                 var prefLabel = $(this).find("skos\\:prefLabel, prefLabel").text();
                 var about = $(this).attr("rdf:about");
-                console.log(about);
                 $('#KeywordsConcept').append($("<option selected></option>")
                     .attr("value", prefLabel + "|" + about)
                     .text(prefLabel));
@@ -1255,66 +1294,253 @@
             }
         }
 
-        function AddDistributionFormat(event, dist, format) {
+        function setDistributionFormatOptionElements(spatialRepresentation) {
+            var distributionFormatRowElements = $("#distribution-format-rows .distribution-format-row");
+            distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
+                formatNameElement = $(distributionFormatRowElement).find(".distributionFormats-formatName");
+                formatNameElement.html(getFormatNameSelectListOptionElements(spatialRepresentation));
+                nameElement = $(distributionFormatRowElement).find(".distributionFormats-name");
+                nameElement.val(spatialRepresentation);
+            });
+        }
+
+        function updateDistributionFormatOptionElements() {
+            var spatialRepresentation = $("#SpatialRepresentation").val();
+            setDistributionFormatOptionElements(spatialRepresentation);
+        }
+
+        function setOrganizationHiddenFieldElements(event, value) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionFormatRowElements = $(distributionRow).find("#distribution-format-rows .distribution-format-row");
+            distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
+                var organizationHiddenElement = $(distributionFormatRowElement).find(".distributionFormats-organization");
+                organizationHiddenElement.val(value);
+            });
+        }
+
+        function updateOrganizationHiddenFieldElements(event) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionOrganizationElement = $(distributionRow).find(".distribution-organization");
+            var value = distributionOrganizationElement.val();
+            setOrganizationHiddenFieldElements(event, value);
+        }
+
+        function setProtocolHiddenFieldElements(event, value) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionFormatRowElements = $(distributionRow).find("#distribution-format-rows .distribution-format-row");
+            distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
+                var protocolHiddenElement = $(distributionFormatRowElement).find(".distributionFormats-protocol");
+                protocolHiddenElement.val(value);
+            });
+        }
+
+        function updateProtocolHiddenFieldElements(event) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionProtocolElement = $(distributionRow).find(".distribution-protocol");
+            var value = distributionProtocolElement.val();
+            setProtocolHiddenFieldElements(event, value);
+        }
+
+        function setUrlHiddenFieldElements(event, value) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionFormatRowElements = $(distributionRow).find("#distribution-format-rows .distribution-format-row");
+            distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
+                var urlHiddenElement = $(distributionFormatRowElement).find(".distributionFormats-url");
+                urlHiddenElement.val(value);
+            });
+        }
+
+        function updateUrlHiddenFieldElements(event) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionUrlElement = $(distributionRow).find(".distribution-url");
+            var value = distributionUrlElement.val();
+            setUrlHiddenFieldElements(event, value);
+        }
+
+
+        function setUnitsOfDistributionHiddenFieldElements(event, value) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionFormatRowElements = $(distributionRow).find("#distribution-format-rows .distribution-format-row");
+            distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
+                var urlHiddenElement = $(distributionFormatRowElement).find(".distributionFormats-unitsOfDistribution");
+                urlHiddenElement.val(value);
+            });
+        }
+
+        function updateUnitsOfDistributionHiddenFieldElements(event) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var unitsOfDistributionRow = $(distributionRow).find(".units-of-distribution-row");
+            unitsOfDistribution = [];
+            unitsOfDistributionRow.find("input:checked").each(function () {
+                unitsOfDistribution.push($(this).val());
+            });
+            var value = unitsOfDistribution.toString();
+            setUnitsOfDistributionHiddenFieldElements(event, value);
+        }
+
+        function setNameHiddenFieldElements(event, value) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionFormatRowElements = $(distributionRow).find("#distribution-format-rows .distribution-format-row");
+            distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
+                var nameHiddenElement = $(distributionFormatRowElement).find(".distributionFormats-name");
+                nameHiddenElement.val(value);
+            });
+        }
+
+        function updateNameHiddenFieldElements(event) {
+            var thisElement = event.target;
+            var distributionRow = $(thisElement).closest(".distribution-row");
+            var distributionNameElement = $(distributionRow).find(".distribution-name");
+            var value = distributionNameElement.val();
+            setNameHiddenFieldElements(event, value);
+        }
+
+
+
+        function updateDistributionFormatRowElementIds() {
+            var distributionFormatRowElements = $("#distribution-format-rows .distribution-format-row");
+            distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
+                formatNameLabelElement = $(distributionFormatRowElement).find(".distributionFormats-formatNameLabel");
+                formatNameLabelElement.attr('for', `DistributionsFormats[${elementIndex}].FormatName`);
+
+                formatNameElement = $(distributionFormatRowElement).find(".distributionFormats-formatName");
+                formatNameElement.attr('id', `DistributionsFormats[${elementIndex}].FormatName`);
+                formatNameElement.attr('name', `DistributionsFormats[${elementIndex}].FormatName`);
+
+                formatVersionLabelElement = $(distributionFormatRowElement).find(".distributionFormats-formatVersionLabel");
+                formatVersionLabelElement.attr('for', `DistributionsFormats[${elementIndex}].FormatVersion`);
+
+                formatVersionElement = $(distributionFormatRowElement).find(".distributionFormats-formatVersion");
+                formatVersionElement.attr('id', `DistributionsFormats[${elementIndex}].FormatVersion`);
+                formatVersionElement.attr('name', `DistributionsFormats[${elementIndex}].FormatVersion`);
+
+                // Hidden fields
+                protocolElement = $(distributionFormatRowElement).find(".distributionFormats-protocol");
+                protocolElement.attr('id', `DistributionsFormats[${elementIndex}].Protocol`);
+                protocolElement.attr('name', `DistributionsFormats[${elementIndex}].Protocol`);
+
+                nameElement = $(distributionFormatRowElement).find(".distributionFormats-name");
+                nameElement.attr('id', `DistributionsFormats[${elementIndex}].Name`);
+                nameElement.attr('name', `DistributionsFormats[${elementIndex}].Name`);
+
+                urlElement = $(distributionFormatRowElement).find(".distributionFormats-url");
+                urlElement.attr('id', `DistributionsFormats[${elementIndex}].URL`);
+                urlElement.attr('name', `DistributionsFormats[${elementIndex}].URL`);
+
+                unitsOfDistributionElement = $(distributionFormatRowElement).find(".distributionFormats-unitsOfDistribution");
+                unitsOfDistributionElement.attr('id', `DistributionsFormats[${elementIndex}].UnitsOfDistribution`);
+                unitsOfDistributionElement.attr('name', `DistributionsFormats[${elementIndex}].UnitsOfDistribution`);
+
+                organizationElement = $(distributionFormatRowElement).find(".distributionFormats-organization");
+                organizationElement.attr('id', `DistributionsFormats[${elementIndex}].Organization`);
+                organizationElement.attr('name', `DistributionsFormats[${elementIndex}].Organization`);
+            });
+        }
+
+        function getFormatNameSelectListOptionElements(spatialRepresentation) {
+            var formatNameSelectListOptionElements = "";
+            if (spatialRepresentationOptions[spatialRepresentation] !== undefined && spatialRepresentationOptions[spatialRepresentation].length) {
+                spatialRepresentationOptions[spatialRepresentation].forEach(function (spatialRepresentationOption) {
+                    formatNameSelectListOptionElements += `<option value="${spatialRepresentationOption}">${spatialRepresentationOption}</option>`;
+                });
+            }
+            return formatNameSelectListOptionElements;
+        }
+
+        function addDistributionFormat(event) {
             event.preventDefault();
-            var DistributionFormatCounts = parseInt($("#DistributionFormatsCount").val());
-            DistributionFormatCounts += 1;
-            var fIndex = DistributionFormatCounts - 1;
+            var thisElement = event.target;
+            var distributionFormatsType = $("#DistributionFormatsType").val();
+            var spatialRepresentation = $("#SpatialRepresentation").val();
+            var formatRowsContainerElement = $(thisElement).closest(".distribution-formats").find(".distribution-format-rows");
 
-            var dfHtm = "";
+            var formatNameElement = "";
+            if (distributionFormatsType == "dataset") {
+                formatNameElement = `
 
-            dfHtm += '<div id="formatRow' + dist + '_' + format + 1 + '" class="form-group required has-feedback">';
-            dfHtm += '<label for="DistributionsFormats[' + fIndex + '].FormatName" class="col-md-3 control-label">Format</label>';
-            dfHtm += '<div class="col-md-8">';
-            dfHtm += '<div class="row">';
-
-
-            dfHtm += '<div class="col-md-4">';
-            if ($("#DistributionFormatsType").val() == "dataset") {
-                dfHtm += '<div class="custom-select">';
-                dfHtm += '<select id="DistributionsFormats[' + fIndex + '].FormatName" name="DistributionsFormats[' + fIndex + '].FormatName" class="form-control" onchange="UpdateModel();">';
-                dfHtm += '<option value="" disabled>Klikk for å velge</option>';
-                dfHtm += '</select>';
-                dfHtm += '</div>';
+                    <div class="custom-select">
+                        <select class="distributionFormats-formatName form-control">
+                            ${getFormatNameSelectListOptionElements(spatialRepresentation)}
+                        </select>
+                    </div>
+                `;
+            } else {
+                formatNameElement = `
+                    <input type="text" class="distributionFormats-formatName form-control">
+                `;
             }
-            else {
-                dfHtm += '<input id="DistributionsFormats[' + fIndex + '].FormatName" name="DistributionsFormats[' + fIndex + '].FormatName" type="text" value="" class="form-control" onchange="UpdateModel();" />';
-            }
-            dfHtm += '</div>';
-
-            dfHtm += '<label for="DistributionsFormats[' + fIndex + '].FormatVersion" class="col-md-2 control-label" style="text-align: right;">Versjon</label>';
-
-            dfHtm += '<div class="col-md-3">';
-            dfHtm += '<input type="text" id="DistributionsFormats[' + fIndex + '].FormatVersion" name="DistributionsFormats[' + fIndex + '].FormatVersion" value="" class="form-control" placeholder="Skriv inn" style="border-color: #ccc;" onchange="UpdateModel();" />';
-            dfHtm += '</div>';
-
-            dfHtm += '<div class="col-md-3">';
-            dfHtm += '<button type="button" class="btn btn-default" onclick="removeDistributionFormat(' + dist + ',' + format + ')">Slett</button>';
-            dfHtm += '</div>';
 
 
-            dfHtm += '</div>';
-            dfHtm += '</div>';
-            dfHtm += '</div>';
+            formatVersionElement = `
+                <input class="distributionFormats-formatVersion form-control" />
+            `;
 
-            var layerName = "";
-            if (typeof $("#DistributionsFormats\\[" + dist + "\\]\\.Name").val() != 'undefined')
-                layerName = $("#DistributionsFormats\\[" + dist + "\\]\\.Name").val();
+            removeFormatButtonElement = `<span class="btn" onclick="removeDistributionFormat(event)">Slett</span>`;
 
-            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].Protocol" name="DistributionsFormats[' + fIndex + '].Protocol" data-distribution="' + dist + '" />';
-            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].Name" name="DistributionsFormats[' + fIndex + '].Name" data-distribution="' + dist + '" />';
-            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].URL" name="DistributionsFormats[' + fIndex + '].URL" data-distribution="' + dist + '" />';
-            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].UnitsOfDistribution" name="DistributionsFormats[' + fIndex + '].UnitsOfDistribution" data-distribution="' + dist + '" />';
-            dfHtm += '<input type="hidden" id="DistributionsFormats[' + fIndex + '].Organization" name="DistributionsFormats[' + fIndex + '].Organization" data-distribution="' + dist + '" />';
+            hiddenFieldElements = `
+                <input type="hidden" class="distributionFormats-protocol" />
+                <input type="hidden" class="distributionFormats-name" />
+                <input type="hidden" class="distributionFormats-url" />
+                <input type="hidden" class="distributionFormats-unitsOfDistribution" />
+                <input type="hidden" class="distributionFormats-organization" />
+            `;
 
-            dfHtm += '<input type="hidden" name="DistributionsFormats.Index" value="' + fIndex + '" />';
+            formatRowElement = `
+                <div class="distribution-format-row">
+                    <div class="form-group required has-feedback">
+                        <div class="row">
+                            <label class="col-md-3 control-label distributionFormats-formatNameLabel">Format</label>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        ${formatNameElement}
+                                    </div>
+                                    <label class="col-md-2 control-label distributionFormats-formatVersionLabel">Versjon</label>
+                                    <div class="col-md-3">
+                                        ${formatVersionElement}
+                                    </div>
+                                    <div class="col-md-3">
+                                        ${removeFormatButtonElement}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        ${hiddenFieldElements}
+                    </div>
+                </div>
+            `;
 
-            $("#distributionFormatDiv-" + dist).append(dfHtm);
-            $("#DistributionFormatsCount").val(DistributionFormatCounts);
+            formatRowsContainerElement.append(formatRowElement);
 
-            $("#SpatialRepresentation").trigger("change");
+            // Add/update Id's for form elements
+            updateDistributionFormatRowElementIds();
 
+            // Add hidden field values
+            updateOrganizationHiddenFieldElements(event);
+            updateProtocolHiddenFieldElements(event);
+            updateUrlHiddenFieldElements(event);
+            updateUnitsOfDistributionHiddenFieldElements(event);
+            updateNameHiddenFieldElements(event);
         };
+
+        function removeDistributionFormat(event){
+            var thisElement = event.target;
+            var distributionFormatRow = $(thisElement).closest(".distribution-format-row");
+            distributionFormatRow.remove();
+
+            // Add/update Id's for form elements
+            updateDistributionFormatRowElementIds();
+
+        }
 
     </script>
 }
