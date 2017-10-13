@@ -125,7 +125,6 @@
                                 <div class="distribution-format-row">
                                     <div class="form-group @(Model.IsSoftware() ? "" : "required has-feedback")">
                                         <div class="row">
-                                            <input type="hidden" name="DistributionsFormats.Index" value="@indexFormat" />
                                             <label for="DistributionsFormats[@indexFormat].FormatName" class="distributionFormats-formatNameLabel col-md-3 control-label">Format</label>
 
                                             <div class="col-md-8">
@@ -184,6 +183,7 @@
                                         <input type="hidden" class="distributionFormats-url" id="DistributionsFormats[@indexFormat].URL" name="DistributionsFormats[@indexFormat].URL" value="@distribution.Details.URL" />
                                         <input type="hidden" class="distributionFormats-unitsOfDistribution" id="DistributionsFormats[@indexFormat].UnitsOfDistribution" name="DistributionsFormats[@indexFormat].UnitsOfDistribution" value="@distribution.Details.UnitsOfDistribution" />
                                         <input type="hidden" class="distributionFormats-organization" id="DistributionsFormats[@indexFormat].Organization" name="DistributionsFormats[@indexFormat].Organization" value="@distribution.Details.Organization" />
+                                        <input type="hidden" class="distributionFormats-index" name="DistributionsFormats.Index" value="@indexFormat" />
                                     </div>
                                 </div>
                                 if (indexFormat < distribution.Formats.Count)
