@@ -130,10 +130,13 @@ namespace Kartverket.MetadataEditor.Models
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
         [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
         public string QualitySpecificationExplanation { get; set; }
+        public string EnglishQualitySpecificationExplanation { get; set; }
         [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
         public string QualitySpecificationExplanationInspire { get; set; }
+        public string EnglishQualitySpecificationExplanationInspire { get; set; }
         [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
         public string QualitySpecificationExplanationSosi { get; set; }
+        public string EnglishQualitySpecificationExplanationSosi { get; set; }
         [Required(ErrorMessage = "Datakonformitet er påkrevd")]
         public bool QualitySpecificationResult { get; set; }
         [Required(ErrorMessage = "Datakonformitet inspire er påkrevd")]

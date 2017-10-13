@@ -400,6 +400,7 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDateInspire = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
                         model.QualitySpecificationDateTypeInspire = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanationInspire = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspire = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
                         model.QualitySpecificationResultInspire = qualitySpecification.Result;
                         model.QualitySpecificationTitleInspire = qualitySpecification.Title != null ? qualitySpecification.Title : null;
 
@@ -409,6 +410,7 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDateSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
                         model.QualitySpecificationDateTypeSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanationSosi = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationSosi = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
                         model.QualitySpecificationResultSosi = qualitySpecification.Result;
                         model.QualitySpecificationTitleSosi = qualitySpecification.Title != null ? qualitySpecification.Title : null;
                     }
@@ -425,6 +427,7 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDate = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
                         model.QualitySpecificationDateType = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanation = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanation = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
                         model.QualitySpecificationResult = qualitySpecification.Result;
                         model.QualitySpecificationTitle = qualitySpecification.Title != null ? qualitySpecification.Title : null;
                     }
@@ -658,6 +661,7 @@ namespace Kartverket.MetadataEditor.Models
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateInspire),
                     DateType = model.QualitySpecificationDateTypeInspire,
                     Explanation = model.QualitySpecificationExplanationInspire,
+                    EnglishExplanation = model.EnglishQualitySpecificationExplanationInspire,
                     Result = model.QualitySpecificationResultInspire,
                     Responsible = "inspire"
                 });
@@ -670,6 +674,7 @@ namespace Kartverket.MetadataEditor.Models
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
                     DateType = model.QualitySpecificationDateTypeSosi,
                     Explanation = model.QualitySpecificationExplanationSosi,
+                    EnglishExplanation = model.EnglishQualitySpecificationExplanationSosi,
                     Result = model.QualitySpecificationResultSosi,
                     Responsible = "sosi"
                 });
@@ -708,6 +713,7 @@ namespace Kartverket.MetadataEditor.Models
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDate),
                     DateType = model.QualitySpecificationDateType,
                     Explanation = model.QualitySpecificationExplanation,
+                    EnglishExplanation = model.EnglishQualitySpecificationExplanation,
                     Result = model.QualitySpecificationResult,
                     Responsible = "other"
                 });

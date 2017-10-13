@@ -156,6 +156,14 @@
                             </p>
                         </div>
                     </div>
+                    <div class="row">
+                        <label class="col-md-3 control-label">Avvik fra produktspesifikasjonen engelsk</label>
+                        <div class="col-md-8">
+                            @Html.EditorFor(m => m.EnglishQualitySpecificationExplanationInspire, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -222,18 +230,28 @@
                     </div>
                 </div>
                 <div id="QualitySpecificationExplanationSosiDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResultSosi) { <text> hidden</text> } }">
-                    <label class="col-md-2 control-label">Avvik fra produktspesifikasjonen</label>
-                    <div class="col-md-9">
-                        @Html.EditorFor(m => m.QualitySpecificationExplanationSosi, new { @class = "form-control" })
-                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                        <p class="help-text bg-success" id="help-text-QualitySpecificationExplanationSosi" style="display: none">
-                            Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
-                        </p>
+                    <div class="row">
+                        <label class="col-md-2 control-label">Avvik fra produktspesifikasjonen</label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(m => m.QualitySpecificationExplanationSosi, new { @class = "form-control" })
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            <p class="help-text bg-success" id="help-text-QualitySpecificationExplanationSosi" style="display: none">
+                                Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
+                            </p>
+                        </div>
+                        <div class="col-md-1">
+                            <p class="form-control-static">
+                                <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationSosi" class="badge help-text-toggle">?</a>
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-md-1">
-                        <p class="form-control-static">
-                            <a href="#" data-help-text-id="help-text-QualitySpecificationExplanationSosi" class="badge help-text-toggle">?</a>
-                        </p>
+                    <div class="row">
+                        <label class="col-md-2 control-label">Avvik fra produktspesifikasjonen engelsk</label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(m => m.EnglishQualitySpecificationExplanationSosi, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-1">
+                        </div>
                     </div>
                 </div>
                 <div id="QualitySpecificationSosiConformApplicationSchema" class="form-group">
@@ -306,18 +324,28 @@
                     </div>
                 </div>
                 <div id="QualitySpecificationExplanationDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResult) { <text> hidden</text> } }">
-                    <label class="col-md-2 control-label">Avvik fra produktspesifikasjonen</label>
-                    <div class="col-md-9">
-                        @Html.EditorFor(m => m.QualitySpecificationExplanation, new { @class = "form-control" })
-                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                        <p class="help-text bg-success" id="help-text-QualitySpecificationExplanation" style="display: none">
-                            Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
-                        </p>
+                    <div class="row">
+                        <label class="col-md-2 control-label">Avvik fra produktspesifikasjonen</label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(m => m.QualitySpecificationExplanation, new { @class = "form-control" })
+                            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            <p class="help-text bg-success" id="help-text-QualitySpecificationExplanation" style="display: none">
+                                Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"
+                            </p>
+                        </div>
+                        <div class="col-md-1">
+                            <p class="form-control-static">
+                                <a href="#" data-help-text-id="help-text-QualitySpecificationExplanation" class="badge help-text-toggle">?</a>
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-md-1">
-                        <p class="form-control-static">
-                            <a href="#" data-help-text-id="help-text-QualitySpecificationExplanation" class="badge help-text-toggle">?</a>
-                        </p>
+                    <div class="row">
+                        <label class="col-md-2 control-label">Avvik fra produktspesifikasjonen engelsk</label>
+                        <div class="col-md-9">
+                            @Html.EditorFor(m => m.EnglishQualitySpecificationExplanation, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-1">
+                        </div>
                     </div>
                 </div>
             </div>
