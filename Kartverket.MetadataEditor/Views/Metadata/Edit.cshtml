@@ -1410,39 +1410,39 @@
             var distributionFormatRowElements = $("#distribution-format-rows .distribution-format-row");
             distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
                 formatNameLabelElement = $(distributionFormatRowElement).find(".distributionFormats-formatNameLabel");
-                formatNameLabelElement.attr('for', `DistributionsFormats[${elementIndex}].FormatName`);
+                formatNameLabelElement.attr('for', 'DistributionsFormats[' + elementIndex + '].FormatName');
 
                 formatNameElement = $(distributionFormatRowElement).find(".distributionFormats-formatName");
-                formatNameElement.attr('id', `DistributionsFormats[${elementIndex}].FormatName`);
-                formatNameElement.attr('name', `DistributionsFormats[${elementIndex}].FormatName`);
+                formatNameElement.attr('id', 'DistributionsFormats[' + elementIndex + '].FormatName');
+                formatNameElement.attr('name', 'DistributionsFormats[' + elementIndex + '].FormatName');
 
                 formatVersionLabelElement = $(distributionFormatRowElement).find(".distributionFormats-formatVersionLabel");
-                formatVersionLabelElement.attr('for', `DistributionsFormats[${elementIndex}].FormatVersion`);
+                formatVersionLabelElement.attr('for', 'DistributionsFormats[' + elementIndex + '].FormatVersion');
 
                 formatVersionElement = $(distributionFormatRowElement).find(".distributionFormats-formatVersion");
-                formatVersionElement.attr('id', `DistributionsFormats[${elementIndex}].FormatVersion`);
-                formatVersionElement.attr('name', `DistributionsFormats[${elementIndex}].FormatVersion`);
+                formatVersionElement.attr('id', 'DistributionsFormats[' + elementIndex + '].FormatVersion');
+                formatVersionElement.attr('name', 'DistributionsFormats[' + elementIndex + '].FormatVersion');
 
                 // Hidden fields
                 protocolElement = $(distributionFormatRowElement).find(".distributionFormats-protocol");
-                protocolElement.attr('id', `DistributionsFormats[${elementIndex}].Protocol`);
-                protocolElement.attr('name', `DistributionsFormats[${elementIndex}].Protocol`);
+                protocolElement.attr('id', 'DistributionsFormats[' + elementIndex + '].Protocol');
+                protocolElement.attr('name', 'DistributionsFormats[' + elementIndex + '].Protocol');
 
                 nameElement = $(distributionFormatRowElement).find(".distributionFormats-name");
-                nameElement.attr('id', `DistributionsFormats[${elementIndex}].Name`);
-                nameElement.attr('name', `DistributionsFormats[${elementIndex}].Name`);
+                nameElement.attr('id', 'DistributionsFormats[' + elementIndex + '].Name');
+                nameElement.attr('name', 'DistributionsFormats[' + elementIndex + '].Name');
 
                 urlElement = $(distributionFormatRowElement).find(".distributionFormats-url");
-                urlElement.attr('id', `DistributionsFormats[${elementIndex}].URL`);
-                urlElement.attr('name', `DistributionsFormats[${elementIndex}].URL`);
+                urlElement.attr('id', 'DistributionsFormats[' + elementIndex + '].URL');
+                urlElement.attr('name', 'DistributionsFormats[' + elementIndex + '].URL');
 
                 unitsOfDistributionElement = $(distributionFormatRowElement).find(".distributionFormats-unitsOfDistribution");
-                unitsOfDistributionElement.attr('id', `DistributionsFormats[${elementIndex}].UnitsOfDistribution`);
-                unitsOfDistributionElement.attr('name', `DistributionsFormats[${elementIndex}].UnitsOfDistribution`);
+                unitsOfDistributionElement.attr('id', 'DistributionsFormats[' + elementIndex + '].UnitsOfDistribution');
+                unitsOfDistributionElement.attr('name', 'DistributionsFormats[' + elementIndex + '].UnitsOfDistribution');
 
                 organizationElement = $(distributionFormatRowElement).find(".distributionFormats-organization");
-                organizationElement.attr('id', `DistributionsFormats[${elementIndex}].Organization`);
-                organizationElement.attr('name', `DistributionsFormats[${elementIndex}].Organization`);
+                organizationElement.attr('id', 'DistributionsFormats[' + elementIndex + '].Organization');
+                organizationElement.attr('name', 'DistributionsFormats[' + elementIndex + '].Organization');
 
                 distributionIndexElement = $(distributionFormatRowElement).find(".distributionFormats-index");
                 distributionIndexElement.val(elementIndex);
@@ -1453,7 +1453,7 @@
             var formatNameSelectListOptionElements = "";
             if (spatialRepresentationOptions[spatialRepresentation] !== undefined && spatialRepresentationOptions[spatialRepresentation].length) {
                 spatialRepresentationOptions[spatialRepresentation].forEach(function (spatialRepresentationOption) {
-                    formatNameSelectListOptionElements += `<option value="${spatialRepresentationOption}">${spatialRepresentationOption}</option>`;
+                    formatNameSelectListOptionElements += '<option value="' + spatialRepresentationOption + '">' + spatialRepresentationOption + '</option>';
                 });
             }
             return formatNameSelectListOptionElements;
@@ -1468,62 +1468,51 @@
 
             var formatNameElement = "";
             if (distributionFormatsType == "dataset") {
-                formatNameElement = `
-
-                    <div class="custom-select">
-                        <select class="distributionFormats-formatName form-control">
-                            ${getFormatNameSelectListOptionElements(spatialRepresentation)}
-                        </select>
-                    </div>
-                `;
+                formatNameElement = '<div class="custom-select">'
+                        + '<select class="distributionFormats-formatName form-control">'
+                        + getFormatNameSelectListOptionElements(spatialRepresentation)
+                        + '</select>'
+                        + '</div>';
             } else {
-                formatNameElement = `
-                    <input type="text" class="distributionFormats-formatName form-control">
-                `;
+                formatNameElement = '<input type="text" class="distributionFormats-formatName form-control">';
             }
 
 
-            formatVersionElement = `
-                <input class="distributionFormats-formatVersion form-control" />
-            `;
+            formatVersionElement = '<input class="distributionFormats-formatVersion form-control" />';
 
-            removeFormatButtonElement = `<span class="btn" onclick="removeDistributionFormat(event)">Slett</span>`;
+            removeFormatButtonElement = '<span class="btn" onclick="removeDistributionFormat(event)">Slett</span>';
 
-            hiddenFieldElements = `
-                <input type="hidden" class="distributionFormats-protocol" />
-                <input type="hidden" class="distributionFormats-name" />
-                <input type="hidden" class="distributionFormats-url" />
-                <input type="hidden" class="distributionFormats-unitsOfDistribution" />
-                <input type="hidden" class="distributionFormats-organization" />
-                <input type="hidden" class="distributionFormats-index" name="DistributionsFormats.Index" autocomplete="off"/>
-            `;
+            hiddenFieldElements = '<input type="hidden" class="distributionFormats-protocol" />'
+                + '<input type="hidden" class="distributionFormats-name" />'
+                + '<input type="hidden" class="distributionFormats-url" />'
+                + '<input type="hidden" class="distributionFormats-unitsOfDistribution" />'
+                + '<input type="hidden" class="distributionFormats-organization" />'
+                + '<input type="hidden" class="distributionFormats-index" name="DistributionsFormats.Index" autocomplete="off"/>';
 
-            formatRowElement = `
-                <div class="distribution-format-row">
-                    <div class="form-group required has-feedback">
-                        <div class="row">
-                            <label class="col-md-3 control-label distributionFormats-formatNameLabel">Format</label>
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        ${formatNameElement}
-                                    </div>
-                                    <label class="col-md-2 control-label distributionFormats-formatVersionLabel">Versjon</label>
-                                    <div class="col-md-3">
-                                        ${formatVersionElement}
-                                    </div>
-                                    <div class="col-md-3">
-                                        ${removeFormatButtonElement}
-                                    </div>
-                                    <div class="col-md-1">
-                                    <div>
-                                </div>
-                            </div>
-                        </div>
-                        ${hiddenFieldElements}
-                    </div>
-                </div>
-            `;
+            formatRowElement = '<div class="distribution-format-row">'
+                    + '<div class="form-group required has-feedback">'
+                        + '<div class="row">'
+                           + '<label class="col-md-3 control-label distributionFormats-formatNameLabel">Format</label>'
+                            + '<div class="col-md-8">'
+                                + '<div class="row">'
+                                    + '<div class="col-md-4">'
+                                        + formatNameElement
+                                    + '</div>'
+                                    + '<label class="col-md-2 control-label distributionFormats-formatVersionLabel">Versjon</label>'
+                                    + '<div class="col-md-3">'
+                                        + formatVersionElement
+                                    + '</div>'
+                                    + '<div class="col-md-3">'
+                                        + removeFormatButtonElement
+                                    + '</div>'
+                                    + '<div class="col-md-1">'
+                                    + '<div>'
+                                + '</div>'
+                            + '</div>'
+                        + '</div>'
+                        + hiddenFieldElements
+                    + '</div>'
+                + '</div>';
 
             formatRowsContainerElement.append(formatRowElement);
 
@@ -1547,6 +1536,7 @@
             updateDistributionFormatRowElementIds();
 
         }
+
 
     </script>
 }
