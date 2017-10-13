@@ -125,8 +125,8 @@
                                 <div class="distribution-format-row">
                                     <div class="form-group @(Model.IsSoftware() ? "" : "required has-feedback")">
                                         <div class="row">
-                                            <label for="DistributionsFormats[@indexFormat].FormatName" class="col-md-3 control-label">Format</label>
                                             <input type="hidden" name="DistributionsFormats.Index" value="@indexFormat" />
+                                            <label for="DistributionsFormats[@indexFormat].FormatName" class="distributionFormats-formatNameLabel col-md-3 control-label">Format</label>
 
                                             <div class="col-md-8">
                                                 @if (indexFormat == 0)
@@ -160,9 +160,9 @@
                                                             <span class="@(Model.IsSoftware() ? "" :"glyphicon glyphicon-warning-sign form-control-feedback")"></span>
                                                         }
                                                     </div>
-                                                    <label class="col-md-2 control-label" for="DistributionsFormats[@indexFormat].FormatVersion">Versjon</label>
+                                                    <label class="distributionFormats-formatVersionLabel col-md-2 control-label" for="DistributionsFormats[@indexFormat].FormatVersion">Versjon</label>
                                                     <div class="col-md-3">
-                                                        <input type="text" id="DistributionsFormats[@indexFormat].FormatVersion" name="DistributionsFormats[@indexFormat].FormatVersion" value="@distributionFormat.Version" />
+                                                        <input type="text" id="DistributionsFormats[@indexFormat].FormatVersion" name="DistributionsFormats[@indexFormat].FormatVersion" value="@distributionFormat.Version" class="distributionFormats-formatVersion"/>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <span class="btn" onclick="removeDistributionFormat(event)">Slett</span>
