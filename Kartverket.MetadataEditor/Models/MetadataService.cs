@@ -682,6 +682,7 @@ namespace Kartverket.MetadataEditor.Models
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
                     DateType = model.QualitySpecificationDateTypeSosi,
                     Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
+                    EnglishExplanation = "SOSI files are according to application form",
                     Result = true,
                     Responsible = "uml-sosi"
                 });
@@ -694,6 +695,7 @@ namespace Kartverket.MetadataEditor.Models
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
                     DateType = model.QualitySpecificationDateTypeSosi,
                     Explanation = "GML-filer er i henhold til applikasjonsskjema",
+                    EnglishExplanation = "GML files are according to application form",
                     Result = true,
                     Responsible = "uml-gml"
                 });
