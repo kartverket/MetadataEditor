@@ -641,6 +641,7 @@
             // conformity
 
             var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
+            var conformExplanationEnglish = "The data is according to the product specification";
             var conformExplainPlaceholder = "Beskriv avvikene fra spesifikasjonen";
 
             $('#QualitySpecificationTitleInspire').prop('readonly', true);
@@ -689,6 +690,7 @@
                 $("#QualitySpecificationDateInspire").val("");
                 $("#QualitySpecificationDateTypeInspire").val("");
                 $("#QualitySpecificationExplanationInspire").val("");
+                $("#EnglishQualitySpecificationExplanationInspire").val("");
                 $("#QualitySpecificationResultInspireConform").prop('checked', false);
                 $('#QualitySpecificationInspire').hide();
             };
@@ -734,17 +736,13 @@
                         }
                     )
                     };
-
-                    $("#QualitySpecificationDateTypeSosi").val("publication");
-                    $("#QualitySpecificationResultSosiConform").prop('checked', true);
-                    $("#QualitySpecificationExplanationSosi").val(conformExplanation);
-                    $('#QualitySpecificationExplanationSosiDiv').hide();
                 }
                 else {
                     $("#QualitySpecificationTitleSosi").val("");
                     $("#QualitySpecificationDateSosi").val("");
                     $("#QualitySpecificationDateTypeSosi").val("");
                     $("#QualitySpecificationExplanationSosi").val("");
+                    $("#EnglishQualitySpecificationExplanationSosi").val("");
                     $("#QualitySpecificationResultSosiNotConform").prop('checked', false);
                     $('#QualitySpecificationSosi').hide();
                 }
@@ -780,6 +778,7 @@
                         $("#QualitySpecificationDateType").val("publication");
                         $("#QualitySpecificationResultConform").prop('checked', true);
                         $("#QualitySpecificationExplanation").val(conformExplanation);
+                        $("#EnglishQualitySpecificationExplanation").val(conformExplanationEnglish);
                         $('#QualitySpecificationExplanationDiv').hide();
                         $('#QualitySpecificationCustom').show();
                     }
@@ -800,6 +799,7 @@
             $("#QualitySpecificationResultInspireConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanationInspire").val(conformExplanation);
+                    $("#EnglishQualitySpecificationExplanationInspire").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationInspireDiv").removeClass("show");
                     $("#QualitySpecificationExplanationInspireDiv").addClass("hidden");
                 }
@@ -808,6 +808,7 @@
             $("#QualitySpecificationResultInspireNotConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanationInspire").val("");
+                    $("#EnglishQualitySpecificationExplanationInspire").val("");
                     $("#QualitySpecificationExplanationInspire").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationInspireDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationInspireDiv").addClass("show");
@@ -817,6 +818,7 @@
             $("#QualitySpecificationResultSosiConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanationSosi").val(conformExplanation);
+                    $("#EnglishQualitySpecificationExplanationSosi").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationSosiDiv").removeClass("show");
                     $("#QualitySpecificationExplanationSosiDiv").addClass("hidden");
                 }
@@ -825,6 +827,7 @@
             $("#QualitySpecificationResultSosiNotConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanationSosi").val("");
+                    $("#EnglishQualitySpecificationExplanationSosi").val("");
                     $("#QualitySpecificationExplanationSosi").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationSosiDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationSosiDiv").addClass("show");
@@ -834,6 +837,7 @@
             $("#QualitySpecificationResultConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanation").val(conformExplanation);
+                    $("#EnglishQualitySpecificationExplanation").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationDiv").removeClass("show");
                     $("#QualitySpecificationExplanationDiv").addClass("hidden");
                 }
@@ -842,6 +846,7 @@
             $("#QualitySpecificationResultNotConform").change(function () {
                 if (this.checked) {
                     $("#QualitySpecificationExplanation").val("");
+                    $("#EnglishQualitySpecificationExplanation").val("");
                     $("#QualitySpecificationExplanation").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationDiv").addClass("show");
