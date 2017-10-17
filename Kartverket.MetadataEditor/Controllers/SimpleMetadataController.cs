@@ -11,6 +11,8 @@ using Kartverket.MetadataEditor.Util;
 using Resources;
 using log4net;
 using Newtonsoft.Json.Linq;
+using System.Net.Mail;
+using System.Text;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -486,6 +488,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     string fullPath = Server.MapPath("~/datasets/" + filename);
                     
                         file.SaveAs(fullPath);
+                        SendNotification(uuid);
 
                     viewresult = Json(new { status = "OK", filename = filename });
                 }
@@ -502,6 +505,43 @@ namespace Kartverket.MetadataEditor.Controllers
             return viewresult;
         }
 
+        private void SendNotification(string uuid)
+        {
+            SimpleMetadataViewModel meta = _metadataService.GetMetadataModel(uuid);
+            var environment = System.Web.Configuration.WebConfigurationManager.AppSettings["EnvironmentName"];
+            if (!string.IsNullOrEmpty(environment))
+                environment = "." + environment;
+
+            var url = "https://editor"+ environment + ".geonorge.no/Metadata/Edit?uuid=" + meta.Uuid;
+
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]));
+            message.From = new MailAddress(System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]);
+            message.Subject = "Enkle metadata - opplastet dataset";
+            StringBuilder b = new StringBuilder();
+
+            b.Append(meta.Title + " er lastet opp.<br/>\r\n");
+            b.Append("<a href=\""+ url + "\">" + url + "</a>.");
+            message.Body = b.ToString();
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Host = System.Web.Configuration.WebConfigurationManager.AppSettings["SmtpHost"];
+                try
+                {
+                    smtp.Send(message);
+                    Log.Info("Send email to:" + message.To.ToString());
+                    Log.Info("Subject:" + message.Subject);
+                    Log.Info("Body:" + message.Body);
+                }
+                catch (Exception excep)
+                {
+                    Log.Error(excep.Message);
+                    Log.Error(excep.InnerException);
+                }
+            }
+        }
 
         [Authorize]
         [HttpGet]
