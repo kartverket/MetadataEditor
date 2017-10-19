@@ -10,26 +10,33 @@
                         <div class="col-md-9">
                             <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
                             <div v-if="formElement.multilingual">
-                                <span v-on:click="formElement.selectedLanguage = 'all'" class="form-element-tab">Alle</span>
-                                <span v-on:click="formElement.selectedLanguage = language" v-for="(binding, language) in formElement.multilingual">
-                                    <span class="form-element-tab">{{ $parent.languages[language] }}</span>
-                                </span>
-                                <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual">
-                                    <div v-show="formElement.selectedLanguage == 'all'">
+                                <div class="form-element-tab-group">
+                                    <span v-on:click="formElement.selectedLanguage = 'all'"
+                                          v-bind:class="{active: formElement.selectedLanguage == 'all'}"
+                                          class="form-element-tab">
+                                        {{ $parent.languages['all'] }}
+                                    </span>
+                                    <span v-on:click="formElement.selectedLanguage = language"
+                                          v-for="(binding, language) in formElement.multilingual"
+                                          v-bind:class="{active: formElement.selectedLanguage == language}"
+                                          class="form-element-tab">
                                         {{ $parent.languages[language] }}
-                                    </div>
-                                        <input v-if="formElement.type == 'text'" type="text" v-model="binding.value" class="form-control" />
-                                        <textarea v-else-if="formElement.type == 'textarea'" v-model="binding.value" class="form-control" rows="6"></textarea>
+                                    </span>
+                                </div>
+                                <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual" class="form-group">
+                                    <span v-show="formElement.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
+                                    <input v-bind:name="binding.name" v-if="formElement.type == 'text'" type="text" v-model="binding.value" class="form-control" />
+                                    <textarea v-bind:name="binding.name" v-else-if="formElement.type == 'textarea'" v-model="binding.value" class="form-control" rows="6"></textarea>
                                 </div>
                             </div>
-                            <div v-else>
-                                <input v-if="formElement.type == 'text'" type="text" v-model="formElement.value" class="form-control" />
-                                <textarea v-else-if="formElement.type == 'textarea'" v-model="formElement.value" class="form-control" rows="6"></textarea>
+                            <div v-else class="form-group">
+                                <input v-bind:name="formElement.name" v-if="formElement.type == 'text'" type="text" v-model="formElement.value" class="form-control" />
+                                <textarea v-bind:name="formElement.name" v-else-if="formElement.type == 'textarea'" v-model="formElement.value" class="form-control" rows="6"></textarea>
                             </div>
                         </div>
                         <div v-if="formElement.helpText" class="col-md-1">
                             <p class="form-control-static">
-                                <span v-on:click="formElement.helpText.active = !formElement.helpText.active" class="badge help-text-toggle">?</span>
+                                <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
                             </p>
                         </div>
                     </div>
@@ -70,6 +77,7 @@
                         }
                     },
                     {
+                        name: 'ResourceReferenceCodespace',
                         value: this.$parent.model.ResourceReferenceCodespace,
                         type: 'text',
                         label: 'Navnerom til datasett',
@@ -79,6 +87,7 @@
                         }
                     },
                     {
+                        name: 'ResourceReferenceCode',
                         value: this.$parent.model.ResourceReferenceCode,
                         type: 'text',
                         label: 'Navn på datasett',
@@ -108,6 +117,7 @@
                         }
                     },
                     {
+                        name: 'HelpUrl',
                         value: this.$parent.model.HelpUrl,
                         type: 'text',
                         label: 'URL til hjelp',
@@ -117,8 +127,18 @@
                         }
                     },
                     {
+                        multilingual: {
+                            no: {
+                                name: 'SpecificUsage',
+                                value: this.$parent.model.SpecificUsage
+                            },
+                            en: {
+                                name: 'EnglishSpecificUsage',
+                                value: this.$parent.model.EnglishSpecificUsage
+                            }
+                        },
+                        selectedLanguage: this.$parent.defaultLanguage,
                         required: true,
-                        value: this.$parent.model.SpecificUsage,
                         type: 'textarea',
                         label: 'Bruksområde',
                         helpText: {
@@ -127,8 +147,18 @@
                         }
                     },
                     {
+                        multilingual: {
+                            no: {
+                                name: 'Purpose',
+                                value: this.$parent.model.Purpose
+                            },
+                            en: {
+                                name: 'EnglishPurpose',
+                                value: this.$parent.model.EnglishPurpose
+                            }
+                        },
+                        selectedLanguage: this.$parent.defaultLanguage,
                         required: true,
-                        value: this.$parent.model.Purpose,
                         type: 'textarea',
                         label: '@Html.Raw(UI.Metadata_Purpose)',
                         helpText: {
