@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppPageTitle" xml:space="preserve">
+    <value>Geonorge - metadataeditor</value>
+  </data>
+  <data name="Button_Add_Distribution" xml:space="preserve">
+    <value>Legg til ny distribusjonsløsning</value>
+  </data>
+  <data name="Button_Remove_Distribution" xml:space="preserve">
+    <value>Fjern distribusjonsløsning</value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="Button_SaveAsXml" xml:space="preserve">
+    <value>Lagre som XML</value>
+  </data>
+  <data name="Button_Validate" xml:space="preserve">
+    <value>Publiser</value>
+  </data>
+  <data name="Contact_Email" xml:space="preserve">
+    <value>Kontaktperson - Epost</value>
+  </data>
+  <data name="Contact_Name" xml:space="preserve">
+    <value>Kontaktperson - Navn</value>
+  </data>
+  <data name="Contact_Organization" xml:space="preserve">
+    <value>Kontaktperson - Organisasjonsnavn</value>
+  </data>
+  <data name="DateCreated_InvalidDate" xml:space="preserve">
+    <value>Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014.</value>
+  </data>
+  <data name="EditMetadata" xml:space="preserve">
+    <value>Rediger metadata</value>
+  </data>
+  <data name="Error_InvalidUuid" xml:space="preserve">
+    <value>Ugyldig uuid</value>
+  </data>
+  <data name="FieldMustBeDate" xml:space="preserve">
+    <value>{0} må være en dato på formen 19.01.2014.</value>
+  </data>
+  <data name="FieldMustBeNumeric" xml:space="preserve">
+    <value>{0} må være et tall.</value>
+  </data>
+  <data name="Helptext_BoundingBox" xml:space="preserve">
+    <value>Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i Norgeskart.</value>
+  </data>
+  <data name="Helptext_ContactMetadata" xml:space="preserve">
+    <value>Kontaktpunkt (person eller avdeling) som vedlikeholder metadata og som kan svare på spørsmål knyttet til disse. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
+  </data>
+  <data name="Helptext_ContactOwner" xml:space="preserve">
+    <value>Kontaktpunkt (person eller avdeling) som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
+  </data>
+  <data name="Helptext_ContactPublisher" xml:space="preserve">
+    <value>Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
+  </data>
+  <data name="Helptext_Image" xml:space="preserve">
+    <value>Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde.</value>
+  </data>
+  <data name="Metadata_Abstract" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="Metadata_BoundingBox_East_Invalid" xml:space="preserve">
+    <value>Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>
+  </data>
+  <data name="Metadata_BoundingBox_North_Invalid" xml:space="preserve">
+    <value>Geografisk utstrekning - Nord - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>
+  </data>
+  <data name="Metadata_BoundingBox_South_Invalid" xml:space="preserve">
+    <value>Geografisk utstrekning - Sør - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>
+  </data>
+  <data name="Metadata_BoundingBox_West_Invalid" xml:space="preserve">
+    <value>Geografisk utstrekning - Vest - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>
+  </data>
+  <data name="Metadata_Contact_Email_Required" xml:space="preserve">
+    <value>Epost til kontaktperson er påkrevd.</value>
+  </data>
+  <data name="Metadata_Contact_Name_Required" xml:space="preserve">
+    <value>Navn på kontaktperson er påkrevd.</value>
+  </data>
+  <data name="Metadata_Contact_Organization_Required" xml:space="preserve">
+    <value>Organisasjonsnavn er feil.</value>
+  </data>
+  <data name="Metadata_DateCreated" xml:space="preserve">
+    <value>Opprettet dato</value>
+  </data>
+  <data name="Metadata_DatePublished" xml:space="preserve">
+    <value>Publiseringsdato</value>
+  </data>
+  <data name="Metadata_DateUpdated" xml:space="preserve">
+    <value>Dato sist oppdatert</value>
+  </data>
+  <data name="Metadata_Edit_DatasetFields" xml:space="preserve">
+    <value>Detaljer om datasett</value>
+  </data>
+  <data name="Metadata_Edit_Saved_Failure" xml:space="preserve">
+    <value>Det oppstod en feil under lagring av metadata: {0}.</value>
+  </data>
+  <data name="Metadata_Edit_Saved_Success" xml:space="preserve">
+    <value>Metadataene ble lagret.</value>
+  </data>
+  <data name="Metadata_Edit_ServiceFields" xml:space="preserve">
+    <value>Detaljer om tjeneste</value>
+  </data>
+  <data name="Metadata_Links" xml:space="preserve">
+    <value>Lenker</value>
+  </data>
+  <data name="Metadata_NationalTheme_Label" xml:space="preserve">
+    <value>Nasjonal temakategori</value>
+  </data>
+  <data name="Metadata_Organization" xml:space="preserve">
+    <value>Organisasjon</value>
+  </data>
+  <data name="Metadata_Purpose" xml:space="preserve">
+    <value>Formål</value>
+  </data>
+  <data name="Metadata_QualitySpecificationExplanation" xml:space="preserve">
+    <value>Forklaring av resultat</value>
+  </data>
+  <data name="Metadata_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Metadata_Title" xml:space="preserve">
+    <value>Metadata title</value>
+  </data>
+  <data name="Metadata_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Metadata_Type_Dataset" xml:space="preserve">
+    <value>Datasett</value>
+  </data>
+  <data name="Metadata_Type_Service" xml:space="preserve">
+    <value>Tjeneste</value>
+  </data>
+  <data name="Metadata_Validate_Error" xml:space="preserve">
+    <value>Feil ved validering: {0}.</value>
+  </data>
+  <data name="Metadata_Validate_Success" xml:space="preserve">
+    <value>Metadata ble validert</value>
+  </data>
+  <data name="Metadata_Validation" xml:space="preserve">
+    <value>Validering</value>
+  </data>
+  <data name="MyMetadata_Label" xml:space="preserve">
+    <value>Mine metadata</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organisasjon</value>
+  </data>
+  <data name="PropertyValueInvalid" xml:space="preserve">
+    <value>Verdien '{0}' er ikke gyldig for feltet {1}.</value>
+  </data>
+  <data name="PropertyValueRequired" xml:space="preserve">
+    <value>{0} er et påkrevd felt.</value>
+  </data>
+  <data name="SimpleMetadata_Title" xml:space="preserve">
+    <value>Navn på datasett</value>
+  </data>
+</root>
