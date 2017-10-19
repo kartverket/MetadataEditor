@@ -1,8 +1,14 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 @using Resources
 @using Kartverket.MetadataEditor.Helpers
+@using Newtonsoft.Json;
+
 @{
     ViewBag.Title = @Resources.UI.EditMetadata;
+
+    string ViewModelSerialized = JsonConvert.SerializeObject(Model);
+    var ViewModelJson = @Html.Raw(ViewModelSerialized);
+
     bool showProductSheetGeneratorUrl = false;
     var ProductSheetGeneratorUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"];
     if (ProductSheetGeneratorUrl != null && ProductSheetGeneratorUrl != "")
@@ -12,6 +18,19 @@
 @section breadcrumb{
     <li>@Model.Title</li>
 }
+
+
+<div id="vue-container">
+    <ul class="nav nav-tabs">
+        <li v-for="tab in tabs" v-on:click="selectedTab = tab" v-bind:class="{active: selectedTab.id == tab.id}">
+            <a href="#">
+                <span v-bind:class="tab.iconClass"></span>
+                {{ tab.name }}
+            </a>
+        </li>
+    </ul>
+    <div v-bind:is="selectedTab.id"></div>
+</div>
 
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     @Html.HiddenFor(m => m.Uuid)
@@ -257,7 +276,7 @@
             };
 
              @foreach (var distributionFormat in ViewBag.VectorFormats as SelectList)
-              {
+             {
                   @:spatialRepresentationOptions.vector.push("@distributionFormat.Value");
               }
 
@@ -612,7 +631,7 @@
                 dfHtm += '<select id="referenceSystems[' + fIndex + '].CoordinateSystem" name="referenceSystems[' + fIndex + '].CoordinateSystem" class="form-control">';
                 dfHtm += '<option value="">Velg</option>';
                 @foreach (SelectListItem opt in ViewBag.ReferenceSystemsValues)
-            {
+                {
             @:dfHtm += '<option value="@opt.Value">@opt.Text</option>';
                                                                                                                                                                                                                                                                                                                                                 }
                 dfHtm += '</select>';
@@ -1544,4 +1563,53 @@
 
 
     </script>
+
+    
 }
+
+@* Import components *@
+@Html.Partial("VueComponents/Edit/_Basic")
+@Html.Partial("VueComponents/Edit/_TimeAndSpace")
+@Html.Partial("VueComponents/Edit/_Contact")
+@Html.Partial("VueComponents/Edit/_Distribution")
+@Html.Partial("VueComponents/Edit/_Documents")
+@Html.Partial("VueComponents/Edit/_Constraints")
+@Html.Partial("VueComponents/Edit/_Keywords")
+@Html.Partial("VueComponents/Edit/_Quality")
+@Html.Partial("VueComponents/Edit/_Admin")
+
+<script>
+        var vueModel = new Vue({
+            el: "#vue-container",
+            data: {
+                selectedTab: 'basic',
+                tabs: [
+                    { id: 'basic', name: 'Grunleggende', iconClass: 'glyphicon glyphicon-home' },
+                    { id: 'timeAndSpace', name: 'Tid og rom', iconClass: 'glyphicon glyphicon-list-alt' },
+                    { id: 'contact', name: 'Kontaktinformasjon', iconClass: 'glyphicon glyphicon-user' },
+                    { id: 'distribution', name: 'Distribusjon', iconClass: 'glyphicon glyphicon-globe' },
+                    { id: 'documents', name: 'Dokumentasjon', iconClass: 'glyphicon glyphicon-file' },
+                    { id: 'constraints', name: 'Restriksjoner', iconClass: 'glyphicon glyphicon-lock' },
+                    { id: 'keywords', name: 'Nøkkelord', iconClass: 'glyphicon glyphicon-ok-sign' },
+                    { id: 'quality', name: 'Kvalitet', iconClass: 'glyphicon glyphicon-ok-sign' },
+                    { id: 'admin', name: 'Administrativt', iconClass: 'glyphicon glyphicon-cog' }
+                ],
+                model: @ViewModelJson
+            },
+            created: function () {
+            },
+            methods: {
+            },
+            components: {
+                basic: Basic,
+                timeAndSpace: TimeAndSpace,
+                contact: Contact,
+                distribution: Distribution,
+                documents: Documents,
+                constraints: Constraints,
+                keywords: Keywords,
+                quality: Quality,
+                admin: Admin
+            }
+        });
+</script>
