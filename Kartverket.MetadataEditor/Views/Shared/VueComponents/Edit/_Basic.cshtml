@@ -9,8 +9,23 @@
                         <label class="col-md-2 control-label">{{ formElement.label }}</label>
                         <div class="col-md-9">
                             <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                            <input v-if="formElement.type == 'text'" type="text" v-model="formElement.value" class="form-control" />
-                            <textarea v-else-if="formElement.type == 'textarea'" v-model="formElement.value" class="form-control" rows="6"></textarea>
+                            <div v-if="formElement.multilingual">
+                                <span v-on:click="formElement.selectedLanguage = 'all'" class="form-element-tab">Alle</span>
+                                <span v-on:click="formElement.selectedLanguage = language" v-for="(binding, language) in formElement.multilingual">
+                                    <span class="form-element-tab">{{ $parent.languages[language] }}</span>
+                                </span>
+                                <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual">
+                                    <div v-show="formElement.selectedLanguage == 'all'">
+                                        {{ $parent.languages[language] }}
+                                    </div>
+                                        <input v-if="formElement.type == 'text'" type="text" v-model="binding.value" class="form-control" />
+                                        <textarea v-else-if="formElement.type == 'textarea'" v-model="binding.value" class="form-control" rows="6"></textarea>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <input v-if="formElement.type == 'text'" type="text" v-model="formElement.value" class="form-control" />
+                                <textarea v-else-if="formElement.type == 'textarea'" v-model="formElement.value" class="form-control" rows="6"></textarea>
+                            </div>
                         </div>
                         <div v-if="formElement.helpText" class="col-md-1">
                             <p class="form-control-static">
@@ -35,10 +50,19 @@
             return {
                 formElements: [
                     {
+                        multilingual: {
+                            no: {
+                                name: 'Title',
+                                value: this.$parent.model.Title
+                            },
+                            en: {
+                                name: 'EnglishTitle',
+                                value: this.$parent.model.EnglishTitle
+                            }
+                        },
+                        selectedLanguage: this.$parent.defaultLanguage,
                         required: true,
-                        multilingual: true,
-                        value: this.$parent.model.Title,
-                        label: '@UI.Metadata_Title',
+                        label: '@Html.Raw(UI.Metadata_Title)',
                         type: 'text',
                         helpText: {
                             active: false,
@@ -64,10 +88,20 @@
                         }
                     },
                     {
+                        multilingual: {
+                            no: {
+                                name: 'Abstract',
+                                value: this.$parent.model.Abstract
+                            },
+                            en: {
+                                name: 'EnglishAbstract',
+                                value: this.$parent.model.EnglishAbstract
+                            }
+                        },
+                        selectedLanguage: this.$parent.defaultLanguage,
                         required: true,
-                        value: this.$parent.model.Abstract,
                         type: 'textarea',
-                        label: '@UI.Metadata_Abstract',
+                        label: '@Html.Raw(UI.Metadata_Abstract)',
                         helpText: {
                             active: false,
                             content: 'Oppgi hva tjenesten/datasettet inneholder. Hva finner brukeren i denne tjenesten/datasettet.'
@@ -96,7 +130,7 @@
                         required: true,
                         value: this.$parent.model.Purpose,
                         type: 'textarea',
-                        label: '@UI.Metadata_Purpose',
+                        label: '@Html.Raw(UI.Metadata_Purpose)',
                         helpText: {
                             active: false,
                             content: 'Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her.<br/>Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert.<br/>Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene.'
