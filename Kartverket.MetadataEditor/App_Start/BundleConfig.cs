@@ -10,7 +10,8 @@ namespace Kartverket.MetadataEditor
             bundles.Add(new StyleBundle("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles").Include(
                "~/Content/bower_components/kartverket-felleskomponenter/assets/css/vendor.min.css",
                "~/Content/bower_components/kartverket-felleskomponenter/assets/css/vendorfonts.min.css",
-               "~/Content/bower_components/kartverket-felleskomponenter/assets/css/main.min.css"
+               "~/Content/bower_components/kartverket-felleskomponenter/assets/css/main.min.css",
+               "~/Content/temp.css"
                ));
 
             bundles.Add(new ScriptBundle("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts").Include(
