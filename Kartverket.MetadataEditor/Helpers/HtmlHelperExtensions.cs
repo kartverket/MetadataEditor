@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 
@@ -57,6 +58,11 @@ namespace Kartverket.MetadataEditor.Helpers
         public static string WebmasterEmail(this HtmlHelper helper)
         {
             return WebConfigurationManager.AppSettings["WebmasterEmail"];
+        }
+
+        public static bool SupportsMultiCulture(this HtmlHelper helper)
+        {
+            return Boolean.Parse(WebConfigurationManager.AppSettings["SupportsMultiCulture"]); ;
         }
     }
 }
