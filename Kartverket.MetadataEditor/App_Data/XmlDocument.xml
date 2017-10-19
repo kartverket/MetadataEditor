@@ -151,6 +151,21 @@
               Looks up a localized string similar to Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde..
             </summary>
         </member>
+        <member name="P:Resources.UI.Language_All">
+            <summary>
+              Looks up a localized string similar to Alle.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Language_En">
+            <summary>
+              Looks up a localized string similar to Engelsk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Language_No">
+            <summary>
+              Looks up a localized string similar to Norsk.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Abstract">
             <summary>
               Looks up a localized string similar to Beskrivelse.
