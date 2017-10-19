@@ -1083,6 +1083,15 @@
     <Content Include="Views\Metadata\_ParentIdentifier.cshtml" />
     <Content Include="Views\Metadata\_Admin.cshtml" />
     <Content Include="Views\Metadata\_CrossReference.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_Basic.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_TimeAndSpace.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_Contact.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_Distribution.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_Constraints.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_Keywords.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_Quality.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_Admin.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\_Documents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
