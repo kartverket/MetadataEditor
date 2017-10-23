@@ -211,6 +211,16 @@
               Looks up a localized string similar to Opprettet dato.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_DateMetadataValidFrom">
+            <summary>
+              Looks up a localized string similar to Gyldig fra dato.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_DateMetadataValidTo">
+            <summary>
+              Looks up a localized string similar to Gyldig til dato.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_DatePublished">
             <summary>
               Looks up a localized string similar to Publiseringsdato.
@@ -244,6 +254,11 @@
         <member name="P:Resources.UI.Metadata_Links">
             <summary>
               Looks up a localized string similar to Lenker.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_MaintenanceFrequency">
+            <summary>
+              Looks up a localized string similar to Oppdateringshyppighet.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_NationalTheme_Label">

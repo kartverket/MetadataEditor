@@ -210,6 +210,12 @@
   <data name="Metadata_DateCreated" xml:space="preserve">
     <value>Opprettet dato</value>
   </data>
+  <data name="Metadata_DateMetadataValidFrom" xml:space="preserve">
+    <value>Gyldig fra dato</value>
+  </data>
+  <data name="Metadata_DateMetadataValidTo" xml:space="preserve">
+    <value>Gyldig til dato</value>
+  </data>
   <data name="Metadata_DatePublished" xml:space="preserve">
     <value>Publiseringsdato</value>
   </data>
@@ -230,6 +236,9 @@
   </data>
   <data name="Metadata_Links" xml:space="preserve">
     <value>Lenker</value>
+  </data>
+  <data name="Metadata_MaintenanceFrequency" xml:space="preserve">
+    <value>Oppdateringshyppighet</value>
   </data>
   <data name="Metadata_NationalTheme_Label" xml:space="preserve">
     <value>Nasjonal temakategori</value>

@@ -340,6 +340,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gyldig fra dato.
+        /// </summary>
+        public static string Metadata_DateMetadataValidFrom {
+            get {
+                return ResourceManager.GetString("Metadata_DateMetadataValidFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gyldig til dato.
+        /// </summary>
+        public static string Metadata_DateMetadataValidTo {
+            get {
+                return ResourceManager.GetString("Metadata_DateMetadataValidTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publiseringsdato.
         /// </summary>
         public static string Metadata_DatePublished {
@@ -399,6 +417,15 @@ namespace Resources {
         public static string Metadata_Links {
             get {
                 return ResourceManager.GetString("Metadata_Links", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppdateringshyppighet.
+        /// </summary>
+        public static string Metadata_MaintenanceFrequency {
+            get {
+                return ResourceManager.GetString("Metadata_MaintenanceFrequency", resourceCulture);
             }
         }
         
