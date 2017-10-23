@@ -1100,6 +1100,7 @@
     <Content Include="Views\Shared\VueComponents\Edit\_Quality.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\_Admin.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\_Documents.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_BoundingBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
