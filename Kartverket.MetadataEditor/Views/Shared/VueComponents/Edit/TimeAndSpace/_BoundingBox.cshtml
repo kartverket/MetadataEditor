@@ -18,7 +18,40 @@
                 <div class="form-group has-feedback">
                     <div class="row">
                         <label class="col-md-2 control-label">{{ areaSelect.label }}</label>
+
+
                         <div class="col-md-4">
+
+                            <div class="custom-select-list">
+                                <div class="custom-select-list-input-container">
+                                    <span v-for="area in $parent.$parent.selectedValues.timeAndSpace.boundingBox.areas" class="custom-select-list-selected">
+                                        {{ area.Name }}
+                                        <span v-on:click="removeSelectedArea(area)" class="custom-select-list-remove-button"></span>
+                                    </span>
+                                    <input type="text" class="custom-select-list-input" />
+                                </div>
+
+                                <div class="custom-select-list-dropdown-container">
+                                    <div class="custom-select-list-dropdown">
+                                        <div class="custom-select-list-dropdown-content">
+
+                                            <div v-for="county in areaSelect.counties" class="custom-select-list-option-group">
+                                                    <p class="custom-select-list-option-group-name">{{ county.Name }}</p>
+                                                    <ul class="custom-select-list-options area-option-list">
+                                                        <li v-on:click="addSelectedArea(county)" v-bind:class="{'is-selected': areaIsSelected(county)}">{{ county.Name }}</li>
+                                                        <li v-on:click="addSelectedArea(municipality)" v-bind:class="{'is-selected': areaIsSelected(municipality)}" v-for="municipality in county.Municipalities">{{ municipality.Name }}</li>
+                                                       <!-- <li v-on:click="selectArea(area)" v-bind:class="{'is-selected': (!master && area.isSelected) || (master && isMasterSelected(area)) }" v-for="area in areas">{{ area.name }}</li>-->
+                                                    </ul>
+                                            </div>
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
                             <select multiple v-model="$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas" v-on:change="setBoundingBoxCoordinates">
                                 <optgroup v-for="county in areaSelect.counties" v-bind:label="county.Name">
                                     <option v-bind:value="county">{{ county.Name }}</option>
@@ -26,6 +59,9 @@
                                 </optgroup>
                             </select>
                         </div>
+
+
+
                         <div class="col-md-3">
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
@@ -103,6 +139,28 @@
             };
         },
         methods: {
+            areaIsSelected: function (area) {
+                var areaIsSelected = false;
+                this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.forEach(function (selectedArea) {
+                    if (area.CountyCode !== undefined) {
+                        if (area.CountyCode == selectedArea.CountyCode) areaIsSelected = true;
+                    } else if (area.MunicipalityCode !== undefined) {
+                        if (area.MunicipalityCode == selectedArea.MunicipalityCode) areaIsSelected = true;
+                    }
+                })
+                return areaIsSelected;
+            },
+            removeSelectedArea: function (area) {
+                var selectedAreaIndex = this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.indexOf(area);
+                if (selectedAreaIndex > -1) {
+                    this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.splice(selectedAreaIndex, 1);
+                }
+            },
+            addSelectedArea: function (area) {
+                if (!this.areaIsSelected(area)) {
+                    this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.push(area);
+                }
+            },
             getMunicipalitiesInCounty: function (countyCode) {
                 var municipalitiesInCounty = [];
                 this.$parent.$parent.viewBag.Municipalities.forEach(function (municipality) {
@@ -148,6 +206,7 @@
 
         },
         mounted: function () {
+            initCustomSelectList();
         }
 
     };
