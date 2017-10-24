@@ -1,8 +1,66 @@
-﻿<script type="text/x-template" id="timeAndSpace-template">
+﻿@using Resources
+
+<script type="text/x-template" id="timeAndSpace-template">
     <div>
-        Time and space
+        <form class="form form-horizontal">
+            <div class="form-group has-feedback">
+                <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                    <div class="row">
+                        <label class="col-md-2 control-label">{{ formElement.label }}</label>
+                        <div class="col-md-9">
+                            <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                            <div v-if="formElement.multilingual">
+                                <div class="form-element-tab-group">
+                                    <span v-on:click="formElement.selectedLanguage = 'all'"
+                                          v-bind:class="{active: formElement.selectedLanguage == 'all'}"
+                                          class="form-element-tab">
+                                        {{ $parent.languages['all'] }}
+                                    </span>
+                                    <span v-on:click="formElement.selectedLanguage = language"
+                                          v-for="(binding, language) in formElement.multilingual"
+                                          v-bind:class="{active: formElement.selectedLanguage == language}"
+                                          class="form-element-tab">
+                                        {{ $parent.languages[language] }}
+                                    </span>
+                                </div>
+                                <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual" class="form-group">
+                                    <span v-show="formElement.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
+                                    <input v-bind:name="binding.name" v-if="formElement.type == 'text'" type="text" v-model="binding.value" class="form-control" />
+                                    <input v-bind:name="binding.name" v-else-if="formElement.type == 'datepicker'" type="text" v-model="binding.value" class="form-control date" />
+                                    <textarea v-bind:name="binding.name" v-else-if="formElement.type == 'textarea'" v-model="binding.value" class="form-control" rows="6"></textarea>
+                                    <div v-else-if="formElement.type == 'select'" class="custom-select">
+                                        <select v-bind:name="binding.name" v-model="binding.value" class="form-control">
+                                            <option v-for="option in formElement.options" v-bind:value="option.value">{{option.text}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else class="form-group">
+                                <input v-bind:name="formElement.name" v-if="formElement.type == 'text'" type="text" v-model="formElement.value" class="form-control" />
+                                <input v-bind:name="formElement.name" v-else-if="formElement.type == 'datepicker'" type="text" v-model="formElement.value" class="form-control date" />
+                                <textarea v-bind:name="formElement.name" v-else-if="formElement.type == 'textarea'" v-model="formElement.value" class="form-control" rows="6"></textarea>
+                                <div v-else-if="formElement.type == 'select'" class="custom-select">
+                                    <select v-bind:name="formElement.name" v-model="formElement.value" class="form-control">
+                                        <option v-for="option in formElement.options" v-bind:value="option.Value">{{option.Text}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="formElement.helpText" class="col-md-1">
+                            <p class="form-control-static">
+                                <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div is="bounding-box"></div>
+        </form>
     </div>
 </script>
+
+@Html.Partial("VueComponents/Edit/TimeAndSpace/_BoundingBox")
+
 
 <script>
     var TimeAndSpace = {
@@ -10,6 +68,78 @@
         template: "#timeAndSpace-template",
         props: [],
         components: {
+            boundingBox: BoundingBox
+        },
+        data: function () {
+            return {
+                formElements: [
+                    {
+                        name: 'DateUpdated',
+                        value: this.$parent.model.DateUpdated,
+                        label: '@Html.Raw(UI.Metadata_DateUpdated)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: 'Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.'
+                        }
+                    },
+                    {
+                        name: 'DatePublished',
+                        value: this.$parent.model.DatePublished,
+                        label: '@Html.Raw(UI.Metadata_DatePublished)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: 'Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.'
+                        }
+                    },
+                    {
+                        name: 'DateCreated',
+                        value: this.$parent.model.DateCreated,
+                        label: '@Html.Raw(UI.Metadata_DateCreated)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: 'Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.'
+                        }
+                    },
+                    {
+                        name: 'DateMetadataValidFrom',
+                        value: this.$parent.model.DateMetadataValidFrom,
+                        label: '@Html.Raw(UI.Metadata_DateMetadataValidFrom)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: 'Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.'
+                        }
+                    },
+                    {
+                        name: 'DateMetadataValidTo',
+                        value: this.$parent.model.DateMetadataValidTo,
+                        label: '@Html.Raw(UI.Metadata_DateMetadataValidTo)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: 'Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.'
+                        }
+                    },
+                    {
+                        name: 'MaintenanceFrequency',
+                        value: this.$parent.model.MaintenanceFrequency,
+                        required: true,
+                        label: '@Html.Raw(UI.Metadata_MaintenanceFrequency)',
+                        type: 'select',
+                        options: this.$parent.viewBag.MaintenanceFrequencyValues,
+                        helpText: {
+                            active: false,
+                            content: 'Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert.'
+                        }
+                    }
+                ]
+            };
+        },
+        mounted: function () {
+            this.$parent.initDatePicker();
         }
     };
 </script>
