@@ -8,6 +8,9 @@
 
     string ViewModelSerialized = JsonConvert.SerializeObject(Model);
     var ViewModelJson = @Html.Raw(ViewModelSerialized);
+    string ViewBagSerialized = JsonConvert.SerializeObject(ViewBag);
+    var ViewBagJson = @Html.Raw(ViewBagSerialized);
+
 
     bool showProductSheetGeneratorUrl = false;
     var ProductSheetGeneratorUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"];
@@ -1599,7 +1602,8 @@
                     en: '@UI.Language_En',
                     all: '@UI.Language_All'
                 },
-                model: @ViewModelJson
+                model: @ViewModelJson,
+                viewBag: @ViewBagJson,
             },
             computed: {
                 defaultLanguage: function () {
