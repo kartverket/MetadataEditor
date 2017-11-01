@@ -678,7 +678,8 @@ namespace Kartverket.MetadataEditor.Models
                         URL = metadata.DistributionsFormats[0].URL,
                         Protocol = metadata.DistributionsFormats[0].Protocol,
                         Name = metadata.DistributionsFormats[0].Name,
-                        UnitsOfDistribution = metadata.DistributionsFormats[0].UnitsOfDistribution
+                        UnitsOfDistribution = metadata.DistributionsFormats[0].UnitsOfDistribution,
+                        EnglishUnitsOfDistribution = metadata.DistributionsFormats[0].EnglishUnitsOfDistribution
                     };
                 }
             }
@@ -698,7 +699,8 @@ namespace Kartverket.MetadataEditor.Models
                         URL = distribution[0].URL,
                         Protocol = distribution[0].Protocol,
                         Name = distribution[0].Name,
-                        UnitsOfDistribution = distribution[0].UnitsOfDistribution
+                        UnitsOfDistribution = distribution[0].UnitsOfDistribution,
+                        EnglishUnitsOfDistribution = metadata.DistributionsFormats[0].EnglishUnitsOfDistribution
                     };
                 }
             }
