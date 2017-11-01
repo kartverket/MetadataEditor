@@ -9,6 +9,7 @@ using Kartverket.MetadataEditor.Util;
 using www.opengis.net;
 using GeoNorgeAPI;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -545,6 +546,56 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
+        private List<SimpleDistribution> SetEnglishTranslationForUnitsOfDistributions(List<SimpleDistribution> unitsOfDistributions)
+        {
+            //Get translation
+            Dictionary<string, string> CodeValues = new Dictionary<string, string>();
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/9A46038D-16EE-4562-96D2-8F6304AAB119";
+            System.Net.WebClient client = new System.Net.WebClient();
+            client.Headers.Remove("Accept-Language");
+            client.Headers.Add("Accept-Language", Translations.Culture.EnglishCode);
+            client.Encoding = System.Text.Encoding.UTF8;
+            var data = client.DownloadString(url);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var codeList = response["containeditems"];
+
+            foreach (var code in codeList)
+            {
+                JToken codevalueToken = code["codevalue"];
+                string codevalue = codevalueToken?.ToString();
+
+                if (string.IsNullOrWhiteSpace(codevalue))
+                    codevalue = code["label"].ToString();
+
+                if (!CodeValues.ContainsKey(codevalue))
+                {
+                    CodeValues.Add(codevalue, code["label"].ToString());
+                }
+            }
+
+            for (int i = 0; i < unitsOfDistributions.Count; i++)
+            {
+                string unitsOfDistributionEnglish = "";
+
+                if (!string.IsNullOrEmpty(unitsOfDistributions[i].UnitsOfDistribution))
+                { 
+                var units = unitsOfDistributions[i].UnitsOfDistribution.Split(',');
+                    for(int u=0; u< units.Length; u++)
+                    {
+                        if (CodeValues.ContainsKey(units[u].Trim()))
+                            unitsOfDistributionEnglish = unitsOfDistributionEnglish + CodeValues[units[u].Trim()];
+                        if (u != units.Length - 1)
+                            unitsOfDistributionEnglish = unitsOfDistributionEnglish + ", ";
+                    }
+                }
+
+                unitsOfDistributions[i].EnglishUnitsOfDistribution = unitsOfDistributionEnglish;
+            }
+
+            return unitsOfDistributions;
+        }
+
         private void UpdateMetadataFromModel(MetadataViewModel model, SimpleMetadata metadata)
         {
             metadata.Title = model.Title;
@@ -613,6 +664,8 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.ReferenceSystems = refsys;
 
             var distribution = model.GetDistributionsFormats();
+            distribution = SetEnglishTranslationForUnitsOfDistributions(distribution);
+
 
             if (model.IsDataset() || model.IsDatasetSeries())
             {
