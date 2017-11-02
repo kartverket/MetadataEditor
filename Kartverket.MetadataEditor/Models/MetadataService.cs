@@ -734,31 +734,61 @@ namespace Kartverket.MetadataEditor.Models
                     Responsible = "sosi"
                 });
             }
-            if (model.QualitySpecificationResultSosiConformApplicationSchema)
+
+            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleInspire))
             {
-                qualityList.Add(new SimpleQualitySpecification
+                if (model.QualitySpecificationResultSosiConformApplicationSchema)
                 {
-                    Title = "Sosi applikasjonsskjema",
-                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                    DateType = model.QualitySpecificationDateTypeSosi,
-                    Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
-                    EnglishExplanation = "SOSI files are according to application form",
-                    Result = true,
-                    Responsible = "uml-sosi"
-                });
-            }
-            if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
-            {
-                qualityList.Add(new SimpleQualitySpecification
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = "Sosi applikasjonsskjema",
+                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                        DateType = model.QualitySpecificationDateTypeSosi,
+                        Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
+                        EnglishExplanation = "SOSI files are according to application form",
+                        Result = true,
+                        Responsible = "uml-sosi"
+                    });
+                }
+                else
                 {
-                    Title = "Sosi applikasjonsskjema",
-                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                    DateType = model.QualitySpecificationDateTypeSosi,
-                    Explanation = "GML-filer er i henhold til applikasjonsskjema",
-                    EnglishExplanation = "GML files are according to application form",
-                    Result = true,
-                    Responsible = "uml-gml"
-                });
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = "Sosi applikasjonsskjema",
+                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                        DateType = model.QualitySpecificationDateTypeSosi,
+                        Explanation = "SOSI-filer avviker fra applikasjonsskjema",
+                        EnglishExplanation = "SOSI files are not according to application form",
+                        Result = false,
+                        Responsible = "uml-sosi"
+                    });
+                }
+                if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
+                {
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = "Sosi applikasjonsskjema",
+                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                        DateType = model.QualitySpecificationDateTypeSosi,
+                        Explanation = "GML-filer er i henhold til applikasjonsskjema",
+                        EnglishExplanation = "GML files are according to application form",
+                        Result = true,
+                        Responsible = "uml-gml"
+                    });
+                }
+                else
+                {
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = "Sosi applikasjonsskjema",
+                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                        DateType = model.QualitySpecificationDateTypeSosi,
+                        Explanation = "GML-filer avviker fra applikasjonsskjema",
+                        EnglishExplanation = "GML files are not according to application form",
+                        Result = false,
+                        Responsible = "uml-gml"
+                    });
+                }
             }
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
             {
