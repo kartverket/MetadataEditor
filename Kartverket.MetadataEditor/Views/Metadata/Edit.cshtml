@@ -770,7 +770,6 @@
 
 
             var otherSpec = function (event) {
-                if (event) {
                     var selectedOtherSpec = $('#ProductSpecificationOther_Name').val();
                     if (selectedOtherSpec != "") {
                         $("#QualitySpecificationTitle").val("Produktspesifikasjon: " + selectedOtherSpec);
@@ -790,7 +789,6 @@
                         $("#QualitySpecificationResultConform").prop('checked', false);
                         $('#QualitySpecificationCustom').hide();
                     }
-                }
             };
 
             $("#ProductSpecificationOther_Name").on("change", otherSpec);
