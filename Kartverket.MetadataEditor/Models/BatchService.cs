@@ -428,6 +428,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
                 metadata.KeywordsNationalInitiative = null;
+                metadata.QualitySpecificationTitleInspire = null;
                 _metadataService.SaveMetadataModel(metadata, username);
 
                 Log.Info("Batch remove KeywordsNationalTheme, uuid: " + uuid );
