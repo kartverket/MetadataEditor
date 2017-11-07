@@ -10,7 +10,7 @@
 }
 
 @section breadcrumb{
-    <li>@Model.Title</li>
+    <li>@Model.TitleFromSelectedLanguage</li>
 }
 
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
@@ -96,7 +96,7 @@
     </div>
 
     <h3>@ViewBag.Title</h3>
-    <h2>@Model.Title</h2>
+    <h2>@Model.TitleFromSelectedLanguage</h2>
 
     @if (ViewBag.Saved == true)
     {

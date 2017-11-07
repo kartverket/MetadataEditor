@@ -135,6 +135,9 @@
   <data name="Button_Validate" xml:space="preserve">
     <value>Publiser</value>
   </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Kontakt oss</value>
+  </data>
   <data name="Contact_Email" xml:space="preserve">
     <value>Kontaktperson - Epost</value>
   </data>
@@ -149,6 +152,16 @@
   </data>
   <data name="EditMetadata" xml:space="preserve">
     <value>Rediger metadata</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Feil</value>
+  </data>
+  <data name="ErrorInfo" xml:space="preserve">
+    <value>Det har desverre skjedd en feil med din forespørsel. Prøv igjen om litt.</value>
+  </data>
+  <data name="ErrorReport" xml:space="preserve">
+    <value>&lt;p&gt;Feilen er logget og vil sjekkes av systemansvarlig.&lt;/p&gt;
+&lt;p&gt;Du kan også rapportere feilen til &lt;a mailto:"post@norgedigitalt.no"&gt;post@norgedigitalt.no&lt;/a&gt;.&lt;/p&gt;</value>
   </data>
   <data name="Error_InvalidUuid" xml:space="preserve">
     <value>Ugyldig uuid</value>
@@ -173,6 +186,9 @@
   </data>
   <data name="Helptext_Image" xml:space="preserve">
     <value>Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde.</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Forside</value>
   </data>
   <data name="Language_All" xml:space="preserve">
     <value>Alle</value>
@@ -279,6 +295,9 @@
   <data name="MyMetadata_Label" xml:space="preserve">
     <value>Mine metadata</value>
   </data>
+  <data name="NotFoundText" xml:space="preserve">
+    <value>Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre.</value>
+  </data>
   <data name="Organization" xml:space="preserve">
     <value>Organisasjon</value>
   </data>
@@ -287,6 +306,9 @@
   </data>
   <data name="PropertyValueRequired" xml:space="preserve">
     <value>{0} er et påkrevd felt.</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Søk</value>
   </data>
   <data name="SimpleMetadata_Title" xml:space="preserve">
     <value>Navn på datasett</value>
