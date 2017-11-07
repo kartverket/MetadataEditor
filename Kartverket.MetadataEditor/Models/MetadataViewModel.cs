@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Resources;
 using System.Linq;
+using Kartverket.MetadataEditor.Helpers;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -37,6 +38,8 @@ namespace Kartverket.MetadataEditor.Models
         [Required(ErrorMessage=null)]
         [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
+
+        public string TitleFromSelectedLanguage { get; set; }
 
         //[Required(ErrorMessage = null)]
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
@@ -471,6 +474,14 @@ namespace Kartverket.MetadataEditor.Models
                 { "infoCatalogueService"  , "infoCatalogueService" },
                 { "spatialProcessingService"  , "spatialProcessingService" }
             };
+
+        public string NameTranslated()
+        {
+            return CultureHelper.IsNorwegian()
+                ? Title
+                : (!string.IsNullOrWhiteSpace(EnglishTitle) ? EnglishTitle : Title);
+        }
+
 
     }
 

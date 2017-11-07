@@ -313,6 +313,8 @@ namespace Kartverket.MetadataEditor.Models
 
             getQualitySpecifications(model, metadata);
 
+            // Translations
+            model.TitleFromSelectedLanguage = model.NameTranslated();
 
             return model;
         }

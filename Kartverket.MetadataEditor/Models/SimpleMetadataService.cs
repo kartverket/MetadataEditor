@@ -214,6 +214,8 @@ namespace Kartverket.MetadataEditor.Models
                 model.BoundingBoxSouth = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.SouthBoundLatitude);
             }
 
+            // Translations
+            model.TitleFromSelectedLanguage = model.TitleTranslated();
             return model;
         }
 

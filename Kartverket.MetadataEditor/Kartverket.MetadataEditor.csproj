@@ -1061,7 +1061,6 @@
     <Content Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="settings.config" />
     <Content Include="Views\Metadata\_Keywords.cshtml" />
     <Content Include="Views\Shared\_NavbarPartial.cshtml" />
     <Content Include="Views\Metadata\RegisterData.cshtml" />
@@ -1101,6 +1100,7 @@
     <Content Include="Views\Shared\VueComponents\Edit\_Admin.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\_Documents.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_BoundingBox.cshtml" />
+    <Content Include="settings.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

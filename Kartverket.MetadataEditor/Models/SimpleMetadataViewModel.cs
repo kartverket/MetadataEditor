@@ -4,6 +4,7 @@ using GeoNorgeAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Kartverket.MetadataEditor.Helpers;
 using Resources;
 
 namespace Kartverket.MetadataEditor.Models
@@ -27,7 +28,7 @@ namespace Kartverket.MetadataEditor.Models
         [Required(ErrorMessage = null)]
         [Display(Name = "SimpleMetadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
-
+        public string TitleFromSelectedLanguage { get; set; }
 
         [Required(ErrorMessage = "Sammendrag er påkrevd")]
         [Display(Name = "Metadata_Abstract", ResourceType = typeof(UI))]
@@ -208,6 +209,13 @@ namespace Kartverket.MetadataEditor.Models
             allKeywords.AddRange(CreateKeywords(KeywordsNationalTheme, "NationalTheme", null, SimpleKeyword.THESAURUS_NATIONAL_THEME));
             allKeywords.AddRange(CreateKeywords(KeywordsPlace, "Place", SimpleKeyword.TYPE_PLACE, null));
             return allKeywords;
+        }
+
+        public string TitleTranslated()
+        {
+            return CultureHelper.IsNorwegian()
+                ? Title
+                : (!string.IsNullOrWhiteSpace(EnglishTitle) ? EnglishTitle : Title);
         }
 
     }
