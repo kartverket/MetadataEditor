@@ -12,6 +12,8 @@ using System;
 using log4net;
 using Raven.Client.Document;
 using Raven.Client.Embedded;
+using System.Web;
+using Kartverket.MetadataEditor.Models.Translations;
 
 namespace Kartverket.MetadataEditor
 {
@@ -38,11 +40,6 @@ namespace Kartverket.MetadataEditor
 
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredAttribute), typeof(MyRequiredAttributeAdapter));
 
-            // setting locale
-            var culture = new CultureInfo("nb-NO");
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
-
             // init log4net
             log4net.Config.XmlConfigurator.Configure();
 
@@ -58,6 +55,23 @@ namespace Kartverket.MetadataEditor
             Exception ex = Server.GetLastError().GetBaseException();
 
             log.Error("App_Error", ex);
+        }
+
+        protected void Application_BeginRequest()
+        {
+            var cookie = Context.Request.Cookies["_culture"];
+            if (cookie == null)
+            {
+                cookie = new HttpCookie("_culture", Culture.NorwegianCode);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+
+            if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
+            {
+                var culture = new CultureInfo(cookie.Value);
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+            }
         }
     }
 }

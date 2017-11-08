@@ -9,6 +9,7 @@ using Kartverket.MetadataEditor.Util;
 using www.opengis.net;
 using GeoNorgeAPI;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -545,6 +546,56 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
+        private List<SimpleDistribution> SetEnglishTranslationForUnitsOfDistributions(List<SimpleDistribution> unitsOfDistributions)
+        {
+            //Get translation
+            Dictionary<string, string> CodeValues = new Dictionary<string, string>();
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/9A46038D-16EE-4562-96D2-8F6304AAB119";
+            System.Net.WebClient client = new System.Net.WebClient();
+            client.Headers.Remove("Accept-Language");
+            client.Headers.Add("Accept-Language", Translations.Culture.EnglishCode);
+            client.Encoding = System.Text.Encoding.UTF8;
+            var data = client.DownloadString(url);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var codeList = response["containeditems"];
+
+            foreach (var code in codeList)
+            {
+                JToken codevalueToken = code["codevalue"];
+                string codevalue = codevalueToken?.ToString();
+
+                if (string.IsNullOrWhiteSpace(codevalue))
+                    codevalue = code["label"].ToString();
+
+                if (!CodeValues.ContainsKey(codevalue))
+                {
+                    CodeValues.Add(codevalue, code["label"].ToString());
+                }
+            }
+
+            for (int i = 0; i < unitsOfDistributions.Count; i++)
+            {
+                string unitsOfDistributionEnglish = "";
+
+                if (!string.IsNullOrEmpty(unitsOfDistributions[i].UnitsOfDistribution))
+                { 
+                var units = unitsOfDistributions[i].UnitsOfDistribution.Split(',');
+                    for(int u=0; u< units.Length; u++)
+                    {
+                        if (CodeValues.ContainsKey(units[u].Trim()))
+                            unitsOfDistributionEnglish = unitsOfDistributionEnglish + CodeValues[units[u].Trim()];
+                        if (u != units.Length - 1)
+                            unitsOfDistributionEnglish = unitsOfDistributionEnglish + ", ";
+                    }
+                }
+
+                unitsOfDistributions[i].EnglishUnitsOfDistribution = unitsOfDistributionEnglish;
+            }
+
+            return unitsOfDistributions;
+        }
+
         private void UpdateMetadataFromModel(MetadataViewModel model, SimpleMetadata metadata)
         {
             metadata.Title = model.Title;
@@ -613,6 +664,8 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.ReferenceSystems = refsys;
 
             var distribution = model.GetDistributionsFormats();
+            distribution = SetEnglishTranslationForUnitsOfDistributions(distribution);
+
 
             if (model.IsDataset() || model.IsDatasetSeries())
             {
@@ -625,7 +678,8 @@ namespace Kartverket.MetadataEditor.Models
                         URL = metadata.DistributionsFormats[0].URL,
                         Protocol = metadata.DistributionsFormats[0].Protocol,
                         Name = metadata.DistributionsFormats[0].Name,
-                        UnitsOfDistribution = metadata.DistributionsFormats[0].UnitsOfDistribution
+                        UnitsOfDistribution = metadata.DistributionsFormats[0].UnitsOfDistribution,
+                        EnglishUnitsOfDistribution = metadata.DistributionsFormats[0].EnglishUnitsOfDistribution
                     };
                 }
             }
@@ -645,7 +699,8 @@ namespace Kartverket.MetadataEditor.Models
                         URL = distribution[0].URL,
                         Protocol = distribution[0].Protocol,
                         Name = distribution[0].Name,
-                        UnitsOfDistribution = distribution[0].UnitsOfDistribution
+                        UnitsOfDistribution = distribution[0].UnitsOfDistribution,
+                        EnglishUnitsOfDistribution = metadata.DistributionsFormats[0].EnglishUnitsOfDistribution
                     };
                 }
             }
@@ -679,31 +734,61 @@ namespace Kartverket.MetadataEditor.Models
                     Responsible = "sosi"
                 });
             }
-            if (model.QualitySpecificationResultSosiConformApplicationSchema)
+
+            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleInspire))
             {
-                qualityList.Add(new SimpleQualitySpecification
+                if (model.QualitySpecificationResultSosiConformApplicationSchema)
                 {
-                    Title = "Sosi applikasjonsskjema",
-                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                    DateType = model.QualitySpecificationDateTypeSosi,
-                    Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
-                    EnglishExplanation = "SOSI files are according to application form",
-                    Result = true,
-                    Responsible = "uml-sosi"
-                });
-            }
-            if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
-            {
-                qualityList.Add(new SimpleQualitySpecification
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = "Sosi applikasjonsskjema",
+                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                        DateType = model.QualitySpecificationDateTypeSosi,
+                        Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
+                        EnglishExplanation = "SOSI files are according to application form",
+                        Result = true,
+                        Responsible = "uml-sosi"
+                    });
+                }
+                else
                 {
-                    Title = "Sosi applikasjonsskjema",
-                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                    DateType = model.QualitySpecificationDateTypeSosi,
-                    Explanation = "GML-filer er i henhold til applikasjonsskjema",
-                    EnglishExplanation = "GML files are according to application form",
-                    Result = true,
-                    Responsible = "uml-gml"
-                });
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = "Sosi applikasjonsskjema",
+                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                        DateType = model.QualitySpecificationDateTypeSosi,
+                        Explanation = "SOSI-filer avviker fra applikasjonsskjema",
+                        EnglishExplanation = "SOSI files are not according to application form",
+                        Result = false,
+                        Responsible = "uml-sosi"
+                    });
+                }
+                if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
+                {
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = "Sosi applikasjonsskjema",
+                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                        DateType = model.QualitySpecificationDateTypeSosi,
+                        Explanation = "GML-filer er i henhold til applikasjonsskjema",
+                        EnglishExplanation = "GML files are according to application form",
+                        Result = true,
+                        Responsible = "uml-gml"
+                    });
+                }
+                else
+                {
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = "Sosi applikasjonsskjema",
+                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                        DateType = model.QualitySpecificationDateTypeSosi,
+                        Explanation = "GML-filer avviker fra applikasjonsskjema",
+                        EnglishExplanation = "GML files are not according to application form",
+                        Result = false,
+                        Responsible = "uml-gml"
+                    });
+                }
             }
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
             {
