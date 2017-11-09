@@ -1314,8 +1314,6 @@
             distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
                 formatNameElement = $(distributionFormatRowElement).find(".distributionFormats-formatName");
                 formatNameElement.html(getFormatNameSelectListOptionElements(spatialRepresentation));
-                nameElement = $(distributionFormatRowElement).find(".distributionFormats-formatName");
-                nameElement.val(spatialRepresentation);
             });
         }
 
