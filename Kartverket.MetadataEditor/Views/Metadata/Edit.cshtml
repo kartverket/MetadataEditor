@@ -555,40 +555,40 @@
                     if (selectedSpatialRepresentation == "vector") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
                         @foreach (var df in ViewBag.VectorFormats as SelectList)
-                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="@df.Value">@df.Text</option>');</text>}
+                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>@df.Text</option>');</text>}
                     } else if (selectedSpatialRepresentation == "grid") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
                         @foreach (var df in ViewBag.RasterFormats as SelectList)
-                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="@df.Value">@df.Text</option>');</text>}
+                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>@df.Text</option>');</text>}
                     } else if (selectedSpatialRepresentation == "textTable") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="CSV">CSV</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Microsoft Excel">Microsoft Excel</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="DBF">DBF</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Tekstfil">Tekstfil</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>CSV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>Microsoft Excel</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>DBF</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>Tekstfil</option>');
                     } else if (selectedSpatialRepresentation == "tin") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Intergraph TIN">Intergraph TIN</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="ESRI TIN">ESRI TIN</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="GEOPAK TIN">GEOPAK TIN</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="LandXML TIN">LandXML TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>Intergraph TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>ESRI TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>GEOPAK TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>LandXML TIN</option>');
                     } else if (selectedSpatialRepresentation == "stereoModel") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Intergraph TIN">Intergraph TIN</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="JPEG">JPEG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>Intergraph TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>JPEG</option>');
                     } else if (selectedSpatialRepresentation == "video") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MPEG">MPEG</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="AVI">AVI</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MOV">MOV</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="OGG">OGG</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="WMV">WMV</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="RealVideo">RealVideo</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="RMVB">RMVB</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="FLASH">FLASH</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="ASF">ASF</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MP4">MP4</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="QuickTime">QuickTime</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>MPEG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>AVI</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>MOV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>OGG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>WMV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>RealVideo</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>RMVB</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>FLASH</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>ASF</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>MP4</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>QuickTime</option>');
                     }
                 }
             });
