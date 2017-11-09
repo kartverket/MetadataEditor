@@ -375,6 +375,23 @@ var baseurl_local = searchOption.baseUrl;
     $rootScope.selectedSearch = searchOption;
     $rootScope.searchQuery = parseLocation(window.location.search).text;
     $rootScope.activePageUrl = "//" + window.location.host + window.location.pathname + window.location.search; 
+
+    // Values based on selected language
+    if (cultureData === undefined || cultureData.currentCulture === undefined || cultureData.currentCulture == 'no') {
+      $rootScope.showAllText = "Vis alle treff...";
+      $rootScope.noResultsText = "Søket gir ingen treff";
+      $rootScope.loadingContentText = "Henter innhold";
+      $rootScope.loadingSearchResultsText = "Henter søkeresultater";
+    } else if (cultureData.currentCulture == 'en') {
+      $rootScope.showAllText = "Show all results...";
+      $rootScope.noResultsText = "Your search did not return any data";
+      $rootScope.loadingContentText = "Loading content";
+      $rootScope.loadingSearchResultsText = "Loading search results";
+    }
+
+    
+
+
     $scope.autoCompleteResult = [];
 
     $scope.autoCompletePartial = '/Content/bower_components/kartverket-felleskomponenter/assets/partials/_autoCompleteRow.html';
@@ -628,18 +645,34 @@ var baseurl_local = searchOption.baseUrl;
                   }
 
                   function getType(type) {
-                    switch (type) {
-                      case "dataset":
-                      return "Datasett";
-                      case "servicelayer":
-                      return "Tjenestelag";
-                      case "service":
-                      return "Tjenester";
-                      case "dimensionGroup":
-                      return "Datapakker";
-                      case "software":
-                      return "Applikasjon";
-                      default:
+                    if (cultureData.currentCulture === undefined || cultureData.currentCulture == 'no') {
+                      switch (type) {
+                        case "dataset":
+                        return "Datasett";
+                        case "servicelayer":
+                        return "Tjenestelag";
+                        case "service":
+                        return "Tjenester";
+                        case "dimensionGroup":
+                        return "Datapakker";
+                        case "software":
+                        return "Applikasjon";
+                        default:
+                      }
+                    } else if (cultureData.currentCulture == 'en') {
+                      switch (type) {
+                        case "dataset":
+                        return "Dataset";
+                        case "servicelayer":
+                        return "Service layer";
+                        case "service":
+                        return "Service";
+                        case "dimensionGroup":
+                        return "Data package";
+                        case "software":
+                        return "Application";
+                        default:
+                      }
                     }
                   }
 
