@@ -110,7 +110,7 @@ namespace Kartverket.MetadataEditor.Models
         OfficeOpenXml.ExcelPackage excelPackage;
         OfficeOpenXml.ExcelWorksheet workSheet;
 
-        public void Update(HttpPostedFileBase file, string username, string metadatafield, bool deleteData)
+        public void Update(HttpPostedFileBase file, string username, string metadatafield, bool deleteData, string metadatafieldEnglish)
         {
             excelPackage = new OfficeOpenXml.ExcelPackage();
             excelPackage.Load(file.InputStream);
@@ -128,9 +128,57 @@ namespace Kartverket.MetadataEditor.Models
                 UpdateDistributionFormats(username, deleteData);
             else if (metadatafield == "ReferenceSystems")
                 UpdateReferenceSystems(username, deleteData);
+            else if (metadatafield == "EnglishTexts")
+                UpdateEnglishTexts(username, deleteData, metadatafieldEnglish);
 
             excelPackage.Dispose();
 
+        }
+
+        private void UpdateEnglishTexts(string username, bool deleteData, string metadatafieldEnglish)
+        {
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var english = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(english) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                        SaveEnglish(uuid, english, username, metadatafieldEnglish);
+                }
+            }
+        }
+
+        private void SaveEnglish(string uuid, string english, string username, string metadatafieldEnglish)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+
+                if (metadatafieldEnglish == "EnglishTitle")
+                    metadata.EnglishTitle = english;
+                else if (metadatafieldEnglish == "EnglishAbstract")
+                    metadata.EnglishAbstract = english;
+                else if (metadatafieldEnglish == "EnglishSupplementalDescription")
+                    metadata.EnglishSupplementalDescription = english;
+                else if (metadatafieldEnglish == "EnglishSpecificUsage")
+                    metadata.EnglishSpecificUsage = english;
+                else if (metadatafieldEnglish == "EnglishPurpose")
+                    metadata.EnglishPurpose = english;
+                else if (metadatafieldEnglish == "EnglishProcessHistory")
+                    metadata.EnglishProcessHistory = english;
+
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", " + metadatafieldEnglish + " = "  + english);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
         }
 
         void UpdateTheme(string username)
