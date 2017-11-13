@@ -55,11 +55,13 @@
                 </div>
             </div>
             <div is="bounding-box"></div>
+            <div is="coverage"></div>
         </form>
     </div>
 </script>
 
 @Html.Partial("VueComponents/Edit/TimeAndSpace/_BoundingBox")
+@Html.Partial("VueComponents/Edit/TimeAndSpace/_Coverage")
 
 
 <script>
@@ -68,7 +70,8 @@
         template: "#timeAndSpace-template",
         props: [],
         components: {
-            boundingBox: BoundingBox
+            boundingBox: BoundingBox,
+            coverage: Coverage
         },
         data: function () {
             return {

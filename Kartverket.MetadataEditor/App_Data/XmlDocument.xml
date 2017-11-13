@@ -101,6 +101,11 @@
               Looks up a localized string similar to Kontaktperson - Organisasjonsnavn.
             </summary>
         </member>
+        <member name="P:Resources.UI.ContactUs">
+            <summary>
+              Looks up a localized string similar to Kontakt oss.
+            </summary>
+        </member>
         <member name="P:Resources.UI.DateCreated_InvalidDate">
             <summary>
               Looks up a localized string similar to Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014..
@@ -111,10 +116,26 @@
               Looks up a localized string similar to Rediger metadata.
             </summary>
         </member>
+        <member name="P:Resources.UI.Error">
+            <summary>
+              Looks up a localized string similar to Feil.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Error_InvalidUuid">
             <summary>
               Looks up a localized string similar to Ugyldig uuid.
             </summary>
+        </member>
+        <member name="P:Resources.UI.ErrorInfo">
+            <summary>
+              Looks up a localized string similar to Det har desverre skjedd en feil med din forespørsel. Prøv igjen om litt..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ErrorReport">
+             <summary>
+               Looks up a localized string similar to &lt;p&gt;Feilen er logget og vil sjekkes av systemansvarlig.&lt;/p&gt;
+            &lt;p&gt;Du kan også rapportere feilen til &lt;a mailto:&quot;post@norgedigitalt.no&quot;&gt;post@norgedigitalt.no&lt;/a&gt;.&lt;/p&gt;.
+             </summary>
         </member>
         <member name="P:Resources.UI.FieldMustBeDate">
             <summary>
@@ -149,6 +170,11 @@
         <member name="P:Resources.UI.Helptext_Image">
             <summary>
               Looks up a localized string similar to Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Home">
+            <summary>
+              Looks up a localized string similar to Forside.
             </summary>
         </member>
         <member name="P:Resources.UI.Language_All">
@@ -204,6 +230,61 @@
         <member name="P:Resources.UI.Metadata_Contact_Organization_Required">
             <summary>
               Looks up a localized string similar to Organisasjonsnavn er feil..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageImage_Image">
+            <summary>
+              Looks up a localized string similar to Angi bildefil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageImage_Select">
+            <summary>
+              Looks up a localized string similar to Velg fil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageImage_Upload">
+            <summary>
+              Looks up a localized string similar to Last opp.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageServiceMap_Layer">
+            <summary>
+              Looks up a localized string similar to Kartlagsnavn.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageServiceMap_Type">
+            <summary>
+              Looks up a localized string similar to Tjenestetype.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageServiceMap_Url">
+            <summary>
+              Looks up a localized string similar to TjenesteURL.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageType">
+            <summary>
+              Looks up a localized string similar to Type dekningskart.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageType_ImageCoverage">
+            <summary>
+              Looks up a localized string similar to Bildefil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageType_Mapservice">
+            <summary>
+              Looks up a localized string similar to Karttjenestelag.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageType_Webpage">
+            <summary>
+              Looks up a localized string similar to Webside.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageWebsite_Url">
+            <summary>
+              Looks up a localized string similar to Webside.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_DateCreated">
@@ -326,6 +407,11 @@
               Looks up a localized string similar to Mine metadata.
             </summary>
         </member>
+        <member name="P:Resources.UI.NotFoundText">
+            <summary>
+              Looks up a localized string similar to Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre..
+            </summary>
+        </member>
         <member name="P:Resources.UI.Organization">
             <summary>
               Looks up a localized string similar to Organisasjon.
@@ -339,6 +425,11 @@
         <member name="P:Resources.UI.PropertyValueRequired">
             <summary>
               Looks up a localized string similar to {0} er et påkrevd felt..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Search">
+            <summary>
+              Looks up a localized string similar to Søk.
             </summary>
         </member>
         <member name="P:Resources.UI.SimpleMetadata_Title">

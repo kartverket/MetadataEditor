@@ -223,6 +223,39 @@
   <data name="Metadata_Contact_Organization_Required" xml:space="preserve">
     <value>Organisasjonsnavn er feil.</value>
   </data>
+  <data name="Metadata_CoverageImage_Image" xml:space="preserve">
+    <value>Angi bildefil</value>
+  </data>
+  <data name="Metadata_CoverageImage_Select" xml:space="preserve">
+    <value>Velg fil</value>
+  </data>
+  <data name="Metadata_CoverageImage_Upload" xml:space="preserve">
+    <value>Last opp</value>
+  </data>
+  <data name="Metadata_CoverageServiceMap_Layer" xml:space="preserve">
+    <value>Kartlagsnavn</value>
+  </data>
+  <data name="Metadata_CoverageServiceMap_Type" xml:space="preserve">
+    <value>Tjenestetype</value>
+  </data>
+  <data name="Metadata_CoverageServiceMap_Url" xml:space="preserve">
+    <value>TjenesteURL</value>
+  </data>
+  <data name="Metadata_CoverageType" xml:space="preserve">
+    <value>Type dekningskart</value>
+  </data>
+  <data name="Metadata_CoverageType_ImageCoverage" xml:space="preserve">
+    <value>Bildefil</value>
+  </data>
+  <data name="Metadata_CoverageType_Mapservice" xml:space="preserve">
+    <value>Karttjenestelag</value>
+  </data>
+  <data name="Metadata_CoverageType_Webpage" xml:space="preserve">
+    <value>Webside</value>
+  </data>
+  <data name="Metadata_CoverageWebsite_Url" xml:space="preserve">
+    <value>Webside</value>
+  </data>
   <data name="Metadata_DateCreated" xml:space="preserve">
     <value>Opprettet dato</value>
   </data>

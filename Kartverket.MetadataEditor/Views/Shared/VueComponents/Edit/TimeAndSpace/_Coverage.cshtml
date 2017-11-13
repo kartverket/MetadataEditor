@@ -1,0 +1,216 @@
+﻿@using Resources
+
+<script type="text/x-template" id="coverage-template">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">Angi dekningskart</div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group has-feedback">
+                <div class="form-group has-feedback">
+                    <div class="row">
+                        <label class="col-md-2 control-label">{{ coverageType.label }}</label>
+                        <div class="col-md-3">
+                            <div class="custom-select">
+                                <select v-model="coverageType.value" class="form-control">
+                                    <option v-bind:value="option.value" v-for="option in coverageType.options">{{ option.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-show="coverageType.value == 'webpage'">
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ url.fields.websiteUrl.label }}</label>
+                            <div class="col-md-5">
+                                <input v-bind:type="url.type" v-model="url.value" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-show="coverageType.value == 'mapservice'">
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ coverageType.label }}</label>
+                            <div class="col-md-3">
+                                <div class="radio" v-for="option in mapServiceType.options">
+                                    <label>
+                                        <input v-model="mapServiceType.value" v-bind:name="mapServiceType.name" v-bind:type="mapServiceType.type" v-bind:value="option.value" />
+                                        {{ option.name }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ url.fields.mapServiceUrl.label }}</label>
+                            <div class="col-md-5">
+                                <input v-bind:type="url.type" v-model="url.value" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ mapServiceLayerName.label }}</label>
+                            <div class="col-md-5">
+                                <input v-bind:name="mapServiceLayerName.name" type="text" v-model="mapServiceLayerName.value" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-show="coverageType.value == 'imageCoverage'">
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ coverageFile.label }}</label>
+                            <div class="col-md-4">
+                                <input id="coverageFile" v-bind:type="coverageFile.type" class="form-control" disabled />
+                                <span class="input-group-btn" tabindex="0">
+                                    <label for="coverageFile" class="btn btn-default ">
+                                        <span class="glyphicon glyphicon-folder-open"></span> Velg fil
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn" type="submit" id="uploadCoverageButton">Last opp</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <input v-bind:name="computedCoverageUrl.name" type="text" v-model="computedCoverageUrl.value" class="form-control" />
+        </div>
+    </div>
+</script>
+
+<script>
+    var Coverage = {
+        name: "coverage",
+        template: "#coverage-template",
+        props: [],
+        components: {
+        },
+        data: function () {
+            return {
+                coverageType: {
+                    name: '',
+                    value: '',
+                    label: '@Html.Raw(UI.Metadata_CoverageType)',
+                    type: 'select',
+                    options: [
+                        { name: '@Html.Raw(UI.Metadata_CoverageType_Webpage)', value: 'webpage' },
+                        { name: '@Html.Raw(UI.Metadata_CoverageType_Mapservice)', value: 'mapservice' },
+                        { name: '@Html.Raw(UI.Metadata_CoverageType_ImageCoverage)', value: 'imageCoverage' }
+                    ]
+                },
+                url: {
+                    value: '',
+                    type: 'text',
+                    fields: {
+                        websiteUrl: {
+                            label: '@Html.Raw(UI.Metadata_CoverageWebsite_Url)',
+                        },
+                        mapServiceUrl: {
+                            label: '@Html.Raw(UI.Metadata_CoverageServiceMap_Url)',
+                        }
+                    }
+                },
+                mapServiceType: {
+                    name: 'mapServiceType',
+                    label: '@Html.Raw(UI.Metadata_CoverageServiceMap_Type)',
+                    type: 'radio',
+                    value: '',
+                    options: [
+                        { name: 'WMS', value: 'WMS' },
+                        { name: 'WFS', value: 'WFS' },
+                        { name: 'GeoJSON', value: 'GeoJSON' }
+                    ]
+                },
+                mapServiceLayerName: {
+                    name: 'mapServiceLayerName',
+                    value: '',
+                    label: '@Html.Raw(UI.Metadata_CoverageServiceMap_Layer)',
+                    type: 'text'
+                },
+                coverageFile: {
+                    type: 'file',
+                    label: '@Html.Raw(UI.Metadata_CoverageImage_Image)'
+                }
+            }
+        },
+        computed: {
+           computedCoverageUrl: function () {
+               var coverageUrl = this.$parent.$parent.model.CoverageUrl;
+
+                var computedCoverageUrl = {
+                    name: 'CoverageUrl',
+                    value: 'test',
+                    label: 'Coverage URL',
+                    type: 'text'
+               };
+
+                if (this.coverageType.value == 'webpage') {
+                    computedCoverageUrl.value = this.url.value;
+                } else if (this.coverageType.value == 'mapservice') {
+                    computedCoverageUrl.value = 'TYPE:' + this.mapServiceType.value + '@@PATH:' + this.url.value + '@@LAYER:' + this.mapServiceLayerName.value;
+                } else if (this.coverageType.value == 'imageCoverage') {
+                    computedCoverageUrl.value = this.computedThumbnailUrl;
+                }
+                return computedCoverageUrl;
+            },
+           computedThumbnailUrl: function () {
+               var computedThumbnailUrl = '';
+               if (this.$parent.$parent.model.Thumbnails !== undefined && this.$parent.$parent.model.Thumbnails.length) {
+                   this.$parent.$parent.model.Thumbnails.forEach(function (thumbnail) {
+                       if (thumbnail.Type == 'dekningsoversikt')
+                           computedThumbnailUrl = thumbnail.URL;
+                   });
+               }
+               return computedThumbnailUrl;
+           }
+        },
+        methods: {
+            getValueFromCoverageUrl: function (regex) {
+                var valueFromCoverageUrl = '';
+                var regexResult;
+                if ((regexResult = regex.exec(this.$parent.$parent.model.CoverageUrl)) !== null) {
+                    regexResult.forEach(function (match, groupIndex) {
+                        valueFromCoverageUrl = match;
+                    });
+                }
+                return valueFromCoverageUrl;
+            },
+            getMapServiceType: function () {
+                var regex = /TYPE:(.*)@@PATH:/;
+                return this.getValueFromCoverageUrl(regex);
+            },
+            getMapServiceUrl: function () {
+                var regex = /@@PATH:(.*)@@LAYER:/;
+                return this.getValueFromCoverageUrl(regex);
+            },
+            getMapServiceLayerName: function () {
+                var regex = /@@LAYER:(.*)/;
+                return this.getValueFromCoverageUrl(regex);
+            },
+            isMapService: function () {
+                var regex = /TYPE:(.*)@@PATH(.*)@@LAYER:(.*)/;
+                return this.getValueFromCoverageUrl(regex) !== '';
+            },
+            getSelectedCoverageType: function () {
+                if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
+                else if (isMapService) this.coverageType = 'mapservice';
+                else this.coverageType = 'webpage';
+            }
+        },
+        created: function () {
+
+        },
+        mounted: function () {
+            this.mapServiceType.value = this.getMapServiceType();
+            this.url.value = this.getMapServiceUrl();
+            this.mapServiceLayerName.value = this.getMapServiceLayerName();
+            this.getSelectedCoverageType();
+        }
+
+    };
+</script>
+
+

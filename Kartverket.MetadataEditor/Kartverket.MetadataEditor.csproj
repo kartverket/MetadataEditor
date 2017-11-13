@@ -1109,9 +1109,11 @@
     <Content Include="Views\Shared\VueComponents\Edit\_Documents.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_BoundingBox.cshtml" />
     <Content Include="settings.config" />
+    <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_Coverage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
+    <Folder Include="thumbnails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

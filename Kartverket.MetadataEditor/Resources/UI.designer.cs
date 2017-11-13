@@ -377,6 +377,105 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angi bildefil.
+        /// </summary>
+        public static string Metadata_CoverageImage_Image {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageImage_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg fil.
+        /// </summary>
+        public static string Metadata_CoverageImage_Select {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageImage_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last opp.
+        /// </summary>
+        public static string Metadata_CoverageImage_Upload {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageImage_Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kartlagsnavn.
+        /// </summary>
+        public static string Metadata_CoverageServiceMap_Layer {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageServiceMap_Layer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tjenestetype.
+        /// </summary>
+        public static string Metadata_CoverageServiceMap_Type {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageServiceMap_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TjenesteURL.
+        /// </summary>
+        public static string Metadata_CoverageServiceMap_Url {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageServiceMap_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type dekningskart.
+        /// </summary>
+        public static string Metadata_CoverageType {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bildefil.
+        /// </summary>
+        public static string Metadata_CoverageType_ImageCoverage {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageType_ImageCoverage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karttjenestelag.
+        /// </summary>
+        public static string Metadata_CoverageType_Mapservice {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageType_Mapservice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Webside.
+        /// </summary>
+        public static string Metadata_CoverageType_Webpage {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageType_Webpage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Webside.
+        /// </summary>
+        public static string Metadata_CoverageWebsite_Url {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageWebsite_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprettet dato.
         /// </summary>
         public static string Metadata_DateCreated {
