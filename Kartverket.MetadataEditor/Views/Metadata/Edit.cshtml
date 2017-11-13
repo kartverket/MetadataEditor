@@ -214,7 +214,7 @@
 
     <div class="form-group">
         <div class="col-sm-12 text-right">
-            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="submit" class="btn btn-primary" value="">Slett</button>
+            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">Slett</button>
             @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
             {
                 <input type="checkbox" name="ignoreValidationError" value="1" /> <span>Ignorer feil</span>
@@ -577,40 +577,40 @@
                     if (selectedSpatialRepresentation == "vector") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
                         @foreach (var df in ViewBag.VectorFormats as SelectList)
-                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="@df.Value">@df.Text</option>');</text>}
+                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>@df.Text</option>');</text>}
                     } else if (selectedSpatialRepresentation == "grid") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
                         @foreach (var df in ViewBag.RasterFormats as SelectList)
-                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="@df.Value">@df.Text</option>');</text>}
+                        { <text> $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>@df.Text</option>');</text>}
                     } else if (selectedSpatialRepresentation == "textTable") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="CSV">CSV</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Microsoft Excel">Microsoft Excel</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="DBF">DBF</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Tekstfil">Tekstfil</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>CSV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>Microsoft Excel</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>DBF</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>Tekstfil</option>');
                     } else if (selectedSpatialRepresentation == "tin") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Intergraph TIN">Intergraph TIN</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="ESRI TIN">ESRI TIN</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="GEOPAK TIN">GEOPAK TIN</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="LandXML TIN">LandXML TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>Intergraph TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>ESRI TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>GEOPAK TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>LandXML TIN</option>');
                     } else if (selectedSpatialRepresentation == "stereoModel") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="Intergraph TIN">Intergraph TIN</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="JPEG">JPEG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>Intergraph TIN</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>JPEG</option>');
                     } else if (selectedSpatialRepresentation == "video") {
                         $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').children('option:not(:first)').remove();
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MPEG">MPEG</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="AVI">AVI</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MOV">MOV</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="OGG">OGG</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="WMV">WMV</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="RealVideo">RealVideo</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="RMVB">RMVB</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="FLASH">FLASH</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="ASF">ASF</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="MP4">MP4</option>');
-                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option val="QuickTime">QuickTime</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>MPEG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>AVI</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>MOV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>OGG</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>WMV</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>RealVideo</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>RMVB</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>FLASH</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>ASF</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>MP4</option>');
+                        $('#DistributionsFormats\\[' + f + '\\]\\.FormatName').append('<option>QuickTime</option>');
                     }
                 }
             });
@@ -719,9 +719,16 @@
 
             var Sosi = function (event) {
 
+                var sosiKeyword = false;
+
+                if ($('#keyword-dok-valid-kmd').is(":checked") || $('#keyword-geodatalaw').is(":checked")
+                    || $('#keyword-norgedigitalt').is(":checked") || $('#keyword-areal-plans').is(":checked"))
+                    sosiKeyword = true;
+                console.log("ShowSosi="+sosiKeyword);
+
                 var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
                 var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
-                if (selectedSosi != "") {
+                if (sosiKeyword && selectedSosi != "") {
                     $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
                     $('#QualitySpecificationSosi').show();
                     $("#QualitySpecificationSosiTitle").show();
@@ -758,6 +765,22 @@
                         }
                     )
                     };
+
+                    if ($("#ApplicationSchema").val() != '') {
+                        $('#QualitySpecificationSosi').show();
+                        $("#QualitySpecificationSosiConformApplicationSchema").show();
+                        if (selectedSosi.length == 0) {
+                            $("#QualitySpecificationSosiTitle").hide();
+                            $("#QualitySpecificationSosiDate").hide();
+                            $("#QualitySpecificationSosiResult").hide();
+                            $("#QualitySpecificationExplanationSosiDiv").hide();
+                        }
+                    }
+                    else {
+                        $("#QualitySpecificationSosiConformApplicationSchema").hide();
+                        $("#QualitySpecificationResultSosiConformApplicationSchema").prop('checked', false);
+                        $("#QualitySpecificationResultSosiConformGmlApplicationSchema").prop('checked', false);
+                    }
                 }
                 else {
                     $("#QualitySpecificationTitleSosi").val("");
@@ -769,30 +792,44 @@
                     $('#QualitySpecificationSosi').hide();
                 }
 
-                if ($("#ApplicationSchema").val() != '') {
-                    $('#QualitySpecificationSosi').show();
-                    $("#QualitySpecificationSosiConformApplicationSchema").show();
-                    if (selectedSosi.length == 0) {
-                        $("#QualitySpecificationSosiTitle").hide();
-                        $("#QualitySpecificationSosiDate").hide();
-                        $("#QualitySpecificationSosiResult").hide();
-                        $("#QualitySpecificationExplanationSosiDiv").hide();
-                    }
-                }
-                else {
-                    $("#QualitySpecificationSosiConformApplicationSchema").hide();
-                    $("#QualitySpecificationResultSosiConformApplicationSchema").prop('checked', false);
-                    $("#QualitySpecificationResultSosiConformGmlApplicationSchema").prop('checked', false);
-                }
             };
 
-            $("#ProductSpecificationUrl").on("change", Sosi);
-            $("#ApplicationSchema").on("change", Sosi);
-            Sosi();
+            //$("#ProductSpecificationUrl").on("change", Sosi);
+            //$("#ApplicationSchema").on("change", Sosi);
+            $("#keyword-dok-valid-kmd").on("change", Sosi);
+            $("#keyword-geodatalaw").on("change", Sosi);
+            $("#keyword-norgedigitalt").on("change", Sosi);
+            $("#keyword-areal-plans").on("change", Sosi);
+
+            function SetAdministrativeKeyWords() {
+                var items = $('#keywords-national-initiative-list li');
+                $(items).each(function (key, value) {
+                    var keyword = $(value).find('input').val();
+                    if (keyword == "Det offentlige kartgrunnlaget")
+                        $('#keyword-dok-valid-kmd').prop("checked", true);
+                    if (keyword == "Inspire")
+                        $('#keyword-inspire-valid').prop("checked", true);
+                    if (keyword == "geodataloven")
+                        $('#keyword-geodatalaw').prop("checked", true);
+                    if (keyword == "Norge digitalt")
+                        $('#keyword-norgedigitalt').prop("checked", true);
+                    if (keyword == "arealplanerPBL")
+                        $('#keyword-areal-plans').prop("checked", true);
+
+                    $('#KeywordsCatalogs option').each(function () {
+                        optionValue = $(this);
+                        if (optionValue.val() == keyword) {
+                            optionValue.prop('selected', true);
+                        }
+                    });
+
+                });
+
+                Sosi();
+            }
 
 
             var otherSpec = function (event) {
-                if (event) {
                     var selectedOtherSpec = $('#ProductSpecificationOther_Name').val();
                     if (selectedOtherSpec != "") {
                         $("#QualitySpecificationTitle").val("Produktspesifikasjon: " + selectedOtherSpec);
@@ -812,111 +849,110 @@
                         $("#QualitySpecificationResultConform").prop('checked', false);
                         $('#QualitySpecificationCustom').hide();
                     }
-                }
-            };
+                };
 
             $("#ProductSpecificationOther_Name").on("change", otherSpec);
             otherSpec();
 
             $("#QualitySpecificationResultInspireConform").change(function () {
-                if (this.checked) {
+                    if (this.checked) {
                     $("#QualitySpecificationExplanationInspire").val(conformExplanation);
                     $("#EnglishQualitySpecificationExplanationInspire").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationInspireDiv").removeClass("show");
                     $("#QualitySpecificationExplanationInspireDiv").addClass("hidden");
-                }
-            });
+                        }
+                        });
 
             $("#QualitySpecificationResultInspireNotConform").change(function () {
-                if (this.checked) {
+                        if (this.checked) {
                     $("#QualitySpecificationExplanationInspire").val("");
                     $("#EnglishQualitySpecificationExplanationInspire").val("");
                     $("#QualitySpecificationExplanationInspire").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationInspireDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationInspireDiv").addClass("show");
-                }
-            });
+                            }
+                            });
 
             $("#QualitySpecificationResultSosiConform").change(function () {
-                if (this.checked) {
+                            if (this.checked) {
                     $("#QualitySpecificationExplanationSosi").val(conformExplanation);
                     $("#EnglishQualitySpecificationExplanationSosi").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationSosiDiv").removeClass("show");
                     $("#QualitySpecificationExplanationSosiDiv").addClass("hidden");
-                }
-            });
+                                }
+                                });
 
             $("#QualitySpecificationResultSosiNotConform").change(function () {
-                if (this.checked) {
+                                if (this.checked) {
                     $("#QualitySpecificationExplanationSosi").val("");
                     $("#EnglishQualitySpecificationExplanationSosi").val("");
                     $("#QualitySpecificationExplanationSosi").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationSosiDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationSosiDiv").addClass("show");
-                }
-            });
+                                    }
+                                    });
 
             $("#QualitySpecificationResultConform").change(function () {
-                if (this.checked) {
+                                    if (this.checked) {
                     $("#QualitySpecificationExplanation").val(conformExplanation);
                     $("#EnglishQualitySpecificationExplanation").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationDiv").removeClass("show");
                     $("#QualitySpecificationExplanationDiv").addClass("hidden");
-                }
-            });
+                                        }
+                                        });
 
             $("#QualitySpecificationResultNotConform").change(function () {
-                if (this.checked) {
+                                        if (this.checked) {
                     $("#QualitySpecificationExplanation").val("");
                     $("#EnglishQualitySpecificationExplanation").val("");
                     $("#QualitySpecificationExplanation").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationDiv").addClass("show");
-                }
-            });
+                                            }
+                                            });
 
-            // bounding box
+                                        // bounding box
 
-            var states = $('select#bboxState');
-            var counties = $('select#bboxCounty');
+                                        var states = $('select#bboxState');
+                                        var counties = $('select#bboxCounty');
 
-            var countyList = counties.find('option').clone();
+                                        var countyList = counties.find('option').clone();
 
-            function populatePlaceList() {
+                                        function populatePlaceList() {
                 $('select#bboxState optgroup').each(function () {
-                    var regex = new RegExp("^" + $(this).data('statenumber'));
-                    var optgroup = $(this);
-                    optgroup.html(countyList.filter(function () {
-                        return (regex.test($(this).attr('data-countynumber')));
-                    }));
-                });
-            }
+                                                var regex = new RegExp("^" + $(this).data('statenumber'));
+                                                var optgroup = $(this);
+                                                optgroup.html(countyList.filter(function () {
+                                                    return (regex.test($(this).attr('data-countynumber')));
+                                                }));
+                                    });
+                                }
 
-            function setSelectedInPlaceList() {
-                var selectedPlacesList = $("#keywords-place li");
-                var selectedPlaces = [];
+                                function setSelectedInPlaceList() {
+                                    var selectedPlacesList = $("#keywords-place li");
+                                    var selectedPlaces = [];
                 $(selectedPlacesList).each(function (key, value) {
-                    var selectedPlace = $(value).find('input').val();
-                    selectedPlaces.push(selectedPlace);
-                });
+                                        var selectedPlace = $(value).find('input').val();
+                                        selectedPlaces.push(selectedPlace);
+                                    });
 
                 $('select#bboxState option').each(function () {
-                    optionValue = $(this);
-                    selectedPlaces.forEach(function (entry) {
-                        if (optionValue.val() == entry) {
-                            optionValue.prop('selected', true);
-                        }
-                    });
-                });
-            }
+                                    optionValue = $(this);
+                                    selectedPlaces.forEach(function (entry) {
+                                        if (optionValue.val() == entry) {
+                                            optionValue.prop('selected', true);
+                                        }
+                                    });
+                                });
+                            }
 
             $(document).ready(function () {
-                populatePlaceList();
-                setSelectedInPlaceList();
+                                populatePlaceList();
+                                setSelectedInPlaceList();
                 $('#setcoordinates').click(function () {
-                    setSelectedInPlaceList();
-                });
-            });
+                                    setSelectedInPlaceList();
+                                });
+                            });
 
             $("select#bboxState").change(function (event) {
                 event.preventDefault();
@@ -927,21 +963,21 @@
                     $("input#BoundingBoxSouth").val('');
                     $("input#BoundingBoxEast").val('');
                     $("input#BoundingBoxWest").val('');
-                }
+            }
 
-                var selectedCounties = $(this).find('option:selected');
+            var selectedCounties = $(this).find('option:selected');
 
-                selectedCounties.each(function () {
-                    if (!$("input#BoundingBoxNorth").val() || $(this).data('north') > $("input#BoundingBoxNorth").val())
+            selectedCounties.each(function () {
+                if (!$("input#BoundingBoxNorth").val() || $(this).data('north') > $("input#BoundingBoxNorth").val())
                         $("input#BoundingBoxNorth").val($(this).data('north'));
-                    if (!$("input#BoundingBoxSouth").val() || $(this).data('south') < $("input#BoundingBoxSouth").val())
+                if (!$("input#BoundingBoxSouth").val() || $(this).data('south') < $("input#BoundingBoxSouth").val())
                         $("input#BoundingBoxSouth").val($(this).data('south'));
-                    if (!$("input#BoundingBoxEast").val() || $(this).data('east') > $("input#BoundingBoxEast").val())
+                if (!$("input#BoundingBoxEast").val() || $(this).data('east') > $("input#BoundingBoxEast").val())
                         $("input#BoundingBoxEast").val($(this).data('east'));
-                    if (!$("input#BoundingBoxWest").val() || $(this).data('west') < $("input#BoundingBoxWest").val())
+                if (!$("input#BoundingBoxWest").val() || $(this).data('west') < $("input#BoundingBoxWest").val())
                         $("input#BoundingBoxWest").val($(this).data('west'));
-                    addKeywordFromTextbox('place-list', "KeywordsPlace");
-                })
+                addKeywordFromTextbox('place-list', "KeywordsPlace");
+            })
             });
 
             // Check date not in future
@@ -954,7 +990,7 @@
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
                     $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
+                        }
             });
 
             $("#DatePublished").change(function (event) {
@@ -966,7 +1002,7 @@
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
                     $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
+                        }
             });
 
             $("#DateCreated").change(function (event) {
@@ -978,7 +1014,7 @@
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
                     $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
+                        }
             });
 
             $("#DateMetadataValidFrom").change(function (event) {
@@ -995,7 +1031,7 @@
                     var newDate = new Date(ValidToDate);
                     newDate.setDate(newDate.getDate() - 1);
                     $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                }
+                        }
             });
 
             $("#DateMetadataValidTo").change(function (event) {
@@ -1012,7 +1048,7 @@
                     var newDate = new Date(ValidFromDate);
                     newDate.setDate(newDate.getDate() + 1);
                     $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                }
+                        }
             });
 
             $("#QualitySpecificationDate").change(function (event) {
@@ -1024,7 +1060,7 @@
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
                     $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
+                        }
             });
 
             // keywords
@@ -1047,7 +1083,7 @@
                     "data-delete": listItemId,
                     "data-list": selectorPrefix + '-text',
                     "data-list-value": newKeyword
-                });
+                        });
 
                 li.append(link);
                 li.append($('<input />', { "type": "hidden", "name": inputName + "[" + elementId + "]", "value": newKeyword }));
@@ -1185,32 +1221,6 @@
             });
         });
 
-        function SetAdministrativeKeyWords() {
-
-            var items = $('#keywords-national-initiative-list li');
-            $(items).each(function (key, value) {
-                var keyword = $(value).find('input').val();
-                if (keyword == "Det offentlige kartgrunnlaget")
-                    $('#keyword-dok-valid-kmd').prop("checked", true);
-                if (keyword == "Inspire")
-                    $('#keyword-inspire-valid').prop("checked", true);
-                if (keyword == "geodataloven")
-                    $('#keyword-geodatalaw').prop("checked", true);
-                if (keyword == "Norge digitalt")
-                    $('#keyword-norgedigitalt').prop("checked", true);
-                if (keyword == "arealplanerPBL")
-                    $('#keyword-areal-plans').prop("checked", true);
-
-                $('#KeywordsCatalogs option').each(function () {
-                    optionValue = $(this);
-                    if (optionValue.val() == keyword) {
-                        optionValue.prop('selected', true);
-                    }
-                });
-
-            });
-        }
-
         function AddAdministrativeKeyWords() {
 
             var selectorPrefix = "keywords-national-initiative";
@@ -1326,8 +1336,6 @@
             distributionFormatRowElements.each(function (elementIndex, distributionFormatRowElement) {
                 formatNameElement = $(distributionFormatRowElement).find(".distributionFormats-formatName");
                 formatNameElement.html(getFormatNameSelectListOptionElements(spatialRepresentation));
-                nameElement = $(distributionFormatRowElement).find(".distributionFormats-name");
-                nameElement.val(spatialRepresentation);
             });
         }
 
