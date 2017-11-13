@@ -36,31 +36,20 @@
                                         <div class="custom-select-list-dropdown-content">
 
                                             <div v-for="county in areaSelect.counties" class="custom-select-list-option-group">
-                                                    <p class="custom-select-list-option-group-name">{{ county.Name }}</p>
-                                                    <ul class="custom-select-list-options area-option-list">
-                                                        <li v-on:click="addSelectedArea(county)" v-bind:class="{'is-selected': areaIsSelected(county)}">{{ county.Name }}</li>
-                                                        <li v-on:click="addSelectedArea(municipality)" v-bind:class="{'is-selected': areaIsSelected(municipality)}" v-for="municipality in county.Municipalities">{{ municipality.Name }}</li>
-                                                       <!-- <li v-on:click="selectArea(area)" v-bind:class="{'is-selected': (!master && area.isSelected) || (master && isMasterSelected(area)) }" v-for="area in areas">{{ area.name }}</li>-->
-                                                    </ul>
+                                                <p class="custom-select-list-option-group-name">{{ county.Name }}</p>
+                                                <ul class="custom-select-list-options area-option-list">
+                                                    <li v-on:click="addSelectedArea(county)" v-bind:class="{'is-selected': areaIsSelected(county)}">{{ county.Name }}</li>
+                                                    <li v-on:click="addSelectedArea(municipality)" v-bind:class="{'is-selected': areaIsSelected(municipality)}" v-for="municipality in county.Municipalities">{{ municipality.Name }}</li>
+                                                    <!-- <li v-on:click="selectArea(area)" v-bind:class="{'is-selected': (!master && area.isSelected) || (master && isMasterSelected(area)) }" v-for="area in areas">{{ area.name }}</li>-->
+                                                </ul>
                                             </div>
-                                            
-
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
-
-                            <select multiple v-model="$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas" v-on:change="setBoundingBoxCoordinates">
-                                <optgroup v-for="county in areaSelect.counties" v-bind:label="county.Name">
-                                    <option v-bind:value="county">{{ county.Name }}</option>
-                                    <option v-for="municipality in county.Municipalities" v-bind:value="municipality">{{ municipality.Name }}</option>
-                                </optgroup>
-                            </select>
                         </div>
 
-
+                        <label class="col-md-2 control-label">Eller angi koordinater</label>
 
                         <div class="col-md-3">
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
