@@ -350,6 +350,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Epost.
+        /// </summary>
+        public static string Metadata_Contact_Email {
+            get {
+                return ResourceManager.GetString("Metadata_Contact_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Epost til kontaktperson er påkrevd..
         /// </summary>
         public static string Metadata_Contact_Email_Required {
@@ -359,11 +368,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Navn.
+        /// </summary>
+        public static string Metadata_Contact_Name {
+            get {
+                return ResourceManager.GetString("Metadata_Contact_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Navn på kontaktperson er påkrevd..
         /// </summary>
         public static string Metadata_Contact_Name_Required {
             get {
                 return ResourceManager.GetString("Metadata_Contact_Name_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organisasjon.
+        /// </summary>
+        public static string Metadata_Contact_Organization {
+            get {
+                return ResourceManager.GetString("Metadata_Contact_Organization", resourceCulture);
             }
         }
         

@@ -211,11 +211,20 @@
   <data name="Metadata_BoundingBox_West_Invalid" xml:space="preserve">
     <value>Geografisk utstrekning - Vest - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>
   </data>
+  <data name="Metadata_Contact_Email" xml:space="preserve">
+    <value>Epost</value>
+  </data>
   <data name="Metadata_Contact_Email_Required" xml:space="preserve">
     <value>Epost til kontaktperson er påkrevd.</value>
   </data>
+  <data name="Metadata_Contact_Name" xml:space="preserve">
+    <value>Navn</value>
+  </data>
   <data name="Metadata_Contact_Name_Required" xml:space="preserve">
     <value>Navn på kontaktperson er påkrevd.</value>
+  </data>
+  <data name="Metadata_Contact_Organization" xml:space="preserve">
+    <value>Organisasjon</value>
   </data>
   <data name="Metadata_Contact_Organization_Required" xml:space="preserve">
     <value>Organisasjonsnavn er feil.</value>

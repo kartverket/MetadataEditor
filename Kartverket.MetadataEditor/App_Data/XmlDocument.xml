@@ -217,14 +217,29 @@
               Looks up a localized string similar to Geografisk utstrekning - Vest - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Contact_Email">
+            <summary>
+              Looks up a localized string similar to Epost.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Contact_Email_Required">
             <summary>
               Looks up a localized string similar to Epost til kontaktperson er påkrevd..
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Contact_Name">
+            <summary>
+              Looks up a localized string similar to Navn.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Contact_Name_Required">
             <summary>
               Looks up a localized string similar to Navn på kontaktperson er påkrevd..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Contact_Organization">
+            <summary>
+              Looks up a localized string similar to Organisasjon.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Contact_Organization_Required">
