@@ -245,6 +245,7 @@
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\BatchService.cs" />
+    <Compile Include="Models\DictionaryAsArrayResolver.cs" />
     <Compile Include="Models\KomDataService.cs" />
     <Compile Include="Models\MemoryCacher.cs" />
     <Compile Include="Models\MetadataCreateViewModel.cs" />
