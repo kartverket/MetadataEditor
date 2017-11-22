@@ -196,8 +196,8 @@
             },
             getSelectedCoverageType: function () {
                 if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
-                else if (isMapService) this.coverageType = 'mapservice';
-                else this.coverageType = 'webpage';
+                else if (this.isMapService()) this.coverageType.value = 'mapservice';
+                else this.coverageType.value = 'webpage';
             }
         },
         created: function () {
