@@ -1117,6 +1117,8 @@
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_BoundingBox.cshtml" />
     <Content Include="settings.config" />
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_Coverage.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Distribution\_DistributionItem.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Distribution\DistributionItem\_DistributionItemFormat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

@@ -1,0 +1,176 @@
+﻿
+@using Resources
+
+<script type="text/x-template" id="distribution-item-template">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="required">Distribusjon</span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div v-for="formElement in formElementsInLoop" class="form-group has-feedback" v-bind:class="{'required': formElement.required}">
+                <div class="row">
+                    <label v-bind:for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                        <div v-if="formElement.type == 'select'" class="custom-select">
+                            <select v-model="formElement.value"
+                                    class="form-control"
+                                    v-bind:id="formElement.id"
+                                    v-bind:name="formElement.name">
+                                <option value="">Velg</option>
+                                <option v-bind:value="option.Value" v-for="option in formElement.options">{{ option.Text }}</option>
+                            </select>
+                        </div>
+                        <div v-else-if="formElement.type == 'text'">
+                            <input v-model="formElement.value"
+                                   class="form-control"
+                                   v-bind:id="formElement.id"
+                                   v-bind:name="formElement.name"
+                                   v-bind:type="formElement.type" />
+                        </div>
+                    </div>
+                    <div v-if="formElement.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="striped-list">
+                <!-- TODO help text for formats -->
+                <div class="list-item" is="distribution-item-format" v-bind:format="distributionItemFormat" v-bind:format-index="distributionItemFormatIndex" v-for="(distributionItemFormat, distributionItemFormatIndex) in distribution.Value.Formats"></div>
+            </div>
+            <hr />
+            <div class="form-group">
+
+            </div>
+
+            <div v-if="!$parent.isDatasetOrDatasetSeries() && !$parent.isSoftware()" class="form-group">
+                <div class="row">
+                    <label v-bind:for="formElements.name.id" class="col-md-3 control-label">{{ formElements.name.label }}</label>
+
+                    <div class="col-md-8">
+                        <input v-model="formElements.name.value"
+                               class="form-control"
+                               v-bind:id="formElements.name.id"
+                               v-bind:name="formElements.name.name"
+                               v-bind:type="formElements.name.type" />
+                    </div>
+                    <div v-if="formElements.name.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElements.name.helpText.active = !formElements.name.helpText.active"
+                                  v-bind:class="{active: formElements.name.helpText.active}"
+                                  class="badge help-text-toggle">
+                                ?
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3 control-label">{{ formElements.unitsOfDistribution.label }}</label>
+                    <div class="col-md-8">
+                        <label class="checkbox-inline" v-for="option in formElements.unitsOfDistribution.options">
+                            <input type="checkbox" v-on:change="setUnitsOfDistribution()" v-model="formElements.unitsOfDistribution.selected" v-bind:value="option.Value" />
+                            {{ option.Text }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+@Html.Partial("VueComponents/Edit/Distribution/DistributionItem/_DistributionItemFormat")
+
+<script>
+    var DistributionItem = {
+        name: "distributionItem",
+        template: "#distribution-item-template",
+        props: ["distribution", "distributionIndex"],
+        components: {
+            distributionItemFormat: DistributionItemFormat
+        },
+        data: function () {
+            return {
+                formElementsInLoop: {
+                    organization: {
+                        id: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
+                        name: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
+                        value: this.distribution.Value.Details.Organization,
+                        label: 'Organisasjon',
+                        type: 'select',
+                        required: true,
+                        options: this.$root.viewBag.OrganizationDistributorValues
+                    },
+                    protocol: {
+                        id: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
+                        name: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
+                        value: this.distribution.Value.Details.Protocol,
+                        label: 'Distribusjonstype',
+                        type: 'select',
+                        required: true,
+                        options: this.$root.viewBag.predefinedDistributionProtocols,
+                        helpText: {
+                            active: false,
+                            content: 'Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden)'
+                        }
+                    },
+                    url: {
+                        id: 'DistributionsFormats[' + this.distributionIndex + '].URL',
+                        name: 'DistributionsFormats[' + this.distributionIndex + '].URL',
+                        value: this.distribution.Value.Details.URL,
+                        label: 'URL',
+                        type: 'text',
+                        required: false,
+                        helpText: {
+                            active: false,
+                            content: 'Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).'
+                        }
+                    },
+                },
+                formElements: {
+                    unitsOfDistribution: {
+                        label: 'Geografisk distribusjonsinndeling',
+                        value: '',
+                        selected: [],
+                        options: this.$root.viewBag.UnitsOfDistributionValues
+                    },
+                    name: {
+                        id: 'DistributionsFormats[' + this.distributionIndex + '].Name',
+                        name: 'DistributionsFormats[' + this.distributionIndex + '].Name',
+                        value: this.distribution.Value.Details.Name,
+                        label: 'Navn',
+                        type: 'text',
+                        required: false,
+                        helpText: {
+                            active: false,
+                            content: 'Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).'
+                        }
+                    }
+                }
+            }
+        },
+        methods: {
+            getUnitsOfDistribution: function () {
+                return this.distribution.Value.Details.UnitsOfDistribution !== null && this.distribution.Value.Details.UnitsOfDistribution !== "" ? this.distribution.Value.Details.UnitsOfDistribution.split(', ') : [];
+            },
+            setUnitsOfDistribution: function () {
+                this.formElements.unitsOfDistribution.value = this.formElements.unitsOfDistribution.selected.join(', ');
+            }
+        },
+        mounted: function () {
+            this.formElements.unitsOfDistribution.selected = this.getUnitsOfDistribution();
+            this.setUnitsOfDistribution();
+        }
+
+    };
+</script>
+
