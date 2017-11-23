@@ -1,6 +1,176 @@
 ﻿<script type="text/x-template" id="constraints-template">
     <div>
-        Constraints
+
+        @* UseLimitations *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.useLimitations.required}">
+            <label class="col-md-3 control-label">{{ formElements.useLimitations.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.useLimitations.helpText && formElements.useLimitations.helpText.active" class="help-text bg-success" v-html="formElements.useLimitations.helpText.content"></p>
+                <div class="form-element-tab-group">
+                    <span v-on:click="formElements.useLimitations.selectedLanguage = 'all'"
+                          v-bind:class="{active: formElements.useLimitations.selectedLanguage == 'all'}"
+                          class="form-element-tab">
+                        {{ $parent.languages['all'] }}
+                    </span>
+                    <span v-on:click="formElements.useLimitations.selectedLanguage = language"
+                          v-for="(binding, language) in formElements.useLimitations.multilingual"
+                          v-bind:class="{active: formElements.useLimitations.selectedLanguage == language}"
+                          class="form-element-tab">
+                        {{ $parent.languages[language] }}
+                    </span>
+                </div>
+                <div v-show="language == formElements.useLimitations.selectedLanguage || formElements.useLimitations.selectedLanguage == 'all'" v-for="(binding, language) in formElements.useLimitations.multilingual" class="form-group">
+                    <span v-show="formElements.useLimitations.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
+                    <input v-bind:name="binding.name" v-if="formElements.useLimitations.type == 'text'" type="text" v-model="binding.value" class="form-control" />
+                </div>
+            </div>
+            <div v-if="formElements.useLimitations.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.useLimitations.helpText.active = !formElements.useLimitations.helpText.active" v-bind:class="{active: formElements.useLimitations.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* AccessConstraints *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.accessConstraints.required}">
+            <label class="col-md-3 control-label">{{ formElements.accessConstraints.label }}</label>
+            <div class="col-md-8">
+                <div class="custom-select">
+                    <p v-if="formElements.accessConstraints.helpText && formElements.accessConstraints.helpText.active" class="help-text bg-success" v-html="formElements.accessConstraints.helpText.content"></p>
+                    <select v-model="formElements.accessConstraints.value" v-bind:name="formElements.accessConstraints.name" class="form-control">
+                        <option v-bind:value="option.Value" v-for="option in formElements.accessConstraints.options">{{ option.Text }}</option>
+                    </select>
+                </div>
+            </div>
+            <div v-if="formElements.accessConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.accessConstraints.helpText.active = !formElements.accessConstraints.helpText.active" v-bind:class="{active: formElements.accessConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* UseConstraints *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.useConstraints.required}">
+            <label class="col-md-3 control-label">{{ formElements.useConstraints.label }}</label>
+            <div class="col-md-8">
+                <div class="custom-select">
+                    <p v-if="formElements.useConstraints.helpText && formElements.useConstraints.helpText.active" class="help-text bg-success" v-html="formElements.useConstraints.helpText.content"></p>
+                    <select v-model="formElements.useConstraints.value" v-bind:name="formElements.useConstraints.name" class="form-control">
+                        <option v-bind:value="option.Value" v-for="option in formElements.useConstraints.options">{{ option.Text }}</option>
+                    </select>
+                </div>
+            </div>
+            <div v-if="formElements.useConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.useConstraints.helpText.active = !formElements.useConstraints.helpText.active" v-bind:class="{active: formElements.useConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* LicenseTypes *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.licenseTypes.required}">
+            <label class="col-md-3 control-label">{{ formElements.licenseTypes.label }}</label>
+            <div class="col-md-6">
+                <div class="custom-select">
+                    <p v-if="formElements.licenseTypes.helpText && formElements.licenseTypes.helpText.active" class="help-text bg-success" v-html="formElements.licenseTypes.helpText.content"></p>
+                    <select v-model="formElements.licenseTypes.value" v-bind:name="formElements.licenseTypes.name" class="form-control">
+                        <option v-bind:value="option.Value" v-for="option in formElements.licenseTypes.options">{{ option.Text }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <span v-on:click="showCustomLicenseType = !showCustomLicenseType" class="btn">{{ formElements.customLicenseType.text }}</span>
+            </div>
+            <div v-if="formElements.useConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.licenseTypes.helpText.active = !formElements.licenseTypes.helpText.active" v-bind:class="{active: formElements.licenseTypes.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+
+        <div v-show="showCustomLicenseType" class="form-group has-feedback">
+
+            @* OtherConstraintsLinkText *@
+            <label class="col-md-3 control-label">{{ formElements.otherConstraintsLinkText.label }}</label>
+            <div class="col-md-3">
+                <input v-model="formElements.otherConstraintsLinkText.value" v-bind:name="formElements.otherConstraintsLinkText.name" v-bind:type="formElements.otherConstraintsLinkText.type" />
+            </div>
+
+            @* OtherConstraintsLink *@
+            <label class="col-md-1 control-label">{{ formElements.otherConstraintsLink.label }}</label>
+            <div class="col-md-4">
+                <input v-model="formElements.otherConstraintsLink.value" v-bind:name="formElements.otherConstraintsLink.name" v-bind:type="formElements.otherConstraintsLink.type" />
+            </div>
+            <div class="col-md-1">
+                knapp
+            </div>
+
+        </div>
+
+        @* OtherConstraints *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.otherConstraints.required}">
+            <label class="col-md-3 control-label">{{ formElements.otherConstraints.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.otherConstraints.helpText && formElements.otherConstraints.helpText.active" class="help-text bg-success" v-html="formElements.otherConstraints.helpText.content"></p>
+                <div class="form-element-tab-group">
+                    <span v-on:click="formElements.otherConstraints.selectedLanguage = 'all'"
+                          v-bind:class="{active: formElements.otherConstraints.selectedLanguage == 'all'}"
+                          class="form-element-tab">
+                        {{ $parent.languages['all'] }}
+                    </span>
+                    <span v-on:click="formElements.otherConstraints.selectedLanguage = language"
+                          v-for="(binding, language) in formElements.otherConstraints.multilingual"
+                          v-bind:class="{active: formElements.otherConstraints.selectedLanguage == language}"
+                          class="form-element-tab">
+                        {{ $parent.languages[language] }}
+                    </span>
+                </div>
+                <div v-show="language == formElements.otherConstraints.selectedLanguage || formElements.otherConstraints.selectedLanguage == 'all'" v-for="(binding, language) in formElements.otherConstraints.multilingual" class="form-group">
+                    <span v-show="formElements.otherConstraints.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
+                    <input v-bind:name="binding.name" v-if="formElements.otherConstraints.type == 'text'" type="text" v-model="binding.value" class="form-control" />
+                </div>
+            </div>
+            <div v-if="formElements.otherConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.otherConstraints.helpText.active = !formElements.otherConstraints.helpText.active" v-bind:class="{active: formElements.otherConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* SecurityConstraints *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.securityConstraints.required}">
+            <label class="col-md-3 control-label">{{ formElements.securityConstraints.label }}</label>
+            <div class="col-md-8">
+                <div class="custom-select">
+                    <p v-if="formElements.securityConstraints.helpText && formElements.securityConstraints.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraints.helpText.content"></p>
+                    <select v-model="formElements.securityConstraints.value" v-bind:name="formElements.securityConstraints.name" class="form-control">
+                        <option v-bind:value="option.Value" v-for="option in formElements.securityConstraints.options">{{ option.Text }}</option>
+                    </select>
+                </div>
+            </div>
+            <div v-if="formElements.useConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.useConstraints.helpText.active = !formElements.securityConstraints.helpText.active" v-bind:class="{active: formElements.useConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* SecurityConstraintsNote *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.securityConstraintsNote.required}">
+            <label class="col-md-3 control-label">{{ formElements.securityConstraintsNote.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.securityConstraintsNote.helpText && formElements.securityConstraintsNote.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraintsNote.helpText.content"></p>
+                <input v-model="formElements.securityConstraintsNote.value" v-bind:name="formElements.securityConstraintsNote.name" v-bind:type="formElements.securityConstraintsNote.type" />
+            </div>
+            <div v-if="formElements.securityConstraintsNote.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.securityConstraintsNote.helpText.active = !formElements.securityConstraintsNote.helpText.active" v-bind:class="{active: formElements.securityConstraintsNote.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+
     </div>
 </script>
 
@@ -10,6 +180,116 @@
         template: "#constraints-template",
         props: [],
         components: {
+        },
+        data: function () {
+            return {
+                showCustomLicenseType: false,
+                formElements: {
+                    useLimitations: {
+                        multilingual: {
+                            no: {
+                                name: 'UseLimitations',
+                                value: this.$root.model.UseLimitations
+                            },
+                            en: {
+                                name: 'EnglishUseLimitations',
+                                value: this.$root.model.EnglishUseLimitations
+                            }
+                        },
+                        selectedLanguage: this.$root.defaultLanguage,
+                        label: 'Bruksbegrensninger',
+                        type: 'text',
+                        helpText: {
+                            active: false,
+                            content: ''
+                        }
+                    },
+                    accessConstraints: {
+                        name: 'AccessConstraints',
+                        value: this.$root.model.AccessConstraints,
+                        label: 'Tilgangsrestriksjoner',
+                        type: 'select',
+                        options: this.$root.viewBag.AccessConstraintValues,
+                        helpText: {
+                            active: false,
+                            content: ''
+                        }
+                    },
+                    useConstraints: {
+                        name: 'UseConstraints',
+                        value: this.$root.model.UseConstraints,
+                        label: 'Brukerrestriksjoner',
+                        type: 'select',
+                        options: this.$root.viewBag.UseConstraintValues,
+                        helpText: {
+                            active: false,
+                            content: ''
+                        }
+                    },
+                    licenseTypes: {
+                        name: 'LicenseTypes',
+                        value: this.$root.model.LicenseTypes,
+                        label: 'Lisens',
+                        type: 'select',
+                        options: this.$root.viewBag.LicenseTypesValues,
+                        helpText: {
+                            active: false,
+                            content: ''
+                        }
+                    },
+                    customLicenseType: {
+                        text: 'Egendefinert'
+                    },
+                    otherConstraintsLinkText: {
+                        name: 'OtherConstraintsLinkText',
+                        value: this.$root.model.OtherConstraintsLinkText,
+                        label: 'Valgt lisens',
+                        type: 'text'
+                    },
+                    otherConstraintsLink: {
+                        name: 'OtherConstraintsLink',
+                        value: this.$root.model.OtherConstraintsLink,
+                        label: 'URL',
+                        type: 'text'
+                    },
+                    otherConstraints: {
+                        multilingual: {
+                            no: {
+                                name: 'OtherConstraints',
+                                value: this.$root.model.OtherConstraints
+                            },
+                            en: {
+                                name: 'EnglishOtherConstraints',
+                                value: this.$root.model.EnglishOtherConstraints
+                            }
+                        },
+                        selectedLanguage: this.$root.defaultLanguage,
+                        label: 'Andre restriksjoner',
+                        type: 'text'
+                    },
+                    securityConstraints: {
+                        name: 'SecurityConstraints',
+                        value: this.$root.model.SecurityConstraints,
+                        label: 'Sikkerhetsnivå',
+                        type: 'select',
+                        options: this.$root.viewBag.SecurityConstraintValues,
+                        helpText: {
+                            active: false,
+                            content: ''
+                        }
+                    },
+                    securityConstraintsNote: {
+                        name: 'SecurityConstraintsNote',
+                        value: this.$root.model.SecurityConstraintsNote,
+                        label: 'Lovhenvisning',
+                        type: 'text',
+                        helpText: {
+                            active: false,
+                            content: ''
+                        }
+                    }
+                }
+            }
         }
     };
 </script>
