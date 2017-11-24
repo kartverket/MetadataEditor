@@ -202,9 +202,14 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Published { get; set; }
 
+        public bool ValidateAllRequirements { get; set; }
+
 
         public bool IsValidQualitySpesification() 
         {
+            if (!ValidateAllRequirements)
+                return true;
+
             if (IsSoftware())
                 return true;
 
@@ -224,6 +229,9 @@ namespace Kartverket.MetadataEditor.Models
 
         public bool IsValidQualitySpesificationInspire()
         {
+            if (!ValidateAllRequirements)
+                return true;
+
             if (IsSoftware())
                 return true;
 
@@ -246,6 +254,9 @@ namespace Kartverket.MetadataEditor.Models
 
         public bool IsValidQualitySpesificationSosi()
         {
+            if (!ValidateAllRequirements)
+                return true;
+
             if (IsSoftware())
                 return true;
 
