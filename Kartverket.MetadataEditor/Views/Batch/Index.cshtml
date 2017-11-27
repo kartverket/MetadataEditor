@@ -30,7 +30,25 @@
                                     <label for="KeywordsInspire"><input type="radio" name="metadatafield" value="KeywordsInspire" id="KeywordsInspire" />Inspire-kategorier </label>
                                     <label for="DistributionFormats"><input type="radio" name="metadatafield" value="DistributionFormats" id="DistributionFormats" />Distribusjonsformater </label>
                                     <label for="ReferenceSystems"><input type="radio" name="metadatafield" value="ReferenceSystems" id="ReferenceSystems" />Romlig referansesystem </label>
+                                    <label for="EnglishTexts"><input type="radio" name="metadatafield" value="EnglishTexts" id="EnglishTexts" />Engelske tekster </label>
                                     <br /><input type="checkbox" name="deleteData" checked="checked" value="true"  />Slett eksisterende data
+                                </div>
+                            </div>
+                            <div id="EnglishTextsInfo" class="row table-responsive" style="display:none;">
+                                <div class="col-md-12">
+                                    <label for="EnglishTitle"><input type="radio" name="metadatafieldEnglish" value="EnglishTitle" id="EnglishTitle" required />Tittel </label>
+                                    <label for="EnglishAbstract"><input type="radio" name="metadatafieldEnglish" value="EnglishAbstract" id="EnglishAbstract" />Beskrivelse </label>
+                                    <label for="EnglishSupplementalDescription"><input type="radio" name="metadatafieldEnglish" value="EnglishSupplementalDescription" id="EnglishSupplementalDescription" />Hjelp for bruk </label>
+                                    <label for="EnglishSpecificUsage"><input type="radio" name="metadatafieldEnglish" value="EnglishSpecificUsage" id="EnglishSpecificUsage" />Bruksområde </label>
+                                    <label for="EnglishPurpose"><input type="radio" name="metadatafieldEnglish" value="EnglishPurpose" id="EnglishPurpose" />Formål </label>
+                                    <label for="EnglishProcessHistory"><input type="radio" name="metadatafieldEnglish" value="EnglishProcessHistory" id="EnglishProcessHistory" />Prosesshistorie </label>
+                                    <table class="table table-bordered">
+                                        <caption>Excel-ark skal ha følgende struktur i de 2 første kolonnene for å oppdatere engelske tekster :</caption>
+                                        <thead><tr><th>uuid</th><th>engelsk tekst</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Some english text...</td></tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div id="KeywordsNationalThemeInfo" class="row table-responsive" style="display:none;">
@@ -242,6 +260,9 @@ else
                 else if (selectedField == "ReferenceSystems") {
                     $("#ReferenceSystemsInfo").show();
                 }
+                else if (selectedField == "EnglishTexts") {
+                    $("#EnglishTextsInfo").show();
+                }
             });
 
         });
@@ -254,6 +275,7 @@ else
             $("#KeywordsInspireInfo").hide();
             $("#DistributionFormatsInfo").hide();
             $("#ReferenceSystemsInfo").hide();
+            $("#EnglishTextsInfo").hide();
         }
 
 
