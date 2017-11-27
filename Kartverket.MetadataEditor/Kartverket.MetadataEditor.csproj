@@ -571,6 +571,7 @@
     <Content Include="Content\bower_components\vue\src\core\observer\dep.js" />
     <Content Include="Content\bower_components\vue\src\core\observer\index.js" />
     <Content Include="Content\bower_components\vue\src\core\observer\scheduler.js" />
+    <Content Include="Content\bower_components\vue\src\core\observer\traverse.js" />
     <Content Include="Content\bower_components\vue\src\core\observer\watcher.js" />
     <Content Include="Content\bower_components\vue\src\core\util\debug.js" />
     <Content Include="Content\bower_components\vue\src\core\util\env.js" />

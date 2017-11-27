@@ -250,6 +250,47 @@ describe('Directive v-model text', () => {
     expect('You are binding v-model directly to a v-for iteration alias').toHaveBeenWarned()
   })
 
+  it('warn if v-model and v-bind:value conflict', () => {
+    new Vue({
+      data: {
+        test: 'foo'
+      },
+      template: '<input type="text" v-model="test" v-bind:value="test">'
+    }).$mount()
+    expect('v-bind:value="test" conflicts with v-model').toHaveBeenWarned()
+  })
+
+  it('warn if v-model and :value conflict', () => {
+    new Vue({
+      data: {
+        test: 'foo'
+      },
+      template: '<input type="text" v-model="test" :value="test">'
+    }).$mount()
+    expect(':value="test" conflicts with v-model').toHaveBeenWarned()
+  })
+
+  it('should not warn on radio, checkbox, or custom component', () => {
+    new Vue({
+      data: { test: '' },
+      components: {
+        foo: {
+          props: ['model', 'value'],
+          model: { prop: 'model', event: 'change' },
+          template: `<div/>`
+        }
+      },
+      template: `
+        <div>
+          <input type="checkbox" v-model="test" :value="test">
+          <input type="radio" v-model="test" :value="test">
+          <foo v-model="test" :value="test"/>
+        </div>
+      `
+    }).$mount()
+    expect('conflicts with v-model').not.toHaveBeenWarned()
+  })
+
   if (!isAndroid) {
     it('does not trigger extra input events with single compositionend', () => {
       const spy = jasmine.createSpy()
