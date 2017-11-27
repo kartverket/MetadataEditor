@@ -131,13 +131,13 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationDateTypeInspire { get; set; }
         public string QualitySpecificationDateTypeSosi { get; set; }
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
-        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
+        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Konformitet annen standard mangler")]
         public string QualitySpecificationExplanation { get; set; }
         public string EnglishQualitySpecificationExplanation { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
+        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Konformitet inspire mangler")]
         public string QualitySpecificationExplanationInspire { get; set; }
         public string EnglishQualitySpecificationExplanationInspire { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Avvik fra angitt produktspesifikasjon eller Inspire-spesifikasjon må beskrives under kvalitetsfanen")]
+        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Konformitet sosi mangler")]
         public string QualitySpecificationExplanationSosi { get; set; }
         public string EnglishQualitySpecificationExplanationSosi { get; set; }
         [Required(ErrorMessage = "Datakonformitet er påkrevd")]
@@ -205,73 +205,77 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Published { get; set; }
 
+        public bool ValidateAllRequirements { get; set; }
+
 
         public bool IsValidQualitySpesification() 
         {
+            if (!ValidateAllRequirements)
+                return true;
+
             if (IsSoftware())
                 return true;
 
-            bool qualityValid = false;
+            if (ProductSpecificationOther == null)
+                return true;
 
-            if ((string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation)) && (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire)) && (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi)))
-                qualityValid = true; // No quality
+            if (string.IsNullOrEmpty(ProductSpecificationOther.Name) && string.IsNullOrEmpty(ProductSpecificationOther.URL))
+                return true;
 
             if (string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation))
-            { 
-                if (!string.IsNullOrEmpty(QualitySpecificationTitleInspire) && !string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
-                    qualityValid = true;
+                return false;
+            else
+                return true;
 
-                if (!string.IsNullOrEmpty(QualitySpecificationTitleSosi) && !string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
-                    qualityValid = true;
-            }
-
-            return qualityValid;
 
         }
 
         public bool IsValidQualitySpesificationInspire()
         {
+            if (!ValidateAllRequirements)
+                return true;
+
             if (IsSoftware())
                 return true;
 
-            bool qualityValid = false;
+            bool IsInspire = false;
 
-            if ((string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation)) && (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire)) && (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi)))
-                qualityValid = true; // No quality
-
-            if (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
+            if (KeywordsNationalInitiative != null)
             {
-                if (!string.IsNullOrEmpty(QualitySpecificationTitle) && !string.IsNullOrEmpty(QualitySpecificationExplanation))
-                    qualityValid = true;
-
-                if (!string.IsNullOrEmpty(QualitySpecificationTitleSosi) && !string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
-                    qualityValid = true;
+                if (!KeywordsNationalInitiative.Contains("Inspire"))
+                    return true;
+                else
+                    IsInspire = true;
             }
 
-            return qualityValid;
+            if (IsInspire && (string.IsNullOrEmpty(QualitySpecificationTitleInspire) || string.IsNullOrEmpty(QualitySpecificationExplanationInspire)))
+                return false;
+            else
+                return true;
 
         }
 
         public bool IsValidQualitySpesificationSosi()
         {
+            if (!ValidateAllRequirements)
+                return true;
+
             if (IsSoftware())
                 return true;
 
-            bool qualityValid = false;
+            bool IsSosi = false;
 
-            if ((string.IsNullOrEmpty(QualitySpecificationTitle) && string.IsNullOrEmpty(QualitySpecificationExplanation)) && (string.IsNullOrEmpty(QualitySpecificationTitleInspire) && string.IsNullOrEmpty(QualitySpecificationExplanationInspire)) && (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi)))
-                qualityValid = true; // No quality
-
-            if (string.IsNullOrEmpty(QualitySpecificationTitleSosi) && string.IsNullOrEmpty(QualitySpecificationExplanationSosi))
+            if (KeywordsNationalInitiative != null)
             {
-                if (!string.IsNullOrEmpty(QualitySpecificationTitle) && !string.IsNullOrEmpty(QualitySpecificationExplanation))
-                    qualityValid = true;
-
-                if (!string.IsNullOrEmpty(QualitySpecificationTitleInspire) && !string.IsNullOrEmpty(QualitySpecificationExplanationInspire))
-                    qualityValid = true;
+                if (KeywordsNationalInitiative.Contains("Det offentlige kartgrunnlaget") || KeywordsNationalInitiative.Contains("geodataloven")
+                    || KeywordsNationalInitiative.Contains("Norge digitalt") || KeywordsNationalInitiative.Contains("arealplanerPBL") )
+                    IsSosi = true;
             }
 
-            return qualityValid;
+            if (IsSosi && (string.IsNullOrEmpty(QualitySpecificationTitleSosi) || string.IsNullOrEmpty(QualitySpecificationExplanationSosi)))
+                return false;
+            else
+                return true;
 
         }
 

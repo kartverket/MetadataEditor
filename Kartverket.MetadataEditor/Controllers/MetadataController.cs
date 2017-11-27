@@ -128,6 +128,9 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
                 string role = GetSecurityClaim("role");
+                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                    model.ValidateAllRequirements = true;
+
                 if (HasAccessToMetadata(model))
                 {
                     if (model.MetadataStandard == "ISO19115:Norsk versjon" && Request.QueryString["editor"] == null)
