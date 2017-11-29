@@ -114,6 +114,13 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [Authorize]
+        public ActionResult SyncronizeRegisterTranslations()
+        {
+            new Thread(() => new BatchService().UpdateRegisterTranslations(GetUsername())).Start();
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+        }
+
+        [Authorize]
         public ActionResult UpdateKeywordServiceType()
         {
             new Thread(() => new BatchService().UpdateKeywordServiceType(GetUsername())).Start();
