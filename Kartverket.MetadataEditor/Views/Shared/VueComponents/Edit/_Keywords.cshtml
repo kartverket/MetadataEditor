@@ -1,8 +1,39 @@
-﻿<script type="text/x-template" id="keywords-template">
+﻿@using Resources
+
+<script type="text/x-template" id="keywords-template">
     <div>
-        Keywords
+
+        <div class="form-group">
+            <label v-bind:for="topicCategory.id" class="col-md-2 control-label">Tematisk hovedkategori</label>
+            <div class="col-md-9">
+                <p v-if="topicCategory.helpText && topicCategory.helpText.active" class="help-text bg-success" v-html="topicCategory.helpText.content"></p>
+                <div class="custom-select">
+                    <select class="form-control" v-model="topicCategory.value" v-bind:id="topicCategory.id" v-bind:name="topicCategory.name">
+                        <option v-bind:value="option.Value" v-for="option in topicCategory.options">{{ option.Text }}</option>
+                    </select>
+                </div>
+            </div>
+            <div v-if="topicCategory.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="topicCategory.helpText.active = !topicCategory.helpText.active" v-bind:class="{active: topicCategory.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        <div is="multilingual-keywords"
+             v-bind:title="section.title"
+             v-bind:input-name="section.inputName"
+             v-bind:input-type="section.inputType"
+             v-bind:help-text-content="section.helpText"
+             v-bind:values="section.keywords"
+             v-bind:options="section.options !== undefined ? section.options : null"
+             v-for="section in multilingualKeywords">
+        </div>
+
     </div>
 </script>
+
+@Html.Partial("VueComponents/Edit/Keywords/_MultilingualKeywords")
 
 <script>
     var Keywords = {
@@ -10,6 +41,66 @@
         template: "#keywords-template",
         props: [],
         components: {
+            MultilingualKeywords: MultilingualKeywords
+        },
+        data: function () {
+            return {
+                topicCategory: {
+                    id: 'TopicCategory',
+                    name: 'TopicCategory',
+                    label: '@Html.Raw(UI.Metadata_TopicCategory_Label)',
+                    helpText: {
+                        active: false,
+                        content: '@Html.Raw(UI.Helptext_TopicCategory)'
+                    },
+                    value: this.$root.model.TopicCategory,
+                    options: this.$root.viewBag.TopicCategoryValues
+                },
+
+                multilingualKeywords: {
+                    keywordsTheme: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsTheme_Label)',
+                        inputName: 'Theme',
+                        inputType: 'text',
+                        helpText: '@Html.Raw(UI.Helptext_KeywordsTheme)',
+                        keywords: this.$root.model.KeywordsTheme
+                    },
+                    keywordsNationalTheme: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsNationalTheme_Label)',
+                        inputName: 'KeywordsNationalTheme',
+                        inputType: 'select',
+                        helpText: '@Html.Raw(UI.Helptext_KeywordsNationalTheme)',
+                        keywords: this.$root.model.KeywordsNationalTheme,
+                        options: this.$root.viewBag.NationalThemeValues
+                    },
+                    keywordsNationalInitiative: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsNationalInitiative_Label)',
+                        inputName: 'KeywordsNationalInitiative',
+                        inputType: 'select',
+                        helpText: '@Html.Raw(UI.Helptext_KeywordsNationalInitiative)',
+                        keywords: this.$root.model.KeywordsNationalInitiative,
+                        options: this.$root.viewBag.NationalInitiativeValues
+                    },
+                    keywordsNationalInitiative: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsInspire_Label)',
+                        inputName: 'KeywordsInspire',
+                        inputType: 'select',
+                        helpText: '@Html.Raw(UI.Helptext_KeywordsInspire)',
+                        keywords: this.$root.model.KeywordsInspire,
+                        options: this.$root.viewBag.InspireValues
+                    },
+                    keywordsOther: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsOther_Label)',
+                        inputName: 'Other',
+                        inputType: 'text',
+                        helpText: '@Html.Raw(UI.Helptext_KeywordsOther)',
+                        keywords: this.$root.model.KeywordsOther
+                    }
+                }
+            }
+        },
+        methods: {
+
         }
     };
 </script>

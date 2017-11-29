@@ -269,6 +269,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste)..
+        /// </summary>
+        public static string Helptext_KeywordsInspire {
+            get {
+                return ResourceManager.GetString("Helptext_KeywordsInspire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste).
+        /// </summary>
+        public static string Helptext_KeywordsNationalInitiative {
+            get {
+                return ResourceManager.GetString("Helptext_KeywordsNationalInitiative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget..
+        /// </summary>
+        public static string Helptext_KeywordsNationalTheme {
+            get {
+                return ResourceManager.GetString("Helptext_KeywordsNationalTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denne nøkkelordtypen skal helst ikke brukes, men her vises nøkkelord som ikke er spesifisert å tilhøre en spesifikk nøkkelordkategori. Det anbefales at nøkkelord fjernes fra denne kategorien og legges inn under riktig kategori..
+        /// </summary>
+        public static string Helptext_KeywordsOther {
+            get {
+                return ResourceManager.GetString("Helptext_KeywordsOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes..
+        /// </summary>
+        public static string Helptext_KeywordsTheme {
+            get {
+                return ResourceManager.GetString("Helptext_KeywordsTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tematisk inndeling definert i metadatastandarden..
+        /// </summary>
+        public static string Helptext_TopicCategory {
+            get {
+                return ResourceManager.GetString("Helptext_TopicCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forside.
         /// </summary>
         public static string Home {
@@ -584,6 +638,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inspire-kategorier.
+        /// </summary>
+        public static string Metadata_KeywordsInspire_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsInspire_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samarbeid og lover.
+        /// </summary>
+        public static string Metadata_KeywordsNationalInitiative_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsNationalInitiative_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nasjonal temakategori.
+        /// </summary>
+        public static string Metadata_KeywordsNationalTheme_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsNationalTheme_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukategoriserte nøkkelord.
+        /// </summary>
+        public static string Metadata_KeywordsOther_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsOther_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tema.
+        /// </summary>
+        public static string Metadata_KeywordsTheme_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsTheme_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lenker.
         /// </summary>
         public static string Metadata_Links {
@@ -598,15 +697,6 @@ namespace Resources {
         public static string Metadata_MaintenanceFrequency {
             get {
                 return ResourceManager.GetString("Metadata_MaintenanceFrequency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nasjonal temakategori.
-        /// </summary>
-        public static string Metadata_NationalTheme_Label {
-            get {
-                return ResourceManager.GetString("Metadata_NationalTheme_Label", resourceCulture);
             }
         }
         
@@ -652,6 +742,15 @@ namespace Resources {
         public static string Metadata_Title {
             get {
                 return ResourceManager.GetString("Metadata_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tematisk hovedkategori.
+        /// </summary>
+        public static string Metadata_TopicCategory_Label {
+            get {
+                return ResourceManager.GetString("Metadata_TopicCategory_Label", resourceCulture);
             }
         }
         

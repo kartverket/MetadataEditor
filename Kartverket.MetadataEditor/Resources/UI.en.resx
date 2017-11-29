@@ -184,6 +184,24 @@
   <data name="Helptext_Image" xml:space="preserve">
     <value>Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde.</value>
   </data>
+  <data name="Helptext_KeywordsInspire" xml:space="preserve">
+    <value>Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste).</value>
+  </data>
+  <data name="Helptext_KeywordsNationalInitiative" xml:space="preserve">
+    <value>Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)</value>
+  </data>
+  <data name="Helptext_KeywordsNationalTheme" xml:space="preserve">
+    <value>En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.</value>
+  </data>
+  <data name="Helptext_KeywordsOther" xml:space="preserve">
+    <value>Denne nøkkelordtypen skal helst ikke brukes, men her vises nøkkelord som ikke er spesifisert å tilhøre en spesifikk nøkkelordkategori. Det anbefales at nøkkelord fjernes fra denne kategorien og legges inn under riktig kategori.</value>
+  </data>
+  <data name="Helptext_KeywordsTheme" xml:space="preserve">
+    <value>Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.</value>
+  </data>
+  <data name="Helptext_TopicCategory" xml:space="preserve">
+    <value>Tematisk inndeling definert i metadatastandarden.</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -289,14 +307,26 @@
   <data name="Metadata_Edit_ServiceFields" xml:space="preserve">
     <value>Detaljer om tjeneste</value>
   </data>
+  <data name="Metadata_KeywordsInspire_Label" xml:space="preserve">
+    <value>Inspire-kategorier</value>
+  </data>
+  <data name="Metadata_KeywordsNationalInitiative_Label" xml:space="preserve">
+    <value>Samarbeid og lover</value>
+  </data>
+  <data name="Metadata_KeywordsNationalTheme_Label" xml:space="preserve">
+    <value>Nasjonal temakategori</value>
+  </data>
+  <data name="Metadata_KeywordsOther_Label" xml:space="preserve">
+    <value>Ukategoriserte nøkkelord</value>
+  </data>
+  <data name="Metadata_KeywordsTheme_Label" xml:space="preserve">
+    <value>Tema</value>
+  </data>
   <data name="Metadata_Links" xml:space="preserve">
     <value>Lenker</value>
   </data>
   <data name="Metadata_MaintenanceFrequency" xml:space="preserve">
     <value>Oppdateringshyppighet</value>
-  </data>
-  <data name="Metadata_NationalTheme_Label" xml:space="preserve">
-    <value>Nasjonal temakategori</value>
   </data>
   <data name="Metadata_Organization" xml:space="preserve">
     <value>Organisasjon</value>
@@ -312,6 +342,9 @@
   </data>
   <data name="Metadata_Title" xml:space="preserve">
     <value>Metadata title</value>
+  </data>
+  <data name="Metadata_TopicCategory_Label" xml:space="preserve">
+    <value>Tematisk hovedkategori</value>
   </data>
   <data name="Metadata_Type" xml:space="preserve">
     <value>Type</value>

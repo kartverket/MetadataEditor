@@ -61,14 +61,14 @@
 </div>
 
     <div class="form-group">
-        <label for="keywords-national-theme" class="col-md-2 control-label">@UI.Metadata_NationalTheme_Label</label>
+        <label for="keywords-national-theme" class="col-md-2 control-label">@UI.Metadata_KeywordsNationalTheme_Label</label>
         <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-keywords-national-theme" style="display: none">
                 En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.
             </p>
             <div class="row">
                 <div class="col-md-6">
-                    @Html.ListBox("keywords-national-theme-text", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_selectorprefix = "keywords-national-theme", data_inputname = "KeywordsNationalTheme", data_placeholder = "Velg " + UI.Metadata_NationalTheme_Label })
+                    @Html.ListBox("keywords-national-theme-text", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_selectorprefix = "keywords-national-theme", data_inputname = "KeywordsNationalTheme", data_placeholder = "Velg " + UI.Metadata_KeywordsNationalTheme_Label })
                 </div>
                 <div class="col-md-6 hidden">
                     <ul id="keywords-national-theme-list" class="chosen-selected-keywords" data-selectorprefix="keywords-national-theme">
@@ -121,7 +121,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="keywords-national-initiative" class="col-md-2 control-label">Inspire-kategorier</label>
+        <label for="keywords-inspire" class="col-md-2 control-label">Inspire-kategorier</label>
         <div class="col-md-9">
             <p class="help-text bg-success" id="help-text-keywords-inspire" style="display: none">
                 Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste).

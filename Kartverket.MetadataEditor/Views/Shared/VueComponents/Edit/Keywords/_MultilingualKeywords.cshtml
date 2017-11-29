@@ -1,0 +1,76 @@
+﻿<script type="text/x-template" id="multilingual-keywords-template">
+    <div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11">
+                        <span>{{ title }}</span>
+                    </div>
+                    <div class="col-md-1">
+                        <span v-on:click="helpText.active = !helpText.active" v-bind:class="{active: helpText.active}" class="badge help-text-toggle">?</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p v-if="helpText && helpText.active" class="help-text bg-success" v-html="helpText.content"></p>
+                <div class="form-element-tab-group">
+                    <span v-on:click="selectedLanguage = languageCode"
+                          v-for="(language, languageCode) in $root.languages"
+                          v-bind:class="{active: selectedLanguage == languageCode}"
+                          class="form-element-tab">
+                        {{ $root.languages[languageCode] }}
+                    </span>
+                </div>
+                <div v-bind:class="{'striped-list': selectedLanguage == 'all'}">
+                    <div is="multilingual-keyword"
+                         v-bind:class="{'list-item': selectedLanguage == 'all'}" 
+                         v-bind:selected-language="selectedLanguage"
+                         v-bind:keyword-name="name" 
+                         v-bind:inputType="inputType" 
+                         v-bind:keyword-index="index" 
+                         v-bind:keyword-key="'Other_' + keyword" 
+                         v-bind:keyword-value="keyword" 
+                         v-bind:options="options !== undefined ? options : null"
+                         v-for="(keyword, index) in keywords">
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span v-on:click="addKeyword()" class="btn">Legg til</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+@Html.Partial("VueComponents/Edit/Keywords/MultilingualKeywords/_MultilingualKeyword")
+
+<script>
+    var MultilingualKeywords = {
+        name: "multilingualKeywords",
+        template: "#multilingual-keywords-template",
+        props: ["title", "inputName", "inputType", "helpTextContent", "values", "options"],
+        components: {
+            MultilingualKeyword: MultilingualKeyword
+        },
+        data: function () {
+            return {
+                name: this.inputName,
+                helpText: {
+                    active: false,
+                    content: this.helpTextContent
+                },
+                keywords: this.values,
+                selectedLanguage: this.$root.defaultLanguage
+            }
+        },
+        methods: {
+            addKeyword: function () { this.keywords.push('') },
+            removeKeyword: function () {}
+        }
+    };
+</script>
+
+

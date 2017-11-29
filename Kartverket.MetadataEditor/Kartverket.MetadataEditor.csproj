@@ -1120,6 +1120,8 @@
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_Coverage.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\_DistributionItem.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\DistributionItem\_DistributionItemFormat.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Keywords\_MultilingualKeywords.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Keywords\MultilingualKeywords\_MultilingualKeyword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
