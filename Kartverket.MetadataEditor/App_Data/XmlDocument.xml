@@ -197,6 +197,26 @@
               Looks up a localized string similar to Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes..
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_OrderingInstructions">
+            <summary>
+              Looks up a localized string similar to For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens &quot;generelle vilkår&quot; oppgis..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_ProcessHistory">
+            <summary>
+              Looks up a localized string similar to Dataprodusentens generelle kunnskap om opprinnelsen og prosesshistorien til et datasett eller tjeneste. Forklar kort hvilke vikte operasjoner som er gjort fra datafangst til leveranse, og hvordan dette eventuelt påvirker kvalitet og innhold i datasettet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_ResolutionScale">
+            <summary>
+              Looks up a localized string similar to Målestokkstallet skal legges inn som et heltall (eks: 5000).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_Status">
+            <summary>
+              Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_TopicCategory">
             <summary>
               Looks up a localized string similar to Tematisk inndeling definert i metadatastandarden..
@@ -412,9 +432,19 @@
               Looks up a localized string similar to Oppdateringshyppighet.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_OrderingInstructions_Label">
+            <summary>
+              Looks up a localized string similar to Tjenesteerklæring.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Organization">
             <summary>
               Looks up a localized string similar to Organisasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_ProcessHistory_Label">
+            <summary>
+              Looks up a localized string similar to Prosesshistorie.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Purpose">
@@ -427,7 +457,17 @@
               Looks up a localized string similar to Forklaring av resultat.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_ResolutionScale_Label">
+            <summary>
+              Looks up a localized string similar to Målestokkstall.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Status">
+            <summary>
+              Looks up a localized string similar to Status.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Status_Label">
             <summary>
               Looks up a localized string similar to Status.
             </summary>

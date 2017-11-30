@@ -202,6 +202,18 @@
   <data name="Helptext_KeywordsTheme" xml:space="preserve">
     <value>Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.</value>
   </data>
+  <data name="Helptext_OrderingInstructions" xml:space="preserve">
+    <value>For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens "generelle vilkår" oppgis.</value>
+  </data>
+  <data name="Helptext_ProcessHistory" xml:space="preserve">
+    <value>Dataprodusentens generelle kunnskap om opprinnelsen og prosesshistorien til et datasett eller tjeneste. Forklar kort hvilke vikte operasjoner som er gjort fra datafangst til leveranse, og hvordan dette eventuelt påvirker kvalitet og innhold i datasettet</value>
+  </data>
+  <data name="Helptext_ResolutionScale" xml:space="preserve">
+    <value>Målestokkstallet skal legges inn som et heltall (eks: 5000)</value>
+  </data>
+  <data name="Helptext_Status" xml:space="preserve">
+    <value>Status for datasett eller datasett tjenesten opererer mot.</value>
+  </data>
   <data name="Helptext_TopicCategory" xml:space="preserve">
     <value>Tematisk inndeling definert i metadatastandarden.</value>
   </data>
@@ -331,8 +343,14 @@
   <data name="Metadata_MaintenanceFrequency" xml:space="preserve">
     <value>Oppdateringshyppighet</value>
   </data>
+  <data name="Metadata_OrderingInstructions_Label" xml:space="preserve">
+    <value>Tjenesteerklæring</value>
+  </data>
   <data name="Metadata_Organization" xml:space="preserve">
     <value>Organisasjon</value>
+  </data>
+  <data name="Metadata_ProcessHistory_Label" xml:space="preserve">
+    <value>Prosesshistorie</value>
   </data>
   <data name="Metadata_Purpose" xml:space="preserve">
     <value>Formål</value>
@@ -340,7 +358,13 @@
   <data name="Metadata_QualitySpecificationExplanation" xml:space="preserve">
     <value>Forklaring av resultat</value>
   </data>
+  <data name="Metadata_ResolutionScale_Label" xml:space="preserve">
+    <value>Målestokkstall</value>
+  </data>
   <data name="Metadata_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Metadata_Status_Label" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="Metadata_Title" xml:space="preserve">

@@ -314,6 +314,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens &quot;generelle vilkår&quot; oppgis..
+        /// </summary>
+        public static string Helptext_OrderingInstructions {
+            get {
+                return ResourceManager.GetString("Helptext_OrderingInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dataprodusentens generelle kunnskap om opprinnelsen og prosesshistorien til et datasett eller tjeneste. Forklar kort hvilke vikte operasjoner som er gjort fra datafangst til leveranse, og hvordan dette eventuelt påvirker kvalitet og innhold i datasettet.
+        /// </summary>
+        public static string Helptext_ProcessHistory {
+            get {
+                return ResourceManager.GetString("Helptext_ProcessHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Målestokkstallet skal legges inn som et heltall (eks: 5000).
+        /// </summary>
+        public static string Helptext_ResolutionScale {
+            get {
+                return ResourceManager.GetString("Helptext_ResolutionScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
+        /// </summary>
+        public static string Helptext_Status {
+            get {
+                return ResourceManager.GetString("Helptext_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tematisk inndeling definert i metadatastandarden..
         /// </summary>
         public static string Helptext_TopicCategory {
@@ -701,11 +737,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tjenesteerklæring.
+        /// </summary>
+        public static string Metadata_OrderingInstructions_Label {
+            get {
+                return ResourceManager.GetString("Metadata_OrderingInstructions_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organisasjon.
         /// </summary>
         public static string Metadata_Organization {
             get {
                 return ResourceManager.GetString("Metadata_Organization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prosesshistorie.
+        /// </summary>
+        public static string Metadata_ProcessHistory_Label {
+            get {
+                return ResourceManager.GetString("Metadata_ProcessHistory_Label", resourceCulture);
             }
         }
         
@@ -728,11 +782,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Målestokkstall.
+        /// </summary>
+        public static string Metadata_ResolutionScale_Label {
+            get {
+                return ResourceManager.GetString("Metadata_ResolutionScale_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Metadata_Status {
             get {
                 return ResourceManager.GetString("Metadata_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Metadata_Status_Label {
+            get {
+                return ResourceManager.GetString("Metadata_Status_Label", resourceCulture);
             }
         }
         
