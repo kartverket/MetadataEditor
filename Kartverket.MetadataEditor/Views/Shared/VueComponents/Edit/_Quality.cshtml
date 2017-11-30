@@ -1,65 +1,67 @@
 ﻿@using Resources
 
 <script type="text/x-template" id="quality-template">
-    <div class="form-group" v-for="formElement in formElements">
+    <div>
+        <div class="form-group" v-for="formElement in formElements">
 
-        @* Multilingual *@
-        <div v-if="formElement.multilingual">
-            <div class="row">
-                <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
-                <div class="col-md-8">
-                    <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                    <div class="form-element-tab-group">
-                        <span v-on:click="formElement.selectedLanguage = languageCode"
-                              v-for="(language, languageCode) in $root.languages"
-                              v-bind:class="{active: formElement.selectedLanguage == languageCode}"
-                              class="form-element-tab">
-                            {{ $root.languages[languageCode] }}
-                        </span>
-                    </div>
-                    <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual" class="form-group">
-                        <span v-show="formElement.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
-                        <input v-if="formElement.type == 'text'" v-bind:name="binding.name" type="text" v-model="binding.value" class="form-control" />
-                        <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="binding.name" v-model="binding.value" class="form-control" rows="6"></textarea>
-                        <div v-else-if="formElement.type == 'select'" class="custom-select">
-                            <select v-bind:name="binding.name" v-model="binding.value" class="form-control">
-                                <option v-for="option in formElement.options" v-bind:value="option.Value">{{ option.Text }}</option>
-                            </select>
+            @* Multilingual *@
+            <div v-if="formElement.multilingual">
+                <div class="row">
+                    <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                        <div class="form-element-tab-group">
+                            <span v-on:click="formElement.selectedLanguage = languageCode"
+                                  v-for="(language, languageCode) in $root.languages"
+                                  v-bind:class="{active: formElement.selectedLanguage == languageCode}"
+                                  class="form-element-tab">
+                                {{ $root.languages[languageCode] }}
+                            </span>
+                        </div>
+                        <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual" class="form-group">
+                            <span v-show="formElement.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
+                            <input v-if="formElement.type == 'text'" v-bind:name="binding.name" type="text" v-model="binding.value" class="form-control" />
+                            <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="binding.name" v-model="binding.value" class="form-control" rows="6"></textarea>
+                            <div v-else-if="formElement.type == 'select'" class="custom-select">
+                                <select v-bind:name="binding.name" v-model="binding.value" class="form-control">
+                                    <option v-for="option in formElement.options" v-bind:value="option.Value">{{ option.Text }}</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div v-if="formElement.helpText" class="col-md-1">
-                    <p class="form-control-static">
-                        <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        @* Not multilingual *@
-        <div v-else>
-            <div class="row">
-                <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
-                <div class="col-md-8">
-                    <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                    <div class="form-group">
-                        <input v-if="formElement.type == 'text'" v-bind:name="formElement.name" type="text" v-model="formElement.value" class="form-control" />
-                        <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="formElement.name" v-model="formElement.value" class="form-control" rows="6"></textarea>
-                        <div v-else-if="formElement.type == 'select'" class="custom-select">
-                            <select v-bind:name="formElement.name" v-model="formElement.value" class="form-control">
-                                <option v-for="option in formElement.options" v-bind:value="option.Value">{{ option.Text }}</option>
-                            </select>
-                        </div>
+                    <div v-if="formElement.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
                     </div>
                 </div>
-                <div v-if="formElement.helpText" class="col-md-1">
-                    <p class="form-control-static">
-                        <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
-                    </p>
+            </div>
+
+            @* Not multilingual *@
+            <div v-else>
+                <div class="row">
+                    <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                        <div class="form-group">
+                            <input v-if="formElement.type == 'text'" v-bind:name="formElement.name" type="text" v-model="formElement.value" class="form-control" />
+                            <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="formElement.name" v-model="formElement.value" class="form-control" rows="6"></textarea>
+                            <div v-else-if="formElement.type == 'select'" class="custom-select">
+                                <select v-bind:name="formElement.name" v-model="formElement.value" class="form-control">
+                                    <option v-for="option in formElement.options" v-bind:value="option.Value">{{ option.Text }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="formElement.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </script>
 
