@@ -64,7 +64,7 @@
                         name: 'DistributionsFormats[' + this.formatIndex + '].FormatName',
                         value: this.format.Name,
                         label: 'Format',
-                        type: this.$parent.$parent.isDatasetOrDatasetSeries() ? 'select' : 'text',
+                        type: this.$root.isDatasetOrDatasetSeries ? 'select' : 'text',
                         required: true
                     },
                     formatVersion: {

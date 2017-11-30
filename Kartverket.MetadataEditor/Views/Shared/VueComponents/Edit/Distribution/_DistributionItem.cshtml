@@ -51,7 +51,7 @@
 
             </div>
 
-            <div v-if="!$parent.isDatasetOrDatasetSeries() && !$parent.isSoftware()" class="form-group">
+            <div v-if="!$root.isDatasetOrDatasetSeries && !$root.isSoftware" class="form-group">
                 <div class="row">
                     <label v-bind:for="formElements.name.id" class="col-md-3 control-label">{{ formElements.name.label }}</label>
 

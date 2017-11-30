@@ -1628,6 +1628,18 @@
                 defaultLanguage: function () {
                     var defaultLanguage = 'no';
                     return defaultLanguage;
+                },
+                isDatasetOrDatasetSeries: function () {
+                    var hierarchyLevel = this.$root.model.HierarchyLevel;
+                    return hierarchyLevel == 'dataset' || hierarchyLevel == 'series';
+                },
+                isSoftware: function () {
+                    var hierarchyLevel = this.$root.model.HierarchyLevel;
+                    return hierarchyLevel == 'software' || hierarchyLevel == 'series';
+                },
+                isService: function () {
+                    var hierarchyLevel = this.$root.model.HierarchyLevel;
+                    return hierarchyLevel == "service";
                 }
             },
             mounted: function () {
