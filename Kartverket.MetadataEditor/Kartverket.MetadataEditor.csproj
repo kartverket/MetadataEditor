@@ -480,6 +480,7 @@
     <Content Include="Content\bower_components\vue\build\get-weex-version.js" />
     <Content Include="Content\bower_components\vue\build\setup.js" />
     <Content Include="Content\bower_components\vue\dist\vue.common.js" />
+    <Content Include="Content\bower_components\vue\dist\vue.esm.browser.js" />
     <Content Include="Content\bower_components\vue\dist\vue.esm.js" />
     <Content Include="Content\bower_components\vue\dist\vue.js" />
     <Content Include="Content\bower_components\vue\dist\vue.min.js" />

@@ -1,12 +1,12 @@
 {
   "name": "vue",
   "homepage": "https://github.com/vuejs/vue",
-  "version": "2.5.8",
-  "_release": "2.5.8",
+  "version": "2.5.9",
+  "_release": "2.5.9",
   "_resolution": {
     "type": "version",
-    "tag": "v2.5.8",
-    "commit": "06ef06dafb31879fb6f3e1aec4d5ac9798e62df2"
+    "tag": "v2.5.9",
+    "commit": "832dcb6c4a89b55acb88c295418ba74c5a93d042"
   },
   "_source": "https://github.com/vuejs/vue.git",
   "_target": "^2.0.0",
