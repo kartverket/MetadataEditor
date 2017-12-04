@@ -16,7 +16,7 @@
                         <div class="col-md-3">
                             <div class="custom-select">
                                 <select v-model="coverageType.value" class="form-control">
-                                    <option v-bind:value="option.value" v-for="option in coverageType.options">{{ option.name }}</option>
+                                    <option v-bind:value="option.Value" v-for="option in coverageType.options">{{ option.Text }}</option>
                                 </select>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                             <div class="col-md-3">
                                 <div class="radio" v-for="option in mapServiceType.options">
                                     <label>
-                                        <input v-model="mapServiceType.value" v-bind:name="mapServiceType.name" v-bind:type="mapServiceType.type" v-bind:value="option.value" />
+                                        <input v-model="mapServiceType.value" v-bind:name="mapServiceType.name" type="radio" v-bind:value="option.value" />
                                         {{ option.name }}
                                     </label>
                                 </div>
@@ -85,9 +85,6 @@
     var Coverage = {
         name: "coverage",
         template: "#coverage-template",
-        props: [],
-        components: {
-        },
         data: function () {
             return {
                 coverageType: {
@@ -96,9 +93,9 @@
                     label: '@Html.Raw(UI.Metadata_CoverageType)',
                     type: 'select',
                     options: [
-                        { name: '@Html.Raw(UI.Metadata_CoverageType_Webpage)', value: 'webpage' },
-                        { name: '@Html.Raw(UI.Metadata_CoverageType_Mapservice)', value: 'mapservice' },
-                        { name: '@Html.Raw(UI.Metadata_CoverageType_ImageCoverage)', value: 'imageCoverage' }
+                        { Text: '@Html.Raw(UI.Metadata_CoverageType_Webpage)', Value: 'webpage' },
+                        { Text: '@Html.Raw(UI.Metadata_CoverageType_Mapservice)', Value: 'mapservice' },
+                        { Text: '@Html.Raw(UI.Metadata_CoverageType_ImageCoverage)', Value: 'imageCoverage' }
                     ]
                 },
                 url: {
@@ -138,12 +135,10 @@
         },
         computed: {
            computedCoverageUrl: function () {
-               var coverageUrl = this.$parent.$parent.model.CoverageUrl;
-
                 var computedCoverageUrl = {
                     name: 'CoverageUrl',
                     value: 'test',
-                    label: 'Coverage URL',
+                    label: this.$root.model.CoverageUrl,
                     type: 'text'
                };
 
@@ -200,16 +195,12 @@
                 else this.coverageType.value = 'webpage';
             }
         },
-        created: function () {
-
-        },
         mounted: function () {
             this.mapServiceType.value = this.getMapServiceType();
             this.url.value = this.getMapServiceUrl();
             this.mapServiceLayerName.value = this.getMapServiceLayerName();
             this.getSelectedCoverageType();
         }
-
     };
 </script>
 
