@@ -728,17 +728,35 @@
                 if ($('#keyword-dok-valid-kmd').is(":checked") || $('#keyword-geodatalaw').is(":checked")
                     || $('#keyword-norgedigitalt').is(":checked") || $('#keyword-areal-plans').is(":checked"))
                     sosiKeyword = true;
-                console.log("ShowSosi="+sosiKeyword);
 
                 var selectedSosi = $('#ProductSpecificationUrl option:selected').text();
                 var selectedSosiUrl = $('#ProductSpecificationUrl option:selected').val();
-                if (sosiKeyword && selectedSosi != "") {
-                    $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
-                    $('#QualitySpecificationSosi').show();
-                    $("#QualitySpecificationSosiTitle").show();
-                    $("#QualitySpecificationSosiDate").show();
-                    $("#QualitySpecificationSosiResult").show();
-                    $("#QualitySpecificationExplanationSosiDiv").show();
+                if (sosiKeyword) {
+                    if (selectedSosiUrl.startsWith("http")) {
+                        console.log("sosi not selected:" + selectedSosi);
+                        $("#QualitySpecificationTitleSosi").val("SOSI-produktspesifikasjon: " + selectedSosi);
+                        $('#QualitySpecificationSosi').show();
+                        $("#QualitySpecificationSosiTitle").show();
+                        $("#QualitySpecificationSosiDate").show();
+                        $("#QualitySpecificationSosiResult").show();
+                        $("#QualitySpecificationExplanationSosiDiv").show();
+                    }
+                    else if ($("#ApplicationSchema").val() != '')
+                    {
+                        $("#QualitySpecificationTitleSosi").val("");
+                        $("#QualitySpecificationDateSosi").val("");
+                        $("#QualitySpecificationDateTypeSosi").val("");
+                        $("#QualitySpecificationExplanationSosi").val("");
+                        $("#EnglishQualitySpecificationExplanationSosi").val("");
+                        $("#QualitySpecificationResultSosiNotConform").prop('checked', false);
+
+                        $('#QualitySpecificationSosi').show();
+                        $("#QualitySpecificationSosiTitle").hide();
+                        $("#QualitySpecificationSosiDate").hide();
+                        $("#QualitySpecificationSosiResult").hide();
+                        $("#QualitySpecificationExplanationSosiDiv").hide();
+                    }
+                    console.log("selectedSosiUrl:"  + selectedSosiUrl);
                     if (selectedSosiUrl != null) {
                         var selectedSosiUrlApi = selectedSosiUrl;
                         selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
@@ -773,7 +791,7 @@
                     if ($("#ApplicationSchema").val() != '') {
                         $('#QualitySpecificationSosi').show();
                         $("#QualitySpecificationSosiConformApplicationSchema").show();
-                        if (selectedSosi.length == 0) {
+                        if (!selectedSosiUrl.startsWith("http")) {
                             $("#QualitySpecificationSosiTitle").hide();
                             $("#QualitySpecificationSosiDate").hide();
                             $("#QualitySpecificationSosiResult").hide();
