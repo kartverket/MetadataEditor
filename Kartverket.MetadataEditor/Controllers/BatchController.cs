@@ -114,6 +114,21 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [Authorize]
+        public ActionResult SyncronizeRegisterTranslations()
+        {
+            string role = GetSecurityClaim("role");
+            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+            {
+                new Thread(() => new BatchService().UpdateRegisterTranslations(GetUsername())).Start();
+                TempData["message"] = "Batch-oppdatering: synkronisering av engelske register tekster kjører i bakgrunnen!";
+                return RedirectToAction("Index");
+            }
+            else
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+
+        }
+
+        [Authorize]
         public ActionResult UpdateKeywordServiceType()
         {
             new Thread(() => new BatchService().UpdateKeywordServiceType(GetUsername())).Start();

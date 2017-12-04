@@ -975,7 +975,7 @@ namespace Kartverket.MetadataEditor.Models
             return serviceType;
         }
 
-        private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "")
+        public Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "")
         {
             Dictionary<string, string> header = new Dictionary<string, string> { { "GeonorgeUsername", username } };
 
