@@ -1,0 +1,39 @@
+﻿<script type="text/x-template" id="thumbnail-template">
+    <div class="list-item">
+        <input v-bind:value="imageType" />
+        <input v-bind:value="imageUrl" />
+        <div class="row">
+            <div class="col-sm-3">
+                <img v-bind:src="imageUrl" />
+            </div>
+            <div class="col-sm-9">
+                <p><b>Index:</b> {{ imageIndex }}</p>
+                <p><b>Type:</b> {{ imageType }}</p>
+                <p><b>URL:</b> {{ imageUrl }}</p>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+
+<script>
+    var Thumbnail = {
+        name: "thumbnail",
+        template: "#thumbnail-template",
+        props: ["imageType", "imageUrl", "imageIndex"],
+        data: function () {
+            return {
+
+            }
+        },
+        methods: {
+
+        },
+        mounted: function () {
+
+        }
+
+    };
+</script>
+

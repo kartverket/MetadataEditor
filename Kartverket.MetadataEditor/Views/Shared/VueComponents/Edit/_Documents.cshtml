@@ -1,8 +1,168 @@
-﻿<script type="text/x-template" id="documents-template">
+﻿@using Resources
+
+<script type="text/x-template" id="documents-template">
     <div>
-        Documents
+
+        <div v-if="productSpecificationUrl.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ productSpecificationUrl.label }}</label>
+                <div class="col-md-8">
+                    <div class="custom-select">
+                        <select v-bind:name="productSpecificationUrl.name" v-model="productSpecificationUrl.value" class="form-control">
+                            <option v-bind:value="option.Value" v-for="option in productSpecificationUrl.options">{{ option.Text }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="applicationSchema.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ applicationSchema.label }}</label>
+                <div class="col-md-8">
+                    <input type="text" v-bind:name="applicationSchema.name" v-model="applicationSchema.value" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div v-if="keywordsConcept.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ keywordsConcept.label }}</label>
+                <div class="col-md-8">
+                    <div class="custom-select-list">
+                        <div class="custom-select-list-input-container">
+                            <span v-for="conceptValue in this.keywordsConcept.value" class="custom-select-list-selected">
+                                {{ getConceptNameFromConceptValue(conceptValue) }}
+                                <span v-on:click="removeSelectedConcept(conceptValue)" class="custom-select-list-remove-button"></span>
+                            </span>
+                            <input type="text" class="custom-select-list-input" />
+                        </div>
+
+                        <div class="custom-select-list-dropdown-container">
+                            <div class="custom-select-list-dropdown">
+                                <div class="custom-select-list-dropdown-content">
+                                    <div v-show="keywordsConcept.options.length" class="custom-select-list-option-group">
+                                        <ul class="custom-select-list-options area-option-list">
+                                            <li v-on:click="addSelectedConcept(option)"
+                                                v-bind:class="{'is-selected': conceptIsSelected(option)}"
+                                                v-for="option in this.keywordsConcept.options">
+                                                {{ option.Text }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input v-model="keywordsConcept.value" />
+            </div>
+        </div>
+        <span class="btn" v-on:click="loadConcepts()">testknapp</span>
+
+        <div v-if="productSpecificationOther.visible" class="form-group">
+            <label class="col-md-3 control-label">{{ productSpecificationOther.label }}</label>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">{{ productSpecificationOther.fields.name.label }}</span>
+                    <input type="text" v-bind:name="productSpecificationOther.fields.name.label.name" v-model="productSpecificationOther.fields.name.value" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">{{ productSpecificationOther.fields.url.label }}</span>
+                    <input type="text" v-bind:name="productSpecificationOther.fields.url.label.name" v-model="productSpecificationOther.fields.url.value" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div v-if="productSheetUrl.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ productSheetUrl.label }}</label>
+                <div class="col-md-8">
+                    <div class="custom-select">
+                        <select v-bind:name="productSheetUrl.name" v-model="productSheetUrl.value" class="form-control">
+                            <option v-bind:value="option.Value" v-for="option in productSheetUrl.options">{{ option.Text }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="legendDescriptionUrl.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ legendDescriptionUrl.label }}</label>
+                <div class="col-md-8">
+                    <div class="custom-select">
+                        <select v-bind:name="legendDescriptionUrl.name" v-model="legendDescriptionUrl.value" class="form-control">
+                            <option v-bind:value="option.Value" v-for="option in legendDescriptionUrl.options">{{ option.Text }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="productPageUrl.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ productPageUrl.label }}</label>
+                <div class="col-md-8">
+                    <input type="text" v-bind:name="productPageUrl.name" v-model="productPageUrl.value" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11">
+                        <span class="required">Illustrasjonsbilde</span>
+                    </div>
+                    <div v-if="thumbnails.helpText" class="col-md-1">
+                        <span v-on:click="thumbnails.helpText.active = !thumbnails.helpText.active" v-bind:class="{active: thumbnails.helpText.active}" class="badge help-text-toggle">?</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p v-if="thumbnails.helpText && thumbnails.helpText.active" class="help-text bg-success" v-html="thumbnails.helpText.content"></p>
+
+                <div class="form-group required has-feedback">
+                    <label class="col-md-2 control-label">{{ thumbnails.fields.thumbnailType.label }}</label>
+                    <div class="col-md-2 bottom-left">
+                        <input type="hidden" value="large_thumbnail" id="thumbnailType">
+                        <div class="@ViewBag.thumbnailMissingCSS" style="margin-top:7px;">Stort bilde</div>
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                    <div style="margin-top:7px;">
+                        @Html.ValidationMessage("thumbnailMissing", "Du må angi bildefil for illustrasjonsbilde")
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">{{ thumbnails.fields.uploadThumbnailFile.label }}</label>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="input-group">
+                                    <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
+                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id" class="input-group-btn" />
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn" t id="uploadThumbnailButton" v-on:click="uploadFile" onclick="//return checkIfUrlRef();">Last opp</button>
+                            </div>
+                            <input v-model="thumbnails.fields.uploadMode.value" />
+                        </div>
+                    </div>
+                </div>
+
+                <div is="thumbnails"
+                     v-bind:new-images="thumbnailFileUploadData.response.result">
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
+
 </script>
+
+@Html.Partial("VueComponents/Edit/Documents/_Thumbnails")
 
 <script>
     var Documents = {
@@ -10,6 +170,209 @@
         template: "#documents-template",
         props: [],
         components: {
+            Thumbnails: Thumbnails
+        },
+        data: function () {
+            return {
+                productSpecificationUrl: {
+                    name: 'ProductSpecificationUrl',
+                    value: this.$root.model.ProductSpecificationUrl,
+                    label: 'Produktspesifikasjon',
+                    type: 'select',
+                    visible: !this.$root.isSoftware,
+                    options: this.$root.viewBag.ProductspesificationValues
+                },
+                applicationSchema: {
+                    name: 'ApplicationSchema',
+                    value: this.$root.model.ApplicationSchema,
+                    label: 'UML-modell',
+                    type: 'text',
+                    visible: !this.$root.isSoftware,
+                },
+                keywordsConcept: {
+                    name: 'KeywordsConcept',
+                    value: this.$root.model.KeywordsConcept !== null ? this.$root.model.KeywordsConcept : [],
+                    label: 'Begreper',
+                    type: 'select',
+                    visible: !this.$root.isSoftware,
+                    options: []
+                },
+                productSpecificationOther: {
+                    label: 'Annen produktspesifikasjon',
+                    type: 'group',
+                    visible: !this.$root.isSoftware,
+                    fields: {
+                        name: {
+                            name: 'ProductSpecificationOther.Name',
+                            value: this.$root.model.ProductSpecificationOther.Name,
+                            label: 'Navn',
+                            type: 'text'
+                        },
+                        url: {
+                            name: 'ProductSpecificationOther.URL',
+                            value: this.$root.model.ProductSpecificationOther.URL,
+                            label: 'URL',
+                            type: 'text'
+                        }
+                    }
+                },
+                productSheetUrl: {
+                    name: 'ProductSheetUrl',
+                    value: this.$root.model.ProductSheetUrl,
+                    label: 'Produktark',
+                    type: 'select',
+                    visible: !this.$root.isSoftware,
+                    options: this.$root.viewBag.ProductsheetValues
+                },
+                legendDescriptionUrl: {
+                    name: 'LegendDescriptionUrl',
+                    value: this.$root.model.LegendDescriptionUrl,
+                    label: 'Tegneregler',
+                    type: 'select',
+                    visible: !this.$root.isSoftware,
+                    options: this.$root.viewBag.LegendDescriptionValues
+                },
+                productPageUrl: {
+                    name: 'ProductPageUrl',
+                    value: this.$root.model.ProductPageUrl,
+                    label: 'Produktside (URL)',
+                    type: 'text',
+                    visible: !this.$root.isSoftware,
+                },
+                thumbnails: {
+                    fields: {
+                        thumbnailType: {
+                            type: 'hidden',
+                            value: 'large_thumbnail',
+                            required: true,
+                            label: 'type'
+                        },
+                        uploadThumbnailFile: {
+                            id: 'uploadThumbnailFile',
+                            type: 'file',
+                            required: false,
+                            label: 'Angi bildefil',
+                            value: ''
+                        },
+                        uploadMode: {
+                            type: 'hidden',
+                            value: 'reference'
+                        }
+                    },
+                    required: true,
+                    helpText: {
+                        active: false,
+                        content: '@UI.Helptext_Image'
+                    }
+                },
+                thumbnailFileUploadData: {
+                    request: {
+                        result: {}
+                    },
+                    response: {}
+                }
+            };
+        },
+        mounted: function () {
+            initCustomSelectList();
+
+            this.initFileUpload();
+
+        },
+        methods: {
+            loadConcepts: function () {
+                $.ajax({
+                    headers: {
+                        Accept: "application/rdf+xml",
+                        "Content-Type": "text/plain; charset=utf-8"
+                    },
+                    type: "GET",
+                    url: this.applicationSchema.value,
+                    success: this.setConcepts
+                });
+            },
+            setConcepts: function (xml) {
+                var conceptFound = false;
+                var keywordsConceptOptions = [];
+                $(xml).find("skos\\:Concept, Concept").each(function () {
+                    var prefLabel = $(this).find("skos\\:prefLabel, prefLabel").text();
+                    var about = $(this).attr("rdf:about");
+                    var optionValue = prefLabel + "|" + about;
+                    keywordsConceptOptions.push({
+                        Text: prefLabel,
+                        Value: optionValue
+                    });
+
+                });
+                this.keywordsConcept.options = keywordsConceptOptions;
+
+                if (!conceptFound) {
+                    console.log("no concepts found")
+                }
+            },
+            getConceptNameFromConceptValue(conceptValue) {
+                return conceptValue.substr(0, conceptValue.indexOf('|'));
+            },
+            conceptIsSelected: function (concept) {
+                var conceptIsSelected = false;
+                this.keywordsConcept.value.forEach(function (selectedConcept) {
+                    if (concept.Value == selectedConcept) conceptIsSelected = true;
+                })
+                return conceptIsSelected;
+            },
+            removeSelectedConcept: function (conceptValue) {
+                console.log("remove selected concept");
+                var selectedConceptIndex = this.keywordsConcept.value.indexOf(conceptValue);
+                if (selectedConceptIndex > -1) {
+                    this.keywordsConcept.value.splice(selectedConceptIndex, 1);
+                }
+            },
+            addSelectedConcept: function (concept) {
+                if (!this.conceptIsSelected(concept)) {
+                    this.keywordsConcept.value.push(concept.Value);
+                }
+            },
+            initFileUpload: function () {
+                console.log(event);
+                console.log("upload file");
+                $("#" + this.thumbnails.fields.uploadThumbnailFile.id).fileupload({
+                    dataType: 'json',
+                    url: '/Metadata/UploadThumbnailGenerateMiniAndMedium',
+                    add: function (e, data) {
+                        console.log("add");
+                        console.log(data);
+                        data.formData = {
+                                "uuid": "@Model.Uuid"
+                        };
+                        data.fileName = data.files[0].name;
+                        this.thumbnailFileUploadData.request = data;
+
+
+                    }.bind(this),
+                    done: function (e, data) {
+                        console.log("done");
+                        console.log(data);
+                        console.log("File uploaded: " + data.result.filename);
+                        this.thumbnailFileUploadData.response = data;
+                        @*if (data.result.status == "ErrorWrongContent") {
+                            $("#thumbnailUrl").val('');
+                            $('#uploadThumbnailStatus').attr('style', 'color: red ;');
+                            $('#uploadThumbnailStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                        }
+                        else {
+                            $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                            $("#thumbnailUrlMini").val('@ViewBag.ThumbnailUrl' + data.result.filenamemini);
+                            $("#thumbnailUrlMedium").val('@ViewBag.ThumbnailUrl' + data.result.filenameMedium);
+                            $('#uploadThumbnailStatus').attr('style', 'text-info');
+                        }*@
+                    }.bind(this)
+                });
+            },
+            uploadFile: function (event) {
+                event.preventDefault(),
+                this.thumbnailFileUploadData.request.submit();
+            }
         }
     };
 </script>
+
