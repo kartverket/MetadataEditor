@@ -153,11 +153,15 @@
             },
            computedThumbnailUrl: function () {
                var computedThumbnailUrl = '';
-               if (this.$parent.$parent.model.Thumbnails !== undefined && this.$parent.$parent.model.Thumbnails.length) {
+               /*if (this.$parent.$parent.model.Thumbnails !== undefined && this.$parent.$parent.model.Thumbnails.length) {
                    this.$parent.$parent.model.Thumbnails.forEach(function (thumbnail) {
                        if (thumbnail.Type == 'dekningsoversikt')
                            computedThumbnailUrl = thumbnail.URL;
                    });
+               }*/
+               if (this.$root.hasCoverageImage) {
+                   var selectedCoverageImage = this.$root.getSelectedCoverageImage();
+                   computedThumbnailUrl = selectedCoverageImage.URL;
                }
                return computedThumbnailUrl;
            }
@@ -166,7 +170,7 @@
             getValueFromCoverageUrl: function (regex) {
                 var valueFromCoverageUrl = '';
                 var regexResult;
-                if ((regexResult = regex.exec(this.$parent.$parent.model.CoverageUrl)) !== null) {
+                if ((regexResult = regex.exec(this.$root.model.CoverageUrl)) !== null) {
                     regexResult.forEach(function (match, groupIndex) {
                         valueFromCoverageUrl = match;
                     });

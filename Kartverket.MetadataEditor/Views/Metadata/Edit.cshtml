@@ -1639,7 +1639,13 @@
                         boundingBox: {
                             areas: []
                         }
-                    }
+                    },
+                    documents: {
+                        keywordsConcept: {
+                            concepts: []
+                        }
+                    },
+                    thumbnails: []
                 }
             },
             computed: {
@@ -1658,13 +1664,37 @@
                 isService: function () {
                     var hierarchyLevel = this.$root.model.HierarchyLevel;
                     return hierarchyLevel == "service";
+                },
+                hasCoverageImage: function () {
+                    var hasCoverageImage = false;
+                    this.selectedValues.thumbnails.forEach(function (thumbnail) {
+                        if (thumbnail.Type == 'dekningsoversikt') {
+                            hasCoverageImage = true;
+                            return;
+                        }
+                    });
+                    return hasCoverageImage;
                 }
             },
             mounted: function () {
-
+                this.selectedValues.thumbnails = this.model.Thumbnails;
             },
             methods: {
+                getSelectedCoverageImage: function () {
+                    var selectedCoverageImage = {};
+                    this.selectedValues.thumbnails.forEach(function (thumbnail) {
+                        if (thumbnail.Type == 'dekningsoversikt') {
+                            selectedCoverageImage = thumbnail;
+                            return;
+                        }
+                    });
+                    return selectedCoverageImage;
+                },
+                setSelectedThumbnails: function (thumbnails) {
+                    this.selectedValues.thumbnails = thumbnails;
+                },
                 initDatePicker: function () {
+                    
                     $.datepicker.regional['nb'] = {
                         closeText: 'Lukk',
                         prevText: '&#xAB;Forrige',
