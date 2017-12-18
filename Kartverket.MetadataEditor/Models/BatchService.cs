@@ -144,6 +144,8 @@ namespace Kartverket.MetadataEditor.Models
             nationalThemeList = GetCodeListEnglish("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
             nationalInitiativeList = GetCodeListEnglish("37204B11-4802-44B6-80A1-519968BD072F");
 
+            Log.Error("Start batch update english translation");
+
             try
             {
                 MetadataIndexViewModel model = new MetadataIndexViewModel();
@@ -172,12 +174,12 @@ namespace Kartverket.MetadataEditor.Models
                     if (next == 0) break;
                 }
 
-
+                Log.Info("Finished batch update english translation");
             }
 
             catch (Exception ex)
             {
-                Log.Error("Error batch update english translation: " + ex.Message);
+                Log.Error("Error batch update stopped for english translation: " + ex.Message);
             }
 
 
