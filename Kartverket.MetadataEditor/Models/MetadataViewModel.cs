@@ -269,6 +269,9 @@ namespace Kartverket.MetadataEditor.Models
                     IsSosi = true;
             }
 
+            if (!string.IsNullOrEmpty(ApplicationSchema) && string.IsNullOrEmpty(ProductSpecificationUrl) && IsSosi)
+                return true;
+
             if (IsSosi && (string.IsNullOrEmpty(QualitySpecificationTitleSosi) || string.IsNullOrEmpty(QualitySpecificationExplanationSosi)))
                 return false;
             else

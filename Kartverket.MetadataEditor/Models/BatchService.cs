@@ -144,6 +144,8 @@ namespace Kartverket.MetadataEditor.Models
             nationalThemeList = GetCodeListEnglish("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
             nationalInitiativeList = GetCodeListEnglish("37204B11-4802-44B6-80A1-519968BD072F");
 
+            Log.Error("Start batch update english translation");
+
             try
             {
                 MetadataIndexViewModel model = new MetadataIndexViewModel();
@@ -172,12 +174,12 @@ namespace Kartverket.MetadataEditor.Models
                     if (next == 0) break;
                 }
 
-
+                Log.Info("Finished batch update english translation");
             }
 
             catch (Exception ex)
             {
-                Log.Error("Error batch update english translation: " + ex.Message);
+                Log.Error("Error batch update stopped for english translation: " + ex.Message);
             }
 
 
@@ -325,26 +327,37 @@ namespace Kartverket.MetadataEditor.Models
             return CodeValues;
         }
 
+        Dictionary<string, string> OrganizationsEnglish = new Dictionary<string, string>();
+
         public string GetOrganization(string name)
         {
-            var orgName = "";
-            try { 
+            var orgNameEnglish = "";
+            try {
+
+                if (OrganizationsEnglish.ContainsKey(name))
+                    return OrganizationsEnglish[name];
+            
             System.Net.WebClient c = new System.Net.WebClient();
             c.Encoding = System.Text.Encoding.UTF8;
+            Log.Info("Get " + System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "/api/organisasjon/navn/" + name + "/en");
             var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "/api/organisasjon/navn/" + name + "/en");
             var response = Newtonsoft.Json.Linq.JObject.Parse(data);
 
 
             var orgToken = response["Name"];
             if (orgToken != null)
-                orgName = orgToken.ToString();
+                orgNameEnglish = orgToken.ToString();
+
+            OrganizationsEnglish.Add(name, orgNameEnglish);
+
             }
+
             catch (Exception ex)
             {
                 Log.Error("Get "+ System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "/api/organisasjon/navn/" + name + "/en failed " + ex.Message);
             }
 
-            return orgName;
+            return orgNameEnglish;
         }
 
         OfficeOpenXml.ExcelWorksheet workSheet;

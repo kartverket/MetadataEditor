@@ -609,7 +609,8 @@ namespace Kartverket.MetadataEditor.Models
             if (!string.IsNullOrWhiteSpace(model.TopicCategory))
                 metadata.TopicCategory = model.TopicCategory;
 
-            metadata.SupplementalDescription = model.SupplementalDescription;
+            if(!model.IsService())
+                metadata.SupplementalDescription = model.SupplementalDescription;
 
             metadata.SpecificUsage = !string.IsNullOrWhiteSpace(model.SpecificUsage) ? model.SpecificUsage : " ";
 
@@ -735,7 +736,7 @@ namespace Kartverket.MetadataEditor.Models
                 });
             }
 
-            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleInspire))
+            if (!string.IsNullOrWhiteSpace(model.ApplicationSchema))
             {
                 if (model.QualitySpecificationResultSosiConformApplicationSchema)
                 {
