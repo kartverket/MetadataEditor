@@ -144,7 +144,7 @@ namespace Kartverket.MetadataEditor.Models
             nationalThemeList = GetCodeListEnglish("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
             nationalInitiativeList = GetCodeListEnglish("37204B11-4802-44B6-80A1-519968BD072F");
 
-            Log.Error("Start batch update english translation");
+            Log.Info("Start batch update english translation");
 
             try
             {
@@ -152,7 +152,7 @@ namespace Kartverket.MetadataEditor.Models
                 int offset = 1;
                 int limit = 50;
                 model = _metadataService.SearchMetadata("", "", offset, limit);
-
+                Log.Info("Running search from position:" + offset);
                 foreach (var item in model.MetadataItems)
                 {
                     UpdateEnglish(item.Uuid, username);
@@ -162,7 +162,8 @@ namespace Kartverket.MetadataEditor.Models
                 int next = model.OffsetNext();
 
                 while (next < numberOfRecordsMatched)
-                {        
+                {
+                    Log.Info("Running search from position:" + next);
                     model = _metadataService.SearchMetadata("", "", next, limit);
 
                     foreach (var item in model.MetadataItems)
@@ -285,6 +286,8 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.Keywords = model.GetAllKeywords();
 
                 var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
+                if (transaction.TotalUpdated == "0")
+                    Log.Error("No records updated batch update english translation uuid: " + uuid);
 
                 Log.Info("Finished batch update english translation uuid: " + uuid);
 
