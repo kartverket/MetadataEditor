@@ -10,6 +10,7 @@ using System.Web;
 using System.IO;
 using Kartverket.MetadataEditor.Models.Translations;
 using Newtonsoft.Json.Linq;
+using www.opengis.net;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -148,30 +149,34 @@ namespace Kartverket.MetadataEditor.Models
 
             try
             {
-                MetadataIndexViewModel model = new MetadataIndexViewModel();
+                SearchResultsType model = null;
                 int offset = 1;
                 int limit = 50;
-                model = _metadataService.SearchMetadata("", "", offset, limit);
+                model = _geoNorge.SearchIso("", offset, limit, false);
                 Log.Info("Running search from position:" + offset);
-                foreach (var item in model.MetadataItems)
+                foreach (var item in model.Items)
                 {
-                    UpdateEnglish(item.Uuid, username);
+                    var metadataItem = item as MD_Metadata_Type;
+                    string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
+                    UpdateEnglish(identifier, username);
                 }
 
-                int numberOfRecordsMatched = model.TotalNumberOfRecords;
-                int next = model.OffsetNext();
+                int numberOfRecordsMatched = int.Parse(model.numberOfRecordsMatched);
+                int next = int.Parse(model.nextRecord);
 
                 while (next < numberOfRecordsMatched)
                 {
                     Log.Info("Running search from position:" + next);
-                    model = _metadataService.SearchMetadata("", "", next, limit);
+                    model = _geoNorge.SearchIso("", next, limit, false);
 
-                    foreach (var item in model.MetadataItems)
+                    foreach (var item in model.Items)
                     {
-                        UpdateEnglish(item.Uuid, username);
+                        var metadataItem = item as MD_Metadata_Type;
+                        string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
+                        UpdateEnglish(identifier, username);
                     }
 
-                    next = model.OffsetNext();
+                    next = int.Parse(model.nextRecord);
                     if (next == 0) break;
                 }
 
