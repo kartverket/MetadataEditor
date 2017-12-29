@@ -10,6 +10,7 @@ using System.Web;
 using System.IO;
 using Kartverket.MetadataEditor.Models.Translations;
 using Newtonsoft.Json.Linq;
+using www.opengis.net;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -144,33 +145,38 @@ namespace Kartverket.MetadataEditor.Models
             nationalThemeList = GetCodeListEnglish("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
             nationalInitiativeList = GetCodeListEnglish("37204B11-4802-44B6-80A1-519968BD072F");
 
-            Log.Error("Start batch update english translation");
+            Log.Info("Start batch update english translation");
 
             try
             {
-                MetadataIndexViewModel model = new MetadataIndexViewModel();
+                SearchResultsType model = null;
                 int offset = 1;
                 int limit = 50;
-                model = _metadataService.SearchMetadata("", "", offset, limit);
-
-                foreach (var item in model.MetadataItems)
+                model = _geoNorge.SearchIso("", offset, limit, false);
+                Log.Info("Running search from position:" + offset);
+                foreach (var item in model.Items)
                 {
-                    UpdateEnglish(item.Uuid, username);
+                    var metadataItem = item as MD_Metadata_Type;
+                    string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
+                    UpdateEnglish(identifier, username);
                 }
 
-                int numberOfRecordsMatched = model.TotalNumberOfRecords;
-                int next = model.OffsetNext();
+                int numberOfRecordsMatched = int.Parse(model.numberOfRecordsMatched);
+                int next = int.Parse(model.nextRecord);
 
                 while (next < numberOfRecordsMatched)
-                {        
-                    model = _metadataService.SearchMetadata("", "", next, limit);
+                {
+                    Log.Info("Running search from position:" + next);
+                    model = _geoNorge.SearchIso("", next, limit, false);
 
-                    foreach (var item in model.MetadataItems)
+                    foreach (var item in model.Items)
                     {
-                        UpdateEnglish(item.Uuid, username);
+                        var metadataItem = item as MD_Metadata_Type;
+                        string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
+                        UpdateEnglish(identifier, username);
                     }
 
-                    next = model.OffsetNext();
+                    next = int.Parse(model.nextRecord);
                     if (next == 0) break;
                 }
 
@@ -285,6 +291,8 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.Keywords = model.GetAllKeywords();
 
                 var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
+                if (transaction.TotalUpdated == "0")
+                    Log.Error("No records updated batch update english translation uuid: " + uuid);
 
                 Log.Info("Finished batch update english translation uuid: " + uuid);
 
