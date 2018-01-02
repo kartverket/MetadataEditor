@@ -327,7 +327,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     int.TryParse(indexStop, out deleteIndexStop);
                     if (deleteIndexStart > -1 && deleteIndexStop > -1)
                     {
-                        for (int i = deleteIndexStart; i < deleteIndexStop; i++  )
+                        for (int i = deleteIndexStop; i >= deleteIndexStart; i--  )
                             model.DistributionsFormats.RemoveAt(i);
                     }
                             
