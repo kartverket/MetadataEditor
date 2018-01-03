@@ -34,3 +34,7 @@
 .help-text-toggle{
     cursor: pointer;
 }
+
+.nav-tabs > li > a{
+    padding: 10px 12px;
+}
