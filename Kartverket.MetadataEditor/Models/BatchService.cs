@@ -152,7 +152,7 @@ namespace Kartverket.MetadataEditor.Models
                 SearchResultsType model = null;
                 int offset = 1;
                 int limit = 50;
-                model = _geoNorge.SearchIso("5cb86063-3f66-4d7a-9799-0551e2e21a46", offset, limit, false);
+                model = _geoNorge.SearchIso("", offset, limit, false);
                 Log.Info("Running search from position:" + offset);
                 foreach (var item in model.Items)
                 {
@@ -167,7 +167,7 @@ namespace Kartverket.MetadataEditor.Models
                 while (next < numberOfRecordsMatched)
                 {
                     Log.Info("Running search from position:" + next);
-                    model = _geoNorge.SearchIso("5cb86063-3f66-4d7a-9799-0551e2e21a46", next, limit, false);
+                    model = _geoNorge.SearchIso("", next, limit, false);
 
                     foreach (var item in model.Items)
                     {
