@@ -35,7 +35,7 @@
                                        v-bind:type="formElements.formatName.type" />
                             </div>
                             <div class="col-md-3">
-                                <span class="btn">Slett</span>
+                                <span class="btn" v-on:click="$parent.removeDistributionFormat(formatIndex)">Slett</span>
                             </div>
                         </div>
                     </div>

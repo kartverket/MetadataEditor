@@ -46,6 +46,9 @@
                 <!-- TODO help text for formats -->
                 <div class="list-item" is="distribution-item-format" v-bind:format="distributionItemFormat" v-bind:format-index="distributionItemFormatIndex" v-for="(distributionItemFormat, distributionItemFormatIndex) in distribution.Value.Formats"></div>
             </div>
+            <div class="margin-top-10 text-right">
+                <span class="btn" v-on:click="addDistributionFormat()">Nytt format</span>
+            </div>
             <hr />
             <div class="form-group">
 
@@ -164,6 +167,12 @@
             },
             setUnitsOfDistribution: function () {
                 this.formElements.unitsOfDistribution.value = this.formElements.unitsOfDistribution.selected.join(', ');
+            },
+            addDistributionFormat: function () {
+                this.$root.model.FormatDistributions[this.distributionIndex].Value.Formats.push({ Name: "", Version: "" });
+            },
+            removeDistributionFormat: function (distributionFormatIndex) {
+                this.$root.model.FormatDistributions[this.distributionIndex].Value.Formats.splice(distributionFormatIndex, 1);
             }
         },
         mounted: function () {

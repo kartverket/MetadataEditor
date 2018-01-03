@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, propertyName, index) in $parent.model.FormatDistributions"></div>
+        <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $parent.model.FormatDistributions"></div>
 
     </div>
 </script>
