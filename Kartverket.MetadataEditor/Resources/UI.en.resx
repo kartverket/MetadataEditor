@@ -181,6 +181,18 @@
   <data name="Helptext_ContactPublisher" xml:space="preserve">
     <value>Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
   </data>
+  <data name="Helptext_DistributionsFormats" xml:space="preserve">
+    <value>Flere format kan angis. Versjon av formatet som leveres via filer eller tjenester, for eksempel gml 3.2.1.</value>
+  </data>
+  <data name="Helptext_DistributionsFormatsDistributionName" xml:space="preserve">
+    <value>Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten.</value>
+  </data>
+  <data name="Helptext_DistributionsFormatsProtocol" xml:space="preserve">
+    <value>Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden)</value>
+  </data>
+  <data name="Helptext_DistributionsFormatsURL" xml:space="preserve">
+    <value>Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).</value>
+  </data>
   <data name="Helptext_Image" xml:space="preserve">
     <value>Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde.</value>
   </data>

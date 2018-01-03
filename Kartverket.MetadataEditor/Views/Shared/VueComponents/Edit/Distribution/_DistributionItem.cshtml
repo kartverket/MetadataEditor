@@ -42,8 +42,23 @@
                 </div>
             </div>
             <hr />
+            <div class="row">
+                <div class="col-xs-11">
+                    <p class="article-p">
+                        Formater
+
+                    </p>
+                </div>
+                <div class="col-xs-1">
+                    <span v-on:click="formats.helpText.active = !formats.helpText.active"
+                          v-bind:class="{active: formats.helpText.active}"
+                          class="badge help-text-toggle">
+                        ?
+                    </span>
+                </div>
+            </div>
+            <p v-if="formats.helpText && formats.helpText.active" class="help-text bg-success" v-html="formats.helpText.content"></p>
             <div class="striped-list">
-                <!-- TODO help text for formats -->
                 <div class="list-item" is="distribution-item-format" v-bind:format="distributionItemFormat" v-bind:format-index="distributionItemFormatIndex" v-for="(distributionItemFormat, distributionItemFormatIndex) in distribution.Value.Formats"></div>
             </div>
             <div class="margin-top-10 text-right">
@@ -123,7 +138,7 @@
                         options: this.$root.viewBag.predefinedDistributionProtocols,
                         helpText: {
                             active: false,
-                            content: 'Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden)'
+                            content: '@Html.Raw(UI.Helptext_DistributionsFormatsProtocol)'
                         }
                     },
                     url: {
@@ -135,9 +150,15 @@
                         required: false,
                         helpText: {
                             active: false,
-                            content: 'Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).'
+                            content: '@Html.Raw(UI.Helptext_DistributionsFormatsURL)'
                         }
                     },
+                },
+                formats: {
+                    helpText: {
+                        active: false,
+                        content: '@Html.Raw(UI.Helptext_DistributionsFormats)'
+                    }
                 },
                 formElements: {
                     unitsOfDistribution: {
@@ -155,7 +176,7 @@
                         required: false,
                         helpText: {
                             active: false,
-                            content: 'Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).'
+                            content: '@Html.Raw(UI.Helptext_DistributionsFormatsDistributionName)'
                         }
                     }
                 }

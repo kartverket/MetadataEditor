@@ -260,6 +260,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flere format kan angis. Versjon av formatet som leveres via filer eller tjenester, for eksempel gml 3.2.1..
+        /// </summary>
+        public static string Helptext_DistributionsFormats {
+            get {
+                return ResourceManager.GetString("Helptext_DistributionsFormats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten..
+        /// </summary>
+        public static string Helptext_DistributionsFormatsDistributionName {
+            get {
+                return ResourceManager.GetString("Helptext_DistributionsFormatsDistributionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden).
+        /// </summary>
+        public static string Helptext_DistributionsFormatsProtocol {
+            get {
+                return ResourceManager.GetString("Helptext_DistributionsFormatsProtocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut)..
+        /// </summary>
+        public static string Helptext_DistributionsFormatsURL {
+            get {
+                return ResourceManager.GetString("Helptext_DistributionsFormatsURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde..
         /// </summary>
         public static string Helptext_Image {
