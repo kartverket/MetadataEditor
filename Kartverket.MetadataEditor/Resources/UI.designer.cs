@@ -440,6 +440,114 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arealplaner underlagt Pbl.
+        /// </summary>
+        public static string Metadata_Admin_KeywordArealPlans {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_KeywordArealPlans", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DOK i henhold til KMD-definisjon.
+        /// </summary>
+        public static string Metadata_Admin_KeywordDokValidKmd {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_KeywordDokValidKmd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Underlagt Geodataloven.
+        /// </summary>
+        public static string Metadata_Admin_KeywordGeodatalaw {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_KeywordGeodatalaw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inspire i henhold rapportering.
+        /// </summary>
+        public static string Metadata_Admin_KeywordInspireValid {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_KeywordInspireValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norge digitalt-avtale.
+        /// </summary>
+        public static string Metadata_Admin_KeywordNorgeDigitalt {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_KeywordNorgeDigitalt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Høsting til ulike samarbeid:.
+        /// </summary>
+        public static string Metadata_Admin_KeywordsCatalogs {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_KeywordsCatalogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dato.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationDate {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dataene er produsert iht produktspesifikasjonen.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationDate_Conform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationDate_Conform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dataene avviker fra produktspesifikasjonen.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationDate_NotConform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationDate_NotConform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avvik fra produktspesifikasjonen.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationExplanation {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datakonformitet.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResult {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angitt produktspesifikasjon.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationTitle {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
         /// </summary>
         public static string Metadata_BoundingBox_East_Invalid {

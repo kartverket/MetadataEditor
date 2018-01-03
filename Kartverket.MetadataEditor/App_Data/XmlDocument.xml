@@ -267,6 +267,66 @@
               Looks up a localized string similar to Beskrivelse.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordArealPlans">
+            <summary>
+              Looks up a localized string similar to Arealplaner underlagt Pbl.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordDokValidKmd">
+            <summary>
+              Looks up a localized string similar to DOK i henhold til KMD-definisjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordGeodatalaw">
+            <summary>
+              Looks up a localized string similar to Underlagt Geodataloven.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordInspireValid">
+            <summary>
+              Looks up a localized string similar to Inspire i henhold rapportering.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordNorgeDigitalt">
+            <summary>
+              Looks up a localized string similar to Norge digitalt-avtale.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordsCatalogs">
+            <summary>
+              Looks up a localized string similar to Høsting til ulike samarbeid:.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationDate">
+            <summary>
+              Looks up a localized string similar to Dato.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationDate_Conform">
+            <summary>
+              Looks up a localized string similar to Dataene er produsert iht produktspesifikasjonen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationDate_NotConform">
+            <summary>
+              Looks up a localized string similar to Dataene avviker fra produktspesifikasjonen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationExplanation">
+            <summary>
+              Looks up a localized string similar to Avvik fra produktspesifikasjonen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResult">
+            <summary>
+              Looks up a localized string similar to Datakonformitet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationTitle">
+            <summary>
+              Looks up a localized string similar to Angitt produktspesifikasjon.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_East_Invalid">
             <summary>
               Looks up a localized string similar to Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..

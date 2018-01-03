@@ -244,6 +244,42 @@
   <data name="Metadata_Abstract" xml:space="preserve">
     <value>Beskrivelse</value>
   </data>
+  <data name="Metadata_Admin_KeywordArealPlans" xml:space="preserve">
+    <value>Arealplaner underlagt Pbl</value>
+  </data>
+  <data name="Metadata_Admin_KeywordDokValidKmd" xml:space="preserve">
+    <value>DOK i henhold til KMD-definisjon</value>
+  </data>
+  <data name="Metadata_Admin_KeywordGeodatalaw" xml:space="preserve">
+    <value>Underlagt Geodataloven</value>
+  </data>
+  <data name="Metadata_Admin_KeywordInspireValid" xml:space="preserve">
+    <value>Inspire i henhold rapportering</value>
+  </data>
+  <data name="Metadata_Admin_KeywordNorgeDigitalt" xml:space="preserve">
+    <value>Norge digitalt-avtale</value>
+  </data>
+  <data name="Metadata_Admin_KeywordsCatalogs" xml:space="preserve">
+    <value>Høsting til ulike samarbeid:</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationDate" xml:space="preserve">
+    <value>Dato</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationDate_Conform" xml:space="preserve">
+    <value>Dataene er produsert iht produktspesifikasjonen</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationDate_NotConform" xml:space="preserve">
+    <value>Dataene avviker fra produktspesifikasjonen</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationExplanation" xml:space="preserve">
+    <value>Avvik fra produktspesifikasjonen</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResult" xml:space="preserve">
+    <value>Datakonformitet</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationTitle" xml:space="preserve">
+    <value>Angitt produktspesifikasjon</value>
+  </data>
   <data name="Metadata_BoundingBox_East_Invalid" xml:space="preserve">
     <value>Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>
   </data>
