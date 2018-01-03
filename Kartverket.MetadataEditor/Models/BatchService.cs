@@ -152,7 +152,7 @@ namespace Kartverket.MetadataEditor.Models
                 SearchResultsType model = null;
                 int offset = 1;
                 int limit = 50;
-                model = _geoNorge.SearchIso("", offset, limit, false);
+                model = _geoNorge.SearchIso("5cb86063-3f66-4d7a-9799-0551e2e21a46", offset, limit, false);
                 Log.Info("Running search from position:" + offset);
                 foreach (var item in model.Items)
                 {
@@ -167,7 +167,7 @@ namespace Kartverket.MetadataEditor.Models
                 while (next < numberOfRecordsMatched)
                 {
                     Log.Info("Running search from position:" + next);
-                    model = _geoNorge.SearchIso("", next, limit, false);
+                    model = _geoNorge.SearchIso("5cb86063-3f66-4d7a-9799-0551e2e21a46", next, limit, false);
 
                     foreach (var item in model.Items)
                     {
@@ -211,14 +211,14 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     var organization = GetOrganization(metadata.ContactOwner.Organization);
                     if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactPublisherOrganization = organization;
+                        model.EnglishContactOwnerOrganization = organization;
                 }
 
                 if (metadata.ContactPublisher != null && !string.IsNullOrEmpty(metadata.ContactPublisher.Organization))
                 {
                     var organization = GetOrganization(metadata.ContactPublisher.Organization);
                     if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactOwnerOrganization = organization;
+                        model.EnglishContactPublisherOrganization = organization;
                 }
 
                 var contactMetadata = model.ContactMetadata.ToSimpleContact();
