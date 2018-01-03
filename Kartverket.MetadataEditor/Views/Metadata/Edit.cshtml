@@ -1693,6 +1693,15 @@
                 setSelectedThumbnails: function (thumbnails) {
                     this.selectedValues.thumbnails = thumbnails;
                 },
+                addKeyword: function (keywordValue, keywordName) {
+                    if (this.model[keywordName] == undefined) {
+                        this.model[keywordName] = [];
+                    }
+                    this.model[keywordName].push(keywordValue);
+                },
+                removeKeyword: function (keywordIndex, keywordName) {
+                    this.model[keywordName].Value.Formats.splice(keywordIndex, 1);
+                },
                 initDatePicker: function () {
                     
                     $.datepicker.regional['nb'] = {

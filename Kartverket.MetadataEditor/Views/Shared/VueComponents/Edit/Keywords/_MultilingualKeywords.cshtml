@@ -67,8 +67,9 @@
             }
         },
         methods: {
-            addKeyword: function () { this.keywords.push('') },
-            removeKeyword: function () {}
+            addKeyword: function () {
+                this.$root.addKeyword('', this.inputName);
+            }
         }
     };
 </script>
