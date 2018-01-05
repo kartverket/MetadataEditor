@@ -707,6 +707,7 @@
     <Content Include="Views\Shared\VueComponents\Edit\Keywords\MultilingualKeywords\_MultilingualKeyword.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Documents\_Thumbnails.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Documents\Thumbnails\_Thumbnail.cshtml" />
+    <Content Include="Web.Multi.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
