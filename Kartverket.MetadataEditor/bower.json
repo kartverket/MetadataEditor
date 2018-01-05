@@ -2,6 +2,7 @@
   "name": "MetadataEditor",
   "private": true,
   "dependencies": {
-    "kartverket-felleskomponenter": "8.0.2"
+    "kartverket-felleskomponenter": "8.1.2",
+    "vue": "^2.5.13"
   }
 }

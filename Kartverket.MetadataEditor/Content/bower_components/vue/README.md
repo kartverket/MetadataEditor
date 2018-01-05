@@ -1,4 +1,4 @@
-<p align="center"><a href="https://vuejs.org" target="_blank"><img width="100"src="https://vuejs.org/images/logo.png"></a></p>
+<p align="center"><a href="https://vuejs.org" target="_blank"><img width="100" src="https://vuejs.org/images/logo.png" alt="Vue logo"></a></p>
 
 <p align="center">
   <a href="https://circleci.com/gh/vuejs/vue/tree/dev"><img src="https://img.shields.io/circleci/project/vuejs/vue/dev.svg" alt="Build Status"></a>
@@ -26,30 +26,38 @@ Funds donated via Patreon goes directly to support Evan You's full-time work on 
 
 <h4 align="center">Platinum</h4>
 
-<p align="center">
-  <a href="https://stdlib.com">
-    <img width="240px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/stdlib.png">
-  </a>
-  <br><br>
-  <a href="https://xiaozhuanlan.com">
-    <img width="160px" src="https://raw.githubusercontent.com/vuejs/cn.vuejs.org/master/themes/vue/source/images/xiaozhuanlan.png">
-  </a>
-  <br><br>
-  <a href="http://tooltwist.com" target="_blank">
-    <img width="220px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/tooltwist.png">
-  </a>
-</p>
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://stdlib.com">
+          <img width="220px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/stdlib.png">
+        </a>
+      </td>
+      <td>
+        <a href="https://xiaozhuanlan.com">
+          <img width="160px" src="https://raw.githubusercontent.com/vuejs/cn.vuejs.org/master/themes/vue/source/images/xiaozhuanlan.png">
+        </a>
+      </td>
+      <td>
+        <a href="http://tooltwist.com" target="_blank">
+          <img width="200px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/tooltwist.png">
+        </a>
+      </td>
+      <td>
+        <a href="https://www.infinitynewtab.com/donate/index.html" target="_blank">
+          <img width="200px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/infinitynewtab.png">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <h4 align="center">Gold</h4>
 
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="middle">
-        <a href="https://deepstreamhub.com" target="_blank">
-          <img width="140px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/deepstream.png">
-        </a>
-      </td>
       <td align="center" valign="middle">
         <a href="https://jsfiddle.net/">
           <img width="120px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/jsfiddle.png">
@@ -75,14 +83,14 @@ Funds donated via Patreon goes directly to support Evan You's full-time work on 
           <img width="120px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/someline.png">
         </a>
       </td>
-    </tr>
-    <tr></tr>
-    <tr>
       <td align="center" valign="middle">
         <a href="http://monterail.com/" target="_blank">
           <img width="120px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/monterail.png">
         </a>
       </td>
+    </tr>
+    <tr></tr>
+    <tr>
       <td align="center" valign="middle">
         <a href="https://www.2mhost.com/" target="_blank">
           <img width="120px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/2mhost.png">
@@ -99,8 +107,8 @@ Funds donated via Patreon goes directly to support Evan You's full-time work on 
         </a>
       </td>
       <td align="center" valign="middle">
-        <a href="https://component.io/" target="_blank">
-          <img width="130px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/component_io.png">
+        <a href="https://anymod.com/" target="_blank">
+          <img width="130px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/anymod.png">
         </a>
       </td>
       <td align="center" valign="middle">
@@ -108,22 +116,22 @@ Funds donated via Patreon goes directly to support Evan You's full-time work on 
           <img width="80px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/xfive.png">
         </a>
       </td>
+      <td align="center" valign="middle">
+        <a href="https://www.frontenddeveloperlove.com/" target="_blank">
+          <img width="160px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/frontend-love.png">
+        </a>
+      </td>
     </tr>
     <tr></tr>
     <tr>
-      <td align="center" valign="middle">
-        <a href="http://www.frontenddevelopermeetups.com/" target="_blank">
-          <img width="160px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/frontend-meetups.png">
-        </a>
-      </td>
       <td align="center" valign="middle">
         <a href="https://onsen.io/vue/" target="_blank">
           <img width="130px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/onsen-ui.png">
         </a>
       </td>
       <td align="center" valign="middle">
-        <a href="https://themeforest.net/item/clear-bootstrap-vuejs-admin-template/19339739?ref=jyostna&utm_source=vuejs.org&utm_campaign=vuejs_patreon" target="_blank">
-          <img width="150px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/vuejsadmin.png">
+        <a href="https://vuetify.com" target="_blank">
+          <img width="130px" src="https://raw.githubusercontent.com/vuejs/vuejs.org/master/themes/vue/source/images/vuetify.png">
         </a>
       </td>
     </tr>
