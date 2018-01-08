@@ -211,14 +211,14 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     var organization = GetOrganization(metadata.ContactOwner.Organization);
                     if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactPublisherOrganization = organization;
+                        model.EnglishContactOwnerOrganization = organization;
                 }
 
                 if (metadata.ContactPublisher != null && !string.IsNullOrEmpty(metadata.ContactPublisher.Organization))
                 {
                     var organization = GetOrganization(metadata.ContactPublisher.Organization);
                     if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactOwnerOrganization = organization;
+                        model.EnglishContactPublisherOrganization = organization;
                 }
 
                 var contactMetadata = model.ContactMetadata.ToSimpleContact();
