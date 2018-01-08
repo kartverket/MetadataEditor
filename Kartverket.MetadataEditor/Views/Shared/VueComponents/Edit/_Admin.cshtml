@@ -1,6 +1,53 @@
-﻿<script type="text/x-template" id="admin-template">
+﻿@using Resources
+
+<script type="text/x-template" id="admin-template">
     <div>
         Admin
+        <div>
+            <input type="checkbox" v-bind:id="formElements.keywordDokValidKmd.name" v-bind:name="formElements.keywordDokValidKmd.name" v-model="formElements.keywordDokValidKmd.value" />
+            <label v-bind:for="formElements.keywordDokValidKmd.name">{{ formElements.keywordDokValidKmd.label }}</label>
+        </div>
+        <div>
+            <input type="checkbox" v-bind:id="formElements.keywordInspireValid.name" v-bind:name="formElements.keywordInspireValid.name" v-model="formElements.keywordInspireValid.value" />
+            <label v-bind:for="formElements.keywordInspireValid.name">{{ formElements.keywordInspireValid.label }}</label>
+        </div>
+        <div>
+            <input type="checkbox" v-bind:id="formElements.keywordGeodatalaw.name" v-bind:name="formElements.keywordGeodatalaw.name" v-model="formElements.keywordGeodatalaw.value" />
+            <label v-bind:for="formElements.keywordGeodatalaw.name">{{ formElements.keywordGeodatalaw.label }}</label>
+        </div>
+
+
+        <label>{{ formElements.keywordsCatalogs.label }}</label>
+
+        <div class="custom-select-list">
+            <div class="custom-select-list-input-container">
+                <span v-for="option in $parent.selectedValues.admin.keywordsCatalogs" class="custom-select-list-selected">
+                    {{ option.Text }}
+                    <span v-on:click="removeSelectedOption(option)" class="custom-select-list-remove-button"></span>
+                </span>
+                <input type="text" class="custom-select-list-input" />
+            </div>
+
+            <div class="custom-select-list-dropdown-container">
+                <div class="custom-select-list-dropdown">
+                    <div class="custom-select-list-dropdown-content">
+                        <ul class="custom-select-list-options area-option-list">
+                            <li v-on:click="addSelectedOption(option)" v-bind:class="{'is-selected': optionIsSelected(option)}" v-for="option in formElements.keywordsCatalogs.options">{{ option.Text }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="checkbox" v-bind:id="formElements.keywordNorgedigitalt.name" v-bind:name="formElements.keywordNorgedigitalt.name" v-model="formElements.keywordNorgedigitalt.value" />
+            <label v-bind:for="formElements.keywordNorgedigitalt.name">{{ formElements.keywordNorgedigitalt.label }}</label>
+        </div>
+        <div>
+            <input type="checkbox" v-bind:id="formElements.keywordArealPlans.name" v-bind:name="formElements.keywordArealPlans.name" v-model="formElements.keywordArealPlans.value" />
+            <label v-bind:for="formElements.keywordArealPlans.name">{{ formElements.keywordArealPlans.label }}</label>
+        </div>
+
+
     </div>
 </script>
 
@@ -10,7 +57,74 @@
         template: "#admin-template",
         props: [],
         components: {
+        },
+        data: function () {
+            return {
+                formElements: {
+                    keywordDokValidKmd: {
+                        name: 'keyword-dok-valid-kmd',
+                        value: 'Det offentlige kartgrunnlaget',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordDokValidKmd)',
+                        type: 'checkbox'
+                    },
+                    keywordInspireValid: {
+                        name: 'keyword-inspire-valid',
+                        value: 'Inspire',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordInspireValid)',
+                        type: 'checkbox'
+                    },
+                    keywordGeodatalaw: {
+                        name: 'keyword-geodatalaw',
+                        value: 'geodataloven',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordGeodatalaw)',
+                        type: 'checkbox'
+                    },
+                    keywordsCatalogs: {
+                        name: 'KeywordsCatalogs',
+                        vale: '',
+                        label: 'Høsting til ulike samarbeid',
+                        type: 'select',
+                        options: this.$parent.viewBag.CatalogValues
+                    },
+                    keywordNorgedigitalt: {
+                        name: 'keyword-norgedigitalt',
+                        value: 'Norge digitalt',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordNorgeDigitalt)',
+                        type: 'checkbox'
+                    },
+                    keywordArealPlans: {
+                        name: 'keyword-areal-plans',
+                        value: 'arealplanerPBL',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordArealPlans)',
+                        type: 'checkbox'
+                    }
+                }
+            }
+        },
+        methods: {
+            addSelectedOption: function (option) {
+                if (!this.optionIsSelected(option)) {
+                    this.$parent.selectedValues.admin.keywordsCatalogs.push(option);
+                }
+            },
+            removeSelectedOption: function (option) {
+                var selectedOptionIndex = this.$parent.selectedValues.admin.keywordsCatalogs.indexOf(option);
+                if (selectedOptionIndex > -1) {
+                    this.$parent.selectedValues.admin.keywordsCatalogs.splice(selectedOptionIndex, 1);
+                }
+            },
+            optionIsSelected: function (option) {
+                var optionIsSelected = false;
+                this.$parent.selectedValues.admin.keywordsCatalogs.forEach(function (selectedOption) {
+                    if (option.Value !== undefined) {
+                        if (option.Value== selectedOption.Value) optionIsSelected = true;
+                    }
+                })
+                return optionIsSelected;
+            }
+        },
+        mounted: function () {
+            initCustomSelectList();
         }
     };
 </script>
-
