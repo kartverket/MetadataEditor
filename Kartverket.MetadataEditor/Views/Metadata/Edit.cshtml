@@ -30,7 +30,7 @@
 <form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     <div id="vue-container">
         <ul class="nav nav-tabs">
-            <li v-for="tab in tabs" v-on:click="selectedTab = tab" v-bind:class="{active: selectedTab.id == tab.id}">
+            <li v-for="tab in tabs" v-on:click="setSelectTab(tab)" v-bind:class="{active: selectedTab.id == tab.id}">
                 <a href="#">
                     <span v-bind:class="tab.iconClass"></span>
                     {{ tab.name }}
@@ -1681,8 +1681,23 @@
             },
             mounted: function () {
                 this.selectedValues.thumbnails = this.model.Thumbnails;
+                this.selectedTab = this.getSelectedTab();
             },
             methods: {
+                getSelectedTab: function () {
+                    var tabId = Cookies.get('navtabselected');
+                    var selectedTab = this.tabs[0];
+                    this.tabs.forEach(function (tab) {
+                        if (tab.id == tabId) {
+                            selectedTab = tab;
+                        }
+                    });
+                    return selectedTab;
+                },
+                setSelectTab: function (tab) {
+                    this.selectedTab = tab;
+                    Cookies.set('navtabselected', tab.id);
+                },
                 getSelectedCoverageImage: function () {
                     var selectedCoverageImage = {};
                     this.selectedValues.thumbnails.forEach(function (thumbnail) {
