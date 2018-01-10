@@ -53,15 +53,14 @@
                         </div>
                     </div>
                 </div>
-                <input v-model="keywordsConcept.value" />
             </div>
         </div>
-        <span class="btn" v-on:click="loadConcepts()">testknapp</span>
+
 
         <div v-if="productSpecificationOther.visible" class="form-group">
-            <label class="col-md-3 control-label">{{ productSpecificationOther.label }}</label>
-            <div class="col-md-4">
-                <div class="input-group">
+                <label class="col-md-3 control-label">{{ productSpecificationOther.label }}</label>
+                <div class="col-md-4">
+                    <div class="input-group">
                     <span class="input-group-addon">{{ productSpecificationOther.fields.name.label }}</span>
                     <input type="text" v-bind:name="productSpecificationOther.fields.name.label.name" v-model="productSpecificationOther.fields.name.value" class="form-control" />
                 </div>
@@ -145,7 +144,6 @@
                             <div class="col-md-2">
                                 <button class="btn" t id="uploadThumbnailButton" v-on:click="uploadFile" onclick="//return checkIfUrlRef();">Last opp</button>
                             </div>
-                            <input v-model="thumbnails.fields.uploadMode.value" />
                         </div>
                     </div>
                 </div>
