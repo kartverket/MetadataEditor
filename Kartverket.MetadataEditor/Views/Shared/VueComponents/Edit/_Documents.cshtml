@@ -18,8 +18,11 @@
         <div v-if="applicationSchema.visible" class="form-group">
             <div class="row">
                 <label class="col-md-3 control-label">{{ applicationSchema.label }}</label>
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <input type="text" v-bind:name="applicationSchema.name" v-model="applicationSchema.value" class="form-control" />
+                </div>
+                <div class="col-md-2 text-right">
+                    <span class="btn" v-on:click="loadConcepts()">Hent</span>
                 </div>
             </div>
         </div>
@@ -33,7 +36,7 @@
                                 {{ getConceptNameFromConceptValue(conceptValue) }}
                                 <span v-on:click="removeSelectedConcept(conceptValue)" class="custom-select-list-remove-button"></span>
                             </span>
-                            <input type="text" class="custom-select-list-input" />
+                            <input type="text" v-bind:disabled="!this.keywordsConcept.value.length" class="custom-select-list-input" />
                         </div>
 
                         <div class="custom-select-list-dropdown-container">
@@ -58,20 +61,23 @@
 
 
         <div v-if="productSpecificationOther.visible" class="form-group">
+            <div class="row">
                 <label class="col-md-3 control-label">{{ productSpecificationOther.label }}</label>
                 <div class="col-md-4">
                     <div class="input-group">
-                    <span class="input-group-addon">{{ productSpecificationOther.fields.name.label }}</span>
-                    <input type="text" v-bind:name="productSpecificationOther.fields.name.label.name" v-model="productSpecificationOther.fields.name.value" class="form-control" />
+                        <span class="input-group-addon">{{ productSpecificationOther.fields.name.label }}</span>
+                        <input type="text" v-bind:name="productSpecificationOther.fields.name.label.name" v-model="productSpecificationOther.fields.name.value" class="form-control" />
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">{{ productSpecificationOther.fields.url.label }}</span>
-                    <input type="text" v-bind:name="productSpecificationOther.fields.url.label.name" v-model="productSpecificationOther.fields.url.value" class="form-control" />
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">{{ productSpecificationOther.fields.url.label }}</span>
+                        <input type="text" v-bind:name="productSpecificationOther.fields.url.label.name" v-model="productSpecificationOther.fields.url.value" class="form-control" />
+                    </div>
                 </div>
             </div>
         </div>
+
         <div v-if="productSheetUrl.visible" class="form-group">
             <div class="row">
                 <label class="col-md-3 control-label">{{ productSheetUrl.label }}</label>
@@ -121,8 +127,8 @@
                 <p v-if="thumbnails.helpText && thumbnails.helpText.active" class="help-text bg-success" v-html="thumbnails.helpText.content"></p>
 
                 <div class="form-group required has-feedback">
-                    <label class="col-md-2 control-label">{{ thumbnails.fields.thumbnailType.label }}</label>
-                    <div class="col-md-2 bottom-left">
+                    <label class="col-md-3 control-label">{{ thumbnails.fields.thumbnailType.label }}</label>
+                    <div class="col-md-8 bottom-left">
                         <input type="hidden" value="large_thumbnail" id="thumbnailType">
                         <div class="@ViewBag.thumbnailMissingCSS" style="margin-top:7px;">Stort bilde</div>
                         <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -132,13 +138,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">{{ thumbnails.fields.uploadThumbnailFile.label }}</label>
+                    <label class="col-md-3 control-label">{{ thumbnails.fields.uploadThumbnailFile.label }}</label>
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="input-group">
                                     <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
-                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id" class="input-group-btn" />
+                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id" class="input-group-addon input-group-btn" />
                                 </div>
                             </div>
                             <div class="col-md-2">
