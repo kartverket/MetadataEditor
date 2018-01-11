@@ -20,13 +20,32 @@ namespace Kartverket.MetadataEditor.Views.Home
             culture = CultureHelper.GetImplementedCulture(culture);
             // Save culture in a cookie
             HttpCookie cookie = Request.Cookies["_culture"];
+
             if (cookie != null)
+            {
+                if (cookie.Domain != ".geonorge.no")
+                {
+                    HttpCookie oldCookie = new HttpCookie("_culture");
+                    oldCookie.Domain = cookie.Domain;
+                    oldCookie.Expires = DateTime.Now.AddDays(-1d);
+                    Response.Cookies.Add(oldCookie);
+                }
+            }
+
+            if (cookie != null)
+            {
                 cookie.Value = culture;   // update cookie value
+                cookie.Expires = DateTime.Now.AddYears(1);
+                if (!Request.IsLocal)
+                    cookie.Domain = ".geonorge.no";
+            }
             else
             {
                 cookie = new HttpCookie("_culture");
                 cookie.Value = culture;
                 cookie.Expires = DateTime.Now.AddYears(1);
+                if (!Request.IsLocal)
+                    cookie.Domain = ".geonorge.no";
             }
             Response.Cookies.Add(cookie);
 
