@@ -319,19 +319,15 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
                 else if (action.Contains(UI.Button_Remove_Distribution))
                 {
-                    int deleteIndexStart = -1; int deleteIndexStop = -1;
-                    var index = action.Split('-');
-                    var indexStart = index[1];
-                    var indexStop= index[2];
-                    int.TryParse(indexStart, out deleteIndexStart);
-                    int.TryParse(indexStop, out deleteIndexStop);
-                    if (deleteIndexStart > -1 && deleteIndexStop > -1)
-                    {
-                        for (int i = deleteIndexStop; i >= deleteIndexStart; i--  )
-                            model.DistributionsFormats.RemoveAt(i);
-                    }
+                    var distributions = model.FormatDistributions;
+
+                    var indexInfo = action.Split('-');
+                    var indexGroup = int.Parse(indexInfo[1]);
+
+                    var distributionToRemove = distributions.ElementAt(indexGroup);
                             
                     model.FormatDistributions = _metadataService.GetFormatDistributions(model.DistributionsFormats);
+                    model.FormatDistributions.Remove(distributionToRemove.Key);
                     PrepareViewBagForEditing(model);
                     return View(model);
                 }
