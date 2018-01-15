@@ -855,6 +855,10 @@ namespace Kartverket.MetadataEditor.Models
                     accessConstraintsSelected = "otherRestrictions";
 
                 }
+                else if(accessConstraintsSelected == "restricted")
+                {
+                    otherConstraintsAccess = null;
+                }
             }
 
             metadata.Constraints = new SimpleConstraints
