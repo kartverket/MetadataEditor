@@ -130,8 +130,11 @@ namespace Kartverket.MetadataEditor.Models
         Dictionary<string, string> nationalThemeList;
         Dictionary<string, string> nationalInitiativeList;
 
-        internal void UpdateRegisterTranslations(string username)
+        public void UpdateRegisterTranslations(string username, string uuid = null)
         {
+            string searchString = "";
+            if (!string.IsNullOrEmpty(uuid))
+                searchString = uuid;
             System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
             string server = settings["GeoNetworkUrl"];
             string usernameGeonetwork = settings["GeoNetworkUsername"];
@@ -152,7 +155,7 @@ namespace Kartverket.MetadataEditor.Models
                 SearchResultsType model = null;
                 int offset = 1;
                 int limit = 50;
-                model = _geoNorge.SearchIso("", offset, limit, false);
+                model = _geoNorge.SearchIso(searchString, offset, limit, false);
                 Log.Info("Running search from position:" + offset);
                 foreach (var item in model.Items)
                 {
@@ -164,10 +167,10 @@ namespace Kartverket.MetadataEditor.Models
                 int numberOfRecordsMatched = int.Parse(model.numberOfRecordsMatched);
                 int next = int.Parse(model.nextRecord);
 
-                while (next < numberOfRecordsMatched)
+                while (next > 0 && next < numberOfRecordsMatched)
                 {
                     Log.Info("Running search from position:" + next);
-                    model = _geoNorge.SearchIso("", next, limit, false);
+                    model = _geoNorge.SearchIso(searchString, next, limit, false);
 
                     foreach (var item in model.Items)
                     {

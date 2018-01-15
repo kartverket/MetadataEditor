@@ -488,6 +488,7 @@ namespace Kartverket.MetadataEditor.Models
 
             Task.Run(() => ReIndexOperatesOn(model));
             Task.Run(() => RemoveCache(model));
+            Task.Run(() => new BatchService().UpdateRegisterTranslations(username, model.Uuid));
         }
 
         private void ReIndexOperatesOn(MetadataViewModel metadata)
