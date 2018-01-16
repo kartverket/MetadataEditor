@@ -114,12 +114,12 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [Authorize]
-        public ActionResult SyncronizeRegisterTranslations()
+        public ActionResult SyncronizeRegisterTranslations(string uuid = null)
         {
             string role = GetSecurityClaim("role");
             if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
             {
-                new Thread(() => new BatchService().UpdateRegisterTranslations(GetUsername())).Start();
+                new Thread(() => new BatchService().UpdateRegisterTranslations(GetUsername(), uuid)).Start();
                 TempData["message"] = "Batch-oppdatering: synkronisering av engelske register tekster kjører i bakgrunnen!";
                 return RedirectToAction("Index");
             }

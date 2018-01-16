@@ -488,6 +488,12 @@ namespace Kartverket.MetadataEditor.Models
 
             Task.Run(() => ReIndexOperatesOn(model));
             Task.Run(() => RemoveCache(model));
+            Task.Run(async delegate
+            {
+                await Task.Delay(TimeSpan.FromSeconds(20));
+                new BatchService().UpdateRegisterTranslations(username, model.Uuid);
+            });
+
         }
 
         private void ReIndexOperatesOn(MetadataViewModel metadata)
@@ -853,6 +859,10 @@ namespace Kartverket.MetadataEditor.Models
                     otherConstraintsAccess = accessConstraintsSelected;
                     accessConstraintsSelected = "otherRestrictions";
 
+                }
+                else if(accessConstraintsSelected == "restricted")
+                {
+                    otherConstraintsAccess = null;
                 }
             }
 

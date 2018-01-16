@@ -186,10 +186,7 @@
                                         <input type="hidden" class="distributionFormats-index" name="DistributionsFormats.Index" value="@indexFormat" />
                                     </div>
                                 </div>
-                                if (indexFormat < distribution.Formats.Count)
-                                {
-                                    indexFormat++;
-                                }
+                                indexFormat++;
                             }
                         }
                     </div>
@@ -253,18 +250,18 @@
                 @if ((Model.IsDataset() || Model.IsDatasetSeries()) && indexDistribution > 0)
                 {
                     <div class="row">
-                        <div class="col-md-12"><button name="action" value="@UI.Button_Remove_Distribution-@(indexDistribution + 1)-@(distribution.Formats.Count + indexDistribution)" class="btn btn-default pull-right">@UI.Button_Remove_Distribution</button></div>
+                        <div class="col-md-12"><button name="action" value="@UI.Button_Remove_Distribution-@(indexDistribution)" class="btn btn-default pull-right">@UI.Button_Remove_Distribution</button></div>
                     </div>
                 }
             </div>
         </div>
-                                                if (distribution.Formats.Count == 0)
-                                                {
-                                                    index++;
-                                                }
-                                                indexDistribution++;
-                                            }
-                                        }
+
+            index++;
+
+        indexDistribution++;
+    }
+ }
+
 @if (Model.IsDataset() || Model.IsDatasetSeries())
 {
     <div class="row">
