@@ -17,7 +17,8 @@ namespace Kartverket.MetadataEditor
             bundles.Add(new ScriptBundle("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts").Include(
                "~/Content/bower_components/kartverket-felleskomponenter/assets/js/vendor.min.js",
                "~/Content/bower_components/vue/dist/vue.js",
-               "~/Content/bower_components/kartverket-felleskomponenter/assets/js/main.min.js"
+               "~/Content/bower_components/vuex/dist/vuex.js",
+               "~/Content/bower_components/kartverket-felleskomponenter/assets/js/main.js"
                ));
 
             bundles.Add(new ScriptBundle("~/Scripts/local-scripts").Include(

@@ -457,6 +457,14 @@
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\partials\_Footer_eng.min.html" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\partials\_SharedMenu.html" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\partials\_SharedMenu.min.html" />
+    <Content Include="Content\bower_components\vuex\.bower.json" />
+    <Content Include="Content\bower_components\vuex\bower.json" />
+    <Content Include="Content\bower_components\vuex\dist\logger.js" />
+    <Content Include="Content\bower_components\vuex\dist\vuex.common.js" />
+    <Content Include="Content\bower_components\vuex\dist\vuex.esm.js" />
+    <Content Include="Content\bower_components\vuex\dist\vuex.js" />
+    <Content Include="Content\bower_components\vuex\dist\vuex.min.js" />
+    <Content Include="Content\bower_components\vuex\LICENSE" />
     <Content Include="Content\bower_components\vue\dist\vue.common.js" />
     <Content Include="Content\bower_components\vue\dist\vue.esm.browser.js" />
     <Content Include="Content\bower_components\vue\dist\vue.esm.js" />
@@ -741,6 +749,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\no.geonorge.ws\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
