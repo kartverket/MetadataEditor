@@ -386,6 +386,15 @@ namespace Kartverket.MetadataEditor.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult OpenData()
+        {
+            Models.OpenData.OpenMetadataService service = new Models.OpenData.OpenMetadataService();
+            service.SyncData();
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
         public string GetSafeFilename(string filename)
         {
             filename = filename.Replace(" ", "_");

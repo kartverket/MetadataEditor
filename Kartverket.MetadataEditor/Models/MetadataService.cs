@@ -1404,7 +1404,7 @@ namespace Kartverket.MetadataEditor.Models
             }
             else
             {
-                metadata = SimpleMetadata.CreateDataset();
+                metadata = SimpleMetadata.CreateDataset(model.Uuid);
                 if (model.Type.Equals("software"))
                 {
                     metadata.HierarchyLevel = "software";
