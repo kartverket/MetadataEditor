@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using GeoNorgeAPI;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
                         model.Abstract = dataset.description;
 
+                        model.DistributionsFormats = GetDistributionsFormats(dataset.distribution);
+
                         _metadataService.SaveMetadataModel(model, username);
                         Log.Info("Updated open metadata uuid: " + model.Uuid);
                     }
@@ -91,6 +94,28 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                     }
                 }
             }
+        }
+
+        private List<SimpleDistribution> GetDistributionsFormats(Distribution[] distributions)
+        {
+            List<SimpleDistribution> formatDistributions = new List<SimpleDistribution>();
+
+            foreach(var distribution in distributions)
+            {
+                var url = distribution.downloadURL;
+                if (string.IsNullOrEmpty(url))
+                    url = distribution.accessURL;
+
+                formatDistributions.Add( 
+                    new SimpleDistribution
+                    {
+                        URL = url,
+                        FormatName = distribution.format,
+                        Protocol = distribution.mediaType
+                    } );
+            }
+
+            return formatDistributions;
         }
 
         private string GetIdentifierFromUri(string identifier)
