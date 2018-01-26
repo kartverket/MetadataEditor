@@ -71,6 +71,9 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
                         model.Abstract = dataset.description;
 
+                        if(dataset.keyword != null && dataset.keyword.Length > 0)
+                            model.KeywordsOther = dataset.keyword.ToList();
+
                         model.DistributionsFormats = GetDistributionsFormats(dataset.distribution, model.ContactMetadata.Organization);
 
                         _metadataService.SaveMetadataModel(model, username);
