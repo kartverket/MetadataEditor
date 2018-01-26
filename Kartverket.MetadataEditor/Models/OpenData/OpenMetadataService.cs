@@ -71,7 +71,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
                         model.Abstract = dataset.description;
 
-                        model.DistributionsFormats = GetDistributionsFormats(dataset.distribution);
+                        model.DistributionsFormats = GetDistributionsFormats(dataset.distribution, model.ContactMetadata.Organization);
 
                         _metadataService.SaveMetadataModel(model, username);
                         Log.Info("Updated open metadata uuid: " + model.Uuid);
@@ -96,7 +96,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             }
         }
 
-        private List<SimpleDistribution> GetDistributionsFormats(Distribution[] distributions)
+        private List<SimpleDistribution> GetDistributionsFormats(Distribution[] distributions, string organization)
         {
             List<SimpleDistribution> formatDistributions = new List<SimpleDistribution>();
 
@@ -109,13 +109,24 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                 formatDistributions.Add( 
                     new SimpleDistribution
                     {
+                        Organization = organization,
                         URL = url,
                         FormatName = distribution.format,
-                        Protocol = distribution.mediaType
+                        Protocol = MapToGeonorgeProtocol(distribution)
                     } );
             }
 
             return formatDistributions;
+        }
+
+        private string MapToGeonorgeProtocol(Distribution distribution)
+        {
+            if (!string.IsNullOrEmpty(distribution.accessURL) && distribution.format.ToLower().Contains("wms"))
+                return "OGC:WMS";
+            else if (!string.IsNullOrEmpty(distribution.accessURL) && distribution.title.ToLower().Contains("rest api"))
+                return "W3C:REST";
+            else
+                return "WWW:DOWNLOAD-1.0-http--download";
         }
 
         private string GetIdentifierFromUri(string identifier)
