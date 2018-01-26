@@ -12,6 +12,7 @@ using Resources;
 using log4net;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -386,14 +387,6 @@ namespace Kartverket.MetadataEditor.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [HttpGet]
-        [Authorize]
-        public ActionResult OpenData()
-        {
-            Models.OpenData.OpenMetadataService service = new Models.OpenData.OpenMetadataService();
-            service.SyncData();
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
 
         public string GetSafeFilename(string filename)
         {

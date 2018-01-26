@@ -106,6 +106,15 @@ namespace Kartverket.MetadataEditor.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult OpenData()
+        {
+            new Thread(() => new Models.OpenData.OpenMetadataService().SyncData()).Start();
+
+            return RedirectToAction("Index");
+        }
+
         [Authorize]
         public ActionResult UpdateFormatOrganization()
         {

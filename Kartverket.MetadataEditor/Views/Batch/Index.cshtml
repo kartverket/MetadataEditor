@@ -31,7 +31,7 @@
                                     <label for="DistributionFormats"><input type="radio" name="metadatafield" value="DistributionFormats" id="DistributionFormats" />Distribusjonsformater </label>
                                     <label for="ReferenceSystems"><input type="radio" name="metadatafield" value="ReferenceSystems" id="ReferenceSystems" />Romlig referansesystem </label>
                                     <label for="EnglishTexts"><input type="radio" name="metadatafield" value="EnglishTexts" id="EnglishTexts" />Engelske tekster </label>
-                                    <br /><input type="checkbox" name="deleteData" checked="checked" value="true"  />Slett eksisterende data
+                                    <br /><input type="checkbox" name="deleteData" checked="checked" value="true" />Slett eksisterende data
                                 </div>
                             </div>
                             <div id="EnglishTextsInfo" class="row table-responsive" style="display:none;">
@@ -95,7 +95,7 @@
                                         <thead><tr><th>uuid</th><th>nøkkelord</th></tr></thead>
                                         <tbody>
                                             <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Administrative units</td></tr>
-                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Addresses</td></tr>  
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Addresses</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -152,37 +152,70 @@
     }
     if (Model.UserIsAdmin)
     {
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default" style="">
-                <div class="panel-heading">Engelsk fra registeret</div>
-                <div class="panel-body">
-                    <form action="@Url.Action("SyncronizeRegisterTranslations","Batch")" method="get" class="form-horizontal" role="form">
-                        <div class="row">
-                            <div class="col-md-11">
-                                <div class="row pull-right">
-                                    <button type="submit" onclick="return clickEnglishDisable(this);" class="btn no-margin-bottom show-loading-animation" data-loading-message=""><span id="update-metadata-english">Oppdater engelske tekster fra registeret</span></button>
-                                    <script>
-                                        function clickEnglishDisable(link) {
-                                            document.getElementById('update-metadata-english').innerText = 'Oppdaterer metadata med engelske oversettelser, vennligst vent...';
-                                            if (link.className != "visited btn btn-sm btn-default") {
-                                                link.className = "visited btn btn-sm btn-default";
-                                                return true;
-                                            }
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default" style="">
+                    <div class="panel-heading">Engelsk fra registeret</div>
+                    <div class="panel-body">
+                        <form action="@Url.Action("SyncronizeRegisterTranslations","Batch")" method="get" class="form-horizontal" role="form">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="row pull-right">
+                                        <button type="submit" onclick="return clickEnglishDisable(this);" class="btn no-margin-bottom show-loading-animation" data-loading-message=""><span id="update-metadata-english">Oppdater engelske tekster fra registeret</span></button>
+                                        <script>
+                                            function clickEnglishDisable(link) {
+                                                document.getElementById('update-metadata-english').innerText = 'Oppdaterer metadata med engelske oversettelser, vennligst vent...';
+                                                if (link.className != "visited btn btn-sm btn-default") {
+                                                    link.className = "visited btn btn-sm btn-default";
+                                                    return true;
+                                                }
 
-                                            return false;
-                                        }
-                                    </script>
+                                                return false;
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
                                 </div>
                             </div>
-                            <div class="col-md-1">
-                            </div>
-                        </div>
-                    </form>    
-                 </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    }
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default" style="">
+                    <div class="panel-heading">Open metadata</div>
+                    <div class="panel-body">
+                        <form action="@Url.Action("OpenData","Batch")" method="get" class="form-horizontal" role="form">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="row pull-right">
+                                        <button type="submit" onclick="return clickOpenDataDisable(this);" class="btn no-margin-bottom show-loading-animation" data-loading-message=""><span id="update-metadata-open">Synkroniser åpne metadata</span></button>
+                                        <script>
+                                            function clickOpenDataDisable(link) {
+                                                document.getElementById('update-metadata-open').innerText = 'Oppdaterer åpne metadata, vennligst vent...';
+                                                if (link.className != "visited btn btn-sm btn-default") {
+                                                    link.className = "visited btn btn-sm btn-default";
+                                                    return true;
+                                                }
+
+                                                return false;
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
     <div class="row">
         @{ string colMd = "11";
@@ -215,7 +248,7 @@
                                     }
                                 </div>
                             </div>
-                            
+
 
 
                             <div class="col-md-1">
@@ -228,9 +261,9 @@
         </div>
 
     </div>
-            }
+}
 @if (Request.IsAuthenticated)
-            {
+{
     <form action="@Url.Action("BatchUpdate")" method="post">
         @Html.Partial("_BatchItems")
         @if (Model.MetadataItems.Count > 0)
