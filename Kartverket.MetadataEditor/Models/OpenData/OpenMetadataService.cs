@@ -56,6 +56,16 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                         identifier = GetIdentifierFromUri(dataset.identifier);
                         model = _metadataService.GetMetadataModel(identifier);
                         model.Title = dataset.title;
+                        DateTime modified;
+                        if (DateTime.TryParse(dataset.modified.ToString(), out modified))
+                        {
+                            model.DateUpdated = modified;
+                        }
+                        DateTime issued;
+                        if (DateTime.TryParse(dataset.issued.ToString(), out issued))
+                        {
+                            model.DatePublished = issued;
+                        }
                         model.ContactMetadata.Organization = 
                             !string.IsNullOrEmpty(endPoint.OrganizationName) ? endPoint.OrganizationName : dataset.publisher.name;
                         model.ContactMetadata.Email = dataset.contactPoint.hasEmail.Replace("mailto:", "");
@@ -75,6 +85,18 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                             model.KeywordsOther = dataset.keyword.ToList();
 
                         model.DistributionsFormats = GetDistributionsFormats(dataset.distribution, model.ContactMetadata.Organization);
+
+                        if (string.IsNullOrEmpty(model.MaintenanceFrequency))
+                            model.MaintenanceFrequency = "unknown";
+
+                        var spatial = dataset.spatial.Split(',');
+                        if(spatial.Length == 4)
+                        {
+                            model.BoundingBoxWest = spatial[0];
+                            model.BoundingBoxSouth = spatial[1];
+                            model.BoundingBoxEast = spatial[2];
+                            model.BoundingBoxNorth = spatial[3];
+                        }
 
                         _metadataService.SaveMetadataModel(model, username);
                         Log.Info("Updated open metadata uuid: " + model.Uuid);
