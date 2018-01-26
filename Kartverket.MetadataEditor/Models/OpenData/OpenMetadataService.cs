@@ -98,6 +98,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                             model.BoundingBoxNorth = spatial[3];
                         }
 
+                        model.AccessConstraints = "no restrictions";
+
                         _metadataService.SaveMetadataModel(model, username);
                         Log.Info("Updated open metadata uuid: " + model.Uuid);
                     }
