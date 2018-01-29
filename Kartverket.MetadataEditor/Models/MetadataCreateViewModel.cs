@@ -10,7 +10,9 @@ namespace Kartverket.MetadataEditor.Models
     {
         [Required(ErrorMessage = "Tittel er påkrevd")]
         public string Title { get; set; }
-        
+
+        public string Uuid { get; set; }
+
         public string MetadataContactName { get; set; }
 
         [Required(ErrorMessage = "Epost er påkrevd.")]
