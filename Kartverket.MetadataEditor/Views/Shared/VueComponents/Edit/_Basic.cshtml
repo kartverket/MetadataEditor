@@ -2,6 +2,7 @@
 
 <script type="text/x-template" id="basic-template">
     <div>
+    
         <form class="form form-horizontal">
             <div class="form-group has-feedback">
                 <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
@@ -25,13 +26,13 @@
                                 </div>
                                 <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual" class="form-group">
                                     <span v-show="formElement.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
-                                    <input v-bind:name="binding.name" v-if="formElement.type == 'text'" type="text" v-model="binding.value" class="form-control" />
-                                    <textarea v-bind:name="binding.name" v-else-if="formElement.type == 'textarea'" v-model="binding.value" class="form-control" rows="6"></textarea>
+                                    <input v-bind:name="binding.name" v-if="formElement.type == 'text'" type="text" v-bind:value="$store.getters[binding.name]" v-on:keyup="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control" />
+                                    <textarea v-bind:name="binding.name" v-else-if="formElement.type == 'textarea'" class="form-control" rows="6" v-on:keyup="updateField({mutation: binding.mutation, value: $event.target.value})">{{ $store.getters[binding.name] }}</textarea>
                                 </div>
                             </div>
                             <div v-else class="form-group">
-                                <input v-bind:name="formElement.name" v-if="formElement.type == 'text'" type="text" v-model="formElement.value" class="form-control" />
-                                <textarea v-bind:name="formElement.name" v-else-if="formElement.type == 'textarea'" v-model="formElement.value" class="form-control" rows="6"></textarea>
+                                <input v-bind:name="formElement.name" v-if="formElement.type == 'text'" type="text" v-bind:value="$store.getters[formElement.name]" class="form-control" v-on:keyup="updateField({mutation: formElement.mutation, value: $event.target.value})" />
+                                <textarea v-bind:name="formElement.name" v-else-if="formElement.type == 'textarea'" class="form-control" rows="6" v-on:keyup="updateField({mutation: formElement.mutation, value: $event.target.value})">{{ $store.getters[formElement.name] }}</textarea>
                             </div>
                         </div>
                         <div v-if="formElement.helpText" class="col-md-1">
@@ -50,9 +51,8 @@
     var Basic = {
         name: "basic",
         template: "#basic-template",
-        props: [],
-        components: {
-        },
+        computed: new Vuex.mapGetters(['Title', 'EnglishTitle', 'Abstract', 'ResourceReferenceCodespace', 'ResourceReferenceCode']),
+        methods: new Vuex.mapActions(['updateField']),
         data: function () {
             return {
                 formElements: [
@@ -60,11 +60,11 @@
                         multilingual: {
                             no: {
                                 name: 'Title',
-                                value: this.$parent.model.Title
+                                mutation: 'updateTitle'
                             },
                             en: {
                                 name: 'EnglishTitle',
-                                value: this.$parent.model.EnglishTitle
+                                mutation: 'updateEnglishTitle'
                             }
                         },
                         selectedLanguage: this.$parent.defaultLanguage,
@@ -78,7 +78,7 @@
                     },
                     {
                         name: 'ResourceReferenceCodespace',
-                        value: this.$parent.model.ResourceReferenceCodespace,
+                        mutation: 'updateResourceReferenceCodespace',
                         type: 'text',
                         label: 'Navnerom til datasett',
                         helpText: {
@@ -88,7 +88,7 @@
                     },
                     {
                         name: 'ResourceReferenceCode',
-                        value: this.$parent.model.ResourceReferenceCode,
+                        mutation: 'updateResourceReferenceCode',
                         type: 'text',
                         label: 'Navn på datasett',
                         helpText: {
@@ -100,11 +100,11 @@
                         multilingual: {
                             no: {
                                 name: 'Abstract',
-                                value: this.$parent.model.Abstract
+                                mutation: 'updateAbstract'
                             },
                             en: {
                                 name: 'EnglishAbstract',
-                                value: this.$parent.model.EnglishAbstract
+                                mutation: 'updateEnglishAbstract'
                             }
                         },
                         selectedLanguage: this.$parent.defaultLanguage,
@@ -119,6 +119,7 @@
                     {
                         name: 'HelpUrl',
                         value: this.$parent.model.HelpUrl,
+                        mutation: 'updateHelpUrl',
                         type: 'text',
                         label: 'URL til hjelp',
                         helpText: {
@@ -130,11 +131,11 @@
                         multilingual: {
                             no: {
                                 name: 'SpecificUsage',
-                                value: this.$parent.model.SpecificUsage
+                                mutation: 'updateSpecificUsage'
                             },
                             en: {
                                 name: 'EnglishSpecificUsage',
-                                value: this.$parent.model.EnglishSpecificUsage
+                                mutation: 'updateEnglishSpecificUsage'
                             }
                         },
                         selectedLanguage: this.$parent.defaultLanguage,
@@ -150,11 +151,11 @@
                         multilingual: {
                             no: {
                                 name: 'Purpose',
-                                value: this.$parent.model.Purpose
+                                mutation: 'updatePurpose'
                             },
                             en: {
                                 name: 'EnglishPurpose',
-                                value: this.$parent.model.EnglishPurpose
+                                mutation: 'updateEnglishPurpose'
                             }
                         },
                         selectedLanguage: this.$parent.defaultLanguage,
@@ -170,4 +171,5 @@
             };
         }
     };
+    console.log(Basic);
 </script>
