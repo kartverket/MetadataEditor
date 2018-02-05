@@ -1,4 +1,37 @@
 ﻿<script>
     var Mutations = {
+        updateTitle: function (state, payload) {
+            state.model.Title = payload;
+        },
+        updateEnglishTitle: function (state, payload) {
+            state.model.EnglishTitle = payload;
+        },
+        updateResourceReferenceCodespace: function (state, payload) {
+            state.model.ResourceReferenceCodespace = payload;
+        },
+        updateResourceReferenceCode: function (state, payload) {
+            state.model.ResourceReferenceCode = payload;
+        },
+        updateAbstract: function (state, payload) {
+            state.model.Abstract = payload;
+        },
+        updateEnglishAbstract: function (state, payload) {
+            state.model.EnglishAbstract = payload;
+        },
+        updateHelpUrl: function (state, payload) {
+            state.model.HelpUrl = payload;
+        },
+        updateSpecificUsage: function (state, payload) {
+            state.model.SpecificUsage = payload;
+        },
+        updateEnglishSpecificUsage: function (state, payload) {
+            state.model.EnglishSpecificUsage = payload;
+        },
+        updatePurpose: function (state, payload) {
+            state.model.Purpose = payload;
+        },
+        updateEnglishPurpose: function (state, payload) {
+            state.model.EnglishPurpose = payload;
+        }
     }
 </script>
