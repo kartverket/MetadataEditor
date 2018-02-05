@@ -1,0 +1,25 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@using Kartverket.MetadataEditor.Models
+@using Resources
+@using Newtonsoft.Json;
+
+@{
+
+    JsonSerializerSettings settings = new JsonSerializerSettings();
+    settings.ContractResolver = new DictionaryAsArrayResolver();
+
+    string ViewModelSerialized = JsonConvert.SerializeObject(Model, settings);
+    var ViewModelJson = @Html.Raw(ViewModelSerialized);
+    string ViewBagSerialized = JsonConvert.SerializeObject(ViewBag);
+    var ViewBagJson = @Html.Raw(ViewBagSerialized);
+
+}
+
+
+
+<script>
+    State = {
+        model: @ViewModelJson,
+        viewBag: @ViewBagJson
+    };
+</script>

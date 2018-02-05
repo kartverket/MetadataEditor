@@ -716,6 +716,11 @@
     <Content Include="Views\Shared\VueComponents\Edit\Documents\_Thumbnails.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Documents\Thumbnails\_Thumbnail.cshtml" />
     <Content Include="Web.Multi.config" />
+    <Content Include="Views\Shared\VuexStore\_Store.cshtml" />
+    <Content Include="Views\Shared\VuexStore\_Getters.cshtml" />
+    <Content Include="Views\Shared\VuexStore\_Mutations.cshtml" />
+    <Content Include="Views\Shared\VuexStore\_State.cshtml" />
+    <Content Include="Views\Shared\VuexStore\_Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
