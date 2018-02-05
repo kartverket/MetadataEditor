@@ -1,4 +1,8 @@
 ﻿<script>
     var Actions = {
+        updateField: function (context, payload) {
+            console.log(payload);
+            context.commit(payload.mutation, payload.value);
+        }
     }
 </script>
