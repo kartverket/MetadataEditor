@@ -102,6 +102,66 @@
         updateContactOwnerOrganization: function (state, payload) {
             state.model.ContactOwner.Organization = payload;
         },
+        updateSpatialRepresentation: function (state, payload) {
+            state.model.SpatialRepresentation = payload;
+        },
+        updateSpatialRepresentationValues: function (state, payload) {
+            state.viewBag.SpatialRepresentationValues = payload;
+        },
+        updateVectorFormats: function (state, payload) {
+            state.viewBag.VectorFormats = payload;
+        },
+        updateRasterFormats: function (state, payload) {
+            state.viewBag.RasterFormats = payload;
+        },
+        updateTextFormats: function (state, payload) {
+            state.data.TextFormats = payload;
+        },
+        updateTinFormats: function (state, payload) {
+            state.data.TinFormats = payload;
+        },
+        updateStereoImageFormats: function (state, payload) {
+            state.data.StereoImageFormats = payload;
+        },
+        updateVideoFormats: function (state, payload) {
+            state.data.VideoFormats = payload;
+        },
+        updateProductSpecificationUrl: function (state, payload) {
+            state.model.ProductSpecificationUrl = payload;
+        },
+        updateProductspesificationValues: function (state, payload) {
+            state.viewBag.ProductspesificationValues = payload;
+        },
+        updateApplicationSchema: function (state, payload) {
+            state.model.ApplicationSchema = payload;
+        },
+        updateKeywordsConcept: function (state, payload) {
+            state.model.KeywordsConcept = payload;
+        },
+        updateProductSpecificationOther: function (state, payload) {
+            state.model.ProductSpecificationOther = payload;
+        },
+        updateProductSpecificationOtherName: function (state, payload) {
+            state.model.ProductSpecificationOther.Name = payload;
+        },
+        updateProductSpecificationOtherURL: function (state, payload) {
+            state.model.ProductSpecificationOther.URL = payload;
+        },
+        updateProductSheetUrl: function (state, payload) {
+            state.model.ProductSheetUrl = payload;
+        },
+        updateProductsheetValues: function (state, payload) {
+            state.viewBag.ProductsheetValues = payload;
+        },
+        updateLegendDescriptionUrl: function (state, payload) {
+            state.model.LegendDescriptionUrl = payload;
+        },
+        updateLegendDescriptionValues: function (state, payload) {
+            state.viewBag.LegendDescriptionValues = payload;
+        },
+        updateProductPageUrl: function (state, payload) {
+            state.model.ProductPageUrl = payload;
+        },
         updateUseLimitations: function (state, payload) {
             state.model.UseLimitations = payload;
         },
@@ -141,11 +201,83 @@
         updateSecurityConstraints: function (state, payload) {
             state.model.SecurityConstraints = payload;
         },
-        updateSecurityConstraintsValues: function (state, payload) {
-            state.viewBag.SecurityConstraintsValues = payload;
+        updateSecurityConstraintValues: function (state, payload) {
+            state.viewBag.SecurityConstraintValues = payload;
         },
-        updateSecurityConstraintsNotes: function (state, payload) {
-            state.model.SecurityConstraintsNotes = payload;
+        updateSecurityConstraintsNote: function (state, payload) {
+            state.model.SecurityConstraintsNote = payload;
+        },
+        updateTopicCategory: function (state, payload) {
+            state.model.TopicCategory = payload;
+        },
+        updateTopicCategoryValues: function (state, payload) {
+            state.viewBag.TopicCategoryValues = payload;
+        },
+        updateKeywordsTheme: function (state, payload) {
+            state.model.KeywordsTheme = payload;
+        },
+        updateKeywordsNationalTheme: function (state, payload) {
+            state.model.KeywordsNationalTheme = payload;
+        },
+        updateNationalThemeValues: function (state, payload) {
+            state.viewBag.NationalThemeValues = payload;
+        },
+        updateKeywordsNationalInitiative: function (state, payload) {
+            state.model.KeywordsNationalInitiative = payload;
+        },
+        updateNationalInitiativeValues: function (state, payload) {
+            state.viewBag.NationalInitiativeValues = payload;
+        },
+        updateKeywordsInspire: function (state, payload) {
+            state.model.KeywordsInspire = payload;
+        },
+        updateInspireValues: function (state, payload) {
+            state.viewBag.InspireValues = payload;
+        },
+        updateKeywordsOther: function (state, payload) {
+            state.model.KeywordsOther = payload;
+        },
+        updateResolutionScale: function (state, payload) {
+            state.model.ResolutionScale = payload;
+        },
+        updateStatus: function (state, payload) {
+            state.model.Status = payload;
+        },
+        updateStatusValues: function (state, payload) {
+            state.viewBag.StatusValues = payload;
+        },
+        updateProcessHistory: function (state, payload) {
+            state.model.ProcessHistory = payload;
+        },
+        updateEnglishProcessHistory: function (state, payload) {
+            state.model.EnglishProcessHistory = payload;
+        },
+        updateOrderingInstructions: function (state, payload) {
+            state.model.OrderingInstructions = payload;
+        },
+        updateOrderingInstructionsValues: function (state, payload) {
+            state.viewBag.OrderingInstructionsValues = payload;
+        },
+        updateKeywordDokValidKmd: function (state, payload) {
+            state.data.KeywordDokValidKmd = payload;
+        },
+        updateKeywordInspireValid: function (state, payload) {
+            state.data.KeywordInspireValid = payload;
+        },
+        updateKeywordGeodatalaw: function (state, payload) {
+            state.data.KeywordGeodatalaw;
+        },
+        updateKeywordsCatalogs: function (state, payload) {
+            state.data.KeywordsCatalogs = payload;
+        },
+        updateCatalogValues: function (state, payload) {
+            state.viewBag.CatalogValues = payload;
+        },
+        updateKeywordNorgedigitalt: function (state, payload) {
+            state.data.KeywordNorgedigitalt = payload;
+        },
+        updateKeywordArealPlans: function (state, payload) {
+            state.data.KeywordArealPlans = payload;
         }
     }
 </script>

@@ -24,6 +24,9 @@
         SpecificUsage: function (state) {
             return state.model.SpecificUsage;
         },
+        EnglishSpecificUsage: function (state) {
+            return state.model.EnglishSpecificUsage;
+        },
         Purpose: function (state) {
             return state.model.EnglishSpecificUsage;
         },
@@ -99,6 +102,66 @@
         ContactOwnerOrganization: function (state) {
             return state.model.ContactOwner.Organization;
         },
+        SpatialRepresentation: function (state) {
+            return state.model.SpatialRepresentation;
+        },
+        SpatialRepresentationValues: function (state) {
+            return state.viewBag.SpatialRepresentationValues;
+        },
+        VectorFormats: function (state) {
+            return state.viewBag.VectorFormats;
+        },
+        RasterFormats: function (state) {
+            return state.viewBag.Rasterformats
+        },
+        TextFormats: function (state) {
+            return state.data.TextFormats;
+        },
+        TinFormats: function (state) {
+            return state.data.TinFormats;
+        },
+        StereoImageFormats: function (state) {
+            return state.data.StereoImageFormats;
+        },
+        VideoFormats: function (state) {
+            return state.data.VideoFormats;
+        },
+        ProductSpecificationUrl: function (state) {
+            return state.model.ProductSpecificationUrl;
+        },
+        ProductspesificationValues: function (state) {
+            return state.viewBag.ProductspesificationValues;
+        },
+        ApplicationSchema: function (state) {
+            return state.model.ApplicationSchema;
+        },
+        KeywordsConcept: function (state) {
+            return state.model.KeywordsConcept;
+        },
+        ProductSpecificationOther: function (state) {
+            return state.model.ProductSpecificationOther;
+        },
+        ProductSpecificationOtherName: function (state) {
+            return state.model.ProductSpecificationOther.Name;
+        },
+        ProductSpecificationOtherURL: function (state) {
+            return state.model.ProductSpecificationOther.URL;
+        },
+        ProductSheetUrl: function (state) {
+            return state.model.ProductSheetUrl;
+        },
+        ProductsheetValues: function (state) {
+            return state.viewBag.ProductsheetValues;
+        },
+        LegendDescriptionUrl: function (state) {
+            return state.model.LegendDescriptionUrl
+        },
+        LegendDescriptionValues: function (state) {
+            return state.viewBag.LegendDescriptionValues;
+        },
+        ProductPageUrl: function (state) {
+            return state.model.ProductPageUrl;
+        },
         UseLimitations: function (state) {
             return state.model.UseLimitations;
         },
@@ -136,14 +199,85 @@
             return state.model.EnglishOtherConstraints;
         },
         SecurityConstraints: function (state) {
-            return state.model.SecutiryConstraints;
+            return state.model.SecurityConstraints;
         },
-        SecurityConstraintsValues: function (state) {
-            return state.model.SecurityConstraintsValues;
+        SecurityConstraintValues: function (state) {
+            return state.viewBag.SecurityConstraintValues;
         },
-        SecurityConstraintsNotes: function (state) {
-            return state.model.SecurityConstraintsNotes;
+        SecurityConstraintsNote: function (state) {
+            return state.model.SecurityConstraintsNote;
+        },
+        TopicCategory: function (state) {
+            return state.model.TopicCategory;
+        },
+        TopicCategoryValues: function (state) {
+            return state.viewBag.TopicCategoryValues;
+        },
+        KeywordsTheme: function (state) {
+            return state.model.KeywordsTheme;
+        },
+        KeywordsNationalTheme: function (state) {
+            return state.model.KeywordsNationalTheme
+        },
+        NationalThemeValues: function (state) {
+            return state.viewBag.NationalThemeValues;
+        },
+        KeywordsNationalInitiative: function (state) {
+            return state.model.KeywordsNationalInitiative;
+        },
+        NationalInitiativeValues: function (state) {
+            return state.viewBag.NationalInitiativeValues;
+        },
+        KeywordsInspire: function (state) {
+            return state.model.KeywordsInspire;
+        },
+        InspireValues: function (state) {
+            return state.viewBag.InspireValues;
+        },
+        KeywordsOther: function (state) {
+            return state.model.KeywordsOther;
+        },
+        ResolutionScale: function (state) {
+            return state.model.ResolutionScale;
+        },
+        Status: function (state) {
+            return state.model.Status;
+        },
+        StatusValues: function (state) {
+            return state.viewBag.StatusValues;
+        },
+        ProcessHistory: function (state) {
+            return state.model.ProcessHistory;
+        },
+        EnglishProcessHistory: function (state) {
+            return state.model.EnglishProcessHistory;
+        },
+        OrderingInstructions: function (state) {
+            return state.model.OrderingInstructions;
+        },
+        OrderingInstructionsValues: function (state) {
+            return state.viewBag.OrderingInstructionsValues;
+        },
+        KeywordDokValidKmd: function (state) {
+            return state.data.KeywordDokValidKmd;
+        },
+        KeywordInspireValid: function (state) {
+            return state.data.KeywordInspireValid;
+        },
+        KeywordGeodatalaw: function (state) {
+            return state.data.KeywordGeodatalaw;
+        },
+        KeywordsCatalogs: function (state) {
+            return state.data.KeywordsCatalogs;
+        },
+        CatalogValues: function (state) {
+            return state.viewBag.CatalogValues;
+        },
+        KeywordNorgedigitalt: function (state) {
+            return state.data.KeywordNorgedigitalt;
+        },
+        KeywordArealPlans: function (state) {
+            return state.data.KeywordArealPlans;
         }
-
     }
 </script>

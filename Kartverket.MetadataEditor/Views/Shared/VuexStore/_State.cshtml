@@ -20,6 +20,43 @@
 <script>
     State = {
         model: @ViewModelJson,
-        viewBag: @ViewBagJson
+        viewBag: @ViewBagJson,
+        data: {
+            TextFormats: [
+                { Text: "CSV", Value: "CSV" },
+                { Text: "Microsoft Excel", Value: "Microsoft Excel" },
+                { Text: "DBF", Value: "DBF" },
+                { Text: "Tekstfil", Value: "Tekstfil" }
+            ],
+            TinFormats: [
+                { Text: "Intergraph TIN", Value: "Intergraph TIN" },
+                { Text: "ESRI TIN", Value: "ESRI TIN" },
+                { Text: "GEOPAK TIN", Value: "GEOPAK TIN" },
+                { Text: "LandXML TIN", Value: "LandXML TIN" }
+            ],
+            StereoImageFormats: [
+                { Text: "Intergraph TIN", Value: "Intergraph TIN" },
+                { Text: "JPEG", Value: "JPEG" }
+            ],
+            VideoFormats: [
+                { Text: "MPEG", Value: "MPEG" },
+                { Text: "AVI", Value: "AVI" },
+                { Text: "MOV", Value: "MOV" },
+                { Text: "OGG", Value: "OGG" },
+                { Text: "WMV", Value: "WMV" },
+                { Text: "RealVideo", Value: "RealVideo" },
+                { Text: "RMVB", Value: "RMVB" },
+                { Text: "FLASH", Value: "FLASH" },
+                { Text: "ASF", Value: "ASF" },
+                { Text: "MP4", Value: "MP4" },
+                { Text: "QuickTime", Value: "QuickTime" }
+            ],
+            KeywordDokValidKmd: 'Det offentlige kartgrunnlaget',
+            KeywordInspireValid: 'Inspire',
+            KeywordGeodatalaw: 'geodataloven',
+            KeywordsCatalogs: '',
+            KeywordNorgedigitalt: 'Norge digitalt',
+            KeywordArealPlans: 'arealplanerPBL'
+        }
     };
 </script>
