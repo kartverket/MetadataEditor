@@ -98,6 +98,52 @@
         },
         ContactOwnerOrganization: function (state) {
             return state.model.ContactOwner.Organization;
+        },
+        UseLimitations: function (state) {
+            return state.model.UseLimitations;
+        },
+        EnglishUseLimitations: function (state) {
+            return state.model.EnglishUseLimitations;
+        },
+        AccessConstraints: function (state) {
+            return state.model.AccessConstraints;
+        },
+        AccessConstraintValues: function (state) {
+            return state.viewBag.AccessConstraintValues;
+        },
+        UseConstraints: function (state) {
+            return state.model.UseConstraints;
+        },
+        UseConstraintValues: function (state) {
+            return state.viewBag.UseConstraintValues
+        },
+        LicenseTypes: function (state) {
+            return state.model.LicenseTypes;
+        },
+        LicenseTypesValues: function (state) {
+            return state.viewBag.LicenseTypesValues;
+        },
+        OtherConstraintsLinkText: function (state) {
+            return state.model.OtherConstraintsLinkText;
+        },
+        OtherConstraintsLink: function (state) {
+            return state.model.OtherConstraintsLink;
+        },
+        OtherConstraints: function (state) {
+            return state.model.OtherConstraints;
+        },
+        EnglishOtherConstraints: function (state) {
+            return state.model.EnglishOtherConstraints;
+        },
+        SecurityConstraints: function (state) {
+            return state.model.SecutiryConstraints;
+        },
+        SecurityConstraintsValues: function (state) {
+            return state.model.SecurityConstraintsValues;
+        },
+        SecurityConstraintsNotes: function (state) {
+            return state.model.SecurityConstraintsNotes;
         }
+
     }
 </script>
