@@ -19,7 +19,7 @@
                 <input v-bind:name="binding.name" v-else-if="formElement.type == 'datepicker'" type="text" v-bind:value="$store.getters[binding.name]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control date" />
                 <textarea v-bind:name="binding.name" v-else-if="formElement.type == 'textarea'" class="form-control" rows="6" v-on:keyup="updateField({mutation: binding.mutation, value: $event.target.value})">{{ $store.getters[binding.name] }}</textarea>
                 <div v-else-if="formElement.type == 'select'" class="custom-select">
-                    <select v-bind:name="binding.name" v-model="binding.value" class="form-control">
+                    <select v-bind:name="binding.name" class="form-control" v-bind:value="$store.getters[binding.name]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">
                         <option v-for="option in formElement.options" v-bind:value="option.value">{{option.text}}</option>
                     </select>
                 </div>
@@ -30,7 +30,7 @@
             <input v-bind:name="formElement.name" v-else-if="formElement.type == 'datepicker'" type="text" class="form-control date" v-bind:value="$store.getters[formElement.name]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})" />
             <textarea v-bind:name="formElement.name" v-else-if="formElement.type == 'textarea'" class="form-control" rows="6" v-bind:value="$store.getters[formElement.name]" v-on:keyup="updateField({mutation: formElement.mutation, value: $event.target.value})"></textarea>
             <div v-else-if="formElement.type == 'select'" class="custom-select">
-                <select v-bind:name="formElement.name" v-model="formElement.value" class="form-control">
+                <select v-bind:name="formElement.name" class="form-control" v-bind:value="$store.getters[formElement.name]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})">
                     <option v-for="option in formElement.options" v-bind:value="option.Value">{{option.Text}}</option>
                 </select>
             </div>
