@@ -721,6 +721,7 @@
     <Content Include="Views\Shared\VuexStore\_Mutations.cshtml" />
     <Content Include="Views\Shared\VuexStore\_State.cshtml" />
     <Content Include="Views\Shared\VuexStore\_Actions.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Fields\_Field.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
