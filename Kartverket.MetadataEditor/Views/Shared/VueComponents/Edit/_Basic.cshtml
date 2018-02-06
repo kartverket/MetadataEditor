@@ -2,7 +2,7 @@
 
 <script type="text/x-template" id="basic-template">
     <div>
-    
+
         <form class="form form-horizontal">
             <div class="form-group has-feedback">
                 <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
@@ -10,30 +10,7 @@
                         <label class="col-md-2 control-label">{{ formElement.label }}</label>
                         <div class="col-md-9">
                             <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                            <div v-if="formElement.multilingual">
-                                <div class="form-element-tab-group">
-                                    <span v-on:click="formElement.selectedLanguage = 'all'"
-                                          v-bind:class="{active: formElement.selectedLanguage == 'all'}"
-                                          class="form-element-tab">
-                                        {{ $parent.languages['all'] }}
-                                    </span>
-                                    <span v-on:click="formElement.selectedLanguage = language"
-                                          v-for="(binding, language) in formElement.multilingual"
-                                          v-bind:class="{active: formElement.selectedLanguage == language}"
-                                          class="form-element-tab">
-                                        {{ $parent.languages[language] }}
-                                    </span>
-                                </div>
-                                <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual" class="form-group">
-                                    <span v-show="formElement.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
-                                    <input v-bind:name="binding.name" v-if="formElement.type == 'text'" type="text" v-bind:value="$store.getters[binding.name]" v-on:keyup="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control" />
-                                    <textarea v-bind:name="binding.name" v-else-if="formElement.type == 'textarea'" class="form-control" rows="6" v-on:keyup="updateField({mutation: binding.mutation, value: $event.target.value})">{{ $store.getters[binding.name] }}</textarea>
-                                </div>
-                            </div>
-                            <div v-else class="form-group">
-                                <input v-bind:name="formElement.name" v-if="formElement.type == 'text'" type="text" v-bind:value="$store.getters[formElement.name]" class="form-control" v-on:keyup="updateField({mutation: formElement.mutation, value: $event.target.value})" />
-                                <textarea v-bind:name="formElement.name" v-else-if="formElement.type == 'textarea'" class="form-control" rows="6" v-on:keyup="updateField({mutation: formElement.mutation, value: $event.target.value})">{{ $store.getters[formElement.name] }}</textarea>
-                            </div>
+                            <div is="field" v-bind:form-element="formElement"></div>
                         </div>
                         <div v-if="formElement.helpText" class="col-md-1">
                             <p class="form-control-static">
@@ -52,7 +29,14 @@
         name: "basic",
         template: "#basic-template",
         computed: new Vuex.mapGetters(['Title', 'EnglishTitle', 'Abstract', 'ResourceReferenceCodespace', 'ResourceReferenceCode']),
-        methods: new Vuex.mapActions(['updateField']),
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            }
+        },
+        components: {
+            Field: Field
+        },
         data: function () {
             return {
                 formElements: [
@@ -171,5 +155,4 @@
             };
         }
     };
-    console.log(Basic);
 </script>
