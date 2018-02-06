@@ -20,14 +20,7 @@
                     <div class="row">
                         <label for="abstract" class="col-md-2 control-label">{{ formElement.label }}</label>
                         <div class="col-md-9">
-                            <input v-if="formElement.type == 'text'" v-bind:type="formElement.type" v-model="formElement.value" class="form-control" />
-                            <div v-else-if="formElement.type == 'select'" class="custom-select">
-                                <select v-model="formElement.value" class="form-control">
-                                    <option v-bind:value="option.Value" v-bind:disabled="option.Disabled" v-bind:selected="option.Selected" v-for="option in formElement.options">
-                                        {{ option.Text }}
-                                    </option>
-                                </select>
-                            </div>
+                            <div is="field" v-bind:form-element="formElement"></div>
                             <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                         </div>
                     </div>
@@ -41,8 +34,8 @@
     var Contact = {
         name: "Contact",
         template: "#contact-template",
-        props: [],
         components: {
+            Field: Field
         },
         data: function () {
             return {
@@ -56,20 +49,20 @@
                         formElements: [
                             {
                                 name: 'ContactMetadata.Name',
-                                value: this.$parent.model.ContactMetadata.Name,
+                                mutation: 'updateContactMetadataName',
                                 label: '@Html.Raw(UI.Metadata_Contact_Name)',
                                 type: 'text'
                             },
                             {
                                 name: 'ContactMetadata.Email',
-                                value: this.$parent.model.ContactMetadata.Email,
+                                mutation: 'updateContactMetadataEmail',
                                 label: '@Html.Raw(UI.Metadata_Contact_Email)',
                                 type: 'text',
                                 required: true
                             },
                             {
                                 name: 'ContactMetadata.Organization',
-                                value: this.$parent.model.ContactMetadata.Organization,
+                                mutation: 'updateContactMetadataOrganization',
                                 label: '@Html.Raw(UI.Metadata_Contact_Organization)',
                                 type: 'select',
                                 required: true,
@@ -86,20 +79,20 @@
                         formElements: [
                             {
                                 name: 'ContactPublisher.Name',
-                                value: this.$parent.model.ContactPublisher.Name,
+                                mutation: 'updateContactPublisherName',
                                 label: '@Html.Raw(UI.Metadata_Contact_Name)',
                                 type: 'text'
                             },
                             {
                                 name: 'ContactPublisher.Email',
-                                value: this.$parent.model.ContactPublisher.Email,
+                                mutation: 'updateContactPublisherEmail',
                                 label: '@Html.Raw(UI.Metadata_Contact_Email)',
                                 type: 'text',
                                 required: true
                             },
                             {
                                 name: 'ContactPublisher.Organization',
-                                value: this.$parent.model.ContactPublisher.Organization,
+                                mutation: 'updateContactPublisherOrganization',
                                 label: '@Html.Raw(UI.Metadata_Contact_Organization)',
                                 type: 'select',
                                 required: true,
@@ -116,20 +109,20 @@
                         formElements: [
                             {
                                 name: 'ContactOwner.Name',
-                                value: this.$parent.model.ContactOwner.Name,
+                                mutation: 'updateContactOwnerName',
                                 label: '@Html.Raw(UI.Metadata_Contact_Name)',
                                 type: 'text'
                             },
                             {
                                 name: 'ContactOwner.Email',
-                                value: this.$parent.model.ContactOwner.Email,
+                                mutation: 'updateContactOwnerEmail',
                                 label: '@Html.Raw(UI.Metadata_Contact_Email)',
                                 type: 'text',
                                 required: true
                             },
                             {
                                 name: 'ContactOwner.Organization',
-                                value: this.$parent.model.ContactOwner.Organization,
+                                mutation: 'updateContactOwnerOrganization',
                                 label: '@Html.Raw(UI.Metadata_Contact_Organization)',
                                 type: 'select',
                                 required: true,
