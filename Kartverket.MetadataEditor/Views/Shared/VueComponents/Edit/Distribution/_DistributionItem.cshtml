@@ -12,41 +12,95 @@
             </div>
         </div>
         <div class="panel-body">
-            <div v-for="formElement in formElementsInLoop" class="form-group has-feedback" v-bind:class="{'required': formElement.required}">
+
+            @* Organization *@
+            <div class="form-group has-feedback" v-bind:class="{'required': formElements.organization.required}">
                 <div class="row">
-                    <label v-bind:for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
+                    <label v-bind:for="formElements.organization.id" class="col-md-3 control-label">{{ formElements.organization.label }}</label>
                     <div class="col-md-8">
-                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                        <div v-if="formElement.type == 'select'" class="custom-select">
-                            <select v-model="formElement.value"
-                                    class="form-control"
-                                    v-bind:id="formElement.id"
-                                    v-bind:name="formElement.name">
+                        <p v-if="formElements.organization.helpText && formElements.organization.helpText.active" class="help-text bg-success" v-html="formElements.organization.helpText.content"></p>
+                        <div class="custom-select">
+                            <select class="form-control"
+                                    v-bind:id="formElements.organization.id"
+                                    v-bind:value="distribution.Value.Details.Organization"
+                                    v-on:change="updateField({
+                                        mutation: formElements.organization.mutation, value: {
+                                            distributionIndex: distributionIndex, value: $event.target.value
+                                        }
+                                    })"
+                                    v-bind:name="formElements.organization.name">
                                 <option value="">Velg</option>
-                                <option v-bind:value="option.Value" v-for="option in formElement.options">{{ option.Text }}</option>
+                                <option v-bind:value="option.Value" v-for="option in this.$store.getters['OrganizationDistributorValues']">{{ option.Text }}</option>
                             </select>
                         </div>
-                        <div v-else-if="formElement.type == 'text'">
-                            <input v-model="formElement.value"
-                                   class="form-control"
-                                   v-bind:id="formElement.id"
-                                   v-bind:name="formElement.name"
-                                   v-bind:type="formElement.type" />
-                        </div>
                     </div>
-                    <div v-if="formElement.helpText" class="col-md-1">
+                    <div v-if="formElements.organization.helpText" class="col-md-1">
                         <p class="form-control-static">
-                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                            <span v-on:click="formElements.organization.helpText.active = !formElements.organization.helpText.active" v-bind:class="{active: formElements.organization.helpText.active}" class="badge help-text-toggle">?</span>
                         </p>
                     </div>
                 </div>
             </div>
+
+            @* Protocol *@
+            <div class="form-group has-feedback" v-bind:class="{'required': formElements.protocol.required}">
+                <div class="row">
+                    <label v-bind:for="formElements.protocol.id" class="col-md-3 control-label">{{ formElements.protocol.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElements.protocol.helpText && formElements.protocol.helpText.active" class="help-text bg-success" v-html="formElements.protocol.helpText.content"></p>
+                        <div class="custom-select">
+                            <select class="form-control"
+                                    v-bind:id="formElements.protocol.id"
+                                    v-bind:value="distribution.Value.Details.Protocol"
+                                    v-on:change="updateField({
+                                        mutation: formElements.protocol.mutation, value: {
+                                            distributionIndex: distributionIndex, value: $event.target.value
+                                        }
+                                    })"
+                                    v-bind:name="formElements.protocol.name">
+                                <option value="">Velg</option>
+                                <option v-bind:value="option.Value" v-for="option in this.$store.getters['PredefinedDistributionProtocols']">{{ option.Text }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div v-if="formElements.protocol.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElements.protocol.helpText.active = !formElements.protocol.helpText.active" v-bind:class="{active: formElements.protocol.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            @* URL *@
+            <div class="form-group has-feedback" v-bind:class="{'required': formElements.url.required}">
+                <div class="row">
+                    <label v-bind:for="formElements.url.id" class="col-md-3 control-label">{{ formElements.url.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElements.url.helpText && formElements.url.helpText.active" class="help-text bg-success" v-html="formElements.url.helpText.content"></p>
+                        <input class="form-control"
+                               v-bind:id="formElements.url.id"
+                               v-bind:value="distribution.Value.Details.URL"
+                               v-bind:name="formElements.url.name"
+                               v-bind:type="formElements.url.type"
+                               v-on:keyup="updateField({
+                                    mutation: formElements.url.mutation, value: {
+                                        distributionIndex: distributionIndex, value: $event.target.value
+                                    }
+                                })" />
+                    </div>
+                    <div v-if="formElements.protocol.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElements.protocol.helpText.active = !formElements.protocol.helpText.active" v-bind:class="{active: formElements.protocol.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <hr />
             <div class="row">
                 <div class="col-xs-11">
                     <p class="article-p">
                         Formater
-
                     </p>
                 </div>
                 <div class="col-xs-1">
@@ -58,9 +112,13 @@
                 </div>
             </div>
             <p v-if="formats.helpText && formats.helpText.active" class="help-text bg-success" v-html="formats.helpText.content"></p>
+
+
             <div class="striped-list">
                 <div class="list-item" is="distribution-item-format" v-bind:format="distributionItemFormat" v-bind:format-index="distributionItemFormatIndex" v-for="(distributionItemFormat, distributionItemFormatIndex) in distribution.Value.Formats"></div>
             </div>
+
+
             <div class="margin-top-10 text-right">
                 <span class="btn" v-on:click="addDistributionFormat()">Nytt format</span>
             </div>
@@ -114,24 +172,30 @@
         template: "#distribution-item-template",
         props: ["distribution", "distributionIndex"],
         components: {
+            Field: Field,
             distributionItemFormat: DistributionItemFormat
         },
         data: function () {
             return {
-                formElementsInLoop: {
+                formats: {
+                    helpText: {
+                        active: false,
+                        content: '@Html.Raw(UI.Helptext_DistributionsFormats)'
+                    }
+                },
+                formElements: {
                     organization: {
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
-                        value: this.distribution.Value.Details.Organization,
+                        mutation: 'updateFormatDistributionsOrganization',
                         label: 'Organisasjon',
                         type: 'select',
-                        required: true,
-                        options: this.$root.viewBag.OrganizationDistributorValues
+                        required: true
                     },
                     protocol: {
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
-                        value: this.distribution.Value.Details.Protocol,
+                        mutation: 'updateFormatDistributionsProtocol',
                         label: 'Distribusjonstype',
                         type: 'select',
                         required: true,
@@ -144,7 +208,7 @@
                     url: {
                         id: 'DistributionsFormats[' + this.distributionIndex + '].URL',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].URL',
-                        value: this.distribution.Value.Details.URL,
+                        mutation: 'updateFormatDistributionsURL',
                         label: 'URL',
                         type: 'text',
                         required: false,
@@ -153,14 +217,6 @@
                             content: '@Html.Raw(UI.Helptext_DistributionsFormatsURL)'
                         }
                     },
-                },
-                formats: {
-                    helpText: {
-                        active: false,
-                        content: '@Html.Raw(UI.Helptext_DistributionsFormats)'
-                    }
-                },
-                formElements: {
                     unitsOfDistribution: {
                         label: 'Geografisk distribusjonsinndeling',
                         value: '',
@@ -183,6 +239,9 @@
             }
         },
         methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            },
             getUnitsOfDistribution: function () {
                 return this.distribution.Value.Details.UnitsOfDistribution !== null && this.distribution.Value.Details.UnitsOfDistribution !== "" ? this.distribution.Value.Details.UnitsOfDistribution.split(', ') : [];
             },
@@ -190,10 +249,14 @@
                 this.formElements.unitsOfDistribution.value = this.formElements.unitsOfDistribution.selected.join(', ');
             },
             addDistributionFormat: function () {
-                this.$root.model.FormatDistributions[this.distributionIndex].Value.Formats.push({ Name: "", Version: "" });
+                var formatDistributions = this.$store.getters['FormatDistributions'];
+                formatDistributions[this.distributionIndex].Value.Formats.push({ Name: "", Version: "" });
+                this.$store.commit('updateFormatDistributions', formatDistributions);
             },
             removeDistributionFormat: function (distributionFormatIndex) {
-                this.$root.model.FormatDistributions[this.distributionIndex].Value.Formats.splice(distributionFormatIndex, 1);
+                var formatDistributions = this.$store.getters['FormatDistributions'];
+                formatDistributions[this.distributionIndex].Value.Formats.splice(distributionFormatIndex, 1);
+                this.$store.commit('updateFormatDistributions', formatDistributions);
             }
         },
         mounted: function () {

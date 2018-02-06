@@ -5,17 +5,12 @@
             <div class="row">
                 <label for="SpatialRepresentation" class="col-md-3 control-label">Representasjonsform</label>
                 <div class="col-md-3">
-                    <div class="custom-select">
-                        <select v-model="selectedSpatialRepresentation" class="form-control">
-                            <option v-bind:value="option.Value" v-for="option in spatialRepresentation.options">{{ option.Text }}</option>
-                        </select>
-                    </div>
+                    <div is="field" v-bind:form-element="spatialRepresentation"></div>
                 </div>
             </div>
         </div>
 
-        <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $parent.model.FormatDistributions"></div>
-
+        <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $store.getters['FormatDistributions']"></div>
     </div>
 </script>
 
@@ -26,50 +21,18 @@
     var Distribution = {
         name: "distribution",
         template: "#distribution-template",
-        props: [],
         components: {
-            distributionItem: DistributionItem
+            Field: Field,
+            DistributionItem: DistributionItem
         },
         data: function () {
             return {
                 spatialRepresentation: {
-                    options: this.$parent.viewBag.SpatialRepresentationValues
-                },
-                selectedSpatialRepresentation: this.$parent.model.SpatialRepresentation,
-                distributionFormats: {
-                    vector: this.$parent.viewBag.VectorFormats,
-                    grid: this.$parent.viewBag.RasterFormats,
-                    textTable: [
-                        { Text: "CSV", Value: "CSV" },
-                        { Text: "Microsoft Excel", Value: "Microsoft Excel" },
-                        { Text: "DBF", Value: "DBF" },
-                        { Text: "Tekstfil", Value: "Tekstfil" }
-                    ],
-                    tin: [
-                        { Text: "Intergraph TIN", Value: "Intergraph TIN" },
-                        { Text: "ESRI TIN", Value: "ESRI TIN" },
-                        { Text: "GEOPAK TIN", Value: "GEOPAK TIN" },
-                        { Text: "LandXML TIN", Value: "LandXML TIN" }
-                    ],
-                    stereoModel: [
-                        { Text: "Intergraph TIN", Value: "Intergraph TIN" },
-                        { Text: "JPEG", Value: "JPEG" }
-                    ],
-                    video: [
-                        { Text: "MPEG", Value: "MPEG" },
-                        { Text: "AVI", Value: "AVI" },
-                        { Text: "MOV", Value: "MOV" },
-                        { Text: "OGG", Value: "OGG" },
-                        { Text: "WMV", Value: "WMV" },
-                        { Text: "RealVideo", Value: "RealVideo" },
-                        { Text: "RMVB", Value: "RMVB" },
-                        { Text: "FLASH", Value: "FLASH" },
-                        { Text: "ASF", Value: "ASF" },
-                        { Text: "MP4", Value: "MP4" },
-                        { Text: "QuickTime", Value: "QuickTime" }
-                    ]
+                    name: 'SpatialRepresentation',
+                    mutation: 'updateSpatialRepresentation',
+                    type: 'select',
+                    options: this.$store.getters['SpatialRepresentationValues']
                 }
-
             };
         }
     };
