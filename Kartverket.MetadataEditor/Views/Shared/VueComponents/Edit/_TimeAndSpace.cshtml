@@ -9,42 +9,7 @@
                         <label class="col-md-2 control-label">{{ formElement.label }}</label>
                         <div class="col-md-9">
                             <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                            <div v-if="formElement.multilingual">
-                                <div class="form-element-tab-group">
-                                    <span v-on:click="formElement.selectedLanguage = 'all'"
-                                          v-bind:class="{active: formElement.selectedLanguage == 'all'}"
-                                          class="form-element-tab">
-                                        {{ $parent.languages['all'] }}
-                                    </span>
-                                    <span v-on:click="formElement.selectedLanguage = language"
-                                          v-for="(binding, language) in formElement.multilingual"
-                                          v-bind:class="{active: formElement.selectedLanguage == language}"
-                                          class="form-element-tab">
-                                        {{ $parent.languages[language] }}
-                                    </span>
-                                </div>
-                                <div v-show="language == formElement.selectedLanguage || formElement.selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual" class="form-group">
-                                    <span v-show="formElement.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
-                                    <input v-bind:name="binding.name" v-if="formElement.type == 'text'" type="text" v-model="binding.value" class="form-control" />
-                                    <input v-bind:name="binding.name" v-else-if="formElement.type == 'datepicker'" type="text" v-model="binding.value" class="form-control date" />
-                                    <textarea v-bind:name="binding.name" v-else-if="formElement.type == 'textarea'" v-model="binding.value" class="form-control" rows="6"></textarea>
-                                    <div v-else-if="formElement.type == 'select'" class="custom-select">
-                                        <select v-bind:name="binding.name" v-model="binding.value" class="form-control">
-                                            <option v-for="option in formElement.options" v-bind:value="option.value">{{option.text}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-else class="form-group">
-                                <input v-bind:name="formElement.name" v-if="formElement.type == 'text'" type="text" v-model="formElement.value" class="form-control" />
-                                <input v-bind:name="formElement.name" v-else-if="formElement.type == 'datepicker'" type="text" v-model="formElement.value" class="form-control date" />
-                                <textarea v-bind:name="formElement.name" v-else-if="formElement.type == 'textarea'" v-model="formElement.value" class="form-control" rows="6"></textarea>
-                                <div v-else-if="formElement.type == 'select'" class="custom-select">
-                                    <select v-bind:name="formElement.name" v-model="formElement.value" class="form-control">
-                                        <option v-for="option in formElement.options" v-bind:value="option.Value">{{option.Text}}</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <div is="field" v-bind:form-element="formElement"></div>
                         </div>
                         <div v-if="formElement.helpText" class="col-md-1">
                             <p class="form-control-static">
@@ -70,15 +35,21 @@
         template: "#timeAndSpace-template",
         props: [],
         components: {
+            Field: Field,
             boundingBox: BoundingBox,
             coverage: Coverage
+        },
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            }
         },
         data: function () {
             return {
                 formElements: [
                     {
                         name: 'DateUpdated',
-                        value: this.$parent.model.DateUpdated,
+                        mutation: 'updateDateUpdated',
                         label: '@Html.Raw(UI.Metadata_DateUpdated)',
                         type: 'datepicker',
                         helpText: {
@@ -88,7 +59,7 @@
                     },
                     {
                         name: 'DatePublished',
-                        value: this.$parent.model.DatePublished,
+                        mutation: 'updateDatePublished',
                         label: '@Html.Raw(UI.Metadata_DatePublished)',
                         type: 'datepicker',
                         helpText: {
@@ -98,7 +69,7 @@
                     },
                     {
                         name: 'DateCreated',
-                        value: this.$parent.model.DateCreated,
+                        mutation: 'updateDateCreated',
                         label: '@Html.Raw(UI.Metadata_DateCreated)',
                         type: 'datepicker',
                         helpText: {
@@ -108,7 +79,7 @@
                     },
                     {
                         name: 'DateMetadataValidFrom',
-                        value: this.$parent.model.DateMetadataValidFrom,
+                        mutation: 'updateDateMetadataValidFrom',
                         label: '@Html.Raw(UI.Metadata_DateMetadataValidFrom)',
                         type: 'datepicker',
                         helpText: {
@@ -118,7 +89,7 @@
                     },
                     {
                         name: 'DateMetadataValidTo',
-                        value: this.$parent.model.DateMetadataValidTo,
+                        mutation: 'updateDateMetadataValidTo',
                         label: '@Html.Raw(UI.Metadata_DateMetadataValidTo)',
                         type: 'datepicker',
                         helpText: {
@@ -128,11 +99,11 @@
                     },
                     {
                         name: 'MaintenanceFrequency',
-                        value: this.$parent.model.MaintenanceFrequency,
+                        mutation: 'updateMaintenanceFrequency',
                         required: true,
                         label: '@Html.Raw(UI.Metadata_MaintenanceFrequency)',
                         type: 'select',
-                        options: this.$parent.viewBag.MaintenanceFrequencyValues,
+                        options: this.$store.getters['MaintenanceFrequencyValues'],
                         helpText: {
                             active: false,
                             content: 'Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert.'
