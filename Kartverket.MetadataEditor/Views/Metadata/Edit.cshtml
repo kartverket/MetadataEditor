@@ -1690,6 +1690,15 @@
             mounted: function () {
                 this.selectedValues.thumbnails = this.model.Thumbnails;
                 this.selectedTab = this.getSelectedTab();
+                if (applicationEnvironment == "dev") {
+                    for (var getter in this.$store.getters) {
+                        if (this.$store.getters.hasOwnProperty(getter)) {
+                            if (this.$store.getters[getter] === undefined) {
+                                console.log('Vuex getter: "' + getter + '" is undefined');
+                            }
+                        }
+                    }
+                }
             },
             methods: {
                 getSelectedTab: function () {
