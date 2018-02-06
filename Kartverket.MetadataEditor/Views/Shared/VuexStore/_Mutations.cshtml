@@ -141,6 +141,41 @@
         updateVideoFormats: function (state, payload) {
             state.data.VideoFormats = payload;
         },
+        updateFormatDistributions: function (state, payload) {
+            state.model.FormatDistributions = payload;
+        },
+
+
+        updateFormatDistributionsOrganization: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Key.Organization = payload.value;
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.Organization = payload.value;
+        },
+        updateFormatDistributionsProtocol: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Key.Protocol = payload.value;
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.Protocol = payload.value;
+        },
+        updateFormatDistributionsURL: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Key.Url = payload.value;
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.URL = payload.value;
+        },
+
+        addFormatDistributionsFormat: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats.push({ Name: "", Version: "" });
+        },
+        removeFormatDistributionsFormat: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats.splice(payload.distributionFormatIndex, 1);
+        },
+        updateFormatDistributionsFormatName: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex].Name = payload.value;
+        },
+        updateFormatDistributionsFormatVersion: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex].Version = payload.value;
+        },
+
+
+        updateDistributionsFormats: function (state, payload) {
+            state.model.DistributionFormats = payload;
+        },
         updateProductSpecificationUrl: function (state, payload) {
             state.model.ProductSpecificationUrl = payload;
         },

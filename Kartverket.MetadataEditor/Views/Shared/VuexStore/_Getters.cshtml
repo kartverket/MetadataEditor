@@ -141,6 +141,21 @@
         VideoFormats: function (state) {
             return state.data.VideoFormats;
         },
+
+        FormatDistributions: function (state) {
+            return state.model.FormatDistributions;
+        },
+        DistributionsFormats: function (state) {
+            return state.model.DistributionFormats;
+        },
+        OrganizationDistributorValues: function (state) {
+            return state.viewBag.OrganizationDistributorValues;
+        },
+        PredefinedDistributionProtocols: function (state) {
+            return state.viewBag.predefinedDistributionProtocols;
+        },
+
+
         ProductSpecificationUrl: function (state) {
             return state.model.ProductSpecificationUrl;
         },
