@@ -6,23 +6,7 @@
             <label class="col-md-3 control-label">{{ formElements.useLimitations.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.useLimitations.helpText && formElements.useLimitations.helpText.active" class="help-text bg-success" v-html="formElements.useLimitations.helpText.content"></p>
-                <div class="form-element-tab-group">
-                    <span v-on:click="formElements.useLimitations.selectedLanguage = 'all'"
-                          v-bind:class="{active: formElements.useLimitations.selectedLanguage == 'all'}"
-                          class="form-element-tab">
-                        {{ $parent.languages['all'] }}
-                    </span>
-                    <span v-on:click="formElements.useLimitations.selectedLanguage = language"
-                          v-for="(binding, language) in formElements.useLimitations.multilingual"
-                          v-bind:class="{active: formElements.useLimitations.selectedLanguage == language}"
-                          class="form-element-tab">
-                        {{ $parent.languages[language] }}
-                    </span>
-                </div>
-                <div v-show="language == formElements.useLimitations.selectedLanguage || formElements.useLimitations.selectedLanguage == 'all'" v-for="(binding, language) in formElements.useLimitations.multilingual" class="form-group">
-                    <span v-show="formElements.useLimitations.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
-                    <input v-bind:name="binding.name" v-if="formElements.useLimitations.type == 'text'" type="text" v-model="binding.value" class="form-control" />
-                </div>
+                <div is="field" v-bind:form-element="formElements.useLimitations"></div>
             </div>
             <div v-if="formElements.useLimitations.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -35,12 +19,8 @@
         <div class="form-group has-feedback" v-bind:class="{required: formElements.accessConstraints.required}">
             <label class="col-md-3 control-label">{{ formElements.accessConstraints.label }}</label>
             <div class="col-md-8">
-                <div class="custom-select">
-                    <p v-if="formElements.accessConstraints.helpText && formElements.accessConstraints.helpText.active" class="help-text bg-success" v-html="formElements.accessConstraints.helpText.content"></p>
-                    <select v-model="formElements.accessConstraints.value" v-bind:name="formElements.accessConstraints.name" class="form-control">
-                        <option v-bind:value="option.Value" v-for="option in formElements.accessConstraints.options">{{ option.Text }}</option>
-                    </select>
-                </div>
+                <p v-if="formElements.accessConstraints.helpText && formElements.accessConstraints.helpText.active" class="help-text bg-success" v-html="formElements.accessConstraints.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.accessConstraints"></div>
             </div>
             <div v-if="formElements.accessConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -53,12 +33,8 @@
         <div class="form-group has-feedback" v-bind:class="{required: formElements.useConstraints.required}">
             <label class="col-md-3 control-label">{{ formElements.useConstraints.label }}</label>
             <div class="col-md-8">
-                <div class="custom-select">
-                    <p v-if="formElements.useConstraints.helpText && formElements.useConstraints.helpText.active" class="help-text bg-success" v-html="formElements.useConstraints.helpText.content"></p>
-                    <select v-model="formElements.useConstraints.value" v-bind:name="formElements.useConstraints.name" class="form-control">
-                        <option v-bind:value="option.Value" v-for="option in formElements.useConstraints.options">{{ option.Text }}</option>
-                    </select>
-                </div>
+                <p v-if="formElements.useConstraints.helpText && formElements.useConstraints.helpText.active" class="help-text bg-success" v-html="formElements.useConstraints.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.useConstraints"></div>
             </div>
             <div v-if="formElements.useConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -71,9 +47,9 @@
         <div class="form-group has-feedback" v-bind:class="{required: formElements.licenseTypes.required}">
             <label class="col-md-3 control-label">{{ formElements.licenseTypes.label }}</label>
             <div class="col-md-6">
+                <p v-if="formElements.licenseTypes.helpText && formElements.licenseTypes.helpText.active" class="help-text bg-success" v-html="formElements.licenseTypes.helpText.content"></p>
                 <div class="custom-select">
-                    <p v-if="formElements.licenseTypes.helpText && formElements.licenseTypes.helpText.active" class="help-text bg-success" v-html="formElements.licenseTypes.helpText.content"></p>
-                    <select v-model="formElements.licenseTypes.value" v-bind:name="formElements.licenseTypes.name" class="form-control">
+                    <select v-bind:value="getSelectedLicenceType" v-on:change="setSelectedLicenceType($event)" v-bind:name="formElements.licenseTypes.name" class="form-control">
                         <option v-bind:value="option.Value" v-for="option in formElements.licenseTypes.options">{{ option.Text }}</option>
                     </select>
                 </div>
@@ -88,24 +64,18 @@
             </div>
         </div>
 
-
         <div v-show="showCustomLicenseType" class="form-group has-feedback">
-
             @* OtherConstraintsLinkText *@
             <label class="col-md-3 control-label">{{ formElements.otherConstraintsLinkText.label }}</label>
             <div class="col-md-3">
-                <input v-model="formElements.otherConstraintsLinkText.value" v-bind:name="formElements.otherConstraintsLinkText.name" v-bind:type="formElements.otherConstraintsLinkText.type" />
+                <div is="field" v-bind:form-element="formElements.otherConstraintsLinkText"></div>
             </div>
 
             @* OtherConstraintsLink *@
             <label class="col-md-1 control-label">{{ formElements.otherConstraintsLink.label }}</label>
             <div class="col-md-4">
-                <input v-model="formElements.otherConstraintsLink.value" v-bind:name="formElements.otherConstraintsLink.name" v-bind:type="formElements.otherConstraintsLink.type" />
+                <div is="field" v-bind:form-element="formElements.otherConstraintsLink"></div>
             </div>
-            <div class="col-md-1">
-                knapp
-            </div>
-
         </div>
 
         @* OtherConstraints *@
@@ -113,23 +83,7 @@
             <label class="col-md-3 control-label">{{ formElements.otherConstraints.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.otherConstraints.helpText && formElements.otherConstraints.helpText.active" class="help-text bg-success" v-html="formElements.otherConstraints.helpText.content"></p>
-                <div class="form-element-tab-group">
-                    <span v-on:click="formElements.otherConstraints.selectedLanguage = 'all'"
-                          v-bind:class="{active: formElements.otherConstraints.selectedLanguage == 'all'}"
-                          class="form-element-tab">
-                        {{ $parent.languages['all'] }}
-                    </span>
-                    <span v-on:click="formElements.otherConstraints.selectedLanguage = language"
-                          v-for="(binding, language) in formElements.otherConstraints.multilingual"
-                          v-bind:class="{active: formElements.otherConstraints.selectedLanguage == language}"
-                          class="form-element-tab">
-                        {{ $parent.languages[language] }}
-                    </span>
-                </div>
-                <div v-show="language == formElements.otherConstraints.selectedLanguage || formElements.otherConstraints.selectedLanguage == 'all'" v-for="(binding, language) in formElements.otherConstraints.multilingual" class="form-group">
-                    <span v-show="formElements.otherConstraints.selectedLanguage == 'all'" class="form-element-badge">{{ $parent.languages[language] }}</span>
-                    <input v-bind:name="binding.name" v-if="formElements.otherConstraints.type == 'text'" type="text" v-model="binding.value" class="form-control" />
-                </div>
+                <div is="field" v-bind:form-element="formElements.otherConstraints"></div>
             </div>
             <div v-if="formElements.otherConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -142,12 +96,8 @@
         <div class="form-group has-feedback" v-bind:class="{required: formElements.securityConstraints.required}">
             <label class="col-md-3 control-label">{{ formElements.securityConstraints.label }}</label>
             <div class="col-md-8">
-                <div class="custom-select">
-                    <p v-if="formElements.securityConstraints.helpText && formElements.securityConstraints.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraints.helpText.content"></p>
-                    <select v-model="formElements.securityConstraints.value" v-bind:name="formElements.securityConstraints.name" class="form-control">
-                        <option v-bind:value="option.Value" v-for="option in formElements.securityConstraints.options">{{ option.Text }}</option>
-                    </select>
-                </div>
+                <p v-if="formElements.securityConstraints.helpText && formElements.securityConstraints.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraints.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.securityConstraints"></div>
             </div>
             <div v-if="formElements.useConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -178,6 +128,21 @@
     var Constraints = {
         name: "constraints",
         template: "#constraints-template",
+        components: {
+            Field: Field
+        },
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            },
+            setSelectedLicenceType: function (event) {
+                this.$store.commit('updateOtherConstraintsLinkText', event.target.selectedOptions[0].text);
+                this.$store.commit('updateOtherConstraintsLink', event.target.selectedOptions[0].value);
+            },
+            getSelectedLicenceType: function (target) {
+                return this.$store.getters['OtherConstraintsLink'];
+            }
+        },
         data: function () {
             return {
                 showCustomLicenseType: false,
@@ -186,11 +151,11 @@
                         multilingual: {
                             no: {
                                 name: 'UseLimitations',
-                                value: this.$root.model.UseLimitations
+                                mutation: 'updateUseLimitations'
                             },
                             en: {
                                 name: 'EnglishUseLimitations',
-                                value: this.$root.model.EnglishUseLimitations
+                                mutation: 'updateEnglishUseLimitations'
                             }
                         },
                         selectedLanguage: this.$root.defaultLanguage,
@@ -203,7 +168,7 @@
                     },
                     accessConstraints: {
                         name: 'AccessConstraints',
-                        value: this.$root.model.AccessConstraints,
+                        mutation: 'updateAccessConstraints',
                         label: 'Tilgangsrestriksjoner',
                         type: 'select',
                         options: this.$root.viewBag.AccessConstraintValues,
@@ -214,7 +179,7 @@
                     },
                     useConstraints: {
                         name: 'UseConstraints',
-                        value: this.$root.model.UseConstraints,
+                        mutation: 'updateUseConstraints',
                         label: 'Brukerrestriksjoner',
                         type: 'select',
                         options: this.$root.viewBag.UseConstraintValues,
@@ -225,6 +190,7 @@
                     },
                     licenseTypes: {
                         name: 'LicenseTypes',
+                        mutation: 'updateLicenseTypes',
                         value: this.$root.model.LicenseTypes,
                         label: 'Lisens',
                         type: 'select',
@@ -239,13 +205,13 @@
                     },
                     otherConstraintsLinkText: {
                         name: 'OtherConstraintsLinkText',
-                        value: this.$root.model.OtherConstraintsLinkText,
+                        mutation: 'updateOtherConstraintsLinkText',
                         label: 'Valgt lisens',
                         type: 'text'
                     },
                     otherConstraintsLink: {
                         name: 'OtherConstraintsLink',
-                        value: this.$root.model.OtherConstraintsLink,
+                        mutation: 'updateOtherConstraintsLink',
                         label: 'URL',
                         type: 'text'
                     },
@@ -253,11 +219,11 @@
                         multilingual: {
                             no: {
                                 name: 'OtherConstraints',
-                                value: this.$root.model.OtherConstraints
+                                mutation: 'updateOtherConstraints'
                             },
                             en: {
                                 name: 'EnglishOtherConstraints',
-                                value: this.$root.model.EnglishOtherConstraints
+                                mutation: 'updateEnglishOtherConstraints'
                             }
                         },
                         selectedLanguage: this.$root.defaultLanguage,
@@ -266,7 +232,7 @@
                     },
                     securityConstraints: {
                         name: 'SecurityConstraints',
-                        value: this.$root.model.SecurityConstraints,
+                        mutation: 'updateSecurityConstraints',
                         label: 'Sikkerhetsnivå',
                         type: 'select',
                         options: this.$root.viewBag.SecurityConstraintValues,
@@ -277,7 +243,7 @@
                     },
                     securityConstraintsNote: {
                         name: 'SecurityConstraintsNote',
-                        value: this.$root.model.SecurityConstraintsNote,
+                        mutation: 'updateSecurityConstraintsNote',
                         label: 'Lovhenvisning',
                         type: 'text',
                         helpText: {
