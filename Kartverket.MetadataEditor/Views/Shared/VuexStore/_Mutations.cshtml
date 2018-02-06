@@ -1,5 +1,20 @@
 ﻿<script>
     var Mutations = {
+        updateSettings: function (state, payload) {
+            state.settings = payload;
+        },
+        updateSettingsLanguages: function (state, payload) {
+            state.settings.languages = payload;
+        },
+        updateSettingsLanguages_all: function (state, payload) {
+            state.settings.languages.all = payload;
+        },
+        updateSettingsLanguages_en: function (state, payload) {
+            state.settings.languages.en = payload;
+        },
+        updateSettingsLanguages_no: function (state, payload) {
+            state.settings.languages.no = payload;
+        },
         updateTitle: function (state, payload) {
             state.model.Title = payload;
         },

@@ -1,5 +1,20 @@
 ﻿<script>
     var Getters = {
+        settings: function (state) {
+            return state.settings;
+        },
+        settingsLanguages: function (state) {
+            return state.settings.languages;
+        },
+        settingsLanguages_all: function (state) {
+            return state.settings.languages.all;
+        },
+        settingsLanguages_en: function (state) {
+            return state.settings.languages.en;
+        },
+        settingsLanguages_no: function (state) {
+            return state.settings.languages.no;
+        },
         Title: function (state) {
             return state.model.Title;
         },
