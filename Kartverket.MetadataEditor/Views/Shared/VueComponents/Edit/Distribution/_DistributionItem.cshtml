@@ -221,7 +221,7 @@
                     unitsOfDistribution: {
                         label: 'Geografisk distribusjonsinndeling',
                         value: '',
-                        selected: [],
+                        selected: this.getUnitsOfDistribution(),
                         options: this.$root.viewBag.UnitsOfDistributionValues
                     },
                     name: {
@@ -247,14 +247,10 @@
                 return this.distribution.Value.Details.UnitsOfDistribution !== null && this.distribution.Value.Details.UnitsOfDistribution !== "" ? this.distribution.Value.Details.UnitsOfDistribution.split(', ') : [];
             },
             setUnitsOfDistribution: function () {
-                this.formElements.unitsOfDistribution.value = this.formElements.unitsOfDistribution.selected.join(', ');
+                var unitsOfDistribution = this.formElements.unitsOfDistribution.selected.join(', ');
+                this.$store.commit('updateFormatDistributionsUnitsOfDistribution', { distributionIndex: this.distributionIndex, value: unitsOfDistribution });
             }
-        },
-        mounted: function () {
-            this.formElements.unitsOfDistribution.selected = this.getUnitsOfDistribution();
-            this.setUnitsOfDistribution();
         }
-
     };
 </script>
 

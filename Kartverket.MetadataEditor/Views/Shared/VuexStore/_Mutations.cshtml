@@ -203,6 +203,14 @@
         updateDistributionsFormats: function (state, payload) {
             state.model.DistributionFormats = payload;
         },
+
+        updateFormatDistributionsUnitsOfDistribution: function (state, payload) {
+            console.log(payload);
+            console.log(state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution);
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution = payload.value;
+            console.log(state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution);
+        },
+
         updateProductSpecificationUrl: function (state, payload) {
             state.model.ProductSpecificationUrl = payload;
         },
