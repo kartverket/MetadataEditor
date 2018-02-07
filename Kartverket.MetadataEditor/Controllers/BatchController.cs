@@ -112,7 +112,7 @@ namespace Kartverket.MetadataEditor.Controllers
         public ActionResult OpenData()
         {
             
-            new Thread(() => new Models.OpenData.OpenMetadataService().SyncData()).Start();
+            new Thread(() => new Models.OpenData.OpenMetadataService().SynchronizeMetadata()).Start();
 
             return RedirectToAction("Index");
         }

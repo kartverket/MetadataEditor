@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
@@ -21,8 +22,9 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
         private MetadataService _metadataService;
 
-        public void SyncData()
+        public void SynchronizeMetadata()
         {
+            Log.Info("Synching open metadata initiated");
             _endPoints = new List<EndPoint>();
             _endPoints.Add(new EndPoint {  Url = _endPointOslo, OrganizationName = "Oslo kommune" });
             _endPoints.Add(new EndPoint { Url = _endPointTromso });
@@ -33,19 +35,21 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
             foreach(var endPoint in _endPoints)
             {
-                SyncEndpoint(endPoint);
+                SyncEndpointAsync(endPoint);
             }
         }
 
-        private void SyncEndpoint(EndPoint endPoint)
+        private async void SyncEndpointAsync(EndPoint endPoint)
         {
+            Log.Info("Synching open metadata from: " + endPoint.OrganizationName + " - " + endPoint.Url);
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var result = _httpClient.GetAsync(endPoint.Url).Result;
+            var result = await _httpClient.GetAsync(endPoint.Url);
+            Log.Info("Response from endpoint: " + result.StatusCode);
             if (result.IsSuccessStatusCode)
             {
 
-                var metadata = result.Content.ReadAsAsync<Metadata>().Result;
+                Metadata metadata = await result.Content.ReadAsAsync<Metadata>();
                 MetadataViewModel model = new MetadataViewModel();
                 model.HierarchyLevel = "dataset";
                 foreach (var dataset in metadata.dataset)
@@ -106,6 +110,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                     }
                     catch (Exception ex)
                     {
+                        Log.Error("Exception while synchronizing metadata: " + ex.Message, ex);
+
                         if (ex.Message == "Metadata cannot be null.\r\nParameternavn: md" && !string.IsNullOrEmpty(identifier))
                         {
                             MetadataCreateViewModel newMetadata = new MetadataCreateViewModel();
