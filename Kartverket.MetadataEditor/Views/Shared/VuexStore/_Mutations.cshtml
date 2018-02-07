@@ -141,10 +141,35 @@
         updateVideoFormats: function (state, payload) {
             state.data.VideoFormats = payload;
         },
+
+        addFormatDistributions: function (state) {
+            state.model.FormatDistributions.push({
+                Key: {
+                    Organization: '',
+                    Protocol: '',
+                    Url: ''
+                },
+                Value: {
+                    Details: {
+                        Organization: '',
+                        Protocol: '',
+                        URL: '',
+                        EnglishUnitsOfDistribution: null,
+                        FormatName: null,
+                        FormatVersion: null,
+                        Name: null,
+                        UnitsOfDistribution: null
+                    },
+                    Formats: []
+                }
+            });
+        },
+        removeFormatDistributions: function (state, payload) {
+            state.model.FormatDistributions.splice(payload.distributionIndex, 1);
+        },
         updateFormatDistributions: function (state, payload) {
             state.model.FormatDistributions = payload;
         },
-
 
         updateFormatDistributionsOrganization: function (state, payload) {
             state.model.FormatDistributions[payload.distributionIndex].Key.Organization = payload.value;
