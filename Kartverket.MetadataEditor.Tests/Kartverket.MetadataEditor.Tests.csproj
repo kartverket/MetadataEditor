@@ -151,6 +151,7 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\OpenData\OpenMetadataServiceTest.cs" />
     <Compile Include="Models\WfsGetCapabilities10ParserTest.cs" />
     <Compile Include="Models\WfsGetCapabilities11ParserTest.cs" />
     <Compile Include="Models\WfsGetCapabilities20ParserTest.cs" />
@@ -177,6 +178,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Models\OpenData\data.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
