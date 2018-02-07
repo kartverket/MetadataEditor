@@ -3,6 +3,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -11,7 +12,7 @@ namespace Kartverket.MetadataEditor.Controllers
 {
     public class BatchController : Controller
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private MetadataService _metadataService;
 
@@ -102,6 +103,16 @@ namespace Kartverket.MetadataEditor.Controllers
                     TempData["failure"] = "Vennligst velg .xlsx filtype";
                 }
             }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult OpenData()
+        {
+            
+            new Thread(() => new Models.OpenData.OpenMetadataService().SynchronizeMetadata()).Start();
 
             return RedirectToAction("Index");
         }

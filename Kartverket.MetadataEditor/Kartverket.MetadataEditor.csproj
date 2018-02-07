@@ -77,8 +77,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExpressiveAnnotations.2.2.7\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=3.0.41.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoNorgeAPI.3.0.41.0\lib\net40\GeoNorgeAPI.dll</HintPath>
+    <Reference Include="GeoNorgeAPI, Version=3.0.42.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoNorgeAPI.3.0.42\lib\net40\GeoNorgeAPI.dll</HintPath>
     </Reference>
     <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ImageResizer.4.1.9\lib\net45\ImageResizer.dll</HintPath>
@@ -256,6 +256,8 @@
     <Compile Include="Models\MustHaveOneElementAttribute.cs" />
     <Compile Include="Models\NotFoundModel.cs" />
     <Compile Include="Models\ObjectExtensions.cs" />
+    <Compile Include="Models\OpenData\Metadata.cs" />
+    <Compile Include="Models\OpenData\OpenMetadataService.cs" />
     <Compile Include="Models\ReportService.cs" />
     <Compile Include="Models\SeoUrl.cs" />
     <Compile Include="Models\ServiceLayerViewModel.cs" />

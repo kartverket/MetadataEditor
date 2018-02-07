@@ -11,6 +11,7 @@ using Kartverket.MetadataEditor.Util;
 using Resources;
 using log4net;
 using System.Net;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace Kartverket.MetadataEditor.Controllers
@@ -18,7 +19,7 @@ namespace Kartverket.MetadataEditor.Controllers
     [HandleError]
     public class MetadataController : Controller
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private MetadataService _metadataService;
 
@@ -385,6 +386,7 @@ namespace Kartverket.MetadataEditor.Controllers
             memCacher.DeleteAll();
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
+
 
         public string GetSafeFilename(string filename)
         {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace Kartverket.MetadataEditor.Models
@@ -9,7 +10,7 @@ namespace Kartverket.MetadataEditor.Models
     public class ReportService
     {
         private MetadataService _metadataService;
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public ReportService() 
         {

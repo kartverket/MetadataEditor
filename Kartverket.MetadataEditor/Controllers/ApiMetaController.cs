@@ -1,5 +1,4 @@
 ﻿using Kartverket.MetadataEditor.Models;
-using Kartverket.MetadataEditor.no.geonorge.ws;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
