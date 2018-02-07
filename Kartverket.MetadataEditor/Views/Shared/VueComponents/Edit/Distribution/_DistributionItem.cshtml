@@ -120,7 +120,7 @@
 
 
             <div class="margin-top-10 text-right">
-                <span class="btn" v-on:click="addDistributionFormat()">Nytt format</span>
+                <span class="btn" v-on:click="$store.commit('addFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex});">Nytt format</span>
             </div>
             <hr />
             <div class="form-group">
@@ -248,16 +248,6 @@
             },
             setUnitsOfDistribution: function () {
                 this.formElements.unitsOfDistribution.value = this.formElements.unitsOfDistribution.selected.join(', ');
-            },
-            addDistributionFormat: function () {
-                var formatDistributions = this.$store.getters['FormatDistributions'];
-                formatDistributions[this.distributionIndex].Value.Formats.push({ Name: "", Version: "" });
-                this.$store.commit('updateFormatDistributions', formatDistributions);
-            },
-            removeDistributionFormat: function (distributionFormatIndex) {
-                var formatDistributions = this.$store.getters['FormatDistributions'];
-                formatDistributions[this.distributionIndex].Value.Formats.splice(distributionFormatIndex, 1);
-                this.$store.commit('updateFormatDistributions', formatDistributions);
             }
         },
         mounted: function () {

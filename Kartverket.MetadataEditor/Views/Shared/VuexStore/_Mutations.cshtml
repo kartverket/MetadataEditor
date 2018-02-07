@@ -190,13 +190,15 @@
         removeFormatDistributionsFormat: function (state, payload) {
             state.model.FormatDistributions[payload.distributionIndex].Value.Formats.splice(payload.distributionFormatIndex, 1);
         },
+        updateFormatDistributionsFormat: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex] = payload.value;
+        },
         updateFormatDistributionsFormatName: function (state, payload) {
             state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex].Name = payload.value;
         },
         updateFormatDistributionsFormatVersion: function (state, payload) {
             state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex].Version = payload.value;
         },
-
 
         updateDistributionsFormats: function (state, payload) {
             state.model.DistributionFormats = payload;
