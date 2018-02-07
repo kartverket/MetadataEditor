@@ -3,11 +3,10 @@ using Kartverket.MetadataEditor.Controllers;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.IO;
+using System.Reflection;
 using Kartverket.MetadataEditor.Models.Translations;
 using Newtonsoft.Json.Linq;
 using www.opengis.net;
@@ -17,7 +16,7 @@ namespace Kartverket.MetadataEditor.Models
     public class BatchService
     {
         private MetadataService _metadataService;
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         string thumbnailFolder;
 
         private GeoNorge _geoNorge;

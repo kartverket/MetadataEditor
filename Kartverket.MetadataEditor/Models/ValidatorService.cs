@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Kartverket.MetadataEditor.Controllers;
 using Raven.Client;
-using Raven.Client.Document;
-using Raven.Client.Embedded;
-using System.Threading;
 using Raven.Abstractions.Data;
-using Kartverket.MetadataEditor;
 using log4net;
 using System.Net.Mail;
+using System.Reflection;
 using System.Text;
 
 namespace Kartverket.MetadataEditor.Models
@@ -18,7 +14,7 @@ namespace Kartverket.MetadataEditor.Models
     public class ValidatorService
     {
         private MetadataService _metadataService;
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public ValidatorService() 
         {

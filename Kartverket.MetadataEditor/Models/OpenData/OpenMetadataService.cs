@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Web;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
 {
     public class OpenMetadataService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly HttpClient _httpClient = new HttpClient();
         static List<EndPoint> _endPoints;
         string _endPointOslo = "https://oslokommune-bym.opendata.arcgis.com/data.json";
