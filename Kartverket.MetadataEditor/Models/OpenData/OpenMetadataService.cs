@@ -106,7 +106,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                         model.AccessConstraints = "no restrictions";
 
                         _metadataService.SaveMetadataModel(model, username);
-                        Log.Info("Updated open metadata uuid: " + model.Uuid);
+                        Log.Info($"Updated open metadata [uuid={model.Uuid}] [title={model.Title}] [organization={model.ContactMetadata.Organization}]");
                     }
                     catch (Exception ex)
                     {
