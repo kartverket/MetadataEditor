@@ -1,7 +1,6 @@
 ﻿<script type="text/x-template" id="thumbnails-template">
-    <div v-if="$root.selectedValues.thumbnails" class="striped-list">
-
-        <div is="thumbnail" v-bind:image-type="image.Type" v-bind:image-url="image.URL" v-bind:image-index="index" v-for="(image, index) in $root.selectedValues.thumbnails"></div>
+    <div v-if="$store.getters['Thumbnails']" class="striped-list">
+        <div is="thumbnail" v-bind:image-type="image.Type" v-bind:image-url="image.URL" v-bind:image-index="index" v-for="(image, index) in $store.getters['Thumbnails']"></div>
     </div>
 </script>
 
@@ -16,11 +15,6 @@
         components: {
             Thumbnail: Thumbnail
         },
-        data: function () {
-            return {
-
-            }
-        },
         methods: {
             getNewImagesArray: function () {
                 var images = [];
@@ -28,18 +22,18 @@
                     if (this.newImages.hasOwnProperty(property)) {
                         if (property == 'filenamemini') {
                             images.push({
-                                URL: this.$root.viewBag.ThumbnailUrl + this.newImages[property],
+                                URL: this.$store.getters['ThumbnailUrl'] + this.newImages[property],
                                 Type: 'miniatyrbilde'
                             });
                         } else if (property == 'filenameMedium') {
                             images.push({
-                                URL: this.$root.viewBag.ThumbnailUrl + this.newImages[property],
+                                URL: this.$store.getters['ThumbnailUrl'] + this.newImages[property],
                                 Type: 'medium'
                             });
 
                         } else if (property == 'filename') {
                             images.push({
-                                URL: this.$root.viewBag.ThumbnailUrl + this.newImages[property],
+                                URL: this.$store.getters['ThumbnailUrl'] + this.newImages[property],
                                 Type: 'original'
                             });
                         }
@@ -48,8 +42,7 @@
                 if (this.$root.hasCoverageImage) {
                     images.push(this.$root.getSelectedCoverageImage());
                 }
-                this.$root.setSelectedThumbnails(images);
-                return images;
+                this.$store.commit('updateThumbnails', images);
             }
 
         },
