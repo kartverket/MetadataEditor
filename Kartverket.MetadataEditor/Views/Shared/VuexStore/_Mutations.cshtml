@@ -247,6 +247,12 @@
         updateProductPageUrl: function (state, payload) {
             state.model.ProductPageUrl = payload;
         },
+        updateThumbnailUrl: function (state, payload) {
+            state.viewBag.ThumbnailUrl = payload;
+        },
+        updateThumbnails: function (state, payload) {
+            state.model.Thumbnails = payload;
+        },
         updateUseLimitations: function (state, payload) {
             state.model.UseLimitations = payload;
         },
