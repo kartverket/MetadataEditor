@@ -26,13 +26,15 @@ namespace Kartverket.MetadataEditor.Models.OpenData
         {
             Log.Info("Synching open metadata initiated");
 
-            var endPoints = new List<OpenMetadataEndpoint>();
-            endPoints.Add(new OpenMetadataEndpoint {Url = "https://oslokommune-bym.opendata.arcgis.com/data.json", OrganizationName = "Oslo kommune"});
-            endPoints.Add(new OpenMetadataEndpoint {Url = "http://data-tromso.opendata.arcgis.com/data.json", OrganizationName = "Tromsø"});
+            var endpoints = new List<OpenMetadataEndpoint>();
+            endpoints.Add(new OpenMetadataEndpoint {Url = "https://oslokommune-bym.opendata.arcgis.com/data.json", OrganizationName = "Oslo kommune"});
+            endpoints.Add(new OpenMetadataEndpoint {Url = "http://data-tromso.opendata.arcgis.com/data.json", OrganizationName = "Tromsø"});
 
             Log.Info("List of endpoints: ");
+            endpoints.ForEach(e => Log.Info(e));
+
             var numberOfUpdatedMetadata = 0;
-            foreach (var endPoint in endPoints)
+            foreach (var endPoint in endpoints)
             {
                 var updateCount = await SynchronizeMetadata(endPoint).ConfigureAwait(false);
                 numberOfUpdatedMetadata += updateCount;
