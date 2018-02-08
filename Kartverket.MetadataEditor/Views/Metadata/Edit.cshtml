@@ -247,7 +247,7 @@
 </form>
 
 @section scripts {
-    <script>
+<script>
         var spatialRepresentationOptions = {
                 vector: [],
                 grid: [],
@@ -323,65 +323,6 @@
                 event.preventDefault();
                 var cookieVal = this.id;
                 Cookies.set('navtabselected', cookieVal);
-            });
-
-            $('#uploadThumbnailFile').fileupload({
-                dataType: 'json',
-                url: '/Metadata/UploadThumbnailGenerateMiniAndMedium',
-                add: function (e, data) {
-
-                    $("#uploadThumbnailButton").on("click", function (event) {
-                        event.preventDefault();
-                        data.formData = {
-                            "uuid": "@Model.Uuid"
-                        };
-                        data.submit();
-                    });
-                },
-                done: function (e, data) {
-                    console.log("File uploaded: " + data.result.filename);
-                    if (data.result.status == "ErrorWrongContent") {
-                        $("#thumbnailUrl").val('');
-                        $('#uploadThumbnailStatus').attr('style', 'color: red ;');
-                        $('#uploadThumbnailStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
-                    }
-                    else {
-                        $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
-                        $("#thumbnailUrlMini").val('@ViewBag.ThumbnailUrl' + data.result.filenamemini);
-                        $("#thumbnailUrlMedium").val('@ViewBag.ThumbnailUrl' + data.result.filenameMedium);
-                        $('#uploadThumbnailStatus').attr('style', 'text-info');
-                        //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
-                    }
-                }
-            });
-
-            $('#uploadCoverageFile').fileupload({
-                dataType: 'json',
-                url: '/Metadata/UploadThumbnail',
-                add: function (e, data) {
-                    $("#uploadCoverageButton").on("click", function (event) {
-                        event.preventDefault();
-                        data.formData = {
-                            "uuid": "@Model.Uuid",
-                            "scaleImage": $('#uploadScaleCoverage').prop('checked')
-                        };
-
-                        data.submit();
-                    });
-                },
-                done: function (e, data) {
-                    console.log("File uploaded: " + data.result.filename);
-                    if (data.result.status == "ErrorWrongContent") {
-                        $("#coverageUri").val('');
-                        $('#uploadCoverageStatus').attr('style', 'color: red ;');
-                        $('#uploadCoverageStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
-                    }
-                    else {
-                        $("#coverageUri").val('@ViewBag.ThumbnailUrl' + data.result.filename);
-                        $('#uploadCoverageStatus').attr('style', 'text-info');
-                        //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
-                    }
-                }
             });
 
             var checkExist = setInterval(function () {
@@ -1595,7 +1536,7 @@
         }
 
 
-    </script>
+</script>
 
 
 }
@@ -1655,8 +1596,7 @@
                     },
                     admin: {
                         keywordsCatalogs: []
-                    },
-                    thumbnails: []
+                    }
                 }
             },
             computed: {
@@ -1678,7 +1618,7 @@
                 },
                 hasCoverageImage: function () {
                     var hasCoverageImage = false;
-                    this.selectedValues.thumbnails.forEach(function (thumbnail) {
+                    this.$store.getters['Thumbnails'].forEach(function (thumbnail) {
                         if (thumbnail.Type == 'dekningsoversikt') {
                             hasCoverageImage = true;
                             return;
@@ -1688,7 +1628,6 @@
                 }
             },
             mounted: function () {
-                this.selectedValues.thumbnails = this.model.Thumbnails;
                 this.selectedTab = this.getSelectedTab();
                 if (applicationEnvironment == "dev") {
                     for (var getter in this.$store.getters) {
@@ -1717,7 +1656,7 @@
                 },
                 getSelectedCoverageImage: function () {
                     var selectedCoverageImage = {};
-                    this.selectedValues.thumbnails.forEach(function (thumbnail) {
+                    $store.getters['Thumbnails'].forEach(function (thumbnail) {
                         if (thumbnail.Type == 'dekningsoversikt') {
                             selectedCoverageImage = thumbnail;
                             return;
@@ -1725,9 +1664,7 @@
                     });
                     return selectedCoverageImage;
                 },
-                setSelectedThumbnails: function (thumbnails) {
-                    this.selectedValues.thumbnails = thumbnails;
-                },
+             
                 addKeyword: function (keywordValue, keywordName) {
                     if (this.model[keywordName] == undefined) {
                         this.model[keywordName] = [];
