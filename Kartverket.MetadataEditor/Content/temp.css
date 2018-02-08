@@ -38,3 +38,8 @@
 .nav-tabs > li > a{
     padding: 10px 12px;
 }
+
+.input-group-addon + .form-group {
+    display: table-cell;
+    padding-bottom: 0;
+}
