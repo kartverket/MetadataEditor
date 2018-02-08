@@ -256,7 +256,10 @@
     <Compile Include="Models\MustHaveOneElementAttribute.cs" />
     <Compile Include="Models\NotFoundModel.cs" />
     <Compile Include="Models\ObjectExtensions.cs" />
+    <Compile Include="Models\OpenData\IOpenMetadataFetcher.cs" />
+    <Compile Include="Models\OpenData\IOpenMetadataService.cs" />
     <Compile Include="Models\OpenData\Metadata.cs" />
+    <Compile Include="Models\OpenData\OpenMetadataFetcher.cs" />
     <Compile Include="Models\OpenData\OpenMetadataService.cs" />
     <Compile Include="Models\ReportService.cs" />
     <Compile Include="Models\SeoUrl.cs" />
