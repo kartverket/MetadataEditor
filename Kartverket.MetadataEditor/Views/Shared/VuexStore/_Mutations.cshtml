@@ -366,6 +366,15 @@
         },
         updateKeywordArealPlans: function (state, payload) {
             state.data.KeywordArealPlans = payload;
+        },
+        addKeyword: function (state, payload) {
+            if (state.model[payload] == undefined) {
+                state.model[payload] = [];
+            }
+            state.model[payload].push("");
+        },
+        removeKeyword: function (state, payload) {
+            state.model[payload.keywordName].Value.Formats.splice(payload.keywordIndex, 1);
         }
     }
 </script>
