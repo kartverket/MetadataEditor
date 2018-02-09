@@ -49,7 +49,7 @@
             <div class="col-md-6">
                 <p v-if="formElements.licenseTypes.helpText && formElements.licenseTypes.helpText.active" class="help-text bg-success" v-html="formElements.licenseTypes.helpText.content"></p>
                 <div class="custom-select">
-                    <select v-bind:value="getSelectedLicenceType" v-on:change="setSelectedLicenceType($event)" v-bind:name="formElements.licenseTypes.name" class="form-control">
+                    <select v-bind:value="getSelectedLicenceType()" v-on:change="setSelectedLicenceType($event)" v-bind:name="formElements.licenseTypes.name" class="form-control">
                         <option v-bind:value="option.Value" v-for="option in formElements.licenseTypes.options">{{ option.Text }}</option>
                     </select>
                 </div>
@@ -111,7 +111,7 @@
             <label class="col-md-3 control-label">{{ formElements.securityConstraintsNote.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.securityConstraintsNote.helpText && formElements.securityConstraintsNote.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraintsNote.helpText.content"></p>
-                <input v-model="formElements.securityConstraintsNote.value" v-bind:name="formElements.securityConstraintsNote.name" v-bind:type="formElements.securityConstraintsNote.type" />
+                <div is="field" v-bind:form-element="formElements.securityConstraintsNote"></div>
             </div>
             <div v-if="formElements.securityConstraintsNote.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -171,7 +171,7 @@
                         mutation: 'updateAccessConstraints',
                         label: 'Tilgangsrestriksjoner',
                         type: 'select',
-                        options: this.$root.viewBag.AccessConstraintValues,
+                        options: this.$store.getters['AccessConstraintValues'],
                         helpText: {
                             active: false,
                             content: ''
@@ -182,7 +182,7 @@
                         mutation: 'updateUseConstraints',
                         label: 'Brukerrestriksjoner',
                         type: 'select',
-                        options: this.$root.viewBag.UseConstraintValues,
+                        options: this.$store.getters['UseConstraintValues'],
                         helpText: {
                             active: false,
                             content: ''
@@ -191,10 +191,9 @@
                     licenseTypes: {
                         name: 'LicenseTypes',
                         mutation: 'updateLicenseTypes',
-                        value: this.$root.model.LicenseTypes,
                         label: 'Lisens',
                         type: 'select',
-                        options: this.$root.viewBag.LicenseTypesValues,
+                        options: this.$store.getters['LicenseTypesValues'],
                         helpText: {
                             active: false,
                             content: ''
@@ -235,7 +234,7 @@
                         mutation: 'updateSecurityConstraints',
                         label: 'Sikkerhetsnivå',
                         type: 'select',
-                        options: this.$root.viewBag.SecurityConstraintValues,
+                        options: this.$store.getters['SecurityConstraintValues'],
                         helpText: {
                             active: false,
                             content: ''
