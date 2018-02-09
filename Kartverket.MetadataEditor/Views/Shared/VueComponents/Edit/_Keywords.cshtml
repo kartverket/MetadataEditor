@@ -7,11 +7,7 @@
             <label v-bind:for="topicCategory.id" class="col-md-2 control-label">Tematisk hovedkategori</label>
             <div class="col-md-9">
                 <p v-if="topicCategory.helpText && topicCategory.helpText.active" class="help-text bg-success" v-html="topicCategory.helpText.content"></p>
-                <div class="custom-select">
-                    <select class="form-control" v-model="topicCategory.value" v-bind:id="topicCategory.id" v-bind:name="topicCategory.name">
-                        <option v-bind:value="option.Value" v-for="option in topicCategory.options">{{ option.Text }}</option>
-                    </select>
-                </div>
+                <div is="field" v-bind:form-element="topicCategory"></div>
             </div>
             <div v-if="topicCategory.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -21,12 +17,7 @@
         </div>
 
         <div is="multilingual-keywords"
-             v-bind:title="section.title"
-             v-bind:input-name="section.inputName"
-             v-bind:input-type="section.inputType"
-             v-bind:help-text-content="section.helpText"
-             v-bind:values="section.keywords"
-             v-bind:options="section.options !== undefined ? section.options : null"
+             v-bind:section="section"
              v-for="section in multilingualKeywords">
         </div>
 
@@ -39,8 +30,8 @@
     var Keywords = {
         name: "keywords",
         template: "#keywords-template",
-        props: [],
         components: {
+            Field, Field,
             MultilingualKeywords: MultilingualKeywords
         },
         data: function () {
@@ -53,48 +44,61 @@
                         active: false,
                         content: '@Html.Raw(UI.Helptext_TopicCategory)'
                     },
-                    value: this.$root.model.TopicCategory,
-                    options: this.$root.viewBag.TopicCategoryValues
+                    type: 'select',
+                    mutation: 'updateTopicCategory',
+                    options: this.$store.getters['TopicCategoryValues']
                 },
 
                 multilingualKeywords: {
                     keywordsTheme: {
                         title: '@Html.Raw(UI.Metadata_KeywordsTheme_Label)',
-                        inputName: 'KeywordsTheme',
-                        inputType: 'text',
-                        helpText: '@Html.Raw(UI.Helptext_KeywordsTheme)',
-                        keywords: this.$root.model.KeywordsTheme
+                        name: 'KeywordsTheme',
+                        mutation: 'updateKeywordsTheme',
+                        type: 'text',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsTheme)'
+                        },
+                        options: this.$store.getters['AccessConstraintValues']
                     },
                     keywordsNationalTheme: {
                         title: '@Html.Raw(UI.Metadata_KeywordsNationalTheme_Label)',
-                        inputName: 'KeywordsNationalTheme',
-                        inputType: 'select',
-                        helpText: '@Html.Raw(UI.Helptext_KeywordsNationalTheme)',
-                        keywords: this.$root.model.KeywordsNationalTheme,
-                        options: this.$root.viewBag.NationalThemeValues
+                        name: 'KeywordsNationalTheme',
+                        type: 'select',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsNationalTheme)'
+                        },
+                        options: this.$store.getters['NationalThemeValues']
                     },
                     keywordsNationalInitiative: {
                         title: '@Html.Raw(UI.Metadata_KeywordsNationalInitiative_Label)',
-                        inputName: 'KeywordsNationalInitiative',
-                        inputType: 'select',
-                        helpText: '@Html.Raw(UI.Helptext_KeywordsNationalInitiative)',
-                        keywords: this.$root.model.KeywordsNationalInitiative,
-                        options: this.$root.viewBag.NationalInitiativeValues
+                        name: 'KeywordsNationalInitiative',
+                        type: 'select',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsNationalInitiative)'
+                        },
+                        options: this.$store.getters['NationalInitiativeValues']
                     },
                     keywordsInspire: {
                         title: '@Html.Raw(UI.Metadata_KeywordsInspire_Label)',
-                        inputName: 'KeywordsInspire',
-                        inputType: 'select',
-                        helpText: '@Html.Raw(UI.Helptext_KeywordsInspire)',
-                        keywords: this.$root.model.KeywordsInspire,
-                        options: this.$root.viewBag.InspireValues
+                        name: 'KeywordsInspire',
+                        type: 'select',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsInspire)'
+                        },
+                        options: this.$store.getters['InspireValues']
                     },
                     keywordsOther: {
                         title: '@Html.Raw(UI.Metadata_KeywordsOther_Label)',
-                        inputName: 'KeywordsOther',
-                        inputType: 'text',
-                        helpText: '@Html.Raw(UI.Helptext_KeywordsOther)',
-                        keywords: this.$root.model.KeywordsOther
+                        name: 'KeywordsOther',
+                        type: 'text',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsOther)'
+                        },
                     }
                 }
             }
