@@ -82,7 +82,7 @@
                                v-bind:value="distribution.Value.Details.URL"
                                v-bind:name="formElements.url.name"
                                v-bind:type="formElements.url.type"
-                               v-on:keyup="updateField({
+                               v-on:change="updateField({
                                     mutation: formElements.url.mutation, value: {
                                         distributionIndex: distributionIndex, value: $event.target.value
                                     }
