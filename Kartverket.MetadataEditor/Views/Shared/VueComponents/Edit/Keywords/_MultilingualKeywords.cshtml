@@ -15,7 +15,7 @@
             </div>
             <div class="panel-body">
                 <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
-                <div v-if="$store.getters[section.name].length">
+                <div v-if="$store.getters[arrayName].length">
                     <div class="form-element-tab-group">
                         <span v-on:click="selectedLanguage = languageCode"
                               v-for="(language, languageCode) in $root.languages"
@@ -34,7 +34,7 @@
                              v-bind:keyword-key="'Other_' + keyword"
                              v-bind:keyword-value="keyword"
                              v-bind:options="section.options !== undefined ? section.options : null"
-                             v-for="(keyword, index) in $store.getters[section.name]">
+                             v-for="(keyword, index) in $store.getters[arrayName]">
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,8 @@
                 </div>
 
                 <div class="text-right">
-                    <span v-on:click="$store.commit('addKeyword', section.name)" class="btn">Legg til nøkkelord</span>
+                    @*<span v-on:click="$store.commit('addKeyword', section.name)" class="btn">Legg til nøkkelord</span>*@
+                    <span v-on:click="$store.dispatch('addMultilingualKeyword', {keywordName: this.section.name})" class="btn">Legg til nøkkelord</span>
                 </div>
             </div>
         </div>
@@ -63,6 +64,7 @@
         },
         data: function () {
             return {
+                arrayName: 'Keywords' + this.section.name,
                 selectedLanguage: this.$root.defaultLanguage
             }
         }
