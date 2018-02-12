@@ -325,6 +325,9 @@
         updateKeywordsOther: function (state, payload) {
             state.model.KeywordsOther = payload;
         },
+        updateKeywordsEnglish: function (state, payload) {
+            state.model.KeywordsEnglish = payload;
+        },
         updateResolutionScale: function (state, payload) {
             state.model.ResolutionScale = payload;
         },
@@ -368,13 +371,33 @@
             state.data.KeywordArealPlans = payload;
         },
         addKeyword: function (state, payload) {
+            console.log("addNorwegianKeyword");
             if (state.model[payload] == undefined) {
                 state.model[payload] = [];
             }
             state.model[payload].push("");
         },
         removeKeyword: function (state, payload) {
-            state.model[payload.keywordName].Value.Formats.splice(payload.keywordIndex, 1);
+            state.model[payload.keywordName].splice(payload.keywordIndex, 1);
+        },
+        updateKeyword: function (state, payload) {
+            console.log("updateKeyword");
+            state.model[payload.keywordName][payload.keywordIndex] = payload.value;
+        },
+        addEnglishKeyword: function (state, payload) {
+            console.log("addEnglishKeyword")
+            if (state.model.KeywordsEnglish == undefined) {
+                state.model.KeywordsEnglish = [];
+            }
+            state.model.KeywordsEnglish.push(payload);
+        },
+        removeEnglishKeyword: function (state, payload) {
+            console.log("removeEnglishKeyword")
+            state.model.KeywordsEnglish.splice(payload.keywordIndex, 1);
+        },
+        updateEnglishKeyword: function (state, payload) {
+            console.log("updateEnglishKeyword");
+            console.log(payload.keywordName + "_" + payload.value);
         }
     }
 </script>

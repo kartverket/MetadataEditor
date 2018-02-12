@@ -2,6 +2,44 @@
     var Actions = {
         updateField: function (context, payload) {
             context.commit(payload.mutation, payload.value);
+        },
+        addMultilingualKeyword(context, payload) {
+            context.commit('addKeyword', 'Keywords' + payload.keywordName);
+        },
+        updateMultilingualKeyword(context, payload) {
+            // Remove old english keyword
+            var oldNorwegianValue = context.getters['Keywords' + payload.keywordName][payload.keywordIndex];
+            var oldEnglishKeywordKey = payload.keywordName + "_" + oldNorwegianValue;
+            var oldEnglishKeywordIndex = null;
+            var oldEnglishKeywordValue = null;
+
+            context.getters['KeywordsEnglish'].forEach(function (englishKeyword, index) {
+                if (englishKeyword.Key == oldEnglishKeywordKey) {
+                    oldEnglishKeywordIndex = index;
+                    oldEnglishKeywordValue = englishKeyword.Value;
+                }
+            });
+
+            // Remove old english keyword
+            if (oldEnglishKeywordIndex !== null) {
+                context.commit('removeEnglishKeyword', { keywordIndex: oldEnglishKeywordIndex });
+            }
+
+            if (payload.language == 'no') { // If keyword field is for a norwegian keyword
+                // Add new english keyword
+                context.commit('addEnglishKeyword', {
+                    Key: payload.keywordName + "_" + payload.value,
+                    Value: oldEnglishKeywordValue
+                });
+                // Update norwegian keyword
+                context.commit('updateKeyword', { keywordName: 'Keywords' + payload.keywordName, keywordIndex: payload.keywordIndex, value: payload.value });
+            } else if (payload.language == 'en') { // If keyword field is for an english keyword
+                // Add new english keyword
+                context.commit('addEnglishKeyword', {
+                    Key: payload.keywordName + "_" + oldNorwegianValue,
+                    Value: payload.value
+                });
+            }
         }
     }
 </script>
