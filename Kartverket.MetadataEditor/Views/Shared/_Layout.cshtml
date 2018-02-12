@@ -59,96 +59,96 @@
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
     @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
-    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_SharedMenu.min.cshtml")
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/node_modules/geonorge-shared-partials/src/partials/Header.html")))
 
-<div class="body-content">
-    <div class="container">
-        <div class="container container-breadcrumbs" id="navTabCont">
-            <ul class="breadcrumbs col-md-12">
-                <li><a href="@Html.GeonorgeUrl()">Geonorge</a></li>
-                <li><a href="/">Metadataeditor</a></li>
-                @RenderSection("breadcrumb", false)
-            </ul>
-        </div>
+    <div class="body-content">
+        <div class="container">
+            <div class="container container-breadcrumbs" id="navTabCont">
+                <ul class="breadcrumbs col-md-12">
+                    <li><a href="@Html.GeonorgeUrl()">Geonorge</a></li>
+                    <li><a href="/">Metadataeditor</a></li>
+                    @RenderSection("breadcrumb", false)
+                </ul>
+            </div>
 
-        <div class="menu clearfix margin-top-10">
-            @if (Request.IsAuthenticated)
-            {
-                if (IsSectionDefined("ActionMenu"))
+            <div class="menu clearfix margin-top-10">
+                @if (Request.IsAuthenticated)
                 {
-                    @RenderSection("ActionMenu")
-                }
-                else
-                {
-                    <ul class="nav nav-tabs link-tabs">
-                        <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a></li>
-                        <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create","Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a></li>
-                        @if (Html.SimpleMetadataEnabled())
-                        {
-                            <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create","SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a></li>
-                        }
-                        <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index","Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
-                        <li class="pull-right">
-                            @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                    if (IsSectionDefined("ActionMenu"))
+                    {
+                        @RenderSection("ActionMenu")
+                    }
+                    else
+                    {
+                        <ul class="nav nav-tabs link-tabs">
+                            <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a></li>
+                            <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create","Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a></li>
+                            @if (Html.SimpleMetadataEnabled())
                             {
-                                if (c.Value == "nd.metadata_admin")
-                                {
-                                    <a href="@Url.Action("ValidateAll", "Validator")" onclick="return clickAndDisable(this);" class="btn show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
-                                    <script>
-                                        function clickAndDisable(link) {
-
-                                            document.getElementById('link-email-error').innerText = 'Henter eposter, vennligst vent...';
-                                            if (link.className != "visited btn btn-sm btn-default") {
-                                                link.className = "visited btn btn-sm btn-default";
-                                                return true;
-                                            }
-
-                                            return false;
-                                        }
-                                    </script>
-                                    break;
-                                }
+                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create","SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a></li>
                             }
-                        </li>
-                    </ul>
+                            <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index","Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
+                            <li class="pull-right">
+                                @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+                                {
+                                    if (c.Value == "nd.metadata_admin")
+                                    {
+                                        <a href="@Url.Action("ValidateAll", "Validator")" onclick="return clickAndDisable(this);" class="btn show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
+                                        <script>
+                                            function clickAndDisable(link) {
 
+                                                document.getElementById('link-email-error').innerText = 'Henter eposter, vennligst vent...';
+                                                if (link.className != "visited btn btn-sm btn-default") {
+                                                    link.className = "visited btn btn-sm btn-default";
+                                                    return true;
+                                                }
+
+                                                return false;
+                                            }
+                                        </script>
+                                        break;
+                                    }
+                                }
+                            </li>
+                        </ul>
+
+                    }
                 }
+
+            </div>
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-info">
+                    @TempData["Message"]
+                </div>
             }
 
+            @if (TempData["success"] != null)
+            {
+                <div id="savedOKMsg" class="alert alert-success">
+                    @TempData["success"]
+                </div>
+                <script>function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }</script>
+            }
+            @if (TempData["failure"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["failure"]
+                </div>
+            }
+
+            <div id="tab-content">@RenderBody()</div>
         </div>
-        @if (TempData["Message"] != null)
-        {
-            <div class="alert alert-info">
-                @TempData["Message"]
-            </div>
-        }
-
-        @if (TempData["success"] != null)
-        {
-            <div id="savedOKMsg" class="alert alert-success">
-                @TempData["success"]
-            </div>
-            <script>function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }</script>
-        }
-        @if (TempData["failure"] != null)
-        {
-            <div class="alert alert-danger">
-                @TempData["failure"]
-            </div>
-        }
-
-        <div id="tab-content">@RenderBody()</div>
     </div>
-</div>
-    
-@if (CultureHelper.IsNorwegian())
-{
-    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer.min.cshtml");
-}
-else
-{
-    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer_eng.min.cshtml");
-}
+
+    @if (CultureHelper.IsNorwegian())
+    {
+        @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer.min.cshtml");
+    }
+    else
+    {
+        @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer_eng.min.cshtml");
+    }
 
 </body>
 </html>
