@@ -370,34 +370,25 @@
         updateKeywordArealPlans: function (state, payload) {
             state.data.KeywordArealPlans = payload;
         },
-        addKeyword: function (state, payload) {
-            console.log("addNorwegianKeyword");
+        addEmptyValueToArray: function (state, payload) {
             if (state.model[payload] == undefined) {
                 state.model[payload] = [];
             }
             state.model[payload].push("");
         },
+        addValueToArray: function (state, payload) {
+            if (state.model[payload] == undefined) {
+                state.model[payload] = [];
+            }
+            state.model[payload.arrayName].push(payload.value);
+        },
+        updateArrayValue: function (state, payload) {
+            state.model[payload.arrayName][payload.arrayIndex] = payload.value;
+            state.model[payload.arrayName] = state.model[payload.arrayName];
+        },
         removeKeyword: function (state, payload) {
             state.model[payload.keywordName].splice(payload.keywordIndex, 1);
-        },
-        updateKeyword: function (state, payload) {
-            console.log("updateKeyword");
-            state.model[payload.keywordName][payload.keywordIndex] = payload.value;
-        },
-        addEnglishKeyword: function (state, payload) {
-            console.log("addEnglishKeyword")
-            if (state.model.KeywordsEnglish == undefined) {
-                state.model.KeywordsEnglish = [];
-            }
-            state.model.KeywordsEnglish.push(payload);
-        },
-        removeEnglishKeyword: function (state, payload) {
-            console.log("removeEnglishKeyword")
-            state.model.KeywordsEnglish.splice(payload.keywordIndex, 1);
-        },
-        updateEnglishKeyword: function (state, payload) {
-            console.log("updateEnglishKeyword");
-            console.log(payload.keywordName + "_" + payload.value);
         }
+        
     }
 </script>

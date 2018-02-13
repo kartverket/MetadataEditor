@@ -3,8 +3,8 @@
         updateField: function (context, payload) {
             context.commit(payload.mutation, payload.value);
         },
-        addMultilingualKeyword(context, payload) {
-            context.commit('addKeyword', 'Keywords' + payload.keywordName);
+        addMultilingualKeyword: function (context, payload) {
+            context.commit('addValueToArray', { arrayName: 'Keywords' + payload.keywordName, value: '' });
         },
         updateMultilingualKeyword(context, payload) {
             // Remove old english keyword
@@ -20,25 +20,29 @@
                 }
             });
 
-            // Remove old english keyword
-            if (oldEnglishKeywordIndex !== null) {
-                context.commit('removeEnglishKeyword', { keywordIndex: oldEnglishKeywordIndex });
-            }
+            
 
             if (payload.language == 'no') { // If keyword field is for a norwegian keyword
-                // Add new english keyword
-                context.commit('addEnglishKeyword', {
+               
+                var newEnglishKeywordValue = { // Add new english keyword
                     Key: payload.keywordName + "_" + payload.value,
                     Value: oldEnglishKeywordValue
-                });
-                // Update norwegian keyword
-                context.commit('updateKeyword', { keywordName: 'Keywords' + payload.keywordName, keywordIndex: payload.keywordIndex, value: payload.value });
+                };
+                if (oldEnglishKeywordIndex !== null) {
+                    context.commit('updateArrayValue', { arrayName: 'KeywordsEnglish', arrayIndex: oldEnglishKeywordIndex, value: newEnglishKeywordValue }); // Update english keyword value
+                } else {
+                    context.commit('addValueToArray', { arrayName: 'KeywordsEnglish', value: newEnglishKeywordValue }); // Update english keyword value
+                }
+                context.commit('updateArrayValue', { arrayName: 'Keywords' + payload.keywordName, arrayIndex: payload.keywordIndex, value: payload.value }); // Update norwegian keyword
+
             } else if (payload.language == 'en') { // If keyword field is for an english keyword
-                // Add new english keyword
-                context.commit('addEnglishKeyword', {
+
+                var newEnglishKeywordValue = { // Add new english keyword
                     Key: payload.keywordName + "_" + oldNorwegianValue,
                     Value: payload.value
-                });
+                };
+                context.commit('updateArrayValue', { arrayName: 'KeywordsEnglish', arrayIndex: oldEnglishKeywordIndex, value: newEnglishKeywordValue }); // Update english keyword value
+
             }
         }
     }

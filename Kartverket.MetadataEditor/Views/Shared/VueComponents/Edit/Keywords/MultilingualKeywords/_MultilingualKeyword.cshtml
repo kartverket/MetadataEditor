@@ -1,38 +1,14 @@
 ﻿<script type="text/x-template" id="keyword-template">
     <div>
         <div class="form-group has-feedback">
-            <div v-if="selectedLanguage == 'no'">
-                <span class="form-element-badge">{{ this.englishKeywordValue }}</span>
-                <input v-if="inputType == 'text'" v-bind:name="norwegianName" type="text"
-                       v-bind:value="getNorwegianKeywordValue()"
-                       v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'no'});" 
-                       class="form-control" />
-                <div v-else-if="inputType == 'select'" type="text" class="custom-select">
-                    <select v-bind:name="norwegianName" 
-                            v-bind:value="getNorwegianKeywordValue()"
-                            v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'no'});" 
-                            class="form-control">
-                        <option v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div v-else-if="selectedLanguage == 'en'">
-                <span class="form-element-badge">{{ this.getNorwegianKeywordOptionTextByValue(this.norwegianKeywordValue) }}</span>
-                <input v-bind:name="englishName" type="text" 
-                       v-bind:value="getEnglishKeywordValue()"
-                       v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'en'});" 
-                       class="form-control" />
-            </div>
-
-            <div v-else class="row">
+            <div v-if="selectedLanguage == 'all'" class="row">
                 <div class="col-sm-5">
                     <span class="form-element-badge">{{ $root.languages['no'] }}</span>
-                    <input v-if="inputType == 'text'" v-bind:name="norwegianName" type="text" v-bind:value="getNorwegianKeywordValue()" class="form-control" />
+                    <input v-if="inputType == 'text'" v-bind:name="norwegianName" type="text" v-bind:value="keywordValue" class="form-control" />
                     <div v-else-if="inputType == 'select'" type="text" class="custom-select">
-                        <select v-bind:name="norwegianName" 
-                                v-bind:value="getNorwegianKeywordValue()"
-                                v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'no'});"  
+                        <select v-bind:name="norwegianName"
+                                v-bind:value="keywordValue"
+                                v-on:change="updateNorwegianKeywordValue($event.target.value)"
                                 class="form-control">
                             <option v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
                         </select>
@@ -40,14 +16,38 @@
                 </div>
                 <div class="col-sm-5">
                     <span class="form-element-badge">{{ $root.languages['en'] }}</span>
-                    <input v-bind:name="englishName" type="text" 
+                    <input v-bind:name="englishName" type="text"
                            v-bind:value="getEnglishKeywordValue()"
-                           v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'en'});" 
+                           v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'en'});"
                            class="form-control" />
                 </div>
-                <div class="col-md-2">
-                    <span class="btn" v-on:click="removeKeyword()">Slett</span>
-                    @* <span class="btn" v-on:click="$store.commit('removeFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex});">Slett</span>*@
+                <div class="col-sm-2">
+                    <!--<span class="btn" v-on:click="">Slett</span>--> @* TODO: lage slette-logikk*@
+                </div>
+            </div>
+            <div v-else>
+                <div v-show="selectedLanguage == 'no'">
+                    <span class="form-element-badge">{{ this.getEnglishKeywordValue() }}</span>
+                    <input v-if="inputType == 'text'" v-bind:name="norwegianName" type="text"
+                           v-bind:value="keywordValue"
+                           v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'no'});"
+                           class="form-control" />
+                    <div v-else-if="inputType == 'select'" type="text" class="custom-select">
+                        <select v-bind:name="norwegianName"
+                                v-bind:value="keywordValue"
+                                v-on:change="updateNorwegianKeywordValue($event.target.value)"
+                                class="form-control">
+                            <option v-bind:disabled="isAdded(option.Value)" v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div v-show="selectedLanguage == 'en'">
+                    <span v-if="this.keywordValue" class="form-element-badge">{{ this.getNorwegianKeywordOptionTextByValue(this.keywordValue) }}</span>
+                    <input v-bind:name="getEnglishName()" type="text"
+                           v-bind:disabled="!this.keywordValue"
+                           v-bind:value="getEnglishKeywordValue()"
+                           v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'en'});"
+                           class="form-control" />
                 </div>
             </div>
 
@@ -59,46 +59,15 @@
     var MultilingualKeyword = {
         name: "multilingualKeyword",
         template: "#keyword-template",
-        props: ['selectedLanguage', 'keywordName', 'inputType', 'keywordIndex', 'keywordKey', 'keywordValue', 'options'],
-        components: {
-        },
+        props: ['selectedLanguage', 'keywordName', 'inputType', 'keywordIndex', 'keywordValue', 'options'],
         data: function () {
             return {
-                arrayName: 'Keywords' + this.keywordName
-            }
-        },
-   
-       /* mounted: function () {
-            this.englishKeywordValue = this.getEnglishKeywordValue();
-            this.norwegianKeywordValue = this.keywordValue;
-        },*/
-        computed: {
-            norwegianName: function () {
-                return this.keywordName + '[' + this.keywordIndex + ']';
-            },
-            englishName: function () {
-                return 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.norwegianKeywordValue + ']';
-            },
-            norwegianKeywordValue: function () {
-                return this.$store.getters['Keywords' + this.keywordName][this.keywordIndex];
-            },
-            englishKeywordValue: function () {
-                var englishKeywordValue = '';
-                if (this.$store.getters['KeywordsEnglish'].length) {
-                    this.$store.getters['KeywordsEnglish'].forEach(function (keyword) {
-                        if (keyword.Key == this.keywordName + '_' + this.keywordValue) {
-                            englishKeywordValue = keyword.Value;
-                            return;
-                        }
-                    }.bind(this));
-                }
-                return englishKeywordValue;
+                arrayName: 'Keywords' + this.keywordName,
+                englishName: 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.keywordValue + ']',
+                norwegianName: this.keywordName + '[' + this.keywordIndex + ']'
             }
         },
         methods: {
-            getNorwegianKeywordValue: function () {
-                return this.$store.getters['Keywords' + this.keywordName][this.keywordIndex];
-            },
             getEnglishKeywordValue: function () {
                 var englishKeywordValue = '';
                 if (this.$store.getters['KeywordsEnglish'].length) {
@@ -123,11 +92,22 @@
                 }
                 return keywordOptionText;
             },
-            removeKeyword: function () {
-                console.log(this.keywordIndex);
-                console.log(this.keywordName);
-               // this.$root.removeKeyword(this.keywordIndex, this.keywordName);
+            getEnglishName: function () {
+                return 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.keywordValue + ']';
+            },
+            updateNorwegianKeywordValue(value) {
+                this.$store.dispatch('updateMultilingualKeyword', { keywordName: this.keywordName, keywordIndex: this.keywordIndex, value: value, language: 'no' });
+                this.englishName = 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.keywordValue + ']';
+                console.log(this.englishName);
+            },
+            isAdded: function (keyword) {
+                var isAdded = false;
+                this.$store.getters['Keywords' + this.keywordName].forEach(function (addedKeyword) {
+                    if (keyword == addedKeyword) isAdded = true;
+                });
+                return isAdded;
             }
+
         }
     }
 </script>
