@@ -43,3 +43,12 @@
     display: table-cell;
     padding-bottom: 0;
 }
+
+
+.striped-list .list-item {
+    padding: 4px 12px;
+}
+
+.form-horizontal .list-item .form-group {
+    padding-bottom: 0;
+}
