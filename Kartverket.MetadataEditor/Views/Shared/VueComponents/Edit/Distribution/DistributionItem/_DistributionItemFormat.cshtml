@@ -46,6 +46,7 @@
         <div v-for="formElement in hiddenFormElements">
             <input v-model="formElement.value"
                    v-bind:name="formElements.name"
+                   type="hidden"
                    />
         </div>
     </div>
