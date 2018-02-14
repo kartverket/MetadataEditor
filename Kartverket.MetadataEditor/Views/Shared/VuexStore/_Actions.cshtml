@@ -4,7 +4,8 @@
             context.commit(payload.mutation, payload.value);
         },
         addMultilingualKeyword: function (context, payload) {
-            context.commit('addValueToArray', { arrayName: 'Keywords' + payload.keywordName, value: '' });
+            var value = payload.value !== undefined ? payload.value : "";
+            context.commit('addValueToArray', { arrayName: 'Keywords' + payload.keywordName, value: value });
         },
         removeMultilingualKeyword: function (context, payload) {
             var norwegianValue = context.getters['Keywords' + payload.keywordName][payload.keywordIndex];
