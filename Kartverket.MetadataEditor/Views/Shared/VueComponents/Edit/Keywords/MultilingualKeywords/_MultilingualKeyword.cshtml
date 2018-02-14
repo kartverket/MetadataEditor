@@ -10,7 +10,7 @@
                                 v-bind:value="keywordValue"
                                 v-on:change="updateNorwegianKeywordValue($event.target.value)"
                                 class="form-control">
-                            <option v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
+                            <option v-bind:disabled="isAdded(option.Value)" v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
                         </select>
                     </div>
                 </div>
@@ -18,15 +18,16 @@
                     <span class="form-element-badge">{{ $root.languages['en'] }}</span>
                     <input v-bind:name="englishName" type="text"
                            v-bind:value="getEnglishKeywordValue()"
+                           v-bind:disabled="!this.keywordValue"
                            v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'en'});"
                            class="form-control" />
                 </div>
                 <div class="col-sm-2">
-                    <!--<span class="btn" v-on:click="">Slett</span>--> @* TODO: lage slette-logikk*@
+                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});" style="margin-top: 22px;">Slett</span>
                 </div>
             </div>
-            <div v-else>
-                <div v-show="selectedLanguage == 'no'">
+            <div v-else class="row">
+                <div v-show="selectedLanguage == 'no'" class="col-sm-10">
                     <span class="form-element-badge">{{ this.getEnglishKeywordValue() }}</span>
                     <input v-if="inputType == 'text'" v-bind:name="norwegianName" type="text"
                            v-bind:value="keywordValue"
@@ -41,13 +42,16 @@
                         </select>
                     </div>
                 </div>
-                <div v-show="selectedLanguage == 'en'">
-                    <span v-if="this.keywordValue" class="form-element-badge">{{ this.getNorwegianKeywordOptionTextByValue(this.keywordValue) }}</span>
+                <div v-show="selectedLanguage == 'en'" class="col-sm-10">
+                    <span class="form-element-badge">{{ this.getNorwegianKeywordOptionTextByValue(this.keywordValue) }}</span>
                     <input v-bind:name="getEnglishName()" type="text"
                            v-bind:disabled="!this.keywordValue"
                            v-bind:value="getEnglishKeywordValue()"
                            v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'en'});"
                            class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});"  style="margin-top: 22px;">Slett</span>
                 </div>
             </div>
 
