@@ -6,8 +6,25 @@
         addMultilingualKeyword: function (context, payload) {
             context.commit('addValueToArray', { arrayName: 'Keywords' + payload.keywordName, value: '' });
         },
+        removeMultilingualKeyword: function (context, payload) {
+            var norwegianValue = context.getters['Keywords' + payload.keywordName][payload.keywordIndex];
+            var englishKeywordKey = payload.keywordName + "_" + norwegianValue;
+            var englishKeywordIndex = null;
+            var englishKeywordValue = null;
+
+            context.getters['KeywordsEnglish'].forEach(function (englishKeyword, index) {
+                if (englishKeyword.Key == englishKeywordKey) {
+                    englishKeywordIndex = index;
+                    englishKeywordValue = englishKeyword.Value;
+                }
+            });
+
+            if (englishKeywordIndex !== null) {
+                context.commit('removeValueFromArray', { arrayName: 'KeywordsEnglish', arrayIndex: englishKeywordIndex }); // Remove english keyword value
+            }
+            context.commit('removeValueFromArray', { arrayName: 'Keywords' + payload.keywordName, arrayIndex: payload.keywordIndex }); // Remove norwegian keyword
+        },
         updateMultilingualKeyword(context, payload) {
-            // Remove old english keyword
             var oldNorwegianValue = context.getters['Keywords' + payload.keywordName][payload.keywordIndex];
             var oldEnglishKeywordKey = payload.keywordName + "_" + oldNorwegianValue;
             var oldEnglishKeywordIndex = null;
@@ -20,10 +37,8 @@
                 }
             });
 
-            
-
             if (payload.language == 'no') { // If keyword field is for a norwegian keyword
-               
+
                 var newEnglishKeywordValue = { // Add new english keyword
                     Key: payload.keywordName + "_" + payload.value,
                     Value: oldEnglishKeywordValue
