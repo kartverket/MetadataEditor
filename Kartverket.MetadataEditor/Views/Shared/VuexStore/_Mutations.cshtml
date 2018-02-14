@@ -377,8 +377,9 @@
             state.model[payload].push("");
         },
         addValueToArray: function (state, payload) {
-            if (state.model[payload] == undefined) {
-                state.model[payload] = [];
+            if (state.model[payload.arrayName] == undefined) {
+
+                state.model[payload.arrayName] = [];
             }
             state.model[payload.arrayName].push(payload.value);
         },
