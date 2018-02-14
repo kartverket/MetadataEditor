@@ -2,63 +2,39 @@
 
 <script type="text/x-template" id="admin-template">
     <div>
-        <div>
-            <input type="checkbox" v-bind:id="formElements.keywordDokValidKmd.name" v-bind:name="formElements.keywordDokValidKmd.name" v-model="formElements.keywordDokValidKmd.value" />
-            <label v-bind:for="formElements.keywordDokValidKmd.name">{{ formElements.keywordDokValidKmd.label }}</label>
+        <div v-for="formElement in checkboxes">
+            <input type="checkbox" v-bind:id="formElement.name" v-bind:checked="isAdded(formElement.value)" v-on:change="toggleCheckbox(formElement.value)" />
+            <label v-bind:for="formElement.name">{{ formElement.label }}</label>
         </div>
-        <div>
-            <input type="checkbox" v-bind:id="formElements.keywordInspireValid.name" v-bind:name="formElements.keywordInspireValid.name" v-model="formElements.keywordInspireValid.value" />
-            <label v-bind:for="formElements.keywordInspireValid.name">{{ formElements.keywordInspireValid.label }}</label>
-        </div>
-        <div>
-            <input type="checkbox" v-bind:id="formElements.keywordGeodatalaw.name" v-bind:name="formElements.keywordGeodatalaw.name" v-model="formElements.keywordGeodatalaw.value" />
-            <label v-bind:for="formElements.keywordGeodatalaw.name">{{ formElements.keywordGeodatalaw.label }}</label>
-        </div>
-
-
-        <label>{{ formElements.keywordsCatalogs.label }}</label>
-
+        <label>{{ keywordsCatalogs.label }}</label>
         <div class="custom-select-list">
             <div class="custom-select-list-input-container">
-                <span v-for="option in $parent.selectedValues.admin.keywordsCatalogs" class="custom-select-list-selected">
+                <span v-if="isAdded(option.Value)" v-for="option in keywordsCatalogs.options" class="custom-select-list-selected">
                     {{ option.Text }}
-                    <span v-on:click="removeSelectedOption(option)" class="custom-select-list-remove-button"></span>
+                    <span v-on:click="removeKeyword(option.Value)" class="custom-select-list-remove-button"></span>
                 </span>
                 <input type="text" class="custom-select-list-input" />
             </div>
-
             <div class="custom-select-list-dropdown-container">
                 <div class="custom-select-list-dropdown">
                     <div class="custom-select-list-dropdown-content">
                         <ul class="custom-select-list-options area-option-list">
-                            <li v-on:click="addSelectedOption(option)" v-bind:class="{'is-selected': optionIsSelected(option)}" v-for="option in formElements.keywordsCatalogs.options">{{ option.Text }}</li>
+                            <li v-on:click="addKeyword(option.Value);" v-bind:class="{'is-selected': isAdded(option.Value)}" v-for="option in keywordsCatalogs.options">{{ option.Text }}</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div>
-            <input type="checkbox" v-bind:id="formElements.keywordNorgedigitalt.name" v-bind:name="formElements.keywordNorgedigitalt.name" v-model="formElements.keywordNorgedigitalt.value" />
-            <label v-bind:for="formElements.keywordNorgedigitalt.name">{{ formElements.keywordNorgedigitalt.label }}</label>
-        </div>
-        <div>
-            <input type="checkbox" v-bind:id="formElements.keywordArealPlans.name" v-bind:name="formElements.keywordArealPlans.name" v-model="formElements.keywordArealPlans.value" />
-            <label v-bind:for="formElements.keywordArealPlans.name">{{ formElements.keywordArealPlans.label }}</label>
-        </div>
-
     </div>
 </script>
 
 <script>
     var Admin = {
-        name: "admin",
+        name: "Admin",
         template: "#admin-template",
-        props: [],
-        components: {
-        },
         data: function () {
             return {
-                formElements: {
+                checkboxes: {
                     keywordDokValidKmd: {
                         name: 'keyword-dok-valid-kmd',
                         value: 'Det offentlige kartgrunnlaget',
@@ -77,13 +53,6 @@
                         label: '@Html.Raw(UI.Metadata_Admin_KeywordGeodatalaw)',
                         type: 'checkbox'
                     },
-                    keywordsCatalogs: {
-                        name: 'KeywordsCatalogs',
-                        value: '',
-                        label: 'Høsting til ulike samarbeid',
-                        type: 'select',
-                        options: this.$parent.viewBag.CatalogValues
-                    },
                     keywordNorgedigitalt: {
                         name: 'keyword-norgedigitalt',
                         value: 'Norge digitalt',
@@ -96,29 +65,48 @@
                         label: '@Html.Raw(UI.Metadata_Admin_KeywordArealPlans)',
                         type: 'checkbox'
                     }
-                }
+                },
+                keywordsCatalogs: {
+                    name: 'KeywordsCatalogs',
+                    label: 'Høsting til ulike samarbeid',
+                    type: 'select',
+                    options: this.$store.getters['CatalogValues']
+                },
             }
         },
         methods: {
-            addSelectedOption: function (option) {
-                if (!this.optionIsSelected(option)) {
-                    this.$parent.selectedValues.admin.keywordsCatalogs.push(option);
+            toggleCheckbox: function (keyword) {
+                if (this.isAdded(keyword)) {
+                    this.removeKeyword(keyword);
+                } else {
+                    this.addKeyword(keyword);
                 }
             },
-            removeSelectedOption: function (option) {
-                var selectedOptionIndex = this.$parent.selectedValues.admin.keywordsCatalogs.indexOf(option);
-                if (selectedOptionIndex > -1) {
-                    this.$parent.selectedValues.admin.keywordsCatalogs.splice(selectedOptionIndex, 1);
+            addKeyword: function (keyword) {
+                this.$store.dispatch('addMultilingualKeyword', { keywordName: 'NationalInitiative', value: keyword });
+            },
+            removeKeyword: function (keyword) {
+                keywordIndex = null;
+                this.$store.getters['KeywordsNationalInitiative'].forEach(function (addedKeyword, index) {
+                    if (keyword == addedKeyword) keywordIndex = index;
+                });
+                if (keywordIndex !== null) {
+                    this.$store.dispatch('removeMultilingualKeyword', { keywordName: 'NationalInitiative', keywordIndex: keywordIndex });
                 }
             },
-            optionIsSelected: function (option) {
-                var optionIsSelected = false;
-                this.$parent.selectedValues.admin.keywordsCatalogs.forEach(function (selectedOption) {
-                    if (option.Value !== undefined) {
-                        if (option.Value== selectedOption.Value) optionIsSelected = true;
-                    }
-                })
-                return optionIsSelected;
+            isAnOption: function (keyword) {
+                var isAnOption = false;
+                this.options.forEach(function (option) {
+                    if (option.Value == keyword) isAnOption = true;
+                });
+                return isAnOption;
+            },
+            isAdded: function (keyword) {
+                var isAdded = false;
+                this.$store.getters['KeywordsNationalInitiative'].forEach(function (addedKeyword) {
+                    if (keyword == addedKeyword) isAdded = true;
+                });
+                return isAdded;
             }
         },
         mounted: function () {
