@@ -383,8 +383,7 @@
             state.model[payload.arrayName].push(payload.value);
         },
         updateArrayValue: function (state, payload) {
-            state.model[payload.arrayName][payload.arrayIndex] = payload.value;
-            state.model[payload.arrayName] = state.model[payload.arrayName];
+            Vue.set(state.model[payload.arrayName], payload.arrayIndex, payload.value);
         },
         removeKeyword: function (state, payload) {
             state.model[payload.keywordName].splice(payload.keywordIndex, 1);
