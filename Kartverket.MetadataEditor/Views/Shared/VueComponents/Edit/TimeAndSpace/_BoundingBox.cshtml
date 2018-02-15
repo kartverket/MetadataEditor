@@ -186,8 +186,8 @@
                         boundingBoxIsEmpty = false;
                     } else {
                         if (parseFloat(selectedArea.BoundingBoxNorth) > parseFloat(boundingBox.north)) boundingBox.north = selectedArea.BoundingBoxNorth;
-                        if (parseFloat(selectedArea.BoundingBoxSouth) > parseFloat(boundingBox.south)) boundingBox.south = selectedArea.BoundingBoxSouth;
-                        if (parseFloat(selectedArea.BoundingBoxEast) < parseFloat(boundingBox.east)) boundingBox.east = selectedArea.BoundingBoxEast;
+                        if (parseFloat(selectedArea.BoundingBoxSouth) < parseFloat(boundingBox.south)) boundingBox.south = selectedArea.BoundingBoxSouth;
+                        if (parseFloat(selectedArea.BoundingBoxEast) > parseFloat(boundingBox.east)) boundingBox.east = selectedArea.BoundingBoxEast;
                         if (parseFloat(selectedArea.BoundingBoxWest) < parseFloat(boundingBox.west)) boundingBox.west = selectedArea.BoundingBoxWest;
                     }
                 });
