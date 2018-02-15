@@ -105,11 +105,14 @@
                 console.log(this.englishName);
             },
             isAnOption: function (keyword) {
-                var isAnOption = false;
-                this.options.forEach(function (option) {
-                    if (option.Value == keyword) isAnOption = true;
-                });
-                return isAnOption;
+                if (keyword == "") { return true }
+                else {
+                    var isAnOption = false;
+                    this.options.forEach(function (option) {
+                        if (option.Value == keyword) isAnOption = true;
+                    });
+                    return isAnOption;
+                }
             },
             isAdded: function (keyword) {
                 var isAdded = false;
