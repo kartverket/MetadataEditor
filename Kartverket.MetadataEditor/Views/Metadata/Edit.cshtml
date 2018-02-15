@@ -27,23 +27,78 @@
 }
 
 
-<form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
-    <div id="vue-container">
-        <ul class="nav nav-tabs">
-            <li v-for="tab in tabs" v-on:click="setSelectTab(tab)" v-bind:class="{active: selectedTab.id == tab.id}">
-                <a href="#">
-                    <span v-bind:class="tab.iconClass"></span>
-                    {{ tab.name }}
-                </a>
-            </li>
-        </ul>
-        <div v-bind:is="selectedTab.id"></div>
-    </div>
 
-    @Html.HiddenFor(m => m.Uuid)
-    @Html.HiddenFor(m => m.DateMetadataUpdated)
-    @Html.HiddenFor(m => m.HierarchyLevel)
-    @if (Model.IsService())
+<div class="pull-right">
+    <p class="text-right">
+        <small>UUID: @Model.Uuid</small><br />
+        <small>Metadata sist oppdatert: @String.Format("{0:dd.MM.yyyy}", Model.DateMetadataUpdated)</small>
+        <br />
+        <small>
+            <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.ParentIdentifier) && Model.HierarchyLevel == "service")
+            {
+                <span>[<a href="@Url.Action("Edit", new { uuid = @Model.ParentIdentifier})">Lenke til tjenesten</a>]</span>
+            }
+
+        </small>
+    </p>
+    <script>
+        function hideshow(which) {
+            if (!document.getElementById)
+                return;
+            if (which.style.visibility == "visible") {
+                which.style.display = "none";
+                which.style.visibility = "hidden";
+            }
+            else {
+                which.style.display = "inline-block";
+                which.style.visibility = "visible";
+            }
+        }
+    </script>
+    <div id="validation" style="display: none; visibility: hidden;">
+        Validert <span id="validatedDate"></span>: <span id="validationStatus"></span>, <a style="cursor:pointer" class="alert-info" onclick="javascript: hideshow(document.getElementById('validationResults'))">detaljer</a>
+    </div>
+    <div id="validationResults" style="display:inline-block; visibility:hidden; position:absolute; width: 400px; height: auto; z-index: 3; background-color: white; border: 1px solid black;">
+    </div>
+</div>
+
+<h3>@ViewBag.Title</h3>
+<h2>@Model.TitleFromSelectedLanguage</h2>
+
+@if (ViewBag.Saved == true)
+{
+    <div class="alert alert-success">
+        Metadata ble lagret.
+    </div>
+}
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        Det har oppstått en feil: @ViewBag.ErrorMessage
+    </div>
+}
+
+@Html.ValidationSummary(false, "Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:", new { @class = "alert alert-danger" })
+
+    <form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
+        <div id="vue-container">
+            <ul class="nav nav-tabs">
+                <li v-for="tab in tabs" v-on:click="setSelectTab(tab)" v-bind:class="{active: selectedTab.id == tab.id}">
+                    <a href="#">
+                        <span v-bind:class="tab.iconClass"></span>
+                        {{ tab.name }}
+                    </a>
+                </li>
+            </ul>
+            <div v-bind:is="selectedTab.id"></div>
+        </div>
+
+        @Html.HiddenFor(m => m.Uuid)
+        @Html.HiddenFor(m => m.DateMetadataUpdated)
+        @Html.HiddenFor(m => m.HierarchyLevel)
+        @if (Model.IsService())
     {
         <div id="operatesOn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
             @Html.Partial("_OperatesOn", Model)
@@ -51,203 +106,141 @@
         <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
             @Html.Partial("_ParentIdentifier", Model)
         </div>
-    }
-    @if (Model.IsSoftware())
+}
+        @if (Model.IsSoftware())
     {
         <div id="crossReference" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
             @Html.Partial("_CrossReference", Model)
         </div>
-    }
+}
 
-    @section ActionMenu {
-        <div class="btn-group">
-            @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
+        @section ActionMenu {
+            <div class="btn-group">
+                @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
                     <i class="glyphicon glyphicon-file"></i> Last ned XML
                 </a>*@
 
-            <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
-                <span class="glyphicon glyphicon-share-alt"></span> Vis i kartkatalogen
-            </a>
-            @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
+                <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
+                    <span class="glyphicon glyphicon-share-alt"></span> Vis i kartkatalogen
+                </a>
+                @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
             {
                 if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WMS"))
                 {
                     <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
                         <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
                     </a>
-                }
-                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WFS"))
-                {
-                    <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
-                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
-                    </a>
-                }
             }
-            @if (Model.IsDataset() && showProductSheetGeneratorUrl)
+            if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WFS"))
+            {
+                <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                </a>
+        }
+    }
+                @if (Model.IsDataset() && showProductSheetGeneratorUrl)
             {
                 <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
-            }
+        }
 
-            @if (Model.IsService())
+                @if (Model.IsService())
             {
                 <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
                 <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til tjeneste</a>
-            }
-            @if (Model.IsSoftware())
+        }
+                @if (Model.IsSoftware())
             {
                 <a href="#" role="button" data-toggle="modal" id="crossReferenceLink" data-target="#crossReference" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
-            }
-        </div>
-    }
-
-
-    <div class="pull-right">
-        <p class="text-right">
-            <small>UUID: @Model.Uuid</small><br />
-            <small>Metadata sist oppdatert: @String.Format("{0:dd.MM.yyyy}", Model.DateMetadataUpdated)</small>
-            <br />
-            <small>
-                <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
-
-                @if (!string.IsNullOrWhiteSpace(Model.ParentIdentifier) && Model.HierarchyLevel == "service")
-                {
-                    <span>[<a href="@Url.Action("Edit", new { uuid = @Model.ParentIdentifier})">Lenke til tjenesten</a>]</span>
-                }
-
-            </small>
-        </p>
-        <script>
-            function hideshow(which) {
-                if (!document.getElementById)
-                    return;
-                if (which.style.visibility == "visible") {
-                    which.style.display = "none";
-                    which.style.visibility = "hidden";
-                }
-                else {
-                    which.style.display = "inline-block";
-                    which.style.visibility = "visible";
-                }
-            }
-        </script>
-        <div id="validation" style="display: none; visibility: hidden;">
-            Validert <span id="validatedDate"></span>: <span id="validationStatus"></span>, <a style="cursor:pointer" class="alert-info" onclick="javascript: hideshow(document.getElementById('validationResults'))">detaljer</a>
-        </div>
-        <div id="validationResults" style="display:inline-block; visibility:hidden; position:absolute; width: 400px; height: auto; z-index: 3; background-color: white; border: 1px solid black;">
-        </div>
-    </div>
-
-    <h3>@ViewBag.Title</h3>
-    <h2>@Model.TitleFromSelectedLanguage</h2>
-
-    @if (ViewBag.Saved == true)
-    {
-        <div class="alert alert-success">
-            Metadata ble lagret.
-        </div>
-    }
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <div class="alert alert-danger">
-            Det har oppstått en feil: @ViewBag.ErrorMessage
-        </div>
-    }
-
-    @Html.ValidationSummary(false, "Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:", new { @class = "alert alert-danger" })
-
-
-
-    <ul id="editor-tabs" class="nav nav-tabs">
-        <li class="active"><a href="#home" id="homelink" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
-        <li><a href="#timeandspace" id="timeandspacelink" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Tid og rom</a></li>
-        <li><a href="#contact" id="contactlink" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
-        <li><a href="#distribution" id="distributionlink" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
-        <li><a href="#documents" id="documentslink" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumentasjon</a></li>
-        <li><a href="#constraints" id="constraintslink" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
-        <li><a href="#keywords" id="keywordslink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
-        <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
-        <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
-        @if (ViewBag.IsAdmin == "1")
-        {
-            <li><a href="#admin" id="adminlink" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Administrativt</a></li>
         }
-    </ul>
-
-    <div class="tab-content">
-        <div class="tab-pane active" id="home">
-            @Html.Partial("_Basic", Model)
-        </div>
-
-        <div class="tab-pane" id="timeandspace">
-            @Html.Partial("_TimeAndSpace", Model)
-        </div>
-
-        <div class="tab-pane" id="contact">
-            @Html.Partial("_Contact", Model)
-        </div>
-
-        <div class="tab-pane" id="distribution">
-            @Html.Partial("_Distribution", Model)
-        </div>
-
-        <div class="tab-pane" id="documents">
-            @Html.Partial("_Documents", Model)
-        </div>
-
-        <div class="tab-pane" id="constraints">
-            @Html.Partial("_Constraints", Model)
-        </div>
-
-        <div class="tab-pane" id="keywords">
-            @Html.Partial("_Keywords", Model)
-        </div>
-
-        <div class="tab-pane" id="quality">
-            @Html.Partial("_Quality", Model)
-        </div>
-
-        <div class="tab-pane" id="english">
-            @Html.Partial("_English", Model)
-        </div>
-
-        <div class="tab-pane" id="admin">
-            @Html.Partial("_Admin", Model)
-        </div>
-    </div>
+            </div>
+        }
 
 
-    <div class="form-group">
-        <div class="col-sm-12 text-right">
-            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">Slett</button>
-            @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
+
+
+        @*
+            <ul id="editor-tabs" class="nav nav-tabs">
+                <li class="active"><a href="#home" id="homelink" data-toggle="tab"><span class="glyphicon glyphicon-home"></span>  Grunnleggende</a></li>
+                <li><a href="#timeandspace" id="timeandspacelink" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Tid og rom</a></li>
+                <li><a href="#contact" id="contactlink" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Kontaktinformasjon</a></li>
+                <li><a href="#distribution" id="distributionlink" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Distribusjon</a></li>
+                <li><a href="#documents" id="documentslink" data-toggle="tab"><span class="glyphicon glyphicon-file"></span> Dokumentasjon</a></li>
+                <li><a href="#constraints" id="constraintslink" data-toggle="tab"><span class="glyphicon glyphicon-lock"></span> Restriksjoner</a></li>
+                <li><a href="#keywords" id="keywordslink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Nøkkelord</a></li>
+                <li><a href="#quality" id="qualitylink" data-toggle="tab"><span class="glyphicon glyphicon-ok-sign"></span> Kvalitet</a></li>
+                <li><a href="#english" id="englishlink" data-toggle="tab"><span class="glyphicon glyphicon-flag"></span> Engelsk</a></li>
+                @if (ViewBag.IsAdmin == "1")
+            {
+                <li><a href="#admin" id="adminlink" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Administrativt</a></li>
+        }
+            </ul>
+
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    @Html.Partial("_Basic", Model)
+                </div>
+
+                <div class="tab-pane" id="timeandspace">
+                    @Html.Partial("_TimeAndSpace", Model)
+                </div>
+
+                <div class="tab-pane" id="contact">
+                    @Html.Partial("_Contact", Model)
+                </div>
+
+                <div class="tab-pane" id="distribution">
+                    @Html.Partial("_Distribution", Model)
+                </div>
+
+                <div class="tab-pane" id="documents">
+                    @Html.Partial("_Documents", Model)
+                </div>
+
+                <div class="tab-pane" id="constraints">
+                    @Html.Partial("_Constraints", Model)
+                </div>
+
+                <div class="tab-pane" id="keywords">
+                    @Html.Partial("_Keywords", Model)
+                </div>
+
+                <div class="tab-pane" id="quality">
+                    @Html.Partial("_Quality", Model)
+                </div>
+
+                <div class="tab-pane" id="english">
+                    @Html.Partial("_English", Model)
+                </div>
+
+                <div class="tab-pane" id="admin">
+                    @Html.Partial("_Admin", Model)
+                </div>
+            </div>
+        *@
+
+        <div class="form-group">
+            <div class="col-sm-12 text-right">
+                <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">Slett</button>
+                @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
             {
                 <input type="checkbox" name="ignoreValidationError" value="1" /> <span>Ignorer feil</span>
-            }
-            else
-            {
-                <input type="hidden" name="ignoreValidationError" value="0" />
-            }
-            @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_SaveAsXml">@UI.Button_SaveAsXml</button>*@
-
-            @*@if (ViewBag.ValidModel == true)
-                {*@
-            @*<input type="checkbox" name="published" value="true" checked /> <span>Publiser</span>*@
-            @*<button name="action" type="submit" class="btn btn-primary" value="@UI.Button_Validate">@UI.Button_Validate</button>*@
-            @*}
-                else
-                {*@
-            @*<input type="hidden" name="published" value="false" />*@
-            <input type="hidden" name="published" value="true" />
-            @*}*@
-            <button name="action" type="submit" class="btn btn-primary show-loading-animation" value="@UI.Button_Save" data-loading-message="Lagrer metadata">@UI.Button_Save</button>
+        }
+        else
+        {
+            <input type="hidden" name="ignoreValidationError" value="0" />
+    }
+                <input type="hidden" name="published" value="true" />
+                @*}*@
+                <button name="action" type="submit" class="btn btn-primary show-loading-animation" value="@UI.Button_Save" data-loading-message="Lagrer metadata">@UI.Button_Save</button>
+            </div>
         </div>
-    </div>
 
 
-</form>
+    </form>
 
 @section scripts {
-<script>
+    <script>
         var spatialRepresentationOptions = {
                 vector: [],
                 grid: [],
@@ -1536,7 +1529,7 @@
         }
 
 
-</script>
+    </script>
 
 
 }
@@ -1664,7 +1657,7 @@
                     });
                     return selectedCoverageImage;
                 },
-             
+
                 addKeyword: function (keywordValue, keywordName) {
                     if (this.model[keywordName] == undefined) {
                         this.model[keywordName] = [];
