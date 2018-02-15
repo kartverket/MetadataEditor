@@ -58,8 +58,52 @@
                     Value: payload.value
                 };
                 context.commit('updateArrayValue', { arrayName: 'KeywordsEnglish', arrayIndex: oldEnglishKeywordIndex, value: newEnglishKeywordValue }); // Update english keyword value
-
             }
+        },
+        updateSelectedBoundingBoxArea: function (context, payload) {
+            var selectedBoundingBoxAreaIsAllreadyAdded = false;
+            var selectedBoundingBoxAreaIndex = null;
+            context.getters['SelectedBoundingBoxAreas'].forEach(function (selectedBoundingBoxArea, index) {
+                if (payload.Name == selectedBoundingBoxArea) {
+                    selectedBoundingBoxAreaIsAllreadyAdded = true;
+                    selectedBoundingBoxAreaIndex = index;
+                }
+            });
+            if (selectedBoundingBoxAreaIsAllreadyAdded) {
+                context.commit('updateArrayValue', { stateProperty: 'data', arrayName: 'SelectedBoundingBoxAreas', arrayIndex: selectedBoundingBoxAreaIndex, value: payload })
+            }
+            else {
+                context.commit('addValueToArray', { stateProperty: 'data', arrayName: 'SelectedBoundingBoxAreas', value: payload })
+            }
+        },
+        removeSelectedBoundingBoxArea: function (context, payload) {
+            context.commit('removeValueFromArray', { stateProperty: 'data', arrayName: 'SelectedBoundingBoxAreas', arrayIndex: payload });
+        },
+        updateBoundingBoxValues: function (context, payload) {
+            if (parseFloat(payload.BoundingBoxNorth) > parseFloat(context.getters['BoundingBoxNorth']) || context.getters['BoundingBoxNorth'] == null) {
+                context.commit('updateBoundingBoxNorth', payload.BoundingBoxNorth);
+            }
+            if (parseFloat(payload.BoundingBoxSouth) < parseFloat(context.getters['BoundingBoxSouth']) || context.getters['BoundingBoxSouth'] == null) {
+                context.commit('updateBoundingBoxSouth', payload.BoundingBoxSouth);
+            }
+            if (parseFloat(payload.BoundingBoxEast) > parseFloat(context.getters['BoundingBoxEast']) || context.getters['BoundingBoxEast'] == null) {
+                context.commit('updateBoundingBoxEast', payload.BoundingBoxEast);
+            }
+            if (parseFloat(payload.BoundingBoxWest) < parseFloat(context.getters['BoundingBoxWest']) || context.getters['BoundingBoxWest'] == null) {
+                context.commit('updateBoundingBoxWest', payload.BoundingBoxWest);
+            }
+        },
+        resetBoundingBoxValues: function (context) {
+            context.commit('updateBoundingBoxNorth', null);
+            context.commit('updateBoundingBoxEast', null);
+            context.commit('updateBoundingBoxSouth', null);
+            context.commit('updateBoundingBoxWest', null);
+        },
+        refreshBoundingBoxValues: function (context) {
+            context.dispatch('resetBoundingBoxValues');
+            context.getters['SelectedBoundingBoxAreas'].forEach(function (selectedBoundingBoxArea) {
+                context.dispatch('updateBoundingBoxValues', selectedBoundingBoxArea);
+            });
         }
     }
 </script>
