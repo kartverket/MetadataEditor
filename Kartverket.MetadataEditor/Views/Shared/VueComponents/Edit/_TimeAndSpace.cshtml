@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div is="bounding-box"></div>
-            <div is="coverage"></div>
+            <div v-show="$root.isDatasetOrDatasetSeries" is="coverage"></div>
         </form>
     </div>
 </script>
