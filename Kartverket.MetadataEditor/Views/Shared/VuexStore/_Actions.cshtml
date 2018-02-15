@@ -25,7 +25,7 @@
             }
             context.commit('removeValueFromArray', { arrayName: 'Keywords' + payload.keywordName, arrayIndex: payload.keywordIndex }); // Remove norwegian keyword
         },
-        updateMultilingualKeyword(context, payload) {
+        updateMultilingualKeyword: function (context, payload) {
             var oldNorwegianValue = context.getters['Keywords' + payload.keywordName][payload.keywordIndex];
             var oldEnglishKeywordKey = payload.keywordName + "_" + oldNorwegianValue;
             var oldEnglishKeywordIndex = null;
