@@ -377,17 +377,20 @@
             state.model[payload].push("");
         },
         addValueToArray: function (state, payload) {
-            if (state.model[payload.arrayName] == undefined) {
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            if (state[stateProperty][payload.arrayName] == undefined) {
 
-                state.model[payload.arrayName] = [];
+                state[stateProperty][payload.arrayName] = [];
             }
-            state.model[payload.arrayName].push(payload.value);
+            state[stateProperty][payload.arrayName].push(payload.value);
         },
         updateArrayValue: function (state, payload) {
-            Vue.set(state.model[payload.arrayName], payload.arrayIndex, payload.value);
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            Vue.set(state[stateProperty][payload.arrayName], payload.arrayIndex, payload.value);
         },
         removeValueFromArray: function (state, payload) {
-            state.model[payload.arrayName].splice(payload.arrayIndex, 1);
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            state[stateProperty][payload.arrayName].splice(payload.arrayIndex, 1);
         }
         
     }
