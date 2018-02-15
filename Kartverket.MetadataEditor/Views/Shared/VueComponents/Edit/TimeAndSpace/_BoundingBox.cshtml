@@ -34,7 +34,12 @@
                                 <div class="custom-select-list-dropdown-container">
                                     <div class="custom-select-list-dropdown">
                                         <div class="custom-select-list-dropdown-content">
-
+                                            <div v-for="areaGroup in areaSelect.otherAreaGroups" class="custom-select-list-option-group">
+                                                <p class="custom-select-list-option-group-name">{{ areaGroup.Name }}</p>
+                                                <ul class="custom-select-list-options area-option-list">
+                                                    <li v-on:click="addSelectedArea(area)" v-bind:class="{'is-selected': areaIsSelected(area)}" v-for="area in areaGroup.Areas">{{ area.Name }}</li>
+                                                </ul>
+                                            </div>
                                             <div v-for="county in areaSelect.counties" class="custom-select-list-option-group">
                                                 <p class="custom-select-list-option-group-name">{{ county.Name }}</p>
                                                 <ul class="custom-select-list-options area-option-list">
@@ -96,9 +101,6 @@
     var BoundingBox = {
         name: "boundingBox",
         template: "#boundingBox-template",
-        props: [],
-        components: {
-        },
         data: function () {
             return {
                 helpText: {
@@ -130,7 +132,15 @@
                         { Name: 'Vest-Agder', CountyCode: '10', BoundingBoxNorth: '59.189687', BoundingBoxSouth: '57.759005', BoundingBoxEast: '8.37168', BoundingBoxWest: '6.149699', Municipalities: this.getMunicipalitiesInCounty('10') },
                         { Name: 'Vestfold', CountyCode: '07', BoundingBoxNorth: '59.701938', BoundingBoxSouth: '58.720455', BoundingBoxEast: '10.67502', BoundingBoxWest: '9.755336', Municipalities: this.getMunicipalitiesInCounty('07') },
                         { Name: 'Østfold', CountyCode: '01', BoundingBoxNorth: '59.790586', BoundingBoxSouth: '58.76096', BoundingBoxEast: '11.946004', BoundingBoxWest: '10.536679', Municipalities: this.getMunicipalitiesInCounty('01') }
-                    ]
+                    ],
+                    otherAreaGroups: [
+                        {
+                            Name: 'Landsdekkende',
+                            Areas: [
+                                { Name: 'Hele landet', AreaCode: '00', BoundingBoxNorth: '72', BoundingBoxSouth: '57', BoundingBoxEast: '33', BoundingBoxWest: '2' }
+                            ]
+                        }
+                    ],
                 }
 
             };
@@ -143,6 +153,9 @@
                         if (area.CountyCode == selectedArea.CountyCode) areaIsSelected = true;
                     } else if (area.MunicipalityCode !== undefined) {
                         if (area.MunicipalityCode == selectedArea.MunicipalityCode) areaIsSelected = true;
+                    }
+                    else if (area.AreaCode !== undefined) {
+                        if (area.AreaCode == selectedArea.AreaCode) areaIsSelected = true;
                     }
                 })
                 return areaIsSelected;
