@@ -1145,6 +1145,20 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Kartverket.MetadataEditor.Models.IMetadataService.GetMetadataModel(System.String)">
+            <summary>
+            Returns a MetadatViewModel of the metadata with the given uuid.
+            </summary>
+            <param name="uuid"></param>
+            <returns>A view model of the metadata or null if not any record with the given uuid is found</returns>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">
+            <summary>
+            Returns a MetadatViewModel of the metadata with the given uuid.
+            </summary>
+            <param name="uuid"></param>
+            <returns>A view model of the metadata or null if not any record with the given uuid is found</returns>
+        </member>
         <member name="T:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes">
             <remarks/>
         </member>

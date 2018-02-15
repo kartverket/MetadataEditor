@@ -13,7 +13,28 @@ using Newtonsoft.Json.Linq;
 
 namespace Kartverket.MetadataEditor.Models
 {
-    public class MetadataService
+    public interface IMetadataService
+    {
+        MetadataIndexViewModel GetMyMetadata(string organizationName, int offset, int limit);
+        MetadataIndexViewModel SearchMetadata(string organizationName, string searchString, int offset, int limit);
+        MetadataIndexViewModel GetAllMetadata(string searchString, int offset, int limit);
+
+        /// <summary>
+        /// Returns a MetadatViewModel of the metadata with the given uuid.
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns>A view model of the metadata or null if not any record with the given uuid is found</returns>
+        MetadataViewModel GetMetadataModel(string uuid);
+
+        Dictionary<DistributionGroup, Distribution> GetFormatDistributions(List<SimpleDistribution> distributions);
+        void SaveMetadataModel(MetadataViewModel model, string username);
+        Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "");
+        Stream SaveMetadataAsXml(MetadataViewModel model);
+
+        string CreateMetadata(MetadataCreateViewModel model, string username);
+    }
+
+    public class MetadataService : IMetadataService
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -179,9 +200,18 @@ namespace Kartverket.MetadataEditor.Models
             return model;
         }
 
+        /// <summary>
+        /// Returns a MetadatViewModel of the metadata with the given uuid.
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns>A view model of the metadata or null if not any record with the given uuid is found</returns>
         public MetadataViewModel GetMetadataModel(string uuid)
         {
-            SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
+            MD_Metadata_Type metadataRecord = _geoNorge.GetRecordByUuid(uuid);
+            if (metadataRecord == null)
+                return null;
+
+            SimpleMetadata metadata = new SimpleMetadata(metadataRecord);
 
             var model = new MetadataViewModel()
             {
@@ -1396,8 +1426,7 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
-
-        internal string CreateMetadata(MetadataCreateViewModel model, string username)
+        public string CreateMetadata(MetadataCreateViewModel model, string username)
         {
             SimpleMetadata metadata = null;
             if (model.Type.Equals("service"))

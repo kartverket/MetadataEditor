@@ -19,6 +19,8 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
+[assembly:InternalsVisibleTo("Kartverket.MetadataEditor.Tests")]
+
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("0e30621e-1c81-4462-9b0b-6732c747cf30")]
 
