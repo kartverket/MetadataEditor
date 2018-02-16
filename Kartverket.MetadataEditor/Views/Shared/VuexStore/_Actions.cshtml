@@ -104,6 +104,16 @@
             context.getters['SelectedBoundingBoxAreas'].forEach(function (selectedBoundingBoxArea) {
                 context.dispatch('updateBoundingBoxValues', selectedBoundingBoxArea);
             });
+        },
+        initDatepicker: function (context) {
+            $.datepicker.regional['nb'] = context.getters['settingsDatepickerRegionalNb'];
+            $.datepicker.setDefaults(context.getters['settingsDatepickerRegionalNb']);
+            console.log($.datepicker);
+            $("input.date").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd.mm.yy'
+            });
         }
     }
 </script>
