@@ -131,9 +131,10 @@
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-7">
-                                <div class="input-group">
+                                <div class="input-group upload-input">
                                     <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
-                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id" class="input-group-addon input-group-btn" />
+                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id"/>
+                                    <span class="btn">Velg fil</span>
                                 </div>
                             </div>
                             <div class="col-md-2">

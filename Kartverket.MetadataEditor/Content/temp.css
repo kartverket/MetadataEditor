@@ -31,11 +31,11 @@
     line-height: 15pt;
 }
 
-.help-text-toggle{
+.help-text-toggle {
     cursor: pointer;
 }
 
-.nav-tabs > li > a{
+.nav-tabs > li > a {
     padding: 10px 12px;
 }
 
@@ -51,4 +51,31 @@
 
 .form-horizontal .list-item .form-group {
     padding-bottom: 0;
+}
+
+.upload-input input[type="file"] {
+    opacity: 0;
+    display: inline !important;
+    width: 85px;
+    padding: 0 !important;
+    margin: 0 -85px 0 0;
+    height: 35px;
+    vertical-align: top;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+    .upload-input input[type="file"] + .btn {
+        position: absolute;
+        z-index: 1;
+    }
+
+.upload-input input:hover[type="file"] + .btn {
+    background-color: #fe5000;
+    color: #fff !important;
+    border: 1px solid transparent;
+    font-style: normal;
+    font-size: 12pt;
+    line-height: 16pt;
 }
