@@ -114,6 +114,22 @@
                 changeYear: true,
                 dateFormat: 'dd.mm.yy'
             });
+        },
+        updateCoverageImage: function (context, payload) {
+            var coverageImageIsAllreadyAdded = false;
+            var coverageImageIndex = null;
+            context.getters['Thumbnails'].forEach(function (thumbnail, index) {
+                if (payload.Type == thumbnail) {
+                    coverageImageIsAllreadyAdded = true;
+                    coverageImageIndex = index;
+                }
+            });
+            if (coverageImageIsAllreadyAdded) {
+                context.commit('updateArrayValue', { arrayName: 'Thumbnails', arrayIndex: coverageImageIndex, value: payload })
+            }
+            else {
+                context.commit('addValueToArray', { arrayName: 'Thumbnails', value: payload })
+            }
         }
     }
 </script>
