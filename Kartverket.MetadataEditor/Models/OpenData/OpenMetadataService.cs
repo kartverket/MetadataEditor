@@ -9,7 +9,7 @@ using System.Web;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
 {
-    public class OpenMetadataService
+    public class OpenMetadataService : IOpenMetadataService
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
         private static readonly HttpClient _httpClient = new HttpClient();
@@ -18,9 +18,9 @@ namespace Kartverket.MetadataEditor.Models.OpenData
         string _endPointTromso = "http://data-tromso.opendata.arcgis.com/data.json";
         string username;
 
-        private MetadataService _metadataService;
+        private IMetadataService _metadataService;
 
-        public void SyncData()
+        public void SyncData(IMetadataService metadataService)
         {
             _endPoints = new List<EndPoint>();
             _endPoints.Add(new EndPoint {  Url = _endPointOslo, OrganizationName = "Oslo kommune" });
@@ -28,7 +28,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
             username = GetUsername();
 
-            _metadataService = new MetadataService();
+            _metadataService = metadataService;
 
             foreach(var endPoint in _endPoints)
             {
@@ -185,6 +185,11 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             }
 
             return result;
+        }
+
+        public void SyncData()
+        {
+            throw new NotImplementedException();
         }
     }
 

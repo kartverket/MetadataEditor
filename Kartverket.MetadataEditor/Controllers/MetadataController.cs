@@ -21,11 +21,14 @@ namespace Kartverket.MetadataEditor.Controllers
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
 
-        private MetadataService _metadataService;
+        private IMetadataService _metadataService;
 
+        public MetadataController(IMetadataService metadataService)
+        {
+            _metadataService = metadataService;
+        }
         public MetadataController()
         {
-            _metadataService = new MetadataService();
         }
 
         [HttpGet]

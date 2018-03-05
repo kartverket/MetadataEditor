@@ -12,14 +12,14 @@ namespace Kartverket.MetadataEditor.Controllers
     [Authorize]
     public class ServiceController : Controller
     {
-        private MetadataService _metadataService;
         private WmsServiceParser _wmsServiceParser;
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private IMetadataService _metadataService;
 
-        public ServiceController()
+        public ServiceController(IMetadataService metadataService)
         {
-            _metadataService = new MetadataService();
+            _metadataService = metadataService;
             _wmsServiceParser = new WmsServiceParser();
         }
 

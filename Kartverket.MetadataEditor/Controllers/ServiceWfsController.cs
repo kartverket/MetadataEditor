@@ -12,14 +12,14 @@ namespace Kartverket.MetadataEditor.Controllers
     [Authorize]
     public class ServiceWfsController : Controller
     {
-        private MetadataService _metadataService;
+        private IMetadataService _metadataService;
         private WfsServiceParser _wfsServiceParser;
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
 
-        public ServiceWfsController()
+        public ServiceWfsController(IMetadataService metadataService)
         {
-            _metadataService = new MetadataService();
+            _metadataService = metadataService;
             _wfsServiceParser = new WfsServiceParser();
         }
 
