@@ -687,6 +687,7 @@
     <Content Include="Views\Metadata\_ParentIdentifier.cshtml" />
     <Content Include="Views\Metadata\_Admin.cshtml" />
     <Content Include="Views\Metadata\_CrossReference.cshtml" />
+    <Content Include="Views\Metadata\_Log.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

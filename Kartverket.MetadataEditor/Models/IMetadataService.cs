@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using GeoNorgeAPI;
+using Kartverket.Geonorge.Utilities.LogEntry;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -16,5 +18,6 @@ namespace Kartverket.MetadataEditor.Models
         void DeleteMetadata(string uuid, string v);
         Dictionary<DistributionGroup, Distribution> GetFormatDistributions(List<SimpleDistribution> distributionsFormats);
         Stream SaveMetadataAsXml(MetadataViewModel model);
+        Task<List<LogEntry>> GetLogEntries(string uuid);
     }
 }

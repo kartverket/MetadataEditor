@@ -13,6 +13,8 @@ using log4net;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using Kartverket.Geonorge.Utilities.LogEntry;
+using System.Threading.Tasks;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -123,13 +125,17 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Edit(string uuid)
+        public async Task<ActionResult> Edit(string uuid, bool displayLog = false)
         {
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
 
             try
             {
+                ViewBag.DisplayLog = displayLog;
+                if (displayLog)
+                    ViewBag.LogEntries = await _metadataService.GetLogEntries(uuid);
+
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
                 string role = GetSecurityClaim("role");
                 if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
@@ -282,7 +288,6 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 ViewBag.IsAdmin = "1";
             }
-
         }
 
         [HttpPost]
