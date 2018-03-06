@@ -494,7 +494,7 @@ namespace Kartverket.MetadataEditor.Models
 
             Task.Run(() => ReIndexOperatesOn(model));
             Task.Run(() => RemoveCache(model));
-            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid, User = username, Description = "Metadata updated" }));
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid,Title = model.Title, Operation = Geonorge.Utilities.LogEntry.Operation.Modified, User = username, Description = "Metadata saved" }));
 
         }
 
@@ -1451,17 +1451,16 @@ namespace Kartverket.MetadataEditor.Models
 
             _geoNorge.MetadataInsert(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
 
-            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, User = username, Description = "Metadata inserted" }));
-
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Title = metadata.Title, Operation = Geonorge.Utilities.LogEntry.Operation.Added, User = username, Description = "Metadata created" }));
             return metadata.Uuid;
         }
 
 
 
-        public void DeleteMetadata(string uuid, string username)
+        public void DeleteMetadata(MetadataViewModel metadata, string username)
         {
-            _geoNorge.MetadataDelete(uuid, CreateAdditionalHeadersWithUsername(username));
-            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = uuid, User = username, Description = "Metadata deleted" }));
+            _geoNorge.MetadataDelete(metadata.Uuid, CreateAdditionalHeadersWithUsername(username));
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Title = metadata.Title, Operation = Geonorge.Utilities.LogEntry.Operation.Deleted,  User = username, Description = "Metadata deleted" }));
         }
 
         public Stream SaveMetadataAsXml(MetadataViewModel model)

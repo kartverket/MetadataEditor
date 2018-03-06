@@ -932,7 +932,7 @@ namespace Kartverket.MetadataEditor.Controllers
             string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
-                _metadataService.DeleteMetadata(uuid, GetUsername());
+                _metadataService.DeleteMetadata(model, GetUsername());
 
                 TempData["Message"] = "Metadata med uuid " + uuid + " ble slettet.";
                 return RedirectToAction("Index");
