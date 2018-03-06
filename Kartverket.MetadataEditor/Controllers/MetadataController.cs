@@ -190,7 +190,7 @@ namespace Kartverket.MetadataEditor.Controllers
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 
 
-            if (string.IsNullOrEmpty(model.ContactMetadata.Organization))
+            if (model.ContactMetadata != null && string.IsNullOrEmpty(model.ContactMetadata.Organization))
             {
                 if (Request.Form["ContactMetadata.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactMetadata.Organization.Old"]))
                 {
@@ -198,7 +198,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
             }
 
-            if (string.IsNullOrEmpty(model.ContactPublisher.Organization))
+            if (model.ContactPublisher != null && string.IsNullOrEmpty(model.ContactPublisher.Organization))
             {
                 if (Request.Form["ContactPublisher.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactPublisher.Organization.Old"]))
                 {
@@ -207,7 +207,7 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
 
-            if (string.IsNullOrEmpty(model.ContactOwner.Organization))
+            if (model.ContactOwner != null && string.IsNullOrEmpty(model.ContactOwner.Organization))
             {
                 if (Request.Form["ContactOwner.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactOwner.Organization.Old"])) {
                     model.ContactOwner.Organization = Request["ContactOwner.Organization.Old"].ToString();
