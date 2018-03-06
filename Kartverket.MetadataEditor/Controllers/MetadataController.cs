@@ -214,9 +214,13 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
             }
 
-            ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", model.ContactMetadata.Organization);
-            ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", model.ContactPublisher.Organization);
-            ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", model.ContactOwner.Organization);
+            var contactMetadataOrganization = (model.ContactMetadata != null && model.ContactMetadata.Organization != null) ? model.ContactMetadata.Organization : "";
+            var contactPublisherOrganization = (model.ContactPublisher != null && model.ContactPublisher.Organization != null) ? model.ContactPublisher.Organization : "";
+            var contactOwnerOrganization = (model.ContactOwner != null && model.ContactOwner.Organization != null) ? model.ContactOwner.Organization : "";
+
+            ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", contactMetadataOrganization);
+            ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", contactPublisherOrganization);
+            ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", contactOwnerOrganization);
             ViewBag.OrganizationDistributorValues = new SelectList(OrganizationList, "Key", "Value");
 
             Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
