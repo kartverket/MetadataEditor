@@ -151,10 +151,12 @@
                         multilingual: {
                             no: {
                                 name: 'UseLimitations',
+                                getter: 'UseLimitations',
                                 mutation: 'updateUseLimitations'
                             },
                             en: {
                                 name: 'EnglishUseLimitations',
+                                getter: 'EnglishUseLimitations',
                                 mutation: 'updateEnglishUseLimitations'
                             }
                         },
@@ -168,6 +170,7 @@
                     },
                     accessConstraints: {
                         name: 'AccessConstraints',
+                        getter: 'AccessConstraints',
                         mutation: 'updateAccessConstraints',
                         label: 'Tilgangsrestriksjoner',
                         type: 'select',
@@ -179,6 +182,7 @@
                     },
                     useConstraints: {
                         name: 'UseConstraints',
+                        getter: 'UseConstraints',
                         mutation: 'updateUseConstraints',
                         label: 'Brukerrestriksjoner',
                         type: 'select',
@@ -190,6 +194,7 @@
                     },
                     licenseTypes: {
                         name: 'LicenseTypes',
+                        getter: 'LicenseTypes',
                         mutation: 'updateLicenseTypes',
                         label: 'Lisens',
                         type: 'select',
@@ -204,12 +209,14 @@
                     },
                     otherConstraintsLinkText: {
                         name: 'OtherConstraintsLinkText',
+                        getter: 'OtherConstraintsLinkText',
                         mutation: 'updateOtherConstraintsLinkText',
                         label: 'Valgt lisens',
                         type: 'text'
                     },
                     otherConstraintsLink: {
                         name: 'OtherConstraintsLink',
+                        getter: 'OtherConstraintsLink',
                         mutation: 'updateOtherConstraintsLink',
                         label: 'URL',
                         type: 'text'
@@ -218,10 +225,12 @@
                         multilingual: {
                             no: {
                                 name: 'OtherConstraints',
+                                getter: 'OtherConstraints',
                                 mutation: 'updateOtherConstraints'
                             },
                             en: {
                                 name: 'EnglishOtherConstraints',
+                                getter: 'EnglishOtherConstraints',
                                 mutation: 'updateEnglishOtherConstraints'
                             }
                         },
@@ -231,6 +240,7 @@
                     },
                     securityConstraints: {
                         name: 'SecurityConstraints',
+                        getter: 'SecurityConstraints',
                         mutation: 'updateSecurityConstraints',
                         label: 'Sikkerhetsnivå',
                         type: 'select',
@@ -242,6 +252,7 @@
                     },
                     securityConstraintsNote: {
                         name: 'SecurityConstraintsNote',
+                        getter: 'SecurityConstraintsNote',
                         mutation: 'updateSecurityConstraintsNote',
                         label: 'Lovhenvisning',
                         type: 'text',

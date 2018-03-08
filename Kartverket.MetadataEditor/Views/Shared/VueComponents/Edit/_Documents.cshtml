@@ -170,6 +170,7 @@
             return {
                 productSpecificationUrl: {
                     name: 'ProductSpecificationUrl',
+                    getter: 'ProductSpecificationUrl',
                     mutation: 'updateProductSpecificationUrl',
                     label: 'Produktspesifikasjon',
                     type: 'select',
@@ -178,6 +179,7 @@
                 },
                 applicationSchema: {
                     name: 'ApplicationSchema',
+                    getter: 'ApplicationSchema',
                     mutation: 'updateApplicationSchema',
                     label: 'UML-modell',
                     type: 'text',
@@ -185,6 +187,7 @@
                 },
                 keywordsConcept: {
                     name: 'KeywordsConcept',
+                    getter: 'KeywordsConcept',
                     value: this.$root.model.KeywordsConcept !== null ? this.$root.model.KeywordsConcept : [], 
                     label: 'Begreper',
                     type: 'select',
@@ -198,12 +201,14 @@
                     fields: {
                         name: {
                             name: 'ProductSpecificationOther.Name',
+                            getter: 'ProductSpecificationOtherName',
                             mutation: 'updateProductSpecificationOtherName',
                             label: 'Navn',
                             type: 'text'
                         },
                         url: {
                             name: 'ProductSpecificationOther.URL',
+                            getter: 'ProductSpecificationOtherURL',
                             mutation: 'updateProductSpecificationOtherURL',
                             label: 'URL',
                             type: 'text'
@@ -212,6 +217,7 @@
                 },
                 productSheetUrl: {
                     name: 'ProductSheetUrl',
+                    getter: 'ProductSheetUrl',
                     mutation: 'updateProductSheetUrl',
                     label: 'Produktark',
                     type: 'select',
@@ -220,6 +226,7 @@
                 },
                 legendDescriptionUrl: {
                     name: 'LegendDescriptionUrl',
+                    getter: 'LegendDescriptionUrl',
                     mutation: 'updateLegendDescriptionUrl',
                     label: 'Tegneregler',
                     type: 'select',
@@ -228,6 +235,7 @@
                 },
                 productPageUrl: {
                     name: 'ProductPageUrl',
+                    getter: 'ProductPageUrl',
                     mutation: 'updateProductPageUrl',
                     label: 'Produktside (URL)',
                     type: 'text',

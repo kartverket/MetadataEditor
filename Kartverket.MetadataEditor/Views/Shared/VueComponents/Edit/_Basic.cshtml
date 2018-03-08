@@ -40,10 +40,12 @@
                         multilingual: {
                             no: {
                                 name: 'Title',
+                                getter: 'Title',
                                 mutation: 'updateTitle'
                             },
                             en: {
                                 name: 'EnglishTitle',
+                                getter: 'EnglishTitle',
                                 mutation: 'updateEnglishTitle'
                             }
                         },
@@ -58,6 +60,7 @@
                     },
                     {
                         name: 'ResourceReferenceCodespace',
+                        getter: 'ResourceReferenceCodespace',
                         mutation: 'updateResourceReferenceCodespace',
                         type: 'text',
                         label: 'Navnerom til datasett',
@@ -68,6 +71,7 @@
                     },
                     {
                         name: 'ResourceReferenceCode',
+                        getter: 'ResourceReferenceCode',
                         mutation: 'updateResourceReferenceCode',
                         type: 'text',
                         label: 'Navn på datasett',
@@ -80,10 +84,12 @@
                         multilingual: {
                             no: {
                                 name: 'Abstract',
+                                getter: 'Abstract',
                                 mutation: 'updateAbstract'
                             },
                             en: {
                                 name: 'EnglishAbstract',
+                                getter: 'EnglishAbstract',
                                 mutation: 'updateEnglishAbstract'
                             }
                         },
@@ -98,6 +104,7 @@
                     },
                     {
                         name: 'HelpUrl',
+                        getter: 'HelpUrl',
                         value: this.$parent.model.HelpUrl,
                         mutation: 'updateHelpUrl',
                         type: 'text',
@@ -111,10 +118,12 @@
                         multilingual: {
                             no: {
                                 name: 'SpecificUsage',
+                                getter: 'SpecificUsage',
                                 mutation: 'updateSpecificUsage'
                             },
                             en: {
                                 name: 'EnglishSpecificUsage',
+                                getter: 'EnglishSpecificUsage',
                                 mutation: 'updateEnglishSpecificUsage'
                             }
                         },
@@ -131,10 +140,12 @@
                         multilingual: {
                             no: {
                                 name: 'Purpose',
+                                getter: 'Purpose',
                                 mutation: 'updatePurpose'
                             },
                             en: {
                                 name: 'EnglishPurpose',
+                                getter: 'EnglishPurpose',
                                 mutation: 'updateEnglishPurpose'
                             }
                         },

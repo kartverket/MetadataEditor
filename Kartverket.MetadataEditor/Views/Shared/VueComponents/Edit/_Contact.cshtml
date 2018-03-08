@@ -49,12 +49,14 @@
                         formElements: [
                             {
                                 name: 'ContactMetadata.Name',
+                                getter: 'ContactMetadataName',
                                 mutation: 'updateContactMetadataName',
                                 label: '@Html.Raw(UI.Metadata_Contact_Name)',
                                 type: 'text'
                             },
                             {
                                 name: 'ContactMetadata.Email',
+                                getter: 'ContactMetadataEmail',
                                 mutation: 'updateContactMetadataEmail',
                                 label: '@Html.Raw(UI.Metadata_Contact_Email)',
                                 type: 'text',
@@ -62,6 +64,7 @@
                             },
                             {
                                 name: 'ContactMetadata.Organization',
+                                getter: 'ContactMetadataOrganization',
                                 mutation: 'updateContactMetadataOrganization',
                                 label: '@Html.Raw(UI.Metadata_Contact_Organization)',
                                 type: 'select',
@@ -79,12 +82,14 @@
                         formElements: [
                             {
                                 name: 'ContactPublisher.Name',
+                                getter: 'ContactPublisherName',
                                 mutation: 'updateContactPublisherName',
                                 label: '@Html.Raw(UI.Metadata_Contact_Name)',
                                 type: 'text'
                             },
                             {
                                 name: 'ContactPublisher.Email',
+                                getter: 'ContactPublisherEmail',
                                 mutation: 'updateContactPublisherEmail',
                                 label: '@Html.Raw(UI.Metadata_Contact_Email)',
                                 type: 'text',
@@ -92,6 +97,7 @@
                             },
                             {
                                 name: 'ContactPublisher.Organization',
+                                getter: 'ContactPublisherOrganization',
                                 mutation: 'updateContactPublisherOrganization',
                                 label: '@Html.Raw(UI.Metadata_Contact_Organization)',
                                 type: 'select',
@@ -109,12 +115,14 @@
                         formElements: [
                             {
                                 name: 'ContactOwner.Name',
+                                getter: 'ContactOwnerName',
                                 mutation: 'updateContactOwnerName',
                                 label: '@Html.Raw(UI.Metadata_Contact_Name)',
                                 type: 'text'
                             },
                             {
                                 name: 'ContactOwner.Email',
+                                getter: 'ContactOwnerEmail',
                                 mutation: 'updateContactOwnerEmail',
                                 label: '@Html.Raw(UI.Metadata_Contact_Email)',
                                 type: 'text',
@@ -122,6 +130,7 @@
                             },
                             {
                                 name: 'ContactOwner.Organization',
+                                getter: 'ContactOwnerOrganization',
                                 mutation: 'updateContactOwnerOrganization',
                                 label: '@Html.Raw(UI.Metadata_Contact_Organization)',
                                 type: 'select',

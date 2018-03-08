@@ -58,6 +58,7 @@
                 formElements: [
                     {
                         name: 'DateUpdated',
+                        getter: 'DateUpdated',
                         mutation: 'updateDateUpdated',
                         label: '@Html.Raw(UI.Metadata_DateUpdated)',
                         type: 'datepicker',
@@ -68,6 +69,7 @@
                     },
                     {
                         name: 'DatePublished',
+                        getter: 'DatePublished',
                         mutation: 'updateDatePublished',
                         label: '@Html.Raw(UI.Metadata_DatePublished)',
                         type: 'datepicker',
@@ -78,6 +80,7 @@
                     },
                     {
                         name: 'DateCreated',
+                        getter: 'DateCreated',
                         mutation: 'updateDateCreated',
                         label: '@Html.Raw(UI.Metadata_DateCreated)',
                         type: 'datepicker',
@@ -88,6 +91,7 @@
                     },
                     {
                         name: 'DateMetadataValidFrom',
+                        getter: 'DateMetadataValidFrom',
                         mutation: 'updateDateMetadataValidFrom',
                         label: '@Html.Raw(UI.Metadata_DateMetadataValidFrom)',
                         type: 'datepicker',
@@ -98,6 +102,7 @@
                     },
                     {
                         name: 'DateMetadataValidTo',
+                        getter: 'DateMetadataValidTo',
                         mutation: 'updateDateMetadataValidTo',
                         label: '@Html.Raw(UI.Metadata_DateMetadataValidTo)',
                         type: 'datepicker',
@@ -108,6 +113,7 @@
                     },
                     {
                         name: 'MaintenanceFrequency',
+                        getter: 'MaintenanceFrequency',
                         mutation: 'updateMaintenanceFrequency',
                         required: true,
                         label: '@Html.Raw(UI.Metadata_MaintenanceFrequency)',
@@ -124,6 +130,7 @@
                     keywordsPlace: {
                         title: '@Html.Raw(UI.Metadata_KeywordsPlace_Label)',
                         name: 'Place',
+                        getter: 'Place',
                         mutation: 'updateKeywordsPlace',
                         type: 'text',
                         helpText: {

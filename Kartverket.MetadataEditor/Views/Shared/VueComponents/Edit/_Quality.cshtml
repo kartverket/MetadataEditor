@@ -32,6 +32,7 @@
                     resolutionScale: {
                         id: 'ResolutionScale',
                         name: 'ResolutionScale',
+                        getter: 'ResolutionScale',
                         mutation: 'updateResolutionScale',
                         label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
                         type: 'text',
@@ -45,6 +46,7 @@
                     status: {
                         id: 'Status',
                         name: 'Status',
+                        getter: 'Status',
                         mutation: 'updateStatus',
                         label: '@Html.Raw(UI.Metadata_Status_Label)',
                         type: 'select',
@@ -60,10 +62,12 @@
                         multilingual: {
                             no: {
                                 name: 'ProcessHistory',
+                                getter: 'ProcessHistory',
                                 mutation: 'updateProcessHistory'
                             },
                             en: {
                                 name: 'EnglishProcessHistory',
+                                getter: 'EnglishProcessHistory',
                                 mutation: 'updateEnglishProcessHistory'
                             }
                         },
@@ -80,6 +84,7 @@
                     orderingInstructions: {
                         id: 'OrderingInstructions',
                         name: 'OrderingInstructions',
+                        getter: 'OrderingInstructions',
                         mutation: 'updateOrderingInstructions',
                         label: '@Html.Raw(UI.Metadata_OrderingInstructions_Label)',
                         type: 'select',
