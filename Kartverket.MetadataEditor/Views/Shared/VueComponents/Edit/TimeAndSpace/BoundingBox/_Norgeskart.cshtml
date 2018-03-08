@@ -33,12 +33,10 @@
                 boundingBox: null
             }
         },
-        computed: {
-        },
         methods: {
             setBoundingBox: function () {
-                this.$root.selectedValues.timeAndSpace.boundingBox.areas.push(this.boundingBox);
-                this.$parent.setBoundingBoxCoordinates();
+                this.$store.dispatch('updateSelectedBoundingBoxArea', this.boundingBox);
+                this.$store.dispatch('refreshBoundingBoxValues');
             },
             sendMessage: function (msg) {
                 var win = document.getElementById("iframe").contentWindow;
