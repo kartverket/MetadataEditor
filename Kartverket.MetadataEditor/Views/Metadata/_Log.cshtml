@@ -8,8 +8,7 @@
         <div class="col-md-2"><b>Application</b></div>
         <div class="col-md-2"><b>User</b></div>
         <div class="col-md-1"><b>Operation</b></div>
-        <div class="col-md-2"><b>Title</b></div>
-        <div class="col-md-3"><b>Description</b></div>
+        <div class="col-md-5"><b>Description</b></div>
     </div>
     foreach (var entry in ViewBag.LogEntries as List<LogEntry>)
     {
@@ -18,8 +17,7 @@
             <div class="col-md-2">@entry.Application</div>
             <div class="col-md-2">@entry.User</div>
             <div class="col-md-1">@entry.Operation</div>
-            <div class="col-md-2">@entry.Title</div>
-            <div class="col-md-3">@entry.Description</div>
+            <div class="col-md-5">@entry.Description</div>
         </div>
     }
 }

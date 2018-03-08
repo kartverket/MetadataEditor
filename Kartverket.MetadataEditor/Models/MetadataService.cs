@@ -494,7 +494,7 @@ namespace Kartverket.MetadataEditor.Models
 
             Task.Run(() => ReIndexOperatesOn(model));
             Task.Run(() => RemoveCache(model));
-            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid,Title = model.Title, Operation = Geonorge.Utilities.LogEntry.Operation.Modified, User = username, Description = "Metadata saved" }));
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Modified, User = username, Description = "Saved metadata title: "+ model.Title }));
 
         }
 
@@ -1451,7 +1451,7 @@ namespace Kartverket.MetadataEditor.Models
 
             _geoNorge.MetadataInsert(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
 
-            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Title = metadata.Title, Operation = Geonorge.Utilities.LogEntry.Operation.Added, User = username, Description = "Metadata created" }));
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Added, User = username, Description = "Created metadata title: " + metadata.Title }));
             return metadata.Uuid;
         }
 
@@ -1460,7 +1460,7 @@ namespace Kartverket.MetadataEditor.Models
         public void DeleteMetadata(MetadataViewModel metadata, string username)
         {
             _geoNorge.MetadataDelete(metadata.Uuid, CreateAdditionalHeadersWithUsername(username));
-            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Title = metadata.Title, Operation = Geonorge.Utilities.LogEntry.Operation.Deleted,  User = username, Description = "Metadata deleted" }));
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Deleted,  User = username, Description = "Delete metadata title: " + metadata.Title }));
         }
 
         public Stream SaveMetadataAsXml(MetadataViewModel model)
