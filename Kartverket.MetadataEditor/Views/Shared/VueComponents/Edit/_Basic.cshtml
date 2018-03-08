@@ -25,7 +25,6 @@
     var Basic = {
         name: "basic",
         template: "#basic-template",
-        computed: new Vuex.mapGetters(['Title', 'EnglishTitle', 'Abstract', 'ResourceReferenceCodespace', 'ResourceReferenceCode']),
         methods: {
             updateField: function (value) {
                 this.$store.dispatch('updateField', value);
