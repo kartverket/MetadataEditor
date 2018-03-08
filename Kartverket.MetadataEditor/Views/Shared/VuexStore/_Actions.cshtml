@@ -40,14 +40,14 @@
 
             if (payload.language == 'no') { // If keyword field is for a norwegian keyword
 
-                var newEnglishKeywordValue = { // Add new english keyword
+                var newEnglishKeywordValue = { // Create english keyword
                     Key: payload.keywordName + "_" + payload.value,
                     Value: oldEnglishKeywordValue
                 };
                 if (oldEnglishKeywordIndex !== null) {
                     context.commit('updateArrayValue', { arrayName: 'KeywordsEnglish', arrayIndex: oldEnglishKeywordIndex, value: newEnglishKeywordValue }); // Update english keyword value
                 } else {
-                    context.commit('addValueToArray', { arrayName: 'KeywordsEnglish', value: newEnglishKeywordValue }); // Update english keyword value
+                    context.commit('addValueToArray', { arrayName: 'KeywordsEnglish', value: newEnglishKeywordValue }); // Add english keyword value
                 }
                 context.commit('updateArrayValue', { arrayName: 'Keywords' + payload.keywordName, arrayIndex: payload.keywordIndex, value: payload.value }); // Update norwegian keyword
 
@@ -57,7 +57,12 @@
                     Key: payload.keywordName + "_" + oldNorwegianValue,
                     Value: payload.value
                 };
-                context.commit('updateArrayValue', { arrayName: 'KeywordsEnglish', arrayIndex: oldEnglishKeywordIndex, value: newEnglishKeywordValue }); // Update english keyword value
+                if (oldEnglishKeywordIndex !== null) {
+                    context.commit('updateArrayValue', { arrayName: 'KeywordsEnglish', arrayIndex: oldEnglishKeywordIndex, value: newEnglishKeywordValue }); // Update english keyword value
+                } else {
+                    context.commit('addValueToArray', { arrayName: 'KeywordsEnglish', value: newEnglishKeywordValue }); // Add english keyword value
+                }
+
             }
         },
         updateSelectedBoundingBoxArea: function (context, payload) {
