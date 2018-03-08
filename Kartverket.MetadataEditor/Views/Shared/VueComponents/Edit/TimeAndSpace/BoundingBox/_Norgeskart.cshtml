@@ -39,6 +39,10 @@
             setBoundingBox: function () {
                 this.$root.selectedValues.timeAndSpace.boundingBox.areas.push(this.boundingBox);
                 this.$parent.setBoundingBoxCoordinates();
+            },
+            sendMessage: function (msg) {
+                var win = document.getElementById("iframe").contentWindow;
+                win.postMessage(JSON.stringify(msg), '*');
             }
         },
         mounted: function () {
@@ -56,7 +60,7 @@
                 if (e.origin !== undefined && e.origin == "https://norgeskart.no") {
                     var msg = JSON.parse(e.data);
                     if (msg.type === "mapInitialized") {
-                        sendMessage({
+                        this.sendMessage({
                             "cmd": "setCenter",
                             "x": this.conf.center_longitude,
                             "y": this.conf.center_latitude,
