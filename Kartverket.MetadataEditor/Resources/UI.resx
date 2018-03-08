@@ -211,6 +211,9 @@
   <data name="Helptext_KeywordsOther" xml:space="preserve">
     <value>Denne nøkkelordtypen skal helst ikke brukes, men her vises nøkkelord som ikke er spesifisert å tilhøre en spesifikk nøkkelordkategori. Det anbefales at nøkkelord fjernes fra denne kategorien og legges inn under riktig kategori.</value>
   </data>
+  <data name="Helptext_KeywordsPlace" xml:space="preserve">
+    <value>Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker.</value>
+  </data>
   <data name="Helptext_KeywordsTheme" xml:space="preserve">
     <value>Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.</value>
   </data>
@@ -381,6 +384,9 @@
   </data>
   <data name="Metadata_KeywordsOther_Label" xml:space="preserve">
     <value>Ukategoriserte nøkkelord</value>
+  </data>
+  <data name="Metadata_KeywordsPlace_Label" xml:space="preserve">
+    <value>Nøkkelord for geografisk område</value>
   </data>
   <data name="Metadata_KeywordsTheme_Label" xml:space="preserve">
     <value>Tema</value>

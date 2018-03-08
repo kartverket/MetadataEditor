@@ -212,6 +212,11 @@
               Looks up a localized string similar to Denne nøkkelordtypen skal helst ikke brukes, men her vises nøkkelord som ikke er spesifisert å tilhøre en spesifikk nøkkelordkategori. Det anbefales at nøkkelord fjernes fra denne kategorien og legges inn under riktig kategori..
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_KeywordsPlace">
+            <summary>
+              Looks up a localized string similar to Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker..
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_KeywordsTheme">
             <summary>
               Looks up a localized string similar to Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes..
@@ -495,6 +500,11 @@
         <member name="P:Resources.UI.Metadata_KeywordsOther_Label">
             <summary>
               Looks up a localized string similar to Ukategoriserte nøkkelord.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_KeywordsPlace_Label">
+            <summary>
+              Looks up a localized string similar to Nøkkelord for geografisk område.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_KeywordsTheme_Label">

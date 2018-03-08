@@ -341,6 +341,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker..
+        /// </summary>
+        public static string Helptext_KeywordsPlace {
+            get {
+                return ResourceManager.GetString("Helptext_KeywordsPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes..
         /// </summary>
         public static string Helptext_KeywordsTheme {
@@ -850,6 +859,15 @@ namespace Resources {
         public static string Metadata_KeywordsOther_Label {
             get {
                 return ResourceManager.GetString("Metadata_KeywordsOther_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nøkkelord for geografisk område.
+        /// </summary>
+        public static string Metadata_KeywordsPlace_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsPlace_Label", resourceCulture);
             }
         }
         

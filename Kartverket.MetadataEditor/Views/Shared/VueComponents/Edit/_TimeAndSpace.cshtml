@@ -18,6 +18,10 @@
                         </div>
                     </div>
                 </div>
+                <div is="multilingual-keywords"
+                     v-bind:section="section"
+                     v-for="section in multilingualKeywords">
+                </div>
             </div>
             <div is="bounding-box"></div>
             <div v-show="$root.isDatasetOrDatasetSeries" is="coverage"></div>
@@ -29,6 +33,7 @@
 @Html.Partial("VueComponents/Edit/TimeAndSpace/_Coverage")
 
 
+
 <script>
     var TimeAndSpace = {
         name: "timeAndSpace",
@@ -36,8 +41,9 @@
         props: [],
         components: {
             Field: Field,
-            boundingBox: BoundingBox,
-            coverage: Coverage
+            BoundingBox: BoundingBox,
+            Coverage: Coverage,
+            MultilingualKeywords: MultilingualKeywords
         },
         methods: {
             updateField: function (value) {
@@ -111,10 +117,23 @@
                             active: false,
                             content: 'Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert.'
                         }
-                    }
-                ]
+                    },
+
+                ],
+                multilingualKeywords: {
+                    keywordsPlace: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsPlace_Label)',
+                        name: 'Place',
+                        mutation: 'updateKeywordsPlace',
+                        type: 'text',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsPlace)'
+                        }
+                    },
+                }
             };
-        } 
+        }
     };
 </script>
 
