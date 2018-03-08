@@ -51,7 +51,7 @@
                            class="form-control" />
                 </div>
                 <div class="col-sm-2">
-                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});"  style="margin-top: 22px;">Slett</span>
+                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});" style="margin-top: 22px;">Slett</span>
                 </div>
             </div>
 
@@ -66,9 +66,8 @@
         props: ['selectedLanguage', 'keywordName', 'inputType', 'keywordIndex', 'keywordValue', 'options'],
         data: function () {
             return {
-                arrayName: 'Keywords' + this.keywordName,
                 englishName: 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.keywordValue + ']',
-                norwegianName: this.keywordName + '[' + this.keywordIndex + ']'
+                norwegianName: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']'
             }
         },
         methods: {

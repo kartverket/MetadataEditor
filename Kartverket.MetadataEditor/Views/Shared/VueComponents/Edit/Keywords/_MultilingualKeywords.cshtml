@@ -15,7 +15,7 @@
             </div>
             <div class="panel-body">
                 <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
-                <div v-if="$store.getters['Keywords' + this.section.name].length">
+                <div v-if="$store.getters['Keywords' + section.name].length">
                     <div class="form-element-tab-group">
                         <span v-on:click="selectedLanguage = languageCode"
                               v-for="(language, languageCode) in $root.languages"
@@ -60,7 +60,6 @@
         },
         data: function () {
             return {
-                arrayName: 'Keywords' + this.section.name,
                 selectedLanguage: this.$root.defaultLanguage
             }
         },
