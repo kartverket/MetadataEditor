@@ -169,6 +169,9 @@
   <data name="FieldMustBeNumeric" xml:space="preserve">
     <value>{0} må være et tall.</value>
   </data>
+  <data name="Helptext_AccessConstraints" xml:space="preserve">
+    <value>&lt;b&gt;Åpne data&lt;/b&gt;: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn)&amp;nbsp;&lt;b&gt;Norge digital-begrenset&lt;/b&gt;: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). &lt;b&gt;Skjermede data&lt;/b&gt;: Data som ikke er tilgjengelige for nedlasting (rød).</value>
+  </data>
   <data name="Helptext_BoundingBox" xml:space="preserve">
     <value>Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i Norgeskart.</value>
   </data>
@@ -214,6 +217,9 @@
   <data name="Helptext_KeywordsTheme" xml:space="preserve">
     <value>Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.</value>
   </data>
+  <data name="Helptext_LicenseTypes" xml:space="preserve">
+    <value>Lisens for datasettet/datatjenesten.</value>
+  </data>
   <data name="Helptext_OrderingInstructions" xml:space="preserve">
     <value>For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens "generelle vilkår" oppgis.</value>
   </data>
@@ -223,11 +229,23 @@
   <data name="Helptext_ResolutionScale" xml:space="preserve">
     <value>Målestokkstallet skal legges inn som et heltall (eks: 5000)</value>
   </data>
+  <data name="Helptext_SecurityConstraints" xml:space="preserve">
+    <value>Sikkerhetsnivå på datasettet/datatjenesten.</value>
+  </data>
+  <data name="Helptext_SecurityConstraintsNote" xml:space="preserve">
+    <value>Grunngiving av tilgangsbegrensninger eller bruksbegrensninger i form av juridiske forhold eller andre begrensende faktorer. Her kan en henvise til lov, forskrift eller lignende.</value>
+  </data>
   <data name="Helptext_Status" xml:space="preserve">
     <value>Status for datasett eller datasett tjenesten opererer mot.</value>
   </data>
   <data name="Helptext_TopicCategory" xml:space="preserve">
     <value>Tematisk inndeling definert i metadatastandarden.</value>
+  </data>
+  <data name="Helptext_UseConstraints" xml:space="preserve">
+    <value>Krav som må være oppfylt for å anvende datasettet/tjenesten.</value>
+  </data>
+  <data name="Helptext_UseLimitations" xml:space="preserve">
+    <value>Angir hvilke områder dataene ikke er egnet for. F.eks "dataene er ikke egnet for kommunens arealplanarbeide" eller "må ikke brukes til å navigere etter". En bør også oppgi hvorfor det er begrensninger på bruk.</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -243,6 +261,9 @@
   </data>
   <data name="Metadata_Abstract" xml:space="preserve">
     <value>Beskrivelse</value>
+  </data>
+  <data name="Metadata_AccessConstraints_Label" xml:space="preserve">
+    <value>Tilgangsrestriksjoner</value>
   </data>
   <data name="Metadata_Admin_KeywordArealPlans" xml:space="preserve">
     <value>Arealplaner underlagt Pbl</value>
@@ -388,6 +409,9 @@
   <data name="Metadata_KeywordsTheme_Label" xml:space="preserve">
     <value>Tema</value>
   </data>
+  <data name="Metadata_LicenseTypes_Label" xml:space="preserve">
+    <value>Lisens</value>
+  </data>
   <data name="Metadata_Links" xml:space="preserve">
     <value>Lenker</value>
   </data>
@@ -400,6 +424,15 @@
   <data name="Metadata_Organization" xml:space="preserve">
     <value>Organisasjon</value>
   </data>
+  <data name="Metadata_OtherConstraintsLinkText_Label" xml:space="preserve">
+    <value>Valgt lisens</value>
+  </data>
+  <data name="Metadata_OtherConstraintsLink_Label" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Metadata_OtherConstraints_Label" xml:space="preserve">
+    <value>Andre restriksjoner</value>
+  </data>
   <data name="Metadata_ProcessHistory_Label" xml:space="preserve">
     <value>Prosesshistorie</value>
   </data>
@@ -411,6 +444,12 @@
   </data>
   <data name="Metadata_ResolutionScale_Label" xml:space="preserve">
     <value>Målestokkstall</value>
+  </data>
+  <data name="Metadata_SecurityConstraintsNote_Label" xml:space="preserve">
+    <value>Lovhenvisning</value>
+  </data>
+  <data name="Metadata_SecurityConstraints_Label" xml:space="preserve">
+    <value>Sikkerhetsnivå</value>
   </data>
   <data name="Metadata_Status" xml:space="preserve">
     <value>Status</value>
@@ -432,6 +471,12 @@
   </data>
   <data name="Metadata_Type_Service" xml:space="preserve">
     <value>Tjeneste</value>
+  </data>
+  <data name="Metadata_UseConstraints_Label" xml:space="preserve">
+    <value>Brukerrestriksjoner</value>
+  </data>
+  <data name="Metadata_UseLimitations_Label" xml:space="preserve">
+    <value>Bruksbegrensninger</value>
   </data>
   <data name="Metadata_Validate_Error" xml:space="preserve">
     <value>Feil ved validering: {0}.</value>

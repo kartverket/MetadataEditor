@@ -147,6 +147,11 @@
               Looks up a localized string similar to {0} må være et tall..
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_AccessConstraints">
+            <summary>
+              Looks up a localized string similar to &lt;b&gt;Åpne data&lt;/b&gt;: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn)&amp;nbsp;&lt;b&gt;Norge digital-begrenset&lt;/b&gt;: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). &lt;b&gt;Skjermede data&lt;/b&gt;: Data som ikke er tilgjengelige for nedlasting (rød)..
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_BoundingBox">
             <summary>
               Looks up a localized string similar to Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen &quot;Angi i kartet&quot; for å definere et rektangel i Norgeskart..
@@ -222,6 +227,11 @@
               Looks up a localized string similar to Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes..
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_LicenseTypes">
+            <summary>
+              Looks up a localized string similar to Lisens for datasettet/datatjenesten..
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_OrderingInstructions">
             <summary>
               Looks up a localized string similar to For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens &quot;generelle vilkår&quot; oppgis..
@@ -237,6 +247,16 @@
               Looks up a localized string similar to Målestokkstallet skal legges inn som et heltall (eks: 5000).
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_SecurityConstraints">
+            <summary>
+              Looks up a localized string similar to Sikkerhetsnivå på datasettet/datatjenesten..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_SecurityConstraintsNote">
+            <summary>
+              Looks up a localized string similar to Grunngiving av tilgangsbegrensninger eller bruksbegrensninger i form av juridiske forhold eller andre begrensende faktorer. Her kan en henvise til lov, forskrift eller lignende..
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_Status">
             <summary>
               Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
@@ -245,6 +265,16 @@
         <member name="P:Resources.UI.Helptext_TopicCategory">
             <summary>
               Looks up a localized string similar to Tematisk inndeling definert i metadatastandarden..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_UseConstraints">
+            <summary>
+              Looks up a localized string similar to Krav som må være oppfylt for å anvende datasettet/tjenesten..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_UseLimitations">
+            <summary>
+              Looks up a localized string similar to Angir hvilke områder dataene ikke er egnet for. F.eks &quot;dataene er ikke egnet for kommunens arealplanarbeide&quot; eller &quot;må ikke brukes til å navigere etter&quot;. En bør også oppgi hvorfor det er begrensninger på bruk..
             </summary>
         </member>
         <member name="P:Resources.UI.Home">
@@ -270,6 +300,11 @@
         <member name="P:Resources.UI.Metadata_Abstract">
             <summary>
               Looks up a localized string similar to Beskrivelse.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_AccessConstraints_Label">
+            <summary>
+              Looks up a localized string similar to Tilgangsrestriksjoner.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_KeywordArealPlans">
@@ -512,6 +547,11 @@
               Looks up a localized string similar to Tema.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_LicenseTypes_Label">
+            <summary>
+              Looks up a localized string similar to Lisens.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Links">
             <summary>
               Looks up a localized string similar to Lenker.
@@ -532,6 +572,21 @@
               Looks up a localized string similar to Organisasjon.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_OtherConstraints_Label">
+            <summary>
+              Looks up a localized string similar to Andre restriksjoner.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_OtherConstraintsLink_Label">
+            <summary>
+              Looks up a localized string similar to URL.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_OtherConstraintsLinkText_Label">
+            <summary>
+              Looks up a localized string similar to Valgt lisens.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_ProcessHistory_Label">
             <summary>
               Looks up a localized string similar to Prosesshistorie.
@@ -550,6 +605,16 @@
         <member name="P:Resources.UI.Metadata_ResolutionScale_Label">
             <summary>
               Looks up a localized string similar to Målestokkstall.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_SecurityConstraints_Label">
+            <summary>
+              Looks up a localized string similar to Sikkerhetsnivå.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_SecurityConstraintsNote_Label">
+            <summary>
+              Looks up a localized string similar to Lovhenvisning.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Status">
@@ -585,6 +650,16 @@
         <member name="P:Resources.UI.Metadata_Type_Service">
             <summary>
               Looks up a localized string similar to Tjeneste.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_UseConstraints_Label">
+            <summary>
+              Looks up a localized string similar to Brukerrestriksjoner.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_UseLimitations_Label">
+            <summary>
+              Looks up a localized string similar to Bruksbegrensninger.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Validate_Error">

@@ -224,6 +224,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;b&gt;Åpne data&lt;/b&gt;: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn)&amp;nbsp;&lt;b&gt;Norge digital-begrenset&lt;/b&gt;: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). &lt;b&gt;Skjermede data&lt;/b&gt;: Data som ikke er tilgjengelige for nedlasting (rød)..
+        /// </summary>
+        public static string Helptext_AccessConstraints {
+            get {
+                return ResourceManager.GetString("Helptext_AccessConstraints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen &quot;Angi i kartet&quot; for å definere et rektangel i Norgeskart..
         /// </summary>
         public static string Helptext_BoundingBox {
@@ -359,6 +368,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lisens for datasettet/datatjenesten..
+        /// </summary>
+        public static string Helptext_LicenseTypes {
+            get {
+                return ResourceManager.GetString("Helptext_LicenseTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens &quot;generelle vilkår&quot; oppgis..
         /// </summary>
         public static string Helptext_OrderingInstructions {
@@ -386,6 +404,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sikkerhetsnivå på datasettet/datatjenesten..
+        /// </summary>
+        public static string Helptext_SecurityConstraints {
+            get {
+                return ResourceManager.GetString("Helptext_SecurityConstraints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grunngiving av tilgangsbegrensninger eller bruksbegrensninger i form av juridiske forhold eller andre begrensende faktorer. Her kan en henvise til lov, forskrift eller lignende..
+        /// </summary>
+        public static string Helptext_SecurityConstraintsNote {
+            get {
+                return ResourceManager.GetString("Helptext_SecurityConstraintsNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
         /// </summary>
         public static string Helptext_Status {
@@ -400,6 +436,24 @@ namespace Resources {
         public static string Helptext_TopicCategory {
             get {
                 return ResourceManager.GetString("Helptext_TopicCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Krav som må være oppfylt for å anvende datasettet/tjenesten..
+        /// </summary>
+        public static string Helptext_UseConstraints {
+            get {
+                return ResourceManager.GetString("Helptext_UseConstraints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angir hvilke områder dataene ikke er egnet for. F.eks &quot;dataene er ikke egnet for kommunens arealplanarbeide&quot; eller &quot;må ikke brukes til å navigere etter&quot;. En bør også oppgi hvorfor det er begrensninger på bruk..
+        /// </summary>
+        public static string Helptext_UseLimitations {
+            get {
+                return ResourceManager.GetString("Helptext_UseLimitations", resourceCulture);
             }
         }
         
@@ -445,6 +499,15 @@ namespace Resources {
         public static string Metadata_Abstract {
             get {
                 return ResourceManager.GetString("Metadata_Abstract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tilgangsrestriksjoner.
+        /// </summary>
+        public static string Metadata_AccessConstraints_Label {
+            get {
+                return ResourceManager.GetString("Metadata_AccessConstraints_Label", resourceCulture);
             }
         }
         
@@ -881,6 +944,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lisens.
+        /// </summary>
+        public static string Metadata_LicenseTypes_Label {
+            get {
+                return ResourceManager.GetString("Metadata_LicenseTypes_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lenker.
         /// </summary>
         public static string Metadata_Links {
@@ -917,6 +989,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Andre restriksjoner.
+        /// </summary>
+        public static string Metadata_OtherConstraints_Label {
+            get {
+                return ResourceManager.GetString("Metadata_OtherConstraints_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL.
+        /// </summary>
+        public static string Metadata_OtherConstraintsLink_Label {
+            get {
+                return ResourceManager.GetString("Metadata_OtherConstraintsLink_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valgt lisens.
+        /// </summary>
+        public static string Metadata_OtherConstraintsLinkText_Label {
+            get {
+                return ResourceManager.GetString("Metadata_OtherConstraintsLinkText_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prosesshistorie.
         /// </summary>
         public static string Metadata_ProcessHistory_Label {
@@ -949,6 +1048,24 @@ namespace Resources {
         public static string Metadata_ResolutionScale_Label {
             get {
                 return ResourceManager.GetString("Metadata_ResolutionScale_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sikkerhetsnivå.
+        /// </summary>
+        public static string Metadata_SecurityConstraints_Label {
+            get {
+                return ResourceManager.GetString("Metadata_SecurityConstraints_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lovhenvisning.
+        /// </summary>
+        public static string Metadata_SecurityConstraintsNote_Label {
+            get {
+                return ResourceManager.GetString("Metadata_SecurityConstraintsNote_Label", resourceCulture);
             }
         }
         
@@ -1012,6 +1129,24 @@ namespace Resources {
         public static string Metadata_Type_Service {
             get {
                 return ResourceManager.GetString("Metadata_Type_Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brukerrestriksjoner.
+        /// </summary>
+        public static string Metadata_UseConstraints_Label {
+            get {
+                return ResourceManager.GetString("Metadata_UseConstraints_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bruksbegrensninger.
+        /// </summary>
+        public static string Metadata_UseLimitations_Label {
+            get {
+                return ResourceManager.GetString("Metadata_UseLimitations_Label", resourceCulture);
             }
         }
         
