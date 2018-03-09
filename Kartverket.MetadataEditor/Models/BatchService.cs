@@ -390,11 +390,80 @@ namespace Kartverket.MetadataEditor.Models
                 UpdateDistributionFormats(username, deleteData);
             else if (metadatafield == "ReferenceSystems")
                 UpdateReferenceSystems(username, deleteData);
+            else if (metadatafield == "License")
+                UpdateLicense(username, deleteData);
             else if (metadatafield == "EnglishTexts")
                 UpdateEnglishTexts(username, deleteData, metadatafieldEnglish);
 
             excelPackage.Dispose();
 
+        }
+
+        private void UpdateLicense(string username, bool deleteData)
+        {
+            Dictionary<string, string> listOfAllowedLicenses = GetCodeList("b7a92d72-7ab4-4c2c-8a01-516a0a00344a");
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            if (deleteData)
+            {
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveLicense(uuidDelete, username);
+                }
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var licenseName = workSheet.Cells[row, 2].Text;
+                var licenseUrl = workSheet.Cells[row, 3].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(licenseName) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    if (listOfAllowedLicenses.ContainsKey(licenseUrl) && listOfAllowedLicenses.ContainsValue(licenseName))
+                        SaveLicense(uuid, licenseName, licenseUrl, username);
+                }
+            }
+        }
+
+        private void SaveLicense(string uuid, string licenseName, string licenseUrl, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+
+                metadata.UseConstraints = "license";
+                metadata.OtherConstraintsLink = licenseUrl;
+                metadata.OtherConstraintsLinkText = licenseName;
+
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", OtherConstraintsLink: " + licenseUrl + ", OtherConstraintsLinkText: " + licenseName);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        private void RemoveLicense(string uuidDelete, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuidDelete);
+                metadata.UseConstraints = "";
+                metadata.OtherConstraintsLink = "";
+                metadata.OtherConstraintsLinkText = "";
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch remove License, uuid: " + uuidDelete);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuidDelete, ex);
+            }
         }
 
         private void UpdateEnglishTexts(string username, bool deleteData, string metadatafieldEnglish)
