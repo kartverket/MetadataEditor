@@ -114,7 +114,7 @@
                 </a>
             </li>
         </ul>
-        <div v-bind:is="selectedTab.id"></div>
+        <div v-bind:is="tab.id" v-show="selectedTab.id == tab.id" v-for="tab in tabs"></div>
     </div>
 
     @Html.HiddenFor(m => m.Uuid)
