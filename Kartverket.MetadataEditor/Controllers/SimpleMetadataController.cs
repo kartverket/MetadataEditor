@@ -12,6 +12,7 @@ using Resources;
 using log4net;
 using Newtonsoft.Json.Linq;
 using System.Net.Mail;
+using System.Reflection;
 using System.Text;
 
 namespace Kartverket.MetadataEditor.Controllers
@@ -19,7 +20,7 @@ namespace Kartverket.MetadataEditor.Controllers
     [HandleError]
     public class SimpleMetadataController : Controller
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private SimpleMetadataService _metadataService;
 

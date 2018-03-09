@@ -3,7 +3,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Reflection;
 using System.Web.Mvc;
 
 namespace Kartverket.MetadataEditor.Controllers
@@ -14,8 +14,8 @@ namespace Kartverket.MetadataEditor.Controllers
     {
         private WmsServiceParser _wmsServiceParser;
 
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
         private IMetadataService _metadataService;
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public ServiceController(IMetadataService metadataService)
         {

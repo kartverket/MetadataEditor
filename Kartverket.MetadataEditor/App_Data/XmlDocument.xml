@@ -316,6 +316,13 @@
               Looks up a localized string similar to Navn på datasett.
             </summary>
         </member>
+        <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">
+            <summary>
+            Returns a MetadatViewModel of the metadata with the given uuid.
+            </summary>
+            <param name="uuid"></param>
+            <returns>A view model of the metadata or null if not any record with the given uuid is found</returns>
+        </member>
         <member name="M:Kartverket.MetadataEditor.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"

@@ -9,6 +9,7 @@ using ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.Validators;
 using Kartverket.MetadataEditor.Util;
 using System.Web.Http;
 using System;
+using System.Reflection;
 using log4net;
 using Raven.Client.Document;
 using Raven.Client.Embedded;
@@ -21,7 +22,7 @@ namespace Kartverket.MetadataEditor
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public static EmbeddableDocumentStore Store;
 
         protected void Application_Start()
@@ -58,7 +59,7 @@ namespace Kartverket.MetadataEditor
         {
             Exception ex = Server.GetLastError().GetBaseException();
 
-            log.Error("App_Error", ex);
+            Log.Error("Application error: " + ex.Message, ex);
         }
 
         protected void Application_BeginRequest()

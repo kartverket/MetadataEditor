@@ -1,21 +1,22 @@
 ﻿using Kartverket.MetadataEditor.Models;
 using log4net;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using Kartverket.MetadataEditor.Models.OpenData;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
     public class BatchController : Controller
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(MvcApplication));
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private IMetadataService _metadataService;
         private IBatchService _batchService;
-        private IOpenMetadataService _openMetadataService;
+        private readonly IMetadataService _metadataService;
+        private readonly IOpenMetadataService _openMetadataService;
 
         public BatchController(IMetadataService metadataService, IBatchService batchService, IOpenMetadataService openMetadataService)
         {
@@ -113,7 +114,7 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult OpenData()
         {
-            new Thread(() => _openMetadataService.SyncData()).Start();
+            new Thread(() => _openMetadataService.SynchronizeMetadata()).Start();
 
             return RedirectToAction("Index");
         }
