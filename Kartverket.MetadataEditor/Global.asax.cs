@@ -15,6 +15,8 @@ using Raven.Client.Document;
 using Raven.Client.Embedded;
 using System.Web;
 using Kartverket.MetadataEditor.Models.Translations;
+using Kartverket.MetadataEditor.App_Start;
+using Autofac;
 
 namespace Kartverket.MetadataEditor
 {
@@ -30,6 +32,8 @@ namespace Kartverket.MetadataEditor
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            DependencyConfig.Configure(new ContainerBuilder());
 
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredIfValidator));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(AssertThatAttribute), typeof(AssertThatValidator));

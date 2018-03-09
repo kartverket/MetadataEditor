@@ -11,14 +11,14 @@ using System.Text;
 
 namespace Kartverket.MetadataEditor.Models
 {
-    public class ValidatorService
+    public class ValidatorService : IValidatorService
     {
-        private MetadataService _metadataService;
+        private IMetadataService _metadataService;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ValidatorService() 
+        public ValidatorService(IMetadataService metadataService) 
         {
-            _metadataService = new MetadataService();
+            _metadataService = metadataService;
         }
 
         public List<string> ValidateAllMetadata() 

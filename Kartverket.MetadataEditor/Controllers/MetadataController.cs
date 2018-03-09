@@ -13,6 +13,9 @@ using log4net;
 using System.Net;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
+using System.Threading;
+using Kartverket.Geonorge.Utilities.LogEntry;
+using System.Threading.Tasks;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -21,11 +24,14 @@ namespace Kartverket.MetadataEditor.Controllers
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private MetadataService _metadataService;
+        private IMetadataService _metadataService;
 
+        public MetadataController(IMetadataService metadataService)
+        {
+            _metadataService = metadataService;
+        }
         public MetadataController()
         {
-            _metadataService = new MetadataService();
         }
 
         [HttpGet]
@@ -120,13 +126,19 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Edit(string uuid)
+        public async Task<ActionResult> Edit(string uuid, bool displayLog = false, bool displayLogLatest = false)
         {
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
 
             try
             {
+                ViewBag.DisplayLog = displayLog; ViewBag.DisplayLogLatest = displayLogLatest;
+                if (displayLogLatest)
+                    ViewBag.LogEntries = await _metadataService.GetLogEntriesLatest();
+                else if (displayLog)
+                    ViewBag.LogEntries = await _metadataService.GetLogEntries(uuid);
+
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
                 string role = GetSecurityClaim("role");
                 if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
@@ -279,7 +291,6 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 ViewBag.IsAdmin = "1";
             }
-
         }
 
         [HttpPost]
@@ -924,7 +935,7 @@ namespace Kartverket.MetadataEditor.Controllers
             string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
-                _metadataService.DeleteMetadata(uuid, GetUsername());
+                _metadataService.DeleteMetadata(model, GetUsername());
 
                 TempData["Message"] = "Metadata med uuid " + uuid + " ble slettet.";
                 return RedirectToAction("Index");

@@ -1,4 +1,7 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+@Html.Partial("_Log", Model)
+
 <div class="row form-group">
     <div class="col-md-12">
         <input type="checkbox" onchange="AddAdministrativeKeyWords();" value="Det offentlige kartgrunnlaget" name="keyword-dok-valid-kmd" id="keyword-dok-valid-kmd">
@@ -20,7 +23,7 @@
 <div class="row form-group">
     <div class="col-md-12">
         <label for="keyword-catalogs">Høsting til ulike samarbeid:</label>
-        @Html.ListBox("KeywordsCatalogs", ViewBag.CatalogValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_placeholder = "Velg fra listen" , @onchange = "AddAdministrativeKeyWords();" })
+        @Html.ListBox("KeywordsCatalogs", ViewBag.CatalogValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_placeholder = "Velg fra listen", @onchange = "AddAdministrativeKeyWords();" })
     </div>
 </div>
 <div class="row form-group">
@@ -98,12 +101,12 @@
                         <div class="col-md-8">
                             <div class="radio">
                                 <label>
-                                    <input id="QualitySpecificationResultInspireConform" name="QualitySpecificationResultInspire" @{if (Model.QualitySpecificationResultInspire) { <text> checked="checked" </text>              } } type="radio" value="true" /> Dataene er produsert iht produktspesifikasjonen
+                                    <input id="QualitySpecificationResultInspireConform" name="QualitySpecificationResultInspire" @{if (Model.QualitySpecificationResultInspire) { <text> checked="checked" </text>  } } type="radio" value="true" /> Dataene er produsert iht produktspesifikasjonen
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input id="QualitySpecificationResultInspireNotConform" name="QualitySpecificationResultInspire" @{if (!Model.QualitySpecificationResultInspire) { <text> checked="checked" </text>            } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
+                                    <input id="QualitySpecificationResultInspireNotConform" name="QualitySpecificationResultInspire" @{if (!Model.QualitySpecificationResultInspire) { <text> checked="checked" </text>  } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
                                 </label>
                             </div>
                         </div>
@@ -187,12 +190,12 @@
                         <div id="QualitySpecificationSosiResult" class="col-md-9">
                             <div class="radio">
                                 <label>
-                                    <input id="QualitySpecificationResultSosiConform" name="QualitySpecificationResultSosi" @{if (Model.QualitySpecificationResultSosi) { <text> checked="checked" </text>             } } type="radio" value="true" /> Dataene er produsert iht produktspesifikasjonen
+                                    <input id="QualitySpecificationResultSosiConform" name="QualitySpecificationResultSosi" @{if (Model.QualitySpecificationResultSosi) { <text> checked="checked" </text>  } } type="radio" value="true" /> Dataene er produsert iht produktspesifikasjonen
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input id="QualitySpecificationResultSosiNotConform" name="QualitySpecificationResultSosi" @{if (!Model.QualitySpecificationResultSosi) { <text> checked="checked" </text>            } } type="radio" value="false" /> Dataene avviker fra produktspesifikasjonen
+                                    <input id="QualitySpecificationResultSosiNotConform" name="QualitySpecificationResultSosi" @{if (!Model.QualitySpecificationResultSosi) { <text> checked="checked" </text>  } } type="radio" value="false" /> Dataene avviker fra produktspesifikasjonen
                                 </label>
                             </div>
                         </div>
@@ -228,22 +231,22 @@
                         <div class="col-md-offset-2 col-md-9">
                             <div class="radio">
                                 <label>
-                                    <input id="QualitySpecificationResultSosiConformApplicationSchema" name="QualitySpecificationResultSosiConformApplicationSchema" @{if (Model.QualitySpecificationResultSosiConformApplicationSchema) { <text> checked="checked" </text>                } } type="radio" value="true" /> SOSI-filer er i henhold til applikasjonsskjema
+                                    <input id="QualitySpecificationResultSosiConformApplicationSchema" name="QualitySpecificationResultSosiConformApplicationSchema" @{if (Model.QualitySpecificationResultSosiConformApplicationSchema) { <text> checked="checked" </text>  } } type="radio" value="true" /> SOSI-filer er i henhold til applikasjonsskjema
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input id="QualitySpecificationResultSosiNotConformApplicationSchema" name="QualitySpecificationResultSosiConformApplicationSchema" @{if (!Model.QualitySpecificationResultSosiConformApplicationSchema) { <text> checked="checked" </text>                 } } type="radio" value="false" /> SOSI-filer avviker fra applikasjonsskjema
+                                    <input id="QualitySpecificationResultSosiNotConformApplicationSchema" name="QualitySpecificationResultSosiConformApplicationSchema" @{if (!Model.QualitySpecificationResultSosiConformApplicationSchema) { <text> checked="checked" </text>  } } type="radio" value="false" /> SOSI-filer avviker fra applikasjonsskjema
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input id="QualitySpecificationResultSosiConformGmlApplicationSchema" name="QualitySpecificationResultSosiConformGmlApplicationSchema" @{if (Model.QualitySpecificationResultSosiConformGmlApplicationSchema) { <text> checked="checked" </text>               } } type="radio" value="true" /> GML-filer er i henhold til applikasjonsskjema
+                                    <input id="QualitySpecificationResultSosiConformGmlApplicationSchema" name="QualitySpecificationResultSosiConformGmlApplicationSchema" @{if (Model.QualitySpecificationResultSosiConformGmlApplicationSchema) { <text> checked="checked" </text>  } } type="radio" value="true" /> GML-filer er i henhold til applikasjonsskjema
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input id="QualitySpecificationResultSosiNotConformGmlApplicationSchema" name="QualitySpecificationResultSosiConformGmlApplicationSchema" @{if (!Model.QualitySpecificationResultSosiConformGmlApplicationSchema) { <text> checked="checked" </text>                } } type="radio" value="false" /> GML-filer avviker fra applikasjonsskjema
+                                    <input id="QualitySpecificationResultSosiNotConformGmlApplicationSchema" name="QualitySpecificationResultSosiConformGmlApplicationSchema" @{if (!Model.QualitySpecificationResultSosiConformGmlApplicationSchema) { <text> checked="checked" </text>  } } type="radio" value="false" /> GML-filer avviker fra applikasjonsskjema
                                 </label>
                             </div>
                         </div>
@@ -297,9 +300,9 @@
                 <div class="form-group required has-feedback">
                     <label class="col-md-2 control-label">Datakonformitet</label>
                     <div class="col-md-9">
-                        <input class="radio-inline" id="QualitySpecificationResultConform" name="QualitySpecificationResult" @{if (Model.QualitySpecificationResult) { <text> checked="checked" </text>          } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
+                        <input class="radio-inline" id="QualitySpecificationResultConform" name="QualitySpecificationResult" @{if (Model.QualitySpecificationResult) { <text> checked="checked" </text>  } } type="radio" value="true" />Dataene er produsert iht produktspesifikasjonen
                         <br />
-                        <input class="radio-inline" id="QualitySpecificationResultNotConform" name="QualitySpecificationResult" @{if (!Model.QualitySpecificationResult) { <text> checked="checked" </text>          } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
+                        <input class="radio-inline" id="QualitySpecificationResultNotConform" name="QualitySpecificationResult" @{if (!Model.QualitySpecificationResult) { <text> checked="checked" </text>  } } type="radio" value="false" />Dataene avviker fra produktspesifikasjonen
                     </div>
                 </div>
                 <div id="QualitySpecificationExplanationDiv" class="form-group required has-feedback@{if (Model.QualitySpecificationResult) { <text> hidden</text> } }">
@@ -330,4 +333,5 @@
             </div>
         </div>
     </div>
-    }
+}
+
