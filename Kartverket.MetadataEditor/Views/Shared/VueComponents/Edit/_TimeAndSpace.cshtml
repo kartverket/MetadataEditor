@@ -1,31 +1,27 @@
 ﻿@using Resources
 
 <script type="text/x-template" id="timeAndSpace-template">
-    <div>
-        <form class="form form-horizontal">
-            <div class="form-group has-feedback">
-                <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
-                    <div class="row">
-                        <label class="col-md-2 control-label">{{ formElement.label }}</label>
-                        <div class="col-md-9">
-                            <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                            <div is="field" v-bind:form-element="formElement"></div>
-                        </div>
-                        <div v-if="formElement.helpText" class="col-md-1">
-                            <p class="form-control-static">
-                                <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
-                            </p>
-                        </div>
-                    </div>
+    <div class="form-group has-feedback">
+        <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+            <div class="row">
+                <label class="col-md-2 control-label">{{ formElement.label }}</label>
+                <div class="col-md-9">
+                    <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                    <div is="field" v-bind:form-element="formElement"></div>
                 </div>
-                <div is="multilingual-keywords"
-                     v-bind:section="section"
-                     v-for="section in multilingualKeywords">
+                <div v-if="formElement.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                    </p>
                 </div>
             </div>
-            <div is="bounding-box"></div>
-            <div v-show="$root.isDatasetOrDatasetSeries" is="coverage"></div>
-        </form>
+        </div>
+        <div is="multilingual-keywords"
+             v-bind:section="section"
+             v-for="section in multilingualKeywords">
+        </div>
+        <div is="bounding-box"></div>
+        <div v-show="$root.isDatasetOrDatasetSeries" is="coverage"></div>
     </div>
 </script>
 
