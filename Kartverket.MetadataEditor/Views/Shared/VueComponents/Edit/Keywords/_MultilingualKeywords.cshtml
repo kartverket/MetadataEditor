@@ -18,10 +18,10 @@
                 <div v-if="$store.getters['Keywords' + section.name].length">
                     <div class="form-element-tab-group">
                         <span v-on:click="selectedLanguage = languageCode"
-                              v-for="(language, languageCode) in $root.languages"
+                              v-for="(language, languageCode) in $store.getters['settingsLanguages']"
                               v-bind:class="{active: selectedLanguage == languageCode}"
                               class="form-element-tab">
-                            {{ $root.languages[languageCode] }}
+                            {{ $store.getters['settingsLanguages_' + languageCode] }}
                         </span>
                     </div>
                     <div v-bind:class="{'striped-list': selectedLanguage == 'all'}">
@@ -60,7 +60,7 @@
         },
         data: function () {
             return {
-                selectedLanguage: this.$root.defaultLanguage
+                selectedLanguage: this.$store.getters['settingsSelectedLanguage']
             }
         },
         computed: {

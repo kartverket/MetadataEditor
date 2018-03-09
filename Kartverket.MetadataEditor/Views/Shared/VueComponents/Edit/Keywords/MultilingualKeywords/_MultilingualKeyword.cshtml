@@ -3,7 +3,7 @@
         <div class="form-group has-feedback">
             <div v-if="selectedLanguage == 'all'" class="row">
                 <div class="col-sm-5">
-                    <span class="form-element-badge">{{ $root.languages['no'] }}</span>
+                    <span class="form-element-badge">{{ $store.getters['settingsLanguages_no'] }}</span>
                     <input v-if="inputType == 'text' || !this.isAnOption(keywordValue)" v-bind:name="norwegianName" type="text" v-bind:value="keywordValue" class="form-control" />
                     <div v-else-if="inputType == 'select'" type="text" class="custom-select">
                         <select v-bind:name="norwegianName"
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="col-sm-5">
-                    <span class="form-element-badge">{{ $root.languages['en'] }}</span>
+                    <span class="form-element-badge">{{ $store.getters['settingsLanguages_en'] }}</span>
                     <input v-bind:name="englishName" type="text"
                            v-bind:value="getEnglishKeywordValue()"
                            v-bind:disabled="!this.keywordValue"

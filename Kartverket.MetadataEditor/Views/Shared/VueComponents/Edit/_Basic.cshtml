@@ -49,7 +49,7 @@
                                 mutation: 'updateEnglishTitle'
                             }
                         },
-                        selectedLanguage: this.$parent.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         label: '@Html.Raw(UI.Metadata_Title)',
                         type: 'text',
@@ -93,7 +93,7 @@
                                 mutation: 'updateEnglishAbstract'
                             }
                         },
-                        selectedLanguage: this.$parent.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
                         label: '@Html.Raw(UI.Metadata_Abstract)',
@@ -127,7 +127,7 @@
                                 mutation: 'updateEnglishSpecificUsage'
                             }
                         },
-                        selectedLanguage: this.$parent.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
                         label: 'Bruksområde',
@@ -149,7 +149,7 @@
                                 mutation: 'updateEnglishPurpose'
                             }
                         },
-                        selectedLanguage: this.$parent.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
                         label: '@Html.Raw(UI.Metadata_Purpose)',

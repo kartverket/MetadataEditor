@@ -160,7 +160,7 @@
                                 mutation: 'updateEnglishUseLimitations'
                             }
                         },
-                        selectedLanguage: this.$root.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         label: 'Bruksbegrensninger',
                         type: 'text',
                         helpText: {
@@ -234,7 +234,7 @@
                                 mutation: 'updateEnglishOtherConstraints'
                             }
                         },
-                        selectedLanguage: this.$root.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         label: 'Andre restriksjoner',
                         type: 'text'
                     },

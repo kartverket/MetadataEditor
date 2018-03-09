@@ -71,7 +71,7 @@
                                 mutation: 'updateEnglishProcessHistory'
                             }
                         },
-                        selectedLanguage: this.$root.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         label: '@Html.Raw(UI.Metadata_ProcessHistory_Label)',
                         type: 'textarea',
                         required: false,

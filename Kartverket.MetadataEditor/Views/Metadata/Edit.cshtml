@@ -669,11 +669,6 @@
                     { id: 'quality', name: 'Kvalitet', iconClass: 'glyphicon glyphicon-ok-sign' },
                     { id: 'admin', name: 'Administrativt', iconClass: 'glyphicon glyphicon-cog' }
                 ],
-                languages: {
-                    all: '@UI.Language_All',
-                    no: '@UI.Language_No',
-                    en: '@UI.Language_En'
-                },
                 model: @ViewModelJson,
                 viewBag: @ViewBagJson,
                 selectedValues: {
@@ -693,10 +688,6 @@
                 }
             },
             computed: {
-                defaultLanguage: function () {
-                    var defaultLanguage = 'no';
-                    return defaultLanguage;
-                },
                 isDatasetOrDatasetSeries: function () {
                     var hierarchyLevel = this.$root.model.HierarchyLevel;
                     return hierarchyLevel == 'dataset' || hierarchyLevel == 'series';
