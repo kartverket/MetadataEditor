@@ -15,7 +15,7 @@
             </div>
             <div class="panel-body">
                 <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
-                <div v-if="$store.getters['Keywords' + section.name].length">
+                <div v-if="$store.getters['Keywords' + section.name] && $store.getters['Keywords' + section.name].length">
                     <div class="form-element-tab-group">
                         <span v-on:click="selectedLanguage = languageCode"
                               v-for="(language, languageCode) in $store.getters['settingsLanguages']"
@@ -33,7 +33,7 @@
                              v-bind:keyword-index="index"
                              v-bind:keyword-value="keyword"
                              v-bind:options="section.options !== undefined ? section.options : null"
-                             v-for="(keyword, index) in keywords">
+                             v-for="(keyword, index) in $store.getters['Keywords' + section.name]">
                         </div>
                     </div>
                 </div>
@@ -62,13 +62,7 @@
             return {
                 selectedLanguage: this.$store.getters['settingsSelectedLanguage']
             }
-        },
-        computed: {
-            keywords: function () {
-                return this.$store.getters['Keywords' + this.section.name];
-            }
         }
-        
     };
 </script>
 
