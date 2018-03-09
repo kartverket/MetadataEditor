@@ -103,9 +103,11 @@
             },
             isAdded: function (keyword) {
                 var isAdded = false;
-                this.$store.getters['KeywordsNationalInitiative'].forEach(function (addedKeyword) {
-                    if (keyword == addedKeyword) isAdded = true;
-                });
+                if (this.$store.getters['KeywordsNationalInitiative'] !== null) {
+                    this.$store.getters['KeywordsNationalInitiative'].forEach(function (addedKeyword) {
+                        if (keyword == addedKeyword) isAdded = true;
+                    });
+                }
                 return isAdded;
             }
         },
