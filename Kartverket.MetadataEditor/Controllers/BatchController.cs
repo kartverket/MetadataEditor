@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using Kartverket.Geonorge.Utilities.Organization;
 using Kartverket.MetadataEditor.Models.OpenData;
 
 namespace Kartverket.MetadataEditor.Controllers
@@ -15,17 +14,14 @@ namespace Kartverket.MetadataEditor.Controllers
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        private IBatchService _batchService;
         private readonly IMetadataService _metadataService;
         private readonly IOpenMetadataService _openMetadataService;
 
-        public BatchController() : this(new MetadataService(), new OpenMetadataService(new MetadataService(), new OpenMetadataFetcher(new HttpClientFactory())))
-        {
-
-        }
-
-        public BatchController(IMetadataService metadataService, IOpenMetadataService openMetadataService)
+        public BatchController(IMetadataService metadataService, IBatchService batchService, IOpenMetadataService openMetadataService)
         {
             _metadataService = metadataService;
+            _batchService = batchService;
             _openMetadataService = openMetadataService;
         }
 
@@ -42,7 +38,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                     if (data != null)
                     {
-                        new Thread(() => new BatchService().UpdateAll(data, GetUsername(), GetSecurityClaim("organization"))).Start();
+                        new Thread(() => _batchService.UpdateAll(data, GetUsername(), GetSecurityClaim("organization"))).Start();
                         TempData["message"] = "Batch-oppdatering: " + data.dataField  +" = "  + data.dataValue + ", er startet og kjører i bakgrunnen!";
                     }
                     else
@@ -55,7 +51,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 { 
                     if (data != null)
                     {
-                        new Thread(() => new BatchService().Update(data, GetUsername())).Start();
+                        new Thread(() => _batchService.Update(data, GetUsername())).Start();
                         TempData["message"] = "Batch-oppdatering: " + data.dataField + " = " + data.dataValue + ", er startet og kjører i bakgrunnen!";
                     }
                     else 
@@ -79,7 +75,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
                 { 
                     Log.Info("Starting batch update thumbnail generation.");
-                    new Thread(() => new BatchService().GenerateMediumThumbnails(GetUsername(), GetSecurityClaim("organization"), Server.MapPath("~/thumbnails/"))).Start();
+                    new Thread(() => _batchService.GenerateMediumThumbnails(GetUsername(), GetSecurityClaim("organization"), Server.MapPath("~/thumbnails/"))).Start();
                     TempData["message"] = "Batch-oppdatering: generering av thumbnails er startet og kjører i bakgrunnen!";
                 }
                 else
@@ -101,8 +97,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                 if (file.ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 {
-                    BatchService batchService = new BatchService();
-                    batchService.Update(file, GetUsername(), metadatafield, deleteData, metadatafieldEnglish);
+                    _batchService.Update(file, GetUsername(), metadatafield, deleteData, metadatafieldEnglish);
 
                     TempData["Message"] = "Metadataene ble oppdatert";
                 }
@@ -119,7 +114,6 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult OpenData()
         {
-            
             new Thread(() => _openMetadataService.SynchronizeMetadata()).Start();
 
             return RedirectToAction("Index");
@@ -128,7 +122,7 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult UpdateFormatOrganization()
         {
-            new Thread(() => new BatchService().UpdateFormatOrganization(GetUsername())).Start();
+            new Thread(() => _batchService.UpdateFormatOrganization(GetUsername())).Start();
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
         }
 
@@ -138,7 +132,7 @@ namespace Kartverket.MetadataEditor.Controllers
             string role = GetSecurityClaim("role");
             if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
             {
-                new Thread(() => new BatchService().UpdateRegisterTranslations(GetUsername(), uuid)).Start();
+                new Thread(() => _batchService.UpdateRegisterTranslations(GetUsername(), uuid)).Start();
                 TempData["message"] = "Batch-oppdatering: synkronisering av engelske register tekster kjører i bakgrunnen!";
                 return RedirectToAction("Index");
             }
@@ -150,7 +144,7 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult UpdateKeywordServiceType()
         {
-            new Thread(() => new BatchService().UpdateKeywordServiceType(GetUsername())).Start();
+            new Thread(() => _batchService.UpdateKeywordServiceType(GetUsername())).Start();
             return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
         }
 

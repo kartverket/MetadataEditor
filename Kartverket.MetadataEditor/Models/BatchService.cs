@@ -13,17 +13,17 @@ using www.opengis.net;
 
 namespace Kartverket.MetadataEditor.Models
 {
-    public class BatchService
+    public class BatchService : IBatchService
     {
-        private MetadataService _metadataService;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private IMetadataService _metadataService;
         string thumbnailFolder;
 
         private GeoNorge _geoNorge;
 
-        public BatchService() 
+        public BatchService(IMetadataService metadataService) 
         {
-            _metadataService = new MetadataService();
+            _metadataService = metadataService;
         }
 
         private void LogEventsDebug(string log)
@@ -1242,6 +1242,10 @@ namespace Kartverket.MetadataEditor.Models
             return CodeValues;
         }
 
+        void IBatchService.GenerateMediumThumbnails(string v1, string v2, string v3)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class BatchData

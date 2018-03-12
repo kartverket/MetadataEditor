@@ -7,14 +7,14 @@ using System.Web;
 
 namespace Kartverket.MetadataEditor.Models
 {
-    public class ReportService
+    public class ReportService: IReportService
     {
-        private MetadataService _metadataService;
+        private IMetadataService _metadataService;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ReportService() 
+        public ReportService(IMetadataService metadataService) 
         {
-            _metadataService = new MetadataService();
+            _metadataService = metadataService;
         }
 
         public List<MetadataViewModel> Report1()
