@@ -8,24 +8,26 @@
             </span>
             <span v-on:click="selectedLanguage = language"
                   v-for="(binding, language) in formElement.multilingual"
-                  v-bind:class="{active: selectedLanguage == language}"
+                  v-bind:class="{active: selectedLanguage == language, 'has-error': hasErrors(language)}"
                   class="form-element-tab">
                 {{ $store.getters['settingsLanguages_' + language] }}
             </span>
         </div>
-        <div v-show="language == selectedLanguage || selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual" class="form-group">
-            <span v-show="selectedLanguage == 'all'" class="form-element-badge">{{ $store.getters['settingsLanguages_' + language] }}</span>
-            <input v-if="formElement.type == 'text'" v-bind:name="binding.name" type="text" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control" />
-            <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="binding.name" class="form-control" rows="6" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">{{ $store.getters[binding.getter] }}</textarea>
-            <div v-else-if="formElement.type == 'select'" class="custom-select">
-                <select v-bind:name="binding.name" class="form-control" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">
-                    <option v-for="option in formElement.options" v-bind:value="option.value">{{option.text}}</option>
-                </select>
+        <div v-show="language == selectedLanguage || selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual">
+            <div class="form-group" v-bind:class="{'has-error': hasErrors(language)}">
+                <span v-show="selectedLanguage == 'all'" class="form-element-badge">{{ $store.getters['settingsLanguages_' + language] }}</span>
+                <input v-if="formElement.type == 'text'" v-bind:name="binding.name" type="text" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control" />
+                <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="binding.name" class="form-control" rows="6" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">{{ $store.getters[binding.getter] }}</textarea>
+                <div v-else-if="formElement.type == 'select'" class="custom-select">
+                    <select v-bind:name="binding.name" class="form-control" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">
+                        <option v-for="option in formElement.options" v-bind:value="option.value">{{option.text}}</option>
+                    </select>
+                </div>
+                <div v-else-if="formElement.type == 'datepicker'" is="datepicker" v-bind:formElement="binding"></div>
             </div>
-            <div v-else-if="formElement.type == 'datepicker'" is="datepicker" v-bind:formElement="binding"></div>
         </div>
     </div>
-    <div v-else class="form-group" v-show="formElement.visible !== false" v-bind:class="{'required': formElement.required !== false}">
+    <div v-else class="form-group" v-show="formElement.visible !== false" v-bind:class="{'required': formElement.required !== false, 'has-error': hasErrors()}">
         <input v-if="formElement.type == 'text'" v-bind:name="formElement.name" type="text" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})" />
         <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="formElement.name" class="form-control" rows="6" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})"></textarea>
         <div v-else-if="formElement.type == 'select'" class="custom-select">
@@ -49,6 +51,19 @@
         components: {
             Datepicker: Datepicker
         },
+        computed: {
+            errors: function () {
+                var modelStateValues = this.$store.getters['modelStateValues'];
+                if (this.formElement.multilingual !== undefined) {
+                    return {
+                        no: modelStateValues[this.formElement.multilingual.no.name] !== undefined ? modelStateValues[this.formElement.multilingual.no.name].Errors : [],
+                        en: modelStateValues[this.formElement.multilingual.en.name] !== undefined ? modelStateValues[this.formElement.multilingual.en.name].Errors : []
+                    }
+                } else {
+                    return modelStateValues[this.formElement.name] !== undefined ? modelStateValues[this.formElement.name].Errors : [];
+                }
+            },
+        },
         data: function () {
             return {
                 selectedLanguage: this.$store.getters['settingsSelectedLanguage']
@@ -60,6 +75,13 @@
         methods: {
             updateField: function (value) {
                 this.$store.dispatch('updateField', value);
+            },
+            hasErrors: function (language) {
+                if (language !== undefined) {
+                    return this.errors[language] !== undefined && this.errors[language].length > 0;
+                } else {
+                    return this.errors.length > 0;
+                }
             }
         },
     };
