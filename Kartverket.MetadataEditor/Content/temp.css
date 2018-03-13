@@ -5,10 +5,10 @@
 .form-element-tab {
     display: inline-block;
     min-width: 10px;
-    padding: 3px 7px;
+    padding: 0 7px;
     font-size: 12px;
     font-weight: 700;
-    line-height: 1;
+    line-height: 21px;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -21,6 +21,30 @@
         color: #fff;
     }
 
+    .form-element-tab.has-error {
+        color: #ee432a;
+    }
+
+        .form-element-tab.has-error.active {
+            background-color: #ee432a;
+            color: #fff;
+        }
+
+    .form-element-tab.has-error:after {
+        display: inline-block;
+        font-family: Glyphicons Halflings;
+        content: "\e107";
+        font-weight: 100;
+        font-size: 14px;
+        line-height: 21px;
+        vertical-align: bottom;
+        color: #ee432a;
+    }
+
+    .form-element-tab.has-error.active:after {
+        color: #FFF;
+    }
+
 .form-element-badge {
     padding: 0px 8px;
     background-color: #7da1c4;
@@ -31,9 +55,32 @@
     line-height: 15pt;
 }
 
-.help-text-toggle {
-    cursor: pointer;
+.has-error .form-element-badge {
+    background-color: #ee432a;
 }
+
+.form-control {
+    transition: .2s outline;
+}
+
+    .form-control:focus {
+        outline: 2px solid #7da1c4;
+        box-shadow: none;
+    }
+
+.has-error .form-control {
+    box-shadow: none;
+    border: 1px solid #ee432a;
+}
+
+    .has-error .form-control:focus {
+        outline: 2px solid #ee432a;
+        box-shadow: none;
+    }
+    
+    .help-text-toggle {
+        cursor: pointer;
+    }
 
 .nav-tabs > li > a {
     padding: 10px 12px;
