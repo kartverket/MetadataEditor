@@ -12,6 +12,8 @@
     var ViewModelJson = @Html.Raw(ViewModelSerialized);
     string ViewBagSerialized = JsonConvert.SerializeObject(ViewBag);
     var ViewBagJson = @Html.Raw(ViewBagSerialized);
+    string ModelStateValuesSerialized = JsonConvert.SerializeObject(ViewData.ModelState);
+    var ModelStateValuesJson = Html.Raw(ModelStateValuesSerialized);
 
 }
 
@@ -21,6 +23,7 @@
     State = {
         model: @ViewModelJson,
         viewBag: @ViewBagJson,
+        modelStateValues: @ModelStateValuesJson,
         data: {
             TextFormats: [
                 { Text: "CSV", Value: "CSV" },
