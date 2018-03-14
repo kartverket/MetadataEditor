@@ -65,18 +65,18 @@
             },
             visible: function () {
                 if (this.formElement.visibleGetter !== undefined) {
-                    return this.$store.getters[this.formElement.visibleGetter]
+                    return this.$store.getters[this.formElement.visibleGetter] === true || this.$store.getters[this.formElement.visibleGetter] == 'true';
                 } else if (this.formElement.visible !== undefined) {
-                    return this.formElement.visible;
+                    return this.formElement.visible === true || this.formElement.visible == 'true';
                 } else {
                     return true;
                 }
             },
             required: function () {
                 if (this.formElement.requiredGetter !== undefined) {
-                    return this.$store.getters[this.formElement.requiredGetter]
+                    return this.$store.getters[this.formElement.requiredGetter] === true || this.$store.getters[this.formElement.requiredGetter] == 'true';
                 } else if (this.formElement.required !== undefined) {
-                    return this.formElement.required;
+                    return this.formElement.required === true || this.formElement.required == 'true';
                 } else {
                     return false;
                 }
