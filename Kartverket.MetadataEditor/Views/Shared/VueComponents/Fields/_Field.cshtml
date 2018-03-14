@@ -1,5 +1,5 @@
 ﻿<script type="text/x-template" id="field-template">
-    <div v-if="formElement.multilingual" v-show="formElement.visible !== false" v-bind:class="{'required': formElement.required !== false}">
+    <div v-if="formElement.multilingual" v-show="visible" v-bind:class="{'required': required}">
         <div class="form-element-tab-group">
             <span v-on:click="selectedLanguage = 'all'"
                   v-bind:class="{active: selectedLanguage == 'all'}"
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div v-else class="form-group" v-show="formElement.visible !== false" v-bind:class="{'required': formElement.required !== false, 'has-error': hasErrors()}">
+    <div v-else class="form-group" v-show="visible" v-bind:class="{'required': required, 'has-error': hasErrors()}">
         <input v-if="formElement.type == 'text'" v-bind:name="formElement.name" type="text" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})" />
         <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="formElement.name" class="form-control" rows="6" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})"></textarea>
         <div v-else-if="formElement.type == 'select'" class="custom-select">
@@ -63,6 +63,24 @@
                     return modelStateValues[this.formElement.name] !== undefined ? modelStateValues[this.formElement.name].Errors : [];
                 }
             },
+            visible: function () {
+                if (this.formElement.visibleGetter !== undefined) {
+                    return this.$store.getters[this.formElement.visibleGetter]
+                } else if (this.formElement.visible !== undefined) {
+                    return this.formElement.visible;
+                } else {
+                    return true;
+                }
+            },
+            required: function () {
+                if (this.formElement.requiredGetter !== undefined) {
+                    return this.$store.getters[this.formElement.requiredGetter]
+                } else if (this.formElement.required !== undefined) {
+                    return this.formElement.required;
+                } else {
+                    return false;
+                }
+            }
         },
         data: function () {
             return {
