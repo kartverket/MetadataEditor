@@ -135,6 +135,18 @@
             else {
                 context.commit('addValueToArray', { arrayName: 'Thumbnails', value: payload })
             }
+        },
+        registerErrorsForTab: function (context, payload) {
+            var errorsInTab = context.getters['errorsInTabs'][payload.tabName];
+            var modelStateValues = context.getters['modelStateValues'];
+            payload.fieldNames.forEach(function (fieldName) {
+                if (modelStateValues[fieldName] !== undefined) {
+                    if (modelStateValues[fieldName].Errors !== undefined && modelStateValues[fieldName].Errors.length) {
+                        context.commit('addValueToArray', { stateProperty: 'errorsInTabs', arrayName: payload.tabName, value: fieldName });
+                    }
+                }
+                
+            })
         }
     }
 </script>
