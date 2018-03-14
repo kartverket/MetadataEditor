@@ -150,8 +150,12 @@
                 return this.$store.getters['UseConstraints'] == 'license';
             }
         },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Basic', fieldNames: this.fieldNames });
+        },
         data: function () {
             return {
+                fieldNames: ['UseLimitations', 'EnglishUseLimitations', 'AccessConstraints', 'UseConstraints', 'LicenseTypes', 'OtherConstraintsLinkText', 'OtherConstraintsLink', 'OtherConstraints', 'EnglishOtherConstraints', 'SecurityConstraints', 'SecurityConstraintsNote'],
                 showCustomLicenseType: false,
                 formElements: {
                     useLimitations: {
