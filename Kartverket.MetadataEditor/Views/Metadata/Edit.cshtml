@@ -216,7 +216,7 @@
                     tabLink.parent().prop('title', 'Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet');
                 }
             });
-       
+
             // conformity
 
             var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
@@ -243,8 +243,7 @@
 
             var Inspire = function (event) {
                 if (event) {
-                    if (!$('#keyword-inspire-valid').prop('checked'))
-                    {
+                    if (!$('#keyword-inspire-valid').prop('checked')) {
                         InspireRemove();
                     }
                     else {
@@ -294,8 +293,7 @@
                         $("#QualitySpecificationSosiResult").show();
                         $("#QualitySpecificationExplanationSosiDiv").show();
                     }
-                    else if ($("#ApplicationSchema").val() != '')
-                    {
+                    else if ($("#ApplicationSchema").val() != '') {
                         $("#QualitySpecificationTitleSosi").val("");
                         $("#QualitySpecificationDateSosi").val("");
                         $("#QualitySpecificationDateTypeSosi").val("");
@@ -309,7 +307,7 @@
                         $("#QualitySpecificationSosiResult").hide();
                         $("#QualitySpecificationExplanationSosiDiv").hide();
                     }
-                    console.log("selectedSosiUrl:"  + selectedSosiUrl);
+                    console.log("selectedSosiUrl:" + selectedSosiUrl);
                     if (selectedSosiUrl != null) {
                         var selectedSosiUrlApi = selectedSosiUrl;
                         selectedSosiUrlApi = selectedSosiUrlApi.replace("/register/", "/api/register/");
@@ -338,7 +336,7 @@
                                 }
                             }
                         }
-                    )
+                        )
                     };
 
                     if ($("#ApplicationSchema").val() != '') {
@@ -376,86 +374,86 @@
 
 
             var otherSpec = function (event) {
-                    var selectedOtherSpec = $('#ProductSpecificationOther_Name').val();
-                    if (selectedOtherSpec != "") {
-                        $("#QualitySpecificationTitle").val("Produktspesifikasjon: " + selectedOtherSpec);
-                        $("#QualitySpecificationDate").val("");
-                        $("#QualitySpecificationDateType").val("publication");
-                        $("#QualitySpecificationResultConform").prop('checked', true);
-                        $("#QualitySpecificationExplanation").val(conformExplanation);
-                        $("#EnglishQualitySpecificationExplanation").val(conformExplanationEnglish);
-                        $('#QualitySpecificationExplanationDiv').hide();
-                        $('#QualitySpecificationCustom').show();
-                    }
-                    else {
-                        $("#QualitySpecificationTitle").val("");
-                        $("#QualitySpecificationDate").val("");
-                        $("#QualitySpecificationDateType").val("");
-                        $("#QualitySpecificationExplanation").val("");
-                        $("#QualitySpecificationResultConform").prop('checked', false);
-                        $('#QualitySpecificationCustom').hide();
-                    }
-                };
+                var selectedOtherSpec = $('#ProductSpecificationOther_Name').val();
+                if (selectedOtherSpec != "") {
+                    $("#QualitySpecificationTitle").val("Produktspesifikasjon: " + selectedOtherSpec);
+                    $("#QualitySpecificationDate").val("");
+                    $("#QualitySpecificationDateType").val("publication");
+                    $("#QualitySpecificationResultConform").prop('checked', true);
+                    $("#QualitySpecificationExplanation").val(conformExplanation);
+                    $("#EnglishQualitySpecificationExplanation").val(conformExplanationEnglish);
+                    $('#QualitySpecificationExplanationDiv').hide();
+                    $('#QualitySpecificationCustom').show();
+                }
+                else {
+                    $("#QualitySpecificationTitle").val("");
+                    $("#QualitySpecificationDate").val("");
+                    $("#QualitySpecificationDateType").val("");
+                    $("#QualitySpecificationExplanation").val("");
+                    $("#QualitySpecificationResultConform").prop('checked', false);
+                    $('#QualitySpecificationCustom').hide();
+                }
+            };
 
             $("#ProductSpecificationOther_Name").on("change", otherSpec);
             otherSpec();
 
             $("#QualitySpecificationResultInspireConform").change(function () {
-                    if (this.checked) {
+                if (this.checked) {
                     $("#QualitySpecificationExplanationInspire").val(conformExplanation);
                     $("#EnglishQualitySpecificationExplanationInspire").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationInspireDiv").removeClass("show");
                     $("#QualitySpecificationExplanationInspireDiv").addClass("hidden");
-                        }
-                        });
+                }
+            });
 
             $("#QualitySpecificationResultInspireNotConform").change(function () {
-                        if (this.checked) {
+                if (this.checked) {
                     $("#QualitySpecificationExplanationInspire").val("");
                     $("#EnglishQualitySpecificationExplanationInspire").val("");
                     $("#QualitySpecificationExplanationInspire").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationInspireDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationInspireDiv").addClass("show");
-                            }
-                            });
+                }
+            });
 
             $("#QualitySpecificationResultSosiConform").change(function () {
-                            if (this.checked) {
+                if (this.checked) {
                     $("#QualitySpecificationExplanationSosi").val(conformExplanation);
                     $("#EnglishQualitySpecificationExplanationSosi").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationSosiDiv").removeClass("show");
                     $("#QualitySpecificationExplanationSosiDiv").addClass("hidden");
-                                }
-                                });
+                }
+            });
 
             $("#QualitySpecificationResultSosiNotConform").change(function () {
-                                if (this.checked) {
+                if (this.checked) {
                     $("#QualitySpecificationExplanationSosi").val("");
                     $("#EnglishQualitySpecificationExplanationSosi").val("");
                     $("#QualitySpecificationExplanationSosi").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationSosiDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationSosiDiv").addClass("show");
-                                    }
-                                    });
+                }
+            });
 
             $("#QualitySpecificationResultConform").change(function () {
-                                    if (this.checked) {
+                if (this.checked) {
                     $("#QualitySpecificationExplanation").val(conformExplanation);
                     $("#EnglishQualitySpecificationExplanation").val(conformExplanationEnglish);
                     $("#QualitySpecificationExplanationDiv").removeClass("show");
                     $("#QualitySpecificationExplanationDiv").addClass("hidden");
-                                        }
-                                        });
+                }
+            });
 
             $("#QualitySpecificationResultNotConform").change(function () {
-                                        if (this.checked) {
+                if (this.checked) {
                     $("#QualitySpecificationExplanation").val("");
                     $("#EnglishQualitySpecificationExplanation").val("");
                     $("#QualitySpecificationExplanation").attr("placeholder", conformExplainPlaceholder);
                     $("#QualitySpecificationExplanationDiv").removeClass("hidden");
                     $("#QualitySpecificationExplanationDiv").addClass("show");
-                                            }
-                                            });
+                }
+            });
 
 
 
@@ -470,7 +468,7 @@
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
                     $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                        }
+                }
             });
 
             $("#DatePublished").change(function (event) {
@@ -482,7 +480,7 @@
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
                     $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                        }
+                }
             });
 
             $("#DateCreated").change(function (event) {
@@ -494,7 +492,7 @@
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
                     $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                        }
+                }
             });
 
             $("#DateMetadataValidFrom").change(function (event) {
@@ -511,7 +509,7 @@
                     var newDate = new Date(ValidToDate);
                     newDate.setDate(newDate.getDate() - 1);
                     $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                        }
+                }
             });
 
             $("#DateMetadataValidTo").change(function (event) {
@@ -528,7 +526,7 @@
                     var newDate = new Date(ValidFromDate);
                     newDate.setDate(newDate.getDate() + 1);
                     $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                        }
+                }
             });
 
             $("#QualitySpecificationDate").change(function (event) {
@@ -540,54 +538,9 @@
                 if (selectedDate > currentDate) {
                     alert('Dato kan ikke være i fremtiden');
                     $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                        }
+                }
             });
         });
-
-        function AddAdministrativeKeyWords() {
-
-            var selectorPrefix = "keywords-national-initiative";
-            $('#' + selectorPrefix + '-list').empty();
-            var inputName = "KeywordsNationalInitiative";
-            var key = $('#keywords-national-initiative-list li').length;
-
-            if ($('#keyword-dok-valid-kmd').prop('checked')) {
-                var value = $('#keyword-dok-valid-kmd').val();
-                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
-                key = key + 1;
-            }
-
-            if ($('#keyword-inspire-valid').prop('checked')) {
-                var value = $('#keyword-inspire-valid').val();
-                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
-                key = key + 1;
-            }
-
-            if ($('#keyword-geodatalaw').prop('checked')) {
-                var value = $('#keyword-geodatalaw').val();
-                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
-                key = key + 1;
-            }
-
-            if ($('#keyword-norgedigitalt').prop('checked')) {
-                var value = $('#keyword-norgedigitalt').val();
-                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
-                key = key + 1;
-            }
-
-            if ($('#keyword-areal-plans').prop('checked')) {
-                var value = $('#keyword-areal-plans').val();
-                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
-                key = key + 1;
-            }
-
-            $('#KeywordsCatalogs :selected').each(function () {
-                optionValue = $(this);
-                var value = optionValue.val();
-                $('#' + selectorPrefix + '-list').append('<li><input type="text" name="' + inputName + '[' + key + ']" value="' + value + '"/></li>');
-                key = key + 1;
-            });
-        }
 
         function removeReferenceSystem(refID) {
             var elem = document.getElementById("referenceRow" + refID);
