@@ -4,7 +4,8 @@
             <input v-bind:name="formElement.name" 
                    type="radio" 
                    v-bind:value="option.Value"
-                   v-on:change="$parent.updateField({mutation: formElement.mutation, value: $event.target.value})"
+                   v-bind:checked="selectedValue == option.Value"
+                   v-on:click="$parent.updateField({mutation: formElement.mutation, value: $event.target.value})"
                    />
             {{ option.Text }}
         </label>
@@ -16,7 +17,12 @@
     var Radio = {
         name: "Radio",
         template: "#radio-template",
-        props: ['formElement']
+        props: ['formElement'],
+        computed: {
+            selectedValue: function () {
+                return "" + this.$store.getters[this.formElement.getter];
+            }
+        }
     };
 </script>
 
