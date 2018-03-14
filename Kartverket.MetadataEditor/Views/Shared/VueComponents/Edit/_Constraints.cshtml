@@ -46,12 +46,12 @@
         </div>
 
         @* LicenseTypes *@
-        <div class="form-group has-feedback" v-bind:class="{required: formElements.licenseTypes.required}">
+        <div v-show="showLicenseType" class="form-group has-feedback" v-bind:class="{required: formElements.licenseTypes.required}">
             <label class="col-md-3 control-label">{{ formElements.licenseTypes.label }}</label>
             <div class="col-md-6">
                 <p v-if="formElements.licenseTypes.helpText && formElements.licenseTypes.helpText.active" class="help-text bg-success" v-html="formElements.licenseTypes.helpText.content"></p>
                 <div class="custom-select">
-                    <select v-bind:value="getSelectedLicenceType()" v-on:change="setSelectedLicenceType($event)" v-bind:name="formElements.licenseTypes.name" class="form-control">
+                    <select v-bind:value="getSelectedLicenseType()" v-on:change="setSelectedLicenseType($event)" v-bind:name="formElements.licenseTypes.name" class="form-control">
                         <option v-bind:value="option.Value" v-for="option in formElements.licenseTypes.options">{{ option.Text }}</option>
                     </select>
                 </div>
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <div v-show="showCustomLicenseType" class="form-group has-feedback">
+        <div v-show="showLicenseType && showCustomLicenseType" class="form-group has-feedback">
             @* OtherConstraintsLinkText *@
             <label class="col-md-3 control-label">{{ formElements.otherConstraintsLinkText.label }}</label>
             <div class="col-md-3">
@@ -137,12 +137,17 @@
             updateField: function (value) {
                 this.$store.dispatch('updateField', value);
             },
-            setSelectedLicenceType: function (event) {
+            setSelectedLicenseType: function (event) {
                 this.$store.commit('updateOtherConstraintsLinkText', event.target.selectedOptions[0].text);
                 this.$store.commit('updateOtherConstraintsLink', event.target.selectedOptions[0].value);
             },
-            getSelectedLicenceType: function (target) {
+            getSelectedLicenseType: function (target) {
                 return this.$store.getters['OtherConstraintsLink'];
+            }
+        },
+        computed: {
+            showLicenseType: function () {
+                return this.$store.getters['UseConstraints'] == 'license';
             }
         },
         data: function () {
