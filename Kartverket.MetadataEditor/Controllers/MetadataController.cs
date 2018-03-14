@@ -150,6 +150,11 @@ namespace Kartverket.MetadataEditor.Controllers
                         return RedirectToAction("Edit", "SimpleMetadata", new { uuid = uuid });
 
                     PrepareViewBagForEditing(model);
+                    if (Request.QueryString["metadatacreated"] == null)
+                    {
+                        TryValidateModel(model);
+                        ValidateModel(model);
+                    }
                     return View(model);
                 }
                 else
@@ -280,12 +285,6 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
 
             ViewBag.Municipalities = new KomDataService().GetListOfMunicipalityOrganizations();
-
-            ViewBag.ValidModel = true;
-            if (Request.QueryString["metadatacreated"] == null )
-            {
-                ViewBag.ValidModel = TryValidateModel(model);
-            }
 
             ViewBag.NewDistribution = false;
 

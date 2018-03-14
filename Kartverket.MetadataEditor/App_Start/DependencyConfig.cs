@@ -51,6 +51,7 @@ namespace Kartverket.MetadataEditor.App_Start
             builder.RegisterType<ValidatorService>().As<IValidatorService>();
             builder.RegisterType<BatchService>().As<IBatchService>();
             builder.RegisterType<OpenMetadataService>().As<IOpenMetadataService>();
+            builder.RegisterType<OpenMetadataFetcher>().As<IOpenMetadataFetcher>();
 
         }
     }
