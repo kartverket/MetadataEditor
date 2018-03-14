@@ -68,7 +68,8 @@
         box-shadow: none;
     }
 
-.has-error .form-control {
+.has-error .form-control,
+.has-error .custom-select .form-control {
     box-shadow: none;
     border: 1px solid #ee432a;
 }
