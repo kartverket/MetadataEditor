@@ -36,11 +36,12 @@
             </select>
         </div>
         <div v-else-if="formElement.type == 'datepicker'" is="datepicker" v-bind:form-element="formElement"></div>
-        <div v-else-if="formElement.type == 'radio'" class=""></div>
+        <div v-else-if="formElement.type == 'radio'" is="radio" v-bind:form-element="formElement"></div>
     </div>
 </script>
 
 @Html.Partial("VueComponents/Fields/Field/_Datepicker")
+@Html.Partial("VueComponents/Fields/Field/_Radio")
 
 
 <script>
@@ -49,7 +50,8 @@
         template: "#field-template",
         props: ['formElement'],
         components: {
-            Datepicker: Datepicker
+            Datepicker: Datepicker,
+            Radio, Radio
         },
         computed: {
             errors: function () {

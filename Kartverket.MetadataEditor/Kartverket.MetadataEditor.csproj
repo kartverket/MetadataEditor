@@ -742,6 +742,7 @@
     <Content Include="Views\Shared\VueComponents\Fields\_Field.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\BoundingBox\_Norgeskart.cshtml" />
     <Content Include="Views\Shared\VueComponents\Fields\Field\_Datepicker.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Fields\Field\_Radio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
