@@ -28,11 +28,11 @@
                 <div class="col-md-8">
                     <div class="custom-select-list">
                         <div class="custom-select-list-input-container">
-                            <span v-for="conceptValue in this.keywordsConcept.value" class="custom-select-list-selected">
+                            <span v-for="(conceptValue, index) in selectedKeywordsConceptValues" class="custom-select-list-selected">
                                 {{ getConceptNameFromConceptValue(conceptValue) }}
-                                <span v-on:click="removeSelectedConcept(conceptValue)" class="custom-select-list-remove-button"></span>
+                                <span v-on:click="removeSelectedConcept(conceptValue, index)" class="custom-select-list-remove-button"></span>
                             </span>
-                            <input type="text" v-bind:disabled="!this.keywordsConcept.value.length" class="custom-select-list-input" />
+                            <input type="text" v-bind:disabled="!keywordsConcept.value.length" class="custom-select-list-input" />
                         </div>
 
                         <div class="custom-select-list-dropdown-container">
@@ -42,7 +42,7 @@
                                         <ul class="custom-select-list-options area-option-list">
                                             <li v-on:click="addSelectedConcept(option)"
                                                 v-bind:class="{'is-selected': conceptIsSelected(option)}"
-                                                v-for="option in this.keywordsConcept.options">
+                                                v-for="option in keywordsConcept.options">
                                                 {{ option.Text }}
                                             </li>
                                         </ul>
@@ -279,6 +279,11 @@
             initCustomSelectList();
             this.initFileUpload();
         },
+        computed: {
+            selectedKeywordsConceptValues: function () {
+                return this.$store.getters['KeywordsConcept'];
+            }
+        },
         methods: {
             loadConcepts: function () {
                 $.ajax({
@@ -287,7 +292,7 @@
                         "Content-Type": "text/plain; charset=utf-8"
                     },
                     type: "GET",
-                    url: this.applicationSchema.value,
+                    url: this.$store.getters['ApplicationSchema'],
                     success: this.setConcepts
                 });
             },
@@ -302,34 +307,37 @@
                         Text: prefLabel,
                         Value: optionValue
                     });
-
+                    if (!conceptFound) {
+                        console.log("no concepts found")
+                    }
                 });
                 this.keywordsConcept.options = keywordsConceptOptions;
-
-                if (!conceptFound) {
-                    console.log("no concepts found")
-                }
+                this.selectAllConceptValues();
             },
             getConceptNameFromConceptValue(conceptValue) {
                 return conceptValue.substr(0, conceptValue.indexOf('|'));
             },
             conceptIsSelected: function (concept) {
                 var conceptIsSelected = false;
-                this.keywordsConcept.value.forEach(function (selectedConcept) {
+                this.selectedKeywordsConceptValues.forEach(function (selectedConcept) {
                     if (concept.Value == selectedConcept) conceptIsSelected = true;
                 })
                 return conceptIsSelected;
             },
-            removeSelectedConcept: function (conceptValue) {
-                var selectedConceptIndex = this.keywordsConcept.value.indexOf(conceptValue);
-                if (selectedConceptIndex > -1) {
-                    this.keywordsConcept.value.splice(selectedConceptIndex, 1);
-                }
+            removeSelectedConcept: function (conceptValue, conceptIndex) {
+                this.$store.commit('removeValueFromArray', { arrayName: 'KeywordsConcept', arrayIndex: conceptIndex }); // Remove concept keyword value
             },
             addSelectedConcept: function (concept) {
                 if (!this.conceptIsSelected(concept)) {
-                    this.keywordsConcept.value.push(concept.Value);
+                    this.$store.commit('addValueToArray', { arrayName: 'KeywordsConcept', value: concept.Value }); // Add concept keyword value
                 }
+            },
+            selectAllConceptValues: function () {
+                var selectedConceptValues = [];
+                this.keywordsConcept.options.forEach(function (option) {
+                    selectedConceptValues.push(option.Value);
+                });
+                this.$store.commit('updateKeywordsConcept', selectedConceptValues);
             },
             initFileUpload: function () {
                 $("#" + this.thumbnails.fields.uploadThumbnailFile.id).fileupload({
