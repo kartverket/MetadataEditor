@@ -70,7 +70,7 @@
 </div>
 
 <div class="form-group required has-feedback">
-    <label for="keywords" class="col-md-2 control-label">@UI.Metadata_NationalTheme_Label</label>
+    <label for="keywords" class="col-md-2 control-label">@UI.Metadata_KeywordsNationalTheme_Label</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-keyword-national-theme" style="display: none">
             En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.
@@ -79,7 +79,7 @@
         {
             
                 <div class="input-group chosen-input-group input-group-omraade full-width">
-                    @Html.ListBox("KeywordsNationalTheme", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select form-control", @multiple = "multiple",  data_placeholder = "Velg " + UI.Metadata_NationalTheme_Label })
+                    @Html.ListBox("KeywordsNationalTheme", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select form-control", @multiple = "multiple",  data_placeholder = "Velg " + UI.Metadata_KeywordsNationalTheme_Label })
                     @Html.ValidationMessage("KeywordsNationalTheme", "Påkrevd")
                 </div>
             
