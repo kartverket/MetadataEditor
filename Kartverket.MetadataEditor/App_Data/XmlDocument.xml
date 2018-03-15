@@ -56,6 +56,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Resources.UI.AddKeyword">
+            <summary>
+              Looks up a localized string similar to Legg til nøkkelord.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AppPageTitle">
             <summary>
               Looks up a localized string similar to Geonorge - metadataeditor.

@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Legg til nøkkelord.
+        /// </summary>
+        public static string AddKeyword {
+            get {
+                return ResourceManager.GetString("AddKeyword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geonorge - metadataeditor.
         /// </summary>
         public static string AppPageTitle {

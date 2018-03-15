@@ -1,4 +1,5 @@
-﻿<script type="text/x-template" id="keyword-template">
+﻿@using Resources
+<script type="text/x-template" id="keyword-template">
     <div>
         <div class="form-group has-feedback">
             <div v-if="selectedLanguage == 'all'" class="row">
@@ -23,7 +24,7 @@
                            class="form-control" />
                 </div>
                 <div class="col-sm-2">
-                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});" style="margin-top: 22px;">Slett</span>
+                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});" style="margin-top: 22px;">@UI.Delete</span>
                 </div>
             </div>
             <div v-else class="row">
@@ -51,7 +52,7 @@
                            class="form-control" />
                 </div>
                 <div class="col-sm-2">
-                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});" style="margin-top: 22px;">Slett</span>
+                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});" style="margin-top: 22px;">@UI.Delete</span>
                 </div>
             </div>
 

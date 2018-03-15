@@ -249,7 +249,7 @@
                 var keyword = Model.KeywordsPlace[i];
         <li id="keywords-place-@i">
             <span class="">@keyword</span>
-            <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>Slett</small></a>
+            <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>@UI.Delete</small></a>
             <input type="hidden" name="KeywordsPlace[@i]" value="@keyword" />
         </li>
         }
