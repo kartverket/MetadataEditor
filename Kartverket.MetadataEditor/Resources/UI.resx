@@ -135,6 +135,12 @@
   <data name="Button_Validate" xml:space="preserve">
     <value>Publiser</value>
   </data>
+  <data name="Cartography" xml:space="preserve">
+    <value>Tegneregler</value>
+  </data>
+  <data name="Concepts" xml:space="preserve">
+    <value>Begreper</value>
+  </data>
   <data name="ContactUs" xml:space="preserve">
     <value>Kontakt oss</value>
   </data>
@@ -150,6 +156,12 @@
   <data name="CreateProductFactSheet" xml:space="preserve">
     <value>Opprett produktark</value>
   </data>
+  <data name="DataProductSiteUrl" xml:space="preserve">
+    <value>Produktside (URL)</value>
+  </data>
+  <data name="DataProductSpecification" xml:space="preserve">
+    <value>Produktspesifikasjon</value>
+  </data>
   <data name="DatasetName" xml:space="preserve">
     <value>Navn på datasett</value>
   </data>
@@ -161,6 +173,12 @@
   </data>
   <data name="DisplayInMapCatalogue" xml:space="preserve">
     <value>Vis i kartkatalogen</value>
+  </data>
+  <data name="Distribution" xml:space="preserve">
+    <value>Distribusjon</value>
+  </data>
+  <data name="DistributionType" xml:space="preserve">
+    <value>Distribusjonstype</value>
   </data>
   <data name="EditMetadata" xml:space="preserve">
     <value>Rediger metadata</value>
@@ -183,6 +201,15 @@
   </data>
   <data name="FieldMustBeNumeric" xml:space="preserve">
     <value>{0} må være et tall.</value>
+  </data>
+  <data name="Formats" xml:space="preserve">
+    <value>Formater</value>
+  </data>
+  <data name="GeographicExtent" xml:space="preserve">
+    <value>Geografisk utstrekning</value>
+  </data>
+  <data name="GraphicsOverview" xml:space="preserve">
+    <value>Illustrasjonsbilde</value>
   </data>
   <data name="Helptext_AccessConstraints" xml:space="preserve">
     <value>&lt;b&gt;Åpne data&lt;/b&gt;: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn)&amp;nbsp;&lt;b&gt;Norge digital-begrenset&lt;/b&gt;: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). &lt;b&gt;Skjermede data&lt;/b&gt;: Data som ikke er tilgjengelige for nedlasting (rød).</value>
@@ -276,6 +303,9 @@
   </data>
   <data name="Language_No" xml:space="preserve">
     <value>Norsk</value>
+  </data>
+  <data name="MetadataContact" xml:space="preserve">
+    <value>Metadatakontakt</value>
   </data>
   <data name="Metadata_Abstract" xml:space="preserve">
     <value>Beskrivelse</value>
@@ -517,17 +547,44 @@
   <data name="Organization" xml:space="preserve">
     <value>Organisasjon</value>
   </data>
+  <data name="OrSpecifyCoordinates" xml:space="preserve">
+    <value>Eller angi koordinater</value>
+  </data>
+  <data name="OtherDataProductSpecification" xml:space="preserve">
+    <value>Annen produktspesifikasjon</value>
+  </data>
+  <data name="OwnerContact" xml:space="preserve">
+    <value>Faglig kontakt</value>
+  </data>
+  <data name="ProductFactSheet" xml:space="preserve">
+    <value>Produktark</value>
+  </data>
   <data name="PropertyValueInvalid" xml:space="preserve">
     <value>Verdien '{0}' er ikke gyldig for feltet {1}.</value>
   </data>
   <data name="PropertyValueRequired" xml:space="preserve">
     <value>{0} er et påkrevd felt.</value>
   </data>
+  <data name="PublisherContact" xml:space="preserve">
+    <value>Teknisk kontakt</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Søk</value>
   </data>
   <data name="SimpleMetadata_Title" xml:space="preserve">
     <value>Navn på datasett</value>
+  </data>
+  <data name="SpatialRepresentationType" xml:space="preserve">
+    <value>Representasjonsform</value>
+  </data>
+  <data name="SpecifyAreas" xml:space="preserve">
+    <value>Angi områder</value>
+  </data>
+  <data name="SpecifyCoverageMap" xml:space="preserve">
+    <value>Angi dekningskart</value>
+  </data>
+  <data name="SpecifyImageFile" xml:space="preserve">
+    <value>Angi bildefil</value>
   </data>
   <data name="TabAdministrative" xml:space="preserve">
     <value>Administrativt</value>
@@ -556,7 +613,19 @@
   <data name="TabTimeAndSpace" xml:space="preserve">
     <value>Tid og rom</value>
   </data>
+  <data name="TopicCategory" xml:space="preserve">
+    <value>Tematisk hovedkategori</value>
+  </data>
+  <data name="UMLmodel" xml:space="preserve">
+    <value>UML-modell</value>
+  </data>
+  <data name="UnitsOfDistribution" xml:space="preserve">
+    <value>Geografisk distribusjonsinndeling</value>
+  </data>
   <data name="Use" xml:space="preserve">
     <value>Bruksområde</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versjon</value>
   </data>
 </root>

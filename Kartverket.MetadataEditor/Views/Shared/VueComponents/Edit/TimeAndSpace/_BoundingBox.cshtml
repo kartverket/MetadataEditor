@@ -4,7 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-11">Geografisk utstrekning</div>
+                <div class="col-md-11">@UI.GeographicExtent</div>
                 <div v-if="helpText" class="col-md-1">
                     <span v-on:click="helpText.active = !helpText.active" v-bind:class="{active: helpText.active}" class="badge help-text-toggle">?</span>
                 </div>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        <label class="col-md-2 control-label">Eller angi koordinater</label>
+                        <label class="col-md-2 control-label">@UI.OrSpecifyCoordinates</label>
 
                         <div class="col-md-3">
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
@@ -121,7 +121,7 @@
                 {
                     name: '',
                     value: '',
-                    label: 'Angi område',
+                    label: '@UI.SpecifyAreas',
                     type: 'select',
                     showMap: false,
                     counties: [

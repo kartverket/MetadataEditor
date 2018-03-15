@@ -104,7 +104,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-11">
-                        <span class="required">Illustrasjonsbilde</span>
+                        <span class="required">@UI.GraphicsOverview</span>
                     </div>
                     <div v-if="thumbnails.helpText" class="col-md-1">
                         <span v-on:click="thumbnails.helpText.active = !thumbnails.helpText.active" v-bind:class="{active: thumbnails.helpText.active}" class="badge help-text-toggle">?</span>
@@ -172,7 +172,7 @@
                     name: 'ProductSpecificationUrl',
                     getter: 'ProductSpecificationUrl',
                     mutation: 'updateProductSpecificationUrl',
-                    label: 'Produktspesifikasjon',
+                    label: '@UI.DataProductSpecification',
                     type: 'select',
                     visible: !this.$root.isSoftware,
                     options: this.$root.viewBag.ProductspesificationValues
@@ -181,7 +181,7 @@
                     name: 'ApplicationSchema',
                     getter: 'ApplicationSchema',
                     mutation: 'updateApplicationSchema',
-                    label: 'UML-modell',
+                    label: '@UI.UMLmodel',
                     type: 'text',
                     visible: !this.$root.isSoftware,
                 },
@@ -189,13 +189,13 @@
                     name: 'KeywordsConcept',
                     getter: 'KeywordsConcept',
                     value: this.$root.model.KeywordsConcept !== null ? this.$root.model.KeywordsConcept : [], 
-                    label: 'Begreper',
+                    label: '@UI.Concepts',
                     type: 'select',
                     visible: !this.$root.isSoftware,
                     options: []
                 },
                 productSpecificationOther: {
-                    label: 'Annen produktspesifikasjon',
+                    label: '@UI.OtherDataProductSpecification',
                     type: 'group',
                     visible: !this.$root.isSoftware,
                     fields: {
@@ -219,7 +219,7 @@
                     name: 'ProductSheetUrl',
                     getter: 'ProductSheetUrl',
                     mutation: 'updateProductSheetUrl',
-                    label: 'Produktark',
+                    label: '@UI.ProductFactSheet',
                     type: 'select',
                     visible: !this.$root.isSoftware,
                     options: this.$store.getters['ProductsheetValues']
@@ -228,7 +228,7 @@
                     name: 'LegendDescriptionUrl',
                     getter: 'LegendDescriptionUrl',
                     mutation: 'updateLegendDescriptionUrl',
-                    label: 'Tegneregler',
+                    label: '@UI.Cartography',
                     type: 'select',
                     visible: !this.$root.isSoftware,
                     options: this.$store.getters['LegendDescriptionValues']
@@ -237,7 +237,7 @@
                     name: 'ProductPageUrl',
                     getter: 'ProductPageUrl',
                     mutation: 'updateProductPageUrl',
-                    label: 'Produktside (URL)',
+                    label: '@UI.DataProductSiteUrl',
                     type: 'text',
                     visible: !this.$root.isSoftware,
                 },
@@ -253,7 +253,7 @@
                             id: 'uploadThumbnailFile',
                             type: 'file',
                             required: false,
-                            label: 'Angi bildefil',
+                            label: '@UI.SpecifyImageFile',
                             value: ''
                         },
                         uploadMode: {

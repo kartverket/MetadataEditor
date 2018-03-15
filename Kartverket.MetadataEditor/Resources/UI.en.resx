@@ -135,6 +135,12 @@
   <data name="Button_Validate" xml:space="preserve">
     <value>Publish</value>
   </data>
+  <data name="Cartography" xml:space="preserve">
+    <value>Cartography</value>
+  </data>
+  <data name="Concepts" xml:space="preserve">
+    <value>Concepts</value>
+  </data>
   <data name="Contact_Email" xml:space="preserve">
     <value>Contact - Email</value>
   </data>
@@ -147,6 +153,12 @@
   <data name="CreateProductFactSheet" xml:space="preserve">
     <value>Create product fact sheet</value>
   </data>
+  <data name="DataProductSiteUrl" xml:space="preserve">
+    <value>Data product site (URL)</value>
+  </data>
+  <data name="DataProductSpecification" xml:space="preserve">
+    <value>Data product specification</value>
+  </data>
   <data name="DatasetName" xml:space="preserve">
     <value>Dataset name</value>
   </data>
@@ -158,6 +170,12 @@
   </data>
   <data name="DisplayInMapCatalogue" xml:space="preserve">
     <value>Display in Map Catalogue</value>
+  </data>
+  <data name="Distribution" xml:space="preserve">
+    <value>Distribution</value>
+  </data>
+  <data name="DistributionType" xml:space="preserve">
+    <value>Distribution type</value>
   </data>
   <data name="EditMetadata" xml:space="preserve">
     <value>Edit metadata</value>
@@ -180,6 +198,15 @@
   </data>
   <data name="FieldMustBeNumeric" xml:space="preserve">
     <value>{0} must be a number.</value>
+  </data>
+  <data name="Formats" xml:space="preserve">
+    <value>Formats</value>
+  </data>
+  <data name="GeographicExtent" xml:space="preserve">
+    <value>Geographic extent</value>
+  </data>
+  <data name="GraphicsOverview" xml:space="preserve">
+    <value>Graphics overview</value>
   </data>
   <data name="Helptext_AccessConstraints" xml:space="preserve">
     <value>&lt;b&gt; Open Data &lt;/b&gt;: Data available for download and usage. (green) &amp;nbsp; &lt;b&gt; Norway digital-limited &lt;/b&gt;: Data available only to participants in Norways digital collaboration (yellow). &lt;b&gt; Shielded data &lt;/b&gt;: Data not available for download (red).</value>
@@ -274,6 +301,9 @@
   <data name="Language_No" xml:space="preserve">
     <value>Norwegian</value>
   </data>
+  <data name="MetadataContact" xml:space="preserve">
+    <value>Metadata contact</value>
+  </data>
   <data name="Metadata_Abstract" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -365,7 +395,7 @@
     <value>Service url</value>
   </data>
   <data name="Metadata_CoverageType" xml:space="preserve">
-    <value>Type coverage map</value>
+    <value>Type of coverage map</value>
   </data>
   <data name="Metadata_CoverageType_ImageCoverage" xml:space="preserve">
     <value>Image file</value>
@@ -514,17 +544,44 @@
   <data name="Organization" xml:space="preserve">
     <value>Organization</value>
   </data>
+  <data name="OrSpecifyCoordinates" xml:space="preserve">
+    <value>Or specify coordinates</value>
+  </data>
+  <data name="OtherDataProductSpecification" xml:space="preserve">
+    <value>Other data product specification</value>
+  </data>
+  <data name="OwnerContact" xml:space="preserve">
+    <value>Owner contact</value>
+  </data>
+  <data name="ProductFactSheet" xml:space="preserve">
+    <value>Product fact sheet</value>
+  </data>
   <data name="PropertyValueInvalid" xml:space="preserve">
     <value>Value '{0}' is not valid for field {1}.</value>
   </data>
   <data name="PropertyValueRequired" xml:space="preserve">
     <value>{0} is required field.</value>
   </data>
+  <data name="PublisherContact" xml:space="preserve">
+    <value>Publisher contact</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="SimpleMetadata_Title" xml:space="preserve">
     <value>Dataset name</value>
+  </data>
+  <data name="SpatialRepresentationType" xml:space="preserve">
+    <value>Spatial representation type</value>
+  </data>
+  <data name="SpecifyAreas" xml:space="preserve">
+    <value>Specify areas</value>
+  </data>
+  <data name="SpecifyCoverageMap" xml:space="preserve">
+    <value>Specify coverage map</value>
+  </data>
+  <data name="SpecifyImageFile" xml:space="preserve">
+    <value>Specify image file</value>
   </data>
   <data name="TabAdministrative" xml:space="preserve">
     <value>Administrative</value>
@@ -553,7 +610,19 @@
   <data name="TabTimeAndSpace" xml:space="preserve">
     <value>Time and space</value>
   </data>
+  <data name="TopicCategory" xml:space="preserve">
+    <value>Topic category</value>
+  </data>
+  <data name="UMLmodel" xml:space="preserve">
+    <value>UML-model</value>
+  </data>
+  <data name="UnitsOfDistribution" xml:space="preserve">
+    <value>Units of distribution</value>
+  </data>
   <data name="Use" xml:space="preserve">
     <value>Area of usage</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
   </data>
 </root>

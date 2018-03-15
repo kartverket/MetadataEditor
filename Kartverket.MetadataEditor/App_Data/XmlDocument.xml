@@ -86,6 +86,16 @@
               Looks up a localized string similar to Publiser.
             </summary>
         </member>
+        <member name="P:Resources.UI.Cartography">
+            <summary>
+              Looks up a localized string similar to Tegneregler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Concepts">
+            <summary>
+              Looks up a localized string similar to Begreper.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Contact_Email">
             <summary>
               Looks up a localized string similar to Kontaktperson - Epost.
@@ -111,6 +121,16 @@
               Looks up a localized string similar to Opprett produktark.
             </summary>
         </member>
+        <member name="P:Resources.UI.DataProductSiteUrl">
+            <summary>
+              Looks up a localized string similar to Produktside (URL).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DataProductSpecification">
+            <summary>
+              Looks up a localized string similar to Produktspesifikasjon.
+            </summary>
+        </member>
         <member name="P:Resources.UI.DatasetName">
             <summary>
               Looks up a localized string similar to Navn på datasett.
@@ -129,6 +149,16 @@
         <member name="P:Resources.UI.DisplayInMapCatalogue">
             <summary>
               Looks up a localized string similar to Vis i kartkatalogen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Distribution">
+            <summary>
+              Looks up a localized string similar to Distribusjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DistributionType">
+            <summary>
+              Looks up a localized string similar to Distribusjonstype.
             </summary>
         </member>
         <member name="P:Resources.UI.EditMetadata">
@@ -165,6 +195,21 @@
         <member name="P:Resources.UI.FieldMustBeNumeric">
             <summary>
               Looks up a localized string similar to {0} må være et tall..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Formats">
+            <summary>
+              Looks up a localized string similar to Formater.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.GeographicExtent">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.GraphicsOverview">
+            <summary>
+              Looks up a localized string similar to Illustrasjonsbilde.
             </summary>
         </member>
         <member name="P:Resources.UI.Helptext_AccessConstraints">
@@ -702,6 +747,11 @@
               Looks up a localized string similar to Validering.
             </summary>
         </member>
+        <member name="P:Resources.UI.MetadataContact">
+            <summary>
+              Looks up a localized string similar to Metadatakontakt.
+            </summary>
+        </member>
         <member name="P:Resources.UI.MyMetadata_Label">
             <summary>
               Looks up a localized string similar to Mine metadata.
@@ -722,6 +772,26 @@
               Looks up a localized string similar to Organisasjon.
             </summary>
         </member>
+        <member name="P:Resources.UI.OrSpecifyCoordinates">
+            <summary>
+              Looks up a localized string similar to Eller angi koordinater.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.OtherDataProductSpecification">
+            <summary>
+              Looks up a localized string similar to Annen produktspesifikasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.OwnerContact">
+            <summary>
+              Looks up a localized string similar to Faglig kontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ProductFactSheet">
+            <summary>
+              Looks up a localized string similar to Produktark.
+            </summary>
+        </member>
         <member name="P:Resources.UI.PropertyValueInvalid">
             <summary>
               Looks up a localized string similar to Verdien &apos;{0}&apos; er ikke gyldig for feltet {1}..
@@ -732,6 +802,11 @@
               Looks up a localized string similar to {0} er et påkrevd felt..
             </summary>
         </member>
+        <member name="P:Resources.UI.PublisherContact">
+            <summary>
+              Looks up a localized string similar to Teknisk kontakt.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Search">
             <summary>
               Looks up a localized string similar to Søk.
@@ -740,6 +815,26 @@
         <member name="P:Resources.UI.SimpleMetadata_Title">
             <summary>
               Looks up a localized string similar to Navn på datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpatialRepresentationType">
+            <summary>
+              Looks up a localized string similar to Representasjonsform.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpecifyAreas">
+            <summary>
+              Looks up a localized string similar to Angi områder.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpecifyCoverageMap">
+            <summary>
+              Looks up a localized string similar to Angi dekningskart.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpecifyImageFile">
+            <summary>
+              Looks up a localized string similar to Angi bildefil.
             </summary>
         </member>
         <member name="P:Resources.UI.TabAdministrative">
@@ -787,9 +882,29 @@
               Looks up a localized string similar to Tid og rom.
             </summary>
         </member>
+        <member name="P:Resources.UI.TopicCategory">
+            <summary>
+              Looks up a localized string similar to Tematisk hovedkategori.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.UMLmodel">
+            <summary>
+              Looks up a localized string similar to UML-modell.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.UnitsOfDistribution">
+            <summary>
+              Looks up a localized string similar to Geografisk distribusjonsinndeling.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Use">
             <summary>
               Looks up a localized string similar to Bruksområde.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Version">
+            <summary>
+              Looks up a localized string similar to Versjon.
             </summary>
         </member>
         <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">

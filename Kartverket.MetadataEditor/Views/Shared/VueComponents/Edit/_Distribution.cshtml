@@ -1,9 +1,10 @@
-﻿<script type="text/x-template" id="distribution-template">
+﻿@using Resources
+<script type="text/x-template" id="distribution-template">
     <div>
 
         <div v-if="$root.isDatasetOrDatasetSeries" class="form-group">
             <div class="row">
-                <label for="SpatialRepresentation" class="col-md-3 control-label">Representasjonsform</label>
+                <label for="SpatialRepresentation" class="col-md-3 control-label">@UI.SpatialRepresentationType</label>
                 <div class="col-md-3">
                     <div is="field" v-bind:form-element="spatialRepresentation"></div>
                 </div>

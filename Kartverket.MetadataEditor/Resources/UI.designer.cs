@@ -115,6 +115,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tegneregler.
+        /// </summary>
+        public static string Cartography {
+            get {
+                return ResourceManager.GetString("Cartography", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begreper.
+        /// </summary>
+        public static string Concepts {
+            get {
+                return ResourceManager.GetString("Concepts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontaktperson - Epost.
         /// </summary>
         public static string Contact_Email {
@@ -160,6 +178,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Produktside (URL).
+        /// </summary>
+        public static string DataProductSiteUrl {
+            get {
+                return ResourceManager.GetString("DataProductSiteUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produktspesifikasjon.
+        /// </summary>
+        public static string DataProductSpecification {
+            get {
+                return ResourceManager.GetString("DataProductSpecification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Navn på datasett.
         /// </summary>
         public static string DatasetName {
@@ -192,6 +228,24 @@ namespace Resources {
         public static string DisplayInMapCatalogue {
             get {
                 return ResourceManager.GetString("DisplayInMapCatalogue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribusjon.
+        /// </summary>
+        public static string Distribution {
+            get {
+                return ResourceManager.GetString("Distribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribusjonstype.
+        /// </summary>
+        public static string DistributionType {
+            get {
+                return ResourceManager.GetString("DistributionType", resourceCulture);
             }
         }
         
@@ -256,6 +310,33 @@ namespace Resources {
         public static string FieldMustBeNumeric {
             get {
                 return ResourceManager.GetString("FieldMustBeNumeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formater.
+        /// </summary>
+        public static string Formats {
+            get {
+                return ResourceManager.GetString("Formats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning.
+        /// </summary>
+        public static string GeographicExtent {
+            get {
+                return ResourceManager.GetString("GeographicExtent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illustrasjonsbilde.
+        /// </summary>
+        public static string GraphicsOverview {
+            get {
+                return ResourceManager.GetString("GraphicsOverview", resourceCulture);
             }
         }
         
@@ -1223,6 +1304,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Metadatakontakt.
+        /// </summary>
+        public static string MetadataContact {
+            get {
+                return ResourceManager.GetString("MetadataContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mine metadata.
         /// </summary>
         public static string MyMetadata_Label {
@@ -1259,6 +1349,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Eller angi koordinater.
+        /// </summary>
+        public static string OrSpecifyCoordinates {
+            get {
+                return ResourceManager.GetString("OrSpecifyCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Annen produktspesifikasjon.
+        /// </summary>
+        public static string OtherDataProductSpecification {
+            get {
+                return ResourceManager.GetString("OtherDataProductSpecification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faglig kontakt.
+        /// </summary>
+        public static string OwnerContact {
+            get {
+                return ResourceManager.GetString("OwnerContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Produktark.
+        /// </summary>
+        public static string ProductFactSheet {
+            get {
+                return ResourceManager.GetString("ProductFactSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verdien &apos;{0}&apos; er ikke gyldig for feltet {1}..
         /// </summary>
         public static string PropertyValueInvalid {
@@ -1277,6 +1403,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teknisk kontakt.
+        /// </summary>
+        public static string PublisherContact {
+            get {
+                return ResourceManager.GetString("PublisherContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Søk.
         /// </summary>
         public static string Search {
@@ -1291,6 +1426,42 @@ namespace Resources {
         public static string SimpleMetadata_Title {
             get {
                 return ResourceManager.GetString("SimpleMetadata_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Representasjonsform.
+        /// </summary>
+        public static string SpatialRepresentationType {
+            get {
+                return ResourceManager.GetString("SpatialRepresentationType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angi områder.
+        /// </summary>
+        public static string SpecifyAreas {
+            get {
+                return ResourceManager.GetString("SpecifyAreas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angi dekningskart.
+        /// </summary>
+        public static string SpecifyCoverageMap {
+            get {
+                return ResourceManager.GetString("SpecifyCoverageMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angi bildefil.
+        /// </summary>
+        public static string SpecifyImageFile {
+            get {
+                return ResourceManager.GetString("SpecifyImageFile", resourceCulture);
             }
         }
         
@@ -1376,11 +1547,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tematisk hovedkategori.
+        /// </summary>
+        public static string TopicCategory {
+            get {
+                return ResourceManager.GetString("TopicCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UML-modell.
+        /// </summary>
+        public static string UMLmodel {
+            get {
+                return ResourceManager.GetString("UMLmodel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geografisk distribusjonsinndeling.
+        /// </summary>
+        public static string UnitsOfDistribution {
+            get {
+                return ResourceManager.GetString("UnitsOfDistribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bruksområde.
         /// </summary>
         public static string Use {
             get {
                 return ResourceManager.GetString("Use", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versjon.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
     }
