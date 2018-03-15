@@ -18,6 +18,7 @@
 
         <div is="multilingual-keywords"
              v-bind:section="section"
+             v-show="section.visible"
              v-for="section in multilingualKeywords">
         </div>
 
@@ -40,13 +41,14 @@
                     id: 'TopicCategory',
                     name: 'TopicCategory',
                     getter: 'TopicCategory',
+                    mutation: 'updateTopicCategory',
                     label: '@Html.Raw(UI.Metadata_TopicCategory_Label)',
+                    type: 'select',
+                    visible: true,
                     helpText: {
                         active: false,
                         content: '@Html.Raw(UI.Helptext_TopicCategory)'
                     },
-                    type: 'select',
-                    mutation: 'updateTopicCategory',
                     options: this.$store.getters['TopicCategoryValues']
                 },
 
@@ -56,6 +58,7 @@
                         name: 'Theme',
                         mutation: 'updateKeywordsTheme',
                         type: 'text',
+                        visible: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsTheme)'
@@ -66,6 +69,7 @@
                         title: '@Html.Raw(UI.Metadata_KeywordsNationalTheme_Label)',
                         name: 'NationalTheme',
                         type: 'select',
+                        visible: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsNationalTheme)'
@@ -76,6 +80,7 @@
                         title: '@Html.Raw(UI.Metadata_KeywordsNationalInitiative_Label)',
                         name: 'NationalInitiative',
                         type: 'select',
+                        visible: false,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsNationalInitiative)'
@@ -86,6 +91,7 @@
                         title: '@Html.Raw(UI.Metadata_KeywordsInspire_Label)',
                         name: 'Inspire',
                         type: 'select',
+                        visible: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsInspire)'
@@ -96,6 +102,7 @@
                         title: '@Html.Raw(UI.Metadata_KeywordsOther_Label)',
                         name: 'Other',
                         type: 'text',
+                        visible: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsOther)'
