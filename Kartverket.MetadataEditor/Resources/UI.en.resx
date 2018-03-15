@@ -147,6 +147,9 @@
   <data name="CreateProductFactSheet" xml:space="preserve">
     <value>Create product fact sheet</value>
   </data>
+  <data name="DatasetName" xml:space="preserve">
+    <value>Dataset name</value>
+  </data>
   <data name="DateCreated_InvalidDate" xml:space="preserve">
     <value>Created date must be formatted mm/dd/yyyy, for example 01/19/2014</value>
   </data>
@@ -255,6 +258,9 @@
   </data>
   <data name="Helptext_UseLimitations" xml:space="preserve">
     <value>Specifies which areas the data is not suitable for. For example, "the data is not suitable for the municipal area planning" or "can not be used to navigate". One should also state why there are limitations on use.</value>
+  </data>
+  <data name="HelpUrl" xml:space="preserve">
+    <value>Help URL</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -499,6 +505,9 @@
   <data name="MyMetadata_Label" xml:space="preserve">
     <value>My metadata</value>
   </data>
+  <data name="NamespaceToDataset" xml:space="preserve">
+    <value>Namespace to dataset</value>
+  </data>
   <data name="NotFoundText" xml:space="preserve">
     <value>We can not find the page you are looking for, but Geonorge will help you further.</value>
   </data>
@@ -543,5 +552,8 @@
   </data>
   <data name="TabTimeAndSpace" xml:space="preserve">
     <value>Time and space</value>
+  </data>
+  <data name="Use" xml:space="preserve">
+    <value>Area of usage</value>
   </data>
 </root>

@@ -150,6 +150,9 @@
   <data name="CreateProductFactSheet" xml:space="preserve">
     <value>Opprett produktark</value>
   </data>
+  <data name="DatasetName" xml:space="preserve">
+    <value>Navn på datasett</value>
+  </data>
   <data name="DateCreated_InvalidDate" xml:space="preserve">
     <value>Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014.</value>
   </data>
@@ -258,6 +261,9 @@
   </data>
   <data name="Helptext_UseLimitations" xml:space="preserve">
     <value>Angir hvilke områder dataene ikke er egnet for. F.eks "dataene er ikke egnet for kommunens arealplanarbeide" eller "må ikke brukes til å navigere etter". En bør også oppgi hvorfor det er begrensninger på bruk.</value>
+  </data>
+  <data name="HelpUrl" xml:space="preserve">
+    <value>URL til hjelp</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Forside</value>
@@ -502,6 +508,9 @@
   <data name="MyMetadata_Label" xml:space="preserve">
     <value>Mine metadata</value>
   </data>
+  <data name="NamespaceToDataset" xml:space="preserve">
+    <value>Navnerom til datasett</value>
+  </data>
   <data name="NotFoundText" xml:space="preserve">
     <value>Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre.</value>
   </data>
@@ -546,5 +555,8 @@
   </data>
   <data name="TabTimeAndSpace" xml:space="preserve">
     <value>Tid og rom</value>
+  </data>
+  <data name="Use" xml:space="preserve">
+    <value>Bruksområde</value>
   </data>
 </root>

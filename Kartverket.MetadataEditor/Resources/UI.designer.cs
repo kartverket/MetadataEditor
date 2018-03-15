@@ -160,6 +160,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Navn på datasett.
+        /// </summary>
+        public static string DatasetName {
+            get {
+                return ResourceManager.GetString("DatasetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014..
         /// </summary>
         public static string DateCreated_InvalidDate {
@@ -481,6 +490,15 @@ namespace Resources {
         public static string Helptext_UseLimitations {
             get {
                 return ResourceManager.GetString("Helptext_UseLimitations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL til hjelp.
+        /// </summary>
+        public static string HelpUrl {
+            get {
+                return ResourceManager.GetString("HelpUrl", resourceCulture);
             }
         }
         
@@ -1214,6 +1232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Navnerom til datasett.
+        /// </summary>
+        public static string NamespaceToDataset {
+            get {
+                return ResourceManager.GetString("NamespaceToDataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre..
         /// </summary>
         public static string NotFoundText {
@@ -1345,6 +1372,15 @@ namespace Resources {
         public static string TabTimeAndSpace {
             get {
                 return ResourceManager.GetString("TabTimeAndSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bruksområde.
+        /// </summary>
+        public static string Use {
+            get {
+                return ResourceManager.GetString("Use", resourceCulture);
             }
         }
     }

@@ -111,6 +111,11 @@
               Looks up a localized string similar to Opprett produktark.
             </summary>
         </member>
+        <member name="P:Resources.UI.DatasetName">
+            <summary>
+              Looks up a localized string similar to Navn på datasett.
+            </summary>
+        </member>
         <member name="P:Resources.UI.DateCreated_InvalidDate">
             <summary>
               Looks up a localized string similar to Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014..
@@ -290,6 +295,11 @@
         <member name="P:Resources.UI.Helptext_UseLimitations">
             <summary>
               Looks up a localized string similar to Angir hvilke områder dataene ikke er egnet for. F.eks &quot;dataene er ikke egnet for kommunens arealplanarbeide&quot; eller &quot;må ikke brukes til å navigere etter&quot;. En bør også oppgi hvorfor det er begrensninger på bruk..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpUrl">
+            <summary>
+              Looks up a localized string similar to URL til hjelp.
             </summary>
         </member>
         <member name="P:Resources.UI.Home">
@@ -697,6 +707,11 @@
               Looks up a localized string similar to Mine metadata.
             </summary>
         </member>
+        <member name="P:Resources.UI.NamespaceToDataset">
+            <summary>
+              Looks up a localized string similar to Navnerom til datasett.
+            </summary>
+        </member>
         <member name="P:Resources.UI.NotFoundText">
             <summary>
               Looks up a localized string similar to Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre..
@@ -770,6 +785,11 @@
         <member name="P:Resources.UI.TabTimeAndSpace">
             <summary>
               Looks up a localized string similar to Tid og rom.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Use">
+            <summary>
+              Looks up a localized string similar to Bruksområde.
             </summary>
         </member>
         <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">
