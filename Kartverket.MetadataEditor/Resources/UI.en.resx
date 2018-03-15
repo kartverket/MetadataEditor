@@ -170,7 +170,7 @@
     <value>{0} must be a number.</value>
   </data>
   <data name="Helptext_AccessConstraints" xml:space="preserve">
-    <value>&lt;b&gt; Open Data &lt;/b&gt;: Data available for download and usage. (green) &amp;nbsp; &lt;b&gt; Norway digital-limited &lt;/b&gt;: Data available only to participants in Norway's digital collaboration (yellow). &lt;b&gt; Shielded data &lt;/b&gt;: Data not available for download (red).</value>
+    <value>&lt;b&gt; Open Data &lt;/b&gt;: Data available for download and usage. (green) &amp;nbsp; &lt;b&gt; Norway digital-limited &lt;/b&gt;: Data available only to participants in Norways digital collaboration (yellow). &lt;b&gt; Shielded data &lt;/b&gt;: Data not available for download (red).</value>
   </data>
   <data name="Helptext_BoundingBox" xml:space="preserve">
     <value>Enter coordinate values for extent, or use pre-defined range names in the drop down list if the geographical data is valid for a specific county or a municipality. You can also enter the coordinates by using the "Select in map" button to define a rectangle in Norgeskart.</value>
@@ -179,7 +179,7 @@
     <value>Contact point (person or department) that maintains metadata and which can answer questions related to these. "Name" may refer to departmental name or personal name but is not required. Organization name should be written with the name of the organization referred to as external without references to the department. Email should go to public address like drift@etat.no</value>
   </data>
   <data name="Helptext_ContactOwner" xml:space="preserve">
-    <value>Kontaktpunkt (person eller avdeling) som har et eierforhold til datene og kan svare inngående om faglige forhold rundt datasettets struktur og innhold. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
+    <value>Contact point (person or department) who has an ownership of the data and can answer in depth about the academic issues surrounding the structure and content of the dataset. "Name" may refer to departmental name or personal name but is not required. Organization name should be written with the name of the organization referred to as external without references to the department. Email should go to public address like drift@etat.no</value>
   </data>
   <data name="Helptext_ContactPublisher" xml:space="preserve">
     <value>Contact point (person or department) who has an ownership of the data and can answer in depth about the academic issues surrounding the structure and content of the dataset. "Name" may refer to departmental name or personal name but is not required. Organization name should be written with the name of the organization referred to as external without references to the department. Email should go to public address like drift@etat.no</value>
@@ -212,7 +212,7 @@
     <value>This keyword type should preferably not be used, but keywords that are not specified belong to a specific keyword category. It is recommended that keywords be removed from this category and entered under the correct category.</value>
   </data>
   <data name="Helptext_KeywordsPlace" xml:space="preserve">
-    <value>For example, it may be the municipal name for municipal data sets, or Norway's mainland for nationwide data sets. Write places the data set covers instead of what it does not cover.</value>
+    <value>For example, it may be the municipal name for municipal data sets, or Norways mainland for nationwide data sets. Write places the data set covers instead of what it does not cover.</value>
   </data>
   <data name="Helptext_KeywordsTheme" xml:space="preserve">
     <value>Good keywords are a prerequisite for the metadata to be found by the users. Keywords should be written in singular and popular terms should be used in addition to more specific vocabulary. Both overall metadata and more detailed metadata, all the way down to the object level, should be considered.</value>
@@ -224,7 +224,7 @@
     <value>For services in scope of Norway digital agreement, service declaration in accordance with the terms and conditions of the agreement shall be stated.</value>
   </data>
   <data name="Helptext_ProcessHistory" xml:space="preserve">
-    <value>Data manufacturer's general knowledge of the origin and the process steps of a dataset or service. Explain briefly what weighted operations have been done from data capture to delivery and how this may affect quality and content in the data set</value>
+    <value>Data manufacturers general knowledge of the origin and the process steps of a dataset or service. Explain briefly what weighted operations have been done from data capture to delivery and how this may affect quality and content in the data set</value>
   </data>
   <data name="Helptext_ResolutionScale" xml:space="preserve">
     <value>Scale must be entered as an integer (ex: 5000)</value>
