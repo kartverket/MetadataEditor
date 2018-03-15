@@ -50,8 +50,35 @@
         components: {
             Field: Field
         },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Admin', fieldNames: this.fieldNames });
+            initCustomSelectList();
+        },
         data: function () {
             return {
+                fieldNames: [
+                    'KeywordsCatalogs',
+                    'QualitySpecificationTitleInspire',
+                    'QualitySpecificationDateInspire',
+                    'QualitySpecificationDateTypeInspire',
+                    'QualitySpecificationResultInspire',
+                    'QualitySpecificationExplanationInspire',
+                    'EnglishQualitySpecificationExplanationInspire',
+                    'QualitySpecificationTitleSosi',
+                    'QualitySpecificationDateSosi',
+                    'QualitySpecificationDateTypeSosi',
+                    'QualitySpecificationResultSosi',
+                    'QualitySpecificationExplanationSosi',
+                    'EnglishQualitySpecificationExplanationSosi',
+                    'QualitySpecificationResultSosiConformApplicationSchema',
+                    'QualitySpecificationResultSosiConformGmlApplicationSchema',
+                    'QualitySpecificationTitle',
+                    'QualitySpecificationDate',
+                    'QualitySpecificationDateType',
+                    'QualitySpecificationResult',
+                    'QualitySpecificationExplanation',
+                    'EnglishQualitySpecificationExplanation'
+                ],
                 checkboxes: {
                     keywordDokValidKmd: {
                         name: 'keyword-dok-valid-kmd',
@@ -384,9 +411,6 @@
                     return true;
                 }
             }
-        },
-        mounted: function () {
-            initCustomSelectList();
         }
     };
 </script>
