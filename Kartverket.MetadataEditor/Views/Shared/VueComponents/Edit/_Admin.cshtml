@@ -149,7 +149,7 @@
                                 selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                                 type: 'text',
                                 label: '@Html.Raw(UI.Metadata_Abstract)',
-                                visibleGetter: 'QualitySpecificationResultInspire',
+                                visibleGetter: 'showQualitySpecificationExplanationInspire',
                                 helpText: {
                                     active: false,
                                     content: 'Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"'
@@ -216,7 +216,7 @@
                                 selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                                 type: 'text',
                                 label: '@Html.Raw(UI.Metadata_Abstract)',
-                                visibleGetter: 'QualitySpecificationResultSosi',
+                                visibleGetter: 'showQualitySpecificationExplanationSosi',
                                 helpText: {
                                     active: false,
                                     content: 'Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"'
@@ -303,7 +303,7 @@
                                 selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                                 type: 'text',
                                 label: '@Html.Raw(UI.Metadata_Abstract)',
-                                visibleGetter: 'QualitySpecificationResult',
+                                visibleGetter: 'showQualitySpecificationExplanation',
                                 helpText: {
                                     active: false,
                                     content: 'Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"'

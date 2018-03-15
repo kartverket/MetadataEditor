@@ -182,8 +182,6 @@
         PredefinedDistributionProtocols: function (state) {
             return state.viewBag.predefinedDistributionProtocols;
         },
-
-
         ProductSpecificationUrl: function (state) {
             return state.model.ProductSpecificationUrl;
         },
@@ -358,6 +356,9 @@
         QualitySpecificationResultInspire: function (state) {
             return state.model.QualitySpecificationResultInspire;
         },
+        showQualitySpecificationExplanationInspire: function (state) {
+            return state.model.QualitySpecificationResultInspire == "false" || state.model.QualitySpecificationResultInspire == false;
+        },
         QualitySpecificationExplanationInspire: function (state) {
             return state.model.QualitySpecificationExplanationInspire;
         },
@@ -375,6 +376,9 @@
         },
         QualitySpecificationResultSosi: function (state) {
             return state.model.QualitySpecificationResultSosi;
+        },
+        showQualitySpecificationExplanationSosi: function (state) {
+            return state.model.QualitySpecificationResultSosi == "false" || state.model.QualitySpecificationResultSosi == false;
         },
         QualitySpecificationExplanationSosi: function (state) {
             return state.model.QualitySpecificationExplanationSosi;
@@ -399,6 +403,9 @@
         },
         QualitySpecificationResult: function (state) {
             return state.model.QualitySpecificationResult;
+        },
+        showQualitySpecificationExplanation: function (state) {
+            return state.model.QualitySpecificationResult == "false" || state.model.QualitySpecificationResult == false;
         },
         QualitySpecificationExplanation: function (state) {
             return state.model.QualitySpecificationExplanation;
