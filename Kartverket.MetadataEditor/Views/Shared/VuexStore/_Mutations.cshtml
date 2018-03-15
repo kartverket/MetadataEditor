@@ -3,6 +3,9 @@
         updateSettings: function (state, payload) {
             state.settings = payload;
         },
+        updateSettingsSelectedTab: function (state, payload) {
+            state.settings.selectedTab = payload;
+        },
         updateSettingsLanguages: function (state, payload) {
             state.settings.languages = payload;
         },
