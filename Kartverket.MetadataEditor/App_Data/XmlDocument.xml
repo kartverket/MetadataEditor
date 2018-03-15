@@ -106,9 +106,24 @@
               Looks up a localized string similar to Kontakt oss.
             </summary>
         </member>
+        <member name="P:Resources.UI.CreateProductFactSheet">
+            <summary>
+              Looks up a localized string similar to Opprett produktark.
+            </summary>
+        </member>
         <member name="P:Resources.UI.DateCreated_InvalidDate">
             <summary>
               Looks up a localized string similar to Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Delete">
+            <summary>
+              Looks up a localized string similar to Slett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DisplayInMapCatalogue">
+            <summary>
+              Looks up a localized string similar to Vis i kartkatalogen.
             </summary>
         </member>
         <member name="P:Resources.UI.EditMetadata">
@@ -710,6 +725,51 @@
         <member name="P:Resources.UI.SimpleMetadata_Title">
             <summary>
               Looks up a localized string similar to Navn på datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabAdministrative">
+            <summary>
+              Looks up a localized string similar to Administrativt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabBasicInformation">
+            <summary>
+              Looks up a localized string similar to Grunnleggende.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabContactInformation">
+            <summary>
+              Looks up a localized string similar to Kontaktinformasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabDistribution">
+            <summary>
+              Looks up a localized string similar to Distribusjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabDocumentation">
+            <summary>
+              Looks up a localized string similar to Dokumentasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabKeywords">
+            <summary>
+              Looks up a localized string similar to Nøkkelord.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabQuality">
+            <summary>
+              Looks up a localized string similar to Kvalitet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabRestrictions">
+            <summary>
+              Looks up a localized string similar to Restriksjoner.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabTimeAndSpace">
+            <summary>
+              Looks up a localized string similar to Tid og rom.
             </summary>
         </member>
         <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">

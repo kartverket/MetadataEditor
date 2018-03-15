@@ -141,7 +141,7 @@
                 </a>*@
 
             <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
-                <span class="glyphicon glyphicon-share-alt"></span> Vis i kartkatalogen
+                <span class="glyphicon glyphicon-share-alt"></span> @UI.DisplayInMapCatalogue
             </a>
             @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
             {
@@ -160,7 +160,7 @@
             }
             @if (Model.IsDataset() && showProductSheetGeneratorUrl)
             {
-                <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Opprett produktark</a>
+                <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.CreateProductFactSheet</a>
             }
 
             @if (Model.IsService())
@@ -177,7 +177,7 @@
 
     <div class="form-group">
         <div class="col-sm-12 text-right">
-            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">Slett</button>
+            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">@UI.Delete</button>
             @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
             {
                 <input type="checkbox" name="ignoreValidationError" value="1" /> <span>Ignorer feil</span>

@@ -144,8 +144,17 @@
   <data name="Contact_Organization" xml:space="preserve">
     <value>Contact - Organisation</value>
   </data>
+  <data name="CreateProductFactSheet" xml:space="preserve">
+    <value>Create product fact sheet</value>
+  </data>
   <data name="DateCreated_InvalidDate" xml:space="preserve">
     <value>Created date must be formatted mm/dd/yyyy, for example 01/19/2014</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DisplayInMapCatalogue" xml:space="preserve">
+    <value>Display in Map Catalogue</value>
   </data>
   <data name="EditMetadata" xml:space="preserve">
     <value>Edit metadata</value>
@@ -507,5 +516,32 @@
   </data>
   <data name="SimpleMetadata_Title" xml:space="preserve">
     <value>Dataset name</value>
+  </data>
+  <data name="TabAdministrative" xml:space="preserve">
+    <value>Administrative</value>
+  </data>
+  <data name="TabBasicInformation" xml:space="preserve">
+    <value>Basic information</value>
+  </data>
+  <data name="TabContactInformation" xml:space="preserve">
+    <value>Contact information</value>
+  </data>
+  <data name="TabDistribution" xml:space="preserve">
+    <value>Distribution</value>
+  </data>
+  <data name="TabDocumentation" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="TabKeywords" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
+  <data name="TabQuality" xml:space="preserve">
+    <value>Quality</value>
+  </data>
+  <data name="TabRestrictions" xml:space="preserve">
+    <value>Restrictions</value>
+  </data>
+  <data name="TabTimeAndSpace" xml:space="preserve">
+    <value>Time and space</value>
   </data>
 </root>

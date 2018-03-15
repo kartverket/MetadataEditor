@@ -147,8 +147,17 @@
   <data name="Contact_Organization" xml:space="preserve">
     <value>Kontaktperson - Organisasjonsnavn</value>
   </data>
+  <data name="CreateProductFactSheet" xml:space="preserve">
+    <value>Opprett produktark</value>
+  </data>
   <data name="DateCreated_InvalidDate" xml:space="preserve">
     <value>Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="DisplayInMapCatalogue" xml:space="preserve">
+    <value>Vis i kartkatalogen</value>
   </data>
   <data name="EditMetadata" xml:space="preserve">
     <value>Rediger metadata</value>
@@ -510,5 +519,32 @@
   </data>
   <data name="SimpleMetadata_Title" xml:space="preserve">
     <value>Navn på datasett</value>
+  </data>
+  <data name="TabAdministrative" xml:space="preserve">
+    <value>Administrativt</value>
+  </data>
+  <data name="TabBasicInformation" xml:space="preserve">
+    <value>Grunnleggende</value>
+  </data>
+  <data name="TabContactInformation" xml:space="preserve">
+    <value>Kontaktinformasjon</value>
+  </data>
+  <data name="TabDistribution" xml:space="preserve">
+    <value>Distribusjon</value>
+  </data>
+  <data name="TabDocumentation" xml:space="preserve">
+    <value>Dokumentasjon</value>
+  </data>
+  <data name="TabKeywords" xml:space="preserve">
+    <value>Nøkkelord</value>
+  </data>
+  <data name="TabQuality" xml:space="preserve">
+    <value>Kvalitet</value>
+  </data>
+  <data name="TabRestrictions" xml:space="preserve">
+    <value>Restriksjoner</value>
+  </data>
+  <data name="TabTimeAndSpace" xml:space="preserve">
+    <value>Tid og rom</value>
   </data>
 </root>

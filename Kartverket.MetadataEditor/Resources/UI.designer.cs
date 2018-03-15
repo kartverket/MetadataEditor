@@ -151,11 +151,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opprett produktark.
+        /// </summary>
+        public static string CreateProductFactSheet {
+            get {
+                return ResourceManager.GetString("CreateProductFactSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014..
         /// </summary>
         public static string DateCreated_InvalidDate {
             get {
                 return ResourceManager.GetString("DateCreated_InvalidDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slett.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vis i kartkatalogen.
+        /// </summary>
+        public static string DisplayInMapCatalogue {
+            get {
+                return ResourceManager.GetString("DisplayInMapCatalogue", resourceCulture);
             }
         }
         
@@ -1237,6 +1264,87 @@ namespace Resources {
         public static string SimpleMetadata_Title {
             get {
                 return ResourceManager.GetString("SimpleMetadata_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrativt.
+        /// </summary>
+        public static string TabAdministrative {
+            get {
+                return ResourceManager.GetString("TabAdministrative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grunnleggende.
+        /// </summary>
+        public static string TabBasicInformation {
+            get {
+                return ResourceManager.GetString("TabBasicInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktinformasjon.
+        /// </summary>
+        public static string TabContactInformation {
+            get {
+                return ResourceManager.GetString("TabContactInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribusjon.
+        /// </summary>
+        public static string TabDistribution {
+            get {
+                return ResourceManager.GetString("TabDistribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dokumentasjon.
+        /// </summary>
+        public static string TabDocumentation {
+            get {
+                return ResourceManager.GetString("TabDocumentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nøkkelord.
+        /// </summary>
+        public static string TabKeywords {
+            get {
+                return ResourceManager.GetString("TabKeywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kvalitet.
+        /// </summary>
+        public static string TabQuality {
+            get {
+                return ResourceManager.GetString("TabQuality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restriksjoner.
+        /// </summary>
+        public static string TabRestrictions {
+            get {
+                return ResourceManager.GetString("TabRestrictions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tid og rom.
+        /// </summary>
+        public static string TabTimeAndSpace {
+            get {
+                return ResourceManager.GetString("TabTimeAndSpace", resourceCulture);
             }
         }
     }
