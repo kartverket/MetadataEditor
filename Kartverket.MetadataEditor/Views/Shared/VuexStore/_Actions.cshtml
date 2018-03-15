@@ -136,6 +136,19 @@
                 context.commit('addValueToArray', { arrayName: 'Thumbnails', value: payload })
             }
         },
+        getSelectedTab: function (context) {
+            var tabId = Cookies.get('navtabselected');
+            var selectedTab = context.getters['settingsTabs'][0];
+            context.getters['settingsTabs'].forEach(function (tab) {
+                if (tab.id == tabId) {
+                    context.dispatch('setSelectedTab', tab)
+                }
+            });
+        },
+        setSelectedTab: function (context, payload) {
+            context.commit('updateSettingsSelectedTab', payload);
+            Cookies.set('navtabselected', payload.id);
+        },
         registerErrorsForTab: function (context, payload) {
             var errorsInTab = context.getters['errorsInTabs'][payload.tabName];
             var modelStateValues = context.getters['modelStateValues'];
