@@ -329,8 +329,8 @@
             showSection: function () {
                 var inspireKeywordIsAdded = this.isAdded('Inspire');
                 var sosiKeywordIsAdded = this.isAdded('Det offentlige kartgrunnlaget') || this.isAdded('geodataloven') || this.isAdded('Norge digitalt') || this.isAdded('arealplanerPBL');
-                var productSpecificationUrlIsAdded = this.$store.getters['ProductSpecificationUrl'] !== undefined && this.$store.getters['ProductSpecificationUrl'].length > 0;
-                var otherProductSpecificationIsAdded = this.$store.getters['ProductSpecificationOtherName'] !== undefined && this.$store.getters['ProductSpecificationOtherName'].length > 0;
+                var productSpecificationUrlIsAdded = this.$store.getters['ProductSpecificationUrl'] !== null && this.$store.getters['ProductSpecificationUrl'].length > 0;
+                var otherProductSpecificationIsAdded = this.$store.getters['ProductSpecificationOtherName'] !== null && this.$store.getters['ProductSpecificationOtherName'].length > 0;
 
                 return {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
