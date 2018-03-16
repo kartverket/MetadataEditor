@@ -212,7 +212,7 @@
     <value>Graphics overview</value>
   </data>
   <data name="Helptext_AccessConstraints" xml:space="preserve">
-    <value>&lt;b&gt; Open Data &lt;/b&gt;: Data available for download and usage. (green) &amp;nbsp; &lt;b&gt; Norway digital-limited &lt;/b&gt;: Data available only to participants in Norways digital collaboration (yellow). &lt;b&gt; Shielded data &lt;/b&gt;: Data not available for download (red).</value>
+    <value>&lt;b&gt; Open Data &lt;/b&gt;: Data available for download and usage. (green) &amp;nbsp; &lt;b&gt; Norway Digital Restricted &lt;/b&gt;: Data available only to participants in Norways digital collaboration (yellow). &lt;b&gt; Restricted data &lt;/b&gt;: Data not available for download (red).</value>
   </data>
   <data name="Helptext_BoundingBox" xml:space="preserve">
     <value>Enter coordinate values for extent, or use pre-defined range names in the drop down list if the geographical data is valid for a specific county or a municipality. You can also enter the coordinates by using the "Select in map" button to define a rectangle in Norgeskart.</value>
@@ -586,9 +586,6 @@
   <data name="SpecifyImageFile" xml:space="preserve">
     <value>Specify image file</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="TabAdministrative" xml:space="preserve">
     <value>Administrative</value>
   </data>
@@ -630,5 +627,29 @@
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="HelpTextAbstract" xml:space="preserve">
+    <value>Enter what the service/dataset contains. What does the user find in this service/dataset.</value>
+  </data>
+  <data name="HelpTextHelpUrl" xml:space="preserve">
+    <value>Enter link to external page or PDF document with information and guidance that makes it easier to use the data set.</value>
+  </data>
+  <data name="HelpTextPurpose" xml:space="preserve">
+    <value>Specify if the dataset is collected for a particular purpose. If the data can not be used for other purposes without further notice, this should appear here. There is no need to enter anything here whose purpose is not defined. Reference may be made to laws and regulations, parliamentary reports and other disclosures describing the purpose of the data.</value>
+  </data>
+  <data name="HelpTextResourceReferenceCode" xml:space="preserve">
+    <value>Full name of the data set itself.</value>
+  </data>
+  <data name="HelpTextResourceReferenceCodespace" xml:space="preserve">
+    <value>Final clarification on the naming of namespaces is not available. It is considered to be a URL pointing to a common namespace for geographic data sets managed by the National Geodata Coordinator.</value>
+  </data>
+  <data name="HelpTextSpesificUsage" xml:space="preserve">
+    <value>Specify what tasks the data set may/should be used for. For DOK data, particular reference should be made to applications related to the municipalitys planning and construction work. Please state the level of data the data is appropriate for information on whether they are for detailed planning or planning at the overview level. Usage restrictions are filled in on the tab Restrictions</value>
+  </data>
+  <data name="HelpTextTitle" xml:space="preserve">
+    <value>Name of metadata entry. The name should be short and consistent and describe the service / dataset as best as possible. General terms must be included in a professional context. The name should be identical to that used in any product specification. The name can also contain year and geographical area.</value>
+  </data>
+  <data name="MetadataLastUpdated" xml:space="preserve">
+    <value>Metadata last updated</value>
   </data>
 </root>

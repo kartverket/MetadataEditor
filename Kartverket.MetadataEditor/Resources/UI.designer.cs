@@ -584,6 +584,74 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oppgi hva tjenesten/datasettet inneholder. Hva finner brukeren i denne tjenesten/datasettet..
+        /// </summary>
+        public static string HelpTextAbstract {
+            get {
+                return ResourceManager.GetString("HelpTextAbstract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppgi link til ekstern side eller PDF-dokument med informasjon og veiledning som gjør det lettere å ta i bruk datasettet..
+        /// </summary>
+        public static string HelpTextHelpUrl {
+            get {
+                return ResourceManager.GetString("HelpTextHelpUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her.
+        ///Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert.
+        ///Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene..
+        /// </summary>
+        public static string HelpTextPurpose {
+            get {
+                return ResourceManager.GetString("HelpTextPurpose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fullstendig navn på selve datasettet..
+        /// </summary>
+        public static string HelpTextResourceReferenceCode {
+            get {
+                return ResourceManager.GetString("HelpTextResourceReferenceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.
+        ///Eksempel: http://data.geonorge.no/so/.
+        /// </summary>
+        public static string HelpTextResourceReferenceCodespace {
+            get {
+                return ResourceManager.GetString("HelpTextResourceReferenceCodespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppgi hvilke oppgaver datasettet kan/bør brukes til.
+        ///For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå.
+        ///Bruksbegrensninger fylles inn i fanen Restriksjoner.
+        /// </summary>
+        public static string HelpTextSpesificUsage {
+            get {
+                return ResourceManager.GetString("HelpTextSpesificUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Navn på metadataoppføringen. Navnet skal være kort og konsist og beskrive tjenesten/datasettet best mulig. Generelle begreper må settes inn i en faglig kontekst (eks: Kulturminner - lokaliteter). Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon. Navnet kan også inneholde årstall og geografisk område..
+        /// </summary>
+        public static string HelpTextTitle {
+            get {
+                return ResourceManager.GetString("HelpTextTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to URL til hjelp.
         /// </summary>
         public static string HelpUrl {
@@ -1318,6 +1386,15 @@ namespace Resources {
         public static string MetadataContact {
             get {
                 return ResourceManager.GetString("MetadataContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metadata sist oppdatert.
+        /// </summary>
+        public static string MetadataLastUpdated {
+            get {
+                return ResourceManager.GetString("MetadataLastUpdated", resourceCulture);
             }
         }
         

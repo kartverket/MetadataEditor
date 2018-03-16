@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using Resources;
 using System.Linq;
 using Kartverket.MetadataEditor.Helpers;
+using Kartverket.MetadataEditor.Models.Translations;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -462,14 +463,28 @@ namespace Kartverket.MetadataEditor.Models
 
         public string GetInnholdstype()
         {
-            string t = HierarchyLevel;
-            if (HierarchyLevel == "dataset") t = "Datasett";
-            else if (HierarchyLevel == "service" && (DistributionProtocol != null && !string.IsNullOrWhiteSpace(DistributionName))) t = "Tjenestelag";
-            else if (HierarchyLevel == "service") t = "Tjeneste";
-            else if (HierarchyLevel == "software") t = "Applikasjon";
-            else if (HierarchyLevel == "series") t = "Datasettserie";
-            else if (HierarchyLevel == "dimensionGroup") t = "Datapakke";
-            return t;
+            if (CultureHelper.GetCurrentCulture() == Culture.NorwegianCode)
+            {
+                string t = HierarchyLevel;
+                if (HierarchyLevel == "dataset") t = "Datasett";
+                else if (HierarchyLevel == "service" && (DistributionProtocol != null && !string.IsNullOrWhiteSpace(DistributionName))) t = "Tjenestelag";
+                else if (HierarchyLevel == "service") t = "Tjeneste";
+                else if (HierarchyLevel == "software") t = "Applikasjon";
+                else if (HierarchyLevel == "series") t = "Datasettserie";
+                else if (HierarchyLevel == "dimensionGroup") t = "Datapakke";
+                return t;
+            }
+            else
+            {
+                string t = HierarchyLevel;
+                if (HierarchyLevel == "dataset") t = "Dataset";
+                else if (HierarchyLevel == "service" && (DistributionProtocol != null && !string.IsNullOrWhiteSpace(DistributionName))) t = "Service layer";
+                else if (HierarchyLevel == "service") t = "Service";
+                else if (HierarchyLevel == "software") t = "Application";
+                else if (HierarchyLevel == "series") t = "Dataset series";
+                else if (HierarchyLevel == "dimensionGroup") t = "Data package";
+                return t;
+            }
         }
 
         public Dictionary<string, string> ServiceDistributionKeywords = 

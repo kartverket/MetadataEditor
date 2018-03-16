@@ -347,6 +347,46 @@
               Looks up a localized string similar to Angir hvilke områder dataene ikke er egnet for. F.eks &quot;dataene er ikke egnet for kommunens arealplanarbeide&quot; eller &quot;må ikke brukes til å navigere etter&quot;. En bør også oppgi hvorfor det er begrensninger på bruk..
             </summary>
         </member>
+        <member name="P:Resources.UI.HelpTextAbstract">
+            <summary>
+              Looks up a localized string similar to Oppgi hva tjenesten/datasettet inneholder. Hva finner brukeren i denne tjenesten/datasettet..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextHelpUrl">
+            <summary>
+              Looks up a localized string similar to Oppgi link til ekstern side eller PDF-dokument med informasjon og veiledning som gjør det lettere å ta i bruk datasettet..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextPurpose">
+             <summary>
+               Looks up a localized string similar to Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her.
+            Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert.
+            Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene..
+             </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextResourceReferenceCode">
+            <summary>
+              Looks up a localized string similar to Fullstendig navn på selve datasettet..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextResourceReferenceCodespace">
+             <summary>
+               Looks up a localized string similar to Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.
+            Eksempel: http://data.geonorge.no/so/.
+             </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextSpesificUsage">
+             <summary>
+               Looks up a localized string similar to Oppgi hvilke oppgaver datasettet kan/bør brukes til.
+            For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå.
+            Bruksbegrensninger fylles inn i fanen Restriksjoner.
+             </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextTitle">
+            <summary>
+              Looks up a localized string similar to Navn på metadataoppføringen. Navnet skal være kort og konsist og beskrive tjenesten/datasettet best mulig. Generelle begreper må settes inn i en faglig kontekst (eks: Kulturminner - lokaliteter). Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon. Navnet kan også inneholde årstall og geografisk område..
+            </summary>
+        </member>
         <member name="P:Resources.UI.HelpUrl">
             <summary>
               Looks up a localized string similar to URL til hjelp.
@@ -755,6 +795,11 @@
         <member name="P:Resources.UI.MetadataContact">
             <summary>
               Looks up a localized string similar to Metadatakontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.MetadataLastUpdated">
+            <summary>
+              Looks up a localized string similar to Metadata sist oppdatert.
             </summary>
         </member>
         <member name="P:Resources.UI.MyMetadata_Label">
