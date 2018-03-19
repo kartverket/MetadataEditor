@@ -170,7 +170,7 @@ $RECYCLE.BIN/
 # Visual Studio 2015 cache/options directory
 .vs/
 
-# npm packages
+# npm packages 
 node_modules/
-
+ 
 Kartverket\.MetadataEditor/Assemblies/Lucene\.Net\.dll

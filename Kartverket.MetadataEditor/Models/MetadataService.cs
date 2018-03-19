@@ -10,21 +10,26 @@ using www.opengis.net;
 using GeoNorgeAPI;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Kartverket.Geonorge.Utilities.LogEntry;
+using System.Net.Http;
+using Kartverket.Geonorge.Utilities.Organization;
 
 namespace Kartverket.MetadataEditor.Models
 {
-    public class MetadataService
+    public class MetadataService : IMetadataService
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private GeoNorge _geoNorge;
+        private ILogEntryService _logEntryService;
 
-        public MetadataService(GeoNorge geonorge)
+        public MetadataService(GeoNorge geonorge, ILogEntryService logEntryService)
         {
             _geoNorge = geonorge;
+            _logEntryService = logEntryService;
         }
 
-        public MetadataService()
+        public MetadataService(ILogEntryService logEntryService)
         {
             System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
             string server = settings["GeoNetworkUrl"];
@@ -33,6 +38,7 @@ namespace Kartverket.MetadataEditor.Models
             _geoNorge = new GeoNorgeAPI.GeoNorge(username, password, server);
             _geoNorge.OnLogEventDebug += new GeoNorgeAPI.LogEventHandlerDebug(LogEventsDebug);
             _geoNorge.OnLogEventError += new GeoNorgeAPI.LogEventHandlerError(LogEventsError);
+            _logEntryService = logEntryService;
         }
 
         private void LogEventsDebug(string log)
@@ -179,9 +185,18 @@ namespace Kartverket.MetadataEditor.Models
             return model;
         }
 
+        /// <summary>
+        /// Returns a MetadatViewModel of the metadata with the given uuid.
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns>A view model of the metadata or null if not any record with the given uuid is found</returns>
         public MetadataViewModel GetMetadataModel(string uuid)
         {
-            SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
+            MD_Metadata_Type metadataRecord = _geoNorge.GetRecordByUuid(uuid);
+            if (metadataRecord == null)
+                return null;
+
+            SimpleMetadata metadata = new SimpleMetadata(metadataRecord);
 
             var model = new MetadataViewModel()
             {
@@ -490,11 +505,7 @@ namespace Kartverket.MetadataEditor.Models
 
             Task.Run(() => ReIndexOperatesOn(model));
             Task.Run(() => RemoveCache(model));
-            Task.Run(async delegate
-            {
-                await Task.Delay(TimeSpan.FromSeconds(20));
-                new BatchService().UpdateRegisterTranslations(username, model.Uuid);
-            });
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Modified, User = username, Description = "Saved metadata title: "+ model.Title }));
 
         }
 
@@ -1031,7 +1042,7 @@ namespace Kartverket.MetadataEditor.Models
         }
 
 
-        internal List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers, string[] keywords, string username)
+        public List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers, string[] keywords, string username)
         {
             SimpleMetadata parentMetadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
 
@@ -1065,7 +1076,7 @@ namespace Kartverket.MetadataEditor.Models
         }
 
 
-        internal List<WfsLayerViewModel> CreateMetadataForFeature(string uuid, List<WfsLayerViewModel> layers, string[] keywords, string username)
+        public List<WfsLayerViewModel> CreateMetadataForFeature(string uuid, List<WfsLayerViewModel> layers, string[] keywords, string username)
         {
             SimpleMetadata parentMetadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
 
@@ -1397,7 +1408,7 @@ namespace Kartverket.MetadataEditor.Models
         }
 
 
-        internal string CreateMetadata(MetadataCreateViewModel model, string username)
+        public string CreateMetadata(MetadataCreateViewModel model, string username)
         {
             SimpleMetadata metadata = null;
             if (model.Type.Equals("service"))
@@ -1451,14 +1462,16 @@ namespace Kartverket.MetadataEditor.Models
 
             _geoNorge.MetadataInsert(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
 
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Added, User = username, Description = "Created metadata title: " + metadata.Title }));
             return metadata.Uuid;
         }
 
 
 
-        internal void DeleteMetadata(string uuid, string username)
+        public void DeleteMetadata(MetadataViewModel metadata, string username)
         {
-            _geoNorge.MetadataDelete(uuid, CreateAdditionalHeadersWithUsername(username));
+            _geoNorge.MetadataDelete(metadata.Uuid, CreateAdditionalHeadersWithUsername(username));
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Deleted,  User = username, Description = "Delete metadata title: " + metadata.Title }));
         }
 
         public Stream SaveMetadataAsXml(MetadataViewModel model)
@@ -1517,6 +1530,17 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             return model.KeywordsServiceType;
+        }
+
+
+        public async Task<List<LogEntry>> GetLogEntries(string uuid)
+        {
+            return await _logEntryService.GetEntriesForElement(uuid);
+        }
+
+        public async Task<List<LogEntry>> GetLogEntriesLatest()
+        {
+            return await _logEntryService.GetEntries();
         }
     }
 }

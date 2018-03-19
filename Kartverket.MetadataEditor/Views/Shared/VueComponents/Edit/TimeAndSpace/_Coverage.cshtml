@@ -4,7 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-12">Angi dekningskart</div>
+                <div class="col-md-12">@UI.SpecifyCoverageMap</div>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -61,15 +61,14 @@
                         <div class="row">
                             <label class="col-md-2 control-label">{{ coverageFile.label }}</label>
                             <div class="col-md-4">
-                                <input id="coverageFile" v-bind:type="coverageFile.type" class="form-control" disabled />
-                                <span class="input-group-btn" tabindex="0">
-                                    <label for="coverageFile" class="btn btn-default ">
-                                        <span class="glyphicon glyphicon-folder-open"></span> Velg fil
-                                    </label>
-                                </span>
+                                <div class="input-group upload-input">
+                                    <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
+                                    <input type="file" v-bind:id="coverageFile.id" />
+                                    <span class="btn">Velg fil</span>
+                                </div>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn" type="submit" id="uploadCoverageButton">Last opp</button>
+                                <button class="btn" v-on:click="uploadFile">Last opp</button>
                             </div>
                         </div>
                     </div>
@@ -128,8 +127,15 @@
                     type: 'text'
                 },
                 coverageFile: {
+                    id: 'uploadCoverageFile',
                     type: 'file',
                     label: '@Html.Raw(UI.Metadata_CoverageImage_Image)'
+                },
+                thumbnailFileUploadData: {
+                    request: {
+                        result: {}
+                    },
+                    response: {}
                 }
             }
         },
@@ -153,14 +159,8 @@
             },
            computedThumbnailUrl: function () {
                var computedThumbnailUrl = '';
-               /*if (this.$parent.$parent.model.Thumbnails !== undefined && this.$parent.$parent.model.Thumbnails.length) {
-                   this.$parent.$parent.model.Thumbnails.forEach(function (thumbnail) {
-                       if (thumbnail.Type == 'dekningsoversikt')
-                           computedThumbnailUrl = thumbnail.URL;
-                   });
-               }*/
                if (this.$root.hasCoverageImage) {
-                   var selectedCoverageImage = this.$root.getSelectedCoverageImage();
+                   var selectedCoverageImage = this.getSelectedCoverageImage();
                    computedThumbnailUrl = selectedCoverageImage.URL;
                }
                return computedThumbnailUrl;
@@ -197,6 +197,49 @@
                 if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
                 else if (this.isMapService()) this.coverageType.value = 'mapservice';
                 else this.coverageType.value = 'webpage';
+            },
+            getSelectedCoverageImage: function () {
+                var selectedCoverageImage = null;
+                this.$store.getters['Thumbnails'].forEach(function (thumbnail) {
+                    if (thumbnail.Type == 'dekningsoversikt') {
+                        selectedCoverageImage = thumbnail;
+                    }
+                });
+                return selectedCoverageImage;
+            },
+            initFileUpload: function () {
+                $("#" + this.coverageFile.id).fileupload({
+                    dataType: 'json',
+                    url: '/Metadata/UploadThumbnail',
+                    add: function (e, data) {
+                        data.formData = {
+                                "uuid": "@Model.Uuid"
+                        };
+                        data.fileName = data.files[0].name;
+                        this.thumbnailFileUploadData.request = data;
+                    }.bind(this),
+                    done: function (e, data) {
+                        this.thumbnailFileUploadData.response = data;
+                        this.$store.dispatch('updateCoverageImage', {
+                            URL: this.$store.getters['ThumbnailUrl'] + data.result.filename,
+                            Type: 'dekningsoversikt'
+                        });
+                        @*if (data.result.status == "ErrorWrongContent") {
+                        $("#coverageUri").val('');
+                        $('#uploadCoverageStatus').attr('style', 'color: red ;');
+                        $('#uploadCoverageStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                    }
+                    else {
+                        $("#coverageUri").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                        $('#uploadCoverageStatus').attr('style', 'text-info');
+                        //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                    }*@
+                    }.bind(this)
+                });
+            },
+            uploadFile: function (event) {
+                event.preventDefault(),
+                this.thumbnailFileUploadData.request.submit();
             }
         },
         mounted: function () {
@@ -204,6 +247,7 @@
             this.url.value = this.getMapServiceUrl();
             this.mapServiceLayerName.value = this.getMapServiceLayerName();
             this.getSelectedCoverageType();
+            this.initFileUpload();
         }
     };
 </script>

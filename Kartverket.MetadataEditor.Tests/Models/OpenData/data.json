@@ -1,0 +1,1219 @@
+{
+    "@context": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
+    "@type": "dcat:Catalog",
+    "conformsTo": "https://project-open-data.cio.gov/v1.1/schema",
+    "describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
+    "dataset": [
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/c0964ef04a5442f38a814f4b5fe44c59_0",
+            "title": "Sykkelparkering",
+            "description": " Informasjon om sykkelstativ i Tromsø kommune. Kartlaget viser hvilken standard det er på sykkelstativet og hvor mange sykler det er plass til.",
+            "keyword": [
+                "sykkel",
+                "tromsø",
+                "kommune",
+                "parkering",
+                "Samferdsel"
+            ],
+            "issued": "2013-06-21T07:47:22.000Z",
+            "modified": "2017-11-28T14:20:00.000Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/c0964ef04a5442f38a814f4b5fe44c59_0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://services1.arcgis.com/XkPB4N7E2ZOXAdC4/arcgis/rest/services/Sykkelparkering/FeatureServer/0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/c0964ef04a5442f38a814f4b5fe44c59_0.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/c0964ef04a5442f38a814f4b5fe44c59_0.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/c0964ef04a5442f38a814f4b5fe44c59_0.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/c0964ef04a5442f38a814f4b5fe44c59_0.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/c0964ef04a5442f38a814f4b5fe44c59_0",
+            "webService": "https://services1.arcgis.com/XkPB4N7E2ZOXAdC4/arcgis/rest/services/Sykkelparkering/FeatureServer/0",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/c0964ef04a5442f38a814f4b5fe44c59_0/license.json",
+            "spatial": "18.9423739358649,69.6408977698077,18.9809272254747,69.6856786394539",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/4192ada7ab6a4ba190c75d2161772e57_6",
+            "title": "Utfartsparkering",
+            "description": "Utfartsparkering i Tromsø kommune<div><br /></div>",
+            "keyword": [
+                "Samferdsel",
+                "utfartsparkering",
+                "parkering",
+                "friluftsliv"
+            ],
+            "issued": "2017-11-28T14:17:15.000Z",
+            "modified": "2017-11-28T14:17:57.532Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/4192ada7ab6a4ba190c75d2161772e57_6"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/6"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/4192ada7ab6a4ba190c75d2161772e57_6.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/4192ada7ab6a4ba190c75d2161772e57_6.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/4192ada7ab6a4ba190c75d2161772e57_6.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/4192ada7ab6a4ba190c75d2161772e57_6.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/4192ada7ab6a4ba190c75d2161772e57_6",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/6",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/4192ada7ab6a4ba190c75d2161772e57_6/license.json",
+            "spatial": "17.9617,69.4218,19.8758,69.9315",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/4fbe853b302d4a77b077e4c92082dd7f_1",
+            "title": "Skoler",
+            "description": "Skoler i Tromsø kommune",
+            "keyword": [
+                "Skoler",
+                "Tromsø",
+                "kommune",
+                "barneskoler",
+                "ungdomsskoler",
+                "videregående",
+                "Skole",
+                "Utdanning"
+            ],
+            "issued": "2015-11-25T11:26:06.000Z",
+            "modified": "2017-11-28T14:13:39.000Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/4fbe853b302d4a77b077e4c92082dd7f_1"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/SkolerOgBarnehager/MapServer/1"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/4fbe853b302d4a77b077e4c92082dd7f_1.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/4fbe853b302d4a77b077e4c92082dd7f_1.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/4fbe853b302d4a77b077e4c92082dd7f_1.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/4fbe853b302d4a77b077e4c92082dd7f_1.zip"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "OGC WMS",
+                    "format": "OGC WMS",
+                    "mediaType": "application/vnd.ogc.wms_xml",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/services/Temadata/SkolerOgBarnehager/MapServer/WMSServer?request=GetCapabilities&service=WMS"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/4fbe853b302d4a77b077e4c92082dd7f_1",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/SkolerOgBarnehager/MapServer/1",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/4fbe853b302d4a77b077e4c92082dd7f_1/license.json",
+            "spatial": "18.0297,69.4334,19.7691,70.0244",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/2613ce0bcac44ec0a41707af449008a2_0",
+            "title": "Barnehager",
+            "description": "Barnehager i Tromsø kommune",
+            "keyword": [
+                "Barnehager",
+                "tromsø",
+                "kommune",
+                "Barnehage",
+                "Utdanning"
+            ],
+            "issued": "2015-11-25T11:24:05.000Z",
+            "modified": "2017-11-28T14:13:12.000Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/2613ce0bcac44ec0a41707af449008a2_0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/SkolerOgBarnehager/MapServer/0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/2613ce0bcac44ec0a41707af449008a2_0.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/2613ce0bcac44ec0a41707af449008a2_0.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/2613ce0bcac44ec0a41707af449008a2_0.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/2613ce0bcac44ec0a41707af449008a2_0.zip"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "OGC WMS",
+                    "format": "OGC WMS",
+                    "mediaType": "application/vnd.ogc.wms_xml",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/services/Temadata/SkolerOgBarnehager/MapServer/WMSServer?request=GetCapabilities&service=WMS"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/2613ce0bcac44ec0a41707af449008a2_0",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/SkolerOgBarnehager/MapServer/0",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/2613ce0bcac44ec0a41707af449008a2_0/license.json",
+            "spatial": "17.9735,69.3977,19.7357,69.8755",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_7",
+            "title": "Skiløyper",
+            "description": "Skiløyper og friluftsrelaterte temadata",
+            "keyword": [
+                "kart",
+                "tromsø",
+                "Friluftsliv",
+                "idrettsanlegg",
+                "Utfartsparkering"
+            ],
+            "issued": "2017-11-24T13:38:23.000Z",
+            "modified": "2017-11-28T14:06:17.049Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_7"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/7"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_7.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_7.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_7.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_7.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_7",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/7",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_7/license.json",
+            "spatial": "17.9559,69.3795,19.9045,70.054",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_6",
+            "title": "Utfartsparkering",
+            "description": "Skiløyper og friluftsrelaterte temadata",
+            "keyword": [
+                "kart",
+                "tromsø",
+                "Friluftsliv",
+                "idrettsanlegg",
+                "Utfartsparkering"
+            ],
+            "issued": "2017-11-24T13:38:23.000Z",
+            "modified": "2017-11-28T14:05:48.502Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_6"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/6"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_6.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_6.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_6.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_6.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_6",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/6",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_6/license.json",
+            "spatial": "17.9559,69.3795,19.9045,70.054",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_5",
+            "title": "Friluftspunkter vann",
+            "description": "Skiløyper og friluftsrelaterte temadata",
+            "keyword": [
+                "kart",
+                "tromsø",
+                "Friluftsliv",
+                "idrettsanlegg",
+                "Utfartsparkering"
+            ],
+            "issued": "2017-11-24T13:38:23.000Z",
+            "modified": "2017-11-28T14:05:18.039Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_5"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/5"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_5.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_5.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_5.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_5.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_5",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/5",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_5/license.json",
+            "spatial": "17.9559,69.3795,19.9045,70.054",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_4",
+            "title": "Benker og bord",
+            "description": "Skiløyper og friluftsrelaterte temadata",
+            "keyword": [
+                "kart",
+                "tromsø",
+                "Friluftsliv",
+                "idrettsanlegg",
+                "Utfartsparkering"
+            ],
+            "issued": "2017-11-24T13:38:23.000Z",
+            "modified": "2017-11-28T14:04:47.311Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_4"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/4"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_4.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_4.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_4.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_4.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_4",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/4",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_4/license.json",
+            "spatial": "17.9559,69.3795,19.9045,70.054",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_3",
+            "title": "Bålplass",
+            "description": "Skiløyper og friluftsrelaterte temadata",
+            "keyword": [
+                "kart",
+                "tromsø",
+                "Friluftsliv",
+                "idrettsanlegg",
+                "Utfartsparkering"
+            ],
+            "issued": "2017-11-24T13:38:23.000Z",
+            "modified": "2017-11-28T14:04:16.860Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_3"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/3"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_3.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_3.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_3.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_3.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_3",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/3",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_3/license.json",
+            "spatial": "17.9559,69.3795,19.9045,70.054",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_0",
+            "title": "Fjelltopper",
+            "description": "Turkart for Tromsø komune",
+            "keyword": [
+                "Turkart",
+                "Friluftsliv"
+            ],
+            "issued": "2017-11-24T13:36:15.000Z",
+            "modified": "2017-11-28T14:03:57.000Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Turkart/FeatureServer/0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_0.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_0.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_0.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_0.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_0",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Turkart/FeatureServer/0",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_0/license.json",
+            "spatial": "17.8718,69.2532,20.1271,70.0796",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_1",
+            "title": "Fotruter",
+            "description": "Turkart for Tromsø komune",
+            "keyword": [
+                "Turkart",
+                "Friluftsliv"
+            ],
+            "issued": "2017-11-24T13:36:15.000Z",
+            "modified": "2017-11-28T14:03:57.000Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_1"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Turkart/FeatureServer/1"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_1.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_1.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_1.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_1.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_1",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Turkart/FeatureServer/1",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/1a0268475af1407cb57f6ec5d5ac33e6_1/license.json",
+            "spatial": "17.8718,69.2532,20.1271,70.0796",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_0",
+            "title": "Idrettsanlegg",
+            "description": "Skiløyper og friluftsrelaterte temadata",
+            "keyword": [
+                "kart",
+                "tromsø",
+                "Friluftsliv",
+                "idrettsanlegg",
+                "Utfartsparkering"
+            ],
+            "issued": "2017-11-24T13:38:23.000Z",
+            "modified": "2017-11-28T14:02:38.000Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_0.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_0.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_0.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_0.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_0",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/0",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_0/license.json",
+            "spatial": "17.9559,69.3795,19.9045,70.054",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_2",
+            "title": "Avfallsbokser",
+            "description": "Skiløyper og friluftsrelaterte temadata",
+            "keyword": [
+                "kart",
+                "tromsø",
+                "Friluftsliv",
+                "idrettsanlegg",
+                "Utfartsparkering"
+            ],
+            "issued": "2017-11-24T13:38:23.000Z",
+            "modified": "2017-11-28T14:02:38.000Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_2"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/2"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_2.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_2.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_2.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_2.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_2",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/2",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_2/license.json",
+            "spatial": "17.9559,69.3795,19.9045,70.054",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_1",
+            "title": "Åpne hytter",
+            "description": "Skiløyper og friluftsrelaterte temadata",
+            "keyword": [
+                "kart",
+                "tromsø",
+                "Friluftsliv",
+                "idrettsanlegg",
+                "Utfartsparkering"
+            ],
+            "issued": "2017-11-24T13:38:23.000Z",
+            "modified": "2017-11-28T14:02:38.000Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_1"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/1"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_1.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_1.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_1.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_1.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_1",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/1",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/5f945708b7e34c20b2dbcb621165cdf7_1/license.json",
+            "spatial": "17.9559,69.3795,19.9045,70.054",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/709c29dc08874259b583cebd7ff3eeec_0",
+            "title": "Private Lekeplasser",
+            "description": "There is no description available.",
+            "keyword": [
+                "lekeplass"
+            ],
+            "issued": "2017-11-24T13:42:00.000Z",
+            "modified": "2017-11-24T13:42:42.468Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/709c29dc08874259b583cebd7ff3eeec_0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Lekeplasser/FeatureServer/0"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/709c29dc08874259b583cebd7ff3eeec_0.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/709c29dc08874259b583cebd7ff3eeec_0.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/709c29dc08874259b583cebd7ff3eeec_0.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/709c29dc08874259b583cebd7ff3eeec_0.zip"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/709c29dc08874259b583cebd7ff3eeec_0",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Lekeplasser/FeatureServer/0",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/709c29dc08874259b583cebd7ff3eeec_0/license.json",
+            "spatial": "18.6552,69.4318,19.7821,69.8425",
+            "theme": [
+                "geospatial"
+            ]
+        },
+        {
+            "@type": "dcat:Dataset",
+            "identifier": "http://data-tromso.opendata.arcgis.com/datasets/64b28ce5f3434f46abef7e309be001be_4",
+            "title": "Samferdsel -  Bussruter",
+            "description": "There is no description available.",
+            "keyword": [
+                "samferdsel",
+                "buss",
+                "bussruter"
+            ],
+            "issued": "2016-04-27T06:40:34.000Z",
+            "modified": "2017-11-24T13:33:04.645Z",
+            "publisher": {
+                "name": "Tromsø kommune"
+            },
+            "contactPoint": {
+                "@type": "vcard:Contact",
+                "fn": "Hans Petter Tollefsen",
+                "hasEmail": "mailto:hans.petter.tollefsen@tromso.kommune.no"
+            },
+            "accessLevel": "public",
+            "distribution": [
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "ArcGIS Open Dataset",
+                    "format": "Web page",
+                    "mediaType": "text/html",
+                    "accessURL": "http://data-tromso.opendata.arcgis.com/datasets/64b28ce5f3434f46abef7e309be001be_4"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Esri Rest API",
+                    "format": "Esri REST",
+                    "mediaType": "application/json",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Samferdsel/MapServer/4"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "GeoJSON",
+                    "format": "GeoJSON",
+                    "mediaType": "application/vnd.geo+json",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/64b28ce5f3434f46abef7e309be001be_4.geojson"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "CSV",
+                    "format": "CSV",
+                    "mediaType": "text/csv",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/64b28ce5f3434f46abef7e309be001be_4.csv"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "KML",
+                    "format": "KML",
+                    "mediaType": "application/vnd.google-earth.kml+xml",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/64b28ce5f3434f46abef7e309be001be_4.kml"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "Shapefile",
+                    "format": "ZIP",
+                    "mediaType": "application/zip",
+                    "downloadURL": "http://data-tromso.opendata.arcgis.com/datasets/64b28ce5f3434f46abef7e309be001be_4.zip"
+                },
+                {
+                    "@type": "dcat:Distribution",
+                    "title": "OGC WMS",
+                    "format": "OGC WMS",
+                    "mediaType": "application/vnd.ogc.wms_xml",
+                    "accessURL": "https://kart.tromso.kommune.no/arcgis/services/Temadata/Samferdsel/MapServer/WMSServer?request=GetCapabilities&service=WMS"
+                }
+            ],
+            "landingPage": "http://data-tromso.opendata.arcgis.com/datasets/64b28ce5f3434f46abef7e309be001be_4",
+            "webService": "https://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Samferdsel/MapServer/4",
+            "license": "http://data-tromso.opendata.arcgis.com/datasets/64b28ce5f3434f46abef7e309be001be_4/license.json",
+            "spatial": "18.7142,69.5278,19.0884,69.7197",
+            "theme": [
+                "geospatial"
+            ]
+        }
+    ]
+}

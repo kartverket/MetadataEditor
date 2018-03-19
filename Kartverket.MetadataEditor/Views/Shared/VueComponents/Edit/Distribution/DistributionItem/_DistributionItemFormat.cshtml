@@ -36,7 +36,7 @@
                                        v-on:change="$store.commit('updateFormatDistributionsFormatVersion', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});" />
                             </div>
                             <div class="col-md-3">
-                                <span class="btn" v-on:click="$store.commit('removeFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex});">Slett</span>
+                                <span class="btn" v-on:click="$store.commit('removeFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex});">@UI.Delete</span>
                             </div>
                         </div>
                     </div>
@@ -46,6 +46,7 @@
         <div v-for="formElement in hiddenFormElements">
             <input v-model="formElement.value"
                    v-bind:name="formElements.name"
+                   type="hidden"
                    />
         </div>
     </div>
@@ -76,7 +77,7 @@
                         id: 'DistributionsFormats[' + this.formatIndex + '].FormatVersion',
                         name: 'DistributionsFormats[' + this.formatIndex + '].FormatVersion',
                         value: this.format.Version,
-                        label: 'Versjon',
+                        label: '@UI.Version',
                         type: 'text',
                         required: true
                     }

@@ -1,4 +1,5 @@
 ﻿using Kartverket.MetadataEditor.Models;
+using Kartverket.MetadataEditor.no.geonorge.ws;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,6 +14,12 @@ namespace Kartverket.MetadataEditor.Controllers
     
     public class ApiMetaController : ApiController
     {
+        private IMetadataService _metadataService;
+
+        public ApiMetaController(IMetadataService metadataService)
+        {
+            _metadataService = metadataService;
+        }
         /// <summary>
         /// Upload thumbnail
         /// </summary>
@@ -109,7 +116,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             try
             {
-                Kartverket.MetadataEditor.Models.MetadataService _metadataService = new Kartverket.MetadataEditor.Models.MetadataService();
                 Kartverket.MetadataEditor.Models.MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
 

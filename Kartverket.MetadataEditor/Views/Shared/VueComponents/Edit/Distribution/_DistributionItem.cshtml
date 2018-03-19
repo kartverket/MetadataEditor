@@ -6,7 +6,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-12">
-                    <span class="required">Distribusjon</span>
+                    <span class="required">@UI.Distribution</span>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -100,7 +100,7 @@
             <div class="row">
                 <div class="col-xs-11">
                     <p class="article-p">
-                        Formater
+                        @UI.Formats
                     </p>
                 </div>
                 <div class="col-xs-1">
@@ -120,7 +120,7 @@
 
 
             <div class="margin-top-10 text-right">
-                <span class="btn" v-on:click="$store.commit('addFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex});">Nytt format</span>
+                <span class="btn" v-on:click="$store.commit('addFormatDistributionsFormat', {distributionIndex: distributionIndex});">Nytt format</span>
             </div>
             <hr />
             <div class="form-group">
@@ -189,7 +189,7 @@
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
                         mutation: 'updateFormatDistributionsOrganization',
-                        label: 'Organisasjon',
+                        label: '@UI.Metadata_Organization',
                         type: 'select',
                         required: true
                     },
@@ -197,7 +197,7 @@
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
                         mutation: 'updateFormatDistributionsProtocol',
-                        label: 'Distribusjonstype',
+                        label: '@UI.DistributionType',
                         type: 'select',
                         required: true,
                         options: this.$root.viewBag.predefinedDistributionProtocols,
@@ -219,7 +219,7 @@
                         }
                     },
                     unitsOfDistribution: {
-                        label: 'Geografisk distribusjonsinndeling',
+                        label: '@UI.UnitsOfDistribution',
                         value: '',
                         selected: this.getUnitsOfDistribution(),
                         options: this.$root.viewBag.UnitsOfDistributionValues

@@ -28,11 +28,11 @@
                 <div class="col-md-8">
                     <div class="custom-select-list">
                         <div class="custom-select-list-input-container">
-                            <span v-for="conceptValue in this.keywordsConcept.value" class="custom-select-list-selected">
+                            <span v-for="(conceptValue, index) in selectedKeywordsConceptValues" class="custom-select-list-selected">
                                 {{ getConceptNameFromConceptValue(conceptValue) }}
-                                <span v-on:click="removeSelectedConcept(conceptValue)" class="custom-select-list-remove-button"></span>
+                                <span v-on:click="removeSelectedConcept(conceptValue, index)" class="custom-select-list-remove-button"></span>
                             </span>
-                            <input type="text" v-bind:disabled="!this.keywordsConcept.value.length" class="custom-select-list-input" />
+                            <input type="text" v-bind:disabled="!keywordsConcept.value.length" class="custom-select-list-input" />
                         </div>
 
                         <div class="custom-select-list-dropdown-container">
@@ -42,7 +42,7 @@
                                         <ul class="custom-select-list-options area-option-list">
                                             <li v-on:click="addSelectedConcept(option)"
                                                 v-bind:class="{'is-selected': conceptIsSelected(option)}"
-                                                v-for="option in this.keywordsConcept.options">
+                                                v-for="option in keywordsConcept.options">
                                                 {{ option.Text }}
                                             </li>
                                         </ul>
@@ -104,7 +104,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-11">
-                        <span class="required">Illustrasjonsbilde</span>
+                        <span class="required">@UI.GraphicsOverview</span>
                     </div>
                     <div v-if="thumbnails.helpText" class="col-md-1">
                         <span v-on:click="thumbnails.helpText.active = !thumbnails.helpText.active" v-bind:class="{active: thumbnails.helpText.active}" class="badge help-text-toggle">?</span>
@@ -131,13 +131,14 @@
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-7">
-                                <div class="input-group">
+                                <div class="input-group upload-input">
                                     <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
-                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id" class="input-group-addon input-group-btn" />
+                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id"/>
+                                    <span class="btn">Velg fil</span>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn" id="uploadThumbnailButton" v-on:click="uploadFile" onclick="//return checkIfUrlRef();">Last opp</button>
+                                <button class="btn" id="uploadThumbnailButton" v-on:click="uploadFile">Last opp</button>
                             </div>
                         </div>
                     </div>
@@ -169,40 +170,45 @@
             return {
                 productSpecificationUrl: {
                     name: 'ProductSpecificationUrl',
+                    getter: 'ProductSpecificationUrl',
                     mutation: 'updateProductSpecificationUrl',
-                    label: 'Produktspesifikasjon',
+                    label: '@UI.DataProductSpecification',
                     type: 'select',
                     visible: !this.$root.isSoftware,
                     options: this.$root.viewBag.ProductspesificationValues
                 },
                 applicationSchema: {
                     name: 'ApplicationSchema',
+                    getter: 'ApplicationSchema',
                     mutation: 'updateApplicationSchema',
-                    label: 'UML-modell',
+                    label: '@UI.UMLmodel',
                     type: 'text',
                     visible: !this.$root.isSoftware,
                 },
                 keywordsConcept: {
                     name: 'KeywordsConcept',
+                    getter: 'KeywordsConcept',
                     value: this.$root.model.KeywordsConcept !== null ? this.$root.model.KeywordsConcept : [], 
-                    label: 'Begreper',
+                    label: '@UI.Concepts',
                     type: 'select',
                     visible: !this.$root.isSoftware,
                     options: []
                 },
                 productSpecificationOther: {
-                    label: 'Annen produktspesifikasjon',
+                    label: '@UI.OtherDataProductSpecification',
                     type: 'group',
                     visible: !this.$root.isSoftware,
                     fields: {
                         name: {
                             name: 'ProductSpecificationOther.Name',
+                            getter: 'ProductSpecificationOtherName',
                             mutation: 'updateProductSpecificationOtherName',
                             label: 'Navn',
                             type: 'text'
                         },
                         url: {
                             name: 'ProductSpecificationOther.URL',
+                            getter: 'ProductSpecificationOtherURL',
                             mutation: 'updateProductSpecificationOtherURL',
                             label: 'URL',
                             type: 'text'
@@ -211,24 +217,27 @@
                 },
                 productSheetUrl: {
                     name: 'ProductSheetUrl',
+                    getter: 'ProductSheetUrl',
                     mutation: 'updateProductSheetUrl',
-                    label: 'Produktark',
+                    label: '@UI.ProductFactSheet',
                     type: 'select',
                     visible: !this.$root.isSoftware,
                     options: this.$store.getters['ProductsheetValues']
                 },
                 legendDescriptionUrl: {
                     name: 'LegendDescriptionUrl',
+                    getter: 'LegendDescriptionUrl',
                     mutation: 'updateLegendDescriptionUrl',
-                    label: 'Tegneregler',
+                    label: '@UI.Cartography',
                     type: 'select',
                     visible: !this.$root.isSoftware,
                     options: this.$store.getters['LegendDescriptionValues']
                 },
                 productPageUrl: {
                     name: 'ProductPageUrl',
+                    getter: 'ProductPageUrl',
                     mutation: 'updateProductPageUrl',
-                    label: 'Produktside (URL)',
+                    label: '@UI.DataProductSiteUrl',
                     type: 'text',
                     visible: !this.$root.isSoftware,
                 },
@@ -244,7 +253,7 @@
                             id: 'uploadThumbnailFile',
                             type: 'file',
                             required: false,
-                            label: 'Angi bildefil',
+                            label: '@UI.SpecifyImageFile',
                             value: ''
                         },
                         uploadMode: {
@@ -270,6 +279,11 @@
             initCustomSelectList();
             this.initFileUpload();
         },
+        computed: {
+            selectedKeywordsConceptValues: function () {
+                return this.$store.getters['KeywordsConcept'];
+            }
+        },
         methods: {
             loadConcepts: function () {
                 $.ajax({
@@ -278,7 +292,7 @@
                         "Content-Type": "text/plain; charset=utf-8"
                     },
                     type: "GET",
-                    url: this.applicationSchema.value,
+                    url: this.$store.getters['ApplicationSchema'],
                     success: this.setConcepts
                 });
             },
@@ -293,34 +307,37 @@
                         Text: prefLabel,
                         Value: optionValue
                     });
-
+                    if (!conceptFound) {
+                        console.log("no concepts found")
+                    }
                 });
                 this.keywordsConcept.options = keywordsConceptOptions;
-
-                if (!conceptFound) {
-                    console.log("no concepts found")
-                }
+                this.selectAllConceptValues();
             },
             getConceptNameFromConceptValue(conceptValue) {
                 return conceptValue.substr(0, conceptValue.indexOf('|'));
             },
             conceptIsSelected: function (concept) {
                 var conceptIsSelected = false;
-                this.keywordsConcept.value.forEach(function (selectedConcept) {
+                this.selectedKeywordsConceptValues.forEach(function (selectedConcept) {
                     if (concept.Value == selectedConcept) conceptIsSelected = true;
                 })
                 return conceptIsSelected;
             },
-            removeSelectedConcept: function (conceptValue) {
-                var selectedConceptIndex = this.keywordsConcept.value.indexOf(conceptValue);
-                if (selectedConceptIndex > -1) {
-                    this.keywordsConcept.value.splice(selectedConceptIndex, 1);
-                }
+            removeSelectedConcept: function (conceptValue, conceptIndex) {
+                this.$store.commit('removeValueFromArray', { arrayName: 'KeywordsConcept', arrayIndex: conceptIndex }); // Remove concept keyword value
             },
             addSelectedConcept: function (concept) {
                 if (!this.conceptIsSelected(concept)) {
-                    this.keywordsConcept.value.push(concept.Value);
+                    this.$store.commit('addValueToArray', { arrayName: 'KeywordsConcept', value: concept.Value }); // Add concept keyword value
                 }
+            },
+            selectAllConceptValues: function () {
+                var selectedConceptValues = [];
+                this.keywordsConcept.options.forEach(function (option) {
+                    selectedConceptValues.push(option.Value);
+                });
+                this.$store.commit('updateKeywordsConcept', selectedConceptValues);
             },
             initFileUpload: function () {
                 $("#" + this.thumbnails.fields.uploadThumbnailFile.id).fileupload({

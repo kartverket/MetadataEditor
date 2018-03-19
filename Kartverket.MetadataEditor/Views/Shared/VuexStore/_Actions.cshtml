@@ -2,6 +2,168 @@
     var Actions = {
         updateField: function (context, payload) {
             context.commit(payload.mutation, payload.value);
+        },
+        addMultilingualKeyword: function (context, payload) {
+            var value = payload.value !== undefined ? payload.value : "";
+            context.commit('addValueToArray', { arrayName: 'Keywords' + payload.keywordName, value: value });
+        },
+        removeMultilingualKeyword: function (context, payload) {
+            var norwegianValue = context.getters['Keywords' + payload.keywordName][payload.keywordIndex];
+            var englishKeywordKey = payload.keywordName + "_" + norwegianValue;
+            var englishKeywordIndex = null;
+            var englishKeywordValue = null;
+
+            context.getters['KeywordsEnglish'].forEach(function (englishKeyword, index) {
+                if (englishKeyword.Key == englishKeywordKey) {
+                    englishKeywordIndex = index;
+                    englishKeywordValue = englishKeyword.Value;
+                }
+            });
+
+            if (englishKeywordIndex !== null) {
+                context.commit('removeValueFromArray', { arrayName: 'KeywordsEnglish', arrayIndex: englishKeywordIndex }); // Remove english keyword value
+            }
+            context.commit('removeValueFromArray', { arrayName: 'Keywords' + payload.keywordName, arrayIndex: payload.keywordIndex }); // Remove norwegian keyword
+        },
+        updateMultilingualKeyword: function (context, payload) {
+            var oldNorwegianValue = context.getters['Keywords' + payload.keywordName][payload.keywordIndex];
+            var oldEnglishKeywordKey = payload.keywordName + "_" + oldNorwegianValue;
+            var oldEnglishKeywordIndex = null;
+            var oldEnglishKeywordValue = null;
+
+            context.getters['KeywordsEnglish'].forEach(function (englishKeyword, index) {
+                if (englishKeyword.Key == oldEnglishKeywordKey) {
+                    oldEnglishKeywordIndex = index;
+                    oldEnglishKeywordValue = englishKeyword.Value;
+                }
+            });
+
+            if (payload.language == 'no') { // If keyword field is for a norwegian keyword
+
+                var newEnglishKeywordValue = { // Create english keyword
+                    Key: payload.keywordName + "_" + payload.value,
+                    Value: oldEnglishKeywordValue
+                };
+                if (oldEnglishKeywordIndex !== null) {
+                    context.commit('updateArrayValue', { arrayName: 'KeywordsEnglish', arrayIndex: oldEnglishKeywordIndex, value: newEnglishKeywordValue }); // Update english keyword value
+                } else {
+                    context.commit('addValueToArray', { arrayName: 'KeywordsEnglish', value: newEnglishKeywordValue }); // Add english keyword value
+                }
+                context.commit('updateArrayValue', { arrayName: 'Keywords' + payload.keywordName, arrayIndex: payload.keywordIndex, value: payload.value }); // Update norwegian keyword
+
+            } else if (payload.language == 'en') { // If keyword field is for an english keyword
+
+                var newEnglishKeywordValue = { // Add new english keyword
+                    Key: payload.keywordName + "_" + oldNorwegianValue,
+                    Value: payload.value
+                };
+                if (oldEnglishKeywordIndex !== null) {
+                    context.commit('updateArrayValue', { arrayName: 'KeywordsEnglish', arrayIndex: oldEnglishKeywordIndex, value: newEnglishKeywordValue }); // Update english keyword value
+                } else {
+                    context.commit('addValueToArray', { arrayName: 'KeywordsEnglish', value: newEnglishKeywordValue }); // Add english keyword value
+                }
+
+            }
+        },
+        updateSelectedBoundingBoxArea: function (context, payload) {
+            var selectedBoundingBoxAreaIsAllreadyAdded = false;
+            var selectedBoundingBoxAreaIndex = null;
+            context.getters['SelectedBoundingBoxAreas'].forEach(function (selectedBoundingBoxArea, index) {
+                if (payload.Name == selectedBoundingBoxArea) {
+                    selectedBoundingBoxAreaIsAllreadyAdded = true;
+                    selectedBoundingBoxAreaIndex = index;
+                }
+            });
+            if (selectedBoundingBoxAreaIsAllreadyAdded) {
+                context.commit('updateArrayValue', { stateProperty: 'data', arrayName: 'SelectedBoundingBoxAreas', arrayIndex: selectedBoundingBoxAreaIndex, value: payload })
+            }
+            else {
+                context.commit('addValueToArray', { stateProperty: 'data', arrayName: 'SelectedBoundingBoxAreas', value: payload })
+            }
+        },
+        removeSelectedBoundingBoxArea: function (context, payload) {
+            context.commit('removeValueFromArray', { stateProperty: 'data', arrayName: 'SelectedBoundingBoxAreas', arrayIndex: payload });
+        },
+        updateBoundingBoxValues: function (context, payload) {
+            if (parseFloat(payload.BoundingBoxNorth) > parseFloat(context.getters['BoundingBoxNorth']) || context.getters['BoundingBoxNorth'] == null) {
+                context.commit('updateBoundingBoxNorth', payload.BoundingBoxNorth);
+            }
+            if (parseFloat(payload.BoundingBoxSouth) < parseFloat(context.getters['BoundingBoxSouth']) || context.getters['BoundingBoxSouth'] == null) {
+                context.commit('updateBoundingBoxSouth', payload.BoundingBoxSouth);
+            }
+            if (parseFloat(payload.BoundingBoxEast) > parseFloat(context.getters['BoundingBoxEast']) || context.getters['BoundingBoxEast'] == null) {
+                context.commit('updateBoundingBoxEast', payload.BoundingBoxEast);
+            }
+            if (parseFloat(payload.BoundingBoxWest) < parseFloat(context.getters['BoundingBoxWest']) || context.getters['BoundingBoxWest'] == null) {
+                context.commit('updateBoundingBoxWest', payload.BoundingBoxWest);
+            }
+        },
+        resetBoundingBoxValues: function (context) {
+            context.commit('updateBoundingBoxNorth', null);
+            context.commit('updateBoundingBoxEast', null);
+            context.commit('updateBoundingBoxSouth', null);
+            context.commit('updateBoundingBoxWest', null);
+        },
+        refreshBoundingBoxValues: function (context) {
+            context.dispatch('resetBoundingBoxValues');
+            context.getters['SelectedBoundingBoxAreas'].forEach(function (selectedBoundingBoxArea) {
+                context.dispatch('updateBoundingBoxValues', selectedBoundingBoxArea);
+            });
+        },
+        initDatepicker: function (context) {
+            $.datepicker.regional['nb'] = context.getters['settingsDatepickerRegionalNb'];
+            $.datepicker.setDefaults(context.getters['settingsDatepickerRegionalNb']);
+            console.log($.datepicker);
+            $("input.date").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd.mm.yy'
+            });
+        },
+        updateCoverageImage: function (context, payload) {
+            var coverageImageIsAllreadyAdded = false;
+            var coverageImageIndex = null;
+            context.getters['Thumbnails'].forEach(function (thumbnail, index) {
+                if (payload.Type == thumbnail) {
+                    coverageImageIsAllreadyAdded = true;
+                    coverageImageIndex = index;
+                }
+            });
+            if (coverageImageIsAllreadyAdded) {
+                context.commit('updateArrayValue', { arrayName: 'Thumbnails', arrayIndex: coverageImageIndex, value: payload })
+            }
+            else {
+                context.commit('addValueToArray', { arrayName: 'Thumbnails', value: payload })
+            }
+        },
+        getSelectedTab: function (context) {
+            var tabId = Cookies.get('navtabselected');
+            if (tabId !== undefined && tabId !== null) {
+                context.getters['settingsTabs'].forEach(function (tab) {
+                    if (tab.id == tabId) {
+                        context.dispatch('setSelectedTab', tab);
+                    }
+                });
+            } else {
+                context.dispatch('setSelectedTab', context.getters['settingsTabs'][0])
+            }
+
+        },
+        setSelectedTab: function (context, payload) {
+            context.commit('updateSettingsSelectedTab', payload);
+            Cookies.set('navtabselected', payload.id);
+        },
+        registerErrorsForTab: function (context, payload) {
+            var errorsInTab = context.getters['errorsInTabs'][payload.tabName];
+            var modelStateValues = context.getters['modelStateValues'];
+            payload.fieldNames.forEach(function (fieldName) {
+                if (modelStateValues[fieldName] !== undefined) {
+                    if (modelStateValues[fieldName].Errors !== undefined && modelStateValues[fieldName].Errors.length) {
+                        context.commit('addValueToArray', { stateProperty: 'errorsInTabs', arrayName: payload.tabName, value: fieldName });
+                    }
+                }
+
+            })
         }
     }
 </script>

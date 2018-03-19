@@ -3,6 +3,9 @@
         updateSettings: function (state, payload) {
             state.settings = payload;
         },
+        updateSettingsSelectedTab: function (state, payload) {
+            state.settings.selectedTab = payload;
+        },
         updateSettingsLanguages: function (state, payload) {
             state.settings.languages = payload;
         },
@@ -14,6 +17,9 @@
         },
         updateSettingsLanguages_no: function (state, payload) {
             state.settings.languages.no = payload;
+        },
+        updateSettingsSelectedLanguage: function (state, payload) {
+            state.settings.selectedLanguage = payload;
         },
         updateTitle: function (state, payload) {
             state.model.Title = payload;
@@ -325,6 +331,9 @@
         updateKeywordsOther: function (state, payload) {
             state.model.KeywordsOther = payload;
         },
+        updateKeywordsEnglish: function (state, payload) {
+            state.model.KeywordsEnglish = payload;
+        },
         updateResolutionScale: function (state, payload) {
             state.model.ResolutionScale = payload;
         },
@@ -367,14 +376,88 @@
         updateKeywordArealPlans: function (state, payload) {
             state.data.KeywordArealPlans = payload;
         },
-        addKeyword: function (state, payload) {
+        updateQualitySpecificationTitleInspire: function (state, payload) {
+            state.model.QualitySpecificationTitleInspire = payload;
+        },
+        updateQualitySpecificationDateInspire: function (state, payload) {
+            state.model.QualitySpecificationDateInspire = payload;
+        },
+        updateQualitySpecificationDateTypeInspire: function (state, payload) {
+            state.model.QualitySpecificationDateTypeInspire = payload;
+        },
+        updateQualitySpecificationResultInspire: function (state, payload) {
+            state.model.QualitySpecificationResultInspire = payload;
+        },
+        updateQualitySpecificationExplanationInspire: function (state, payload) {
+            state.model.QualitySpecificationExplanationInspire = payload;
+        },
+        updateEnglishQualitySpecificationExplanationInspire: function (state, payload) {
+            state.model.EnglishQualitySpecificationExplanationInspire = payload;
+        },
+        updateQualitySpecificationTitleSosi: function (state, payload) {
+            state.model.QualitySpecificationTitleSosi = payload;
+        },
+        updateQualitySpecificationDateSosi: function (state, payload) {
+            state.model.QualitySpecificationDateSosi = payload;
+        },
+        updateQualitySpecificationDateTypeSosi: function (state, payload) {
+            state.model.QualitySpecificationDateTypeSosi = payload;
+        },
+        updateQualitySpecificationResultSosi: function (state, payload) {
+            state.model.QualitySpecificationResultSosi = payload;
+        },
+        updateQualitySpecificationExplanationSosi: function (state, payload) {
+            state.model.QualitySpecificationExplanationSosi = payload;
+        },
+        updateEnglishQualitySpecificationExplanationSosi: function (state, payload) {
+            state.model.EnglishQualitySpecificationExplanationSosi = payload;
+        },
+        updateQualitySpecificationResultSosiConformApplicationSchema: function (state, payload) {
+            state.model.QualitySpecificationResultSosiConformApplicationSchema = payload;
+        },
+        updateQualitySpecificationResultSosiConformGmlApplicationSchema: function (state, payload) {
+            state.model.QualitySpecificationResultSosiConformGmlApplicationSchema = payload;
+        },
+        updateQualitySpecificationTitle: function (state, payload) {
+            state.model.QualitySpecificationTitle = payload;
+        },
+        updateQualitySpecificationDate: function (state, payload) {
+            state.model.QualitySpecificationDate = payload;
+        },
+        updateQualitySpecificationDateType: function (state, payload) {
+            state.model.QualitySpecificationDateType = payload;
+        },
+        updateQualitySpecificationResult: function (state, payload) {
+            state.model.QualitySpecificationResult = payload;
+        },
+        updateQualitySpecificationExplanation: function (state, payload) {
+            state.model.QualitySpecificationExplanation = payload;
+        },
+        updateEnglishQualitySpecificationExplanation: function (state, payload) {
+            state.model.EnglishQualitySpecificationExplanation = payload;
+        },
+        addEmptyValueToArray: function (state, payload) {
             if (state.model[payload] == undefined) {
                 state.model[payload] = [];
             }
             state.model[payload].push("");
         },
-        removeKeyword: function (state, payload) {
-            state.model[payload.keywordName].Value.Formats.splice(payload.keywordIndex, 1);
+        addValueToArray: function (state, payload) {
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            if (state[stateProperty][payload.arrayName] == undefined) {
+
+                state[stateProperty][payload.arrayName] = [];
+            }
+            state[stateProperty][payload.arrayName].push(payload.value);
+        },
+        updateArrayValue: function (state, payload) {
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            Vue.set(state[stateProperty][payload.arrayName], payload.arrayIndex, payload.value);
+        },
+        removeValueFromArray: function (state, payload) {
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            state[stateProperty][payload.arrayName].splice(payload.arrayIndex, 1);
         }
+        
     }
 </script>

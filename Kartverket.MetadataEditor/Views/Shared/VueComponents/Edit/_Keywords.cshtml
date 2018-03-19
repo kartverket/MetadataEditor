@@ -4,7 +4,7 @@
     <div>
 
         <div class="form-group">
-            <label v-bind:for="topicCategory.id" class="col-md-2 control-label">Tematisk hovedkategori</label>
+            <label v-bind:for="topicCategory.id" class="col-md-2 control-label">@UI.TopicCategory</label>
             <div class="col-md-9">
                 <p v-if="topicCategory.helpText && topicCategory.helpText.active" class="help-text bg-success" v-html="topicCategory.helpText.content"></p>
                 <div is="field" v-bind:form-element="topicCategory"></div>
@@ -18,6 +18,7 @@
 
         <div is="multilingual-keywords"
              v-bind:section="section"
+             v-show="section.visible"
              v-for="section in multilingualKeywords">
         </div>
 
@@ -39,22 +40,25 @@
                 topicCategory: {
                     id: 'TopicCategory',
                     name: 'TopicCategory',
+                    getter: 'TopicCategory',
+                    mutation: 'updateTopicCategory',
                     label: '@Html.Raw(UI.Metadata_TopicCategory_Label)',
+                    type: 'select',
+                    visible: true,
                     helpText: {
                         active: false,
                         content: '@Html.Raw(UI.Helptext_TopicCategory)'
                     },
-                    type: 'select',
-                    mutation: 'updateTopicCategory',
                     options: this.$store.getters['TopicCategoryValues']
                 },
 
                 multilingualKeywords: {
                     keywordsTheme: {
                         title: '@Html.Raw(UI.Metadata_KeywordsTheme_Label)',
-                        name: 'KeywordsTheme',
+                        name: 'Theme',
                         mutation: 'updateKeywordsTheme',
                         type: 'text',
+                        visible: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsTheme)'
@@ -63,8 +67,9 @@
                     },
                     keywordsNationalTheme: {
                         title: '@Html.Raw(UI.Metadata_KeywordsNationalTheme_Label)',
-                        name: 'KeywordsNationalTheme',
+                        name: 'NationalTheme',
                         type: 'select',
+                        visible: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsNationalTheme)'
@@ -73,8 +78,9 @@
                     },
                     keywordsNationalInitiative: {
                         title: '@Html.Raw(UI.Metadata_KeywordsNationalInitiative_Label)',
-                        name: 'KeywordsNationalInitiative',
+                        name: 'NationalInitiative',
                         type: 'select',
+                        visible: false,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsNationalInitiative)'
@@ -83,8 +89,9 @@
                     },
                     keywordsInspire: {
                         title: '@Html.Raw(UI.Metadata_KeywordsInspire_Label)',
-                        name: 'KeywordsInspire',
+                        name: 'Inspire',
                         type: 'select',
+                        visible: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsInspire)'
@@ -93,8 +100,9 @@
                     },
                     keywordsOther: {
                         title: '@Html.Raw(UI.Metadata_KeywordsOther_Label)',
-                        name: 'KeywordsOther',
+                        name: 'Other',
                         type: 'text',
+                        visible: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsOther)'

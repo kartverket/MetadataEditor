@@ -1,5 +1,17 @@
 ﻿<script>
     var Getters = {
+        modelStateValues: function (state) {
+            return state.modelStateValues;
+        },
+        errorsInTabs: function (state) {
+            return state.errorsInTabs;
+        },
+        settingsTabs: function (state) {
+            return state.settings.tabs;
+        },
+        settingsSelectedTab: function (state) {
+            return state.settings.selectedTab;
+        },
         settings: function (state) {
             return state.settings;
         },
@@ -14,6 +26,18 @@
         },
         settingsLanguages_no: function (state) {
             return state.settings.languages.no;
+        },
+        settingsSelectedLanguage: function (state) {
+            return state.settings.selectedLanguage;
+        },
+        settingsDatepicker: function (state) {
+            return state.settings.datepicker;
+        },
+        settingsDatepickerRegional: function (state) {
+            return state.settings.datepicker.regional;
+        },
+        settingsDatepickerRegionalNb: function (state) {
+            return state.settings.datepicker.regional.nb;
         },
         Title: function (state) {
             return state.model.Title;
@@ -66,6 +90,9 @@
         MaintenanceFrequency: function (state) {
             return state.model.MaintenanceFrequency;
         },
+        MaintenanceFrequencyValues: function (state) {
+            return state.viewBag.MaintenanceFrequencyValues;
+        },
         BoundingBoxNorth: function (state) {
             return state.model.BoundingBoxNorth;
         },
@@ -77,6 +104,9 @@
         },
         BoundingBoxWest: function (state) {
             return state.model.BoundingBoxWest;
+        },
+        SelectedBoundingBoxAreas: function (state) {
+            return state.data.SelectedBoundingBoxAreas;
         },
         CoverageUrl: function (state) {
             return state.model.CoverageUrl;
@@ -142,7 +172,7 @@
             return state.data.VideoFormats;
         },
 
-      
+
         FormatDistributions: function (state) {
             return state.model.FormatDistributions;
         },
@@ -152,8 +182,6 @@
         PredefinedDistributionProtocols: function (state) {
             return state.viewBag.predefinedDistributionProtocols;
         },
-
-
         ProductSpecificationUrl: function (state) {
             return state.model.ProductSpecificationUrl;
         },
@@ -268,6 +296,12 @@
         KeywordsOther: function (state) {
             return state.model.KeywordsOther;
         },
+        KeywordsEnglish: function (state) {
+            return state.model.KeywordsEnglish;
+        },
+        KeywordsPlace: function (state) {
+            return state.model.KeywordsPlace;
+        },
         ResolutionScale: function (state) {
             return state.model.ResolutionScale;
         },
@@ -309,6 +343,75 @@
         },
         KeywordArealPlans: function (state) {
             return state.data.KeywordArealPlans;
+        },
+        QualitySpecificationTitleInspire: function (state) {
+            return state.model.QualitySpecificationTitleInspire;
+        },
+        QualitySpecificationDateInspire: function (state) {
+            return state.model.QualitySpecificationDateInspire;
+        },
+        QualitySpecificationDateTypeInspire: function (state) {
+            return state.model.QualitySpecificationDateTypeInspire;
+        },
+        QualitySpecificationResultInspire: function (state) {
+            return state.model.QualitySpecificationResultInspire;
+        },
+        showQualitySpecificationExplanationInspire: function (state) {
+            return state.model.QualitySpecificationResultInspire == "false" || state.model.QualitySpecificationResultInspire == false;
+        },
+        QualitySpecificationExplanationInspire: function (state) {
+            return state.model.QualitySpecificationExplanationInspire;
+        },
+        EnglishQualitySpecificationExplanationInspire: function (state) {
+            return state.model.EnglishQualitySpecificationExplanationInspire;
+        },
+        QualitySpecificationTitleSosi: function (state) {
+            return state.model.QualitySpecificationTitleSosi;
+        },
+        QualitySpecificationDateSosi: function (state) {
+            return state.model.QualitySpecificationDateSosi;
+        },
+        QualitySpecificationDateTypeSosi: function (state) {
+            return state.model.QualitySpecificationDateTypeSosi;
+        },
+        QualitySpecificationResultSosi: function (state) {
+            return state.model.QualitySpecificationResultSosi;
+        },
+        showQualitySpecificationExplanationSosi: function (state) {
+            return state.model.QualitySpecificationResultSosi == "false" || state.model.QualitySpecificationResultSosi == false;
+        },
+        QualitySpecificationExplanationSosi: function (state) {
+            return state.model.QualitySpecificationExplanationSosi;
+        },
+        EnglishQualitySpecificationExplanationSosi: function (state) {
+            return state.model.EnglishQualitySpecificationExplanationSosi;
+        },
+        QualitySpecificationResultSosiConformApplicationSchema: function (state) {
+            return state.model.QualitySpecificationResultSosiConformApplicationSchema;
+        },
+        QualitySpecificationResultSosiConformGmlApplicationSchema: function (state) {
+            return state.model.QualitySpecificationResultSosiConformGmlApplicationSchema;
+        },
+        QualitySpecificationTitle: function (state) {
+            return state.model.QualitySpecificationTitle;
+        },
+        QualitySpecificationDate: function (state) {
+            return state.model.QualitySpecificationDate;
+        },
+        QualitySpecificationDateType: function (state) {
+            return state.model.QualitySpecificationDateType;
+        },
+        QualitySpecificationResult: function (state) {
+            return state.model.QualitySpecificationResult;
+        },
+        showQualitySpecificationExplanation: function (state) {
+            return state.model.QualitySpecificationResult == "false" || state.model.QualitySpecificationResult == false;
+        },
+        QualitySpecificationExplanation: function (state) {
+            return state.model.QualitySpecificationExplanation;
+        },
+        EnglishQualitySpecificationExplanation: function (state) {
+            return state.model.EnglishQualitySpecificationExplanation;
         }
     }
 </script>

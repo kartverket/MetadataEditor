@@ -2,25 +2,22 @@
 
 <script type="text/x-template" id="basic-template">
     <div>
-
-        <form class="form form-horizontal">
-            <div class="form-group has-feedback">
-                <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
-                    <div class="row">
-                        <label class="col-md-2 control-label">{{ formElement.label }}</label>
-                        <div class="col-md-9">
-                            <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                            <div is="field" v-bind:form-element="formElement"></div>
-                        </div>
-                        <div v-if="formElement.helpText" class="col-md-1">
-                            <p class="form-control-static">
-                                <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
-                            </p>
-                        </div>
+        <div class="form-group has-feedback">
+            <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                <div class="row">
+                    <label class="col-md-2 control-label">{{ formElement.label }}</label>
+                    <div class="col-md-9">
+                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                        <div is="field" v-bind:form-element="formElement"></div>
+                    </div>
+                    <div v-if="formElement.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </script>
 
@@ -28,7 +25,6 @@
     var Basic = {
         name: "basic",
         template: "#basic-template",
-        computed: new Vuex.mapGetters(['Title', 'EnglishTitle', 'Abstract', 'ResourceReferenceCodespace', 'ResourceReferenceCode']),
         methods: {
             updateField: function (value) {
                 this.$store.dispatch('updateField', value);
@@ -37,118 +33,133 @@
         components: {
             Field: Field
         },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Basic', fieldNames: this.fieldNames });
+        },
         data: function () {
             return {
+                fieldNames: ['Title', 'EnglishTitle', 'ResourceReferenceCodespace', 'ResourceReferenceCode', 'Abstract', 'EnglishAbstract', 'HelpUrl', 'SpecificUsage', 'EnglishSpecificUsage'],
                 formElements: [
                     {
                         multilingual: {
                             no: {
                                 name: 'Title',
+                                getter: 'Title',
                                 mutation: 'updateTitle'
                             },
                             en: {
                                 name: 'EnglishTitle',
+                                getter: 'EnglishTitle',
                                 mutation: 'updateEnglishTitle'
                             }
                         },
-                        selectedLanguage: this.$parent.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         label: '@Html.Raw(UI.Metadata_Title)',
                         type: 'text',
                         helpText: {
                             active: false,
-                            content: 'Navn på metadataoppføringen. Navnet skal være kort og konsist og beskrive tjenesten/datasettet best mulig. Generelle begreper må settes inn i en faglig kontekst (eks: Kulturminner - lokaliteter). Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon. Navnet kan også inneholde årstall og geografisk område.'
+                            content: '@UI.HelpTextTitle'
                         }
                     },
                     {
                         name: 'ResourceReferenceCodespace',
+                        getter: 'ResourceReferenceCodespace',
                         mutation: 'updateResourceReferenceCodespace',
                         type: 'text',
-                        label: 'Navnerom til datasett',
+                        label: '@UI.NamespaceToDataset',
                         helpText: {
                             active: false,
-                            content: 'Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.<br/>Eksempel: http://data.geonorge.no/so/'
+                            content: '@UI.HelpTextResourceReferenceCodespace'
                         }
                     },
                     {
                         name: 'ResourceReferenceCode',
+                        getter: 'ResourceReferenceCode',
                         mutation: 'updateResourceReferenceCode',
                         type: 'text',
-                        label: 'Navn på datasett',
+                        label: '@UI.DatasetName',
                         helpText: {
                             active: false,
-                            content: 'Fullstendig navn på selve datasettet.'
+                            content: '@UI.HelpTextResourceReferenceCode'
                         }
                     },
                     {
                         multilingual: {
                             no: {
                                 name: 'Abstract',
+                                getter: 'Abstract',
                                 mutation: 'updateAbstract'
                             },
                             en: {
                                 name: 'EnglishAbstract',
+                                getter: 'EnglishAbstract',
                                 mutation: 'updateEnglishAbstract'
                             }
                         },
-                        selectedLanguage: this.$parent.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
                         label: '@Html.Raw(UI.Metadata_Abstract)',
                         helpText: {
                             active: false,
-                            content: 'Oppgi hva tjenesten/datasettet inneholder. Hva finner brukeren i denne tjenesten/datasettet.'
+                            content: '@UI.HelpTextAbstract'
                         }
                     },
                     {
                         name: 'HelpUrl',
+                        getter: 'HelpUrl',
                         value: this.$parent.model.HelpUrl,
                         mutation: 'updateHelpUrl',
                         type: 'text',
-                        label: 'URL til hjelp',
+                        label: '@UI.HelpUrl',
                         helpText: {
                             active: false,
-                            content: 'Oppgi link til ekstern side eller PDF-dokument med informasjon og veiledning som gjør det lettere å ta i bruk datasettet.'
+                            content: '@UI.HelpTextHelpUrl'
                         }
                     },
                     {
                         multilingual: {
                             no: {
                                 name: 'SpecificUsage',
+                                getter: 'SpecificUsage',
                                 mutation: 'updateSpecificUsage'
                             },
                             en: {
                                 name: 'EnglishSpecificUsage',
+                                getter: 'EnglishSpecificUsage',
                                 mutation: 'updateEnglishSpecificUsage'
                             }
                         },
-                        selectedLanguage: this.$parent.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
-                        label: 'Bruksområde',
+                        label: '@UI.Use',
                         helpText: {
                             active: false,
-                            content: 'Oppgi hvilke oppgaver datasettet kan/bør brukes til.<br/>For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå.<br/>Bruksbegrensninger fylles inn i fanen'
+                            content: '@UI.HelpTextSpesificUsage'
                         }
                     },
                     {
                         multilingual: {
                             no: {
                                 name: 'Purpose',
+                                getter: 'Purpose',
                                 mutation: 'updatePurpose'
                             },
                             en: {
                                 name: 'EnglishPurpose',
+                                getter: 'EnglishPurpose',
                                 mutation: 'updateEnglishPurpose'
                             }
                         },
-                        selectedLanguage: this.$parent.defaultLanguage,
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
                         label: '@Html.Raw(UI.Metadata_Purpose)',
                         helpText: {
                             active: false,
-                            content: 'Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her.<br/>Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert.<br/>Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene.'
+                            content: '@UI.HelpTextPurpose'
                         }
                     }
                 ]

@@ -13,6 +13,9 @@ using log4net;
 using System.Net;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
+using System.Threading;
+using Kartverket.Geonorge.Utilities.LogEntry;
+using System.Threading.Tasks;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -21,11 +24,14 @@ namespace Kartverket.MetadataEditor.Controllers
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private MetadataService _metadataService;
+        private IMetadataService _metadataService;
 
+        public MetadataController(IMetadataService metadataService)
+        {
+            _metadataService = metadataService;
+        }
         public MetadataController()
         {
-            _metadataService = new MetadataService();
         }
 
         [HttpGet]
@@ -120,13 +126,19 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Edit(string uuid)
+        public async Task<ActionResult> Edit(string uuid, bool displayLog = false, bool displayLogLatest = false)
         {
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
 
             try
             {
+                ViewBag.DisplayLog = displayLog; ViewBag.DisplayLogLatest = displayLogLatest;
+                if (displayLogLatest)
+                    ViewBag.LogEntries = await _metadataService.GetLogEntriesLatest();
+                else if (displayLog)
+                    ViewBag.LogEntries = await _metadataService.GetLogEntries(uuid);
+
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
                 string role = GetSecurityClaim("role");
                 if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
@@ -138,6 +150,11 @@ namespace Kartverket.MetadataEditor.Controllers
                         return RedirectToAction("Edit", "SimpleMetadata", new { uuid = uuid });
 
                     PrepareViewBagForEditing(model);
+                    if (Request.QueryString["metadatacreated"] == null)
+                    {
+                        TryValidateModel(model);
+                        ValidateModel(model);
+                    }
                     return View(model);
                 }
                 else
@@ -190,7 +207,7 @@ namespace Kartverket.MetadataEditor.Controllers
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 
 
-            if (string.IsNullOrEmpty(model.ContactMetadata.Organization))
+            if (model.ContactMetadata != null && string.IsNullOrEmpty(model.ContactMetadata.Organization))
             {
                 if (Request.Form["ContactMetadata.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactMetadata.Organization.Old"]))
                 {
@@ -198,7 +215,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
             }
 
-            if (string.IsNullOrEmpty(model.ContactPublisher.Organization))
+            if (model.ContactPublisher != null && string.IsNullOrEmpty(model.ContactPublisher.Organization))
             {
                 if (Request.Form["ContactPublisher.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactPublisher.Organization.Old"]))
                 {
@@ -207,16 +224,20 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
 
-            if (string.IsNullOrEmpty(model.ContactOwner.Organization))
+            if (model.ContactOwner != null && string.IsNullOrEmpty(model.ContactOwner.Organization))
             {
                 if (Request.Form["ContactOwner.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactOwner.Organization.Old"])) {
                     model.ContactOwner.Organization = Request["ContactOwner.Organization.Old"].ToString();
                 }
             }
 
-            ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", model.ContactMetadata.Organization);
-            ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", model.ContactPublisher.Organization);
-            ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", model.ContactOwner.Organization);
+            var contactMetadataOrganization = (model.ContactMetadata != null && model.ContactMetadata.Organization != null) ? model.ContactMetadata.Organization : "";
+            var contactPublisherOrganization = (model.ContactPublisher != null && model.ContactPublisher.Organization != null) ? model.ContactPublisher.Organization : "";
+            var contactOwnerOrganization = (model.ContactOwner != null && model.ContactOwner.Organization != null) ? model.ContactOwner.Organization : "";
+
+            ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", contactMetadataOrganization);
+            ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", contactPublisherOrganization);
+            ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", contactOwnerOrganization);
             ViewBag.OrganizationDistributorValues = new SelectList(OrganizationList, "Key", "Value");
 
             Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
@@ -265,12 +286,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ViewBag.Municipalities = new KomDataService().GetListOfMunicipalityOrganizations();
 
-            ViewBag.ValidModel = true;
-            if (Request.QueryString["metadatacreated"] == null )
-            {
-                ViewBag.ValidModel = TryValidateModel(model);
-            }
-
             ViewBag.NewDistribution = false;
 
             ViewBag.IsAdmin = "0";
@@ -279,7 +294,6 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 ViewBag.IsAdmin = "1";
             }
-
         }
 
         [HttpPost]
@@ -924,7 +938,7 @@ namespace Kartverket.MetadataEditor.Controllers
             string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
-                _metadataService.DeleteMetadata(uuid, GetUsername());
+                _metadataService.DeleteMetadata(model, GetUsername());
 
                 TempData["Message"] = "Metadata med uuid " + uuid + " ble slettet.";
                 return RedirectToAction("Index");

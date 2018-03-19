@@ -1,4 +1,6 @@
-﻿<script type="text/x-template" id="constraints-template">
+﻿@using Resources
+
+<script type="text/x-template" id="constraints-template">
     <div>
 
         @* UseLimitations *@
@@ -44,12 +46,12 @@
         </div>
 
         @* LicenseTypes *@
-        <div class="form-group has-feedback" v-bind:class="{required: formElements.licenseTypes.required}">
+        <div v-show="showLicenseType" class="form-group has-feedback" v-bind:class="{required: formElements.licenseTypes.required}">
             <label class="col-md-3 control-label">{{ formElements.licenseTypes.label }}</label>
             <div class="col-md-6">
                 <p v-if="formElements.licenseTypes.helpText && formElements.licenseTypes.helpText.active" class="help-text bg-success" v-html="formElements.licenseTypes.helpText.content"></p>
                 <div class="custom-select">
-                    <select v-bind:value="getSelectedLicenceType()" v-on:change="setSelectedLicenceType($event)" v-bind:name="formElements.licenseTypes.name" class="form-control">
+                    <select v-bind:value="getSelectedLicenseType()" v-on:change="setSelectedLicenseType($event)" v-bind:name="formElements.licenseTypes.name" class="form-control">
                         <option v-bind:value="option.Value" v-for="option in formElements.licenseTypes.options">{{ option.Text }}</option>
                     </select>
                 </div>
@@ -64,7 +66,7 @@
             </div>
         </div>
 
-        <div v-show="showCustomLicenseType" class="form-group has-feedback">
+        <div v-show="showLicenseType && showCustomLicenseType" class="form-group has-feedback">
             @* OtherConstraintsLinkText *@
             <label class="col-md-3 control-label">{{ formElements.otherConstraintsLinkText.label }}</label>
             <div class="col-md-3">
@@ -101,7 +103,7 @@
             </div>
             <div v-if="formElements.useConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
-                    <span v-on:click="formElements.useConstraints.helpText.active = !formElements.securityConstraints.helpText.active" v-bind:class="{active: formElements.useConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                    <span v-on:click="formElements.securityConstraints.helpText.active = !formElements.securityConstraints.helpText.active" v-bind:class="{active: formElements.securityConstraints.helpText.active}" class="badge help-text-toggle">?</span>
                 </p>
             </div>
         </div>
@@ -135,68 +137,82 @@
             updateField: function (value) {
                 this.$store.dispatch('updateField', value);
             },
-            setSelectedLicenceType: function (event) {
+            setSelectedLicenseType: function (event) {
                 this.$store.commit('updateOtherConstraintsLinkText', event.target.selectedOptions[0].text);
                 this.$store.commit('updateOtherConstraintsLink', event.target.selectedOptions[0].value);
             },
-            getSelectedLicenceType: function (target) {
+            getSelectedLicenseType: function (target) {
                 return this.$store.getters['OtherConstraintsLink'];
             }
         },
+        computed: {
+            showLicenseType: function () {
+                return this.$store.getters['UseConstraints'] == 'license';
+            }
+        },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Constraints', fieldNames: this.fieldNames });
+        },
         data: function () {
             return {
+                fieldNames: ['UseLimitations', 'EnglishUseLimitations', 'AccessConstraints', 'UseConstraints', 'LicenseTypes', 'OtherConstraintsLinkText', 'OtherConstraintsLink', 'OtherConstraints', 'EnglishOtherConstraints', 'SecurityConstraints', 'SecurityConstraintsNote'],
                 showCustomLicenseType: false,
                 formElements: {
                     useLimitations: {
                         multilingual: {
                             no: {
                                 name: 'UseLimitations',
+                                getter: 'UseLimitations',
                                 mutation: 'updateUseLimitations'
                             },
                             en: {
                                 name: 'EnglishUseLimitations',
+                                getter: 'EnglishUseLimitations',
                                 mutation: 'updateEnglishUseLimitations'
                             }
                         },
-                        selectedLanguage: this.$root.defaultLanguage,
-                        label: 'Bruksbegrensninger',
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        label: '@Html.Raw(UI.Metadata_UseLimitations_Label)',
                         type: 'text',
                         helpText: {
                             active: false,
-                            content: ''
+                            content: '@Html.Raw(UI.Helptext_UseLimitations)'
                         }
                     },
                     accessConstraints: {
                         name: 'AccessConstraints',
+                        getter: 'AccessConstraints',
                         mutation: 'updateAccessConstraints',
-                        label: 'Tilgangsrestriksjoner',
+                        label: '@Html.Raw(UI.Metadata_AccessConstraints_Label)',
                         type: 'select',
                         options: this.$store.getters['AccessConstraintValues'],
                         helpText: {
                             active: false,
-                            content: ''
+                            content: '@Html.Raw(UI.Helptext_AccessConstraints)'
                         }
                     },
                     useConstraints: {
                         name: 'UseConstraints',
+                        getter: 'UseConstraints',
                         mutation: 'updateUseConstraints',
-                        label: 'Brukerrestriksjoner',
+                        label: '@Html.Raw(UI.Metadata_UseConstraints_Label)',
                         type: 'select',
                         options: this.$store.getters['UseConstraintValues'],
                         helpText: {
                             active: false,
-                            content: ''
+                            content: '@Html.Raw(UI.Helptext_UseConstraints)'
                         }
                     },
                     licenseTypes: {
                         name: 'LicenseTypes',
+                        getter: 'LicenseTypes',
                         mutation: 'updateLicenseTypes',
-                        label: 'Lisens',
+                        label: '@Html.Raw(UI.Metadata_LicenseTypes_Label)',
                         type: 'select',
                         options: this.$store.getters['LicenseTypesValues'],
                         helpText: {
                             active: false,
-                            content: ''
+                            content: '@Html.Raw(UI.Helptext_LicenseTypes)'
                         }
                     },
                     customLicenseType: {
@@ -204,50 +220,56 @@
                     },
                     otherConstraintsLinkText: {
                         name: 'OtherConstraintsLinkText',
+                        getter: 'OtherConstraintsLinkText',
                         mutation: 'updateOtherConstraintsLinkText',
-                        label: 'Valgt lisens',
+                        label: '@Html.Raw(UI.Metadata_OtherConstraintsLinkText_Label)',
                         type: 'text'
                     },
                     otherConstraintsLink: {
                         name: 'OtherConstraintsLink',
+                        getter: 'OtherConstraintsLink',
                         mutation: 'updateOtherConstraintsLink',
-                        label: 'URL',
+                        label: '@Html.Raw(UI.Metadata_OtherConstraintsLink_Label)',
                         type: 'text'
                     },
                     otherConstraints: {
                         multilingual: {
                             no: {
                                 name: 'OtherConstraints',
+                                getter: 'OtherConstraints',
                                 mutation: 'updateOtherConstraints'
                             },
                             en: {
                                 name: 'EnglishOtherConstraints',
+                                getter: 'EnglishOtherConstraints',
                                 mutation: 'updateEnglishOtherConstraints'
                             }
                         },
-                        selectedLanguage: this.$root.defaultLanguage,
-                        label: 'Andre restriksjoner',
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        label: '@Html.Raw(UI.Metadata_OtherConstraints_Label)',
                         type: 'text'
                     },
                     securityConstraints: {
                         name: 'SecurityConstraints',
+                        getter: 'SecurityConstraints',
                         mutation: 'updateSecurityConstraints',
-                        label: 'Sikkerhetsnivå',
+                        label: '@Html.Raw(UI.Metadata_SecurityConstraints_Label)',
                         type: 'select',
                         options: this.$store.getters['SecurityConstraintValues'],
                         helpText: {
                             active: false,
-                            content: ''
+                            content: '@Html.Raw(UI.Helptext_SecurityConstraints)'
                         }
                     },
                     securityConstraintsNote: {
                         name: 'SecurityConstraintsNote',
+                        getter: 'SecurityConstraintsNote',
                         mutation: 'updateSecurityConstraintsNote',
-                        label: 'Lovhenvisning',
+                        label: '@Html.Raw(UI.Metadata_SecurityConstraintsNote_Label)',
                         type: 'text',
                         helpText: {
                             active: false,
-                            content: ''
+                            content: '@Html.Raw(UI.Helptext_SecurityConstraintsNote)'
                         }
                     }
                 }

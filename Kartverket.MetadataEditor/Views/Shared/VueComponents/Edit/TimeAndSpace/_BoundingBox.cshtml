@@ -4,7 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-11">Geografisk utstrekning</div>
+                <div class="col-md-11">@UI.GeographicExtent</div>
                 <div v-if="helpText" class="col-md-1">
                     <span v-on:click="helpText.active = !helpText.active" v-bind:class="{active: helpText.active}" class="badge help-text-toggle">?</span>
                 </div>
@@ -24,9 +24,9 @@
 
                             <div class="custom-select-list">
                                 <div class="custom-select-list-input-container">
-                                    <span v-for="area in $parent.$parent.selectedValues.timeAndSpace.boundingBox.areas" class="custom-select-list-selected">
+                                    <span v-for="(area, areaIndex) in $store.getters['SelectedBoundingBoxAreas']" class="custom-select-list-selected">
                                         {{ area.Name }}
-                                        <span v-on:click="removeSelectedArea(area)" class="custom-select-list-remove-button"></span>
+                                        <span v-on:click="removeSelectedArea(areaIndex)" class="custom-select-list-remove-button"></span>
                                     </span>
                                     <input type="text" class="custom-select-list-input" />
                                 </div>
@@ -34,7 +34,12 @@
                                 <div class="custom-select-list-dropdown-container">
                                     <div class="custom-select-list-dropdown">
                                         <div class="custom-select-list-dropdown-content">
-
+                                            <div v-for="areaGroup in areaSelect.otherAreaGroups" class="custom-select-list-option-group">
+                                                <p class="custom-select-list-option-group-name">{{ areaGroup.Name }}</p>
+                                                <ul class="custom-select-list-options area-option-list">
+                                                    <li v-on:click="addSelectedArea(area)" v-bind:class="{'is-selected': areaIsSelected(area)}" v-for="area in areaGroup.Areas">{{ area.Name }}</li>
+                                                </ul>
+                                            </div>
                                             <div v-for="county in areaSelect.counties" class="custom-select-list-option-group">
                                                 <p class="custom-select-list-option-group-name">{{ county.Name }}</p>
                                                 <ul class="custom-select-list-options area-option-list">
@@ -43,25 +48,30 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                        <div class="custom-select-list-dropdown-additional-options">
+                                            <a title="Velg fra kart" data-toggle="tooltip" data-placement="bottom" class="btn" v-on:click="areaSelect.showMap = true">
+                                                <span class="glyphicon glyphicon-globe"></span> Velg fra kart
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <label class="col-md-2 control-label">Eller angi koordinater</label>
+                        <label class="col-md-2 control-label">@UI.OrSpecifyCoordinates</label>
 
                         <div class="col-md-3">
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
                                     <span class="input-group-addon">Nord</span>
-                                    <input name="BoundingBoxNorth" type="text" v-model="$parent.$parent.model.BoundingBoxNorth" class="form-control" />
+                                    <input name="BoundingBoxNorth" type="text" v-model="$store.getters['BoundingBoxNorth']" class="form-control" />
                                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                                 </div>
                             </div>
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
                                     <span class="input-group-addon">Øst</span>
-                                    <input name="BoundingBoxEast" type="text" v-model="$parent.$parent.model.BoundingBoxEast" class="form-control" />
+                                    <input name="BoundingBoxEast" type="text" v-model="$store.getters['BoundingBoxEast']" class="form-control" />
 
                                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                                 </div>
@@ -69,14 +79,14 @@
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
                                     <span class="input-group-addon">Sør</span>
-                                    <input name="BoundingBoxSouth" type="text" v-model="$parent.$parent.model.BoundingBoxSouth" class="form-control" />
+                                    <input name="BoundingBoxSouth" type="text" v-model="$store.getters['BoundingBoxSouth']" class="form-control" />
                                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                                 </div>
                             </div>
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
                                     <span class="input-group-addon">Vest</span>
-                                    <input name="BoundingBoxWest" type="text" v-model="$parent.$parent.model.BoundingBoxWest" class="form-control" />
+                                    <input name="BoundingBoxWest" type="text" v-model="$store.getters['BoundingBoxWest']" class="form-control" />
                                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                                 </div>
                             </div>
@@ -88,16 +98,18 @@
                 </div>
             </div>
         </div>
+        <div v-show="areaSelect.showMap" is="norgeskart"></div>
     </div>
 </script>
 
+@Html.Partial("VueComponents/Edit/TimeAndSpace/BoundingBox/_Norgeskart")
 
 <script>
     var BoundingBox = {
         name: "boundingBox",
         template: "#boundingBox-template",
-        props: [],
         components: {
+            Norgeskart: Norgeskart
         },
         data: function () {
             return {
@@ -109,8 +121,9 @@
                 {
                     name: '',
                     value: '',
-                    label: 'Angi område',
+                    label: '@UI.SpecifyAreas',
                     type: 'select',
+                    showMap: false,
                     counties: [
                         { Name: 'Akershus', CountyCode: '02', BoundingBoxNorth: '60.605148', BoundingBoxSouth: '59.471882', BoundingBoxEast: '11.926978', BoundingBoxWest: '10.328467', Municipalities: this.getMunicipalitiesInCounty('02') },
                         { Name: 'Aust-Agder', CountyCode: '09', BoundingBoxNorth: '59.672687', BoundingBoxSouth: '57.917234', BoundingBoxEast: '9.668877', BoundingBoxWest: '6.824533', Municipalities: this.getMunicipalitiesInCounty('09') },
@@ -130,7 +143,15 @@
                         { Name: 'Vest-Agder', CountyCode: '10', BoundingBoxNorth: '59.189687', BoundingBoxSouth: '57.759005', BoundingBoxEast: '8.37168', BoundingBoxWest: '6.149699', Municipalities: this.getMunicipalitiesInCounty('10') },
                         { Name: 'Vestfold', CountyCode: '07', BoundingBoxNorth: '59.701938', BoundingBoxSouth: '58.720455', BoundingBoxEast: '10.67502', BoundingBoxWest: '9.755336', Municipalities: this.getMunicipalitiesInCounty('07') },
                         { Name: 'Østfold', CountyCode: '01', BoundingBoxNorth: '59.790586', BoundingBoxSouth: '58.76096', BoundingBoxEast: '11.946004', BoundingBoxWest: '10.536679', Municipalities: this.getMunicipalitiesInCounty('01') }
-                    ]
+                    ],
+                    otherAreaGroups: [
+                        {
+                            Name: 'Landsdekkende',
+                            Areas: [
+                                { Name: 'Hele landet', AreaCode: '00', BoundingBoxNorth: '72', BoundingBoxSouth: '57', BoundingBoxEast: '33', BoundingBoxWest: '2' }
+                            ]
+                        }
+                    ],
                 }
 
             };
@@ -138,27 +159,25 @@
         methods: {
             areaIsSelected: function (area) {
                 var areaIsSelected = false;
-                this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.forEach(function (selectedArea) {
+                this.$store.getters['SelectedBoundingBoxAreas'].forEach(function (selectedArea) {
                     if (area.CountyCode !== undefined) {
                         if (area.CountyCode == selectedArea.CountyCode) areaIsSelected = true;
                     } else if (area.MunicipalityCode !== undefined) {
                         if (area.MunicipalityCode == selectedArea.MunicipalityCode) areaIsSelected = true;
                     }
+                    else if (area.AreaCode !== undefined) {
+                        if (area.AreaCode == selectedArea.AreaCode) areaIsSelected = true;
+                    }
                 })
                 return areaIsSelected;
             },
-            removeSelectedArea: function (area) {
-                var selectedAreaIndex = this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.indexOf(area);
-                if (selectedAreaIndex > -1) {
-                    this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.splice(selectedAreaIndex, 1);
-                }
-                this.setBoundingBoxCoordinates();
+            removeSelectedArea: function (areaIndex) {
+                this.$store.dispatch('removeSelectedBoundingBoxArea', areaIndex);
+                this.$store.dispatch('refreshBoundingBoxValues');
             },
             addSelectedArea: function (area) {
-                if (!this.areaIsSelected(area)) {
-                    this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.push(area);
-                }
-                this.setBoundingBoxCoordinates();
+                this.$store.dispatch('updateSelectedBoundingBoxArea', area);
+                this.$store.dispatch('refreshBoundingBoxValues');
             },
             getMunicipalitiesInCounty: function (countyCode) {
                 var municipalitiesInCounty = [];
@@ -168,37 +187,6 @@
                     }
                 });
                 return municipalitiesInCounty;
-            },
-            getSelectedAreasBoundingBox: function () {
-                var boundingBox = {
-                    north: '',
-                    south: '',
-                    east: '',
-                    west: ''
-                }
-                var boundingBoxIsEmpty = true;
-                this.$parent.$parent.selectedValues.timeAndSpace.boundingBox.areas.forEach(function (selectedArea) {
-                    if (boundingBoxIsEmpty) {
-                        boundingBox.north = selectedArea.BoundingBoxNorth;
-                        boundingBox.south = selectedArea.BoundingBoxSouth;
-                        boundingBox.east = selectedArea.BoundingBoxEast;
-                        boundingBox.west = selectedArea.BoundingBoxWest;
-                        boundingBoxIsEmpty = false;
-                    } else {
-                        if (parseFloat(selectedArea.BoundingBoxNorth) > parseFloat(boundingBox.north)) boundingBox.north = selectedArea.BoundingBoxNorth;
-                        if (parseFloat(selectedArea.BoundingBoxSouth) > parseFloat(boundingBox.south)) boundingBox.south = selectedArea.BoundingBoxSouth;
-                        if (parseFloat(selectedArea.BoundingBoxEast) < parseFloat(boundingBox.east)) boundingBox.east = selectedArea.BoundingBoxEast;
-                        if (parseFloat(selectedArea.BoundingBoxWest) < parseFloat(boundingBox.west)) boundingBox.west = selectedArea.BoundingBoxWest;
-                    }
-                });
-                return boundingBox;
-            },
-            setBoundingBoxCoordinates: function () {
-                boundingBox = this.getSelectedAreasBoundingBox();
-                this.$root.model.BoundingBoxNorth = boundingBox.north;
-                this.$root.model.BoundingBoxSouth = boundingBox.south;
-                this.$root.model.BoundingBoxEast = boundingBox.east;
-                this.$root.model.BoundingBoxWest = boundingBox.west;
             }
         },
         mounted: function () {

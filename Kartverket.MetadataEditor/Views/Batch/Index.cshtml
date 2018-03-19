@@ -30,6 +30,7 @@
                                     <label for="KeywordsInspire"><input type="radio" name="metadatafield" value="KeywordsInspire" id="KeywordsInspire" />Inspire-kategorier </label>
                                     <label for="DistributionFormats"><input type="radio" name="metadatafield" value="DistributionFormats" id="DistributionFormats" />Distribusjonsformater </label>
                                     <label for="ReferenceSystems"><input type="radio" name="metadatafield" value="ReferenceSystems" id="ReferenceSystems" />Romlig referansesystem </label>
+                                    <label for="License"><input type="radio" name="metadatafield" value="License" id="License" />Lisens </label>
                                     <label for="EnglishTexts"><input type="radio" name="metadatafield" value="EnglishTexts" id="EnglishTexts" />Engelske tekster </label>
                                     <br /><input type="checkbox" name="deleteData" checked="checked" value="true" />Slett eksisterende data
                                 </div>
@@ -120,6 +121,17 @@
                                         <tbody>
                                             <tr><td>041f1e6e-bdbc-4091-b48f-8a5990f3cc5b</td><td>http://www.opengis.net/def/crs/EPSG/0/23032</td></tr>
                                             <tr><td>041f1e6e-bdbc-4091-b48f-8a5990f3cc5b</td><td>http://www.opengis.net/def/crs/EPSG/0/3035</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="LicenseInfo" class="row table-responsive" style="display:none;">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <caption>Excel-ark skal ha følgende struktur for å oppdatere lisens :</caption>
+                                        <thead><tr><th>uuid</th><th>lisensnavn</th><th>URL</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Creative Commons 0</td><td>https://creativecommons.org/publicdomain/zero/1.0/</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -327,6 +339,9 @@ else
                 else if (selectedField == "ReferenceSystems") {
                     $("#ReferenceSystemsInfo").show();
                 }
+                else if (selectedField == "License") {
+                    $("#LicenseInfo").show();
+                }
                 else if (selectedField == "EnglishTexts") {
                     $("#EnglishTextsInfo").show();
                 }
@@ -342,6 +357,7 @@ else
             $("#KeywordsInspireInfo").hide();
             $("#DistributionFormatsInfo").hide();
             $("#ReferenceSystemsInfo").hide();
+            $("#LicenseInfo").hide();
             $("#EnglishTextsInfo").hide();
         }
 
