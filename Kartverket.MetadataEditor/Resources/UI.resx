@@ -663,6 +663,15 @@ Bruksbegrensninger fylles inn i fanen Restriksjoner</value>
   <data name="HelpTextDate" xml:space="preserve">
     <value>Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.</value>
   </data>
+  <data name="Conformity" xml:space="preserve">
+    <value>Konformitet</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Egendefinert</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dato</value>
+  </data>
   <data name="East" xml:space="preserve">
     <value>Øst</value>
   </data>
@@ -686,6 +695,21 @@ Bruksbegrensninger fylles inn i fanen Restriksjoner</value>
   </data>
   <data name="North" xml:space="preserve">
     <value>Nord</value>
+  </data>
+  <data name="QualitySpecificationCustom" xml:space="preserve">
+    <value>Annen standard/ egen dokumentasjon</value>
+  </data>
+  <data name="QualitySpecificationResultNotSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI-filer avviker fra applikasjonsskjema</value>
+  </data>
+  <data name="QualitySpecificationResultSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI-filer er i henhold til applikasjonsskjema</value>
+  </data>
+  <data name="QualitySpecificationResultSosiConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML-filer er i henhold til applikasjonsskjema</value>
+  </data>
+  <data name="QualitySpecificationResultSosiNotConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML-filer avviker fra applikasjonsskjema</value>
   </data>
   <data name="SelectFile" xml:space="preserve">
     <value>Velg fil</value>

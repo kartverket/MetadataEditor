@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Konformitet.
+        /// </summary>
+        public static string Conformity {
+            get {
+                return ResourceManager.GetString("Conformity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontaktperson - Epost.
         /// </summary>
         public static string Contact_Email {
@@ -187,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Egendefinert.
+        /// </summary>
+        public static string Custom {
+            get {
+                return ResourceManager.GetString("Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Produktside (URL).
         /// </summary>
         public static string DataProductSiteUrl {
@@ -210,6 +228,15 @@ namespace Resources {
         public static string DatasetName {
             get {
                 return ResourceManager.GetString("DatasetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dato.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
@@ -1575,6 +1602,51 @@ namespace Resources {
         public static string PublisherContact {
             get {
                 return ResourceManager.GetString("PublisherContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Annen standard/ egen dokumentasjon.
+        /// </summary>
+        public static string QualitySpecificationCustom {
+            get {
+                return ResourceManager.GetString("QualitySpecificationCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SOSI-filer avviker fra applikasjonsskjema.
+        /// </summary>
+        public static string QualitySpecificationResultNotSosiConformApplicationSchema {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultNotSosiConformApplicationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SOSI-filer er i henhold til applikasjonsskjema.
+        /// </summary>
+        public static string QualitySpecificationResultSosiConformApplicationSchema {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultSosiConformApplicationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GML-filer er i henhold til applikasjonsskjema.
+        /// </summary>
+        public static string QualitySpecificationResultSosiConformGmlApplicationSchema {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultSosiConformGmlApplicationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GML-filer avviker fra applikasjonsskjema.
+        /// </summary>
+        public static string QualitySpecificationResultSosiNotConformGmlApplicationSchema {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultSosiNotConformGmlApplicationSchema", resourceCulture);
             }
         }
         

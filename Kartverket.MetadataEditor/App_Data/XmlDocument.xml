@@ -101,6 +101,11 @@
               Looks up a localized string similar to Begreper.
             </summary>
         </member>
+        <member name="P:Resources.UI.Conformity">
+            <summary>
+              Looks up a localized string similar to Konformitet.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Contact_Email">
             <summary>
               Looks up a localized string similar to Kontaktperson - Epost.
@@ -126,6 +131,11 @@
               Looks up a localized string similar to Opprett produktark.
             </summary>
         </member>
+        <member name="P:Resources.UI.Custom">
+            <summary>
+              Looks up a localized string similar to Egendefinert.
+            </summary>
+        </member>
         <member name="P:Resources.UI.DataProductSiteUrl">
             <summary>
               Looks up a localized string similar to Produktside (URL).
@@ -139,6 +149,11 @@
         <member name="P:Resources.UI.DatasetName">
             <summary>
               Looks up a localized string similar to Navn på datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Date">
+            <summary>
+              Looks up a localized string similar to Dato.
             </summary>
         </member>
         <member name="P:Resources.UI.DateCreated_InvalidDate">
@@ -900,6 +915,31 @@
         <member name="P:Resources.UI.PublisherContact">
             <summary>
               Looks up a localized string similar to Teknisk kontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationCustom">
+            <summary>
+              Looks up a localized string similar to Annen standard/ egen dokumentasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultNotSosiConformApplicationSchema">
+            <summary>
+              Looks up a localized string similar to SOSI-filer avviker fra applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultSosiConformApplicationSchema">
+            <summary>
+              Looks up a localized string similar to SOSI-filer er i henhold til applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultSosiConformGmlApplicationSchema">
+            <summary>
+              Looks up a localized string similar to GML-filer er i henhold til applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema">
+            <summary>
+              Looks up a localized string similar to GML-filer avviker fra applikasjonsskjema.
             </summary>
         </member>
         <member name="P:Resources.UI.Search">

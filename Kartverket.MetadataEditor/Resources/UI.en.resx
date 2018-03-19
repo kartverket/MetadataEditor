@@ -655,6 +655,15 @@
   <data name="HelpTextDate" xml:space="preserve">
     <value>The dates refer to the data set or service itself, not metadata. At least one of the fields must be filled out. It is recommended as a minimum that "Date of last revision" is used. If the data is updated continuously, it keeps setting the date of establishment of data set/service ("Date of creation") or first publication of Data Set/Service ("Date of publication"). Time period ("Starting date" and "End date") data set is valid in is not mandatory if date is filled in in at least one of the other fields.</value>
   </data>
+  <data name="Conformity" xml:space="preserve">
+    <value>Conformity</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="East" xml:space="preserve">
     <value>East</value>
   </data>
@@ -679,6 +688,9 @@
   <data name="North" xml:space="preserve">
     <value>North</value>
   </data>
+  <data name="QualitySpecificationCustom" xml:space="preserve">
+    <value>Other standard / custom documentation</value>
+  </data>
   <data name="SelectFile" xml:space="preserve">
     <value>Select file</value>
   </data>
@@ -690,5 +702,17 @@
   </data>
   <data name="West" xml:space="preserve">
     <value>West</value>
+  </data>
+  <data name="QualitySpecificationResultNotSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI files are not according to application form</value>
+  </data>
+  <data name="QualitySpecificationResultSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI files are according to application form</value>
+  </data>
+  <data name="QualitySpecificationResultSosiConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML files are according to application form</value>
+  </data>
+  <data name="QualitySpecificationResultSosiNotConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML files are not according to application form</value>
   </data>
 </root>

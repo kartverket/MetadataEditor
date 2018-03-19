@@ -26,7 +26,7 @@
             </div>
         </div>
         <div v-show="showSections">
-            <h3>Konformitet</h3>
+            <h3>@UI.Conformity</h3>
             <div v-show="showSection[section.name]" class="panel panel-default" v-for="section in sections">
                 <div class="panel-heading">{{ section.title }}</div>
                 <div class="panel-body">
@@ -113,7 +113,7 @@
                 },
                 keywordsCatalogs: {
                     name: 'KeywordsCatalogs',
-                    label: 'Høsting til ulike samarbeid',
+                    label: '@UI.Metadata_Admin_KeywordsCatalogs',
                     type: 'select',
                     options: this.$store.getters['CatalogValues']
                 },
@@ -130,7 +130,7 @@
                                 name: 'QualitySpecificationTitleInspire',
                                 getter: 'QualitySpecificationTitleInspire',
                                 disabled: true,
-                                label: 'Angitt produktspesifikasjon',
+                                label: '@UI.Metadata_Admin_QualitySpecificationTitle',
                                 helpText: {
                                     active: false,
                                     content: 'Referansenavn på datakilde/tjeneste. Du må registrere nøkkelord "Inspire" under "Samarbeid og lover" under fanen "Nøkkelord"'
@@ -142,7 +142,7 @@
                                 getter: 'QualitySpecificationDateInspire',
                                 mutation: 'updateQualitySpecificationDateInspire',
                                 type: 'datepicker',
-                                label: 'Dato'
+                                label: '@UI.Date'
 
                             },
                             {
@@ -156,8 +156,8 @@
                                 mutation: 'updateQualitySpecificationResultInspire',
                                 type: 'radio',
                                 options: [
-                                    { Text: 'Dataene er produsert iht produktspesifikasjonen', Value: 'true' },
-                                    { Text: 'Dataene avviker fra produktspesifikasjonen', Value: 'false' }
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
                                 ]
                             },
                             {
@@ -197,7 +197,7 @@
                                 name: 'QualitySpecificationTitleSosi',
                                 getter: 'QualitySpecificationTitleSosi',
                                 disabled: true,
-                                label: 'Angitt produktspesifikasjon',
+                                label: '@UI.Metadata_Admin_QualitySpecificationTitle',
                                 helpText: {
                                     active: false,
                                     content: 'Referansenavn på datakilde/tjeneste. Du må velge "Produktspesifikasjon" under fanen "Dokumentasjon". Dersom ønsket ikke finnes i listen må du først registrere produktspesifikasjonen i registeret.'
@@ -209,7 +209,7 @@
                                 getter: 'QualitySpecificationDateSosi',
                                 mutation: 'updateQualitySpecificationDateSosi',
                                 type: 'datepicker',
-                                label: 'Dato'
+                                label: '@UI.Date'
 
                             },
                             {
@@ -223,8 +223,8 @@
                                 mutation: 'updateQualitySpecificationResultSosi',
                                 type: 'radio',
                                 options: [
-                                    { Text: 'Dataene er produsert iht produktspesifikasjonen', Value: 'true' },
-                                    { Text: 'Dataene avviker fra produktspesifikasjonen', Value: 'false' }
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
                                 ]
                             },
                             {
@@ -255,8 +255,8 @@
                                 mutation: 'updateQualitySpecificationResultSosiConformApplicationSchema',
                                 type: 'radio',
                                 options: [
-                                    { Text: 'SOSI-filer er i henhold til applikasjonsskjema', Value: 'true' },
-                                    { Text: 'SOSI-filer avviker fra applikasjonsskjema', Value: 'false' }
+                                    { Text: '@UI.QualitySpecificationResultSosiConformApplicationSchema', Value: 'true' },
+                                    { Text: '@UI.QualitySpecificationResultNotSosiConformApplicationSchema', Value: 'false' }
                                    ]
                             },
                             {
@@ -265,15 +265,15 @@
                                 mutation: 'updateQualitySpecificationResultSosiConformGmlApplicationSchema',
                                 type: 'radio',
                                 options: [
-                                    { Text: 'GML-filer er i henhold til applikasjonsskjema', Value: 'true' },
-                                    { Text: 'GML-filer avviker fra applikasjonsskjema', Value: 'false' }
+                                    { Text: '@UI.QualitySpecificationResultSosiConformGmlApplicationSchema', Value: 'true' },
+                                    { Text: '@UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema', Value: 'false' }
                                 ]
                             }
 
                         ]
                     },
                     {
-                        title: 'Annen standard/ egen dokumentasjon',
+                        title: '@UI.QualitySpecificationCustom',
                         name: 'QualitySpecificationCustom',
                         helpText: {
                             active: false,
@@ -284,7 +284,7 @@
                                 name: 'QualitySpecificationTitle',
                                 getter: 'QualitySpecificationTitle',
                                 disabled: true,
-                                label: 'Angitt produktspesifikasjon',
+                                label: '@UI.Metadata_Admin_QualitySpecificationTitle',
                                 helpText: {
                                     active: false,
                                     content: 'Referansenavn på datakilde/tjeneste. Du må først skrive inn "Produktspesifikasjon annen (navn)" under fanen "Dokumentasjon"'
@@ -296,7 +296,7 @@
                                 getter: 'QualitySpecificationDate',
                                 mutation: 'updateQualitySpecificationDate',
                                 type: 'datepicker',
-                                label: 'Dato'
+                                label: '@UI.Date'
 
                             },
                             {
@@ -310,8 +310,8 @@
                                 mutation: 'updateQualitySpecificationResult',
                                 type: 'radio',
                                 options: [
-                                    { Text: 'Dataene er produsert iht produktspesifikasjonen', Value: 'true' },
-                                    { Text: 'Dataene avviker fra produktspesifikasjonen', Value: 'false' }
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
                                 ]
                             },
                             {
