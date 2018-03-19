@@ -662,9 +662,9 @@ gaze@^0.5.1:
   dependencies:
     globule "~0.1.0"
 
-geonorge-shared-partials@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/geonorge-shared-partials/-/geonorge-shared-partials-0.0.2.tgz#189e82794541739c32ccb604c71d0664629b8699"
+geonorge-shared-partials@^0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/geonorge-shared-partials/-/geonorge-shared-partials-0.0.18.tgz#e666a1abe194772ddc7daefa78e511c19151c048"
   dependencies:
     angular "^1.6.9"
     angular-ui-bootstrap "^2.5.6"
