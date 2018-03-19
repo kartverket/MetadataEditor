@@ -259,11 +259,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Øst.
+        /// </summary>
+        public static string East {
+            get {
+                return ResourceManager.GetString("East", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rediger metadata.
         /// </summary>
         public static string EditMetadata {
             get {
                 return ResourceManager.GetString("EditMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skriv inn.
+        /// </summary>
+        public static string Enter {
+            get {
+                return ResourceManager.GetString("Enter", resourceCulture);
             }
         }
         
@@ -323,6 +341,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nytt format.
+        /// </summary>
+        public static string FormatNew {
+            get {
+                return ResourceManager.GetString("FormatNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formater.
         /// </summary>
         public static string Formats {
@@ -337,6 +364,15 @@ namespace Resources {
         public static string GeographicExtent {
             get {
                 return ResourceManager.GetString("GeographicExtent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hent.
+        /// </summary>
+        public static string Get {
+            get {
+                return ResourceManager.GetString("Get", resourceCulture);
             }
         }
         
@@ -593,11 +629,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at &quot;Dato sist oppdatert&quot; benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste (&quot;Opprettet dato&quot;) eller første publikasjon av datasett/tjeneste (&quot;Publiseringsdato&quot;). Tidsperiode (&quot;Gyldig fra dato&quot; og &quot;Gyldig til dato&quot;) datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre f [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string HelpTextDate {
+            get {
+                return ResourceManager.GetString("HelpTextDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oppgi link til ekstern side eller PDF-dokument med informasjon og veiledning som gjør det lettere å ta i bruk datasettet..
         /// </summary>
         public static string HelpTextHelpUrl {
             get {
                 return ResourceManager.GetString("HelpTextHelpUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert..
+        /// </summary>
+        public static string HelpTextMaintenanceFrequency {
+            get {
+                return ResourceManager.GetString("HelpTextMaintenanceFrequency", resourceCulture);
             }
         }
         
@@ -666,6 +720,15 @@ namespace Resources {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stort bilde.
+        /// </summary>
+        public static string ImageLarge {
+            get {
+                return ResourceManager.GetString("ImageLarge", resourceCulture);
             }
         }
         
@@ -1408,11 +1471,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Navn.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Navnerom til datasett.
         /// </summary>
         public static string NamespaceToDataset {
             get {
                 return ResourceManager.GetString("NamespaceToDataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nord.
+        /// </summary>
+        public static string North {
+            get {
+                return ResourceManager.GetString("North", resourceCulture);
             }
         }
         
@@ -1507,11 +1588,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Velg fil.
+        /// </summary>
+        public static string SelectFile {
+            get {
+                return ResourceManager.GetString("SelectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Navn på datasett.
         /// </summary>
         public static string SimpleMetadata_Title {
             get {
                 return ResourceManager.GetString("SimpleMetadata_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sør.
+        /// </summary>
+        public static string South {
+            get {
+                return ResourceManager.GetString("South", resourceCulture);
             }
         }
         
@@ -1660,6 +1759,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last opp.
+        /// </summary>
+        public static string Upload {
+            get {
+                return ResourceManager.GetString("Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bruksområde.
         /// </summary>
         public static string Use {
@@ -1674,6 +1782,15 @@ namespace Resources {
         public static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vest.
+        /// </summary>
+        public static string West {
+            get {
+                return ResourceManager.GetString("West", resourceCulture);
             }
         }
     }

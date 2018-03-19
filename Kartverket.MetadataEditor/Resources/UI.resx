@@ -660,4 +660,43 @@ Bruksbegrensninger fylles inn i fanen Restriksjoner</value>
   <data name="HelpTextTitle" xml:space="preserve">
     <value>Navn på metadataoppføringen. Navnet skal være kort og konsist og beskrive tjenesten/datasettet best mulig. Generelle begreper må settes inn i en faglig kontekst (eks: Kulturminner - lokaliteter). Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon. Navnet kan også inneholde årstall og geografisk område.</value>
   </data>
+  <data name="HelpTextDate" xml:space="preserve">
+    <value>Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.</value>
+  </data>
+  <data name="East" xml:space="preserve">
+    <value>Øst</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Skriv inn</value>
+  </data>
+  <data name="FormatNew" xml:space="preserve">
+    <value>Nytt format</value>
+  </data>
+  <data name="Get" xml:space="preserve">
+    <value>Hent</value>
+  </data>
+  <data name="HelpTextMaintenanceFrequency" xml:space="preserve">
+    <value>Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert.</value>
+  </data>
+  <data name="ImageLarge" xml:space="preserve">
+    <value>Stort bilde</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="North" xml:space="preserve">
+    <value>Nord</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Velg fil</value>
+  </data>
+  <data name="South" xml:space="preserve">
+    <value>Sør</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Last opp</value>
+  </data>
+  <data name="West" xml:space="preserve">
+    <value>Vest</value>
+  </data>
 </root>

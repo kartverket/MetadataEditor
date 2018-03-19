@@ -18,7 +18,7 @@
                     <div is="field" v-bind:form-element="applicationSchema"></div>
                 </div>
                 <div class="col-md-2 text-right">
-                    <span class="btn" v-on:click="loadConcepts()">Hent</span>
+                    <span class="btn" v-on:click="loadConcepts()">@UI.Get</span>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
                     <label class="col-md-3 control-label">{{ thumbnails.fields.thumbnailType.label }}</label>
                     <div class="col-md-8 bottom-left">
                         <input type="hidden" value="large_thumbnail" id="thumbnailType">
-                        <div class="@ViewBag.thumbnailMissingCSS" style="margin-top:7px;">Stort bilde</div>
+                        <div class="@ViewBag.thumbnailMissingCSS" style="margin-top:7px;">@UI.ImageLarge</div>
                         <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                     </div>
                     <div style="margin-top:7px;">
@@ -134,11 +134,11 @@
                                 <div class="input-group upload-input">
                                     <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
                                     <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id"/>
-                                    <span class="btn">Velg fil</span>
+                                    <span class="btn">@UI.SelectFile</span>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn" id="uploadThumbnailButton" v-on:click="uploadFile">Last opp</button>
+                                <button class="btn" id="uploadThumbnailButton" v-on:click="uploadFile">@UI.Upload</button>
                             </div>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
                             name: 'ProductSpecificationOther.Name',
                             getter: 'ProductSpecificationOtherName',
                             mutation: 'updateProductSpecificationOtherName',
-                            label: 'Navn',
+                            label: '@UI.Name',
                             type: 'text'
                         },
                         url: {

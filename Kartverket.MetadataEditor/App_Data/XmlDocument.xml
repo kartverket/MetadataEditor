@@ -166,9 +166,19 @@
               Looks up a localized string similar to Distribusjonstype.
             </summary>
         </member>
+        <member name="P:Resources.UI.East">
+            <summary>
+              Looks up a localized string similar to Øst.
+            </summary>
+        </member>
         <member name="P:Resources.UI.EditMetadata">
             <summary>
               Looks up a localized string similar to Rediger metadata.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Enter">
+            <summary>
+              Looks up a localized string similar to Skriv inn.
             </summary>
         </member>
         <member name="P:Resources.UI.Error">
@@ -202,6 +212,11 @@
               Looks up a localized string similar to {0} må være et tall..
             </summary>
         </member>
+        <member name="P:Resources.UI.FormatNew">
+            <summary>
+              Looks up a localized string similar to Nytt format.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Formats">
             <summary>
               Looks up a localized string similar to Formater.
@@ -210,6 +225,11 @@
         <member name="P:Resources.UI.GeographicExtent">
             <summary>
               Looks up a localized string similar to Geografisk utstrekning.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Get">
+            <summary>
+              Looks up a localized string similar to Hent.
             </summary>
         </member>
         <member name="P:Resources.UI.GraphicsOverview">
@@ -352,9 +372,19 @@
               Looks up a localized string similar to Oppgi hva tjenesten/datasettet inneholder. Hva finner brukeren i denne tjenesten/datasettet..
             </summary>
         </member>
+        <member name="P:Resources.UI.HelpTextDate">
+            <summary>
+              Looks up a localized string similar to Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at &quot;Dato sist oppdatert&quot; benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste (&quot;Opprettet dato&quot;) eller første publikasjon av datasett/tjeneste (&quot;Publiseringsdato&quot;). Tidsperiode (&quot;Gyldig fra dato&quot; og &quot;Gyldig til dato&quot;) datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre f [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
         <member name="P:Resources.UI.HelpTextHelpUrl">
             <summary>
               Looks up a localized string similar to Oppgi link til ekstern side eller PDF-dokument med informasjon og veiledning som gjør det lettere å ta i bruk datasettet..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextMaintenanceFrequency">
+            <summary>
+              Looks up a localized string similar to Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert..
             </summary>
         </member>
         <member name="P:Resources.UI.HelpTextPurpose">
@@ -395,6 +425,11 @@
         <member name="P:Resources.UI.Home">
             <summary>
               Looks up a localized string similar to Forside.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ImageLarge">
+            <summary>
+              Looks up a localized string similar to Stort bilde.
             </summary>
         </member>
         <member name="P:Resources.UI.Language_All">
@@ -807,9 +842,19 @@
               Looks up a localized string similar to Mine metadata.
             </summary>
         </member>
+        <member name="P:Resources.UI.Name">
+            <summary>
+              Looks up a localized string similar to Navn.
+            </summary>
+        </member>
         <member name="P:Resources.UI.NamespaceToDataset">
             <summary>
               Looks up a localized string similar to Navnerom til datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.North">
+            <summary>
+              Looks up a localized string similar to Nord.
             </summary>
         </member>
         <member name="P:Resources.UI.NotFoundText">
@@ -862,9 +907,19 @@
               Looks up a localized string similar to Søk.
             </summary>
         </member>
+        <member name="P:Resources.UI.SelectFile">
+            <summary>
+              Looks up a localized string similar to Velg fil.
+            </summary>
+        </member>
         <member name="P:Resources.UI.SimpleMetadata_Title">
             <summary>
               Looks up a localized string similar to Navn på datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.South">
+            <summary>
+              Looks up a localized string similar to Sør.
             </summary>
         </member>
         <member name="P:Resources.UI.SpatialRepresentationType">
@@ -947,6 +1002,11 @@
               Looks up a localized string similar to Geografisk distribusjonsinndeling.
             </summary>
         </member>
+        <member name="P:Resources.UI.Upload">
+            <summary>
+              Looks up a localized string similar to Last opp.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Use">
             <summary>
               Looks up a localized string similar to Bruksområde.
@@ -955,6 +1015,11 @@
         <member name="P:Resources.UI.Version">
             <summary>
               Looks up a localized string similar to Versjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.West">
+            <summary>
+              Looks up a localized string similar to Vest.
             </summary>
         </member>
         <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">

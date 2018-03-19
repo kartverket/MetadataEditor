@@ -13,7 +13,7 @@
 
         <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $store.getters['FormatDistributions']"></div>
 
-        <span v-on:click="$store.commit('addFormatDistributions');" class="btn">Legg til ny distribusjonsløsning</span>
+        <span v-on:click="$store.commit('addFormatDistributions');" class="btn">@UI.Button_Add_Distribution</span>
     </div>
 </script>
 

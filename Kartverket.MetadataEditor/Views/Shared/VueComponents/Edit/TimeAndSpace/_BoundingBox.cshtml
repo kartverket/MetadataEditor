@@ -63,14 +63,14 @@
                         <div class="col-md-3">
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
-                                    <span class="input-group-addon">Nord</span>
+                                    <span class="input-group-addon">@UI.North</span>
                                     <input name="BoundingBoxNorth" type="text" v-model="$store.getters['BoundingBoxNorth']" class="form-control" />
                                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                                 </div>
                             </div>
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
-                                    <span class="input-group-addon">Øst</span>
+                                    <span class="input-group-addon">@UI.East</span>
                                     <input name="BoundingBoxEast" type="text" v-model="$store.getters['BoundingBoxEast']" class="form-control" />
 
                                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
@@ -78,14 +78,14 @@
                             </div>
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
-                                    <span class="input-group-addon">Sør</span>
+                                    <span class="input-group-addon">@UI.South</span>
                                     <input name="BoundingBoxSouth" type="text" v-model="$store.getters['BoundingBoxSouth']" class="form-control" />
                                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                                 </div>
                             </div>
                             <div class="form-group has-feedback no-margin-bottom no-padding-bottom">
                                 <div class="input-group">
-                                    <span class="input-group-addon">Vest</span>
+                                    <span class="input-group-addon">@UI.West</span>
                                     <input name="BoundingBoxWest" type="text" v-model="$store.getters['BoundingBoxWest']" class="form-control" />
                                     <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                                 </div>
@@ -115,7 +115,7 @@
             return {
                 helpText: {
                     active: false,
-                    content: 'Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i Norgeskart.'
+                    content: '@UI.Helptext_BoundingBox'
                 },
                 areaSelect:
                 {

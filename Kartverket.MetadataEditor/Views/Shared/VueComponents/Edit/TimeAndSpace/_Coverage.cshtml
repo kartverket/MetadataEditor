@@ -64,11 +64,11 @@
                                 <div class="input-group upload-input">
                                     <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
                                     <input type="file" v-bind:id="coverageFile.id" />
-                                    <span class="btn">Velg fil</span>
+                                    <span class="btn">@UI.Metadata_CoverageImage_Select</span>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn" v-on:click="uploadFile">Last opp</button>
+                                <button class="btn" v-on:click="uploadFile">@UI.Metadata_CoverageImage_Upload</button>
                             </div>
                         </div>
                     </div>

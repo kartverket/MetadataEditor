@@ -652,4 +652,43 @@
   <data name="MetadataLastUpdated" xml:space="preserve">
     <value>Metadata last updated</value>
   </data>
+  <data name="HelpTextDate" xml:space="preserve">
+    <value>The dates refer to the data set or service itself, not metadata. At least one of the fields must be filled out. It is recommended as a minimum that "Date of last revision" is used. If the data is updated continuously, it keeps setting the date of establishment of data set/service ("Date of creation") or first publication of Data Set/Service ("Date of publication"). Time period ("Starting date" and "End date") data set is valid in is not mandatory if date is filled in in at least one of the other fields.</value>
+  </data>
+  <data name="East" xml:space="preserve">
+    <value>East</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="FormatNew" xml:space="preserve">
+    <value>New format</value>
+  </data>
+  <data name="Get" xml:space="preserve">
+    <value>Get</value>
+  </data>
+  <data name="HelpTextMaintenanceFrequency" xml:space="preserve">
+    <value>Specifying intervals for modification and other changes to data after they are established.</value>
+  </data>
+  <data name="ImageLarge" xml:space="preserve">
+    <value>Large image</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="North" xml:space="preserve">
+    <value>North</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="South" xml:space="preserve">
+    <value>Sør</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="West" xml:space="preserve">
+    <value>West</value>
+  </data>
 </root>
