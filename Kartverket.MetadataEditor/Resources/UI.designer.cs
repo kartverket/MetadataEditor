@@ -683,9 +683,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her.
-        ///Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert.
-        ///Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene..
+        ///   Looks up a localized string similar to Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her. Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert. Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene..
         /// </summary>
         public static string HelpTextPurpose {
             get {
@@ -703,8 +701,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.
-        ///Eksempel: http://data.geonorge.no/so/.
+        ///   Looks up a localized string similar to Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.Eksempel: http://data.geonorge.no/so/.
         /// </summary>
         public static string HelpTextResourceReferenceCodespace {
             get {
@@ -713,9 +710,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oppgi hvilke oppgaver datasettet kan/bør brukes til.
-        ///For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå.
-        ///Bruksbegrensninger fylles inn i fanen Restriksjoner.
+        ///   Looks up a localized string similar to Oppgi hvilke oppgaver datasettet kan/bør brukes til.For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå. Bruksbegrensninger fylles inn i fanen Restriksjoner.
         /// </summary>
         public static string HelpTextSpesificUsage {
             get {
