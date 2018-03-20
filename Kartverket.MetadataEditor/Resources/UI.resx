@@ -748,6 +748,9 @@
   <data name="Next" xml:space="preserve">
     <value>Neste</value>
   </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Ingen treff</value>
+  </data>
   <data name="Of" xml:space="preserve">
     <value>av</value>
   </data>

@@ -745,6 +745,9 @@
   <data name="Next" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>No results</value>
+  </data>
   <data name="Of" xml:space="preserve">
     <value>of</value>
   </data>

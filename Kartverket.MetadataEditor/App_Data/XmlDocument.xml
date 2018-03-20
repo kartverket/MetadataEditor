@@ -912,6 +912,11 @@
               Looks up a localized string similar to Neste.
             </summary>
         </member>
+        <member name="P:Resources.UI.NoResults">
+            <summary>
+              Looks up a localized string similar to Ingen treff.
+            </summary>
+        </member>
         <member name="P:Resources.UI.North">
             <summary>
               Looks up a localized string similar to Nord.

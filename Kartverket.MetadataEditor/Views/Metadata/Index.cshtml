@@ -1,5 +1,6 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataIndexViewModel
 @using Resources
+@using Kartverket.MetadataEditor.Helpers
 
 <h1>@Resources.UI.MyMetadata_Label</h1>
 
@@ -13,13 +14,13 @@
         </div>
     </div>
 }
-    @if (Request.IsAuthenticated)
-    {
+@if (Request.IsAuthenticated)
+{
     <div class="row">
         @{ string colSm = "5";
             if (Model.UserIsAdmin)
-            {  colSm = "8"; }
-        }               
+            { colSm = "8"; }
+        }
         <div class="col-sm-offset-2 col-sm-@colSm">
             <div class="panel panel-info" style="margin-top: 20px;">
                 <div class="panel-heading">@UI.Search</div>
@@ -30,10 +31,10 @@
                             <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
                         </div>
                         <div class="form-group">
-                            @if (Model.UserIsAdmin)
+                            @if (Model.UserIsAdmin && CultureHelper.IsNorwegian())
                             {
-                            <label for="searchOrganization">@UI.Organization:</label>
-                            <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
+                                <label for="searchOrganization">@UI.Organization:</label>
+                                <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
                             }
                         </div>
                         <button type="submit" class="btn no-margin-bottom show-loading-animation" data-loading-message="Henter søkeresultater">@UI.Search</button>
@@ -42,8 +43,8 @@
             </div>
         </div>
     </div>
-    }
-    
+}
+
 @if (Request.IsAuthenticated)
 {
     if (Model.MetadataItems.Count > 0)
@@ -61,7 +62,7 @@
     }
     else
     {
-        <p>Ingen treff.</p>
+        <p>@UI.NoResults.</p>
     }
 }
 else
@@ -104,17 +105,20 @@ else
         });
     };
 
-    function getAdditionalData(uuid) {
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+    function getAdditionalData(uuid, culture) {
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/getdata/" + uuid, function (result) {
 
             if (result.length != 0) {
 
-                var DistributionProtocol = result.Results[0].DistributionProtocol;
-                if (DistributionProtocol.indexOf("WFS") > -1)
+                var distribution = result.DistributionDetails;
+                if (distribution != null && distribution.Protocol != null && distribution.Protocol.indexOf("WFS") > -1)
                 {
                     $("#type-" + uuid).text("@UI.WfsService");
                 }
-                
+                if (culture != "@Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode") {
+                    $("#title-" + uuid).text(result.EnglishTitle);
+                    $("#organization-" + uuid).text(result.ContactMetadata.OrganizationEnglish);
+                }
             }
         });
     }
@@ -123,8 +127,8 @@ else
 }
 
 <script>
-    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "") 
-    { 
+    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
+    {
         @:for (v = 0; v < validationUUIDs.length; v++) {
         @:    getValidationStatus(validationUUIDs[v]);
         @:}

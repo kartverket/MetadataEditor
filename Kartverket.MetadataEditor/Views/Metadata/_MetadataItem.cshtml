@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-6 metadata-list-item-mobile-row metadata-list-item-title">
                 @Html.Raw(relationIcon)
-                <a href="@Url.Action("Edit", new { uuid=@Model.Uuid })" data-loading-message="Henter innhold" class="show-loading-animation">
+                <a href="@Url.Action("Edit", new { uuid=@Model.Uuid })" data-loading-message="Henter innhold" class="show-loading-animation" id="title-@Model.Uuid">
                     @Model.Title
                 </a>
                 @if (!string.IsNullOrWhiteSpace(Model.Relation) && Model.Type == "service")
@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-6 metadata-list-item-mobile-row">
                 <div class="visible-sm-inline-block visible-xs-inline-block"><label>@Resources.UI.Metadata_Organization</label></div>
-                @Model.Organization
+                <span id="organization-@Model.Uuid">@Model.Organization</span>
             </div>
         </div>
     </div>
@@ -65,8 +65,4 @@
         </div>
     </div>
 </div>
-
-@if (Model.Type == "service" && !string.IsNullOrWhiteSpace(Model.Relation))
-{
-    <script>getAdditionalData('@Model.Uuid')</script>
-}
+<script>getAdditionalData('@Model.Uuid', "@CultureHelper.GetCurrentCulture()")</script>
