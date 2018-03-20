@@ -724,4 +724,37 @@
   <data name="FreeText" xml:space="preserve">
     <value>Free text</value>
   </data>
+  <data name="DisplayInCatalogue" xml:space="preserve">
+    <value>Show in catalog</value>
+  </data>
+  <data name="DownloadXml" xml:space="preserve">
+    <value>Download XML</value>
+  </data>
+  <data name="FormValidationErrors" xml:space="preserve">
+    <value>The form is incorrectly filled in. Please correct the following errors and are missing</value>
+  </data>
+  <data name="LinkToService" xml:space="preserve">
+    <value>Link to the service</value>
+  </data>
+  <data name="Metadata_Type_Application" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="Metadata_Type_DatasetSeries" xml:space="preserve">
+    <value>Dataset series</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="ShowingMetadata" xml:space="preserve">
+    <value>Showing metadata</value>
+  </data>
+  <data name="WfsService" xml:space="preserve">
+    <value>WFS service</value>
+  </data>
 </root>

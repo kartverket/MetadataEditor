@@ -268,6 +268,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vis i katalog.
+        /// </summary>
+        public static string DisplayInCatalogue {
+            get {
+                return ResourceManager.GetString("DisplayInCatalogue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vis i kartkatalogen.
         /// </summary>
         public static string DisplayInMapCatalogue {
@@ -291,6 +300,15 @@ namespace Resources {
         public static string DistributionType {
             get {
                 return ResourceManager.GetString("DistributionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last ned XML.
+        /// </summary>
+        public static string DownloadXml {
+            get {
+                return ResourceManager.GetString("DownloadXml", resourceCulture);
             }
         }
         
@@ -391,6 +409,15 @@ namespace Resources {
         public static string Formats {
             get {
                 return ResourceManager.GetString("Formats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler.
+        /// </summary>
+        public static string FormValidationErrors {
+            get {
+                return ResourceManager.GetString("FormValidationErrors", resourceCulture);
             }
         }
         
@@ -796,6 +823,15 @@ namespace Resources {
         public static string Language_No {
             get {
                 return ResourceManager.GetString("Language_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lenke til tjenesten.
+        /// </summary>
+        public static string LinkToService {
+            get {
+                return ResourceManager.GetString("LinkToService", resourceCulture);
             }
         }
         
@@ -1430,11 +1466,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applikasjon.
+        /// </summary>
+        public static string Metadata_Type_Application {
+            get {
+                return ResourceManager.GetString("Metadata_Type_Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Datasett.
         /// </summary>
         public static string Metadata_Type_Dataset {
             get {
                 return ResourceManager.GetString("Metadata_Type_Dataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datasett serie.
+        /// </summary>
+        public static string Metadata_Type_DatasetSeries {
+            get {
+                return ResourceManager.GetString("Metadata_Type_DatasetSeries", resourceCulture);
             }
         }
         
@@ -1538,6 +1592,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Neste.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nord.
         /// </summary>
         public static string North {
@@ -1552,6 +1615,15 @@ namespace Resources {
         public static string NotFoundText {
             get {
                 return ResourceManager.GetString("NotFoundText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to av.
+        /// </summary>
+        public static string Of {
+            get {
+                return ResourceManager.GetString("Of", resourceCulture);
             }
         }
         
@@ -1588,6 +1660,15 @@ namespace Resources {
         public static string OwnerContact {
             get {
                 return ResourceManager.GetString("OwnerContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forrige.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
         
@@ -1687,6 +1768,15 @@ namespace Resources {
         public static string SelectFile {
             get {
                 return ResourceManager.GetString("SelectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viser metadata.
+        /// </summary>
+        public static string ShowingMetadata {
+            get {
+                return ResourceManager.GetString("ShowingMetadata", resourceCulture);
             }
         }
         
@@ -1885,6 +1975,15 @@ namespace Resources {
         public static string West {
             get {
                 return ResourceManager.GetString("West", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WFS tjeneste.
+        /// </summary>
+        public static string WfsService {
+            get {
+                return ResourceManager.GetString("WfsService", resourceCulture);
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataCreateViewModel
 @using Resources
 
-<h1>Opprett metadata</h1>
+<h1>@UI.CreateMetadata</h1>
 <form action="@Url.Action("Create")" method="post" class="form-horizontal">
 @if (ViewBag.ErrorMessage != null)
 {
@@ -10,33 +10,33 @@
     </div>
 }
 
-@Html.ValidationSummary(false, "Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:", new { @class = "alert alert-danger" })
+@Html.ValidationSummary(false, UI.FormValidationErrors + ":", new { @class = "alert alert-danger" })
 
     <div class="form-group required has-feedback">
-        <label class="col-md-2 control-label">Tittel</label>
+        <label class="col-md-2 control-label">@UI.Metadata_Title</label>
         <div class="col-sm-10 col-md-8">
             @Html.TextBoxFor(m => m.Title, new { placeholder = UI.Enter })
         </div>
     </div>
 
     <div class="form-group required has-feedback">
-        <label class="col-md-2 control-label">Velg type</label>
+        <label class="col-md-2 control-label">@UI.Metadata_Type</label>
         <div class="col-md-10">
             <label class="radio-inline">
                 <input type="radio" name="type" value="service"/>
-                Tjeneste
+                @UI.Metadata_Type_Service
             </label>
             <label class="radio-inline">
                 <input type="radio" name="type" value="dataset" />
-                Datasett
+                @UI.Metadata_Type_Dataset
             </label>
             <label class="radio-inline">
                 <input type="radio" name="type" value="series" />
-                DatasettSerie
+                @UI.Metadata_Type_DatasetSeries
             </label>
             <label class="radio-inline">
                 <input type="radio" name="type" value="software" />
-                Programvare
+                @UI.Metadata_Type_Application
             </label>
         </div>
     </div>
@@ -46,22 +46,22 @@
 
         
             <div class="panel panel-default">
-                <div class="panel-heading">Metadatakontakt</div>
+                <div class="panel-heading">@UI.MetadataContact</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Navn</label>
+                        <label class="col-sm-3 control-label">@UI.Name</label>
                         <div class="col-sm-9">
                             @Html.TextBoxFor(m => m.MetadataContactName, new { placeholder = UI.Enter })
                         </div>
                     </div>
                     <div class="form-group required has-feedback">
-                        <label class="col-sm-3 control-label">Epost</label>
+                        <label class="col-sm-3 control-label">@UI.Metadata_Contact_Email</label>
                         <div class="col-sm-9">
                             @Html.TextBoxFor(m => m.MetadataContactEmail, new { @class = "form-control", placeholder = UI.Enter })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Organisasjon</label>
+                        <label class="col-sm-3 control-label">@UI.Organization</label>
                         <div class="col-sm-9 control-text">
                             @Html.DisplayFor(m => m.MetadataContactOrganization)
                         </div>
@@ -73,7 +73,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button class="btn btn-primary">Opprett metadata</button>
+            <button class="btn btn-primary">@UI.CreateMetadata</button>
         </div>
     </div>
 

@@ -727,4 +727,37 @@
   <data name="FreeText" xml:space="preserve">
     <value>Fritekst</value>
   </data>
+  <data name="DisplayInCatalogue" xml:space="preserve">
+    <value>Vis i katalog</value>
+  </data>
+  <data name="DownloadXml" xml:space="preserve">
+    <value>Last ned XML</value>
+  </data>
+  <data name="FormValidationErrors" xml:space="preserve">
+    <value>Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler</value>
+  </data>
+  <data name="LinkToService" xml:space="preserve">
+    <value>Lenke til tjenesten</value>
+  </data>
+  <data name="Metadata_Type_Application" xml:space="preserve">
+    <value>Applikasjon</value>
+  </data>
+  <data name="Metadata_Type_DatasetSeries" xml:space="preserve">
+    <value>Datasett serie</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Neste</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>av</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Forrige</value>
+  </data>
+  <data name="ShowingMetadata" xml:space="preserve">
+    <value>Viser metadata</value>
+  </data>
+  <data name="WfsService" xml:space="preserve">
+    <value>WFS tjeneste</value>
+  </data>
 </root>

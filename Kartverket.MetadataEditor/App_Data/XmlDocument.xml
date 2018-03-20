@@ -171,6 +171,11 @@
               Looks up a localized string similar to Slett.
             </summary>
         </member>
+        <member name="P:Resources.UI.DisplayInCatalogue">
+            <summary>
+              Looks up a localized string similar to Vis i katalog.
+            </summary>
+        </member>
         <member name="P:Resources.UI.DisplayInMapCatalogue">
             <summary>
               Looks up a localized string similar to Vis i kartkatalogen.
@@ -184,6 +189,11 @@
         <member name="P:Resources.UI.DistributionType">
             <summary>
               Looks up a localized string similar to Distribusjonstype.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DownloadXml">
+            <summary>
+              Looks up a localized string similar to Last ned XML.
             </summary>
         </member>
         <member name="P:Resources.UI.East">
@@ -240,6 +250,11 @@
         <member name="P:Resources.UI.Formats">
             <summary>
               Looks up a localized string similar to Formater.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.FormValidationErrors">
+            <summary>
+              Looks up a localized string similar to Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler.
             </summary>
         </member>
         <member name="P:Resources.UI.FreeText">
@@ -465,6 +480,11 @@
         <member name="P:Resources.UI.Language_No">
             <summary>
               Looks up a localized string similar to Norsk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LinkToService">
+            <summary>
+              Looks up a localized string similar to Lenke til tjenesten.
             </summary>
         </member>
         <member name="P:Resources.UI.LoggedOffMessage">
@@ -817,9 +837,19 @@
               Looks up a localized string similar to Type.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Type_Application">
+            <summary>
+              Looks up a localized string similar to Applikasjon.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Type_Dataset">
             <summary>
               Looks up a localized string similar to Datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Type_DatasetSeries">
+            <summary>
+              Looks up a localized string similar to Datasett serie.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Type_Service">
@@ -877,6 +907,11 @@
               Looks up a localized string similar to Navnerom til datasett.
             </summary>
         </member>
+        <member name="P:Resources.UI.Next">
+            <summary>
+              Looks up a localized string similar to Neste.
+            </summary>
+        </member>
         <member name="P:Resources.UI.North">
             <summary>
               Looks up a localized string similar to Nord.
@@ -885,6 +920,11 @@
         <member name="P:Resources.UI.NotFoundText">
             <summary>
               Looks up a localized string similar to Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Of">
+            <summary>
+              Looks up a localized string similar to av.
             </summary>
         </member>
         <member name="P:Resources.UI.Organization">
@@ -905,6 +945,11 @@
         <member name="P:Resources.UI.OwnerContact">
             <summary>
               Looks up a localized string similar to Faglig kontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Previous">
+            <summary>
+              Looks up a localized string similar to Forrige.
             </summary>
         </member>
         <member name="P:Resources.UI.ProductFactSheet">
@@ -960,6 +1005,11 @@
         <member name="P:Resources.UI.SelectFile">
             <summary>
               Looks up a localized string similar to Velg fil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ShowingMetadata">
+            <summary>
+              Looks up a localized string similar to Viser metadata.
             </summary>
         </member>
         <member name="P:Resources.UI.SimpleMetadata_Title">
@@ -1070,6 +1120,11 @@
         <member name="P:Resources.UI.West">
             <summary>
               Looks up a localized string similar to Vest.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.WfsService">
+            <summary>
+              Looks up a localized string similar to WFS tjeneste.
             </summary>
         </member>
         <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">

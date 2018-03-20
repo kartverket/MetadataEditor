@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kartverket.MetadataEditor.Helpers;
+using Kartverket.MetadataEditor.Models.Translations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -39,14 +41,28 @@ namespace Kartverket.MetadataEditor.Models
 
         public string GetInnholdstype()
         {
-            string t = Type;
-            if (Type == "dataset") t = "Datasett";
-            else if (Type == "service" && (!string.IsNullOrWhiteSpace(UriProtocol) && !string.IsNullOrWhiteSpace(UriName))) t = "Tjenestelag";
-            else if (Type == "service") t = "Tjeneste";
-            else if (Type == "software") t = "Applikasjon";
-            else if (Type == "series") t = "Datasettserie";
-            else if (Type == "dimensionGroup") t = "Datapakke";
-            return t;
+            if (CultureHelper.GetCurrentCulture() == Culture.NorwegianCode)
+            {
+                string t = Type;
+                if (Type == "dataset") t = "Datasett";
+                else if (Type == "service" && (!string.IsNullOrWhiteSpace(UriProtocol) && !string.IsNullOrWhiteSpace(UriName))) t = "Tjenestelag";
+                else if (Type == "service") t = "Tjeneste";
+                else if (Type == "software") t = "Applikasjon";
+                else if (Type == "series") t = "Datasettserie";
+                else if (Type == "dimensionGroup") t = "Datapakke";
+                return t;
+            }
+            else
+            {
+                string t = Type;
+                if (Type == "dataset") t = "Dataset";
+                else if (Type == "service" && (!string.IsNullOrWhiteSpace(UriProtocol) && !string.IsNullOrWhiteSpace(UriName))) t = "Service layer";
+                else if (Type == "service") t = "Service";
+                else if (Type == "software") t = "Application";
+                else if (Type == "series") t = "Dataset series";
+                else if (Type == "dimensionGroup") t = "Data package";
+                return t;
+            }
         }
 
     }

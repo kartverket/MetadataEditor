@@ -1,5 +1,6 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
 @model Kartverket.MetadataEditor.Models.MetadataItemViewModel
+@using Resources
 
 @{
     string css = "";
@@ -22,7 +23,7 @@
                 </a>
                 @if (!string.IsNullOrWhiteSpace(Model.Relation) && Model.Type == "service")
                 {
-                    <p class="no-margin-bottom"><small>[<a href="@Url.Action("Edit", new { uuid = @Model.Relation})">Lenke til tjenesten</a>]</small></p>
+                    <p class="no-margin-bottom"><small>[<a href="@Url.Action("Edit", new { uuid = @Model.Relation})">@UI.LinkToService</a>]</small></p>
                 }
             </div>
             <div class="col-md-6 metadata-list-item-mobile-row">
@@ -51,14 +52,14 @@
             <div class="col-md-8 metadata-list-item-mobile-row">
 
                 <a href="@Model.GeoNetworkXmlDownloadUrl" target="_blank" class="btn btn-xs">
-                    <i class="glyphicon glyphicon-file"></i> Last ned XML
+                    <i class="glyphicon glyphicon-file"></i> @UI.DownloadXml
                 </a>
                 <a href="@Html.KartkatalogUrl()@Model.MetadataViewParameters()" target="_blank" class="btn btn-xs">
-                    <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                    <span class="glyphicon glyphicon-share-alt"></span> @UI.DisplayInCatalogue
                 </a>
 
 
-                <a href="@Url.Action("ConfirmDelete", "Metadata", new { uuid = Model.Uuid })" class="btn btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
+                <a href="@Url.Action("ConfirmDelete", "Metadata", new { uuid = Model.Uuid })" class="btn btn-xs"><span class="glyphicon glyphicon-trash"></span> @UI.Delete</a>
 
             </div>
         </div>

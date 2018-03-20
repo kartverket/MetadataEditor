@@ -51,11 +51,11 @@
         @Html.Partial("_MetadataList", Model.MetadataItems)
         <div class="clearfix">
             <p class="text-right">
-                Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
+                @UI.ShowingMetadata @Model.Offset - @Model.ShowTo() @UI.Of @Model.TotalNumberOfRecords
             </p>
             <div class="pull-right btn-group">
-                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn @Model.OffsetPreviousState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetPreviousState()>Forrige</a>
-                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn @Model.OffsetNextState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetNextState()>Neste</a>
+                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn @Model.OffsetPreviousState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetPreviousState()>@UI.Previous</a>
+                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn @Model.OffsetNextState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetNextState()>@UI.Next</a>
             </div>
         </div>
     }
@@ -95,7 +95,7 @@ else
                         $("#status-" + uuid).addClass("label label-success");
                     }
                     else if (validationStatus == "ERRORS") {
-                        $("#status-" + uuid).text("FEIL");
+                        $("#status-" + uuid).text("@UI.Error");
                         $("#status-" + uuid).removeClass("label label-warning");
                         $("#status-" + uuid).addClass("label label-danger");
                     }
@@ -112,7 +112,7 @@ else
                 var DistributionProtocol = result.Results[0].DistributionProtocol;
                 if (DistributionProtocol.indexOf("WFS") > -1)
                 {
-                    $("#type-" + uuid).text("WFS tjeneste");
+                    $("#type-" + uuid).text("@UI.WfsService");
                 }
                 
             }

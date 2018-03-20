@@ -105,7 +105,7 @@
     </div>
 }
 
-@Html.ValidationSummary(false, "Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler:", new { @class = "alert alert-danger" })
+@Html.ValidationSummary(false, UI.FormValidationErrors + ":", new { @class = "alert alert-danger" })
 
 <form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     <div id="vue-container">
