@@ -187,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opprett metadata.
+        /// </summary>
+        public static string CreateMetadata {
+            get {
+                return ResourceManager.GetString("CreateMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprett produktark.
         /// </summary>
         public static string CreateProductFactSheet {
@@ -382,6 +391,15 @@ namespace Resources {
         public static string Formats {
             get {
                 return ResourceManager.GetString("Formats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fritekst.
+        /// </summary>
+        public static string FreeText {
+            get {
+                return ResourceManager.GetString("FreeText", resourceCulture);
             }
         }
         
@@ -778,6 +796,15 @@ namespace Resources {
         public static string Language_No {
             get {
                 return ResourceManager.GetString("Language_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata..
+        /// </summary>
+        public static string LoggedOffMessage {
+            get {
+                return ResourceManager.GetString("LoggedOffMessage", resourceCulture);
             }
         }
         

@@ -718,4 +718,13 @@
   <data name="West" xml:space="preserve">
     <value>Vest</value>
   </data>
+  <data name="CreateMetadata" xml:space="preserve">
+    <value>Opprett metadata</value>
+  </data>
+  <data name="LoggedOffMessage" xml:space="preserve">
+    <value>Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata.</value>
+  </data>
+  <data name="FreeText" xml:space="preserve">
+    <value>Fritekst</value>
+  </data>
 </root>

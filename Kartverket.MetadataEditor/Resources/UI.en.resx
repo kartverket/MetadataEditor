@@ -703,6 +703,9 @@
   <data name="West" xml:space="preserve">
     <value>West</value>
   </data>
+  <data name="LoggedOffMessage" xml:space="preserve">
+    <value>No metadata available. You must be logged in to edit your metadata.</value>
+  </data>
   <data name="QualitySpecificationResultNotSosiConformApplicationSchema" xml:space="preserve">
     <value>SOSI files are not according to application form</value>
   </data>
@@ -714,5 +717,11 @@
   </data>
   <data name="QualitySpecificationResultSosiNotConformGmlApplicationSchema" xml:space="preserve">
     <value>GML files are not according to application form</value>
+  </data>
+  <data name="CreateMetadata" xml:space="preserve">
+    <value>Create metadata</value>
+  </data>
+  <data name="FreeText" xml:space="preserve">
+    <value>Free text</value>
   </data>
 </root>

@@ -126,6 +126,11 @@
               Looks up a localized string similar to Kontakt oss.
             </summary>
         </member>
+        <member name="P:Resources.UI.CreateMetadata">
+            <summary>
+              Looks up a localized string similar to Opprett metadata.
+            </summary>
+        </member>
         <member name="P:Resources.UI.CreateProductFactSheet">
             <summary>
               Looks up a localized string similar to Opprett produktark.
@@ -235,6 +240,11 @@
         <member name="P:Resources.UI.Formats">
             <summary>
               Looks up a localized string similar to Formater.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.FreeText">
+            <summary>
+              Looks up a localized string similar to Fritekst.
             </summary>
         </member>
         <member name="P:Resources.UI.GeographicExtent">
@@ -455,6 +465,11 @@
         <member name="P:Resources.UI.Language_No">
             <summary>
               Looks up a localized string similar to Norsk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LoggedOffMessage">
+            <summary>
+              Looks up a localized string similar to Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata..
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Abstract">
