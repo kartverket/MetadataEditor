@@ -78,7 +78,7 @@
                         getter: 'ResourceReferenceCode',
                         mutation: 'updateResourceReferenceCode',
                         type: 'text',
-                        label: '@UI.DatasetName',
+                        label: '@Html.Raw(UI.DatasetName)',
                         helpText: {
                             active: false,
                             content: '@UI.HelpTextResourceReferenceCode'
@@ -134,7 +134,7 @@
                         selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
-                        label: '@UI.Use',
+                        label: '@Html.Raw(UI.Use)',
                         helpText: {
                             active: false,
                             content: '@UI.HelpTextSpesificUsage'
