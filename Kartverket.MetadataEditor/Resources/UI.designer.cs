@@ -791,6 +791,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ignorer feil.
+        /// </summary>
+        public static string IgnoreErrors {
+            get {
+                return ResourceManager.GetString("IgnoreErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stort bilde.
         /// </summary>
         public static string ImageLarge {

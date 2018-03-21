@@ -760,4 +760,7 @@
   <data name="WfsService" xml:space="preserve">
     <value>WFS service</value>
   </data>
+  <data name="IgnoreErrors" xml:space="preserve">
+    <value>Ignore errors</value>
+  </data>
 </root>

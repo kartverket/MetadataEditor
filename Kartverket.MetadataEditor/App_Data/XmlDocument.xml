@@ -462,6 +462,11 @@
               Looks up a localized string similar to Forside.
             </summary>
         </member>
+        <member name="P:Resources.UI.IgnoreErrors">
+            <summary>
+              Looks up a localized string similar to Ignorer feil.
+            </summary>
+        </member>
         <member name="P:Resources.UI.ImageLarge">
             <summary>
               Looks up a localized string similar to Stort bilde.
