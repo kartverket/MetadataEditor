@@ -3777,52 +3777,6 @@ ul#thumbnailsCoverage {
   .striped-list .list-item:nth-child(even) {
     background-color: #f7f8f8; }
 
-.menu {
-  margin-bottom: 20px; }
-
-.container-user-menu {
-  padding: 10px 16px 0 0; }
-  .container-user-menu a {
-    line-height: 1.42857;
-    display: inline-block;
-    border-left: 1px solid #968c83;
-    font-family: Raleway,sans-serif;
-    font-size: 10.5pt;
-    font-weight: 500;
-    padding: 0 10px;
-    color: #968c83; }
-    .container-user-menu a:first-child {
-      border-left: none; }
-
-.search-button-wrapper .btn:focus, .search-button-wrapper .btn:hover {
-  background-color: #FFF; }
-
-.container .search .searchbar input {
-  -moz-border-radius: 6px 0 0 6px !important;
-  -webkit-border-radius: 6px 0 0 6px !important;
-  border-radius: 6px 0 0 6px !important;
-  border-radius: 6px 0 0 6px !important;
-  padding: 0 0 0 21px;
-  font-size: 14pt !important; }
-  .container .search .searchbar input:focus {
-    border: none; }
-
-@media (max-width: 767px) {
-  .top-row .col-xs-5 {
-    width: 50%; } }
-
-@media (min-width: 768px) {
-  .top-row .col-xs-5:nth-child(2) {
-    width: 0; }
-  .top-row .col-xs-2 {
-    width: 250px;
-    text-align: right; }
-  .container .search .searchbar input {
-    -moz-border-radius: 3px 0 0 3px !important;
-    -webkit-border-radius: 3px 0 0 3px !important;
-    border-radius: 3px 0 0 3px !important;
-    padding: 0 0 0 34.6px; } }
-
 #norgeskartmodal {
   width: 90%;
   position: fixed;

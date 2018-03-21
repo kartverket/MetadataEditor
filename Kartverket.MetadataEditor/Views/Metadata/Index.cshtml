@@ -124,13 +124,13 @@ else
     }
 
     </script>
-}
-
-<script>
+    <script>
     @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
     {
         @:for (v = 0; v < validationUUIDs.length; v++) {
         @:    getValidationStatus(validationUUIDs[v]);
         @:}
     }
-</script>
+    </script>
+}
+

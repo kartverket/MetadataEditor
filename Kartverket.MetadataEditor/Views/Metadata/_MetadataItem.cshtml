@@ -65,4 +65,6 @@
         </div>
     </div>
 </div>
-<script>getAdditionalData('@Model.Uuid', "@CultureHelper.GetCurrentCulture()")</script>
+@section scripts{
+    <script>getAdditionalData('@Model.Uuid', "@CultureHelper.GetCurrentCulture()")</script>
+    }
