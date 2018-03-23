@@ -133,6 +133,7 @@
     <script>
         searchOption.loginUrl = '@Url.Action("SignIn", "AuthServices")';
         searchOption.logoutUrl = '@Url.Action("Logout", "AuthServices")';
+        searchOption.loggedIn = @Request.IsAuthenticated.ToString().ToLower();
         var orderItems = Cookies.get('orderitems');
         if (orderItems && orderItems > 0) {
             $('.downloads__count').show();
