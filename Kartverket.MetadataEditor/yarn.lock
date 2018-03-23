@@ -662,9 +662,9 @@ gaze@^0.5.1:
   dependencies:
     globule "~0.1.0"
 
-geonorge-shared-partials@^0.0.18:
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/geonorge-shared-partials/-/geonorge-shared-partials-0.0.18.tgz#e666a1abe194772ddc7daefa78e511c19151c048"
+geonorge-shared-partials@^0.0.24:
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/geonorge-shared-partials/-/geonorge-shared-partials-0.0.24.tgz#bcc14198904f61185c92b27ccf239450b882c3dc"
   dependencies:
     angular "^1.6.9"
     angular-ui-bootstrap "^2.5.6"
@@ -673,6 +673,7 @@ geonorge-shared-partials@^0.0.18:
     gulp-bundle-assets "^2.29.0"
     gulp-if "^2.0.2"
     jquery "^3.3.1"
+    js-cookie "^2.2.0"
 
 get-stdin@^4.0.1:
   version "4.0.1"
@@ -1297,6 +1298,10 @@ isstream@~0.1.2:
 jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
 jsbn@~0.1.0:
   version "0.1.1"

@@ -4,6 +4,6 @@
   "private": true,
   "devDependencies": {},
   "dependencies": {
-    "geonorge-shared-partials": "^0.0.23"
+    "geonorge-shared-partials": "^0.0.24"
   }
 }
