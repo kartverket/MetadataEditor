@@ -2,9 +2,6 @@
 input::-ms-clear {
   display: none; }
 
-body {
-  font-family: 'Open Sans', sans-serif; }
-
 .container-breadcrumbs {
   display: none; }
 
@@ -1715,11 +1712,6 @@ a[data-ng-class="highlight"] {
   .auto-results-wrapper {
     margin: 0 8.25px;
     position: absolute; } }
-
-body {
-  font-size: 12pt;
-  font-family: "Open Sans", sans-serif;
-  background-image: none; }
 
 .no-border-radius, .help-text, .panel, .panel-heading {
   border-radius: 0; }
