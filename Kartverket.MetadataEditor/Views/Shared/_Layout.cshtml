@@ -26,9 +26,8 @@
         var applicationEnvironment = '@Html.EnvironmentName()' == 'dev' ? 'local' : '@Html.EnvironmentName()';
 
         var cultureData = {
-            supportsMultiCulture: @(Html.SupportsMultiCulture() ? "true" : "false"),
-            urlSetCulture: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url })',
-            urlSetCultureNorwegian: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url })',
+            friendlyUrlEN: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url })',
+            friendlyUrlNO: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url })',
             currentCulture: '@CultureHelper.GetCurrentCulture()'
             };
     </script>
