@@ -809,6 +809,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image file is required.
+        /// </summary>
+        public static string ImageRequired {
+            get {
+                return ResourceManager.GetString("ImageRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle.
         /// </summary>
         public static string Language_All {
@@ -980,11 +989,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning - øst.
+        /// </summary>
+        public static string Metadata_BoundingBox_East {
+            get {
+                return ResourceManager.GetString("Metadata_BoundingBox_East", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
         /// </summary>
         public static string Metadata_BoundingBox_East_Invalid {
             get {
                 return ResourceManager.GetString("Metadata_BoundingBox_East_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning nord.
+        /// </summary>
+        public static string Metadata_BoundingBox_North {
+            get {
+                return ResourceManager.GetString("Metadata_BoundingBox_North", resourceCulture);
             }
         }
         
@@ -998,11 +1025,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning sør.
+        /// </summary>
+        public static string Metadata_BoundingBox_South {
+            get {
+                return ResourceManager.GetString("Metadata_BoundingBox_South", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geografisk utstrekning - Sør - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
         /// </summary>
         public static string Metadata_BoundingBox_South_Invalid {
             get {
                 return ResourceManager.GetString("Metadata_BoundingBox_South_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geografisk utstrekning vest.
+        /// </summary>
+        public static string Metadata_BoundingBox_West {
+            get {
+                return ResourceManager.GetString("Metadata_BoundingBox_West", resourceCulture);
             }
         }
         
@@ -1210,6 +1255,15 @@ namespace Resources {
         public static string Metadata_DateUpdated {
             get {
                 return ResourceManager.GetString("Metadata_DateUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribusjonsformat er påkrevd.
+        /// </summary>
+        public static string Metadata_DistributionsFormats_Required {
+            get {
+                return ResourceManager.GetString("Metadata_DistributionsFormats_Required", resourceCulture);
             }
         }
         

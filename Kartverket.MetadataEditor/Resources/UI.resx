@@ -766,4 +766,22 @@
   <data name="IgnoreErrors" xml:space="preserve">
     <value>Ignorer feil</value>
   </data>
+  <data name="ImageRequired" xml:space="preserve">
+    <value>Image file is required</value>
+  </data>
+  <data name="Metadata_BoundingBox_East" xml:space="preserve">
+    <value>Geografisk utstrekning - øst</value>
+  </data>
+  <data name="Metadata_BoundingBox_North" xml:space="preserve">
+    <value>Geografisk utstrekning nord</value>
+  </data>
+  <data name="Metadata_BoundingBox_South" xml:space="preserve">
+    <value>Geografisk utstrekning sør</value>
+  </data>
+  <data name="Metadata_BoundingBox_West" xml:space="preserve">
+    <value>Geografisk utstrekning vest</value>
+  </data>
+  <data name="Metadata_DistributionsFormats_Required" xml:space="preserve">
+    <value>Distribusjonsformat er påkrevd</value>
+  </data>
 </root>

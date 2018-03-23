@@ -472,6 +472,11 @@
               Looks up a localized string similar to Stort bilde.
             </summary>
         </member>
+        <member name="P:Resources.UI.ImageRequired">
+            <summary>
+              Looks up a localized string similar to Image file is required.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Language_All">
             <summary>
               Looks up a localized string similar to Alle.
@@ -567,9 +572,19 @@
               Looks up a localized string similar to Angitt produktspesifikasjon.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_BoundingBox_East">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning - øst.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_East_Invalid">
             <summary>
               Looks up a localized string similar to Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_BoundingBox_North">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning nord.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_North_Invalid">
@@ -577,9 +592,19 @@
               Looks up a localized string similar to Geografisk utstrekning - Nord - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_BoundingBox_South">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning sør.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_South_Invalid">
             <summary>
               Looks up a localized string similar to Geografisk utstrekning - Sør - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_BoundingBox_West">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning vest.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_West_Invalid">
@@ -695,6 +720,11 @@
         <member name="P:Resources.UI.Metadata_DateUpdated">
             <summary>
               Looks up a localized string similar to Dato sist oppdatert.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_DistributionsFormats_Required">
+            <summary>
+              Looks up a localized string similar to Distribusjonsformat er påkrevd.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Edit_DatasetFields">

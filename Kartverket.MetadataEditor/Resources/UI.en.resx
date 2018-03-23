@@ -763,4 +763,19 @@
   <data name="IgnoreErrors" xml:space="preserve">
     <value>Ignore errors</value>
   </data>
+  <data name="Metadata_BoundingBox_East" xml:space="preserve">
+    <value>Geographical extent - East</value>
+  </data>
+  <data name="Metadata_BoundingBox_North" xml:space="preserve">
+    <value>Geographical extent north</value>
+  </data>
+  <data name="Metadata_BoundingBox_South" xml:space="preserve">
+    <value>Geographical extent south</value>
+  </data>
+  <data name="Metadata_BoundingBox_West" xml:space="preserve">
+    <value>Geographical extent west</value>
+  </data>
+  <data name="Metadata_DistributionsFormats_Required" xml:space="preserve">
+    <value>Distribution format is required</value>
+  </data>
 </root>

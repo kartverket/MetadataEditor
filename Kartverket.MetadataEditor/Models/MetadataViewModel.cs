@@ -46,7 +46,7 @@ namespace Kartverket.MetadataEditor.Models
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
         public string Purpose { get; set; }
 
-        [Required(ErrorMessage = "Sammendrag er påkrevd")]
+        [Required]
         [Display(Name = "Metadata_Abstract", ResourceType = typeof(UI))]
         public string Abstract { get; set; }
 
@@ -77,22 +77,26 @@ namespace Kartverket.MetadataEditor.Models
         public List<Thumbnail> Thumbnails { get; set; }
 
         public string Status { get; set; }
-        public string OrderingInstructions { get; set; }    
+        public string OrderingInstructions { get; set; }
 
-        [Required (ErrorMessage="Geografisk utstrekning nord er påkrevd")]
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage=null)]
+        [Required]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Metadata_BoundingBox_East", ResourceType = typeof(UI))]
         public string BoundingBoxEast { get; set; }
 
-        [Required(ErrorMessage = "Geografisk utstrekning vest er påkrevd")]
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        [Required]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Metadata_BoundingBox_West", ResourceType = typeof(UI))]
         public string BoundingBoxWest { get; set; }
 
-        [Required(ErrorMessage = "Geografisk utstrekning nord er påkrevd")]
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        [Required]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Metadata_BoundingBox_North", ResourceType = typeof(UI))]
         public string BoundingBoxNorth { get; set; }
 
-        [Required(ErrorMessage = "Geografisk utstrekning sør er påkrevd")]
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        [Required]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Metadata_BoundingBox_South", ResourceType = typeof(UI))]
         public string BoundingBoxSouth { get; set; }
 
         /* dataset only */
@@ -107,7 +111,7 @@ namespace Kartverket.MetadataEditor.Models
         public string DistributionFormatVersion { get; set; }
         //[AssertThat("IsValidDistributionFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
         public List<SimpleDistributionFormat> DistributionFormats { get; set; }
-        [AssertThat("IsValidDistributionsFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
+        [AssertThat("IsValidDistributionsFormat()", ErrorMessageResourceName = "Metadata_DistributionsFormats_Required", ErrorMessageResourceType = typeof(UI))]
         public List<SimpleDistribution> DistributionsFormats { get; set; }
         public Dictionary<DistributionGroup, Distribution> FormatDistributions{ get; set; }
         public string DistributionUrl { get; set; }
@@ -154,7 +158,8 @@ namespace Kartverket.MetadataEditor.Models
         public bool QualitySpecificationResultSosiConformGmlApplicationSchema { get; set; } = false;
         //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
-        [Required (ErrorMessage="Oppdateringshyppighet er påkrevd")]
+        [Required]
+        [Display(Name = "Metadata_MaintenanceFrequency", ResourceType = typeof(UI))]
         public string MaintenanceFrequency { get; set; }
         //[RequiredIf("!IsService()", ErrorMessage = "Målestokktall er påkrevd")]
         public string ResolutionScale { get; set; }
