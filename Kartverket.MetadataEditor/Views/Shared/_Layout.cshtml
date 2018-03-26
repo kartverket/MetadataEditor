@@ -23,7 +23,7 @@
     </script>
     <script>
         var applicationVersionNumber = '@Html.ApplicationVersionNumber()';
-        var applicationEnvironment = '@Html.EnvironmentName()' == 'dev' ? 'local' : '@Html.EnvironmentName()';
+        var applicationEnvironment = '@Html.EnvironmentName()';
 
         var cultureData = {
             friendlyUrlEN: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url })',

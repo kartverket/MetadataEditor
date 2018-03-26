@@ -127,7 +127,7 @@ $(document).ready(function() {
 
 });
 
-$(window).load(function() {
+document.addEventListener("DOMContentLoaded", function (event) {
     var options = {
         disable_search_threshold: 10,
         search_contains: true
@@ -163,11 +163,11 @@ function setMainSearchUrl(urlSlug, environment){
         }
     }
     if (environmentIsSet){
-        searchOptionsArray[environment].url = "//kartkatalog" + environmentSlug + ".geonorge.no/" + urlSlug;
+        searchOptions[environment].url = "//kartkatalog" + environmentSlug + ".geonorge.no/" + urlSlug;
     }else{
-        searchOptionsArray.dev.url = "//kartkatalog.dev.geonorge.no/" + urlSlug;
-        searchOptionsArray.test.url = "//kartkatalog.test.geonorge.no/" + urlSlug;
-        searchOptionsArray.prod.url = "//kartkatalog.geonorge.no/" + urlSlug;
+        searchOptions.dev.url = "//kartkatalog.dev.geonorge.no/" + urlSlug;
+        searchOptions.test.url = "//kartkatalog.test.geonorge.no/" + urlSlug;
+        searchOptions.prod.url = "//kartkatalog.geonorge.no/" + urlSlug;
     }
 }
 
@@ -183,11 +183,11 @@ function setMainSearchApiUrl(urlSlug, environment){
         }
     }
     if (environmentIsSet){
-        searchOptionsArray[environment].api = "//kartkatalog" + environmentSlug + ".geonorge.no/api/" + urlSlug;
+        searchOptions[environment].api = "//kartkatalog" + environmentSlug + ".geonorge.no/api/" + urlSlug;
     }else{
-        searchOptionsArray.dev.api = "//kartkatalog.dev.geonorge.no/api/" + urlSlug;
-        searchOptionsArray.test.api = "//kartkatalog.test.geonorge.no/api/" + urlSlug;
-        searchOptionsArray.prod.api = "//kartkatalog.geonorge.no/api/" + urlSlug;
+        searchOptions.dev.api = "//kartkatalog.dev.geonorge.no/api/" + urlSlug;
+        searchOptions.test.api = "//kartkatalog.test.geonorge.no/api/" + urlSlug;
+        searchOptions.prod.api = "//kartkatalog.geonorge.no/api/" + urlSlug;
     }
 }
 
@@ -202,11 +202,11 @@ function setMainSearchPlaceholder(placeholder, environment) {
         } 
     } 
     if (environmentIsSet) { 
-        searchOptionsArray[environment].searchPlaceholder = placeholder; 
+        searchOptions[environment].searchPlaceholder = placeholder; 
     } else { 
-        searchOptionsArray.dev.searchPlaceholder = placeholder; 
-        searchOptionsArray.test.searchPlaceholder = placeholder; 
-        searchOptionsArray.prod.searchPlaceholder = placeholder; 
+        searchOptions.dev.searchPlaceholder = placeholder; 
+        searchOptions.test.searchPlaceholder = placeholder; 
+        searchOptions.prod.searchPlaceholder = placeholder; 
     } 
 } 
 
@@ -325,7 +325,7 @@ function updateShoppingCartCookie() {
 }
 
 
-$(window).load(function () {
+document.addEventListener("DOMContentLoaded", function (event) {
     removeBrokenOrderItems();
     updateShoppingCart();
 });
