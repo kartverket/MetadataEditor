@@ -34,8 +34,7 @@ namespace Kartverket.MetadataEditor
                 "~/Scripts/jQuery.FileUpload/jquery.fileupload.js",
                 "~/Scripts/bootstrap-filestyle.js",
                 "~/Scripts/geonorge-editor.js",
-                "~/Scripts/jquery.autosize.js",
-                "~/Scripts/site.js"
+                "~/Scripts/jquery.autosize.js"
            ));
 
             BundleTable.EnableOptimizations = true;
