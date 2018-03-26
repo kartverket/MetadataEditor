@@ -1687,11 +1687,6 @@ a[data-ng-class="highlight"] {
   .auto-results-title {
     font-size: 13pt;
     line-height: 22pt; }
-  .auto-results-inner,
-  .auto-results-inner:hover,
-  .auto-results-inner[data-ng-class="highlight"] {
-    font-size: 13pt;
-    line-height: 22pt; }
   .container .searchbar .input-group-addon .loader {
     background-size: auto;
     height: 36px;
@@ -1787,8 +1782,7 @@ aside ul li,
   .panel-default > .panel-heading .help-text-toggle.active {
     background-color: #fe5000; }
 
-.help-text-toggle:hover,
-.help-text-toggle.active,
+.help-text-toggle:hover, .help-text-toggle.active,
 .panel-default > .panel-heading .help-text-toggle:hover,
 .panel-default > .panel-heading .help-text-toggle.active {
   background-color: #fe5000;
@@ -3448,7 +3442,10 @@ input[type="radio"]:checked.custom-radio.disabled + input[type="hidden"] + .radi
   width: 100% !important; }
 
 .no-border-radius, .help-text, .panel, .panel-heading,
-.no-border-radius input, .help-text input, .panel input, .panel-heading input {
+.no-border-radius input,
+.help-text input,
+.panel input,
+.panel-heading input {
   border-radius: 0 !important; }
 
 .inline-block {
