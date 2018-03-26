@@ -1544,9 +1544,9 @@ namespace Kartverket.MetadataEditor.Models
             return await _logEntryService.GetEntriesForElement(uuid);
         }
 
-        public async Task<List<LogEntry>> GetLogEntriesLatest()
+        public async Task<List<LogEntry>> GetLogEntriesLatest(int limitNumberOfEntries = 50, string operation = "")
         {
-            return await _logEntryService.GetEntries();
+            return await _logEntryService.GetEntries(limitNumberOfEntries, operation);
         }
     }
 }
