@@ -136,20 +136,23 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationDateTypeInspire { get; set; }
         public string QualitySpecificationDateTypeSosi { get; set; }
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
-        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Konformitet annen standard mangler")]
+        [RequiredIf("!IsValidQualitySpesification()", ErrorMessageResourceName = "Metadata_QualitySpecificationExplanation_Required", ErrorMessageResourceType = typeof(UI))]
         public string QualitySpecificationExplanation { get; set; }
         public string EnglishQualitySpecificationExplanation { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Konformitet inspire mangler")]
+        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessageResourceName = "Metadata_QualitySpecificationExplanationInspire_Required", ErrorMessageResourceType = typeof(UI))]
         public string QualitySpecificationExplanationInspire { get; set; }
         public string EnglishQualitySpecificationExplanationInspire { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Konformitet sosi mangler")]
+        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessageResourceName = "Metadata_QualitySpecificationExplanationSosi_Required", ErrorMessageResourceType = typeof(UI))]
         public string QualitySpecificationExplanationSosi { get; set; }
         public string EnglishQualitySpecificationExplanationSosi { get; set; }
-        [Required(ErrorMessage = "Datakonformitet er påkrevd")]
+        [Required]
+        [Display(Name = "QualitySpecificationResult", ResourceType = typeof(UI))]
         public bool QualitySpecificationResult { get; set; }
-        [Required(ErrorMessage = "Datakonformitet inspire er påkrevd")]
+        [Required]
+        [Display(Name = "QualitySpecificationResultInspire", ResourceType = typeof(UI))]
         public bool QualitySpecificationResultInspire { get; set; }
-        [Required(ErrorMessage = "Datakonformitet sosi er påkrevd")]
+        [Required]
+        [Display(Name = "QualitySpecificationResultSosi", ResourceType = typeof(UI))]
         public bool QualitySpecificationResultSosi { get; set; }
         public string QualitySpecificationTitle { get; set; }
         public string QualitySpecificationTitleInspire { get; set; }

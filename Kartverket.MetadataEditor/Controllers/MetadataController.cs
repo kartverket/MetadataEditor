@@ -354,7 +354,7 @@ namespace Kartverket.MetadataEditor.Controllers
                         {
                             if (distro.Key.Protocol == null)
                             {
-                                ModelState.AddModelError("distributionProtocolMissing", "Vennligst fyll ut distribusjonstype");
+                                ModelState.AddModelError("distributionProtocolMissing", UI.DistributionProtocolMissing);
                                 PrepareViewBagForEditing(model);
                                 return View(model);
                             }

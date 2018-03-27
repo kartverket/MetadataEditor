@@ -778,4 +778,25 @@
   <data name="Metadata_DistributionsFormats_Required" xml:space="preserve">
     <value>Distribution format is required</value>
   </data>
+  <data name="DistributionProtocolMissing" xml:space="preserve">
+    <value>Please enter distribution type</value>
+  </data>
+  <data name="Metadata_QualitySpecificationExplanationInspire_Required" xml:space="preserve">
+    <value>Conformity inspire is required</value>
+  </data>
+  <data name="Metadata_QualitySpecificationExplanationSosi_Required" xml:space="preserve">
+    <value>Conformity sosi is required</value>
+  </data>
+  <data name="Metadata_QualitySpecificationExplanation_Required" xml:space="preserve">
+    <value>Conformity other spesification is required</value>
+  </data>
+  <data name="QualitySpecificationResult" xml:space="preserve">
+    <value>Conformity</value>
+  </data>
+  <data name="QualitySpecificationResultInspire" xml:space="preserve">
+    <value>Conformity inspire</value>
+  </data>
+  <data name="QualitySpecificationResultSosi" xml:space="preserve">
+    <value>Conformity sosi</value>
+  </data>
 </root>

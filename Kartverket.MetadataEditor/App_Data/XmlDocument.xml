@@ -186,6 +186,11 @@
               Looks up a localized string similar to Distribusjon.
             </summary>
         </member>
+        <member name="P:Resources.UI.DistributionProtocolMissing">
+            <summary>
+              Looks up a localized string similar to Vennligst fyll ut distribusjonstype.
+            </summary>
+        </member>
         <member name="P:Resources.UI.DistributionType">
             <summary>
               Looks up a localized string similar to Distribusjonstype.
@@ -832,6 +837,21 @@
               Looks up a localized string similar to Forklaring av resultat.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_QualitySpecificationExplanation_Required">
+            <summary>
+              Looks up a localized string similar to Konformitet annen standard mangler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_QualitySpecificationExplanationInspire_Required">
+            <summary>
+              Looks up a localized string similar to Konformitet inspire mangler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_QualitySpecificationExplanationSosi_Required">
+            <summary>
+              Looks up a localized string similar to Konformitet sosi mangler.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_ResolutionScale_Label">
             <summary>
               Looks up a localized string similar to Målestokkstall.
@@ -1017,9 +1037,24 @@
               Looks up a localized string similar to Annen standard/ egen dokumentasjon.
             </summary>
         </member>
+        <member name="P:Resources.UI.QualitySpecificationResult">
+            <summary>
+              Looks up a localized string similar to Datakonformitet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultInspire">
+            <summary>
+              Looks up a localized string similar to Datakonformitet inspire.
+            </summary>
+        </member>
         <member name="P:Resources.UI.QualitySpecificationResultNotSosiConformApplicationSchema">
             <summary>
               Looks up a localized string similar to SOSI-filer avviker fra applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultSosi">
+            <summary>
+              Looks up a localized string similar to Datakonformitet sosi.
             </summary>
         </member>
         <member name="P:Resources.UI.QualitySpecificationResultSosiConformApplicationSchema">

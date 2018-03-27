@@ -295,6 +295,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vennligst fyll ut distribusjonstype.
+        /// </summary>
+        public static string DistributionProtocolMissing {
+            get {
+                return ResourceManager.GetString("DistributionProtocolMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Distribusjonstype.
         /// </summary>
         public static string DistributionType {
@@ -1457,6 +1466,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Konformitet annen standard mangler.
+        /// </summary>
+        public static string Metadata_QualitySpecificationExplanation_Required {
+            get {
+                return ResourceManager.GetString("Metadata_QualitySpecificationExplanation_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konformitet inspire mangler.
+        /// </summary>
+        public static string Metadata_QualitySpecificationExplanationInspire_Required {
+            get {
+                return ResourceManager.GetString("Metadata_QualitySpecificationExplanationInspire_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konformitet sosi mangler.
+        /// </summary>
+        public static string Metadata_QualitySpecificationExplanationSosi_Required {
+            get {
+                return ResourceManager.GetString("Metadata_QualitySpecificationExplanationSosi_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Målestokkstall.
         /// </summary>
         public static string Metadata_ResolutionScale_Label {
@@ -1790,11 +1826,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datakonformitet.
+        /// </summary>
+        public static string QualitySpecificationResult {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datakonformitet inspire.
+        /// </summary>
+        public static string QualitySpecificationResultInspire {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultInspire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SOSI-filer avviker fra applikasjonsskjema.
         /// </summary>
         public static string QualitySpecificationResultNotSosiConformApplicationSchema {
             get {
                 return ResourceManager.GetString("QualitySpecificationResultNotSosiConformApplicationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datakonformitet sosi.
+        /// </summary>
+        public static string QualitySpecificationResultSosi {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultSosi", resourceCulture);
             }
         }
         
