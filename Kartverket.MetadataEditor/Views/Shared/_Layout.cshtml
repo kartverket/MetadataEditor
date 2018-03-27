@@ -26,8 +26,8 @@
         var applicationEnvironment = '@Html.EnvironmentName()';
 
         var cultureData = {
-            friendlyUrlEN: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url })',
-            friendlyUrlNO: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url })',
+            friendlyUrlEN: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))',
+            friendlyUrlNO: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url }))',
             currentCulture: '@CultureHelper.GetCurrentCulture()'
             };
     </script>
@@ -131,8 +131,8 @@
     }
 
     <script>
-        searchOption.loginUrl = '@Url.Action("SignIn", "AuthServices")';
-        searchOption.logoutUrl = '@Url.Action("Logout", "AuthServices")';
+        searchOption.loginUrl = '@Html.Raw(Url.Action("SignIn", "AuthServices"))';
+        searchOption.logoutUrl = '@Html.Raw(Url.Action("SignIn", "AuthServices", new { ReturnUrl = Request.Url }))'
         searchOption.loggedIn = @Request.IsAuthenticated.ToString().ToLower();
         searchOption.epiBaseUrl = '@Html.GeonorgeUrl()';
         var orderItems = Cookies.get('orderitems');
