@@ -99,6 +99,9 @@
         updateContactMetadataOrganization: function (state, payload) {
             state.model.ContactMetadata.Organization = payload;
         },
+        updateContactMetadataRole: function (state, payload) {
+            state.model.ContactMetadata.Role = payload;
+        },
         updateContactPublisher: function (state, payload) {
             state.model.ContactPublisher = payload;
         },
@@ -111,6 +114,9 @@
         updateContactPublisherOrganization: function (state, payload) {
             state.model.ContactPublisher.Organization = payload;
         },
+        updateContactPublisherRole: function (state, payload) {
+            state.model.ContactPublisher.Role = payload;
+        },
         updateContactOwner: function (state, payload) {
             state.model.ContactOwner = payload;
         },
@@ -122,6 +128,9 @@
         },
         updateContactOwnerOrganization: function (state, payload) {
             state.model.ContactOwner.Organization = payload;
+        },
+        updateContactOwnerRole: function (state, payload) {
+            state.model.ContactOwner.Role = payload;
         },
         updateSpatialRepresentation: function (state, payload) {
             state.model.SpatialRepresentation = payload;

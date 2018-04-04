@@ -16,12 +16,15 @@
             </div>
             <div class="panel-body">
                 <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
-                <div v-for="formElement in section.formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
-                    <div class="row">
-                        <label for="abstract" class="col-md-2 control-label">{{ formElement.label }}</label>
-                        <div class="col-md-9">
-                            <div is="field" v-bind:form-element="formElement"></div>
-                            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                <div v-for="formElement in section.formElements">
+                    <div v-if="formElement.type == 'hidden'" is="field" v-bind:form-element="formElement"></div>
+                    <div v-else class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                        <div class="row">
+                            <label for="abstract" class="col-md-2 control-label">{{ formElement.label }}</label>
+                            <div class="col-md-9">
+                                <div is="field" v-bind:form-element="formElement"></div>
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,6 +73,12 @@
                                 type: 'select',
                                 required: true,
                                 options: this.$parent.viewBag.OrganizationContactMetadataValues
+                            },
+                            {
+                                name: 'ContactMetadata.Role',
+                                getter: 'ContactMetadataRole',
+                                mutation: 'updateContactMetadataRole',
+                                type: 'hidden'
                             }
                         ]
                     },
@@ -103,6 +112,12 @@
                                 type: 'select',
                                 required: true,
                                 options: this.$parent.viewBag.OrganizationContactPublisherValues
+                            },
+                            {
+                                name: 'ContactPublisher.Role',
+                                getter: 'ContactPublisherRole',
+                                mutation: 'updateContactPublisherRole',
+                                type: 'hidden'
                             }
                         ]
                     },
@@ -136,6 +151,12 @@
                                 type: 'select',
                                 required: true,
                                 options: this.$parent.viewBag.OrganizationContactOwnerValues
+                            },
+                            {
+                                name: 'ContactOwner.Role',
+                                getter: 'ContactOwnerRole',
+                                mutation: 'updateContactOwnerRole',
+                                type: 'hidden'
                             }
                         ]
                     }
