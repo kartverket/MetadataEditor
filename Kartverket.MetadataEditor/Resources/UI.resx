@@ -767,7 +767,7 @@
     <value>Ignorer feil</value>
   </data>
   <data name="ImageRequired" xml:space="preserve">
-    <value>Image file is required</value>
+    <value>Illustrasjonsbilde er påkrevd</value>
   </data>
   <data name="Metadata_BoundingBox_East" xml:space="preserve">
     <value>Geografisk utstrekning - øst</value>

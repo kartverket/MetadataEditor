@@ -479,7 +479,7 @@
         </member>
         <member name="P:Resources.UI.ImageRequired">
             <summary>
-              Looks up a localized string similar to Image file is required.
+              Looks up a localized string similar to Illustrasjonsbilde er påkrevd.
             </summary>
         </member>
         <member name="P:Resources.UI.Language_All">

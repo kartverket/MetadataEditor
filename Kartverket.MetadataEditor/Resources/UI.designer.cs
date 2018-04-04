@@ -818,7 +818,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Image file is required.
+        ///   Looks up a localized string similar to Illustrasjonsbilde er påkrevd.
         /// </summary>
         public static string ImageRequired {
             get {
