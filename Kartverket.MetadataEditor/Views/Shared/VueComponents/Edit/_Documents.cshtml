@@ -7,7 +7,13 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ productSpecificationUrl.label }}</label>
                 <div class="col-md-8">
-                    <div is="field" v-bind:form-element="productSpecificationUrl"></div>
+                    <div class="form-group" v-bind:class="{'required': productSpecificationUrl.required}">
+                        <div class="custom-select">
+                            <select v-bind:name="productSpecificationUrl.name" class="form-control" v-bind:value="$store.getters[productSpecificationUrl.getter]" v-on:change="updateProductSpecificationUrl()">
+                                <option v-for="option in productSpecificationUrl.options" v-bind:value="option.Value">{{option.Text}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,8 +68,9 @@
                 <div class="col-md-4">
                     <div class="input-group">
                         <span class="input-group-addon">{{ productSpecificationOther.fields.name.label }}</span>
-                        <div is="field" v-bind:form-element="productSpecificationOther.fields.name"></div>
-
+                        <div class="form-group" v-bind:class="{'required': productSpecificationOther.fields.name.required}">
+                            <input v-bind:name="productSpecificationOther.fields.name.name" type="text" class="form-control" v-bind:value="$store.getters[productSpecificationOther.fields.name.getter]" v-on:change="updateProductSpecificationOtherName()" />
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -171,7 +178,6 @@
                 productSpecificationUrl: {
                     name: 'ProductSpecificationUrl',
                     getter: 'ProductSpecificationUrl',
-                    mutation: 'updateProductSpecificationUrl',
                     label: '@UI.DataProductSpecification',
                     type: 'select',
                     visible: !this.$root.isSoftware,
@@ -369,6 +375,17 @@
             uploadFile: function (event) {
                 event.preventDefault(),
                 this.thumbnailFileUploadData.request.submit();
+            },
+            updateProductSpecificationUrl: function () {
+                var optionValue = event.target.value;
+                var optionText = event.target.selectedOptions[0].innerText;
+                this.$store.commit('updateProductSpecificationUrl', optionValue);
+                this.$store.commit('updateQualitySpecificationTitleSosi', 'SOSI-produktspesifikasjon: ' + optionText);
+            },
+            updateProductSpecificationOtherName: function () {
+                var inputValue = event.target.value;
+                this.$store.commit('updateProductSpecificationOtherName', inputValue)
+                this.$store.commit('updateQualitySpecificationTitle', 'Produktspesifikasjon: ' + inputValue);
             }
         }
     };
