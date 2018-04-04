@@ -11,7 +11,7 @@
                                 v-bind:value="keywordValue"
                                 v-on:change="updateNorwegianKeywordValue($event.target.value)"
                                 class="form-control">
-                            <option v-bind:disabled="isAdded(option.Value)" v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
+                            <option v-bind:disabled="isAdded(option.Value) && option.Value !== keywordValue" v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
                         </select>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                                 v-bind:value="keywordValue"
                                 v-on:change="updateNorwegianKeywordValue($event.target.value)"
                                 class="form-control">
-                            <option v-bind:disabled="isAdded(option.Value)" v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
+                            <option v-bind:disabled="isAdded(option.Value) && option.Value !== keywordValue" v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
                         </select>
                     </div>
                 </div>
