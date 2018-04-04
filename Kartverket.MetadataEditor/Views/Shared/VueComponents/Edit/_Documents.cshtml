@@ -314,7 +314,7 @@
                 this.keywordsConcept.options = keywordsConceptOptions;
                 this.selectAllConceptValues();
             },
-            getConceptNameFromConceptValue(conceptValue) {
+            getConceptNameFromConceptValue: function(conceptValue) {
                 return conceptValue.substr(0, conceptValue.indexOf('|'));
             },
             conceptIsSelected: function (concept) {
