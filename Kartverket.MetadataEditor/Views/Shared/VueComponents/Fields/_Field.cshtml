@@ -20,10 +20,10 @@
             <div v-show="language == selectedLanguage || selectedLanguage == 'all'" v-for="(binding, language) in formElement.multilingual">
                 <div class="form-group" v-bind:class="{'has-error': hasErrors(language)}">
                     <span v-show="selectedLanguage == 'all'" class="form-element-badge">{{ $store.getters['settingsLanguages_' + language] }}</span>
-                    <input v-if="formElement.type == 'text'" v-bind:name="binding.name" type="text" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control" />
-                    <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="binding.name" class="form-control" rows="6" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">{{ $store.getters[binding.getter] }}</textarea>
+                    <input v-if="formElement.type == 'text'" v-bind:name="binding.name" type="text" v-bind:readonly="readOnly" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control" />
+                    <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="binding.name" v-bind:readonly="readOnly" class="form-control" rows="6" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">{{ $store.getters[binding.getter] }}</textarea>
                     <div v-else-if="formElement.type == 'select'" class="custom-select">
-                        <select v-bind:name="binding.name" class="form-control" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">
+                        <select v-bind:name="binding.name" v-bind:readonly="readOnly" class="form-control" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">
                             <option v-for="option in formElement.options" v-bind:value="option.value">{{option.text}}</option>
                         </select>
                     </div>
@@ -36,10 +36,10 @@
         <input v-bind:name="formElement.name" type="hidden" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})" />
     </div>
     <div v-else v-show="visible" class="form-group" v-bind:class="{'required': required, 'has-error': hasErrors()}">
-        <input v-if="formElement.type == 'text'" v-bind:name="formElement.name" type="text" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})" />
-        <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="formElement.name" class="form-control" rows="6" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})"></textarea>
+        <input v-if="formElement.type == 'text'" v-bind:name="formElement.name" type="text" v-bind:readonly="readOnly" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})" />
+        <textarea v-else-if="formElement.type == 'textarea'" v-bind:name="formElement.name" v-bind:readonly="readOnly" class="form-control" rows="6" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})"></textarea>
         <div v-else-if="formElement.type == 'select'" class="custom-select">
-            <select v-bind:name="formElement.name" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})">
+            <select v-bind:name="formElement.name" v-bind:readonly="readOnly" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})">
                 <option v-for="option in formElement.options" v-bind:value="option.Value">{{option.Text}}</option>
             </select>
         </div>
@@ -88,6 +88,15 @@
                     return this.$store.getters[this.formElement.requiredGetter] === true || this.$store.getters[this.formElement.requiredGetter] == 'true';
                 } else if (this.formElement.required !== undefined) {
                     return this.formElement.required === true || this.formElement.required == 'true';
+                } else {
+                    return false;
+                }
+            },
+            readOnly: function () {
+                if (this.formElement.readOnlyGetter !== undefined) {
+                    return this.$store.getters[this.formElement.readOnlyGetter] === true || this.$store.getters[this.formElement.readOnlyGetter] == 'true';
+                } else if (this.formElement.readOnly !== undefined) {
+                    return this.formElement.readOnly === true || this.formElement.readOnly == 'true';
                 } else {
                     return false;
                 }
