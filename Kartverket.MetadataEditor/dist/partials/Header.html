@@ -56,9 +56,9 @@
                                 </li>
                             </ul>
                             <div class="menu-content__utilities">
-                                <a ng-if="loggedIn" href="" onclick="window.location.href = searchOption.logoutUrl">{{localizedText.logout[langCode]}}</a>
-                                <a ng-if="!loggedIn" href="" onclick="window.location.href = searchOption.loginUrl">{{localizedText.login[langCode]}}</a>
-                                <a class="internal" ng-href="{{cultureSwitchUrl}}" ng-click="switchCulture(cultureSwitchCode)">{{cultureSwitchName}}</a>
+                                <a ng-if="selectedSearch.supportsLogin && loggedIn" href="" onclick="window.location.href = searchOption.logoutUrl">{{localizedText.logout[langCode]}}</a>
+                                <a ng-if="selectedSearch.supportsLogin && !loggedIn" href="" onclick="window.location.href = searchOption.loginUrl">{{localizedText.login[langCode]}}</a>
+                                <a ng-if="selectedSearch.supportsCulture" class="internal" ng-href="{{cultureSwitchUrl}}" ng-click="switchCulture(cultureSwitchCode)">{{cultureSwitchName}}</a>
                             </div>
                         </nav>
                     </div>
