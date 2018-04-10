@@ -245,6 +245,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
             ViewBag.CatalogValues = new SelectList(GetListOfCatalogs(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(), "Key", "Value");
+            ViewBag.InspirePriorityDatasets = new SelectList(_metadataService.GetPriorityDatasets(), "Key", "Value");
 
             IEnumerable<SelectListItem> conceptItems = from concept in model.KeywordsConcept
                                                 select new SelectListItem
