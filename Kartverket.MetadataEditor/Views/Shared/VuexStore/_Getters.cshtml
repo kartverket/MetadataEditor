@@ -427,6 +427,18 @@
         },
         EnglishQualitySpecificationExplanation: function (state) {
             return state.model.EnglishQualitySpecificationExplanation;
+        },
+        isDataset: function (state) {
+            return state.model.HierarchyLevel == 'dataset';
+        },
+        isDatasetSeries: function (state) {
+            return state.model.HierarchyLevel == 'series';
+        },
+        isSoftware: function (state) {
+            return state.model.HierarchyLevel == 'software';
+        },
+        isService: function (state) {
+            return state.model.HierarchyLevel == 'service';
         }
     }
 </script>
