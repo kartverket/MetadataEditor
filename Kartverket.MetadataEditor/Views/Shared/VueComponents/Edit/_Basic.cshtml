@@ -107,6 +107,28 @@
                         }
                     },
                     {
+                        multilingual: {
+                            no: {
+                                name: 'SupplementalDescription',
+                                getter: 'SupplementalDescription',
+                                mutation: 'updateSupplementalDescription'
+                            },
+                            en: {
+                                name: 'EnglishSupplementalDescription',
+                                getter: 'EnglishSupplementalDescription',
+                                mutation: 'updateEnglishSupplementalDescription'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        type: 'textarea',
+                        visible: true,
+                        label: '@Html.Raw(UI.Metadata_SupplementalDescription_Label)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_SupplementalDescription)'
+                        }
+                    },
+                    {
                         name: 'HelpUrl',
                         getter: 'HelpUrl',
                         value: this.$parent.model.HelpUrl,

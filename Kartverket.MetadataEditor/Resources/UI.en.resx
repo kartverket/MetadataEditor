@@ -799,4 +799,10 @@
   <data name="QualitySpecificationResultSosi" xml:space="preserve">
     <value>Conformity sosi</value>
   </data>
+  <data name="Helptext_SupplementalDescription" xml:space="preserve">
+    <value>Oppgi informasjon og veiledning om hvordan datasettet er organisert, mulige tekniske forhold ved formater og annet som gjør det lettere å ta i bruk datasettet.</value>
+  </data>
+  <data name="Metadata_SupplementalDescription_Label" xml:space="preserve">
+    <value>Hjelp for bruk</value>
+  </data>
 </root>

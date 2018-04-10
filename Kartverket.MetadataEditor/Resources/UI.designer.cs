@@ -674,6 +674,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oppgi informasjon og veiledning om hvordan datasettet er organisert, mulige tekniske forhold ved formater og annet som gjør det lettere å ta i bruk datasettet..
+        /// </summary>
+        public static string Helptext_SupplementalDescription {
+            get {
+                return ResourceManager.GetString("Helptext_SupplementalDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tematisk inndeling definert i metadatastandarden..
         /// </summary>
         public static string Helptext_TopicCategory {
@@ -1534,6 +1543,15 @@ namespace Resources {
         public static string Metadata_Status_Label {
             get {
                 return ResourceManager.GetString("Metadata_Status_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hjelp for bruk.
+        /// </summary>
+        public static string Metadata_SupplementalDescription_Label {
+            get {
+                return ResourceManager.GetString("Metadata_SupplementalDescription_Label", resourceCulture);
             }
         }
         

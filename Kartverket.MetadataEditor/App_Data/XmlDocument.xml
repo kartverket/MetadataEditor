@@ -397,6 +397,11 @@
               Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_SupplementalDescription">
+            <summary>
+              Looks up a localized string similar to Oppgi informasjon og veiledning om hvordan datasettet er organisert, mulige tekniske forhold ved formater og annet som gjør det lettere å ta i bruk datasettet..
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_TopicCategory">
             <summary>
               Looks up a localized string similar to Tematisk inndeling definert i metadatastandarden..
@@ -875,6 +880,11 @@
         <member name="P:Resources.UI.Metadata_Status_Label">
             <summary>
               Looks up a localized string similar to Status.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_SupplementalDescription_Label">
+            <summary>
+              Looks up a localized string similar to Hjelp for bruk.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Title">
