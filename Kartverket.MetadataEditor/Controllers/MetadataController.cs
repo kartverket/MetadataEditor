@@ -126,7 +126,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult> Edit(string uuid, bool displayLog = false, bool displayLogLatest = false)
+        public async Task<ActionResult> Edit(string uuid, bool displayLog = false, bool displayLogLatest = false, int limitNumberOfEntries = 50, string operation = "")
         {
             if (string.IsNullOrWhiteSpace(uuid))
                 return HttpNotFound();
@@ -134,8 +134,10 @@ namespace Kartverket.MetadataEditor.Controllers
             try
             {
                 ViewBag.DisplayLog = displayLog; ViewBag.DisplayLogLatest = displayLogLatest;
+                ViewBag.limitNumberOfEntries = limitNumberOfEntries;
+                ViewBag.operation = operation;
                 if (displayLogLatest)
-                    ViewBag.LogEntries = await _metadataService.GetLogEntriesLatest();
+                    ViewBag.LogEntries = await _metadataService.GetLogEntriesLatest(limitNumberOfEntries, operation);
                 else if (displayLog)
                     ViewBag.LogEntries = await _metadataService.GetLogEntries(uuid);
 

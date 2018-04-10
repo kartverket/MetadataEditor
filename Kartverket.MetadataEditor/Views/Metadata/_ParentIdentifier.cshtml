@@ -56,6 +56,11 @@
     }
 
     function setParentIdentifier(Uuid) {
+        if (Uuid == $('#Uuid').val()) {
+            $('#searchInfoService').text('Kan ikke koble tjenesten til seg selv');
+        }
+        else
+        {
         var h = '<div id="parentIdentifier-' + Uuid + '" class="row">';
         h += '<input type="hidden" value="' + Uuid + '" name="ParentIdentifier" />';
 
@@ -76,7 +81,8 @@
         h += '</div>';
         h += '<hr style="margin: 2px 2px 2px 2px" />';
 
-        $('#parentIdentifierDIV').html(h);
+            $('#parentIdentifierDIV').html(h);
+        }
             
 
     }

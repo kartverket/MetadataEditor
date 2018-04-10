@@ -675,6 +675,14 @@ namespace Kartverket.MetadataEditor.Models
             metadata.HelpUrl = model.HelpUrl;
 
             metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);
+            foreach (var thumb in metadata.Thumbnails)
+            {
+                if (thumb.Type == "dekningsoversikt")
+                {
+                    metadata.CoverageUrl = "";
+                    break;
+                }
+            }
 
             // distribution
             metadata.SpatialRepresentation = model.SpatialRepresentation;
@@ -1538,9 +1546,9 @@ namespace Kartverket.MetadataEditor.Models
             return await _logEntryService.GetEntriesForElement(uuid);
         }
 
-        public async Task<List<LogEntry>> GetLogEntriesLatest()
+        public async Task<List<LogEntry>> GetLogEntriesLatest(int limitNumberOfEntries = 50, string operation = "")
         {
-            return await _logEntryService.GetEntries();
+            return await _logEntryService.GetEntries(limitNumberOfEntries, operation);
         }
     }
 }
