@@ -3,7 +3,7 @@
 <script type="text/x-template" id="basic-template">
     <div>
         <div class="form-group has-feedback">
-            <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+            <div v-for="formElement in formElements" v-if="formElement.visible" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
                 <div class="row">
                     <label class="col-md-2 control-label">{{ formElement.label }}</label>
                     <div class="col-md-9">
@@ -23,7 +23,7 @@
 
 <script>
     var Basic = {
-        name: "basic",
+        name: "Basic",
         template: "#basic-template",
         methods: {
             updateField: function (value) {
@@ -55,6 +55,7 @@
                         },
                         selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
+                        visible: true,
                         label: '@Html.Raw(UI.Metadata_Title)',
                         type: 'text',
                         helpText: {
@@ -67,10 +68,11 @@
                         getter: 'ResourceReferenceCodespace',
                         mutation: 'updateResourceReferenceCodespace',
                         type: 'text',
-                        label: '@UI.NamespaceToDataset',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        label: '@Html.Raw(UI.NamespaceToDataset)',
                         helpText: {
                             active: false,
-                            content: '@UI.HelpTextResourceReferenceCodespace'
+                            content: '@Html.Raw(UI.HelpTextResourceReferenceCodespace)'
                         }
                     },
                     {
@@ -78,10 +80,11 @@
                         getter: 'ResourceReferenceCode',
                         mutation: 'updateResourceReferenceCode',
                         type: 'text',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                         label: '@Html.Raw(UI.DatasetName)',
                         helpText: {
                             active: false,
-                            content: '@UI.HelpTextResourceReferenceCode'
+                            content: '@Html.Raw(UI.HelpTextResourceReferenceCode)'
                         }
                     },
                     {
@@ -100,10 +103,11 @@
                         selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
+                        visible: true,
                         label: '@Html.Raw(UI.Metadata_Abstract)',
                         helpText: {
                             active: false,
-                            content: '@UI.HelpTextAbstract'
+                            content: '@Html.Raw(UI.HelpTextAbstract)'
                         }
                     },
                     {
@@ -121,7 +125,7 @@
                         },
                         selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         type: 'textarea',
-                        visible: true,
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'] || this.$store.getters['isSoftware'],
                         label: '@Html.Raw(UI.Metadata_SupplementalDescription_Label)',
                         helpText: {
                             active: false,
@@ -131,13 +135,13 @@
                     {
                         name: 'HelpUrl',
                         getter: 'HelpUrl',
-                        value: this.$parent.model.HelpUrl,
                         mutation: 'updateHelpUrl',
                         type: 'text',
-                        label: '@UI.HelpUrl',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'] || this.$store.getters['isSoftware'],
+                        label: '@Html.Raw(UI.HelpUrl)',
                         helpText: {
                             active: false,
-                            content: '@UI.HelpTextHelpUrl'
+                            content: '@Html.Raw(UI.HelpTextHelpUrl)'
                         }
                     },
                     {
@@ -156,10 +160,11 @@
                         selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
+                        visible: true,
                         label: '@Html.Raw(UI.Use)',
                         helpText: {
                             active: false,
-                            content: '@UI.HelpTextSpesificUsage'
+                            content: '@Html.Raw(UI.HelpTextSpesificUsage)'
                         }
                     },
                     {
@@ -178,10 +183,11 @@
                         selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
                         required: true,
                         type: 'textarea',
+                        visible: true,
                         label: '@Html.Raw(UI.Metadata_Purpose)',
                         helpText: {
                             active: false,
-                            content: '@UI.HelpTextPurpose'
+                            content: '@Html.Raw(UI.HelpTextPurpose)'
                         }
                     }
                 ]
