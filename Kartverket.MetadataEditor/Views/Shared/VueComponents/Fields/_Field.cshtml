@@ -1,7 +1,13 @@
 ﻿<script type="text/x-template" id="field-template">
     <div v-if="formElement.multilingual" v-show="visible" v-bind:class="{'required': required}">
-        <div v-if="formElement.type == 'hidden'" v-for="(binding, language) in formElement.multilingual">
-            <input v-bind:name="binding.name" type="hidden" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control" />
+
+        <div v-if="formElement.type == 'hidden'">
+            <input v-bind:name="binding.name"
+                   type="hidden"
+                   v-bind:value="$store.getters[binding.getter]"
+                   v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})"
+                   v-for="(binding, language) in formElement.multilingual"
+                   class="form-control" />
         </div>
         <div v-else>
             <div class="form-element-tab-group">
