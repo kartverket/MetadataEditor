@@ -5,40 +5,42 @@
 <script type="text/x-template" id="admin-template">
     <div>
         @Html.Partial("_Log", Model)
+        <div v-if="!$store.getters['isSoftware']">
             <div v-for="formElement in checkboxes">
                 <input type="checkbox" v-bind:id="formElement.name" v-bind:checked="isAdded(formElement.value)" v-bind:value="formElement.value" v-on:change="toggleCheckbox(formElement.value)" />
                 <label v-bind:for="formElement.name">{{ formElement.label }}</label>
-        </div>
-        <label>{{ keywordsCatalogs.label }}</label>
-        <div class="custom-select-list">
-            <div class="custom-select-list-input-container">
-                <span v-if="isAdded(option.Value)" v-for="option in keywordsCatalogs.options" class="custom-select-list-selected">
-                    {{ option.Text }}
-                    <span v-on:click="removeKeyword(option.Value)" class="custom-select-list-remove-button"></span>
-                </span>
-                <input type="text" class="custom-select-list-input" />
             </div>
-            <div class="custom-select-list-dropdown-container">
-                <div class="custom-select-list-dropdown">
-                    <div class="custom-select-list-dropdown-content">
-                        <ul class="custom-select-list-options area-option-list">
-                            <li v-on:click="addKeyword(option.Value);" v-bind:class="{'is-selected': isAdded(option.Value)}" v-for="option in keywordsCatalogs.options">{{ option.Text }}</li>
-                        </ul>
+            <label>{{ keywordsCatalogs.label }}</label>
+            <div class="custom-select-list">
+                <div class="custom-select-list-input-container">
+                    <span v-if="isAdded(option.Value)" v-for="option in keywordsCatalogs.options" class="custom-select-list-selected">
+                        {{ option.Text }}
+                        <span v-on:click="removeKeyword(option.Value)" class="custom-select-list-remove-button"></span>
+                    </span>
+                    <input type="text" class="custom-select-list-input" />
+                </div>
+                <div class="custom-select-list-dropdown-container">
+                    <div class="custom-select-list-dropdown">
+                        <div class="custom-select-list-dropdown-content">
+                            <ul class="custom-select-list-options area-option-list">
+                                <li v-on:click="addKeyword(option.Value);" v-bind:class="{'is-selected': isAdded(option.Value)}" v-for="option in keywordsCatalogs.options">{{ option.Text }}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div v-show="showSections">
-            <h3>@UI.Conformity</h3>
-            <div v-show="showSection[section.name]" class="panel panel-default" v-for="section in sections">
-                <div class="panel-heading">{{ section.title }}</div>
-                <div class="panel-body">
-                    <div v-show="isVisible(formElement)" v-for="formElement in section.formElements" class="row">
-                        <label class="col-md-3 control-label">{{ formElement.label }}</label>
-                        <div class="col-md-8">
-                            <div is="field" v-bind:form-element="formElement"></div>
+            <div v-show="showSections">
+                <h3>@UI.Conformity</h3>
+                <div v-show="showSection[section.name]" class="panel panel-default" v-for="section in sections">
+                    <div class="panel-heading">{{ section.title }}</div>
+                    <div class="panel-body">
+                        <div v-show="isVisible(formElement)" v-for="formElement in section.formElements" class="row">
+                            <label class="col-md-3 control-label">{{ formElement.label }}</label>
+                            <div class="col-md-8">
+                                <div is="field" v-bind:form-element="formElement"></div>
+                            </div>
+                            <div class="col-md-1"></div>
                         </div>
-                        <div class="col-md-1"></div>
                     </div>
                 </div>
             </div>
