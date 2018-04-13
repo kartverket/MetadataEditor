@@ -176,8 +176,17 @@
             Field: Field,
             distributionItemFormat: DistributionItemFormat
         },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Distribution', fieldNames: this.fieldNames });
+        },
         data: function () {
             return {
+                fieldNames: [
+                    'DistributionsFormats[' + this.distributionIndex + '].Organization',
+                    'DistributionsFormats[' + this.distributionIndex + '].Protocol',
+                    'DistributionsFormats[' + this.distributionIndex + '].URL',
+                    'DistributionsFormats[' + this.distributionIndex + '].Name'
+                ],
                 formats: {
                     visible: true,
                     helpText: {

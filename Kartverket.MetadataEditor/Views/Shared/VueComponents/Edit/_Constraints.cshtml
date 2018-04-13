@@ -152,9 +152,13 @@
         },
         mounted: function () {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Constraints', fieldNames: this.fieldNames });
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Constraints' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
         },
         data: function () {
             return {
+                errors: {},
                 fieldNames: ['UseLimitations', 'EnglishUseLimitations', 'AccessConstraints', 'UseConstraints', 'LicenseTypes', 'OtherConstraintsLinkText', 'OtherConstraintsLink', 'OtherConstraints', 'EnglishOtherConstraints', 'SecurityConstraints', 'SecurityConstraintsNote'],
                 showCustomLicenseType: false,
                 formElements: {

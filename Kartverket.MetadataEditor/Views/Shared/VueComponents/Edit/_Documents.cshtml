@@ -173,8 +173,16 @@
             Field: Field,
             Thumbnails: Thumbnails
         },
+        mounted: function () {
+            initCustomSelectList();
+            this.initFileUpload();
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Documents' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
         data: function () {
             return {
+                errors: {},
                 productSpecificationUrl: {
                     name: 'ProductSpecificationUrl',
                     getter: 'ProductSpecificationUrl',
@@ -280,10 +288,6 @@
                     response: {}
                 }
             };
-        },
-        mounted: function () {
-            initCustomSelectList();
-            this.initFileUpload();
         },
         computed: {
             selectedKeywordsConceptValues: function () {

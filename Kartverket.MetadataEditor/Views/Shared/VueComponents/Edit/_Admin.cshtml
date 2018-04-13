@@ -52,10 +52,14 @@
         },
         mounted: function () {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Admin', fieldNames: this.fieldNames });
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Admin' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
             initCustomSelectList();
         },
         data: function () {
             return {
+                errors: {},
                 fieldNames: [
                     'KeywordsCatalogs',
                     'QualitySpecificationTitleInspire',

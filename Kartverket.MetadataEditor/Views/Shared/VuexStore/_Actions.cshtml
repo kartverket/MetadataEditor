@@ -159,11 +159,20 @@
             payload.fieldNames.forEach(function (fieldName) {
                 if (modelStateValues[fieldName] !== undefined) {
                     if (modelStateValues[fieldName].Errors !== undefined && modelStateValues[fieldName].Errors.length) {
-                        context.commit('addValueToArray', { stateProperty: 'errorsInTabs', arrayName: payload.tabName, value: fieldName });
+                        context.commit('addValueToArray', { stateProperty: 'errorsInTabs', arrayName: payload.tabName, value: { fieldName: fieldName, errors: modelStateValues[fieldName].Errors } });
                     }
                 }
 
             })
+        },
+        getErrorsForTab: function (context, payload) {
+            var errors = {};
+            context.getters['errorsInTabs'][payload.tabName].forEach(function (errorInTab) {
+                errors[errorInTab.fieldName] = errorInTab.errors;
+                console.log("errors for tab");
+                console.log(errorInTab.errors);
+            });
+            return errors;
         }
     }
 </script>

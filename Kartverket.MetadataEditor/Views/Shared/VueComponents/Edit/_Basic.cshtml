@@ -35,9 +35,13 @@
         },
         mounted: function () {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Basic', fieldNames: this.fieldNames });
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Basic' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
         },
         data: function () {
             return {
+                errors: {},
                 fieldNames: ['Title', 'EnglishTitle', 'ResourceReferenceCodespace', 'ResourceReferenceCode', 'Abstract', 'EnglishAbstract', 'HelpUrl', 'SpecificUsage', 'EnglishSpecificUsage'],
                 formElements: [
                     {

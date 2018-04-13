@@ -26,8 +26,14 @@
         components: {
             Field: Field
         },
+        mounted: function () {
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Quality' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
         data: function () {
             return {
+                errors: {},
                 formElements: {
                     resolutionScale: {
                         id: 'ResolutionScale',
