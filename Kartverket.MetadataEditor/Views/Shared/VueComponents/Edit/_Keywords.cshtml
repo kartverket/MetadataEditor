@@ -97,7 +97,7 @@
                         title: '@Html.Raw(UI.Metadata_KeywordsInspire_Label)',
                         name: 'Inspire',
                         type: 'select',
-                        visible: true,
+                        visible: !this.$store.getters['isSoftware'],
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsInspire)'
