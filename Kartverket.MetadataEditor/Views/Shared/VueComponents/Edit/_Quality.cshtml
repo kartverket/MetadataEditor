@@ -37,7 +37,7 @@
                         label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
                         type: 'text',
                         required: false,
-                        visible: !this.$root.isService,
+                        visible: !this.$store.getters['isSoftware'],
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_ResolutionScale)'
@@ -89,7 +89,7 @@
                         label: '@Html.Raw(UI.Metadata_OrderingInstructions_Label)',
                         type: 'select',
                         required: false,
-                        visible: this.$root.isService,
+                        visible: this.$store.getters['isSoftware'],
                         options: this.$root.viewBag.OrderingInstructionsValues,
                         helpText: {
                             active: false,
