@@ -432,6 +432,9 @@
         EnglishQualitySpecificationExplanation: function (state) {
             return state.model.EnglishQualitySpecificationExplanation;
         },
+        operation: function (state) {
+            return state.viewBag.operation;
+        },
         isDataset: function (state) {
             return state.model.HierarchyLevel == 'dataset';
         },

@@ -41,19 +41,13 @@ else if (ViewBag.DisplayLog == true)
 
 <br /><br />
 <a class="btn btn-default" href="/Metadata/Edit?uuid=@Model.Uuid&displayLog=true">Vis logg for metadata</a>
-<a id="logLink" href="" class="btn btn-default" onclick="GetLog()">Vis siste logg-hendelser</a>
+<a id="logLink" href="" class="btn btn-default" v-on:click="GetLog()">Vis siste logg-hendelser</a>
 Antall hendelser:<input size="3" id="limitNumberOfEntries" name="limitNumberOfEntries" value="@ViewBag.limitNumberOfEntries" />
 Begrens operasjon:
-<select id="operation" name="operation">
+<select id="operation" v-bind:value="$store.getters['operation']" name="operation">
     <option value=""></option>
     <option value="@Operation.Deleted">@Operation.Deleted</option>
     <option value="@Operation.Added">@Operation.Added</option>
     <option value="@Operation.Modified">@Operation.Modified</option>
 </select>
 <br /><br />
-<script>
-    $("#operation").val('@ViewBag.operation').change();
-    function GetLog() {
-        $("#logLink").attr("href", '/Metadata/Edit?uuid=@Model.Uuid&displayLog=true&displayLogLatest=true&limitNumberOfEntries=' + $('#limitNumberOfEntries').val() + '&operation=' + $('#operation').val()  );
-    }
-</script>

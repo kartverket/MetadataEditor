@@ -1,10 +1,13 @@
-﻿@using Resources
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@using Resources
+
 
 <script type="text/x-template" id="admin-template">
     <div>
-        <div v-for="formElement in checkboxes">
-            <input type="checkbox" v-bind:id="formElement.name" v-bind:checked="isAdded(formElement.value)" v-bind:value="formElement.value" v-on:change="toggleCheckbox(formElement.value)" />
-            <label v-bind:for="formElement.name">{{ formElement.label }}</label>
+        @Html.Partial("_Log", Model)
+            <div v-for="formElement in checkboxes">
+                <input type="checkbox" v-bind:id="formElement.name" v-bind:checked="isAdded(formElement.value)" v-bind:value="formElement.value" v-on:change="toggleCheckbox(formElement.value)" />
+                <label v-bind:for="formElement.name">{{ formElement.label }}</label>
         </div>
         <label>{{ keywordsCatalogs.label }}</label>
         <div class="custom-select-list">
@@ -414,6 +417,9 @@
                 } else {
                     return true;
                 }
+            },
+            GetLog: function () { // Replace jQuery ID-binding with Vue-bindings
+                $("#logLink").attr("href", '/Metadata/Edit?uuid=@Model.Uuid&displayLog=true&displayLogLatest=true&limitNumberOfEntries=' + $('#limitNumberOfEntries').val() + '&operation=' + $('#operation').val());
             }
         }
     };
