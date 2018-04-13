@@ -220,18 +220,12 @@
         updateFormatDistributionsFormatVersion: function (state, payload) {
             state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex].Version = payload.value;
         },
-
         updateDistributionsFormats: function (state, payload) {
             state.model.DistributionFormats = payload;
         },
-
         updateFormatDistributionsUnitsOfDistribution: function (state, payload) {
-            console.log(payload);
-            console.log(state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution);
             state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution = payload.value;
-            console.log(state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution);
         },
-
         updateReferenceSystems: function (state, payload) {
             state.model.ReferenceSystems = payload;
         },
