@@ -70,8 +70,8 @@
                         id: 'DistributionsFormats[' + this.formatIndex + '].FormatName',
                         name: 'DistributionsFormats[' + this.formatIndex + '].FormatName',
                         label: 'Format',
-                        type: this.$root.isDatasetOrDatasetSeries ? 'select' : 'text',
-                        required: true
+                        type: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'] ? 'select' : 'text',
+                        required: !this.$store.getters['isSoftware'],
                     },
                     formatVersion: {
                         id: 'DistributionsFormats[' + this.formatIndex + '].FormatVersion',

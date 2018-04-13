@@ -14,7 +14,7 @@
         <div class="panel-body">
 
             @* Organization *@
-            <div class="form-group has-feedback" v-bind:class="{'required': formElements.organization.required}">
+            <div class="form-group has-feedback" v-if="formElements.organization.visible" v-bind:class="{'required': formElements.organization.required}">
                 <div class="row">
                     <label v-bind:for="formElements.organization.id" class="col-md-3 control-label">{{ formElements.organization.label }}</label>
                     <div class="col-md-8">
@@ -43,7 +43,7 @@
             </div>
 
             @* Protocol *@
-            <div class="form-group has-feedback" v-bind:class="{'required': formElements.protocol.required}">
+            <div class="form-group has-feedback" v-if="formElements.protocol.visible" v-bind:class="{'required': formElements.protocol.required}">
                 <div class="row">
                     <label v-bind:for="formElements.protocol.id" class="col-md-3 control-label">{{ formElements.protocol.label }}</label>
                     <div class="col-md-8">
@@ -72,7 +72,7 @@
             </div>
 
             @* URL *@
-            <div class="form-group has-feedback" v-bind:class="{'required': formElements.url.required}">
+            <div class="form-group has-feedback" v-if="formElements.url.visible" v-bind:class="{'required': formElements.url.required}">
                 <div class="row">
                     <label v-bind:for="formElements.url.id" class="col-md-3 control-label">{{ formElements.url.label }}</label>
                     <div class="col-md-8">
@@ -127,7 +127,7 @@
 
             </div>
 
-            <div v-if="!$root.isDatasetOrDatasetSeries && !$root.isSoftware" class="form-group">
+            <div v-if="formElements.name.visible" class="form-group">
                 <div class="row">
                     <label v-bind:for="formElements.name.id" class="col-md-3 control-label">{{ formElements.name.label }}</label>
 
@@ -160,7 +160,7 @@
                     </div>
                 </div>
             </div>
-            <span v-on:click="$store.commit('removeFormatDistributions', {distributionIndex: distributionIndex});" class="btn pull-right">@UI.Button_Remove_Distribution</span>
+            <span v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" v-on:click="$store.commit('removeFormatDistributions', {distributionIndex: distributionIndex});" class="btn pull-right">@UI.Button_Remove_Distribution</span>
         </div>
     </div>
 </script>
@@ -179,6 +179,7 @@
         data: function () {
             return {
                 formats: {
+                    visible: true,
                     helpText: {
                         active: false,
                         content: '@Html.Raw(UI.Helptext_DistributionsFormats)'
@@ -189,6 +190,7 @@
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
                         mutation: 'updateFormatDistributionsOrganization',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                         label: '@UI.Metadata_Organization',
                         type: 'select',
                         required: true
@@ -197,6 +199,7 @@
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
                         mutation: 'updateFormatDistributionsProtocol',
+                        visible: true,
                         label: '@UI.DistributionType',
                         type: 'select',
                         required: true,
@@ -210,6 +213,7 @@
                         id: 'DistributionsFormats[' + this.distributionIndex + '].URL',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].URL',
                         mutation: 'updateFormatDistributionsURL',
+                        visible: true,
                         label: 'URL',
                         type: 'text',
                         required: false,
@@ -219,6 +223,7 @@
                         }
                     },
                     unitsOfDistribution: {
+                        visible: true,
                         label: '@UI.UnitsOfDistribution',
                         value: '',
                         selected: this.getUnitsOfDistribution(),
@@ -228,6 +233,7 @@
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Name',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Name',
                         value: this.distribution.Value.Details.Name,
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                         label: 'Navn',
                         type: 'text',
                         required: false,

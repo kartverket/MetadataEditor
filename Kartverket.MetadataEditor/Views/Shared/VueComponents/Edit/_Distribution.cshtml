@@ -1,8 +1,7 @@
 ﻿@using Resources
 <script type="text/x-template" id="distribution-template">
     <div>
-
-        <div v-if="$root.isDatasetOrDatasetSeries" class="form-group">
+        <div v-if="spatialRepresentation.visible" class="form-group">
             <div class="row">
                 <label for="SpatialRepresentation" class="col-md-3 control-label">@UI.SpatialRepresentationType</label>
                 <div class="col-md-3">
@@ -10,11 +9,11 @@
                 </div>
             </div>
         </div>
-
         <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $store.getters['FormatDistributions']"></div>
 
-        <span v-on:click="$store.commit('addFormatDistributions');" class="btn">@UI.Button_Add_Distribution</span>
-        <div is="reference-systems"></div>
+        <span v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" v-on:click="$store.commit('addFormatDistributions');" class="btn">@UI.Button_Add_Distribution</span>
+
+        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="reference-systems"></div>
     </div>
 </script>
 
@@ -38,6 +37,7 @@
                     getter: 'SpatialRepresentation',
                     mutation: 'updateSpatialRepresentation',
                     type: 'select',
+                    visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                     options: this.$store.getters['SpatialRepresentationValues']
                 }
             };
