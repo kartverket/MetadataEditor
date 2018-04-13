@@ -2,7 +2,7 @@
 
 <script type="text/x-template" id="timeAndSpace-template">
     <div class="form-group has-feedback">
-        <div v-for="formElement in formElements" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+        <div v-for="formElement in formElements" v-if="formElement.visible" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
             <div class="row">
                 <label class="col-md-2 control-label">{{ formElement.label }}</label>
                 <div class="col-md-9">
@@ -21,7 +21,7 @@
              v-for="section in multilingualKeywords">
         </div>
         <div is="bounding-box"></div>
-        <div v-show="$root.isDatasetOrDatasetSeries" is="coverage"></div>
+        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></div>
     </div>
 </script>
 
@@ -56,6 +56,7 @@
                         name: 'DateUpdated',
                         getter: 'DateUpdated',
                         mutation: 'updateDateUpdated',
+                        visible: true,
                         label: '@Html.Raw(UI.Metadata_DateUpdated)',
                         type: 'datepicker',
                         helpText: {
@@ -67,6 +68,7 @@
                         name: 'DatePublished',
                         getter: 'DatePublished',
                         mutation: 'updateDatePublished',
+                        visible: true,
                         label: '@Html.Raw(UI.Metadata_DatePublished)',
                         type: 'datepicker',
                         helpText: {
@@ -78,6 +80,7 @@
                         name: 'DateCreated',
                         getter: 'DateCreated',
                         mutation: 'updateDateCreated',
+                        visible: true,
                         label: '@Html.Raw(UI.Metadata_DateCreated)',
                         type: 'datepicker',
                         helpText: {
@@ -89,6 +92,7 @@
                         name: 'DateMetadataValidFrom',
                         getter: 'DateMetadataValidFrom',
                         mutation: 'updateDateMetadataValidFrom',
+                        visible: !this.$store.getters['isSoftware'],
                         label: '@Html.Raw(UI.Metadata_DateMetadataValidFrom)',
                         type: 'datepicker',
                         helpText: {
@@ -100,6 +104,7 @@
                         name: 'DateMetadataValidTo',
                         getter: 'DateMetadataValidTo',
                         mutation: 'updateDateMetadataValidTo',
+                        visible: !this.$store.getters['isSoftware'],
                         label: '@Html.Raw(UI.Metadata_DateMetadataValidTo)',
                         type: 'datepicker',
                         helpText: {
@@ -112,6 +117,7 @@
                         getter: 'MaintenanceFrequency',
                         mutation: 'updateMaintenanceFrequency',
                         required: true,
+                        visible: true,
                         label: '@Html.Raw(UI.Metadata_MaintenanceFrequency)',
                         type: 'select',
                         options: this.$store.getters['MaintenanceFrequencyValues'],
