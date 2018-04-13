@@ -3,7 +3,11 @@
         <a href="#">
             <span v-bind:class="tab.iconClass"></span>
             {{ tab.name }}
-            <span v-show="errors.length">({{ errors.length }})</span>
+            <span class="error-icon-container">
+                <span v-show="errors.length" class="custom-icon custom-icon-warning">
+                    <span class="custom-icon-overlay">{{ errors.length }}</span>
+                </span>
+            </span>
         </a>
     </li>
 </script>

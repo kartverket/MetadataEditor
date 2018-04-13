@@ -127,3 +127,21 @@
     font-size: 12pt;
     line-height: 16pt;
 }
+
+.nav-tabs .custom-icon {
+    margin-top: -9px;
+}
+
+.nav-tabs li .custom-icon .custom-icon-overlay {
+    transition: all .35s linear 0s;
+}
+.nav-tabs li:hover:not(.active) .custom-icon .custom-icon-overlay {
+    background-color: #fff;
+    color: #333;
+}
+@media (max-width: 1199px) {
+    .nav-tabs li.active .custom-icon .custom-icon-overlay {
+        background-color: #fff;
+        color: #333;
+    }
+}
