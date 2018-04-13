@@ -811,4 +811,10 @@
   <data name="Metadata_SupplementalDescription_Label" xml:space="preserve">
     <value>Hjelp for bruk</value>
   </data>
+  <data name="Metadata_ReferenceSystems_CoordinateSystem_Label" xml:space="preserve">
+    <value>Romlig referansesystem</value>
+  </data>
+  <data name="Metadata_ReferenceSystems_Namespace_Label" xml:space="preserve">
+    <value>Koderom</value>
+  </data>
 </root>

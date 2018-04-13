@@ -1502,6 +1502,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Romlig referansesystem.
+        /// </summary>
+        public static string Metadata_ReferenceSystems_CoordinateSystem_Label {
+            get {
+                return ResourceManager.GetString("Metadata_ReferenceSystems_CoordinateSystem_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koderom.
+        /// </summary>
+        public static string Metadata_ReferenceSystems_Namespace_Label {
+            get {
+                return ResourceManager.GetString("Metadata_ReferenceSystems_Namespace_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Målestokkstall.
         /// </summary>
         public static string Metadata_ResolutionScale_Label {

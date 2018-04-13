@@ -750,6 +750,8 @@
     <Content Include="Views\Shared\VueComponents\Fields\Field\_Datepicker.cshtml" />
     <Content Include="Views\Shared\VueComponents\Fields\Field\_Radio.cshtml" />
     <Content Include="Views\Shared\VueComponents\Template\_Tab.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Distribution\_ReferenceSystems.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Distribution\ReferenceSystems\_ReferenceSystem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

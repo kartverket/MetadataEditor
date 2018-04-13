@@ -857,6 +857,16 @@
               Looks up a localized string similar to Konformitet sosi mangler.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_ReferenceSystems_CoordinateSystem_Label">
+            <summary>
+              Looks up a localized string similar to Romlig referansesystem.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_ReferenceSystems_Namespace_Label">
+            <summary>
+              Looks up a localized string similar to Koderom.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_ResolutionScale_Label">
             <summary>
               Looks up a localized string similar to Målestokkstall.

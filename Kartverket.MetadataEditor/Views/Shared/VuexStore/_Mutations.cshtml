@@ -232,6 +232,18 @@
             console.log(state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution);
         },
 
+        updateReferenceSystems: function (state, payload) {
+            state.model.ReferenceSystems = payload;
+        },
+        updateReferenceSystemsCoordinateSystem: function (state, payload) {
+            state.model.ReferenceSystems[payload.arrayIndex].CoordinateSystem = payload.value;
+        },
+        updateReferenceSystemsNamespace: function (state, payload) {
+            state.model.ReferenceSystems[payload.arrayIndex].Namespace = payload.value;
+        },
+        updateReferenceSystemsValues: function (state) {
+            state.viewBag.ReferenceSystemsValues = payload;
+        },
         updateProductSpecificationUrl: function (state, payload) {
             state.model.ProductSpecificationUrl = payload;
         },

@@ -14,10 +14,12 @@
         <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $store.getters['FormatDistributions']"></div>
 
         <span v-on:click="$store.commit('addFormatDistributions');" class="btn">@UI.Button_Add_Distribution</span>
+        <div is="reference-systems"></div>
     </div>
 </script>
 
 @Html.Partial("VueComponents/Edit/Distribution/_DistributionItem")
+@Html.Partial("VueComponents/Edit/Distribution/_ReferenceSystems")
 
 
 <script>
@@ -26,7 +28,8 @@
         template: "#distribution-template",
         components: {
             Field: Field,
-            DistributionItem: DistributionItem
+            DistributionItem: DistributionItem,
+            ReferenceSystems: ReferenceSystems
         },
         data: function () {
             return {
