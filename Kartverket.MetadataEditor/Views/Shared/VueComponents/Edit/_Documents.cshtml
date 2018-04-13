@@ -180,7 +180,7 @@
                     getter: 'ProductSpecificationUrl',
                     label: '@UI.DataProductSpecification',
                     type: 'select',
-                    visible: !this.$root.isSoftware,
+                    visible: !this.$store.getters['isSoftware'],
                     options: this.$root.viewBag.ProductspesificationValues
                 },
                 applicationSchema: {
@@ -189,7 +189,7 @@
                     mutation: 'updateApplicationSchema',
                     label: '@UI.UMLmodel',
                     type: 'text',
-                    visible: !this.$root.isSoftware,
+                    visible: !this.$store.getters['isSoftware'],
                 },
                 keywordsConcept: {
                     name: 'KeywordsConcept',
@@ -197,13 +197,13 @@
                     value: this.$root.model.KeywordsConcept !== null ? this.$root.model.KeywordsConcept : [], 
                     label: '@UI.Concepts',
                     type: 'select',
-                    visible: !this.$root.isSoftware,
+                    visible: !this.$store.getters['isSoftware'],
                     options: []
                 },
                 productSpecificationOther: {
                     label: '@UI.OtherDataProductSpecification',
                     type: 'group',
-                    visible: !this.$root.isSoftware,
+                    visible: !this.$store.getters['isSoftware'],
                     fields: {
                         name: {
                             name: 'ProductSpecificationOther.Name',
@@ -227,7 +227,7 @@
                     mutation: 'updateProductSheetUrl',
                     label: '@UI.ProductFactSheet',
                     type: 'select',
-                    visible: !this.$root.isSoftware,
+                    visible: !this.$store.getters['isSoftware'],
                     options: this.$store.getters['ProductsheetValues']
                 },
                 legendDescriptionUrl: {
@@ -236,7 +236,7 @@
                     mutation: 'updateLegendDescriptionUrl',
                     label: '@UI.Cartography',
                     type: 'select',
-                    visible: !this.$root.isSoftware,
+                    visible: !this.$store.getters['isSoftware'],
                     options: this.$store.getters['LegendDescriptionValues']
                 },
                 productPageUrl: {
@@ -245,7 +245,7 @@
                     mutation: 'updateProductPageUrl',
                     label: '@UI.DataProductSiteUrl',
                     type: 'text',
-                    visible: !this.$root.isSoftware,
+                    visible: !this.$store.getters['isSoftware'],
                 },
                 thumbnails: {
                     fields: {
