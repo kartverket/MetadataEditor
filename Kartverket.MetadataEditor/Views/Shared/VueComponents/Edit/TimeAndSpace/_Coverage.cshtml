@@ -75,7 +75,23 @@
 
                 </div>
             </div>
-            <input v-bind:name="computedCoverageUrl.name" type="text" v-model="computedCoverageUrl.value" class="form-control" />
+            <div v-if="computedThumbnailUrl">
+                <h3>Valgt dekningskart</h3>
+                <div class="striped-list">
+                    <div class="list-item">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img v-bind:src="computedThumbnailUrl" />
+                            </div>
+                            <div class="col-sm-9">
+                                <p><b>Type:</b> {{ computedThumbnailType }}</p>
+                                <p><b>URL:</b> {{ computedThumbnailUrl }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input v-bind:name="computedCoverageUrl.name" type="hidden" v-model="computedCoverageUrl.value" class="form-control" />
         </div>
     </div>
 </script>
@@ -160,10 +176,18 @@
            computedThumbnailUrl: function () {
                var computedThumbnailUrl = '';
                if (this.$root.hasCoverageImage) {
-                   var selectedCoverageImage = this.getSelectedCoverageImage();
+                   var selectedCoverageImage = this.$store.getters['SelectedCoverageImage'];
                    computedThumbnailUrl = selectedCoverageImage.URL;
                }
                return computedThumbnailUrl;
+           },
+           computedThumbnailType: function () {
+               var computedThumbnailType = '';
+               if (this.$root.hasCoverageImage) {
+                   var selectedCoverageImage = this.$store.getters['SelectedCoverageImage'];
+                   computedThumbnailType = selectedCoverageImage.Type;
+               }
+               return computedThumbnailType;
            }
         },
         methods: {
@@ -197,15 +221,6 @@
                 if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
                 else if (this.isMapService()) this.coverageType.value = 'mapservice';
                 else this.coverageType.value = 'webpage';
-            },
-            getSelectedCoverageImage: function () {
-                var selectedCoverageImage = null;
-                this.$store.getters['Thumbnails'].forEach(function (thumbnail) {
-                    if (thumbnail.Type == 'dekningsoversikt') {
-                        selectedCoverageImage = thumbnail;
-                    }
-                });
-                return selectedCoverageImage;
             },
             initFileUpload: function () {
                 $("#" + this.coverageFile.id).fileupload({
