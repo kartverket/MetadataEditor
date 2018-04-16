@@ -243,6 +243,19 @@
         Thumbnails: function (state) {
             return state.model.Thumbnails;
         },
+        SelectedCoverageImage: function (state) {
+            var thumbnails = state.model.Thumbnails;
+            var selectedCoverageImage = {};
+            if (thumbnails !== null && thumbnails.length) {
+                thumbnails.forEach(function (thumbnail) {
+                    if (thumbnail.Type == 'dekningsoversikt') {
+                        selectedCoverageImage = thumbnail;
+                        return;
+                    }
+                });
+            }
+            return selectedCoverageImage;
+        },
         UseLimitations: function (state) {
             return state.model.UseLimitations;
         },

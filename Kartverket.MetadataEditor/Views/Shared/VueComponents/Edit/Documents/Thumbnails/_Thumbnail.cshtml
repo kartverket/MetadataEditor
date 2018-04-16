@@ -9,7 +9,8 @@
                 <p><b>URL:</b> {{ imageUrl }}</p>
             </div>
         </div>
-        <input v-bind:name="formElement.name" v-bind:type="formElement.type" v-bind:value="formElement.value" v-for="formElement in formElements" />
+        <input v-bind:name="formElements.type.name" v-bind:type="formElements.url.type" v-bind:value="imageType" />
+        <input v-bind:name="formElements.url.name" v-bind:type="formElements.url.type" v-bind:value="imageUrl" />
     </div>
 </script>
 
@@ -22,18 +23,16 @@
         props: ["imageType", "imageUrl", "imageIndex"],
         data: function () {
             return {
-                formElements: [
-                    {
+                formElements: {
+                    type: {
                         name: 'Thumbnails[' + this.imageIndex + '].Type',
-                        type: 'hidden',
-                        value: this.imageType
+                        type: 'hidden'
                     },
-                    {
+                    url: {
                         name: 'Thumbnails[' + this.imageIndex + '].URL',
-                        type: 'hidden',
-                        value: this.imageUrl
+                        type: 'hidden'
                     }
-                ]
+                }
             }
         }
     };

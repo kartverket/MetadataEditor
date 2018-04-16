@@ -40,7 +40,7 @@
                     }
                 }
                 if (this.$root.hasCoverageImage) {
-                    images.push(this.$root.getSelectedCoverageImage());
+                    images.push(this.$store.getters['SelectedCoverageImage']);
                 }
                 this.$store.commit('updateThumbnails', images);
             }
