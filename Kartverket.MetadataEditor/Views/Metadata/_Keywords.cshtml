@@ -2,7 +2,7 @@
 @using Resources
 
 @if (Model.IsDataset())
-            {
+{
     <div class="form-group">
         <label for="TopicCategory" class="col-md-2 control-label">Tematisk hovedkategori</label>
         <div class="col-md-9">
@@ -60,35 +60,35 @@
     </div>
 </div>
 
-    <div class="form-group">
-        <label for="keywords-national-theme" class="col-md-2 control-label">@UI.Metadata_KeywordsNationalTheme_Label</label>
-        <div class="col-md-9">
-            <p class="help-text bg-success" id="help-text-keywords-national-theme" style="display: none">
-                En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.
-            </p>
-            <div class="row">
-                <div class="col-md-6">
-                    @Html.ListBox("keywords-national-theme-text", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_selectorprefix = "keywords-national-theme", data_inputname = "KeywordsNationalTheme", data_placeholder = "Velg " + UI.Metadata_KeywordsNationalTheme_Label })
-                </div>
-                <div class="col-md-6 hidden">
-                    <ul id="keywords-national-theme-list" class="chosen-selected-keywords" data-selectorprefix="keywords-national-theme">
-                        @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
-                        {
-                            var keyword = Model.KeywordsNationalTheme[i];
-                            <li id="keywords-national-theme-@i">
-                                <input type="text" name="KeywordsNationalTheme[@i]" value="@keyword" />
-                            </li>
-                        }
-                    </ul>
-                </div>
+<div class="form-group">
+    <label for="keywords-national-theme" class="col-md-2 control-label">@UI.Metadata_NationalTheme_Label</label>
+    <div class="col-md-9">
+        <p class="help-text bg-success" id="help-text-keywords-national-theme" style="display: none">
+            En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.
+        </p>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ListBox("keywords-national-theme-text", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_selectorprefix = "keywords-national-theme", data_inputname = "KeywordsNationalTheme", data_placeholder = "Velg " + UI.Metadata_NationalTheme_Label })
+            </div>
+            <div class="col-md-6 hidden">
+                <ul id="keywords-national-theme-list" class="chosen-selected-keywords" data-selectorprefix="keywords-national-theme">
+                    @for (int i = 0; i < Model.KeywordsNationalTheme.Count; i++)
+                    {
+                        var keyword = Model.KeywordsNationalTheme[i];
+                        <li id="keywords-national-theme-@i">
+                            <input type="text" name="KeywordsNationalTheme[@i]" value="@keyword" />
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
-        <div class="col-md-1">
-            <p class="form-control-static">
-                <a href="#" data-help-text-id="help-text-keywords-national-theme" class="badge help-text-toggle">?</a>
-            </p>
-        </div>
     </div>
+    <div class="col-md-1">
+        <p class="form-control-static">
+            <a href="#" data-help-text-id="help-text-keywords-national-theme" class="badge help-text-toggle">?</a>
+        </p>
+    </div>
+</div>
 @if (!Model.IsSoftware())
 {
     <div class="form-group hidden">
@@ -149,8 +149,40 @@
             </p>
         </div>
     </div>
+    if (Model.IsDataset())
+    {
+    <div class="form-group">
+        <label for="keywords-national-initiative" class="col-md-2 control-label">EU - prioriterte datasett</label>
+        <div class="col-md-9">
+            <p class="help-text bg-success" id="help-text-keywords-inspireprioritydataset" style="display: none">
+                List of datasets related to environmental reporting, which should be made available by Member States through the European Spatial Data Infrastructure in a stepwise manner. The list also reflects the data gaps identified during the evaluation of the state-of-implementation and the fitness of the Directive for its intended purpose (a so-called REFIT evaluation)
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.ListBoxFor(m => m.KeywordsInspirePriorityDataset, ViewBag.InspirePriorityDatasets as MultiSelectList, new { @class = "chosen-select chosen-keyword-select form-control", @multiple = "multiple", data_placeholder = "Velg prioriterte datasett" })
+                </div>
+                <div class="col-md-6 hidden">
+                    <ul id="keywords-inspireprioritydataset-list" class="chosen-selected-keywords" data-selectorprefix="keywords-inspire">
+                        @for (int i = 0; i < Model.KeywordsInspirePriorityDataset.Count; i++)
+                        {
+                            var keyword = Model.KeywordsInspirePriorityDataset[i];
+                            <li id="keywords-inspireprioritydataset-@i">
+                                <input type="text" name="KeywordsInspirePriorityDataset[@i]" value="@keyword" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <p class="form-control-static">
+                <a href="#" data-help-text-id="help-text-keywords-inspireprioritydataset" class="badge help-text-toggle">?</a>
+            </p>
+        </div>
+    </div>
+    }
 
-}
+    }
 <div class="form-group">
     <label for="keywords-other" class="col-md-2 control-label">Ukategoriserte nøkkelord</label>
     <div class="col-md-9">
@@ -169,8 +201,8 @@
             <div class="col-sm-6">
                 <ul id="keywords-other" class="label-list">
                     @for (int i = 0; i < Model.KeywordsOther.Count; i++)
-            {
-                var keyword = Model.KeywordsOther[i];
+                    {
+                        var keyword = Model.KeywordsOther[i];
                         <li id="keywords-other-@i" @{ string displayStyle = ""; { if (Model.ServiceDistributionKeywords.ContainsKey(keyword)) { displayStyle = "display:none; visibility:hidden;"; } } } style="@displayStyle">
                             <span class="">@keyword</span>
                             <a href="" class="keyword-delete label-list-remove" data-delete="keywords-other-@i"></a>

@@ -20,5 +20,7 @@ namespace Kartverket.MetadataEditor.Models
         Stream SaveMetadataAsXml(MetadataViewModel model);
         Task<List<LogEntry>> GetLogEntries(string uuid);
         Task<List<LogEntry>> GetLogEntriesLatest(int limitNumberOfEntries = 50, string operation = "");
+
+        Dictionary<string, string> GetPriorityDatasets();
     }
 }

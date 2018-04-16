@@ -13,6 +13,8 @@ using Newtonsoft.Json.Linq;
 using Kartverket.Geonorge.Utilities.LogEntry;
 using System.Net.Http;
 using Kartverket.Geonorge.Utilities.Organization;
+using Kartverket.MetadataEditor.Models.InspireCodelist;
+using Newtonsoft.Json;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -218,6 +220,7 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsNationalTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_THEME)),
                 KeywordsConcept = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_CONCEPT)),
                 KeywordsInspire = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1)),
+                KeywordsInspirePriorityDataset = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_INSPIRE_PRIORITY_DATASET)),
                 KeywordsServiceTaxonomy = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY)),
                 KeywordsServiceType = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICE_TYPE)),
                 KeywordsOther = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, null)),
@@ -1146,6 +1149,10 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1 };
                     }
+                    else if (keyword.StartsWith("InspirePriorityDataset_"))
+                    {
+                        simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_INSPIRE_PRIORITY_DATASET };
+                    }
                     else if (keyword.StartsWith("Other_"))
                     {
                         simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword) };
@@ -1550,5 +1557,24 @@ namespace Kartverket.MetadataEditor.Models
         {
             return await _logEntryService.GetEntries(limitNumberOfEntries, operation);
         }
+
+        public Dictionary<string,string> GetPriorityDatasets()
+        {
+            string file = System.Web.Hosting.HostingEnvironment.MapPath(@"/App_Data/PriorityDataset.json");
+            string json = File.ReadAllText(file);
+            PriorityDataset priorityDataset = JsonConvert.DeserializeObject<PriorityDataset>(json);
+
+            Dictionary<string, string> priorityList = new Dictionary<string, string>();
+
+            foreach (var containedItem in priorityDataset.metadatacodelist.containeditems.Where(s => s.value.status.label.text == "Valid").OrderBy(o => o.value.label.text))
+            {
+                var label = containedItem.value.label.text;
+                var id = containedItem.value.id;
+                priorityList.Add(label + "|" + id, label);
+            }
+
+            return priorityList;
+        }
+
     }
 }
