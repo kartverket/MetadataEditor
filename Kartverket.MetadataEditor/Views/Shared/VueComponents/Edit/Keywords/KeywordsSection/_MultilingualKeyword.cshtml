@@ -1,5 +1,5 @@
 ﻿@using Resources
-<script type="text/x-template" id="keyword-template">
+<script type="text/x-template" id="multilingual-keyword-template">
     <div>
         <div class="form-group has-feedback">
             <div v-if="selectedLanguage == 'all'" class="row">
@@ -62,8 +62,8 @@
 
 <script>
     var MultilingualKeyword = {
-        name: "multilingualKeyword",
-        template: "#keyword-template",
+        name: "MultilingualKeyword",
+        template: "#multilingual-keyword-template",
         props: ['selectedLanguage', 'keywordName', 'inputType', 'keywordIndex', 'keywordValue', 'options'],
         data: function () {
             return {

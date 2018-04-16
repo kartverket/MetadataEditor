@@ -756,6 +756,7 @@
     <Content Include="Views\Shared\VueComponents\Template\_Tab.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\_ReferenceSystems.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\ReferenceSystems\_ReferenceSystem.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Keywords\KeywordsSection\_MonolingualKeyword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

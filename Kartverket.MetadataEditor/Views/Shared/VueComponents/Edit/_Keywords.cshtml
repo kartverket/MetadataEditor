@@ -16,9 +16,9 @@
             </div>
         </div>
 
-        <div is="keywords-section" 
-             v-show="section.visible" 
-             v-bind:section="section" 
+        <div is="keywords-section"
+             v-show="section.visible"
+             v-bind:section="section"
              v-for="section in sections">
         </div>
 
@@ -65,6 +65,7 @@
                         mutation: 'updateKeywordsTheme',
                         type: 'text',
                         visible: true,
+                        multilingual: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsTheme)'
@@ -76,6 +77,7 @@
                         name: 'NationalTheme',
                         type: 'select',
                         visible: true,
+                        multilingual: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsNationalTheme)'
@@ -87,6 +89,7 @@
                         name: 'NationalInitiative',
                         type: 'select',
                         visible: false,
+                        multilingual: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsNationalInitiative)'
@@ -98,6 +101,7 @@
                         name: 'Inspire',
                         type: 'select',
                         visible: !this.$store.getters['isSoftware'],
+                        multilingual: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsInspire)'
@@ -109,6 +113,7 @@
                         name: 'Other',
                         type: 'text',
                         visible: true,
+                        multilingual: true,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsOther)'

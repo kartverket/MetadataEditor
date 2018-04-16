@@ -17,7 +17,7 @@
             <div class="panel-body">
                 <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
                 <div v-if="$store.getters['Keywords' + section.name] && $store.getters['Keywords' + section.name].length">
-                    <div class="form-element-tab-group">
+                    <div v-if="section.multilingual" class="form-element-tab-group">
                         <span v-on:click="selectedLanguage = languageCode"
                               v-for="(language, languageCode) in $store.getters['settingsLanguages']"
                               v-bind:class="{active: selectedLanguage == languageCode}"
@@ -26,15 +26,26 @@
                         </span>
                     </div>
                     <div v-bind:class="{'striped-list': selectedLanguage == 'all'}">
-                        <div is="multilingual-keyword"
-                             v-bind:class="{'list-item': selectedLanguage == 'all'}"
-                             v-bind:selected-language="selectedLanguage"
-                             v-bind:keyword-name="section.name"
-                             v-bind:inputType="section.type"
-                             v-bind:keyword-index="index"
-                             v-bind:keyword-value="keyword"
-                             v-bind:options="section.options !== undefined ? section.options : null"
+                        <div v-bind:class="{'list-item': selectedLanguage == 'all'}"
                              v-for="(keyword, index) in $store.getters['Keywords' + section.name]">
+                            <div v-if="section.multilingual"
+                                 is="multilingual-keyword"
+                                 v-bind:selected-language="selectedLanguage"
+                                 v-bind:keyword-name="section.name"
+                                 v-bind:inputType="section.type"
+                                 v-bind:keyword-index="index"
+                                 v-bind:keyword-value="keyword"
+                                 v-bind:options="section.options !== undefined ? section.options : null">
+                            </div>
+                            <div v-else
+                                 is="monolingual-keyword"
+                                 v-bind:selected-language="selectedLanguage"
+                                 v-bind:keyword-name="section.name"
+                                 v-bind:inputType="section.type"
+                                 v-bind:keyword-index="index"
+                                 v-bind:keyword-value="keyword"
+                                 v-bind:options="section.options !== undefined ? section.options : null">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +68,8 @@
         template: "#keywords-section-template",
         props: ["section"],
         components: {
-            MultilingualKeyword: MultilingualKeyword
+            MultilingualKeyword: MultilingualKeyword,
+            MonolingualKeyword: MonolingualKeyword
         },
         data: function () {
             return {

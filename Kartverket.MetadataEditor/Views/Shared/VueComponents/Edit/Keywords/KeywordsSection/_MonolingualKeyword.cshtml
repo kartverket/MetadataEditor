@@ -1,0 +1,99 @@
+﻿@using Resources
+<script type="text/x-template" id="monolingual-keyword-template">
+    <div>
+        <div class="form-group has-feedback">
+            <div class="row">
+                <div class="col-sm-10">
+                    <input v-if="inputType == 'text' || !this.isAnOption(keywordValue)" v-bind:name="name" type="text"
+                           v-bind:value="keywordValue"
+                           v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'no'});"
+                           class="form-control" />
+                    <div v-else-if="inputType == 'select'" class="custom-select">
+                        <select v-bind:name="name"
+                                v-bind:value="keywordValue"
+                                v-on:change="updateKeywordValue($event.target.value)"
+                                class="form-control">
+                            <option v-bind:disabled="isAdded(option.Value) && option.Value !== keywordValue" v-bind:value="option.Value" v-for="option in options">{{ option.Text }}</option>
+                        </select>
+                    </div>
+                    <div v-on:blur="active = false" v-else-if="inputType == 'filter-select'" class="custom-select-list">
+                        <input type="hidden" v-bind:name="name" v-bind:value="keywordValue" />
+                        <div class="custom-select-list-input-container" style="height: 34px;">
+                            <span v-show="!active" style="font-size: 12pt; font-family: Open Sans,sans-serif; padding: 0 15px; line-height: 34px; white-space: nowrap; overflow: hidden; display: block">{{ inputValue }}</span>
+                            <input type="text" v-on:blur="active = false; $event.target.value = ''" v-on:focus="active = true; $event.target.value = inputValue" class="custom-select-list-input" />
+                        </div>
+                        <div class="custom-select-list-dropdown-container">
+                            <div class="custom-select-list-dropdown">
+                                <div class="custom-select-list-dropdown-content">
+                                    <ul class="custom-select-list-options area-option-list">
+                                        <li v-on:click="updateKeywordValue(option);" v-bind:class="{'is-selected': isAdded(option.Value)}" v-for="option in options">{{ option.Text }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <span class="btn" v-on:click="removeKeywordValue()">@UI.Delete</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var MonolingualKeyword = {
+        name: "MonolingualKeyword",
+        template: "#monolingual-keyword-template",
+        props: ['selectedLanguage', 'keywordName', 'inputType', 'keywordIndex', 'keywordValue', 'options'],
+        data: function () {
+            return {
+                name: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']',
+                active: false
+            }
+        },
+        computed: {
+            inputValue: function () {
+                return this.getKeywordText();
+            }
+        },
+        methods: {
+            getKeywordText: function () {
+                var keywordText = '';
+                this.options.forEach(function(option){
+                    if(option.Value == this.keywordValue){
+                        keywordText = option.Text;
+                        return;
+                    }
+                }.bind(this));
+                return keywordText;
+            },
+            updateKeywordValue: function (option) {
+                this.inputValue = option.Text;
+                this.$store.commit('updateArrayValue', { arrayName: 'Keywords' + this.keywordName, arrayIndex: this.keywordIndex, value: option.Value });
+            },
+            removeKeywordValue: function () {
+                this.$store.commit('removeValueFromArray', { arrayName: 'Keywords' + this.keywordName, arrayIndex: this.keywordIndex });
+                this.inputValue = this.getKeywordText();
+            },
+            isAnOption: function (keyword) {
+                if (keyword == "") { return true }
+                else {
+                    var isAnOption = false;
+                    this.options.forEach(function (option) {
+                        if (option.Value == keyword) isAnOption = true;
+                    });
+                    return isAnOption;
+                }
+            },
+            isAdded: function (keyword) {
+                var isAdded = false;
+                this.$store.getters['Keywords' + this.keywordName].forEach(function (addedKeyword) {
+                    if (keyword == addedKeyword) isAdded = true;
+                });
+                return isAdded;
+            }
+        }
+    }
+</script>
+

@@ -29,6 +29,7 @@
 @* Import sub components *@
 @Html.Partial("VueComponents/Fields/_Field")
 @Html.Partial("VueComponents/Edit/Keywords/KeywordsSection/_MultilingualKeyword")
+@Html.Partial("VueComponents/Edit/Keywords/KeywordsSection/_MonolingualKeyword")
 @Html.Partial("VueComponents/Edit/Keywords/_KeywordsSection")
 
 @* Import template  components *@
@@ -306,25 +307,6 @@
             document.getElementById('ReferenceSystemsCount').value -= 1;
         };
 
-        //Setting placeholders
-        var placeholderText = "@UI.Enter";
-        var placeholderTextChoose = "Klikk for å velge";
-
-        $(document).ready(function () {
-            $('form').find("input[type=textarea], input[type=text], textarea").each(function (ev) {
-                if (!$(this).val() && !$(this).prop("disabled")) {
-                    $(this).attr("placeholder", placeholderText);
-                }
-            });
-
-            $('form').find("select").each(function (ev) {
-                if ($(this).val() === '') {
-                    idElem = $(this)[0].id;
-                    $("#" + idElem + " option[value='']").text(placeholderTextChoose);
-                }
-            });
-
-        });
 
 
         function loadConcepts() {
