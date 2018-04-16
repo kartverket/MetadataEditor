@@ -16,16 +16,16 @@
             </div>
         </div>
 
-        <div is="multilingual-keywords"
-             v-bind:section="section"
-             v-show="section.visible"
-             v-for="section in multilingualKeywords">
+        <div is="keywords-section" 
+             v-show="section.visible" 
+             v-bind:section="section" 
+             v-for="section in sections">
         </div>
 
     </div>
 </script>
 
-@Html.Partial("VueComponents/Edit/Keywords/_MultilingualKeywords")
+@Html.Partial("VueComponents/Edit/Keywords/_KeywordsSection")
 
 <script>
     var Keywords = {
@@ -33,7 +33,7 @@
         template: "#keywords-template",
         components: {
             Field, Field,
-            MultilingualKeywords: MultilingualKeywords
+            KeywordsSection: KeywordsSection
         },
         mounted: function () {
             this.$store.dispatch('getErrorsForTab', { tabName: 'Keywords' }).then(function (errors) {
@@ -58,7 +58,7 @@
                     options: this.$store.getters['TopicCategoryValues']
                 },
 
-                multilingualKeywords: {
+                sections: {
                     keywordsTheme: {
                         title: '@Html.Raw(UI.Metadata_KeywordsTheme_Label)',
                         name: 'Theme',

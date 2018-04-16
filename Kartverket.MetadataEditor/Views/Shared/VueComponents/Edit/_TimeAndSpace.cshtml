@@ -16,9 +16,9 @@
                 </div>
             </div>
         </div>
-        <div is="multilingual-keywords"
+        <div is="keywords-section"
              v-bind:section="section"
-             v-for="section in multilingualKeywords">
+             v-for="section in sections">
         </div>
         <div is="bounding-box"></div>
         <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></div>
@@ -39,7 +39,7 @@
             Field: Field,
             BoundingBox: BoundingBox,
             Coverage: Coverage,
-            MultilingualKeywords: MultilingualKeywords
+            KeywordsSection: KeywordsSection
         },
         methods: {
             updateField: function (value) {
@@ -132,7 +132,7 @@
                     },
 
                 ],
-                multilingualKeywords: {
+                sections: {
                     keywordsPlace: {
                         title: '@Html.Raw(UI.Metadata_KeywordsPlace_Label)',
                         name: 'Place',

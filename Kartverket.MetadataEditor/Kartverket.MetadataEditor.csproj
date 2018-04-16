@@ -739,8 +739,8 @@
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_Coverage.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\_DistributionItem.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\DistributionItem\_DistributionItemFormat.cshtml" />
-    <Content Include="Views\Shared\VueComponents\Edit\Keywords\_MultilingualKeywords.cshtml" />
-    <Content Include="Views\Shared\VueComponents\Edit\Keywords\MultilingualKeywords\_MultilingualKeyword.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Keywords\_KeywordsSection.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Keywords\KeywordsSection\_MultilingualKeyword.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Documents\_Thumbnails.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Documents\Thumbnails\_Thumbnail.cshtml" />
     <Content Include="Web.Multi.config" />

@@ -1,5 +1,5 @@
 ﻿@using Resources
-<script type="text/x-template" id="multilingual-keywords-template">
+<script type="text/x-template" id="keywords-section-template">
     <div>
 
         <div class="panel panel-default">
@@ -52,9 +52,9 @@
 </script>
 
 <script>
-    var MultilingualKeywords = {
-        name: "multilingualKeywords",
-        template: "#multilingual-keywords-template",
+    var KeywordsSection = {
+        name: "KeywordsSection",
+        template: "#keywords-section-template",
         props: ["section"],
         components: {
             MultilingualKeyword: MultilingualKeyword
