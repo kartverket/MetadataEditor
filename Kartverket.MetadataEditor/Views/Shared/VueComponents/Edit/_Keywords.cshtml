@@ -108,6 +108,18 @@
                         },
                         options: this.$store.getters['InspireValues']
                     },
+                    keywordsInspirePriorityDataset: {
+                        title: 'EU - prioriterte datasett',
+                        name: 'InspirePriorityDataset',
+                        type: 'filter-select',
+                        visible: true,
+                        multilingual: false,
+                        helpText: {
+                            active: false,
+                            content: 'List of datasets related to environmental reporting, which should be made available by Member States through the European Spatial Data Infrastructure in a stepwise manner. The list also reflects the data gaps identified during the evaluation of the state-of-implementation and the fitness of the Directive for its intended purpose (a so-called REFIT evaluation)'
+                        },
+                        options: this.$store.getters['InspirePriorityDatasets']
+                    },
                     keywordsOther: {
                         title: '@Html.Raw(UI.Metadata_KeywordsOther_Label)',
                         name: 'Other',

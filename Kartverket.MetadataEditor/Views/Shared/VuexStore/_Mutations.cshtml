@@ -349,6 +349,12 @@
         updateInspireValues: function (state, payload) {
             state.viewBag.InspireValues = payload;
         },
+        updateKeywordsInspirePriorityDataset: function (state, payload) {
+            state.model.KeywordsInspirePriorityDataset = payload;
+        },
+        updateInspirePriorityDatasets: function (state, payload) {
+            state.viewBag.InspirePriorityDatasets = payload;
+        },
         updateKeywordsOther: function (state, payload) {
             state.model.KeywordsOther = payload;
         },
@@ -479,6 +485,6 @@
             var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
             Vue.delete(state[stateProperty][payload.arrayName], payload.arrayIndex);
         }
-        
+
     }
 </script>
