@@ -477,7 +477,7 @@
         },
         removeValueFromArray: function (state, payload) {
             var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
-            state[stateProperty][payload.arrayName].splice(payload.arrayIndex, 1);
+            Vue.delete(state[stateProperty][payload.arrayName], payload.arrayIndex);
         }
         
     }
