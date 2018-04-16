@@ -429,17 +429,7 @@
                 setSelectedLanguage: function () {
                     var selectedLanguage = Cookies.get('_culture') !== undefined ? Cookies.get('_culture') : 'no';
                     this.$store.commit('updateSettingsSelectedLanguage', selectedLanguage);
-                },
-                getSelectedCoverageImage: function () {
-                    var selectedCoverageImage = {};
-                    $store.getters['Thumbnails'].forEach(function (thumbnail) {
-                        if (thumbnail.Type == 'dekningsoversikt') {
-                            selectedCoverageImage = thumbnail;
-                            return;
-                        }
-                    });
-                    return selectedCoverageImage;
-                },
+                }
             },
             components: {
                 Tab: Tab,
