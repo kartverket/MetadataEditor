@@ -36,55 +36,55 @@
                 };
 
                 window.addEventListener('message', function (e) {
-                    console.log(e.data);
-                    var msg = JSON.parse(e.data);
-                    if (msg.type === "mapInitialized") {
-                        sendMessage({
-                            "cmd": "setCenter",
-                            "x": conf.center_longitude,
-                            "y": conf.center_latitude,
-                            "zoom": conf.zoom_level
-                        });
-                    } else {
+                    if (e.origin !== undefined && e.origin == "https://norgeskart.no") {
+                        var msg = JSON.parse(e.data);
+                        if (msg.type === "mapInitialized") {
+                            sendMessage({
+                                "cmd": "setCenter",
+                                "x": conf.center_longitude,
+                                "y": conf.center_latitude,
+                                "zoom": conf.zoom_level
+                            });
+                        } else {
 
-                        if (msg.cmd === "setVisible") return;
+                            if (msg.cmd === "setVisible") return;
 
-                        var obj = msg;
-                        if (obj.feature != null) {
-                            var coords = obj.feature.geometry.coordinates[0];
-                            var c1 = coords[0];
-                            var c2 = coords[1];
-                            var c3 = coords[2];
-                            var c4 = coords[3];
+                            var obj = msg;
+                            if (obj.feature != null) {
+                                var coords = obj.feature.geometry.coordinates[0];
+                                var c1 = coords[0];
+                                var c2 = coords[1];
+                                var c3 = coords[2];
+                                var c4 = coords[3];
 
-                            var x1 = c1[0];
-                            var y1 = c1[1];
-                            var x2 = c2[0];
-                            var y2 = c3[1];
+                                var x1 = c1[0];
+                                var y1 = c1[1];
+                                var x2 = c2[0];
+                                var y2 = c3[1];
 
-                            console.log('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x1 + '&nord=' + y1 + '&fra=23&til=84');
-                            $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x1 + '&nord=' + y1 + '&fra=23&til=84', function (result) {
-                                console.log(result);
-                                if (result.kode == 0) {
-                                    BBWest = result.ost;
-                                    BBSouth = result.nord
+                                console.log('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x1 + '&nord=' + y1 + '&fra=23&til=84');
+                                $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x1 + '&nord=' + y1 + '&fra=23&til=84', function (result) {
+                                    console.log(result);
+                                    if (result.kode == 0) {
+                                        BBWest = result.ost;
+                                        BBSouth = result.nord
+                                    }
                                 }
-                            }
-                            );
-                            console.log('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x2 + '&nord=' + y2 + '&fra=23&til=84');
-                            $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x2 + '&nord=' + y2 + '&fra=23&til=84', function (result) {
-                                console.log(result);
-                                if (result.kode == 0) {
-                                    BBEast = result.ost;
-                                    BBNorth = result.nord
+                                );
+                                console.log('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x2 + '&nord=' + y2 + '&fra=23&til=84');
+                                $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x2 + '&nord=' + y2 + '&fra=23&til=84', function (result) {
+                                    console.log(result);
+                                    if (result.kode == 0) {
+                                        BBEast = result.ost;
+                                        BBNorth = result.nord
+                                    }
                                 }
+                                );
+
                             }
-                        );
 
                         }
-
                     }
-                    console.log(e.data);
                 }, false);
 
 

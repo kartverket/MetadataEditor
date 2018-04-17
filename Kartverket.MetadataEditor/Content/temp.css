@@ -1,0 +1,147 @@
+﻿.form-element-tab-group {
+    margin-bottom: 8px;
+}
+
+.form-element-tab {
+    display: inline-block;
+    min-width: 10px;
+    padding: 0 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 21px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+    .form-element-tab.active {
+        background-color: #7da1c4;
+        color: #fff;
+    }
+
+    .form-element-tab.has-error {
+        color: #ee432a;
+    }
+
+        .form-element-tab.has-error.active {
+            background-color: #ee432a;
+            color: #fff;
+        }
+
+    .form-element-tab.has-error:after {
+        display: inline-block;
+        font-family: Glyphicons Halflings;
+        content: "\e107";
+        font-weight: 100;
+        font-size: 14px;
+        line-height: 21px;
+        vertical-align: bottom;
+        color: #ee432a;
+    }
+
+    .form-element-tab.has-error.active:after {
+        color: #FFF;
+    }
+
+.form-element-badge {
+    padding: 0px 8px;
+    background-color: #7da1c4;
+    margin-bottom: 0px;
+    display: inline-block;
+    color: #fff;
+    font-size: 10pt;
+    line-height: 15pt;
+}
+
+.has-error .form-element-badge {
+    background-color: #ee432a;
+}
+
+.form-control {
+    transition: .2s outline;
+}
+
+    .form-control:focus {
+        outline: 2px solid #7da1c4;
+        box-shadow: none;
+    }
+
+.has-error .form-control,
+.has-error .custom-select .form-control {
+    box-shadow: none;
+    border: 1px solid #ee432a;
+}
+
+    .has-error .form-control:focus {
+        outline: 2px solid #ee432a;
+        box-shadow: none;
+    }
+    
+    .help-text-toggle {
+        cursor: pointer;
+    }
+
+.nav-tabs > li > a {
+    padding: 10px 12px;
+}
+
+.input-group-addon + .form-group {
+    display: table-cell;
+    padding-bottom: 0;
+}
+
+
+.striped-list .list-item {
+    padding: 4px 12px;
+}
+
+.form-horizontal .list-item .form-group {
+    padding-bottom: 0;
+}
+
+.upload-input input[type="file"] {
+    opacity: 0;
+    display: inline !important;
+    width: 85px;
+    padding: 0 !important;
+    margin: 0 -85px 0 0;
+    height: 35px;
+    vertical-align: top;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+    .upload-input input[type="file"] + .btn {
+        position: absolute;
+        z-index: 1;
+    }
+
+.upload-input input:hover[type="file"] + .btn {
+    background-color: #fe5000;
+    color: #fff !important;
+    border: 1px solid transparent;
+    font-style: normal;
+    font-size: 12pt;
+    line-height: 16pt;
+}
+
+.nav-tabs .custom-icon {
+    margin-top: -9px;
+}
+
+.nav-tabs li .custom-icon .custom-icon-overlay {
+    transition: all .35s linear 0s;
+}
+.nav-tabs li:hover:not(.active) .custom-icon .custom-icon-overlay {
+    background-color: #fff;
+    color: #333;
+}
+@media (max-width: 1199px) {
+    .nav-tabs li.active .custom-icon .custom-icon-overlay {
+        background-color: #fff;
+        color: #333;
+    }
+}

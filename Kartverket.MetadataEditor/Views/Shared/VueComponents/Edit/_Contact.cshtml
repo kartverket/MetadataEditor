@@ -1,0 +1,187 @@
+﻿@using Resources
+
+<script type="text/x-template" id="contact-template">
+    <div>
+        <div v-for="section in sections" class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11">
+                        <span class="required">{{ section.name }}</span>
+                    </div>
+                    <div class="col-md-1">
+                        <span v-on:click="section.helpText.active = !section.helpText.active" v-bind:class="{active: section.helpText.active}" class="badge help-text-toggle">?</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
+                <div v-for="formElement in section.formElements">
+                    <div v-if="formElement.type == 'hidden'" is="field" v-bind:form-element="formElement"></div>
+                    <div v-else class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                        <div class="row">
+                            <label for="abstract" class="col-md-2 control-label">{{ formElement.label }}</label>
+                            <div class="col-md-9">
+                                <div is="field" v-bind:form-element="formElement"></div>
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var Contact = {
+        name: "Contact",
+        template: "#contact-template",
+        components: {
+            Field: Field
+        },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Contact', fieldNames: this.fieldNames });
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Contact' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
+        data: function () {
+            return {
+                errors: {},
+                fieldNames: [
+                    'ContactMetadata.Name',
+                    'ContactMetadata.Email',
+                    'ContactMetadata.Organization',
+                    'ContactPublisher.Name',
+                    'ContactPublisher.Email',
+                    'ContactPublisher.Organization',
+                    'ContactOwner.Name',
+                    'ContactOwner.Email',
+                    'ContactOwner.Organization'
+                ],
+                sections: [
+                    {
+                        name: '@UI.MetadataContact',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_ContactMetadata)'
+                        },
+                        formElements: [
+                            {
+                                name: 'ContactMetadata.Name',
+                                getter: 'ContactMetadataName',
+                                mutation: 'updateContactMetadataName',
+                                label: '@Html.Raw(UI.Metadata_Contact_Name)',
+                                type: 'text'
+                            },
+                            {
+                                name: 'ContactMetadata.Email',
+                                getter: 'ContactMetadataEmail',
+                                mutation: 'updateContactMetadataEmail',
+                                label: '@Html.Raw(UI.Metadata_Contact_Email)',
+                                type: 'text',
+                                required: true
+                            },
+                            {
+                                name: 'ContactMetadata.Organization',
+                                getter: 'ContactMetadataOrganization',
+                                mutation: 'updateContactMetadataOrganization',
+                                label: '@Html.Raw(UI.Metadata_Contact_Organization)',
+                                type: 'select',
+                                required: true,
+                                options: this.$parent.viewBag.OrganizationContactMetadataValues
+                            },
+                            {
+                                name: 'ContactMetadata.Role',
+                                getter: 'ContactMetadataRole',
+                                mutation: 'updateContactMetadataRole',
+                                type: 'hidden'
+                            }
+                        ]
+                    },
+                    {
+                        name: '@UI.PublisherContact',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_ContactPublisher)'
+                        },
+                        formElements: [
+                            {
+                                name: 'ContactPublisher.Name',
+                                getter: 'ContactPublisherName',
+                                mutation: 'updateContactPublisherName',
+                                label: '@Html.Raw(UI.Metadata_Contact_Name)',
+                                type: 'text'
+                            },
+                            {
+                                name: 'ContactPublisher.Email',
+                                getter: 'ContactPublisherEmail',
+                                mutation: 'updateContactPublisherEmail',
+                                label: '@Html.Raw(UI.Metadata_Contact_Email)',
+                                type: 'text',
+                                required: true
+                            },
+                            {
+                                name: 'ContactPublisher.Organization',
+                                getter: 'ContactPublisherOrganization',
+                                mutation: 'updateContactPublisherOrganization',
+                                label: '@Html.Raw(UI.Metadata_Contact_Organization)',
+                                type: 'select',
+                                required: true,
+                                options: this.$parent.viewBag.OrganizationContactPublisherValues
+                            },
+                            {
+                                name: 'ContactPublisher.Role',
+                                getter: 'ContactPublisherRole',
+                                mutation: 'updateContactPublisherRole',
+                                type: 'hidden'
+                            }
+                        ]
+                    },
+                    {
+                        name: '@UI.OwnerContact',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_ContactOwner)'
+                        },
+                        formElements: [
+                            {
+                                name: 'ContactOwner.Name',
+                                getter: 'ContactOwnerName',
+                                mutation: 'updateContactOwnerName',
+                                label: '@Html.Raw(UI.Metadata_Contact_Name)',
+                                type: 'text'
+                            },
+                            {
+                                name: 'ContactOwner.Email',
+                                getter: 'ContactOwnerEmail',
+                                mutation: 'updateContactOwnerEmail',
+                                label: '@Html.Raw(UI.Metadata_Contact_Email)',
+                                type: 'text',
+                                required: true
+                            },
+                            {
+                                name: 'ContactOwner.Organization',
+                                getter: 'ContactOwnerOrganization',
+                                mutation: 'updateContactOwnerOrganization',
+                                label: '@Html.Raw(UI.Metadata_Contact_Organization)',
+                                type: 'select',
+                                required: true,
+                                options: this.$parent.viewBag.OrganizationContactOwnerValues
+                            },
+                            {
+                                name: 'ContactOwner.Role',
+                                getter: 'ContactOwnerRole',
+                                mutation: 'updateContactOwnerRole',
+                                type: 'hidden'
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    };
+</script>
+
+

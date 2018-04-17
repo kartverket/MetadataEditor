@@ -1,0 +1,270 @@
+﻿@using Resources
+
+<script type="text/x-template" id="coverage-template">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">@UI.SpecifyCoverageMap</div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group has-feedback">
+                <div class="form-group has-feedback">
+                    <div class="row">
+                        <label class="col-md-2 control-label">{{ coverageType.label }}</label>
+                        <div class="col-md-3">
+                            <div class="custom-select">
+                                <select v-model="coverageType.value" class="form-control">
+                                    <option v-bind:value="option.Value" v-for="option in coverageType.options">{{ option.Text }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-show="coverageType.value == 'webpage'">
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ url.fields.websiteUrl.label }}</label>
+                            <div class="col-md-5">
+                                <input v-bind:type="url.type" v-model="url.value" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-show="coverageType.value == 'mapservice'">
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ coverageType.label }}</label>
+                            <div class="col-md-3">
+                                <div class="radio" v-for="option in mapServiceType.options">
+                                    <label>
+                                        <input v-model="mapServiceType.value" v-bind:name="mapServiceType.name" type="radio" v-bind:value="option.value" />
+                                        {{ option.name }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ url.fields.mapServiceUrl.label }}</label>
+                            <div class="col-md-5">
+                                <input v-bind:type="url.type" v-model="url.value" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ mapServiceLayerName.label }}</label>
+                            <div class="col-md-5">
+                                <input v-bind:name="mapServiceLayerName.name" type="text" v-model="mapServiceLayerName.value" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-show="coverageType.value == 'imageCoverage'">
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ coverageFile.label }}</label>
+                            <div class="col-md-4">
+                                <div class="input-group upload-input">
+                                    <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
+                                    <input type="file" v-bind:id="coverageFile.id" />
+                                    <span class="btn">@UI.Metadata_CoverageImage_Select</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn" v-on:click="uploadFile">@UI.Metadata_CoverageImage_Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div v-if="computedThumbnailUrl">
+                <h3>Valgt dekningskart</h3>
+                <div class="striped-list">
+                    <div class="list-item">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img v-bind:src="computedThumbnailUrl" />
+                            </div>
+                            <div class="col-sm-9">
+                                <p><b>Type:</b> {{ computedThumbnailType }}</p>
+                                <p><b>URL:</b> {{ computedThumbnailUrl }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input v-bind:name="computedCoverageUrl.name" type="hidden" v-model="computedCoverageUrl.value" class="form-control" />
+        </div>
+    </div>
+</script>
+
+<script>
+    var Coverage = {
+        name: "coverage",
+        template: "#coverage-template",
+        data: function () {
+            return {
+                coverageType: {
+                    name: '',
+                    value: '',
+                    label: '@Html.Raw(UI.Metadata_CoverageType)',
+                    type: 'select',
+                    options: [
+                        { Text: '@Html.Raw(UI.Metadata_CoverageType_Webpage)', Value: 'webpage' },
+                        { Text: '@Html.Raw(UI.Metadata_CoverageType_Mapservice)', Value: 'mapservice' },
+                        { Text: '@Html.Raw(UI.Metadata_CoverageType_ImageCoverage)', Value: 'imageCoverage' }
+                    ]
+                },
+                url: {
+                    value: '',
+                    type: 'text',
+                    fields: {
+                        websiteUrl: {
+                            label: '@Html.Raw(UI.Metadata_CoverageWebsite_Url)',
+                        },
+                        mapServiceUrl: {
+                            label: '@Html.Raw(UI.Metadata_CoverageServiceMap_Url)',
+                        }
+                    }
+                },
+                mapServiceType: {
+                    name: 'mapServiceType',
+                    label: '@Html.Raw(UI.Metadata_CoverageServiceMap_Type)',
+                    type: 'radio',
+                    value: '',
+                    options: [
+                        { name: 'WMS', value: 'WMS' },
+                        { name: 'WFS', value: 'WFS' },
+                        { name: 'GeoJSON', value: 'GeoJSON' }
+                    ]
+                },
+                mapServiceLayerName: {
+                    name: 'mapServiceLayerName',
+                    value: '',
+                    label: '@Html.Raw(UI.Metadata_CoverageServiceMap_Layer)',
+                    type: 'text'
+                },
+                coverageFile: {
+                    id: 'uploadCoverageFile',
+                    type: 'file',
+                    label: '@Html.Raw(UI.Metadata_CoverageImage_Image)'
+                },
+                thumbnailFileUploadData: {
+                    request: {
+                        result: {}
+                    },
+                    response: {}
+                }
+            }
+        },
+        computed: {
+           computedCoverageUrl: function () {
+                var computedCoverageUrl = {
+                    name: 'CoverageUrl',
+                    value: 'test',
+                    label: this.$root.model.CoverageUrl,
+                    type: 'text'
+               };
+
+                if (this.coverageType.value == 'webpage') {
+                    computedCoverageUrl.value = this.url.value;
+                } else if (this.coverageType.value == 'mapservice') {
+                    computedCoverageUrl.value = 'TYPE:' + this.mapServiceType.value + '@@PATH:' + this.url.value + '@@LAYER:' + this.mapServiceLayerName.value;
+                } else if (this.coverageType.value == 'imageCoverage') {
+                    computedCoverageUrl.value = this.computedThumbnailUrl;
+                }
+                return computedCoverageUrl;
+            },
+           computedThumbnailUrl: function () {
+               var computedThumbnailUrl = '';
+               if (this.$root.hasCoverageImage) {
+                   var selectedCoverageImage = this.$store.getters['SelectedCoverageImage'];
+                   computedThumbnailUrl = selectedCoverageImage.URL;
+               }
+               return computedThumbnailUrl;
+           },
+           computedThumbnailType: function () {
+               var computedThumbnailType = '';
+               if (this.$root.hasCoverageImage) {
+                   var selectedCoverageImage = this.$store.getters['SelectedCoverageImage'];
+                   computedThumbnailType = selectedCoverageImage.Type;
+               }
+               return computedThumbnailType;
+           }
+        },
+        methods: {
+            getValueFromCoverageUrl: function (regex) {
+                var valueFromCoverageUrl = '';
+                var regexResult;
+                if ((regexResult = regex.exec(this.$root.model.CoverageUrl)) !== null) {
+                    regexResult.forEach(function (match, groupIndex) {
+                        valueFromCoverageUrl = match;
+                    });
+                }
+                return valueFromCoverageUrl;
+            },
+            getMapServiceType: function () {
+                var regex = /TYPE:(.*)@@PATH:/;
+                return this.getValueFromCoverageUrl(regex);
+            },
+            getMapServiceUrl: function () {
+                var regex = /@@PATH:(.*)@@LAYER:/;
+                return this.getValueFromCoverageUrl(regex);
+            },
+            getMapServiceLayerName: function () {
+                var regex = /@@LAYER:(.*)/;
+                return this.getValueFromCoverageUrl(regex);
+            },
+            isMapService: function () {
+                var regex = /TYPE:(.*)@@PATH(.*)@@LAYER:(.*)/;
+                return this.getValueFromCoverageUrl(regex) !== '';
+            },
+            getSelectedCoverageType: function () {
+                if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
+                else if (this.isMapService()) this.coverageType.value = 'mapservice';
+                else this.coverageType.value = 'webpage';
+            },
+            initFileUpload: function () {
+                $("#" + this.coverageFile.id).fileupload({
+                    dataType: 'json',
+                    url: '/Metadata/UploadThumbnail',
+                    add: function (e, data) {
+                        data.formData = {
+                                "uuid": "@Model.Uuid"
+                        };
+                        data.fileName = data.files[0].name;
+                        this.thumbnailFileUploadData.request = data;
+                    }.bind(this),
+                    done: function (e, data) {
+                        this.thumbnailFileUploadData.response = data;
+                        this.$store.dispatch('updateCoverageImage', {
+                            URL: this.$store.getters['ThumbnailUrl'] + data.result.filename,
+                            Type: 'dekningsoversikt'
+                        });
+                        @*if (data.result.status == "ErrorWrongContent") {
+                        $("#coverageUri").val('');
+                        $('#uploadCoverageStatus').attr('style', 'color: red ;');
+                        $('#uploadCoverageStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                    }
+                    else {
+                        $("#coverageUri").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                        $('#uploadCoverageStatus').attr('style', 'text-info');
+                        //$('#uploadThumbnailStatus').text('Filen er lastet opp. Velg type og trykk på "legg til" for å knytte bildet til metadataene.');
+                    }*@
+                    }.bind(this)
+                });
+            },
+            uploadFile: function (event) {
+                event.preventDefault(),
+                this.thumbnailFileUploadData.request.submit();
+            }
+        },
+        mounted: function () {
+            this.mapServiceType.value = this.getMapServiceType();
+            this.url.value = this.getMapServiceUrl();
+            this.mapServiceLayerName.value = this.getMapServiceLayerName();
+            this.getSelectedCoverageType();
+            this.initFileUpload();
+        }
+    };
+</script>
+
+

@@ -1,0 +1,60 @@
+﻿@using Resources
+
+<script type="text/x-template" id="reference-systems-template">
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>@UI.Distribution</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div v-if="$store.getters['ReferenceSystems']" class="striped-list">
+                    <div class="list-item" 
+                         is="reference-system"
+                         v-bind:reference-system="referenceSystem"
+                         v-bind:reference-system-index="referenceSystemIndex"
+                         v-for="(referenceSystem, referenceSystemIndex) in $store.getters['ReferenceSystems']">
+                    </div>
+                </div>
+                <div class="margin-top-10 text-right">
+                    <span v-on:click="addReferenceSystem()" class="btn">Nytt referansesystem</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+@Html.Partial("VueComponents/Edit/Distribution/ReferenceSystems/_ReferenceSystem")
+
+<script>
+    var ReferenceSystems = {
+        name: "ReferenceSystems",
+        template: "#reference-systems-template",
+        components: {
+            ReferenceSystem: ReferenceSystem
+        },
+        data: function () {
+            return {
+            }
+        },
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            },
+            addReferenceSystem: function () {
+                this.$store.commit('addValueToArray', {
+                    arrayName: 'ReferenceSystems',
+                    value: {
+                        CoordinateSystem: null,
+                        Namespace: null
+                    }
+                });
+            }
+        }
+    };
+</script>
+

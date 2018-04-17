@@ -1,0 +1,271 @@
+﻿
+@using Resources
+
+<script type="text/x-template" id="distribution-item-template">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="required">@UI.Distribution</span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            @* Organization *@
+            <div class="form-group has-feedback" v-if="formElements.organization.visible" v-bind:class="{'required': formElements.organization.required}">
+                <div class="row">
+                    <label v-bind:for="formElements.organization.id" class="col-md-3 control-label">{{ formElements.organization.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElements.organization.helpText && formElements.organization.helpText.active" class="help-text bg-success" v-html="formElements.organization.helpText.content"></p>
+                        <div class="custom-select">
+                            <select class="form-control"
+                                    v-bind:id="formElements.organization.id"
+                                    v-bind:value="distribution.Value.Details.Organization"
+                                    v-on:change="updateField({
+                                        mutation: formElements.organization.mutation, value: {
+                                            distributionIndex: distributionIndex, value: $event.target.value
+                                        }
+                                    })"
+                                    v-bind:name="formElements.organization.name">
+                                <option value="">Velg</option>
+                                <option v-bind:value="option.Value" v-for="option in this.$store.getters['OrganizationDistributorValues']">{{ option.Text }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div v-if="formElements.organization.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElements.organization.helpText.active = !formElements.organization.helpText.active" v-bind:class="{active: formElements.organization.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            @* Protocol *@
+            <div class="form-group has-feedback" v-if="formElements.protocol.visible" v-bind:class="{'required': formElements.protocol.required}">
+                <div class="row">
+                    <label v-bind:for="formElements.protocol.id" class="col-md-3 control-label">{{ formElements.protocol.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElements.protocol.helpText && formElements.protocol.helpText.active" class="help-text bg-success" v-html="formElements.protocol.helpText.content"></p>
+                        <div class="custom-select">
+                            <select class="form-control"
+                                    v-bind:id="formElements.protocol.id"
+                                    v-bind:value="distribution.Value.Details.Protocol"
+                                    v-on:change="updateField({
+                                        mutation: formElements.protocol.mutation, value: {
+                                            distributionIndex: distributionIndex, value: $event.target.value
+                                        }
+                                    })"
+                                    v-bind:name="formElements.protocol.name">
+                                <option value="">Velg</option>
+                                <option v-bind:value="option.Value" v-for="option in this.$store.getters['PredefinedDistributionProtocols']">{{ option.Text }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div v-if="formElements.protocol.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElements.protocol.helpText.active = !formElements.protocol.helpText.active" v-bind:class="{active: formElements.protocol.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            @* URL *@
+            <div class="form-group has-feedback" v-if="formElements.url.visible" v-bind:class="{'required': formElements.url.required}">
+                <div class="row">
+                    <label v-bind:for="formElements.url.id" class="col-md-3 control-label">{{ formElements.url.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElements.url.helpText && formElements.url.helpText.active" class="help-text bg-success" v-html="formElements.url.helpText.content"></p>
+                        <input class="form-control"
+                               v-bind:id="formElements.url.id"
+                               v-bind:value="distribution.Value.Details.URL"
+                               v-bind:name="formElements.url.name"
+                               v-bind:type="formElements.url.type"
+                               v-on:change="updateField({
+                                    mutation: formElements.url.mutation, value: {
+                                        distributionIndex: distributionIndex, value: $event.target.value
+                                    }
+                                })" />
+                    </div>
+                    <div v-if="formElements.protocol.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElements.url.helpText.active = !formElements.url.helpText.active" v-bind:class="{active: formElements.url.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row">
+                <div class="col-xs-11">
+                    <p class="article-p">
+                        @UI.Formats
+                    </p>
+                </div>
+                <div class="col-xs-1">
+                    <span v-on:click="formats.helpText.active = !formats.helpText.active"
+                          v-bind:class="{active: formats.helpText.active}"
+                          class="badge help-text-toggle">
+                        ?
+                    </span>
+                </div>
+            </div>
+            <p v-if="formats.helpText && formats.helpText.active" class="help-text bg-success" v-html="formats.helpText.content"></p>
+
+
+            <div class="striped-list">
+                <div class="list-item" is="distribution-item-format" v-bind:format="distributionItemFormat" v-bind:format-index="distributionItemFormatIndex" v-for="(distributionItemFormat, distributionItemFormatIndex) in distribution.Value.Formats"></div>
+            </div>
+
+
+            <div class="margin-top-10 text-right">
+                <span class="btn" v-on:click="$store.commit('addFormatDistributionsFormat', {distributionIndex: distributionIndex});">@UI.FormatNew</span>
+            </div>
+            <hr />
+            <div class="form-group">
+
+            </div>
+
+            <div v-if="formElements.name.visible" class="form-group">
+                <div class="row">
+                    <label v-bind:for="formElements.name.id" class="col-md-3 control-label">{{ formElements.name.label }}</label>
+
+                    <div class="col-md-8">
+                        <input v-model="formElements.name.value"
+                               class="form-control"
+                               v-bind:id="formElements.name.id"
+                               v-bind:name="formElements.name.name"
+                               v-bind:type="formElements.name.type" />
+                    </div>
+                    <div v-if="formElements.name.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElements.name.helpText.active = !formElements.name.helpText.active"
+                                  v-bind:class="{active: formElements.name.helpText.active}"
+                                  class="badge help-text-toggle">
+                                ?
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3 control-label">{{ formElements.unitsOfDistribution.label }}</label>
+                    <div class="col-md-8">
+                        <label class="checkbox-inline" v-for="option in formElements.unitsOfDistribution.options">
+                            <input type="checkbox" v-on:change="setUnitsOfDistribution()" v-model="formElements.unitsOfDistribution.selected" v-bind:value="option.Value" />
+                            {{ option.Text }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <span v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" v-on:click="$store.commit('removeFormatDistributions', {distributionIndex: distributionIndex});" class="btn pull-right">@UI.Button_Remove_Distribution</span>
+        </div>
+    </div>
+</script>
+
+@Html.Partial("VueComponents/Edit/Distribution/DistributionItem/_DistributionItemFormat")
+
+<script>
+    var DistributionItem = {
+        name: "distributionItem",
+        template: "#distribution-item-template",
+        props: ["distribution", "distributionIndex"],
+        components: {
+            Field: Field,
+            distributionItemFormat: DistributionItemFormat
+        },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Distribution', fieldNames: this.fieldNames });
+        },
+        data: function () {
+            return {
+                fieldNames: [
+                    'DistributionsFormats[' + this.distributionIndex + '].Organization',
+                    'DistributionsFormats[' + this.distributionIndex + '].Protocol',
+                    'DistributionsFormats[' + this.distributionIndex + '].URL',
+                    'DistributionsFormats[' + this.distributionIndex + '].Name'
+                ],
+                formats: {
+                    visible: true,
+                    helpText: {
+                        active: false,
+                        content: '@Html.Raw(UI.Helptext_DistributionsFormats)'
+                    }
+                },
+                formElements: {
+                    organization: {
+                        id: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
+                        name: 'DistributionsFormats[' + this.distributionIndex + '].Organization',
+                        mutation: 'updateFormatDistributionsOrganization',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        label: '@UI.Metadata_Organization',
+                        type: 'select',
+                        required: true
+                    },
+                    protocol: {
+                        id: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
+                        name: 'DistributionsFormats[' + this.distributionIndex + '].Protocol',
+                        mutation: 'updateFormatDistributionsProtocol',
+                        visible: true,
+                        label: '@UI.DistributionType',
+                        type: 'select',
+                        required: true,
+                        options: this.$root.viewBag.predefinedDistributionProtocols,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_DistributionsFormatsProtocol)'
+                        }
+                    },
+                    url: {
+                        id: 'DistributionsFormats[' + this.distributionIndex + '].URL',
+                        name: 'DistributionsFormats[' + this.distributionIndex + '].URL',
+                        mutation: 'updateFormatDistributionsURL',
+                        visible: true,
+                        label: 'URL',
+                        type: 'text',
+                        required: false,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_DistributionsFormatsURL)'
+                        }
+                    },
+                    unitsOfDistribution: {
+                        visible: true,
+                        label: '@UI.UnitsOfDistribution',
+                        value: '',
+                        selected: this.getUnitsOfDistribution(),
+                        options: this.$root.viewBag.UnitsOfDistributionValues
+                    },
+                    name: {
+                        id: 'DistributionsFormats[' + this.distributionIndex + '].Name',
+                        name: 'DistributionsFormats[' + this.distributionIndex + '].Name',
+                        value: this.distribution.Value.Details.Name,
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        label: 'Navn',
+                        type: 'text',
+                        required: false,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_DistributionsFormatsDistributionName)'
+                        }
+                    }
+                }
+            }
+        },
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            },
+            getUnitsOfDistribution: function () {
+                return this.distribution.Value.Details.UnitsOfDistribution !== null && this.distribution.Value.Details.UnitsOfDistribution !== "" ? this.distribution.Value.Details.UnitsOfDistribution.split(', ') : [];
+            },
+            setUnitsOfDistribution: function () {
+                var unitsOfDistribution = this.formElements.unitsOfDistribution.selected.join(', ');
+                this.$store.commit('updateFormatDistributionsUnitsOfDistribution', { distributionIndex: this.distributionIndex, value: unitsOfDistribution });
+            }
+        }
+    };
+</script>
+

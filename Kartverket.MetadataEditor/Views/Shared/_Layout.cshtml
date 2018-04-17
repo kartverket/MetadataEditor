@@ -1,4 +1,5 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
+@using Resources
 
 <!DOCTYPE html>
 <html>
@@ -16,50 +17,29 @@
         @Resources.UI.AppPageTitle
     </title>
 
-    <!-- Stylesheets -->
-    @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
-
-    <!-- Scripts -->
-
     @RenderSection("head", required: false)
     <script>
         var validationUUIDs = [];
     </script>
     <script>
-        var applicationEnvironment = '@Html.EnvironmentName()';
         var applicationVersionNumber = '@Html.ApplicationVersionNumber()';
-        var authenticationData = {
-            supportsLogin: true,
-            isAuthenticated: @Request.IsAuthenticated.ToString().ToLower(),
-            urlActionSignOut: '@Url.Action("Logout", "AuthServices")',
-            urlActionSignIn: '@Url.Action("SignIn", "AuthServices")'
-            @if (Request.IsAuthenticated)
-            {
-                foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims) {
-                    if (c.Type == "urn:oid:0.9.2342.19200300.100.1.1" || c.Type == "username") {
-                       <text>, userName: '@c.Value'</text>
-                    }
-                }
-            }
-        }
+        var applicationEnvironment = '@Html.EnvironmentName()';
+
         var cultureData = {
-            supportsMultiCulture: @(Html.SupportsMultiCulture() ? "true" : "false"),
-            urlSetCulture: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url })',
-            urlSetCultureNorwegian: '@Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url })',
+            friendlyUrlEN: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))',
+            friendlyUrlNO: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url }))',
             currentCulture: '@CultureHelper.GetCurrentCulture()'
-        };
+            };
     </script>
 
-    @Scripts.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts")
-    @Scripts.Render("~/Scripts/local-scripts")
-    @RenderSection("scripts", required: false)
+
 
 </head>
-<body class="geonorge-container prototype  geonorge ng-scope" ng-app="geonorge">
+<body class="geonorge-container prototype  geonorge ng-scope">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
-    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
-    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_SharedMenu.min.cshtml")
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/dist/partials/Header.html")))
+    @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
 
     <div class="body-content">
         <div class="container">
@@ -81,13 +61,13 @@
                     else
                     {
                         <ul class="nav nav-tabs link-tabs">
-                            <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> Mine metadata</a></li>
-                            <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create","Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata</a></li>
+                            <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> @UI.MyMetadata_Label</a></li>
+                            <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateMetadata</a></li>
                             @if (Html.SimpleMetadataEnabled())
                             {
-                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create","SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a></li>
+                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create", "SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a></li>
                             }
-                            <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index","Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
+                            <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
                             <li class="pull-right">
                                 @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
                                 {
@@ -140,6 +120,7 @@
             <div id="tab-content">@RenderBody()</div>
         </div>
     </div>
+
     @if (CultureHelper.IsNorwegian())
     {
         @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer.min.cshtml");
@@ -149,5 +130,21 @@
         @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer_eng.min.cshtml");
     }
 
+    <script>
+        searchOption.loginUrl = '@Html.Raw(Url.Action("SignIn", "AuthServices", new { ReturnUrl = Request.Url }))';
+        searchOption.logoutUrl = '@Html.Raw(Url.Action("LogOut", "AuthServices"))';
+        searchOption.loggedIn = @Request.IsAuthenticated.ToString().ToLower();
+        searchOption.epiBaseUrl = '@Html.GeonorgeUrl()';
+        var orderItems = Cookies.get('orderitems');
+        if (orderItems && orderItems > 0) {
+            $('.downloads__count').show();
+            $('.downloads__count').text(orderItems);
+        }
+    </script>
+    @Scripts.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts")
+    @Scripts.Render("~/Scripts/local-scripts")
+    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>

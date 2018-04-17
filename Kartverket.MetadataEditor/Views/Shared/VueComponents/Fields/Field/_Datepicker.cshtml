@@ -1,0 +1,44 @@
+﻿<script type="text/x-template" id="datepicker-template">
+    <input v-bind:name="formElement.name" v-datepicker="formElement" type="text" class="form-control date" v-bind:value="getValue()" />
+</script>
+
+
+<script>
+    var Datepicker = {
+        name: "Datepicker",
+        template: "#datepicker-template",
+        props: ['formElement'],
+        directives: {
+            'datepicker': {
+                bind: function (el, binding) {
+                    var formElement = binding.value;
+                    $(el).datepicker({
+                        'minDate': 1,
+                        onSelect: function (selectedDate) {
+                            var dateObject = new Date(selectedDate);
+
+                            // If norwegian date format
+                            var pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+                            var dateObject = new Date(selectedDate.replace(pattern, '$3-$2-$1'));
+                            // TODO: support multilingual date format
+
+                            var userTimezoneOffset = dateObject.getTimezoneOffset() * 60000;
+                            dateObject = new Date(dateObject.getTime() - userTimezoneOffset);
+                            var dateString = dateObject.toISOString().split('.')[0];
+                            if (selectedDate) {
+                                vueModel.$store.dispatch('updateField', { mutation: formElement.mutation, value: dateString });
+                            }
+                        }.bind(this)
+                    })
+                }.bind(this),
+            }
+        },
+        methods: {
+            getValue: function () {
+                var value = new Date(this.$store.getters[this.formElement.getter]);
+                return this.$store.getters[this.formElement.getter];
+            }
+        }
+    };
+</script>
+

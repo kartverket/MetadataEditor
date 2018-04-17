@@ -1,0 +1,55 @@
+﻿<script type="text/x-template" id="thumbnails-template">
+    <div v-if="$store.getters['Thumbnails']" class="striped-list">
+        <div is="thumbnail" v-show="image.Type !== 'dekningsoversikt'" v-bind:image-type="image.Type" v-bind:image-url="image.URL" v-bind:image-index="index" v-for="(image, index) in $store.getters['Thumbnails']"></div>
+    </div>
+</script>
+
+
+@Html.Partial("VueComponents/Edit/Documents/Thumbnails/_Thumbnail")
+
+<script>
+    var Thumbnails = {
+        name: "thumbnails",
+        template: "#thumbnails-template",
+        props: ["newImages"],
+        components: {
+            Thumbnail: Thumbnail
+        },
+        methods: {
+            getNewImagesArray: function () {
+                var images = [];
+                for (var property in this.newImages) {
+                    if (this.newImages.hasOwnProperty(property)) {
+                        if (property == 'filenamemini') {
+                            images.push({
+                                URL: this.$store.getters['ThumbnailUrl'] + this.newImages[property],
+                                Type: 'miniatyrbilde'
+                            });
+                        } else if (property == 'filenameMedium') {
+                            images.push({
+                                URL: this.$store.getters['ThumbnailUrl'] + this.newImages[property],
+                                Type: 'medium'
+                            });
+
+                        } else if (property == 'filename') {
+                            images.push({
+                                URL: this.$store.getters['ThumbnailUrl'] + this.newImages[property],
+                                Type: 'original'
+                            });
+                        }
+                    }
+                }
+                if (this.$root.hasCoverageImage) {
+                    images.push(this.$store.getters['SelectedCoverageImage']);
+                }
+                this.$store.commit('updateThumbnails', images);
+            }
+
+        },
+        watch: {
+            newImages: function () {
+                this.getNewImagesArray();
+            }
+        },
+    };
+</script>

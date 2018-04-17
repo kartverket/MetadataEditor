@@ -1,0 +1,428 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@using Resources
+
+
+<script type="text/x-template" id="admin-template">
+    <div>
+        @Html.Partial("_Log", Model)
+        <div v-if="!$store.getters['isSoftware']">
+            <div v-for="formElement in checkboxes">
+                <input type="checkbox" v-bind:id="formElement.name" v-bind:checked="isAdded(formElement.value)" v-bind:value="formElement.value" v-on:change="toggleCheckbox(formElement.value)" />
+                <label v-bind:for="formElement.name">{{ formElement.label }}</label>
+            </div>
+            <label>{{ keywordsCatalogs.label }}</label>
+            <div class="custom-select-list">
+                <div class="custom-select-list-input-container">
+                    <span v-if="isAdded(option.Value)" v-for="option in keywordsCatalogs.options" class="custom-select-list-selected">
+                        {{ option.Text }}
+                        <span v-on:click="removeKeyword(option.Value)" class="custom-select-list-remove-button"></span>
+                    </span>
+                    <input type="text" class="custom-select-list-input" />
+                </div>
+                <div class="custom-select-list-dropdown-container">
+                    <div class="custom-select-list-dropdown">
+                        <div class="custom-select-list-dropdown-content">
+                            <ul class="custom-select-list-options area-option-list">
+                                <li v-on:click="addKeyword(option.Value);" v-bind:class="{'is-selected': isAdded(option.Value)}" v-for="option in keywordsCatalogs.options">{{ option.Text }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-show="showSections">
+                <h3>@UI.Conformity</h3>
+                <div v-show="showSection[section.name]" class="panel panel-default" v-for="section in sections">
+                    <div class="panel-heading">{{ section.title }}</div>
+                    <div class="panel-body">
+                        <div v-show="isVisible(formElement)" v-for="formElement in section.formElements" class="row">
+                            <label class="col-md-3 control-label">{{ formElement.label }}</label>
+                            <div class="col-md-8">
+                                <div is="field" v-bind:form-element="formElement"></div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var Admin = {
+        name: "Admin",
+        template: "#admin-template",
+        components: {
+            Field: Field
+        },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Admin', fieldNames: this.fieldNames });
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Admin' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+            initCustomSelectList();
+        },
+        data: function () {
+            return {
+                errors: {},
+                fieldNames: [
+                    'KeywordsCatalogs',
+                    'QualitySpecificationTitleInspire',
+                    'QualitySpecificationDateInspire',
+                    'QualitySpecificationDateTypeInspire',
+                    'QualitySpecificationResultInspire',
+                    'QualitySpecificationExplanationInspire',
+                    'EnglishQualitySpecificationExplanationInspire',
+                    'QualitySpecificationTitleSosi',
+                    'QualitySpecificationDateSosi',
+                    'QualitySpecificationDateTypeSosi',
+                    'QualitySpecificationResultSosi',
+                    'QualitySpecificationExplanationSosi',
+                    'EnglishQualitySpecificationExplanationSosi',
+                    'QualitySpecificationResultSosiConformApplicationSchema',
+                    'QualitySpecificationResultSosiConformGmlApplicationSchema',
+                    'QualitySpecificationTitle',
+                    'QualitySpecificationDate',
+                    'QualitySpecificationDateType',
+                    'QualitySpecificationResult',
+                    'QualitySpecificationExplanation',
+                    'EnglishQualitySpecificationExplanation'
+                ],
+                checkboxes: {
+                    keywordDokValidKmd: {
+                        name: 'keyword-dok-valid-kmd',
+                        value: 'Det offentlige kartgrunnlaget',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordDokValidKmd)',
+                        type: 'checkbox'
+                    },
+                    keywordInspireValid: {
+                        name: 'keyword-inspire-valid',
+                        value: 'Inspire',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordInspireValid)',
+                        type: 'checkbox'
+                    },
+                    keywordGeodatalaw: {
+                        name: 'keyword-geodatalaw',
+                        value: 'geodataloven',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordGeodatalaw)',
+                        type: 'checkbox'
+                    },
+                    keywordNorgedigitalt: {
+                        name: 'keyword-norgedigitalt',
+                        value: 'Norge digitalt',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordNorgeDigitalt)',
+                        type: 'checkbox'
+                    },
+                    keywordArealPlans: {
+                        name: 'keyword-areal-plans',
+                        value: 'arealplanerPBL',
+                        label: '@Html.Raw(UI.Metadata_Admin_KeywordArealPlans)',
+                        type: 'checkbox'
+                    }
+                },
+                keywordsCatalogs: {
+                    name: 'KeywordsCatalogs',
+                    label: '@Html.Raw(UI.Metadata_Admin_KeywordsCatalogs)',
+                    type: 'select',
+                    options: this.$store.getters['CatalogValues']
+                },
+                sections: [
+                    {
+                        title: 'Inspire',
+                        name: 'QualitySpecificationInspire',
+                        helpText: {
+                            active: false,
+                            content: 'Referanse til Inspire er nødvendig for datasett som er omfattet av Inspire-direktivet. Datasettet eller tjenesten trenger ikke være harmonisert med datasettspesifikasjonen. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man skal velge/registrere nøkkelordet "Inspire" under samarbeid og lover.'
+                        },
+                        formElements: [
+                            {
+                                name: 'QualitySpecificationTitleInspire',
+                                getter: 'QualitySpecificationTitleInspire',
+                                readOnly: true,
+                                label: '@UI.Metadata_Admin_QualitySpecificationTitle',
+                                helpText: {
+                                    active: false,
+                                    content: 'Referansenavn på datakilde/tjeneste. Du må registrere nøkkelord "Inspire" under "Samarbeid og lover" under fanen "Nøkkelord"'
+                                },
+                                type: 'text'
+                            },
+                            {
+                                name: 'QualitySpecificationDateInspire',
+                                getter: 'QualitySpecificationDateInspire',
+                                mutation: 'updateQualitySpecificationDateInspire',
+                                type: 'datepicker',
+                                label: '@UI.Date'
+
+                            },
+                            {
+                                name: 'QualitySpecificationDateTypeInspire',
+                                getter: 'QualitySpecificationDateTypeInspire',
+                                type: 'hidden'
+                            },
+                            {
+                                name: 'QualitySpecificationResultInspire',
+                                getter: 'QualitySpecificationResultInspire',
+                                mutation: 'updateQualitySpecificationResultInspire',
+                                type: 'radio',
+                                options: [
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
+                                ]
+                            },
+                            {
+                                multilingual: {
+                                    no: {
+                                        name: 'QualitySpecificationExplanationInspire',
+                                        getter: 'QualitySpecificationExplanationInspire',
+                                        mutation: 'updateQualitySpecificationExplanationInspire'
+                                    },
+                                    en: {
+                                        name: 'EnglishQualitySpecificationExplanationInspire',
+                                        getter: 'EnglishQualitySpecificationExplanationInspire',
+                                        mutation: 'updateEnglishQualitySpecificationExplanationInspire'
+                                    }
+                                },
+                                selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                                type: 'text',
+                                label: '@Html.Raw(UI.Metadata_Abstract)',
+                                visibleGetter: 'showQualitySpecificationExplanationInspire',
+                                helpText: {
+                                    active: false,
+                                    content: 'Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"'
+                                }
+                            }
+
+                        ]
+                    },
+                    {
+                        title: 'Sosi',
+                        name: 'QualitySpecificationSosi',
+                        helpText: {
+                            active: false,
+                            content: 'Referanse til SOSI-produktspesifikasjon eller SOSI-fagområde kan legges inn for nasjonale datasett. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med SOSI. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man må velge/registere produktspesifikasjon.'
+                        },
+                        formElements: [
+                            {
+                                name: 'QualitySpecificationTitleSosi',
+                                getter: 'QualitySpecificationTitleSosi',
+                                readOnly: true,
+                                label: '@UI.Metadata_Admin_QualitySpecificationTitle',
+                                helpText: {
+                                    active: false,
+                                    content: 'Referansenavn på datakilde/tjeneste. Du må velge "Produktspesifikasjon" under fanen "Dokumentasjon". Dersom ønsket ikke finnes i listen må du først registrere produktspesifikasjonen i registeret.'
+                                },
+                                type: 'text'
+                            },
+                            {
+                                name: 'QualitySpecificationDateSosi',
+                                getter: 'QualitySpecificationDateSosi',
+                                mutation: 'updateQualitySpecificationDateSosi',
+                                type: 'datepicker',
+                                label: '@UI.Date'
+
+                            },
+                            {
+                                name: 'QualitySpecificationDateTypeSosi',
+                                getter: 'QualitySpecificationDateTypeSosi',
+                                type: 'hidden'
+                            },
+                            {
+                                name: 'QualitySpecificationResultSosi',
+                                getter: 'QualitySpecificationResultSosi',
+                                mutation: 'updateQualitySpecificationResultSosi',
+                                type: 'radio',
+                                options: [
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
+                                ]
+                            },
+                            {
+                                multilingual: {
+                                    no: {
+                                        name: 'QualitySpecificationExplanationSosi',
+                                        getter: 'QualitySpecificationExplanationSosi',
+                                        mutation: 'updateQualitySpecificationExplanationSosi'
+                                    },
+                                    en: {
+                                        name: 'EnglishQualitySpecificationExplanationSosi',
+                                        getter: 'EnglishQualitySpecificationExplanationSosi',
+                                        mutation: 'updateEnglishQualitySpecificationExplanationSosi'
+                                    }
+                                },
+                                selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                                type: 'text',
+                                label: '@Html.Raw(UI.Metadata_Abstract)',
+                                visibleGetter: 'showQualitySpecificationExplanationSosi',
+                                helpText: {
+                                    active: false,
+                                    content: 'Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"'
+                                }
+                            },
+                            {
+                                name: 'QualitySpecificationResultSosiConformApplicationSchema',
+                                getter: 'QualitySpecificationResultSosiConformApplicationSchema',
+                                mutation: 'updateQualitySpecificationResultSosiConformApplicationSchema',
+                                type: 'radio',
+                                options: [
+                                    { Text: '@UI.QualitySpecificationResultSosiConformApplicationSchema', Value: 'true' },
+                                    { Text: '@UI.QualitySpecificationResultNotSosiConformApplicationSchema', Value: 'false' }
+                                   ]
+                            },
+                            {
+                                name: 'QualitySpecificationResultSosiConformGmlApplicationSchema',
+                                getter: 'QualitySpecificationResultSosiConformGmlApplicationSchema',
+                                mutation: 'updateQualitySpecificationResultSosiConformGmlApplicationSchema',
+                                type: 'radio',
+                                options: [
+                                    { Text: '@UI.QualitySpecificationResultSosiConformGmlApplicationSchema', Value: 'true' },
+                                    { Text: '@UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema', Value: 'false' }
+                                ]
+                            }
+
+                        ]
+                    },
+                    {
+                        title: '@UI.QualitySpecificationCustom',
+                        name: 'QualitySpecificationCustom',
+                        helpText: {
+                            active: false,
+                            content: '<b>Nasjonale eller internasjonale fagdata:</b> Datasett som følger egen standard, fagstandard eller internasjonal standard skal referere til denne. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med standarden, men da skal det heller ikke hukes av for "Er datasettet produsert iht angitt produktspesifikasjon?". Man må velge/registere produktspesifikasjon annen (navn).<br/><b>Datasett og tjenester som ikke bygger på en standard:</b> Det skal her refereres til egen dokumentasjon, eller fylles inn "Mangler"</p>'
+                        },
+                        formElements: [
+                            {
+                                name: 'QualitySpecificationTitle',
+                                getter: 'QualitySpecificationTitle',
+                                readOnly: true,
+                                label: '@UI.Metadata_Admin_QualitySpecificationTitle',
+                                helpText: {
+                                    active: false,
+                                    content: 'Referansenavn på datakilde/tjeneste. Du må først skrive inn "Produktspesifikasjon annen (navn)" under fanen "Dokumentasjon"'
+                                },
+                                type: 'text'
+                            },
+                            {
+                                name: 'QualitySpecificationDate',
+                                getter: 'QualitySpecificationDate',
+                                mutation: 'updateQualitySpecificationDate',
+                                type: 'datepicker',
+                                label: '@UI.Date'
+
+                            },
+                            {
+                                name: 'QualitySpecificationDateType',
+                                getter: 'QualitySpecificationDateType',
+                                type: 'hidden'
+                            },
+                            {
+                                name: 'QualitySpecificationResult',
+                                getter: 'QualitySpecificationResult',
+                                mutation: 'updateQualitySpecificationResult',
+                                type: 'radio',
+                                options: [
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
+                                ]
+                            },
+                            {
+                                multilingual: {
+                                    no: {
+                                        name: 'QualitySpecificationExplanation',
+                                        getter: 'QualitySpecificationExplanation',
+                                        mutation: 'updateQualitySpecificationExplanation'
+                                    },
+                                    en: {
+                                        name: 'EnglishQualitySpecificationExplanation',
+                                        getter: 'EnglishQualitySpecificationExplanation',
+                                        mutation: 'updateEnglishQualitySpecificationExplanation'
+                                    }
+                                },
+                                selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                                type: 'text',
+                                label: '@Html.Raw(UI.Metadata_Abstract)',
+                                visibleGetter: 'showQualitySpecificationExplanation',
+                                helpText: {
+                                    active: false,
+                                    content: 'Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen bygger på nasjonal standard (SOSI) og er ikke forsøkt harmonisert i henhold til INSPIRE". Hvis ressursen er i henhold til spesifikasjonen kan en benytte teksten: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"'
+                                }
+                            }
+
+                        ]
+                    }
+                ]
+            }
+        },
+        computed: {
+            showSections: function () {
+                for (var section in this.showSection) {
+                    if (this.showSection.hasOwnProperty(section)) {
+                        if (this.showSection[section]) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            },
+            showSection: function () {
+                var inspireKeywordIsAdded = this.isAdded('Inspire');
+                var sosiKeywordIsAdded = this.isAdded('Det offentlige kartgrunnlaget') || this.isAdded('geodataloven') || this.isAdded('Norge digitalt') || this.isAdded('arealplanerPBL');
+                var productSpecificationUrlIsAdded = this.$store.getters['ProductSpecificationUrl'] !== null && this.$store.getters['ProductSpecificationUrl'].length > 0;
+                var otherProductSpecificationIsAdded = this.$store.getters['ProductSpecificationOtherName'] !== null && this.$store.getters['ProductSpecificationOtherName'].length > 0;
+
+                return {
+                    QualitySpecificationInspire: inspireKeywordIsAdded,
+                    QualitySpecificationSosi: sosiKeywordIsAdded && productSpecificationUrlIsAdded,
+                    QualitySpecificationCustom: otherProductSpecificationIsAdded
+                };
+            }
+        },
+        methods: {
+            toggleCheckbox: function (keyword) {
+                if (this.isAdded(keyword)) {
+                    this.removeKeyword(keyword);
+                } else {
+                    this.addKeyword(keyword);
+                }
+            },
+            addKeyword: function (keyword) {
+                this.$store.dispatch('addMultilingualKeyword', { keywordName: 'NationalInitiative', value: keyword });
+            },
+            removeKeyword: function (keyword) {
+                keywordIndex = null;
+                this.$store.getters['KeywordsNationalInitiative'].forEach(function (addedKeyword, index) {
+                    if (keyword == addedKeyword) keywordIndex = index;
+                });
+                if (keywordIndex !== null) {
+                    this.$store.dispatch('removeMultilingualKeyword', { keywordName: 'NationalInitiative', keywordIndex: keywordIndex });
+                }
+            },
+            isAnOption: function (keyword) {
+                var isAnOption = false;
+                this.options.forEach(function (option) {
+                    if (option.Value == keyword) isAnOption = true;
+                });
+                return isAnOption;
+            },
+            isAdded: function (keyword) {
+                var isAdded = false;
+                if (this.$store.getters['KeywordsNationalInitiative'] !== null) {
+                    this.$store.getters['KeywordsNationalInitiative'].forEach(function (addedKeyword) {
+                        if (keyword == addedKeyword) isAdded = true;
+                    });
+                }
+                return isAdded;
+            },
+            isVisible: function (formElement) {
+                if (formElement.visibleGetter !== undefined) {
+                    return this.$store.getters[formElement.visibleGetter] === true || this.$store.getters[formElement.visibleGetter] == 'true';
+                } else if (formElement.visible !== undefined) {
+                    return formElement.visible === true || formElement.visible == 'true';
+                } else {
+                    return true;
+                }
+            },
+            GetLog: function () { // Replace jQuery ID-binding with Vue-bindings
+                $("#logLink").attr("href", '/Metadata/Edit?uuid=@Model.Uuid&displayLog=true&displayLogLatest=true&limitNumberOfEntries=' + $('#limitNumberOfEntries').val() + '&operation=' + $('#operation').val());
+            }
+        }
+    };
+</script>

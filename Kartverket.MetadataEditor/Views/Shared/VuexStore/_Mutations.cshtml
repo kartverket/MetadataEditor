@@ -1,0 +1,490 @@
+﻿<script>
+    var Mutations = {
+        updateSettings: function (state, payload) {
+            state.settings = payload;
+        },
+        updateSettingsSelectedTab: function (state, payload) {
+            state.settings.selectedTab = payload;
+        },
+        updateSettingsLanguages: function (state, payload) {
+            state.settings.languages = payload;
+        },
+        updateSettingsLanguages_all: function (state, payload) {
+            state.settings.languages.all = payload;
+        },
+        updateSettingsLanguages_en: function (state, payload) {
+            state.settings.languages.en = payload;
+        },
+        updateSettingsLanguages_no: function (state, payload) {
+            state.settings.languages.no = payload;
+        },
+        updateSettingsSelectedLanguage: function (state, payload) {
+            state.settings.selectedLanguage = payload;
+        },
+        updateTitle: function (state, payload) {
+            state.model.Title = payload;
+        },
+        updateEnglishTitle: function (state, payload) {
+            state.model.EnglishTitle = payload;
+        },
+        updateResourceReferenceCodespace: function (state, payload) {
+            state.model.ResourceReferenceCodespace = payload;
+        },
+        updateResourceReferenceCode: function (state, payload) {
+            state.model.ResourceReferenceCode = payload;
+        },
+        updateAbstract: function (state, payload) {
+            state.model.Abstract = payload;
+        },
+        updateEnglishAbstract: function (state, payload) {
+            state.model.EnglishAbstract = payload;
+        },
+        updateSupplementalDescription: function (state, payload) {
+            state.model.SupplementalDescription = payload;
+        },
+        updateEnglishSupplementalDescription: function (state, payload) {
+            state.model.EnglishSupplementalDescription = payload;
+        },
+        updateHelpUrl: function (state, payload) {
+            state.model.HelpUrl = payload;
+        },
+        updateSpecificUsage: function (state, payload) {
+            state.model.SpecificUsage = payload;
+        },
+        updateEnglishSpecificUsage: function (state, payload) {
+            state.model.EnglishSpecificUsage = payload;
+        },
+        updatePurpose: function (state, payload) {
+            state.model.Purpose = payload;
+        },
+        updateEnglishPurpose: function (state, payload) {
+            state.model.EnglishPurpose = payload;
+        },
+        updateDateUpdated: function (state, payload) {
+            state.model.DateUpdated = payload;
+        },
+        updateDatePublished: function (state, payload) {
+            state.model.DatePublished = payload;
+        },
+        updateDateCreated: function (state, payload) {
+            state.model.DateCreated = payload;
+        },
+        updateDateMetadataValidFrom: function (state, payload) {
+            state.model.DateMetadataValidFrom = payload;
+        },
+        updateDateMetadataValidTo: function (state, payload) {
+            state.model.DateMetadataValidTo = payload;
+        },
+        updateMaintenanceFrequency: function (state, payload) {
+            state.model.MaintenanceFrequency = payload;
+        },
+        updateBoundingBoxNorth: function (state, payload) {
+            state.model.BoundingBoxNorth = payload;
+        },
+        updateBoundingBoxEast: function (state, payload) {
+            state.model.BoundingBoxEast = payload;
+        },
+        updateBoundingBoxSouth: function (state, payload) {
+            state.model.BoundingBoxSouth = payload;
+        },
+        updateBoundingBoxWest: function (state, payload) {
+            state.model.BoundingBoxWest = payload;
+        },
+        updateCoverageUrl: function (state, payload) {
+            state.model.CoverageUrl = payload;
+        },
+        updateContactMetadata: function (state, payload) {
+            state.model.ContactMetadata = payload;
+        },
+        updateContactMetadataName: function (state, payload) {
+            state.model.ContactMetadata.Name = payload;
+        },
+        updateContactMetadataEmail: function (state, payload) {
+            state.model.ContactMetadata.Email = payload;
+        },
+        updateContactMetadataOrganization: function (state, payload) {
+            state.model.ContactMetadata.Organization = payload;
+        },
+        updateContactMetadataRole: function (state, payload) {
+            state.model.ContactMetadata.Role = payload;
+        },
+        updateContactPublisher: function (state, payload) {
+            state.model.ContactPublisher = payload;
+        },
+        updateContactPublisherName: function (state, payload) {
+            state.model.ContactPublisher.Name = payload;
+        },
+        updateContactPublisherEmail: function (state, payload) {
+            state.model.ContactPublisher.Email = payload;
+        },
+        updateContactPublisherOrganization: function (state, payload) {
+            state.model.ContactPublisher.Organization = payload;
+        },
+        updateContactPublisherRole: function (state, payload) {
+            state.model.ContactPublisher.Role = payload;
+        },
+        updateContactOwner: function (state, payload) {
+            state.model.ContactOwner = payload;
+        },
+        updateContactOwnerName: function (state, payload) {
+            state.model.ContactOwner.Name = payload;
+        },
+        updateContactOwnerEmail: function (state, payload) {
+            state.model.ContactOwner.Email = payload;
+        },
+        updateContactOwnerOrganization: function (state, payload) {
+            state.model.ContactOwner.Organization = payload;
+        },
+        updateContactOwnerRole: function (state, payload) {
+            state.model.ContactOwner.Role = payload;
+        },
+        updateSpatialRepresentation: function (state, payload) {
+            state.model.SpatialRepresentation = payload;
+        },
+        updateSpatialRepresentationValues: function (state, payload) {
+            state.viewBag.SpatialRepresentationValues = payload;
+        },
+        updateVectorFormats: function (state, payload) {
+            state.viewBag.VectorFormats = payload;
+        },
+        updateRasterFormats: function (state, payload) {
+            state.viewBag.RasterFormats = payload;
+        },
+        updateTextFormats: function (state, payload) {
+            state.data.TextFormats = payload;
+        },
+        updateTinFormats: function (state, payload) {
+            state.data.TinFormats = payload;
+        },
+        updateStereoImageFormats: function (state, payload) {
+            state.data.StereoImageFormats = payload;
+        },
+        updateVideoFormats: function (state, payload) {
+            state.data.VideoFormats = payload;
+        },
+
+        addFormatDistributions: function (state) {
+            state.model.FormatDistributions.push({
+                Key: {
+                    Organization: '',
+                    Protocol: '',
+                    Url: ''
+                },
+                Value: {
+                    Details: {
+                        Organization: '',
+                        Protocol: '',
+                        URL: '',
+                        EnglishUnitsOfDistribution: null,
+                        FormatName: null,
+                        FormatVersion: null,
+                        Name: null,
+                        UnitsOfDistribution: null
+                    },
+                    Formats: []
+                }
+            });
+        },
+        removeFormatDistributions: function (state, payload) {
+            state.model.FormatDistributions.splice(payload.distributionIndex, 1);
+        },
+        updateFormatDistributions: function (state, payload) {
+            state.model.FormatDistributions = payload;
+        },
+
+        updateFormatDistributionsOrganization: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Key.Organization = payload.value;
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.Organization = payload.value;
+        },
+        updateFormatDistributionsProtocol: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Key.Protocol = payload.value;
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.Protocol = payload.value;
+        },
+        updateFormatDistributionsURL: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Key.Url = payload.value;
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.URL = payload.value;
+        },
+
+        addFormatDistributionsFormat: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats.push({ Name: "", Version: "" });
+        },
+        removeFormatDistributionsFormat: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats.splice(payload.distributionFormatIndex, 1);
+        },
+        updateFormatDistributionsFormat: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex] = payload.value;
+        },
+        updateFormatDistributionsFormatName: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex].Name = payload.value;
+        },
+        updateFormatDistributionsFormatVersion: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Formats[payload.distributionFormatIndex].Version = payload.value;
+        },
+        updateDistributionsFormats: function (state, payload) {
+            state.model.DistributionFormats = payload;
+        },
+        updateFormatDistributionsUnitsOfDistribution: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution = payload.value;
+        },
+        updateReferenceSystems: function (state, payload) {
+            state.model.ReferenceSystems = payload;
+        },
+        updateReferenceSystemsCoordinateSystem: function (state, payload) {
+            state.model.ReferenceSystems[payload.arrayIndex].CoordinateSystem = payload.value;
+        },
+        updateReferenceSystemsNamespace: function (state, payload) {
+            state.model.ReferenceSystems[payload.arrayIndex].Namespace = payload.value;
+        },
+        updateReferenceSystemsValues: function (state) {
+            state.viewBag.ReferenceSystemsValues = payload;
+        },
+        updateProductSpecificationUrl: function (state, payload) {
+            state.model.ProductSpecificationUrl = payload;
+        },
+        updateProductspesificationValues: function (state, payload) {
+            state.viewBag.ProductspesificationValues = payload;
+        },
+        updateApplicationSchema: function (state, payload) {
+            state.model.ApplicationSchema = payload;
+        },
+        updateKeywordsConcept: function (state, payload) {
+            state.model.KeywordsConcept = payload;
+        },
+        updateProductSpecificationOther: function (state, payload) {
+            state.model.ProductSpecificationOther = payload;
+        },
+        updateProductSpecificationOtherName: function (state, payload) {
+            state.model.ProductSpecificationOther.Name = payload;
+        },
+        updateProductSpecificationOtherURL: function (state, payload) {
+            state.model.ProductSpecificationOther.URL = payload;
+        },
+        updateProductSheetUrl: function (state, payload) {
+            state.model.ProductSheetUrl = payload;
+        },
+        updateProductsheetValues: function (state, payload) {
+            state.viewBag.ProductsheetValues = payload;
+        },
+        updateLegendDescriptionUrl: function (state, payload) {
+            state.model.LegendDescriptionUrl = payload;
+        },
+        updateLegendDescriptionValues: function (state, payload) {
+            state.viewBag.LegendDescriptionValues = payload;
+        },
+        updateProductPageUrl: function (state, payload) {
+            state.model.ProductPageUrl = payload;
+        },
+        updateThumbnailUrl: function (state, payload) {
+            state.viewBag.ThumbnailUrl = payload;
+        },
+        updateThumbnails: function (state, payload) {
+            state.model.Thumbnails = payload;
+        },
+        updateUseLimitations: function (state, payload) {
+            state.model.UseLimitations = payload;
+        },
+        updateEnglishUseLimitations: function (state, payload) {
+            state.model.EnglishUseLimitations = payload;
+        },
+        updateAccessConstraints: function (state, payload) {
+            state.model.AccessConstraints = payload;
+        },
+        updateAccessConstraintValues: function (state, payload) {
+            state.viewBag.AccessConstraintValues = payload;
+        },
+        updateUseConstraints: function (state, payload) {
+            state.model.UseConstraints = payload;
+        },
+        updateUseConstraintValues: function (state, payload) {
+            state.viewBag.UseConstraintValues = payload;
+        },
+        updateLicenseTypesValues: function (state, payload) {
+            state.viewBag.LicenseTypesValues = payload;
+        },
+        updateOtherConstraintsLinkText: function (state, payload) {
+            state.model.OtherConstraintsLinkText = payload;
+        },
+        updateOtherConstraintsLink: function (state, payload) {
+            state.model.OtherConstraintsLink = payload;
+        },
+        updateOtherConstraints: function (state, payload) {
+            state.model.OtherConstraints = payload;
+        },
+        updateEnglishOtherConstraints: function (state, payload) {
+            state.model.EnglishOtherConstraints = payload;
+        },
+        updateSecurityConstraints: function (state, payload) {
+            state.model.SecurityConstraints = payload;
+        },
+        updateSecurityConstraintValues: function (state, payload) {
+            state.viewBag.SecurityConstraintValues = payload;
+        },
+        updateSecurityConstraintsNote: function (state, payload) {
+            state.model.SecurityConstraintsNote = payload;
+        },
+        updateTopicCategory: function (state, payload) {
+            state.model.TopicCategory = payload;
+        },
+        updateTopicCategoryValues: function (state, payload) {
+            state.viewBag.TopicCategoryValues = payload;
+        },
+        updateKeywordsTheme: function (state, payload) {
+            state.model.KeywordsTheme = payload;
+        },
+        updateKeywordsNationalTheme: function (state, payload) {
+            state.model.KeywordsNationalTheme = payload;
+        },
+        updateNationalThemeValues: function (state, payload) {
+            state.viewBag.NationalThemeValues = payload;
+        },
+        updateKeywordsNationalInitiative: function (state, payload) {
+            state.model.KeywordsNationalInitiative = payload;
+        },
+        updateNationalInitiativeValues: function (state, payload) {
+            state.viewBag.NationalInitiativeValues = payload;
+        },
+        updateKeywordsInspire: function (state, payload) {
+            state.model.KeywordsInspire = payload;
+        },
+        updateInspireValues: function (state, payload) {
+            state.viewBag.InspireValues = payload;
+        },
+        updateKeywordsInspirePriorityDataset: function (state, payload) {
+            state.model.KeywordsInspirePriorityDataset = payload;
+        },
+        updateInspirePriorityDatasets: function (state, payload) {
+            state.viewBag.InspirePriorityDatasets = payload;
+        },
+        updateKeywordsOther: function (state, payload) {
+            state.model.KeywordsOther = payload;
+        },
+        updateKeywordsEnglish: function (state, payload) {
+            state.model.KeywordsEnglish = payload;
+        },
+        updateResolutionScale: function (state, payload) {
+            state.model.ResolutionScale = payload;
+        },
+        updateStatus: function (state, payload) {
+            state.model.Status = payload;
+        },
+        updateStatusValues: function (state, payload) {
+            state.viewBag.StatusValues = payload;
+        },
+        updateProcessHistory: function (state, payload) {
+            state.model.ProcessHistory = payload;
+        },
+        updateEnglishProcessHistory: function (state, payload) {
+            state.model.EnglishProcessHistory = payload;
+        },
+        updateOrderingInstructions: function (state, payload) {
+            state.model.OrderingInstructions = payload;
+        },
+        updateOrderingInstructionsValues: function (state, payload) {
+            state.viewBag.OrderingInstructionsValues = payload;
+        },
+        updateKeywordDokValidKmd: function (state, payload) {
+            state.data.KeywordDokValidKmd = payload;
+        },
+        updateKeywordInspireValid: function (state, payload) {
+            state.data.KeywordInspireValid = payload;
+        },
+        updateKeywordGeodatalaw: function (state, payload) {
+            state.data.KeywordGeodatalaw;
+        },
+        updateKeywordsCatalogs: function (state, payload) {
+            state.data.KeywordsCatalogs = payload;
+        },
+        updateCatalogValues: function (state, payload) {
+            state.viewBag.CatalogValues = payload;
+        },
+        updateKeywordNorgedigitalt: function (state, payload) {
+            state.data.KeywordNorgedigitalt = payload;
+        },
+        updateKeywordArealPlans: function (state, payload) {
+            state.data.KeywordArealPlans = payload;
+        },
+        updateQualitySpecificationTitleInspire: function (state, payload) {
+            state.model.QualitySpecificationTitleInspire = payload;
+        },
+        updateQualitySpecificationDateInspire: function (state, payload) {
+            state.model.QualitySpecificationDateInspire = payload;
+        },
+        updateQualitySpecificationDateTypeInspire: function (state, payload) {
+            state.model.QualitySpecificationDateTypeInspire = payload;
+        },
+        updateQualitySpecificationResultInspire: function (state, payload) {
+            state.model.QualitySpecificationResultInspire = payload;
+        },
+        updateQualitySpecificationExplanationInspire: function (state, payload) {
+            state.model.QualitySpecificationExplanationInspire = payload;
+        },
+        updateEnglishQualitySpecificationExplanationInspire: function (state, payload) {
+            state.model.EnglishQualitySpecificationExplanationInspire = payload;
+        },
+        updateQualitySpecificationTitleSosi: function (state, payload) {
+            state.model.QualitySpecificationTitleSosi = payload;
+        },
+        updateQualitySpecificationDateSosi: function (state, payload) {
+            state.model.QualitySpecificationDateSosi = payload;
+        },
+        updateQualitySpecificationDateTypeSosi: function (state, payload) {
+            state.model.QualitySpecificationDateTypeSosi = payload;
+        },
+        updateQualitySpecificationResultSosi: function (state, payload) {
+            state.model.QualitySpecificationResultSosi = payload;
+        },
+        updateQualitySpecificationExplanationSosi: function (state, payload) {
+            state.model.QualitySpecificationExplanationSosi = payload;
+        },
+        updateEnglishQualitySpecificationExplanationSosi: function (state, payload) {
+            state.model.EnglishQualitySpecificationExplanationSosi = payload;
+        },
+        updateQualitySpecificationResultSosiConformApplicationSchema: function (state, payload) {
+            state.model.QualitySpecificationResultSosiConformApplicationSchema = payload;
+        },
+        updateQualitySpecificationResultSosiConformGmlApplicationSchema: function (state, payload) {
+            state.model.QualitySpecificationResultSosiConformGmlApplicationSchema = payload;
+        },
+        updateQualitySpecificationTitle: function (state, payload) {
+            state.model.QualitySpecificationTitle = payload;
+        },
+        updateQualitySpecificationDate: function (state, payload) {
+            state.model.QualitySpecificationDate = payload;
+        },
+        updateQualitySpecificationDateType: function (state, payload) {
+            state.model.QualitySpecificationDateType = payload;
+        },
+        updateQualitySpecificationResult: function (state, payload) {
+            state.model.QualitySpecificationResult = payload;
+        },
+        updateQualitySpecificationExplanation: function (state, payload) {
+            state.model.QualitySpecificationExplanation = payload;
+        },
+        updateEnglishQualitySpecificationExplanation: function (state, payload) {
+            state.model.EnglishQualitySpecificationExplanation = payload;
+        },
+        addEmptyValueToArray: function (state, payload) {
+            if (state.model[payload] == undefined) {
+                state.model[payload] = [];
+            }
+            state.model[payload].push("");
+        },
+        addValueToArray: function (state, payload) {
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            if (state[stateProperty][payload.arrayName] == undefined) {
+
+                state[stateProperty][payload.arrayName] = [];
+            }
+            state[stateProperty][payload.arrayName].push(payload.value);
+        },
+        updateArrayValue: function (state, payload) {
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            Vue.set(state[stateProperty][payload.arrayName], payload.arrayIndex, payload.value);
+        },
+        removeValueFromArray: function (state, payload) {
+            var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
+            Vue.delete(state[stateProperty][payload.arrayName], payload.arrayIndex);
+        }
+
+    }
+</script>

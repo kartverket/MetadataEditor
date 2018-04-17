@@ -56,6 +56,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Resources.UI.AddKeyword">
+            <summary>
+              Looks up a localized string similar to Legg til nøkkelord.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AppPageTitle">
             <summary>
               Looks up a localized string similar to Geonorge - metadataeditor.
@@ -86,6 +91,21 @@
               Looks up a localized string similar to Publiser.
             </summary>
         </member>
+        <member name="P:Resources.UI.Cartography">
+            <summary>
+              Looks up a localized string similar to Tegneregler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Concepts">
+            <summary>
+              Looks up a localized string similar to Begreper.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Conformity">
+            <summary>
+              Looks up a localized string similar to Konformitet.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Contact_Email">
             <summary>
               Looks up a localized string similar to Kontaktperson - Epost.
@@ -101,9 +121,89 @@
               Looks up a localized string similar to Kontaktperson - Organisasjonsnavn.
             </summary>
         </member>
+        <member name="P:Resources.UI.ContactUs">
+            <summary>
+              Looks up a localized string similar to Kontakt oss.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.CreateMetadata">
+            <summary>
+              Looks up a localized string similar to Opprett metadata.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.CreateProductFactSheet">
+            <summary>
+              Looks up a localized string similar to Opprett produktark.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Custom">
+            <summary>
+              Looks up a localized string similar to Egendefinert.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DataProductSiteUrl">
+            <summary>
+              Looks up a localized string similar to Produktside (URL).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DataProductSpecification">
+            <summary>
+              Looks up a localized string similar to Produktspesifikasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DatasetName">
+            <summary>
+              Looks up a localized string similar to Navn på datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Date">
+            <summary>
+              Looks up a localized string similar to Dato.
+            </summary>
+        </member>
         <member name="P:Resources.UI.DateCreated_InvalidDate">
             <summary>
               Looks up a localized string similar to Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Delete">
+            <summary>
+              Looks up a localized string similar to Slett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DisplayInCatalogue">
+            <summary>
+              Looks up a localized string similar to Vis i katalog.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DisplayInMapCatalogue">
+            <summary>
+              Looks up a localized string similar to Vis i kartkatalogen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Distribution">
+            <summary>
+              Looks up a localized string similar to Distribusjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DistributionProtocolMissing">
+            <summary>
+              Looks up a localized string similar to Vennligst fyll ut distribusjonstype.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DistributionType">
+            <summary>
+              Looks up a localized string similar to Distribusjonstype.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.DownloadXml">
+            <summary>
+              Looks up a localized string similar to Last ned XML.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.East">
+            <summary>
+              Looks up a localized string similar to Øst.
             </summary>
         </member>
         <member name="P:Resources.UI.EditMetadata">
@@ -111,10 +211,31 @@
               Looks up a localized string similar to Rediger metadata.
             </summary>
         </member>
+        <member name="P:Resources.UI.Enter">
+            <summary>
+              Looks up a localized string similar to Skriv inn.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Error">
+            <summary>
+              Looks up a localized string similar to Feil.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Error_InvalidUuid">
             <summary>
               Looks up a localized string similar to Ugyldig uuid.
             </summary>
+        </member>
+        <member name="P:Resources.UI.ErrorInfo">
+            <summary>
+              Looks up a localized string similar to Det har desverre skjedd en feil med din forespørsel. Prøv igjen om litt..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ErrorReport">
+             <summary>
+               Looks up a localized string similar to &lt;p&gt;Feilen er logget og vil sjekkes av systemansvarlig.&lt;/p&gt;
+            &lt;p&gt;Du kan også rapportere feilen til &lt;a mailto:&quot;post@norgedigitalt.no&quot;&gt;post@norgedigitalt.no&lt;/a&gt;.&lt;/p&gt;.
+             </summary>
         </member>
         <member name="P:Resources.UI.FieldMustBeDate">
             <summary>
@@ -124,6 +245,46 @@
         <member name="P:Resources.UI.FieldMustBeNumeric">
             <summary>
               Looks up a localized string similar to {0} må være et tall..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.FormatNew">
+            <summary>
+              Looks up a localized string similar to Nytt format.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Formats">
+            <summary>
+              Looks up a localized string similar to Formater.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.FormValidationErrors">
+            <summary>
+              Looks up a localized string similar to Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.FreeText">
+            <summary>
+              Looks up a localized string similar to Fritekst.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.GeographicExtent">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Get">
+            <summary>
+              Looks up a localized string similar to Hent.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.GraphicsOverview">
+            <summary>
+              Looks up a localized string similar to Illustrasjonsbilde.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_AccessConstraints">
+            <summary>
+              Looks up a localized string similar to &lt;b&gt;Åpne data&lt;/b&gt;: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn)&amp;nbsp;&lt;b&gt;Norge digital-begrenset&lt;/b&gt;: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). &lt;b&gt;Skjermede data&lt;/b&gt;: Data som ikke er tilgjengelige for nedlasting (rød)..
             </summary>
         </member>
         <member name="P:Resources.UI.Helptext_BoundingBox">
@@ -146,9 +307,209 @@
               Looks up a localized string similar to Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. &quot;Navn&quot; kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no.
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_DistributionsFormats">
+            <summary>
+              Looks up a localized string similar to Flere format kan angis. Versjon av formatet som leveres via filer eller tjenester, for eksempel gml 3.2.1..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_DistributionsFormatsDistributionName">
+            <summary>
+              Looks up a localized string similar to Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_DistributionsFormatsProtocol">
+            <summary>
+              Looks up a localized string similar to Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_DistributionsFormatsURL">
+            <summary>
+              Looks up a localized string similar to Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut)..
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_Image">
             <summary>
               Looks up a localized string similar to Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_KeywordsInspire">
+            <summary>
+              Looks up a localized string similar to Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste)..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_KeywordsNationalInitiative">
+            <summary>
+              Looks up a localized string similar to Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_KeywordsNationalTheme">
+            <summary>
+              Looks up a localized string similar to En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_KeywordsOther">
+            <summary>
+              Looks up a localized string similar to Denne nøkkelordtypen skal helst ikke brukes, men her vises nøkkelord som ikke er spesifisert å tilhøre en spesifikk nøkkelordkategori. Det anbefales at nøkkelord fjernes fra denne kategorien og legges inn under riktig kategori..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_KeywordsPlace">
+            <summary>
+              Looks up a localized string similar to Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_KeywordsTheme">
+            <summary>
+              Looks up a localized string similar to Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_LicenseTypes">
+            <summary>
+              Looks up a localized string similar to Lisens for datasettet/datatjenesten..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_OrderingInstructions">
+            <summary>
+              Looks up a localized string similar to For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens &quot;generelle vilkår&quot; oppgis..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_ProcessHistory">
+            <summary>
+              Looks up a localized string similar to Dataprodusentens generelle kunnskap om opprinnelsen og prosesshistorien til et datasett eller tjeneste. Forklar kort hvilke vikte operasjoner som er gjort fra datafangst til leveranse, og hvordan dette eventuelt påvirker kvalitet og innhold i datasettet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_ResolutionScale">
+            <summary>
+              Looks up a localized string similar to Målestokkstallet skal legges inn som et heltall (eks: 5000).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_SecurityConstraints">
+            <summary>
+              Looks up a localized string similar to Sikkerhetsnivå på datasettet/datatjenesten..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_SecurityConstraintsNote">
+            <summary>
+              Looks up a localized string similar to Grunngiving av tilgangsbegrensninger eller bruksbegrensninger i form av juridiske forhold eller andre begrensende faktorer. Her kan en henvise til lov, forskrift eller lignende..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_Status">
+            <summary>
+              Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_SupplementalDescription">
+            <summary>
+              Looks up a localized string similar to Oppgi informasjon og veiledning om hvordan datasettet er organisert, mulige tekniske forhold ved formater og annet som gjør det lettere å ta i bruk datasettet..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_TopicCategory">
+            <summary>
+              Looks up a localized string similar to Tematisk inndeling definert i metadatastandarden..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_UseConstraints">
+            <summary>
+              Looks up a localized string similar to Krav som må være oppfylt for å anvende datasettet/tjenesten..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Helptext_UseLimitations">
+            <summary>
+              Looks up a localized string similar to Angir hvilke områder dataene ikke er egnet for. F.eks &quot;dataene er ikke egnet for kommunens arealplanarbeide&quot; eller &quot;må ikke brukes til å navigere etter&quot;. En bør også oppgi hvorfor det er begrensninger på bruk..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextAbstract">
+            <summary>
+              Looks up a localized string similar to Oppgi hva tjenesten/datasettet inneholder. Hva finner brukeren i denne tjenesten/datasettet..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextDate">
+            <summary>
+              Looks up a localized string similar to Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at &quot;Dato sist oppdatert&quot; benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste (&quot;Opprettet dato&quot;) eller første publikasjon av datasett/tjeneste (&quot;Publiseringsdato&quot;). Tidsperiode (&quot;Gyldig fra dato&quot; og &quot;Gyldig til dato&quot;) datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre f [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextHelpUrl">
+            <summary>
+              Looks up a localized string similar to Oppgi link til ekstern side eller PDF-dokument med informasjon og veiledning som gjør det lettere å ta i bruk datasettet..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextMaintenanceFrequency">
+            <summary>
+              Looks up a localized string similar to Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextPurpose">
+            <summary>
+              Looks up a localized string similar to Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her. Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert. Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextResourceReferenceCode">
+            <summary>
+              Looks up a localized string similar to Fullstendig navn på selve datasettet..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextResourceReferenceCodespace">
+            <summary>
+              Looks up a localized string similar to Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.Eksempel: http://data.geonorge.no/so/.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextSpesificUsage">
+            <summary>
+              Looks up a localized string similar to Oppgi hvilke oppgaver datasettet kan/bør brukes til.For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå. Bruksbegrensninger fylles inn i fanen Restriksjoner.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpTextTitle">
+            <summary>
+              Looks up a localized string similar to Navn på metadataoppføringen. Navnet skal være kort og konsist og beskrive tjenesten/datasettet best mulig. Generelle begreper må settes inn i en faglig kontekst (eks: Kulturminner - lokaliteter). Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon. Navnet kan også inneholde årstall og geografisk område..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.HelpUrl">
+            <summary>
+              Looks up a localized string similar to URL til hjelp.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Home">
+            <summary>
+              Looks up a localized string similar to Forside.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.IgnoreErrors">
+            <summary>
+              Looks up a localized string similar to Ignorer feil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ImageLarge">
+            <summary>
+              Looks up a localized string similar to Stort bilde.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ImageRequired">
+            <summary>
+              Looks up a localized string similar to Illustrasjonsbilde er påkrevd.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Language_All">
+            <summary>
+              Looks up a localized string similar to Alle.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Language_En">
+            <summary>
+              Looks up a localized string similar to Engelsk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Language_No">
+            <summary>
+              Looks up a localized string similar to Norsk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LinkToService">
+            <summary>
+              Looks up a localized string similar to Lenke til tjenesten.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LoggedOffMessage">
+            <summary>
+              Looks up a localized string similar to Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata..
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Abstract">
@@ -156,9 +517,84 @@
               Looks up a localized string similar to Beskrivelse.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_AccessConstraints_Label">
+            <summary>
+              Looks up a localized string similar to Tilgangsrestriksjoner.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordArealPlans">
+            <summary>
+              Looks up a localized string similar to Arealplaner underlagt Pbl.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordDokValidKmd">
+            <summary>
+              Looks up a localized string similar to DOK i henhold til KMD-definisjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordGeodatalaw">
+            <summary>
+              Looks up a localized string similar to Underlagt Geodataloven.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordInspireValid">
+            <summary>
+              Looks up a localized string similar to Inspire i henhold rapportering.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordNorgeDigitalt">
+            <summary>
+              Looks up a localized string similar to Norge digitalt-avtale.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_KeywordsCatalogs">
+            <summary>
+              Looks up a localized string similar to Høsting til ulike samarbeid:.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationDate">
+            <summary>
+              Looks up a localized string similar to Dato.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationDate_Conform">
+            <summary>
+              Looks up a localized string similar to Dataene er produsert iht produktspesifikasjonen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationDate_NotConform">
+            <summary>
+              Looks up a localized string similar to Dataene avviker fra produktspesifikasjonen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationExplanation">
+            <summary>
+              Looks up a localized string similar to Avvik fra produktspesifikasjonen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResult">
+            <summary>
+              Looks up a localized string similar to Datakonformitet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationTitle">
+            <summary>
+              Looks up a localized string similar to Angitt produktspesifikasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_BoundingBox_East">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning - øst.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_East_Invalid">
             <summary>
               Looks up a localized string similar to Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_BoundingBox_North">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning nord.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_North_Invalid">
@@ -166,9 +602,19 @@
               Looks up a localized string similar to Geografisk utstrekning - Nord - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_BoundingBox_South">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning sør.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_South_Invalid">
             <summary>
               Looks up a localized string similar to Geografisk utstrekning - Sør - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_BoundingBox_West">
+            <summary>
+              Looks up a localized string similar to Geografisk utstrekning vest.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_BoundingBox_West_Invalid">
@@ -176,9 +622,19 @@
               Looks up a localized string similar to Geografisk utstrekning - Vest - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn..
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Contact_Email">
+            <summary>
+              Looks up a localized string similar to Epost.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Contact_Email_Required">
             <summary>
               Looks up a localized string similar to Epost til kontaktperson er påkrevd..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Contact_Name">
+            <summary>
+              Looks up a localized string similar to Navn.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Contact_Name_Required">
@@ -186,14 +642,84 @@
               Looks up a localized string similar to Navn på kontaktperson er påkrevd..
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Contact_Organization">
+            <summary>
+              Looks up a localized string similar to Organisasjon.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Contact_Organization_Required">
             <summary>
               Looks up a localized string similar to Organisasjonsnavn er feil..
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_CoverageImage_Image">
+            <summary>
+              Looks up a localized string similar to Angi bildefil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageImage_Select">
+            <summary>
+              Looks up a localized string similar to Velg fil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageImage_Upload">
+            <summary>
+              Looks up a localized string similar to Last opp.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageServiceMap_Layer">
+            <summary>
+              Looks up a localized string similar to Kartlagsnavn.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageServiceMap_Type">
+            <summary>
+              Looks up a localized string similar to Tjenestetype.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageServiceMap_Url">
+            <summary>
+              Looks up a localized string similar to TjenesteURL.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageType">
+            <summary>
+              Looks up a localized string similar to Type dekningskart.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageType_ImageCoverage">
+            <summary>
+              Looks up a localized string similar to Bildefil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageType_Mapservice">
+            <summary>
+              Looks up a localized string similar to Karttjenestelag.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageType_Webpage">
+            <summary>
+              Looks up a localized string similar to Webside.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_CoverageWebsite_Url">
+            <summary>
+              Looks up a localized string similar to Webside.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_DateCreated">
             <summary>
               Looks up a localized string similar to Opprettet dato.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_DateMetadataValidFrom">
+            <summary>
+              Looks up a localized string similar to Gyldig fra dato.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_DateMetadataValidTo">
+            <summary>
+              Looks up a localized string similar to Gyldig til dato.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_DatePublished">
@@ -204,6 +730,11 @@
         <member name="P:Resources.UI.Metadata_DateUpdated">
             <summary>
               Looks up a localized string similar to Dato sist oppdatert.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_DistributionsFormats_Required">
+            <summary>
+              Looks up a localized string similar to Distribusjonsformat er påkrevd.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Edit_DatasetFields">
@@ -226,19 +757,79 @@
               Looks up a localized string similar to Detaljer om tjeneste.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_KeywordsInspire_Label">
+            <summary>
+              Looks up a localized string similar to Inspire-kategorier.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_KeywordsNationalInitiative_Label">
+            <summary>
+              Looks up a localized string similar to Samarbeid og lover.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_KeywordsNationalTheme_Label">
+            <summary>
+              Looks up a localized string similar to Nasjonal temakategori.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_KeywordsOther_Label">
+            <summary>
+              Looks up a localized string similar to Ukategoriserte nøkkelord.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_KeywordsPlace_Label">
+            <summary>
+              Looks up a localized string similar to Nøkkelord for geografisk område.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_KeywordsTheme_Label">
+            <summary>
+              Looks up a localized string similar to Tema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_LicenseTypes_Label">
+            <summary>
+              Looks up a localized string similar to Lisens.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Links">
             <summary>
               Looks up a localized string similar to Lenker.
             </summary>
         </member>
-        <member name="P:Resources.UI.Metadata_NationalTheme_Label">
+        <member name="P:Resources.UI.Metadata_MaintenanceFrequency">
             <summary>
-              Looks up a localized string similar to Nasjonal temakategori.
+              Looks up a localized string similar to Oppdateringshyppighet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_OrderingInstructions_Label">
+            <summary>
+              Looks up a localized string similar to Tjenesteerklæring.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Organization">
             <summary>
               Looks up a localized string similar to Organisasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_OtherConstraints_Label">
+            <summary>
+              Looks up a localized string similar to Andre restriksjoner.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_OtherConstraintsLink_Label">
+            <summary>
+              Looks up a localized string similar to URL.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_OtherConstraintsLinkText_Label">
+            <summary>
+              Looks up a localized string similar to Valgt lisens.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_ProcessHistory_Label">
+            <summary>
+              Looks up a localized string similar to Prosesshistorie.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Purpose">
@@ -251,9 +842,59 @@
               Looks up a localized string similar to Forklaring av resultat.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_QualitySpecificationExplanation_Required">
+            <summary>
+              Looks up a localized string similar to Konformitet annen standard mangler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_QualitySpecificationExplanationInspire_Required">
+            <summary>
+              Looks up a localized string similar to Konformitet inspire mangler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_QualitySpecificationExplanationSosi_Required">
+            <summary>
+              Looks up a localized string similar to Konformitet sosi mangler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_ReferenceSystems_CoordinateSystem_Label">
+            <summary>
+              Looks up a localized string similar to Romlig referansesystem.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_ReferenceSystems_Namespace_Label">
+            <summary>
+              Looks up a localized string similar to Koderom.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_ResolutionScale_Label">
+            <summary>
+              Looks up a localized string similar to Målestokkstall.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_SecurityConstraints_Label">
+            <summary>
+              Looks up a localized string similar to Sikkerhetsnivå.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_SecurityConstraintsNote_Label">
+            <summary>
+              Looks up a localized string similar to Lovhenvisning.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Status">
             <summary>
               Looks up a localized string similar to Status.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Status_Label">
+            <summary>
+              Looks up a localized string similar to Status.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_SupplementalDescription_Label">
+            <summary>
+              Looks up a localized string similar to Hjelp for bruk.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Title">
@@ -261,9 +902,19 @@
               Looks up a localized string similar to Metadata tittel.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_TopicCategory_Label">
+            <summary>
+              Looks up a localized string similar to Tematisk hovedkategori.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Type">
             <summary>
               Looks up a localized string similar to Type.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Type_Application">
+            <summary>
+              Looks up a localized string similar to Applikasjon.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Type_Dataset">
@@ -271,9 +922,24 @@
               Looks up a localized string similar to Datasett.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Type_DatasetSeries">
+            <summary>
+              Looks up a localized string similar to Datasett serie.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Type_Service">
             <summary>
               Looks up a localized string similar to Tjeneste.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_UseConstraints_Label">
+            <summary>
+              Looks up a localized string similar to Brukerrestriksjoner.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_UseLimitations_Label">
+            <summary>
+              Looks up a localized string similar to Bruksbegrensninger.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Validate_Error">
@@ -291,14 +957,84 @@
               Looks up a localized string similar to Validering.
             </summary>
         </member>
+        <member name="P:Resources.UI.MetadataContact">
+            <summary>
+              Looks up a localized string similar to Metadatakontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.MetadataLastUpdated">
+            <summary>
+              Looks up a localized string similar to Metadata sist oppdatert.
+            </summary>
+        </member>
         <member name="P:Resources.UI.MyMetadata_Label">
             <summary>
               Looks up a localized string similar to Mine metadata.
             </summary>
         </member>
+        <member name="P:Resources.UI.Name">
+            <summary>
+              Looks up a localized string similar to Navn.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.NamespaceToDataset">
+            <summary>
+              Looks up a localized string similar to Navnerom til datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Next">
+            <summary>
+              Looks up a localized string similar to Neste.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.NoResults">
+            <summary>
+              Looks up a localized string similar to Ingen treff.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.North">
+            <summary>
+              Looks up a localized string similar to Nord.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.NotFoundText">
+            <summary>
+              Looks up a localized string similar to Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre..
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Of">
+            <summary>
+              Looks up a localized string similar to av.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Organization">
             <summary>
               Looks up a localized string similar to Organisasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.OrSpecifyCoordinates">
+            <summary>
+              Looks up a localized string similar to Eller angi koordinater.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.OtherDataProductSpecification">
+            <summary>
+              Looks up a localized string similar to Annen produktspesifikasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.OwnerContact">
+            <summary>
+              Looks up a localized string similar to Faglig kontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Previous">
+            <summary>
+              Looks up a localized string similar to Forrige.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ProductFactSheet">
+            <summary>
+              Looks up a localized string similar to Produktark.
             </summary>
         </member>
         <member name="P:Resources.UI.PropertyValueInvalid">
@@ -311,9 +1047,179 @@
               Looks up a localized string similar to {0} er et påkrevd felt..
             </summary>
         </member>
+        <member name="P:Resources.UI.PublisherContact">
+            <summary>
+              Looks up a localized string similar to Teknisk kontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationCustom">
+            <summary>
+              Looks up a localized string similar to Annen standard/ egen dokumentasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResult">
+            <summary>
+              Looks up a localized string similar to Datakonformitet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultInspire">
+            <summary>
+              Looks up a localized string similar to Datakonformitet inspire.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultNotSosiConformApplicationSchema">
+            <summary>
+              Looks up a localized string similar to SOSI-filer avviker fra applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultSosi">
+            <summary>
+              Looks up a localized string similar to Datakonformitet sosi.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultSosiConformApplicationSchema">
+            <summary>
+              Looks up a localized string similar to SOSI-filer er i henhold til applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultSosiConformGmlApplicationSchema">
+            <summary>
+              Looks up a localized string similar to GML-filer er i henhold til applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema">
+            <summary>
+              Looks up a localized string similar to GML-filer avviker fra applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Search">
+            <summary>
+              Looks up a localized string similar to Søk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SelectFile">
+            <summary>
+              Looks up a localized string similar to Velg fil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ShowingMetadata">
+            <summary>
+              Looks up a localized string similar to Viser metadata.
+            </summary>
+        </member>
         <member name="P:Resources.UI.SimpleMetadata_Title">
             <summary>
               Looks up a localized string similar to Navn på datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.South">
+            <summary>
+              Looks up a localized string similar to Sør.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpatialRepresentationType">
+            <summary>
+              Looks up a localized string similar to Representasjonsform.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpecifyAreas">
+            <summary>
+              Looks up a localized string similar to Angi områder.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpecifyCoverageMap">
+            <summary>
+              Looks up a localized string similar to Angi dekningskart.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpecifyImageFile">
+            <summary>
+              Looks up a localized string similar to Angi bildefil.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabAdministrative">
+            <summary>
+              Looks up a localized string similar to Administrativt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabBasicInformation">
+            <summary>
+              Looks up a localized string similar to Grunnleggende.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabContactInformation">
+            <summary>
+              Looks up a localized string similar to Kontaktinformasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabDistribution">
+            <summary>
+              Looks up a localized string similar to Distribusjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabDocumentation">
+            <summary>
+              Looks up a localized string similar to Dokumentasjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabKeywords">
+            <summary>
+              Looks up a localized string similar to Nøkkelord.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabQuality">
+            <summary>
+              Looks up a localized string similar to Kvalitet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabRestrictions">
+            <summary>
+              Looks up a localized string similar to Restriksjoner.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TabTimeAndSpace">
+            <summary>
+              Looks up a localized string similar to Tid og rom.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TopicCategory">
+            <summary>
+              Looks up a localized string similar to Tematisk hovedkategori.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.UMLmodel">
+            <summary>
+              Looks up a localized string similar to UML-modell.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.UnitsOfDistribution">
+            <summary>
+              Looks up a localized string similar to Geografisk distribusjonsinndeling.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Upload">
+            <summary>
+              Looks up a localized string similar to Last opp.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Use">
+            <summary>
+              Looks up a localized string similar to Bruksområde.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Version">
+            <summary>
+              Looks up a localized string similar to Versjon.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.West">
+            <summary>
+              Looks up a localized string similar to Vest.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.WfsService">
+            <summary>
+              Looks up a localized string similar to WFS tjeneste.
             </summary>
         </member>
         <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">

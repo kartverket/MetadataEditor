@@ -209,7 +209,7 @@ namespace Kartverket.MetadataEditor.Controllers
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 
 
-            if (string.IsNullOrEmpty(model.ContactMetadata.Organization))
+            if (model.ContactMetadata != null && string.IsNullOrEmpty(model.ContactMetadata.Organization))
             {
                 if (Request.Form["ContactMetadata.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactMetadata.Organization.Old"]))
                 {
@@ -217,7 +217,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
             }
 
-            if (string.IsNullOrEmpty(model.ContactPublisher.Organization))
+            if (model.ContactPublisher != null && string.IsNullOrEmpty(model.ContactPublisher.Organization))
             {
                 if (Request.Form["ContactPublisher.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactPublisher.Organization.Old"]))
                 {
@@ -226,16 +226,20 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
 
-            if (string.IsNullOrEmpty(model.ContactOwner.Organization))
+            if (model.ContactOwner != null && string.IsNullOrEmpty(model.ContactOwner.Organization))
             {
                 if (Request.Form["ContactOwner.Organization.Old"] != null || !string.IsNullOrWhiteSpace(Request.Form["ContactOwner.Organization.Old"])) {
                     model.ContactOwner.Organization = Request["ContactOwner.Organization.Old"].ToString();
                 }
             }
 
-            ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", model.ContactMetadata.Organization);
-            ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", model.ContactPublisher.Organization);
-            ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", model.ContactOwner.Organization);
+            var contactMetadataOrganization = (model.ContactMetadata != null && model.ContactMetadata.Organization != null) ? model.ContactMetadata.Organization : "";
+            var contactPublisherOrganization = (model.ContactPublisher != null && model.ContactPublisher.Organization != null) ? model.ContactPublisher.Organization : "";
+            var contactOwnerOrganization = (model.ContactOwner != null && model.ContactOwner.Organization != null) ? model.ContactOwner.Organization : "";
+
+            ViewBag.OrganizationContactMetadataValues = new SelectList(OrganizationList, "Key", "Value", contactMetadataOrganization);
+            ViewBag.OrganizationContactPublisherValues = new SelectList(OrganizationList, "Key", "Value", contactPublisherOrganization);
+            ViewBag.OrganizationContactOwnerValues = new SelectList(OrganizationList, "Key", "Value", contactOwnerOrganization);
             ViewBag.OrganizationDistributorValues = new SelectList(OrganizationList, "Key", "Value");
 
             Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
@@ -353,7 +357,7 @@ namespace Kartverket.MetadataEditor.Controllers
                         {
                             if (distro.Key.Protocol == null)
                             {
-                                ModelState.AddModelError("distributionProtocolMissing", "Vennligst fyll ut distribusjonstype");
+                                ModelState.AddModelError("distributionProtocolMissing", UI.DistributionProtocolMissing);
                                 PrepareViewBagForEditing(model);
                                 return View(model);
                             }
@@ -387,7 +391,7 @@ namespace Kartverket.MetadataEditor.Controllers
             var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
             if (thumb.Count() == 0) 
             { 
-                ModelState.AddModelError("thumbnailMissing", "Det er påkrevd å fylle ut illustrasjonsbilde");
+                ModelState.AddModelError("thumbnailMissing", UI.ImageRequired);
                 ViewBag.thumbnailMissingCSS = "input-validation-error";
                 }
         }
