@@ -803,7 +803,7 @@
     <value>Oppgi informasjon og veiledning om hvordan datasettet er organisert, mulige tekniske forhold ved formater og annet som gjør det lettere å ta i bruk datasettet.</value>
   </data>
   <data name="Metadata_SupplementalDescription_Label" xml:space="preserve">
-    <value>Hjelp for bruk</value>
+    <value>Help for usage</value>
   </data>
   <data name="Metadata_ReferenceSystems_CoordinateSystem_Label" xml:space="preserve">
     <value>Romlig referansesystem</value>
