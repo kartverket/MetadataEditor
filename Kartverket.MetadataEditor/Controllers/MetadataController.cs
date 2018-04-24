@@ -182,7 +182,7 @@ namespace Kartverket.MetadataEditor.Controllers
         private void PrepareViewBagForEditing(MetadataViewModel model)
         {
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(), "Key", "Value", model.TopicCategory);
-            ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(), "Key", "Value", model.SpatialRepresentation);
+            ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SpatialRepresentation);
 
             ViewBag.VectorFormats = new SelectList(GetListOfVectorFormats(), "Key", "Value");
             ViewBag.RasterFormats = new SelectList(GetListOfRasterFormats(), "Key", "Value");
