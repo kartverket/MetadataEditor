@@ -187,18 +187,18 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.VectorFormats = new SelectList(GetListOfVectorFormats(), "Key", "Value");
             ViewBag.RasterFormats = new SelectList(GetListOfRasterFormats(), "Key", "Value");
 
-            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(), "Key", "Value");
+            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(CultureHelper.GetCurrentCulture()), "Key", "Value");
             ViewBag.UnitsOfDistributionValues = new SelectList(GetListOfUnitsOfDistribution(CultureHelper.GetCurrentCulture()), "Key", "Value", model.UnitsOfDistribution);
-            ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
-            ViewBag.StatusValues = new SelectList(GetListOfStatusValues(), "Key", "Value", model.Status);
-            ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(), "Key", "Value", model.SecurityConstraints);
-            ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(), "Key", "Value", model.UseConstraints);
+            ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(CultureHelper.GetCurrentCulture()), "Key", "Value", model.MaintenanceFrequency);
+            ViewBag.StatusValues = new SelectList(GetListOfStatusValues(CultureHelper.GetCurrentCulture()), "Key", "Value", model.Status);
+            ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SecurityConstraints);
+            ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(CultureHelper.GetCurrentCulture()), "Key", "Value", model.UseConstraints);
             ViewBag.LicenseTypesValues = new SelectList(GetListOfLicenseTypes(), "Key", "Value", model.OtherConstraintsLink);
             if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && (model.OtherConstraintsAccess.ToLower() == "no restrictions" || model.OtherConstraintsAccess.ToLower() == "norway digital restricted"))
             {
                 model.AccessConstraints = model.OtherConstraintsAccess;
             }
-            ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValuesAdjusted(), "Key", "Value", model.AccessConstraints);
+            ViewBag.AccessConstraintValues = new SelectList(GetListOfRestrictionValuesAdjusted(CultureHelper.GetCurrentCulture()), "Key", "Value", model.AccessConstraints);
             ViewBag.CreateProductSheetUrl =
                 System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"] + model.Uuid;
             ViewBag.ThumbnailUrl =
