@@ -811,4 +811,10 @@
   <data name="Metadata_ReferenceSystems_Namespace_Label" xml:space="preserve">
     <value>Koderom</value>
   </data>
+  <data name="EuPriorityDataset" xml:space="preserve">
+    <value>EU -priority datasets</value>
+  </data>
+  <data name="NoKeywordsAddedForCategory" xml:space="preserve">
+    <value>No keywords added for this category</value>
+  </data>
 </root>

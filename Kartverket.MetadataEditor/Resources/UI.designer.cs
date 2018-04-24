@@ -386,6 +386,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to EU - prioriterte datasett.
+        /// </summary>
+        public static string EuPriorityDataset {
+            get {
+                return ResourceManager.GetString("EuPriorityDataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} må være en dato på formen 19.01.2014..
         /// </summary>
         public static string FieldMustBeDate {
@@ -1732,6 +1741,15 @@ namespace Resources {
         public static string Next {
             get {
                 return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingen nøkkelord er lagt til for denne kategorien.
+        /// </summary>
+        public static string NoKeywordsAddedForCategory {
+            get {
+                return ResourceManager.GetString("NoKeywordsAddedForCategory", resourceCulture);
             }
         }
         

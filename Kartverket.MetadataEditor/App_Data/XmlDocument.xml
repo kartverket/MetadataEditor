@@ -237,6 +237,11 @@
             &lt;p&gt;Du kan også rapportere feilen til &lt;a mailto:&quot;post@norgedigitalt.no&quot;&gt;post@norgedigitalt.no&lt;/a&gt;.&lt;/p&gt;.
              </summary>
         </member>
+        <member name="P:Resources.UI.EuPriorityDataset">
+            <summary>
+              Looks up a localized string similar to EU - prioriterte datasett.
+            </summary>
+        </member>
         <member name="P:Resources.UI.FieldMustBeDate">
             <summary>
               Looks up a localized string similar to {0} må være en dato på formen 19.01.2014..
@@ -985,6 +990,11 @@
         <member name="P:Resources.UI.Next">
             <summary>
               Looks up a localized string similar to Neste.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.NoKeywordsAddedForCategory">
+            <summary>
+              Looks up a localized string similar to Ingen nøkkelord er lagt til for denne kategorien.
             </summary>
         </member>
         <member name="P:Resources.UI.NoResults">
