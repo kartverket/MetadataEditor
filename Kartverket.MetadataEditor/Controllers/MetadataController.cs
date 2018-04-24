@@ -16,6 +16,8 @@ using Newtonsoft.Json.Linq;
 using System.Threading;
 using Kartverket.Geonorge.Utilities.LogEntry;
 using System.Threading.Tasks;
+using Kartverket.MetadataEditor.Helpers;
+using Kartverket.MetadataEditor.Models.Translations;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -186,7 +188,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.RasterFormats = new SelectList(GetListOfRasterFormats(), "Key", "Value");
 
             ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(), "Key", "Value");
-            ViewBag.UnitsOfDistributionValues = new SelectList(GetListOfUnitsOfDistribution(), "Key", "Value", model.UnitsOfDistribution);
+            ViewBag.UnitsOfDistributionValues = new SelectList(GetListOfUnitsOfDistribution(CultureHelper.GetCurrentCulture()), "Key", "Value", model.UnitsOfDistribution);
             ViewBag.MaintenanceFrequencyValues = new SelectList(GetListOfMaintenanceFrequencyValues(), "Key", "Value", model.MaintenanceFrequency);
             ViewBag.StatusValues = new SelectList(GetListOfStatusValues(), "Key", "Value", model.Status);
             ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(), "Key", "Value", model.SecurityConstraints);
@@ -445,96 +447,96 @@ namespace Kartverket.MetadataEditor.Controllers
 
         }
 
-        public Dictionary<string, string> GetListOfTopicCategories()
+        public Dictionary<string, string> GetListOfTopicCategories(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB100");
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB100", culture);
         }
 
-        public Dictionary<string, string> GetListOfUnitsOfDistribution()
+        public Dictionary<string, string> GetListOfUnitsOfDistribution(string culture = Culture.NorwegianCode)
         {
 
-            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB119");
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB119", culture);
         }
 
-        public Dictionary<string, string> GetListOfSpatialRepresentations()
+        public Dictionary<string, string> GetListOfSpatialRepresentations(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("4C54EB31-714E-4457-AF6A-44FE6DBE76C1");
+            return GetCodeList("4C54EB31-714E-4457-AF6A-44FE6DBE76C1", culture);
         }
 
-        public Dictionary<string, string> GetListOfMaintenanceFrequencyValues()
+        public Dictionary<string, string> GetListOfMaintenanceFrequencyValues(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB124");
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB124", culture);
         }
 
-        public Dictionary<string, string> GetListOfStatusValues()
+        public Dictionary<string, string> GetListOfStatusValues(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB137");
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB137", culture);
         }
 
-        public Dictionary<string, string> GetListOfClassificationValues()
+        public Dictionary<string, string> GetListOfClassificationValues(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB145");
+            return GetCodeList("9A46038D-16EE-4562-96D2-8F6304AAB145", culture);
         }
 
-        public Dictionary<string, string> GetListOfRestrictionValues()
+        public Dictionary<string, string> GetListOfRestrictionValues(string culture = Culture.NorwegianCode)
         {
 
-            return GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57");
-
-        }
-
-        public Dictionary<string, string> GetListOfRestrictionValuesAdjusted()
-        {
-            return GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D");
+            return GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57", culture);
 
         }
 
-        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols()
+        public Dictionary<string, string> GetListOfRestrictionValuesAdjusted(string culture = Culture.NorwegianCode)
+        {
+            return GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D", culture);
+
+        }
+
+        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols(string culture = Culture.NorwegianCode)
         {
 
-            return GetCodeList("94B5A165-7176-4F43-B6EC-1063F7ADE9EA");
+            return GetCodeList("94B5A165-7176-4F43-B6EC-1063F7ADE9EA", culture);
 
         }
 
 
-        public Dictionary<string, string> GetListOfNationalTheme()
+        public Dictionary<string, string> GetListOfNationalTheme(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
+            return GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F", culture);
         }
 
-        public Dictionary<string, string> GetListOfNationalInitiative()
+        public Dictionary<string, string> GetListOfNationalInitiative(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("37204B11-4802-44B6-80A1-519968BD072F");
+            return GetCodeList("37204B11-4802-44B6-80A1-519968BD072F", culture);
         }
 
-        public Dictionary<string, string> GetListOfCatalogs()
+        public Dictionary<string, string> GetListOfCatalogs(string culture = Culture.NorwegianCode)
         {
-            Dictionary<string, string> catalogs = GetCodeList("65baf580-fee4-443c-8d6b-e5104280c4d4");
+            Dictionary<string, string> catalogs = GetCodeList("65baf580-fee4-443c-8d6b-e5104280c4d4", culture);
             catalogs.Remove("Inspire");
 
             return catalogs;
         }
 
-        public Dictionary<string, string> GetListOfInspire()
+        public Dictionary<string, string> GetListOfInspire(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6");
+            return GetCodeList("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6", culture);
         }
 
-        public Dictionary<string, string> GetListOfVectorFormats()
+        public Dictionary<string, string> GetListOfVectorFormats(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("49202645-7137-499F-8CA3-F0F89324B107");
+            return GetCodeList("49202645-7137-499F-8CA3-F0F89324B107", culture);
         }
 
-        public Dictionary<string, string> GetListOfRasterFormats()
+        public Dictionary<string, string> GetListOfRasterFormats(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("25EF67D3-974F-4B0C-841D-BDD0B29CE78B");
+            return GetCodeList("25EF67D3-974F-4B0C-841D-BDD0B29CE78B", culture);
         }
 
-        public Dictionary<string, string> GetCodeList(string systemid)
+        public Dictionary<string, string> GetCodeList(string systemid, string culture = Culture.NorwegianCode)
         {
             MemoryCacher memCacher = new MemoryCacher();
 
-            var cache = memCacher.GetValue(systemid);
+            var cache = memCacher.GetValue(systemid + "_" + culture);
 
             Dictionary<string, string> CodeValues = new Dictionary<string, string>();
 
@@ -548,6 +550,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
                 System.Net.WebClient c = new System.Net.WebClient();
                 c.Encoding = System.Text.Encoding.UTF8;
+                c.Headers.Remove("Accept-Language");
+                c.Headers.Add("Accept-Language", culture);
                 var data = c.DownloadString(url);
                 var response = Newtonsoft.Json.Linq.JObject.Parse(data);
 
@@ -568,7 +572,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 }
 
             CodeValues = CodeValues.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-            memCacher.Set(systemid, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
+            memCacher.Set(systemid + "_" + culture, CodeValues, new DateTimeOffset(DateTime.Now.AddYears(1)));
             }
 
             return CodeValues;
