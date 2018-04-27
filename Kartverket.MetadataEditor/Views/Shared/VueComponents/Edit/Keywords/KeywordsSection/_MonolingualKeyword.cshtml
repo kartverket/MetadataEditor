@@ -69,12 +69,10 @@
                 return keywordText;
             },
             updateKeywordValue: function (option) {
-                this.inputValue = option.Text;
                 this.$store.commit('updateArrayValue', { arrayName: 'Keywords' + this.keywordName, arrayIndex: this.keywordIndex, value: option.Value });
             },
             removeKeywordValue: function () {
                 this.$store.commit('removeValueFromArray', { arrayName: 'Keywords' + this.keywordName, arrayIndex: this.keywordIndex });
-                this.inputValue = this.getKeywordText();
             },
             isAnOption: function (keyword) {
                 if (keyword == "") { return true }
