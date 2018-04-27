@@ -2642,7 +2642,7 @@ input[type="submit"].btn {
 
 .custom-select-list .custom-select-list-dropdown-container.active .custom-select-list-dropdown {
   display: block;
-  z-index: 2;
+  z-index: 3;
   height: 0;
   position: relative;
   overflow: visible; }
