@@ -38,7 +38,7 @@
                                 {{ getConceptNameFromConceptValue(conceptValue) }}
                                 <span v-on:click="removeSelectedConcept(conceptValue, index)" class="custom-select-list-remove-button"></span>
                             </span>
-                            <input type="text" v-bind:disabled="!keywordsConcept.value.length" class="custom-select-list-input" />
+                            <input type="text" v-bind:disabled="!keywordsConcept.options.length" class="custom-select-list-input" />
                         </div>
 
                         <div class="custom-select-list-dropdown-container">
@@ -302,8 +302,11 @@
                         "Content-Type": "text/plain; charset=utf-8"
                     },
                     type: "GET",
+                    dataType: 'text',
                     url: this.$store.getters['ApplicationSchema'],
-                    success: this.setConcepts
+                    success: function (response) {
+                        this.setConcepts(response);
+                    }.bind(this)
                 });
             },
             setConcepts: function (xml) {
