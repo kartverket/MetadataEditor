@@ -75,9 +75,9 @@
                     keywordsNationalTheme: {
                         title: '@Html.Raw(UI.Metadata_KeywordsNationalTheme_Label)',
                         name: 'NationalTheme',
-                        type: 'select',
+                        type: 'filter-select',
                         visible: true,
-                        multilingual: true,
+                        multilingual: false,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsNationalTheme)'
@@ -99,9 +99,9 @@
                     keywordsInspire: {
                         title: '@Html.Raw(UI.Metadata_KeywordsInspire_Label)',
                         name: 'Inspire',
-                        type: 'select',
+                        type: 'filter-select',
                         visible: !this.$store.getters['isSoftware'],
-                        multilingual: true,
+                        multilingual: false,
                         helpText: {
                             active: false,
                             content: '@Html.Raw(UI.Helptext_KeywordsInspire)'
