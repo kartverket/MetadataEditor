@@ -90,7 +90,7 @@ namespace Kartverket.MetadataEditor
             if (queryString != null)
             {
                 var returnUrl = queryString.Get("returnUrl");
-                if (returnUrl != null)
+                if (!string.IsNullOrEmpty(returnUrl))
                 {
                     returnUrl = returnUrl.Replace("http://", "");
                     returnUrl = returnUrl.Replace("https://", "");
