@@ -22,5 +22,6 @@ namespace Kartverket.MetadataEditor.Models
         Task<List<LogEntry>> GetLogEntriesLatest(int limitNumberOfEntries = 50, string operation = "");
 
         Dictionary<string, string> GetPriorityDatasets();
+        void UpdateRegisterTranslations(string v, string uuid);
     }
 }

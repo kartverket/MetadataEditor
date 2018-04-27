@@ -208,7 +208,7 @@ namespace Kartverket.MetadataEditor.Controllers
             var seoUrl = new SeoUrl("", model.Title);
             ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + seoUrl.Title + "/" + model.Uuid;
 
-            Dictionary<string, string> OrganizationList = GetListOfOrganizations();
+            Dictionary<string, string> OrganizationList = GetListOfOrganizations(CultureHelper.GetCurrentCulture());
 
 
             if (model.ContactMetadata != null && string.IsNullOrEmpty(model.ContactMetadata.Organization))
@@ -247,10 +247,10 @@ namespace Kartverket.MetadataEditor.Controllers
             Dictionary<string, string> ReferenceSystemsList = GetListOfReferenceSystems();
             ViewBag.ReferenceSystemsValues = new SelectList(ReferenceSystemsList, "Key", "Value");
 
-            ViewBag.NationalThemeValues = new SelectList(GetListOfNationalTheme(), "Key", "Value");
+            ViewBag.NationalThemeValues = new SelectList(GetListOfNationalTheme(CultureHelper.GetCurrentCulture()), "Key", "Value");
             ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
             ViewBag.CatalogValues = new SelectList(GetListOfCatalogs(), "Key", "Value");
-            ViewBag.InspireValues = new SelectList(GetListOfInspire(), "Key", "Value");
+            ViewBag.InspireValues = new SelectList(GetListOfInspire(CultureHelper.GetCurrentCulture()), "Key", "Value");
             ViewBag.InspirePriorityDatasets = new SelectList(_metadataService.GetPriorityDatasets(), "Key", "Value");
 
             IEnumerable<SelectListItem> conceptItems = from concept in model.KeywordsConcept
@@ -579,11 +579,11 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
 
-        public Dictionary<string, string> GetListOfOrganizations()
+        public Dictionary<string, string> GetListOfOrganizations(string culture = Culture.NorwegianCode)
         {
             MemoryCacher memCacher = new MemoryCacher();
 
-            var cache = memCacher.GetValue("organizations");
+            var cache = memCacher.GetValue("organizations_" + culture);
 
             Dictionary<string, string> Organizations = new Dictionary<string, string>();
 
@@ -601,16 +601,27 @@ namespace Kartverket.MetadataEditor.Controllers
 
                 var orgs = response["containeditems"];
 
-                foreach (var org in orgs)
+                c.Headers.Remove("Accept-Language");
+                c.Headers.Add("Accept-Language", Culture.EnglishCode);
+
+                var dataEnglish = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/organisasjoner");
+                var responseEnglish = Newtonsoft.Json.Linq.JObject.Parse(dataEnglish);
+
+                var orgsEnglish = responseEnglish["containeditems"];
+
+                for (int o = 0; o < orgs.Count(); o++)
                 {
-                    if (!Organizations.ContainsKey(org["label"].ToString()))
+                    if (!Organizations.ContainsKey(orgs[o]["label"].ToString()))
                     {
-                        Organizations.Add(org["label"].ToString(), org["label"].ToString());
+                        if(culture == Culture.NorwegianCode)
+                        Organizations.Add(orgs[o]["label"].ToString(), orgs[o]["label"].ToString());
+                        else
+                            Organizations.Add(orgs[o]["label"].ToString(), orgsEnglish[o]["label"].ToString());
                     }
                 }
 
                 Organizations = Organizations.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
-                memCacher.Set("organizations", Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
+                memCacher.Set("organizations_" + culture, Organizations, new DateTimeOffset(DateTime.Now.AddYears(1)));
 
             }
 
