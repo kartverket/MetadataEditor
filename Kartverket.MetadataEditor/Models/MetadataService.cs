@@ -873,6 +873,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
+            var dateType = "publication";
 
             if (!string.IsNullOrEmpty(model.ParentIdentifier))
                 metadata.ParentIdentifier = model.ParentIdentifier;
@@ -1009,7 +1010,7 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     Title = model.QualitySpecificationTitleSosi,
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                    DateType = model.QualitySpecificationDateTypeSosi,
+                    DateType = dateType,
                     Explanation = model.QualitySpecificationExplanationSosi,
                     EnglishExplanation = model.EnglishQualitySpecificationExplanationSosi,
                     Result = model.QualitySpecificationResultSosi,
@@ -1025,7 +1026,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         Title = "Sosi applikasjonsskjema",
                         Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = model.QualitySpecificationDateTypeSosi,
+                        DateType = dateType,
                         Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
                         EnglishExplanation = "SOSI files are according to application form",
                         Result = true,
@@ -1038,7 +1039,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         Title = "Sosi applikasjonsskjema",
                         Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = model.QualitySpecificationDateTypeSosi,
+                        DateType = dateType,
                         Explanation = "SOSI-filer avviker fra applikasjonsskjema",
                         EnglishExplanation = "SOSI files are not according to application form",
                         Result = false,
@@ -1051,7 +1052,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         Title = "Sosi applikasjonsskjema",
                         Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = model.QualitySpecificationDateTypeSosi,
+                        DateType = dateType,
                         Explanation = "GML-filer er i henhold til applikasjonsskjema",
                         EnglishExplanation = "GML files are according to application form",
                         Result = true,
@@ -1064,7 +1065,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         Title = "Sosi applikasjonsskjema",
                         Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = model.QualitySpecificationDateTypeSosi,
+                        DateType = dateType,
                         Explanation = "GML-filer avviker fra applikasjonsskjema",
                         EnglishExplanation = "GML files are not according to application form",
                         Result = false,
