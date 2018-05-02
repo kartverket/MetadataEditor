@@ -263,6 +263,7 @@
                                 getter: 'QualitySpecificationResultSosiConformApplicationSchema',
                                 mutation: 'updateQualitySpecificationResultSosiConformApplicationSchema',
                                 type: 'radio',
+                                visible: !this.$store.getters['isService'],
                                 options: [
                                     { Text: '@UI.QualitySpecificationResultSosiConformApplicationSchema', Value: 'true' },
                                     { Text: '@UI.QualitySpecificationResultNotSosiConformApplicationSchema', Value: 'false' }
@@ -273,6 +274,7 @@
                                 getter: 'QualitySpecificationResultSosiConformGmlApplicationSchema',
                                 mutation: 'updateQualitySpecificationResultSosiConformGmlApplicationSchema',
                                 type: 'radio',
+                                visible: !this.$store.getters['isService'],
                                 options: [
                                     { Text: '@UI.QualitySpecificationResultSosiConformGmlApplicationSchema', Value: 'true' },
                                     { Text: '@UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema', Value: 'false' }
