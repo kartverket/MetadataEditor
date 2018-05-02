@@ -1,14 +1,15 @@
 ﻿<script type="text/x-template" id="radio-template">
-    <div class="radio">
-        <label v-for="option in formElement.options">
-            <input v-bind:name="formElement.name" 
-                   type="radio" 
-                   v-bind:value="option.Value"
-                   v-bind:checked="selectedValue == option.Value"
-                   v-on:click="$parent.updateField({mutation: formElement.mutation, value: $event.target.value})"
-                   />
-            {{ option.Text }}
-        </label>
+    <div>
+        <div v-for="option in formElement.options" class="radio">
+            <label>
+                <input v-bind:name="formElement.name"
+                       type="radio"
+                       v-bind:value="option.Value"
+                       v-bind:checked="selectedValue == option.Value"
+                       v-on:click="$parent.updateField({mutation: formElement.mutation, value: $event.target.value})" />
+                {{ option.Text }}
+            </label>
+        </div>
     </div>
 </script>
 
