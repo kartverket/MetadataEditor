@@ -1018,7 +1018,7 @@ namespace Kartverket.MetadataEditor.Models
                 });
             }
 
-            if (!string.IsNullOrWhiteSpace(model.ApplicationSchema))
+            if (!string.IsNullOrWhiteSpace(model.ApplicationSchema) && !model.IsService())
             {
                 if (model.QualitySpecificationResultSosiConformApplicationSchema)
                 {
