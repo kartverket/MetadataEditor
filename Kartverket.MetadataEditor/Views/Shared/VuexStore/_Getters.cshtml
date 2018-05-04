@@ -383,7 +383,11 @@
             return state.data.KeywordArealPlans;
         },
         QualitySpecificationTitleInspire: function (state) {
-            return "COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services";
+            if (state.settings.visibleConformitySections['QualitySpecificationInspire'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationInspire']) {
+                return state.model.QualitySpecificationTitleInspire;
+            } else {
+                return '';
+            }
         },
         QualitySpecificationDateInspire: function (state) {
             return state.model.QualitySpecificationDateInspire;
@@ -404,7 +408,11 @@
             return state.model.EnglishQualitySpecificationExplanationInspire;
         },
         QualitySpecificationTitleSosi: function (state) {
-            return state.model.QualitySpecificationTitleSosi;
+            if (state.settings.visibleConformitySections['QualitySpecificationSosi'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationSosi']) {
+                return state.model.QualitySpecificationTitleSosi;
+            } else {
+                return '';
+            }
         },
         QualitySpecificationDateSosi: function (state) {
             return state.model.QualitySpecificationDateSosi;
@@ -431,7 +439,11 @@
             return state.model.QualitySpecificationResultSosiConformGmlApplicationSchema;
         },
         QualitySpecificationTitle: function (state) {
-            return state.model.QualitySpecificationTitle;
+            if (state.settings.visibleConformitySections['QualitySpecificationCustom'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationCustom']) {
+                return state.model.QualitySpecificationTitle;
+            } else {
+                return '';
+            }
         },
         QualitySpecificationDate: function (state) {
             return state.model.QualitySpecificationDate;
@@ -465,6 +477,9 @@
         },
         isService: function (state) {
             return state.model.HierarchyLevel == 'service';
+        },
+        visibleConformitySections: function (state) {
+            return state.settings.visibleConformitySections
         }
     }
 </script>

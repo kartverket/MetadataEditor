@@ -484,6 +484,9 @@
         removeValueFromArray: function (state, payload) {
             var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
             Vue.delete(state[stateProperty][payload.arrayName], payload.arrayIndex);
+        },
+        updateVisibleConformitySections: function (state, payload) {
+            state.settings.visibleConformitySections = payload;
         }
 
     }

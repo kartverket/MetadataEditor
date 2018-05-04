@@ -355,10 +355,13 @@
         },
         computed: {
             showSections: function () {
-                for (var section in this.showSection) {
-                    if (this.showSection.hasOwnProperty(section)) {
-                        if (this.showSection[section]) {
-                            return true;
+                var visibleConformitySections = this.$store.getters['visibleConformitySections'];
+                if (visibleConformitySections !== undefined) {
+                    for (var section in visibleConformitySections) {
+                        if (visibleConformitySections.hasOwnProperty(section)) {
+                            if (visibleConformitySections[section]) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -370,6 +373,15 @@
                 var productSpecificationUrlIsAdded = this.$store.getters['ProductSpecificationUrl'] !== null && this.$store.getters['ProductSpecificationUrl'].length > 0;
                 var otherProductSpecificationIsAdded = this.$store.getters['ProductSpecificationOtherName'] !== null && this.$store.getters['ProductSpecificationOtherName'].length > 0;
 
+                if (inspireKeywordIsAdded) {
+                  this.$store.commit('updateQualitySpecificationTitleInspire', 'COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services');
+                }
+
+                this.$store.commit('updateVisibleConformitySections', {
+                    QualitySpecificationInspire: inspireKeywordIsAdded,
+                    QualitySpecificationSosi: sosiKeywordIsAdded && productSpecificationUrlIsAdded,
+                    QualitySpecificationCustom: otherProductSpecificationIsAdded
+                });
                 return {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
                     QualitySpecificationSosi: sosiKeywordIsAdded && productSpecificationUrlIsAdded,
