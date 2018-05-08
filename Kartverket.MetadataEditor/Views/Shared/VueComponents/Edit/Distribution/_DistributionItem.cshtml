@@ -242,7 +242,7 @@
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Name',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Name',
                         value: this.distribution.Value.Details.Name,
-                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        visible: this.$store.getters['isService'],
                         label: '@Html.Raw(UI.Metadata_Distributions_LayerName_Label)',
                         type: 'text',
                         required: false,
