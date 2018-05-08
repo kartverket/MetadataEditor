@@ -823,4 +823,16 @@
   <data name="NoKeywordsAddedForCategory" xml:space="preserve">
     <value>Ingen nøkkelord er lagt til for denne kategorien</value>
   </data>
+  <data name="Button_New_ReferenceSystem" xml:space="preserve">
+    <value>Nytt referansesystem</value>
+  </data>
+  <data name="ChooseFromList" xml:space="preserve">
+    <value>Velg fra liste</value>
+  </data>
+  <data name="ChooseFromMap" xml:space="preserve">
+    <value>Velg fra kart</value>
+  </data>
+  <data name="Metadata_Distributions_LayerName_Label" xml:space="preserve">
+    <value>Lagnavn</value>
+  </data>
 </root>

@@ -806,15 +806,27 @@
     <value>Help for usage</value>
   </data>
   <data name="Metadata_ReferenceSystems_CoordinateSystem_Label" xml:space="preserve">
-    <value>Romlig referansesystem</value>
+    <value>Spatial reference system</value>
   </data>
   <data name="Metadata_ReferenceSystems_Namespace_Label" xml:space="preserve">
-    <value>Koderom</value>
+    <value>Code space</value>
   </data>
   <data name="EuPriorityDataset" xml:space="preserve">
     <value>EU -priority datasets</value>
   </data>
   <data name="NoKeywordsAddedForCategory" xml:space="preserve">
     <value>No keywords added for this category</value>
+  </data>
+  <data name="Button_New_ReferenceSystem" xml:space="preserve">
+    <value>New reference system</value>
+  </data>
+  <data name="ChooseFromList" xml:space="preserve">
+    <value>Choose from list</value>
+  </data>
+  <data name="ChooseFromMap" xml:space="preserve">
+    <value>Choose from map</value>
+  </data>
+  <data name="Metadata_Distributions_LayerName_Label" xml:space="preserve">
+    <value>Layer name</value>
   </data>
 </root>

@@ -15,7 +15,7 @@
                                             v-bind:name="formElements.formatName.name"
                                             v-bind:value="format.Name"
                                             v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});">
-                                        <option value="">Velg</option>
+                                        <option value="">@UI.ChooseFromList</option>
                                         <option v-bind:value="option.Value" v-for="option in distributionFormatsForSpatialRepresentations">{{ option.Text }}</option>
                                     </select>
                                 </div>

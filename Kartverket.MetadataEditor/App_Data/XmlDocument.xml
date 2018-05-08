@@ -71,6 +71,11 @@
               Looks up a localized string similar to Legg til ny distribusjonsløsning.
             </summary>
         </member>
+        <member name="P:Resources.UI.Button_New_ReferenceSystem">
+            <summary>
+              Looks up a localized string similar to Nytt referansesystem.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Button_Remove_Distribution">
             <summary>
               Looks up a localized string similar to Fjern distribusjonsløsning.
@@ -94,6 +99,16 @@
         <member name="P:Resources.UI.Cartography">
             <summary>
               Looks up a localized string similar to Tegneregler.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ChooseFromList">
+            <summary>
+              Looks up a localized string similar to Velg fra liste.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ChooseFromMap">
+            <summary>
+              Looks up a localized string similar to Velg fra kart.
             </summary>
         </member>
         <member name="P:Resources.UI.Concepts">
@@ -735,6 +750,11 @@
         <member name="P:Resources.UI.Metadata_DateUpdated">
             <summary>
               Looks up a localized string similar to Dato sist oppdatert.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Distributions_LayerName_Label">
+            <summary>
+              Looks up a localized string similar to Lagnavn.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_DistributionsFormats_Required">

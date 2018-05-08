@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nytt referansesystem.
+        /// </summary>
+        public static string Button_New_ReferenceSystem {
+            get {
+                return ResourceManager.GetString("Button_New_ReferenceSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fjern distribusjonsløsning.
         /// </summary>
         public static string Button_Remove_Distribution {
@@ -129,6 +138,24 @@ namespace Resources {
         public static string Cartography {
             get {
                 return ResourceManager.GetString("Cartography", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg fra liste.
+        /// </summary>
+        public static string ChooseFromList {
+            get {
+                return ResourceManager.GetString("ChooseFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg fra kart.
+        /// </summary>
+        public static string ChooseFromMap {
+            get {
+                return ResourceManager.GetString("ChooseFromMap", resourceCulture);
             }
         }
         
@@ -1282,6 +1309,15 @@ namespace Resources {
         public static string Metadata_DateUpdated {
             get {
                 return ResourceManager.GetString("Metadata_DateUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lagnavn.
+        /// </summary>
+        public static string Metadata_Distributions_LayerName_Label {
+            get {
+                return ResourceManager.GetString("Metadata_Distributions_LayerName_Label", resourceCulture);
             }
         }
         

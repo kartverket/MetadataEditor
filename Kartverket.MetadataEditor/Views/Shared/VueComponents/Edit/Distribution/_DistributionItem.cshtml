@@ -29,7 +29,7 @@
                                         }
                                     })"
                                     v-bind:name="formElements.organization.name">
-                                <option value="">Velg</option>
+                                <option value="">@UI.ChooseFromList</option>
                                 <option v-bind:value="option.Value" v-for="option in this.$store.getters['OrganizationDistributorValues']">{{ option.Text }}</option>
                             </select>
                         </div>
@@ -58,7 +58,7 @@
                                         }
                                     })"
                                     v-bind:name="formElements.protocol.name">
-                                <option value="">Velg</option>
+                                <option value="">@UI.ChooseFromList</option>
                                 <option v-bind:value="option.Value" v-for="option in this.$store.getters['PredefinedDistributionProtocols']">{{ option.Text }}</option>
                             </select>
                         </div>
@@ -243,7 +243,7 @@
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Name',
                         value: this.distribution.Value.Details.Name,
                         visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
-                        label: 'Navn',
+                        label: '@Html.Raw(UI.Metadata_Distributions_LayerName_Label)',
                         type: 'text',
                         required: false,
                         helpText: {

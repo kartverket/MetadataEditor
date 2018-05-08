@@ -10,7 +10,7 @@
                             v-bind:name="formElements.coordinateSystem.name"
                             v-bind:value="referenceSystem.CoordinateSystem"
                             v-on:change="$store.commit('updateReferenceSystemsCoordinateSystem', {arrayIndex: referenceSystemIndex, value: $event.target.value});">
-                        <option value="">Velg</option>
+                        <option value="">@UI.ChooseFromList</option>
                         <option v-bind:value="option.Value" v-for="option in $store.getters['ReferenceSystemsValues']">{{ option.Text }}</option>
                     </select>
                 </div>
@@ -23,7 +23,7 @@
                        readonly>
             </div>
             <div class="col-md-2">
-                <span v-on:click="$store.commit('removeValueFromArray', {arrayName: 'ReferenceSystems', arrayIndex: referenceSystemIndex});" class="btn">Slett</span>
+                <span v-on:click="$store.commit('removeValueFromArray', {arrayName: 'ReferenceSystems', arrayIndex: referenceSystemIndex});" class="btn">@UI.Delete</span>
             </div>
         </div>
     </div>
