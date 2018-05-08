@@ -12,7 +12,7 @@
                                 <div v-if="formElements.formatName.type == 'select'" class="custom-select">
                                   
                                     <select class="form-control"
-                                            v-bind:name="formElements.formatName.name"
+                                            v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
                                             v-bind:value="format.Name"
                                             v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});">
                                         <option value="">@UI.ChooseFromList</option>
@@ -21,7 +21,7 @@
                                 </div>
                                 <div v-else-if="formElements.formatName.type == 'text'">
                                     <input class="form-control"
-                                           v-bind:name="formElements.formatName.name"
+                                           v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
                                            v-bind:value="format.Name"
                                            v-bind:type="formElements.formatName.type"
                                            v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});" />
@@ -30,9 +30,9 @@
                             <label v-bind:for="formElements.formatVersion.id" class="col-md-2 control-label">{{ formElements.formatVersion.label }}</label>
                             <div class="col-md-3">
                                 <input class="form-control"
-                                       v-bind:name="formElements.formatVersion.name"
+                                       v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatVersion.name"
                                        v-bind:value="format.Version"
-                                       v-bind:type="formElements.formatName.type"
+                                       v-bind:type="formElements.formatVersion.type"
                                        v-on:change="$store.commit('updateFormatDistributionsFormatVersion', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});" />
                             </div>
                             <div class="col-md-3">
@@ -45,7 +45,7 @@
         </div>
         <div v-for="formElement in hiddenFormElements">
             <input v-model="formElement.value"
-                   v-bind:name="formElements.name"
+                   v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElement.name"
                    type="hidden"
                    />
         </div>
@@ -56,7 +56,7 @@
     var DistributionItemFormat = {
         name: "distributionItemFormat",
         template: "#distribution-item-format-template",
-        props: ["format", "formatIndex"],
+        props: ["format", "distributionIndex", "localFormatIndex"],
         methods: {
             updateField: function (value) {
                 this.$store.dispatch('updateField', value);
@@ -67,15 +67,13 @@
                 helpText: { active: false, content: '' },
                 formElements: {
                     formatName: {
-                        id: 'DistributionsFormats[' + this.formatIndex + '].FormatName',
-                        name: 'DistributionsFormats[' + this.formatIndex + '].FormatName',
+                        name: 'FormatName',
                         label: 'Format',
                         type: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'] ? 'select' : 'text',
                         required: !this.$store.getters['isSoftware'],
                     },
                     formatVersion: {
-                        id: 'DistributionsFormats[' + this.formatIndex + '].FormatVersion',
-                        name: 'DistributionsFormats[' + this.formatIndex + '].FormatVersion',
+                        name: 'FormatVersion',
                         value: this.format.Version,
                         label: '@UI.Version',
                         type: 'text',
@@ -85,31 +83,35 @@
             }
         },
         computed: {
+            formatIndex: function () {
+                var formatsAddedInPreviousDistributionItems = 0;
+                this.$store.getters['FormatDistributions'].forEach(function (formatDistribution, distributionIndex) {
+                    if (this.distributionIndex > distributionIndex) {
+                        formatsAddedInPreviousDistributionItems += formatDistribution.Value.Formats.length;
+                    }
+                }.bind(this));
+                return formatsAddedInPreviousDistributionItems + this.localFormatIndex;
+            },
             hiddenFormElements: function () {
                 return [
                     {
-                        id: 'DistributionsFormats[' + this.formatIndex + '].Protocol',
-                        name: 'DistributionsFormats[' + this.formatIndex + '].Protocol',
+                        name: 'Protocol',
                         value: this.$parent.distribution.Value.Details.Protocol
                     },
                     {
-                        id: 'DistributionsFormats[' + this.formatIndex + '].Name',
-                        name: 'DistributionsFormats[' + this.formatIndex + '].Name',
+                        name: 'Name',
                         value: this.$parent.distribution.Value.Details.Name
                     },
                     {
-                        id: 'DistributionsFormats[' + this.formatIndex + '].URL',
-                        name: 'DistributionsFormats[' + this.formatIndex + '].URL',
+                        name: 'URL',
                         value: this.$parent.distribution.Value.Details.URL
                     },
                     {
-                        id: 'DistributionsFormats[' + this.formatIndex + '].UnitsOfDistribution',
-                        name: 'DistributionsFormats[' + this.formatIndex + '].UnitsOfDistribution',
+                        name: 'UnitsOfDistribution',
                         value: this.$parent.distribution.Value.Details.UnitsOfDistribution
                     },
                     {
-                        id: 'DistributionsFormats[' + this.formatIndex + '].Organization',
-                        name: 'DistributionsFormats[' + this.formatIndex + '].Organization',
+                        name: 'Organization',
                         value: this.$parent.distribution.Value.Details.Organization
                     },
                 ]
