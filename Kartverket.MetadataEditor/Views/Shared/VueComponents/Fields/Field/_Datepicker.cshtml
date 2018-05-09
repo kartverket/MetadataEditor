@@ -1,5 +1,5 @@
 ﻿<script type="text/x-template" id="datepicker-template">
-    <input v-bind:name="formElement.name" v-datepicker="formElement" type="text" class="form-control date" v-bind:value="getValue()" />
+    <input v-bind:name="formElement.name" v-bind:readonly="$parent.readOnly" v-datepicker="formElement" type="text" class="form-control date" v-bind:value="getValue()" />
 </script>
 
 
