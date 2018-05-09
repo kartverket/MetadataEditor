@@ -502,7 +502,7 @@ namespace Kartverket.MetadataEditor.Models
             SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(model.Uuid));
 
             UpdateMetadataFromModel(model, metadata);
-
+            metadata.RemoveUnnecessaryElements();
             var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username, model.Published));
             if (transaction.TotalUpdated == "0")
                 throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
@@ -684,6 +684,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 metadata.Keywords = model.GetAllKeywords();
 
+                metadata.RemoveUnnecessaryElements();
                 var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
                 if (transaction.TotalUpdated == "0")
                     Log.Error("No records updated batch update english translation uuid: " + uuid);
