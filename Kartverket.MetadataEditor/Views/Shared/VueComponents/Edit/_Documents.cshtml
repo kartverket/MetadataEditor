@@ -383,11 +383,32 @@
                 event.preventDefault(),
                 this.thumbnailFileUploadData.request.submit();
             },
+            setProductSpecificationAcceptedDate: function (productSpecificationUrl) {
+                var apiUrl = productSpecificationUrl;
+                apiUrl = apiUrl.replace("/register/", "/api/register/");
+                $.ajax({
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "text/plain; charset=utf-8"
+                    },
+                    type: "GET",
+                    url: apiUrl,
+                    success: function (response) {
+                        if (response.dateAccepted && response.dateAccepted != "0001-01-01T00:00:00") {
+                            this.$store.commit('updateQualitySpecificationDateSosi', response.dateAccepted);
+                        }
+                        if (response.ApplicationSchema) {
+                            this.$store.commit('updateApplicationSchema', response.ApplicationSchema);
+                        }
+                    }.bind(this)
+                });
+            },
             updateProductSpecificationUrl: function () {
                 var optionValue = event.target.value;
                 var optionText = event.target.selectedOptions[0].innerText;
                 this.$store.commit('updateProductSpecificationUrl', optionValue);
                 this.$store.commit('updateQualitySpecificationTitleSosi', 'SOSI-produktspesifikasjon: ' + optionText);
+                this.setProductSpecificationAcceptedDate(optionValue);
             },
             updateProductSpecificationOtherName: function () {
                 var inputValue = event.target.value;
