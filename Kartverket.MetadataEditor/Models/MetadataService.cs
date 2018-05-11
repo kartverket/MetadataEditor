@@ -942,6 +942,8 @@ namespace Kartverket.MetadataEditor.Models
 
             // distribution
             metadata.SpatialRepresentation = model.SpatialRepresentation;
+            if(metadata.IsDataset())
+                metadata.Language = "";
 
             var refsys = model.GetReferenceSystems();
             if (refsys != null)
