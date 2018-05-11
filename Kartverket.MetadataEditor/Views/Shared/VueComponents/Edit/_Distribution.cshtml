@@ -1,0 +1,61 @@
+﻿@using Resources
+<script type="text/x-template" id="distribution-template">
+    <div>
+        <div v-if="errors.DistributionsFormats" class="validation-summary-errors alert alert-danger">
+            <span v-for="error in errors.DistributionsFormats">{{ error.ErrorMessage }}</span>
+            
+        </div>
+        <div v-if="spatialRepresentation.visible" class="form-group">
+            <div class="row">
+                <label for="SpatialRepresentation" class="col-md-3 control-label">@UI.SpatialRepresentationType</label>
+                <div class="col-md-3">
+                    <div is="field" v-bind:form-element="spatialRepresentation"></div>
+                </div>
+            </div>
+        </div>
+        <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $store.getters['FormatDistributions']"></div>
+
+        <span v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" v-on:click="$store.commit('addFormatDistributions');" class="btn">@UI.Button_Add_Distribution</span>
+
+        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="reference-systems"></div>
+    </div>
+</script>
+
+@Html.Partial("VueComponents/Edit/Distribution/_DistributionItem")
+@Html.Partial("VueComponents/Edit/Distribution/_ReferenceSystems")
+
+
+<script>
+    var Distribution = {
+        name: "distribution",
+        template: "#distribution-template",
+        components: {
+            Field: Field,
+            DistributionItem: DistributionItem,
+            ReferenceSystems: ReferenceSystems
+        },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Distribution', fieldNames: this.fieldNames });
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Distribution' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
+        data: function () {
+            return {
+                errors: {},
+                fieldNames: [
+                    'SpatialRepresentation',
+                    'DistributionsFormats'
+                ],
+                spatialRepresentation: {
+                    name: 'SpatialRepresentation',
+                    getter: 'SpatialRepresentation',
+                    mutation: 'updateSpatialRepresentation',
+                    type: 'select',
+                    visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                    options: this.$store.getters['SpatialRepresentationValues']
+                }
+            };
+        }
+    };
+</script>

@@ -1,0 +1,201 @@
+﻿@using Resources
+
+<script type="text/x-template" id="basic-template">
+    <div>
+        <div class="form-group has-feedback">
+            <div v-for="formElement in formElements" v-if="formElement.visible" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                <div class="row">
+                    <label class="col-md-2 control-label">{{ formElement.label }}</label>
+                    <div class="col-md-9">
+                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                        <div is="field" v-bind:form-element="formElement"></div>
+                    </div>
+                    <div v-if="formElement.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var Basic = {
+        name: "Basic",
+        template: "#basic-template",
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            }
+        },
+        components: {
+            Field: Field
+        },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Basic', fieldNames: this.fieldNames });
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Basic' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
+        data: function () {
+            return {
+                errors: {},
+                fieldNames: ['Title', 'EnglishTitle', 'ResourceReferenceCodespace', 'ResourceReferenceCode', 'Abstract', 'EnglishAbstract', 'HelpUrl', 'SpecificUsage', 'EnglishSpecificUsage'],
+                formElements: [
+                    {
+                        multilingual: {
+                            no: {
+                                name: 'Title',
+                                getter: 'Title',
+                                mutation: 'updateTitle'
+                            },
+                            en: {
+                                name: 'EnglishTitle',
+                                getter: 'EnglishTitle',
+                                mutation: 'updateEnglishTitle'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        required: true,
+                        visible: true,
+                        label: '@Html.Raw(UI.Metadata_Title)',
+                        type: 'text',
+                        helpText: {
+                            active: false,
+                            content: '@UI.HelpTextTitle'
+                        }
+                    },
+                    {
+                        name: 'ResourceReferenceCodespace',
+                        getter: 'ResourceReferenceCodespace',
+                        mutation: 'updateResourceReferenceCodespace',
+                        type: 'text',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        label: '@Html.Raw(UI.NamespaceToDataset)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.HelpTextResourceReferenceCodespace)'
+                        }
+                    },
+                    {
+                        name: 'ResourceReferenceCode',
+                        getter: 'ResourceReferenceCode',
+                        mutation: 'updateResourceReferenceCode',
+                        type: 'text',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        label: '@Html.Raw(UI.DatasetName)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.HelpTextResourceReferenceCode)'
+                        }
+                    },
+                    {
+                        multilingual: {
+                            no: {
+                                name: 'Abstract',
+                                getter: 'Abstract',
+                                mutation: 'updateAbstract'
+                            },
+                            en: {
+                                name: 'EnglishAbstract',
+                                getter: 'EnglishAbstract',
+                                mutation: 'updateEnglishAbstract'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        required: true,
+                        type: 'textarea',
+                        visible: true,
+                        label: '@Html.Raw(UI.Metadata_Abstract)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.HelpTextAbstract)'
+                        }
+                    },
+                    {
+                        multilingual: {
+                            no: {
+                                name: 'SupplementalDescription',
+                                getter: 'SupplementalDescription',
+                                mutation: 'updateSupplementalDescription'
+                            },
+                            en: {
+                                name: 'EnglishSupplementalDescription',
+                                getter: 'EnglishSupplementalDescription',
+                                mutation: 'updateEnglishSupplementalDescription'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        type: 'textarea',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'] || this.$store.getters['isSoftware'],
+                        label: '@Html.Raw(UI.Metadata_SupplementalDescription_Label)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_SupplementalDescription)'
+                        }
+                    },
+                    {
+                        name: 'HelpUrl',
+                        getter: 'HelpUrl',
+                        mutation: 'updateHelpUrl',
+                        type: 'text',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'] || this.$store.getters['isSoftware'],
+                        label: '@Html.Raw(UI.HelpUrl)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.HelpTextHelpUrl)'
+                        }
+                    },
+                    {
+                        multilingual: {
+                            no: {
+                                name: 'SpecificUsage',
+                                getter: 'SpecificUsage',
+                                mutation: 'updateSpecificUsage'
+                            },
+                            en: {
+                                name: 'EnglishSpecificUsage',
+                                getter: 'EnglishSpecificUsage',
+                                mutation: 'updateEnglishSpecificUsage'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        required: true,
+                        type: 'textarea',
+                        visible: true,
+                        label: '@Html.Raw(UI.Use)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.HelpTextSpesificUsage)'
+                        }
+                    },
+                    {
+                        multilingual: {
+                            no: {
+                                name: 'Purpose',
+                                getter: 'Purpose',
+                                mutation: 'updatePurpose'
+                            },
+                            en: {
+                                name: 'EnglishPurpose',
+                                getter: 'EnglishPurpose',
+                                mutation: 'updateEnglishPurpose'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        required: true,
+                        type: 'textarea',
+                        visible: true,
+                        label: '@Html.Raw(UI.Metadata_Purpose)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.HelpTextPurpose)'
+                        }
+                    }
+                ]
+            };
+        }
+    };
+</script>

@@ -1,0 +1,485 @@
+﻿<script>
+    var Getters = {
+        modelStateValues: function (state) {
+            return state.modelStateValues;
+        },
+        errorsInTabs: function (state) {
+            return state.errorsInTabs;
+        },
+        settingsTabs: function (state) {
+            return state.settings.tabs;
+        },
+        settingsSelectedTab: function (state) {
+            return state.settings.selectedTab;
+        },
+        settings: function (state) {
+            return state.settings;
+        },
+        settingsLanguages: function (state) {
+            return state.settings.languages;
+        },
+        settingsLanguages_all: function (state) {
+            return state.settings.languages.all;
+        },
+        settingsLanguages_en: function (state) {
+            return state.settings.languages.en;
+        },
+        settingsLanguages_no: function (state) {
+            return state.settings.languages.no;
+        },
+        settingsSelectedLanguage: function (state) {
+            return state.settings.selectedLanguage;
+        },
+        settingsDatepicker: function (state) {
+            return state.settings.datepicker;
+        },
+        settingsDatepickerRegional: function (state) {
+            return state.settings.datepicker.regional;
+        },
+        settingsDatepickerRegionalNb: function (state) {
+            return state.settings.datepicker.regional.nb;
+        },
+        Title: function (state) {
+            return state.model.Title;
+        },
+        EnglishTitle: function (state) {
+            return state.model.EnglishTitle;
+        },
+        ResourceReferenceCodespace: function (state) {
+            return state.model.ResourceReferenceCodespace;
+        },
+        ResourceReferenceCode: function (state) {
+            return state.model.ResourceReferenceCode;
+        },
+        Abstract: function (state) {
+            return state.model.Abstract;
+        },
+        EnglishAbstract: function (state) {
+            return state.model.EnglishAbstract;
+        },
+        SupplementalDescription: function (state) {
+            return state.model.SupplementalDescription;
+        },
+        EnglishSupplementalDescription: function (state) {
+            return state.model.EnglishSupplementalDescription;
+        },
+        HelpUrl: function (state) {
+            return state.model.HelpUrl;
+        },
+        SpecificUsage: function (state) {
+            return state.model.SpecificUsage;
+        },
+        EnglishSpecificUsage: function (state) {
+            return state.model.EnglishSpecificUsage;
+        },
+        Purpose: function (state) {
+            return state.model.EnglishSpecificUsage;
+        },
+        EnglishPurpose: function (state) {
+            return state.model.EnglishPurpose;
+        },
+        DateUpdated: function (state) {
+            return state.model.DateUpdated;
+        },
+        DatePublished: function (state) {
+            return state.model.DatePublished;
+        },
+        DateCreated: function (state) {
+            return state.model.DateCreated;
+        },
+        DateMetadataValidFrom: function (state) {
+            return state.model.DateMetadataValidFrom;
+        },
+        DateMetadataValidTo: function (state) {
+            return state.model.DateMetadataValidTo;
+        },
+        MaintenanceFrequency: function (state) {
+            return state.model.MaintenanceFrequency;
+        },
+        MaintenanceFrequencyValues: function (state) {
+            return state.viewBag.MaintenanceFrequencyValues;
+        },
+        BoundingBoxNorth: function (state) {
+            return state.model.BoundingBoxNorth;
+        },
+        BoundingBoxEast: function (state) {
+            return state.model.BoundingBoxEast;
+        },
+        BoundingBoxSouth: function (state) {
+            return state.model.BoundingBoxSouth;
+        },
+        BoundingBoxWest: function (state) {
+            return state.model.BoundingBoxWest;
+        },
+        SelectedBoundingBoxAreas: function (state) {
+            return state.data.SelectedBoundingBoxAreas;
+        },
+        CoverageUrl: function (state) {
+            return state.model.CoverageUrl;
+        },
+        ContactMetadata: function (state) {
+            return state.model.ContactMetadata;
+        },
+        ContactMetadataName: function (state) {
+            return state.model.ContactMetadata.Name;
+        },
+        ContactMetadataEmail: function (state) {
+            return state.model.ContactMetadata.Email;
+        },
+        ContactMetadataOrganization: function (state) {
+            return state.model.ContactMetadata.Organization;
+        },
+        ContactMetadataRole: function (state) {
+            return state.model.ContactMetadata.Role;
+        },
+        ContactPublisher: function (state) {
+            return state.model.ContactPublisher;
+        },
+        ContactPublisherName: function (state) {
+            return state.model.ContactPublisher.Name;
+        },
+        ContactPublisherEmail: function (state) {
+            return state.model.ContactPublisher.Email;
+        },
+        ContactPublisherOrganization: function (state) {
+            return state.model.ContactPublisher.Organization;
+        },
+        ContactPublisherRole: function (state) {
+            return state.model.ContactPublisher.Role;
+        },
+        ContactOwner: function (state) {
+            return state.model.ContactPublisher;
+        },
+        ContactOwnerName: function (state) {
+            return state.model.ContactOwner.Name;
+        },
+        ContactOwnerEmail: function (state) {
+            return state.model.ContactOwner.Email;
+        },
+        ContactOwnerOrganization: function (state) {
+            return state.model.ContactOwner.Organization;
+        },
+        ContactOwnerRole: function (state) {
+            return state.model.ContactOwner.Role;
+        },
+        SpatialRepresentation: function (state) {
+            return state.model.SpatialRepresentation;
+        },
+        SpatialRepresentationValues: function (state) {
+            return state.viewBag.SpatialRepresentationValues;
+        },
+        VectorFormats: function (state) {
+            return state.viewBag.VectorFormats;
+        },
+        RasterFormats: function (state) {
+            return state.viewBag.RasterFormats
+        },
+        TextFormats: function (state) {
+            return state.data.TextFormats;
+        },
+        TinFormats: function (state) {
+            return state.data.TinFormats;
+        },
+        StereoImageFormats: function (state) {
+            return state.data.StereoImageFormats;
+        },
+        VideoFormats: function (state) {
+            return state.data.VideoFormats;
+        },
+        FormatDistributions: function (state) {
+            return state.model.FormatDistributions;
+        },
+        OrganizationDistributorValues: function (state) {
+            return state.viewBag.OrganizationDistributorValues;
+        },
+        PredefinedDistributionProtocols: function (state) {
+            return state.viewBag.predefinedDistributionProtocols;
+        },
+        ReferenceSystems: function (state) {
+            return state.model.ReferenceSystems;
+        },
+        ReferenceSystemsValues: function (state) {
+            return state.viewBag.ReferenceSystemsValues;
+        },
+        ProductSpecificationUrl: function (state) {
+            return state.model.ProductSpecificationUrl;
+        },
+        ProductspesificationValues: function (state) {
+            return state.viewBag.ProductspesificationValues;
+        },
+        ApplicationSchema: function (state) {
+            return state.model.ApplicationSchema;
+        },
+        KeywordsConcept: function (state) {
+            return state.model.KeywordsConcept;
+        },
+        ProductSpecificationOther: function (state) {
+            return state.model.ProductSpecificationOther;
+        },
+        ProductSpecificationOtherName: function (state) {
+            return state.model.ProductSpecificationOther.Name;
+        },
+        ProductSpecificationOtherURL: function (state) {
+            return state.model.ProductSpecificationOther.URL;
+        },
+        ProductSheetUrl: function (state) {
+            return state.model.ProductSheetUrl;
+        },
+        ProductsheetValues: function (state) {
+            return state.viewBag.ProductsheetValues;
+        },
+        LegendDescriptionUrl: function (state) {
+            return state.model.LegendDescriptionUrl
+        },
+        LegendDescriptionValues: function (state) {
+            return state.viewBag.LegendDescriptionValues;
+        },
+        ProductPageUrl: function (state) {
+            return state.model.ProductPageUrl;
+        },
+        ThumbnailUrl: function (state) {
+            return state.viewBag.ThumbnailUrl;
+        },
+        Thumbnails: function (state) {
+            return state.model.Thumbnails;
+        },
+        SelectedCoverageImage: function (state) {
+            var thumbnails = state.model.Thumbnails;
+            var selectedCoverageImage = {};
+            if (thumbnails !== null && thumbnails.length) {
+                thumbnails.forEach(function (thumbnail) {
+                    if (thumbnail.Type == 'dekningsoversikt') {
+                        selectedCoverageImage = thumbnail;
+                        return;
+                    }
+                });
+            }
+            return selectedCoverageImage;
+        },
+        UseLimitations: function (state) {
+            return state.model.UseLimitations;
+        },
+        EnglishUseLimitations: function (state) {
+            return state.model.EnglishUseLimitations;
+        },
+        AccessConstraints: function (state) {
+            return state.model.AccessConstraints;
+        },
+        AccessConstraintValues: function (state) {
+            return state.viewBag.AccessConstraintValues;
+        },
+        UseConstraints: function (state) {
+            return state.model.UseConstraints;
+        },
+        UseConstraintValues: function (state) {
+            return state.viewBag.UseConstraintValues
+        },
+        LicenseTypesValues: function (state) {
+            return state.viewBag.LicenseTypesValues;
+        },
+        OtherConstraintsLinkText: function (state) {
+            return state.model.OtherConstraintsLinkText;
+        },
+        OtherConstraintsLink: function (state) {
+            return state.model.OtherConstraintsLink;
+        },
+        OtherConstraints: function (state) {
+            return state.model.OtherConstraints;
+        },
+        EnglishOtherConstraints: function (state) {
+            return state.model.EnglishOtherConstraints;
+        },
+        SecurityConstraints: function (state) {
+            return state.model.SecurityConstraints;
+        },
+        SecurityConstraintValues: function (state) {
+            return state.viewBag.SecurityConstraintValues;
+        },
+        SecurityConstraintsNote: function (state) {
+            return state.model.SecurityConstraintsNote;
+        },
+        TopicCategory: function (state) {
+            return state.model.TopicCategory;
+        },
+        TopicCategoryValues: function (state) {
+            return state.viewBag.TopicCategoryValues;
+        },
+        KeywordsTheme: function (state) {
+            return state.model.KeywordsTheme;
+        },
+        KeywordsNationalTheme: function (state) {
+            return state.model.KeywordsNationalTheme
+        },
+        NationalThemeValues: function (state) {
+            return state.viewBag.NationalThemeValues;
+        },
+        KeywordsNationalInitiative: function (state) {
+            return state.model.KeywordsNationalInitiative;
+        },
+        NationalInitiativeValues: function (state) {
+            return state.viewBag.NationalInitiativeValues;
+        },
+        KeywordsInspire: function (state) {
+            return state.model.KeywordsInspire;
+        },
+        InspireValues: function (state) {
+            return state.viewBag.InspireValues;
+        },
+        KeywordsInspirePriorityDataset: function (state) {
+            return state.model.KeywordsInspirePriorityDataset;
+        },
+        InspirePriorityDatasets: function (state) {
+            return state.viewBag.InspirePriorityDatasets;
+        },
+        KeywordsOther: function (state) {
+            return state.model.KeywordsOther;
+        },
+        KeywordsEnglish: function (state) {
+            return state.model.KeywordsEnglish;
+        },
+        KeywordsPlace: function (state) {
+            return state.model.KeywordsPlace;
+        },
+        ResolutionScale: function (state) {
+            return state.model.ResolutionScale;
+        },
+        Status: function (state) {
+            return state.model.Status;
+        },
+        StatusValues: function (state) {
+            return state.viewBag.StatusValues;
+        },
+        ProcessHistory: function (state) {
+            return state.model.ProcessHistory;
+        },
+        EnglishProcessHistory: function (state) {
+            return state.model.EnglishProcessHistory;
+        },
+        OrderingInstructions: function (state) {
+            return state.model.OrderingInstructions;
+        },
+        OrderingInstructionsValues: function (state) {
+            return state.viewBag.OrderingInstructionsValues;
+        },
+        KeywordDokValidKmd: function (state) {
+            return state.data.KeywordDokValidKmd;
+        },
+        KeywordInspireValid: function (state) {
+            return state.data.KeywordInspireValid;
+        },
+        KeywordGeodatalaw: function (state) {
+            return state.data.KeywordGeodatalaw;
+        },
+        KeywordsCatalogs: function (state) {
+            return state.data.KeywordsCatalogs;
+        },
+        CatalogValues: function (state) {
+            return state.viewBag.CatalogValues;
+        },
+        KeywordNorgedigitalt: function (state) {
+            return state.data.KeywordNorgedigitalt;
+        },
+        KeywordArealPlans: function (state) {
+            return state.data.KeywordArealPlans;
+        },
+        QualitySpecificationTitleInspire: function (state) {
+            if (state.settings.visibleConformitySections['QualitySpecificationInspire'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationInspire']) {
+                return state.model.QualitySpecificationTitleInspire;
+            } else {
+                return '';
+            }
+        },
+        QualitySpecificationDateInspire: function (state) {
+            return '08.12.2010';
+        },
+        QualitySpecificationDateTypeInspire: function (state) {
+            return 'publication';
+        },
+        QualitySpecificationResultInspire: function (state) {
+            return state.model.QualitySpecificationResultInspire;
+        },
+        showQualitySpecificationExplanationInspire: function (state) {
+            return state.model.QualitySpecificationResultInspire == "false" || state.model.QualitySpecificationResultInspire == false;
+        },
+        QualitySpecificationExplanationInspire: function (state) {
+            return state.model.QualitySpecificationExplanationInspire;
+        },
+        EnglishQualitySpecificationExplanationInspire: function (state) {
+            return state.model.EnglishQualitySpecificationExplanationInspire;
+        },
+        QualitySpecificationTitleSosi: function (state) {
+            if (state.settings.visibleConformitySections['QualitySpecificationSosi'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationSosi']) {
+                return state.model.QualitySpecificationTitleSosi;
+            } else {
+                return '';
+            }
+        },
+        QualitySpecificationDateSosi: function (state) {
+            return state.model.QualitySpecificationDateSosi;
+        },
+        QualitySpecificationDateTypeSosi: function (state) {
+            return 'publication';
+        },
+        QualitySpecificationResultSosi: function (state) {
+            return state.model.QualitySpecificationResultSosi;
+        },
+        showQualitySpecificationExplanationSosi: function (state) {
+            return state.model.QualitySpecificationResultSosi == "false" || state.model.QualitySpecificationResultSosi == false;
+        },
+        QualitySpecificationExplanationSosi: function (state) {
+            return state.model.QualitySpecificationExplanationSosi;
+        },
+        EnglishQualitySpecificationExplanationSosi: function (state) {
+            return state.model.EnglishQualitySpecificationExplanationSosi;
+        },
+        QualitySpecificationResultSosiConformApplicationSchema: function (state) {
+            return state.model.QualitySpecificationResultSosiConformApplicationSchema;
+        },
+        QualitySpecificationResultSosiConformGmlApplicationSchema: function (state) {
+            return state.model.QualitySpecificationResultSosiConformGmlApplicationSchema;
+        },
+        QualitySpecificationTitle: function (state) {
+            if (state.settings.visibleConformitySections['QualitySpecificationCustom'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationCustom']) {
+                return state.model.QualitySpecificationTitle;
+            } else {
+                return '';
+            }
+        },
+        QualitySpecificationDate: function (state) {
+            return state.model.QualitySpecificationDate;
+        },
+        QualitySpecificationDateType: function (state) {
+            return 'publication';
+        },
+        QualitySpecificationResult: function (state) {
+            return state.model.QualitySpecificationResult;
+        },
+        showQualitySpecificationExplanation: function (state) {
+            return state.model.QualitySpecificationResult == "false" || state.model.QualitySpecificationResult == false;
+        },
+        QualitySpecificationExplanation: function (state) {
+            return state.model.QualitySpecificationExplanation;
+        },
+        EnglishQualitySpecificationExplanation: function (state) {
+            return state.model.EnglishQualitySpecificationExplanation;
+        },
+        operation: function (state) {
+            return state.viewBag.operation;
+        },
+        isDataset: function (state) {
+            return state.model.HierarchyLevel == 'dataset';
+        },
+        isDatasetSeries: function (state) {
+            return state.model.HierarchyLevel == 'series';
+        },
+        isSoftware: function (state) {
+            return state.model.HierarchyLevel == 'software';
+        },
+        isService: function (state) {
+            return state.model.HierarchyLevel == 'service';
+        },
+        visibleConformitySections: function (state) {
+            return state.settings.visibleConformitySections
+        }
+    }
+</script>

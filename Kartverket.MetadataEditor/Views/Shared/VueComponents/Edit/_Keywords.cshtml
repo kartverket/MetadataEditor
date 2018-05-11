@@ -1,0 +1,139 @@
+﻿@using Resources
+
+<script type="text/x-template" id="keywords-template">
+    <div>
+
+        <div class="form-group">
+            <label v-bind:for="topicCategory.id" class="col-md-2 control-label">@UI.TopicCategory</label>
+            <div class="col-md-9">
+                <p v-if="topicCategory.helpText && topicCategory.helpText.active" class="help-text bg-success" v-html="topicCategory.helpText.content"></p>
+                <div is="field" v-bind:form-element="topicCategory"></div>
+            </div>
+            <div v-if="topicCategory.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="topicCategory.helpText.active = !topicCategory.helpText.active" v-bind:class="{active: topicCategory.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        <div is="keywords-section"
+             v-show="section.visible"
+             v-bind:section="section"
+             v-for="section in sections">
+        </div>
+
+    </div>
+</script>
+
+@Html.Partial("VueComponents/Edit/Keywords/_KeywordsSection")
+
+<script>
+    var Keywords = {
+        name: "keywords",
+        template: "#keywords-template",
+        components: {
+            Field, Field,
+            KeywordsSection: KeywordsSection
+        },
+        mounted: function () {
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Keywords' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
+        data: function () {
+            return {
+                errors: {},
+                topicCategory: {
+                    id: 'TopicCategory',
+                    name: 'TopicCategory',
+                    getter: 'TopicCategory',
+                    mutation: 'updateTopicCategory',
+                    label: '@Html.Raw(UI.Metadata_TopicCategory_Label)',
+                    type: 'select',
+                    visible: true,
+                    helpText: {
+                        active: false,
+                        content: '@Html.Raw(UI.Helptext_TopicCategory)'
+                    },
+                    options: this.$store.getters['TopicCategoryValues']
+                },
+
+                sections: {
+                    keywordsTheme: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsTheme_Label)',
+                        name: 'Theme',
+                        mutation: 'updateKeywordsTheme',
+                        type: 'text',
+                        visible: true,
+                        multilingual: true,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsTheme)'
+                        },
+                        options: this.$store.getters['AccessConstraintValues']
+                    },
+                    keywordsNationalTheme: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsNationalTheme_Label)',
+                        name: 'NationalTheme',
+                        type: 'filter-select',
+                        visible: true,
+                        multilingual: false,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsNationalTheme)'
+                        },
+                        options: this.$store.getters['NationalThemeValues']
+                    },
+                    keywordsNationalInitiative: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsNationalInitiative_Label)',
+                        name: 'NationalInitiative',
+                        type: 'select',
+                        visible: false,
+                        multilingual: true,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsNationalInitiative)'
+                        },
+                        options: this.$store.getters['NationalInitiativeValues']
+                    },
+                    keywordsInspire: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsInspire_Label)',
+                        name: 'Inspire',
+                        type: 'filter-select',
+                        visible: !this.$store.getters['isSoftware'],
+                        multilingual: false,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsInspire)'
+                        },
+                        options: this.$store.getters['InspireValues']
+                    },
+                    keywordsInspirePriorityDataset: {
+                        title: '@UI.EuPriorityDataset',
+                        name: 'InspirePriorityDataset',
+                        type: 'filter-select',
+                        visible: true,
+                        multilingual: false,
+                        helpText: {
+                            active: false,
+                            content: 'List of datasets related to environmental reporting, which should be made available by Member States through the European Spatial Data Infrastructure in a stepwise manner. The list also reflects the data gaps identified during the evaluation of the state-of-implementation and the fitness of the Directive for its intended purpose (a so-called REFIT evaluation)'
+                        },
+                        options: this.$store.getters['InspirePriorityDatasets']
+                    },
+                    keywordsOther: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsOther_Label)',
+                        name: 'Other',
+                        type: 'text',
+                        visible: true,
+                        multilingual: true,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsOther)'
+                        },
+                    }
+                }
+            }
+        }
+    };
+</script>
+

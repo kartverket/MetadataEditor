@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Resources;
 using System.Linq;
+using Kartverket.MetadataEditor.Helpers;
+using Kartverket.MetadataEditor.Models.Translations;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -17,6 +19,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsTheme = new List<string>();
             KeywordsPlace = new List<string>();
             KeywordsInspire = new List<string>();
+            KeywordsInspirePriorityDataset = new List<string>();
             KeywordsServiceTaxonomy = new List<string>();
             KeywordsNationalInitiative = new List<string>();
             KeywordsNationalTheme = new List<string>();
@@ -38,11 +41,13 @@ namespace Kartverket.MetadataEditor.Models
         [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
 
+        public string TitleFromSelectedLanguage { get; set; }
+
         //[Required(ErrorMessage = null)]
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
         public string Purpose { get; set; }
 
-        [Required(ErrorMessage = "Sammendrag er påkrevd")]
+        [Required]
         [Display(Name = "Metadata_Abstract", ResourceType = typeof(UI))]
         public string Abstract { get; set; }
 
@@ -53,6 +58,7 @@ namespace Kartverket.MetadataEditor.Models
         public List<String> KeywordsTheme { get; set; }
         public List<String> KeywordsPlace { get; set; }
         public List<String> KeywordsInspire { get; set; }
+        public List<String> KeywordsInspirePriorityDataset { get; set; }
         public List<String> KeywordsServiceTaxonomy { get; set; }
         public List<String> KeywordsNationalInitiative { get; set; }
         public List<String> KeywordsNationalTheme { get; set; }
@@ -73,22 +79,26 @@ namespace Kartverket.MetadataEditor.Models
         public List<Thumbnail> Thumbnails { get; set; }
 
         public string Status { get; set; }
-        public string OrderingInstructions { get; set; }    
+        public string OrderingInstructions { get; set; }
 
-        [Required (ErrorMessage="Geografisk utstrekning nord er påkrevd")]
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage=null)]
+        [Required]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_East_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Metadata_BoundingBox_East", ResourceType = typeof(UI))]
         public string BoundingBoxEast { get; set; }
 
-        [Required(ErrorMessage = "Geografisk utstrekning vest er påkrevd")]
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        [Required]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_West_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Metadata_BoundingBox_West", ResourceType = typeof(UI))]
         public string BoundingBoxWest { get; set; }
 
-        [Required(ErrorMessage = "Geografisk utstrekning nord er påkrevd")]
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        [Required]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_North_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Metadata_BoundingBox_North", ResourceType = typeof(UI))]
         public string BoundingBoxNorth { get; set; }
 
-        [Required(ErrorMessage = "Geografisk utstrekning sør er påkrevd")]
-        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI), ErrorMessage = null)]
+        [Required]
+        [RegularExpression(@"-?([0-9]+)(\.[0-9]+)?", ErrorMessageResourceName = "Metadata_BoundingBox_South_Invalid", ErrorMessageResourceType = typeof(UI))]
+        [Display(Name = "Metadata_BoundingBox_South", ResourceType = typeof(UI))]
         public string BoundingBoxSouth { get; set; }
 
         /* dataset only */
@@ -103,7 +113,7 @@ namespace Kartverket.MetadataEditor.Models
         public string DistributionFormatVersion { get; set; }
         //[AssertThat("IsValidDistributionFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
         public List<SimpleDistributionFormat> DistributionFormats { get; set; }
-        [AssertThat("IsValidDistributionsFormat()", ErrorMessage = "Distribusjonsformat er påkrevd")]
+        [AssertThat("IsValidDistributionsFormat()", ErrorMessageResourceName = "Metadata_DistributionsFormats_Required", ErrorMessageResourceType = typeof(UI))]
         public List<SimpleDistribution> DistributionsFormats { get; set; }
         public Dictionary<DistributionGroup, Distribution> FormatDistributions{ get; set; }
         public string DistributionUrl { get; set; }
@@ -128,20 +138,23 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationDateTypeInspire { get; set; }
         public string QualitySpecificationDateTypeSosi { get; set; }
         [Display(Name = "Metadata_QualitySpecificationExplanation", ResourceType = typeof(UI))]
-        [RequiredIf("!IsValidQualitySpesification()", ErrorMessage = "Konformitet annen standard mangler")]
+        [RequiredIf("!IsValidQualitySpesification()", ErrorMessageResourceName = "Metadata_QualitySpecificationExplanation_Required", ErrorMessageResourceType = typeof(UI))]
         public string QualitySpecificationExplanation { get; set; }
         public string EnglishQualitySpecificationExplanation { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessage = "Konformitet inspire mangler")]
+        [RequiredIf("!IsValidQualitySpesificationInspire()", ErrorMessageResourceName = "Metadata_QualitySpecificationExplanationInspire_Required", ErrorMessageResourceType = typeof(UI))]
         public string QualitySpecificationExplanationInspire { get; set; }
         public string EnglishQualitySpecificationExplanationInspire { get; set; }
-        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessage = "Konformitet sosi mangler")]
+        [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessageResourceName = "Metadata_QualitySpecificationExplanationSosi_Required", ErrorMessageResourceType = typeof(UI))]
         public string QualitySpecificationExplanationSosi { get; set; }
         public string EnglishQualitySpecificationExplanationSosi { get; set; }
-        [Required(ErrorMessage = "Datakonformitet er påkrevd")]
+        [Required]
+        [Display(Name = "QualitySpecificationResult", ResourceType = typeof(UI))]
         public bool QualitySpecificationResult { get; set; }
-        [Required(ErrorMessage = "Datakonformitet inspire er påkrevd")]
+        [Required]
+        [Display(Name = "QualitySpecificationResultInspire", ResourceType = typeof(UI))]
         public bool QualitySpecificationResultInspire { get; set; }
-        [Required(ErrorMessage = "Datakonformitet sosi er påkrevd")]
+        [Required]
+        [Display(Name = "QualitySpecificationResultSosi", ResourceType = typeof(UI))]
         public bool QualitySpecificationResultSosi { get; set; }
         public string QualitySpecificationTitle { get; set; }
         public string QualitySpecificationTitleInspire { get; set; }
@@ -150,7 +163,8 @@ namespace Kartverket.MetadataEditor.Models
         public bool QualitySpecificationResultSosiConformGmlApplicationSchema { get; set; } = false;
         //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
-        [Required (ErrorMessage="Oppdateringshyppighet er påkrevd")]
+        [Required]
+        [Display(Name = "Metadata_MaintenanceFrequency", ResourceType = typeof(UI))]
         public string MaintenanceFrequency { get; set; }
         //[RequiredIf("!IsService()", ErrorMessage = "Målestokktall er påkrevd")]
         public string ResolutionScale { get; set; }
@@ -330,6 +344,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             List<SimpleKeyword> allKeywords = new List<SimpleKeyword>();
             allKeywords.AddRange(CreateKeywords(KeywordsInspire, "Inspire", null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1));
+            allKeywords.AddRange(CreateKeywords(KeywordsInspirePriorityDataset, "InspirePriorityDataset", null, SimpleKeyword.THESAURUS_INSPIRE_PRIORITY_DATASET));
             allKeywords.AddRange(CreateKeywords(KeywordsNationalInitiative, "NationalInitiative", null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE));
             allKeywords.AddRange(CreateKeywords(KeywordsNationalTheme, "NationalTheme", null, SimpleKeyword.THESAURUS_NATIONAL_THEME));
             allKeywords.AddRange(CreateKeywords(KeywordsServiceTaxonomy, "Service", null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY));
@@ -459,14 +474,28 @@ namespace Kartverket.MetadataEditor.Models
 
         public string GetInnholdstype()
         {
-            string t = HierarchyLevel;
-            if (HierarchyLevel == "dataset") t = "Datasett";
-            else if (HierarchyLevel == "service" && (DistributionProtocol != null && !string.IsNullOrWhiteSpace(DistributionName))) t = "Tjenestelag";
-            else if (HierarchyLevel == "service") t = "Tjeneste";
-            else if (HierarchyLevel == "software") t = "Applikasjon";
-            else if (HierarchyLevel == "series") t = "Datasettserie";
-            else if (HierarchyLevel == "dimensionGroup") t = "Datapakke";
-            return t;
+            if (CultureHelper.GetCurrentCulture() == Culture.NorwegianCode)
+            {
+                string t = HierarchyLevel;
+                if (HierarchyLevel == "dataset") t = "Datasett";
+                else if (HierarchyLevel == "service" && (DistributionProtocol != null && !string.IsNullOrWhiteSpace(DistributionName))) t = "Tjenestelag";
+                else if (HierarchyLevel == "service") t = "Tjeneste";
+                else if (HierarchyLevel == "software") t = "Applikasjon";
+                else if (HierarchyLevel == "series") t = "Datasettserie";
+                else if (HierarchyLevel == "dimensionGroup") t = "Datapakke";
+                return t;
+            }
+            else
+            {
+                string t = HierarchyLevel;
+                if (HierarchyLevel == "dataset") t = "Dataset";
+                else if (HierarchyLevel == "service" && (DistributionProtocol != null && !string.IsNullOrWhiteSpace(DistributionName))) t = "Service layer";
+                else if (HierarchyLevel == "service") t = "Service";
+                else if (HierarchyLevel == "software") t = "Application";
+                else if (HierarchyLevel == "series") t = "Dataset series";
+                else if (HierarchyLevel == "dimensionGroup") t = "Data package";
+                return t;
+            }
         }
 
         public Dictionary<string, string> ServiceDistributionKeywords = 
@@ -478,6 +507,14 @@ namespace Kartverket.MetadataEditor.Models
                 { "infoCatalogueService"  , "infoCatalogueService" },
                 { "spatialProcessingService"  , "spatialProcessingService" }
             };
+
+        public string NameTranslated()
+        {
+            return CultureHelper.IsNorwegian()
+                ? Title
+                : (!string.IsNullOrWhiteSpace(EnglishTitle) ? EnglishTitle : Title);
+        }
+
 
     }
 

@@ -1,0 +1,142 @@
+﻿@using Resources
+
+<script type="text/x-template" id="distribution-item-format-template">
+    <div>
+        <div class="row">
+            <div class="form-group has-feedback" v-bind:class="{'required': formElements.formatName.required}">
+                <label v-bind:for="formElements.formatName.id" class="col-md-3 control-label">{{ formElements.formatName.label }}</label>
+                <div class="col-md-8">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div v-if="formElements.formatName.type == 'select'" class="custom-select">
+                                  
+                                    <select class="form-control"
+                                            v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
+                                            v-bind:value="format.Name"
+                                            v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex, value: $event.target.value});">
+                                        <option value="">@UI.ChooseFromList</option>
+                                        <option v-bind:value="option.Value" v-for="option in distributionFormatsForSpatialRepresentations">{{ option.Text }}</option>
+                                    </select>
+                                </div>
+                                <div v-else-if="formElements.formatName.type == 'text'">
+                                    <input class="form-control"
+                                           v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
+                                           v-bind:value="format.Name"
+                                           v-bind:type="formElements.formatName.type"
+                                           v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex, value: $event.target.value});" />
+                                </div>
+                            </div>
+                            <label v-bind:for="formElements.formatVersion.id" class="col-md-2 control-label">{{ formElements.formatVersion.label }}</label>
+                            <div class="col-md-3">
+                                <input class="form-control"
+                                       v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatVersion.name"
+                                       v-bind:value="format.Version"
+                                       v-bind:type="formElements.formatVersion.type"
+                                       v-on:change="$store.commit('updateFormatDistributionsFormatVersion', {distributionIndex: $parent.distributionIndex, localFormatIndex: formatIndex, value: $event.target.value});" />
+                            </div>
+                            <div class="col-md-3">
+                                <span v-if="!single" class="btn" v-on:click="$store.commit('removeFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex});">@UI.Delete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-for="formElement in hiddenFormElements">
+            <input v-model="formElement.value"
+                   v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElement.name"
+                   type="hidden"
+                   />
+        </div>
+    </div>
+</script>
+
+<script>
+    var DistributionItemFormat = {
+        name: "distributionItemFormat",
+        template: "#distribution-item-format-template",
+        props: ["format", "distributionIndex", "localFormatIndex"],
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            }
+        },
+        data: function () {
+            return {
+                helpText: { active: false, content: '' },
+                formElements: {
+                    formatName: {
+                        name: 'FormatName',
+                        label: 'Format',
+                        type: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'] ? 'select' : 'text',
+                        required: !this.$store.getters['isSoftware'],
+                    },
+                    formatVersion: {
+                        name: 'FormatVersion',
+                        value: this.format.Version,
+                        label: '@UI.Version',
+                        type: 'text',
+                        required: true
+                    }
+                }
+            }
+        },
+        computed: {
+            formatIndex: function () {
+                var formatsAddedInPreviousDistributionItems = 0;
+                this.$store.getters['FormatDistributions'].forEach(function (formatDistribution, distributionIndex) {
+                    if (this.distributionIndex > distributionIndex) {
+                        formatsAddedInPreviousDistributionItems += formatDistribution.Value.Formats.length;
+                    }
+                }.bind(this));
+                return formatsAddedInPreviousDistributionItems + this.localFormatIndex;
+            },
+            single: function () {
+                return this.$store.getters['FormatDistributions'][this.distributionIndex].Value.Formats.length == 1;
+            },
+            hiddenFormElements: function () {
+                return [
+                    {
+                        name: 'Protocol',
+                        value: this.$parent.distribution.Value.Details.Protocol
+                    },
+                    {
+                        name: 'Name',
+                        value: this.$parent.distribution.Value.Details.Name
+                    },
+                    {
+                        name: 'URL',
+                        value: this.$parent.distribution.Value.Details.URL
+                    },
+                    {
+                        name: 'UnitsOfDistribution',
+                        value: this.$parent.distribution.Value.Details.UnitsOfDistribution
+                    },
+                    {
+                        name: 'Organization',
+                        value: this.$parent.distribution.Value.Details.Organization
+                    },
+                ]
+            },
+            distributionFormatsForSpatialRepresentations: function () {
+                if (this.$store.getters['SpatialRepresentation'] == 'grid') {
+                    return this.$store.getters['RasterFormats'];
+                } else if (this.$store.getters['SpatialRepresentation'] == 'stereoModel') {
+                    return this.$store.getters['StereoImageFormats'];
+                } else if (this.$store.getters['SpatialRepresentation'] == 'textTable') {
+                    return this.$store.getters['TextFormats'];
+                } else if (this.$store.getters['SpatialRepresentation'] == 'tin') {
+                    return this.$store.getters['TinFormats'];
+                } else if (this.$store.getters['SpatialRepresentation'] == 'vector') {
+                    return this.$store.getters['VectorFormats'];
+                } else if (this.$store.getters['SpatialRepresentation'] == 'video') {
+                    return this.$store.getters['VideoFormats'];
+                } else {
+                    return [];
+                }
+            }
+        }
+    };
+</script>
+

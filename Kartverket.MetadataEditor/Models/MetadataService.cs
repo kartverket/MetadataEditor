@@ -13,6 +13,9 @@ using Newtonsoft.Json.Linq;
 using Kartverket.Geonorge.Utilities.LogEntry;
 using System.Net.Http;
 using Kartverket.Geonorge.Utilities.Organization;
+using Kartverket.MetadataEditor.Models.InspireCodelist;
+using Newtonsoft.Json;
+using Kartverket.MetadataEditor.Models.Translations;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -218,6 +221,7 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsNationalTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_THEME)),
                 KeywordsConcept = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_CONCEPT)),
                 KeywordsInspire = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1)),
+                KeywordsInspirePriorityDataset = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_INSPIRE_PRIORITY_DATASET)),
                 KeywordsServiceTaxonomy = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY)),
                 KeywordsServiceType = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICE_TYPE)),
                 KeywordsOther = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, null)),
@@ -329,6 +333,8 @@ namespace Kartverket.MetadataEditor.Models
 
             getQualitySpecifications(model, metadata);
 
+            // Translations
+            model.TitleFromSelectedLanguage = model.NameTranslated();
 
             return model;
         }
@@ -496,7 +502,7 @@ namespace Kartverket.MetadataEditor.Models
             SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(model.Uuid));
 
             UpdateMetadataFromModel(model, metadata);
-
+            metadata.RemoveUnnecessaryElements();
             var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username, model.Published));
             if (transaction.TotalUpdated == "0")
                 throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
@@ -504,8 +510,259 @@ namespace Kartverket.MetadataEditor.Models
             Task.Run(() => ReIndexOperatesOn(model));
             Task.Run(() => RemoveCache(model));
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Modified, User = username, Description = "Saved metadata title: "+ model.Title }));
+            Task.Run(async delegate
+            {
+                await Task.Delay(TimeSpan.FromSeconds(20));
+                UpdateRegisterTranslations(username, model.Uuid);
+            });
+        }
+
+        Dictionary<string, string> inspireList;
+        Dictionary<string, string> nationalThemeList;
+        Dictionary<string, string> nationalInitiativeList;
+
+        public void UpdateRegisterTranslations(string username, string uuid = null)
+        {
+            string searchString = "";
+            if (!string.IsNullOrEmpty(uuid))
+                searchString = uuid;
+            System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
+            string server = settings["GeoNetworkUrl"];
+            string usernameGeonetwork = settings["GeoNetworkUsername"];
+            string password = settings["GeoNetworkPassword"];
+            _geoNorge = new GeoNorgeAPI.GeoNorge(usernameGeonetwork, password, server);
+            _geoNorge.OnLogEventDebug += new GeoNorgeAPI.LogEventHandlerDebug(LogEventsDebug);
+            _geoNorge.OnLogEventError += new GeoNorgeAPI.LogEventHandlerError(LogEventsError);
+
+
+            inspireList = GetCodeListEnglish("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6");
+            nationalThemeList = GetCodeListEnglish("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
+            nationalInitiativeList = GetCodeListEnglish("37204B11-4802-44B6-80A1-519968BD072F");
+
+            Log.Info("Start batch update english translation");
+
+            try
+            {
+                SearchResultsType model = null;
+                int offset = 1;
+                int limit = 50;
+                model = _geoNorge.SearchIso(searchString, offset, limit, false);
+                Log.Info("Running search from position:" + offset);
+                foreach (var item in model.Items)
+                {
+                    var metadataItem = item as MD_Metadata_Type;
+                    string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
+                    UpdateEnglish(identifier, username);
+                }
+
+                int numberOfRecordsMatched = int.Parse(model.numberOfRecordsMatched);
+                int next = int.Parse(model.nextRecord);
+
+                while (next > 0 && next < numberOfRecordsMatched)
+                {
+                    Log.Info("Running search from position:" + next);
+                    model = _geoNorge.SearchIso(searchString, next, limit, false);
+
+                    foreach (var item in model.Items)
+                    {
+                        var metadataItem = item as MD_Metadata_Type;
+                        string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
+                        UpdateEnglish(identifier, username);
+                    }
+
+                    next = int.Parse(model.nextRecord);
+                    if (next == 0) break;
+                }
+
+                Log.Info("Finished batch update english translation");
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("Error batch update stopped for english translation: " + ex.Message);
+            }
+
 
         }
+
+        private void UpdateEnglish(string uuid, string username)
+        {
+            try
+            {
+                Log.Info("Running batch update english translation for uuid: " + uuid);
+
+                SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
+                MetadataViewModel model = GetMetadataModel(uuid);
+
+                if (metadata.ContactMetadata != null && !string.IsNullOrEmpty(metadata.ContactMetadata.Organization))
+                {
+                    var organization = GetOrganization(metadata.ContactMetadata.Organization);
+                    if (!string.IsNullOrEmpty(organization))
+                        model.EnglishContactMetadataOrganization = organization;
+                }
+
+                if (metadata.ContactOwner != null && !string.IsNullOrEmpty(metadata.ContactOwner.Organization))
+                {
+                    var organization = GetOrganization(metadata.ContactOwner.Organization);
+                    if (!string.IsNullOrEmpty(organization))
+                        model.EnglishContactOwnerOrganization = organization;
+                }
+
+                if (metadata.ContactPublisher != null && !string.IsNullOrEmpty(metadata.ContactPublisher.Organization))
+                {
+                    var organization = GetOrganization(metadata.ContactPublisher.Organization);
+                    if (!string.IsNullOrEmpty(organization))
+                        model.EnglishContactPublisherOrganization = organization;
+                }
+
+                var contactMetadata = model.ContactMetadata.ToSimpleContact();
+                if (!string.IsNullOrWhiteSpace(model.EnglishContactMetadataOrganization))
+                {
+                    contactMetadata.OrganizationEnglish = model.EnglishContactMetadataOrganization;
+                }
+                metadata.ContactMetadata = contactMetadata;
+
+                var contactPublisher = model.ContactPublisher.ToSimpleContact();
+                if (!string.IsNullOrWhiteSpace(model.EnglishContactPublisherOrganization))
+                {
+                    contactPublisher.OrganizationEnglish = model.EnglishContactPublisherOrganization;
+                }
+                metadata.ContactPublisher = contactPublisher;
+
+                var contactOwner = model.ContactOwner.ToSimpleContact();
+                if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
+                {
+                    contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
+                }
+                metadata.ContactOwner = contactOwner;
+
+                var englishKeywords = model.KeywordsEnglish;
+
+                string keywordPrefix = "NationalTheme";
+                //Update keywords nationalTheme
+                foreach (var keyword in model.KeywordsNationalTheme)
+                {
+                    if (nationalThemeList.ContainsKey(keyword) && keyword != nationalThemeList[keyword])
+                    {
+                        var key = keywordPrefix + "_" + keyword;
+                        if (englishKeywords.ContainsKey(key))
+                            englishKeywords[key] = nationalThemeList[keyword];
+                        else
+                            englishKeywords.Add(key, nationalThemeList[keyword]);
+                    }
+                }
+
+                keywordPrefix = "NationalInitiative";
+                //Update keywords NationalInitiative
+                foreach (var keyword in model.KeywordsNationalInitiative)
+                {
+                    if (nationalInitiativeList.ContainsKey(keyword) && keyword != nationalInitiativeList[keyword])
+                    {
+                        var key = keywordPrefix + "_" + keyword;
+                        if (englishKeywords.ContainsKey(key))
+                            englishKeywords[key] = nationalInitiativeList[keyword];
+                        else
+                            englishKeywords.Add(key, nationalInitiativeList[keyword]);
+                    }
+                }
+
+                keywordPrefix = "Inspire";
+                //Update keywords Inspire
+                foreach (var keyword in model.KeywordsInspire)
+                {
+                    if (inspireList.ContainsKey(keyword) && keyword != inspireList[keyword])
+                    {
+                        var key = keywordPrefix + "_" + keyword;
+                        if (englishKeywords.ContainsKey(key))
+                            englishKeywords[key] = inspireList[keyword];
+                        else
+                            englishKeywords.Add(key, inspireList[keyword]);
+                    }
+                }
+
+                model.KeywordsEnglish = englishKeywords;
+
+                metadata.Keywords = model.GetAllKeywords();
+
+                metadata.RemoveUnnecessaryElements();
+                var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+                if (transaction.TotalUpdated == "0")
+                    Log.Error("No records updated batch update english translation uuid: " + uuid);
+
+                Log.Info("Finished batch update english translation uuid: " + uuid);
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("Error batch update english translation: " + ex.Message);
+            }
+        }
+
+        public string GetOrganization(string name)
+        {
+            var orgNameEnglish = "";
+            try
+            {
+
+                if (OrganizationsEnglish.ContainsKey(name))
+                    return OrganizationsEnglish[name];
+
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                Log.Info("Get " + System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "/api/organisasjon/navn/" + name + "/en");
+                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "/api/organisasjon/navn/" + name + "/en");
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+
+                var orgToken = response["Name"];
+                if (orgToken != null)
+                    orgNameEnglish = orgToken.ToString();
+
+                OrganizationsEnglish.Add(name, orgNameEnglish);
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("Get " + System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "/api/organisasjon/navn/" + name + "/en failed " + ex.Message);
+            }
+
+            return orgNameEnglish;
+        }
+
+        public Dictionary<string, string> GetCodeListEnglish(string systemid)
+        {
+            Dictionary<string, string> CodeValues = new Dictionary<string, string>();
+
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/kodelister/" + systemid;
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Headers.Remove("Accept-Language");
+            c.Headers.Add("Accept-Language", Culture.EnglishCode);
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(url);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            var codeList = response["containeditems"];
+
+            foreach (var code in codeList)
+            {
+                JToken codevalueToken = code["codevalue"];
+                string codevalue = codevalueToken?.ToString();
+
+                if (string.IsNullOrWhiteSpace(codevalue))
+                    codevalue = code["label"].ToString();
+
+                if (!CodeValues.ContainsKey(codevalue))
+                {
+                    CodeValues.Add(codevalue, code["label"].ToString());
+                }
+            }
+
+            return CodeValues;
+        }
+
+        Dictionary<string, string> OrganizationsEnglish = new Dictionary<string, string>();
 
         private void ReIndexOperatesOn(MetadataViewModel metadata)
         {
@@ -617,6 +874,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
+            var dateType = "publication";
 
             if (!string.IsNullOrEmpty(model.ParentIdentifier))
                 metadata.ParentIdentifier = model.ParentIdentifier;
@@ -753,7 +1011,7 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     Title = model.QualitySpecificationTitleSosi,
                     Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                    DateType = model.QualitySpecificationDateTypeSosi,
+                    DateType = dateType,
                     Explanation = model.QualitySpecificationExplanationSosi,
                     EnglishExplanation = model.EnglishQualitySpecificationExplanationSosi,
                     Result = model.QualitySpecificationResultSosi,
@@ -761,7 +1019,7 @@ namespace Kartverket.MetadataEditor.Models
                 });
             }
 
-            if (!string.IsNullOrWhiteSpace(model.ApplicationSchema))
+            if (!string.IsNullOrWhiteSpace(model.ApplicationSchema) && !model.IsService())
             {
                 if (model.QualitySpecificationResultSosiConformApplicationSchema)
                 {
@@ -769,7 +1027,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         Title = "Sosi applikasjonsskjema",
                         Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = model.QualitySpecificationDateTypeSosi,
+                        DateType = dateType,
                         Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
                         EnglishExplanation = "SOSI files are according to application form",
                         Result = true,
@@ -782,7 +1040,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         Title = "Sosi applikasjonsskjema",
                         Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = model.QualitySpecificationDateTypeSosi,
+                        DateType = dateType,
                         Explanation = "SOSI-filer avviker fra applikasjonsskjema",
                         EnglishExplanation = "SOSI files are not according to application form",
                         Result = false,
@@ -795,7 +1053,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         Title = "Sosi applikasjonsskjema",
                         Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = model.QualitySpecificationDateTypeSosi,
+                        DateType = dateType,
                         Explanation = "GML-filer er i henhold til applikasjonsskjema",
                         EnglishExplanation = "GML files are according to application form",
                         Result = true,
@@ -808,7 +1066,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         Title = "Sosi applikasjonsskjema",
                         Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = model.QualitySpecificationDateTypeSosi,
+                        DateType = dateType,
                         Explanation = "GML-filer avviker fra applikasjonsskjema",
                         EnglishExplanation = "GML files are not according to application form",
                         Result = false,
@@ -1143,6 +1401,10 @@ namespace Kartverket.MetadataEditor.Models
                     else if (keyword.StartsWith("Inspire_"))
                     {
                         simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1 };
+                    }
+                    else if (keyword.StartsWith("InspirePriorityDataset_"))
+                    {
+                        simpleKeyword = new SimpleKeyword { Keyword = stripPrefixFromKeyword(keyword), Thesaurus = SimpleKeyword.THESAURUS_INSPIRE_PRIORITY_DATASET };
                     }
                     else if (keyword.StartsWith("Other_"))
                     {
@@ -1544,9 +1806,28 @@ namespace Kartverket.MetadataEditor.Models
             return await _logEntryService.GetEntriesForElement(uuid);
         }
 
-        public async Task<List<LogEntry>> GetLogEntriesLatest()
+        public async Task<List<LogEntry>> GetLogEntriesLatest(int limitNumberOfEntries = 50, string operation = "")
         {
-            return await _logEntryService.GetEntries();
+            return await _logEntryService.GetEntries(limitNumberOfEntries, operation);
         }
+
+        public Dictionary<string,string> GetPriorityDatasets()
+        {
+            string file = System.Web.Hosting.HostingEnvironment.MapPath(@"/App_Data/PriorityDataset.json");
+            string json = File.ReadAllText(file);
+            PriorityDataset priorityDataset = JsonConvert.DeserializeObject<PriorityDataset>(json);
+
+            Dictionary<string, string> priorityList = new Dictionary<string, string>();
+
+            foreach (var containedItem in priorityDataset.metadatacodelist.containeditems.Where(s => s.value.status.label.text == "Valid").OrderBy(o => o.value.label.text))
+            {
+                var label = containedItem.value.label.text;
+                var id = containedItem.value.id;
+                priorityList.Add(label + "|" + id, label);
+            }
+
+            return priorityList;
+        }
+
     }
 }

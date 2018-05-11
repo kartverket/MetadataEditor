@@ -1,0 +1,123 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@using Kartverket.MetadataEditor.Models
+@using Resources
+@using Newtonsoft.Json;
+
+@{
+
+    JsonSerializerSettings settings = new JsonSerializerSettings();
+    settings.ContractResolver = new DictionaryAsArrayResolver();
+
+    string ViewModelSerialized = JsonConvert.SerializeObject(Model, settings);
+    var ViewModelJson = @Html.Raw(ViewModelSerialized);
+    string ViewBagSerialized = JsonConvert.SerializeObject(ViewBag);
+    var ViewBagJson = @Html.Raw(ViewBagSerialized);
+    string ModelStateValuesSerialized = JsonConvert.SerializeObject(ViewData.ModelState);
+    var ModelStateValuesJson = Html.Raw(ModelStateValuesSerialized);
+
+}
+
+
+
+<script>
+    State = {
+        model: @ViewModelJson,
+        viewBag: @ViewBagJson,
+        modelStateValues: @ModelStateValuesJson,
+        errorsInTabs: {
+            Basic: [],
+            TimeAndSpace: [],
+            Contact: [],
+            Distribution: [],
+            Documents: [],
+            Constraints: [],
+            Keywords: [],
+            Quality: [],
+            Admin: []
+        },
+        data: {
+            TextFormats: [
+                { Text: "CSV", Value: "CSV" },
+                { Text: "Microsoft Excel", Value: "Microsoft Excel" },
+                { Text: "DBF", Value: "DBF" },
+                { Text: "Tekstfil", Value: "Tekstfil" }
+            ],
+            TinFormats: [
+                { Text: "Intergraph TIN", Value: "Intergraph TIN" },
+                { Text: "ESRI TIN", Value: "ESRI TIN" },
+                { Text: "GEOPAK TIN", Value: "GEOPAK TIN" },
+                { Text: "LandXML TIN", Value: "LandXML TIN" }
+            ],
+            StereoImageFormats: [
+                { Text: "Intergraph TIN", Value: "Intergraph TIN" },
+                { Text: "JPEG", Value: "JPEG" }
+            ],
+            VideoFormats: [
+                { Text: "MPEG", Value: "MPEG" },
+                { Text: "AVI", Value: "AVI" },
+                { Text: "MOV", Value: "MOV" },
+                { Text: "OGG", Value: "OGG" },
+                { Text: "WMV", Value: "WMV" },
+                { Text: "RealVideo", Value: "RealVideo" },
+                { Text: "RMVB", Value: "RMVB" },
+                { Text: "FLASH", Value: "FLASH" },
+                { Text: "ASF", Value: "ASF" },
+                { Text: "MP4", Value: "MP4" },
+                { Text: "QuickTime", Value: "QuickTime" }
+            ],
+            SelectedBoundingBoxAreas: [],
+            KeywordDokValidKmd: 'Det offentlige kartgrunnlaget',
+            KeywordInspireValid: 'Inspire',
+            KeywordGeodatalaw: 'geodataloven',
+            KeywordsCatalogs: '',
+            KeywordNorgedigitalt: 'Norge digitalt',
+            KeywordArealPlans: 'arealplanerPBL'
+        },
+        settings: {
+            selectedTab: 'Basic',
+            tabs: [
+                { id: 'Basic', name: '@UI.TabBasicInformation', iconClass: 'glyphicon glyphicon-home' },
+                { id: 'TimeAndSpace', name: '@UI.TabTimeAndSpace', iconClass: 'glyphicon glyphicon-list-alt' },
+                { id: 'Contact', name: '@UI.TabContactInformation', iconClass: 'glyphicon glyphicon-user' },
+                { id: 'Distribution', name: '@UI.TabDistribution', iconClass: 'glyphicon glyphicon-globe' },
+                { id: 'Documents', name: '@UI.TabDocumentation', iconClass: 'glyphicon glyphicon-file' },
+                { id: 'Constraints', name: '@UI.TabRestrictions', iconClass: 'glyphicon glyphicon-lock' },
+                { id: 'Keywords', name: '@Html.Raw(UI.TabKeywords)', iconClass: 'glyphicon glyphicon-ok-sign' },
+                { id: 'Quality', name: '@UI.TabQuality', iconClass: 'glyphicon glyphicon-ok-sign' },
+                { id: 'Admin', name: '@UI.TabAdministrative', iconClass: 'glyphicon glyphicon-cog' }
+            ],
+            languages: {
+                all: '@UI.Language_All',
+                no: '@UI.Language_No',
+                en: '@UI.Language_En'
+            },
+            visibleConformitySections: {
+                QualitySpecificationInspire: false,
+                QualitySpecificationSosi: false,
+                QualitySpecificationCustom: false
+            },
+            selectedLanguage: null,
+            datepicker: {
+                regional: {
+                    nb: {
+                        closeText: 'Lukk',
+                        prevText: '&#xAB;Forrige',
+                        nextText: 'Neste&#xBB;',
+                        currentText: 'I dag',
+                        monthNames: ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'],
+                        monthNamesShort: ['jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des'],
+                        dayNamesShort: ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'],
+                        dayNames: ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'],
+                        dayNamesMin: ['sø', 'ma', 'ti', 'on', 'to', 'fr', 'lø'],
+                        weekHeader: 'Uke',
+                        dateFormat: 'dd.mm.yy',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: ''
+                    }
+                }
+            }
+        }
+    };
+</script>

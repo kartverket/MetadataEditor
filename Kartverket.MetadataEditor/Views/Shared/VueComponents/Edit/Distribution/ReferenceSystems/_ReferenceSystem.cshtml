@@ -1,0 +1,60 @@
+﻿@using Resources
+
+<script type="text/x-template" id="reference-system-template">
+    <div class="row">
+        <div class="form-group has-feedback" v-bind:class="{'required': formElements.coordinateSystem.required}">
+            <label v-bind:for="formElements.coordinateSystem.id" class="col-md-2 control-label">{{ formElements.coordinateSystem.label }}</label>
+            <div class="col-md-3">
+                <div class="custom-select">
+                    <select class="form-control"
+                            v-bind:name="formElements.coordinateSystem.name"
+                            v-bind:value="referenceSystem.CoordinateSystem"
+                            v-on:change="$store.commit('updateReferenceSystemsCoordinateSystem', {arrayIndex: referenceSystemIndex, value: $event.target.value});">
+                        <option value="">@UI.ChooseFromList</option>
+                        <option v-bind:value="option.Value" v-for="option in $store.getters['ReferenceSystemsValues']">{{ option.Text }}</option>
+                    </select>
+                </div>
+            </div>
+            <label v-bind:for="formElements.namespace.id" class="col-md-2 control-label">{{ formElements.namespace.label }}</label>
+            <div class="col-md-3">
+                <input class="form-control"
+                       v-bind:name="formElements.namespace.name"
+                       v-bind:value="referenceSystem.Namespace !== null ? referenceSystem.Namespace : 'EPSG'"
+                       readonly>
+            </div>
+            <div class="col-md-2">
+                <span v-on:click="$store.commit('removeValueFromArray', {arrayName: 'ReferenceSystems', arrayIndex: referenceSystemIndex});" class="btn">@UI.Delete</span>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var ReferenceSystem = {
+        name: "ReferenceSystem",
+        template: "#reference-system-template",
+        props: ['referenceSystem', 'referenceSystemIndex'],
+        components: {
+            Field: Field
+        },
+        data: function () {
+            return {
+                formElements: {
+                    coordinateSystem: {
+                        id: 'ReferenceSystems[' + this.referenceSystemIndex + '].CoordinateSystem',
+                        name: 'ReferenceSystems[' + this.referenceSystemIndex + '].CoordinateSystem',
+                        label: '@Html.Raw(UI.Metadata_ReferenceSystems_CoordinateSystem_Label)',
+                        type: 'select',
+                        options: this.$store.getters['ReferenceSystemsValues']
+                    },
+                    namespace: {
+                        id: 'ReferenceSystems[' + this.referenceSystemIndex + '].Namepace',
+                        name: 'ReferenceSystems[' + this.referenceSystemIndex + '].Namepace',
+                        label: '@Html.Raw(UI.Metadata_ReferenceSystems_Namespace_Label)',
+                        type: 'text'
+                    }
+                }
+            }
+        }
+    };
+</script>

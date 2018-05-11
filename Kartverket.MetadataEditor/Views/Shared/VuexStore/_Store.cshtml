@@ -1,0 +1,14 @@
+﻿@Html.Partial("VuexStore/_State")
+
+@Html.Partial("VuexStore/_Getters")
+@Html.Partial("VuexStore/_Mutations")
+@Html.Partial("VuexStore/_Actions")
+
+<script>
+    var Store = {
+        state: State,
+        getters: Getters,
+        mutations: Mutations,
+        actions: Actions
+    }
+</script>

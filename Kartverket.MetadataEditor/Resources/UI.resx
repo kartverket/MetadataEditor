@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddKeyword" xml:space="preserve">
+    <value>Legg til nøkkelord</value>
+  </data>
   <data name="AppPageTitle" xml:space="preserve">
     <value>Geonorge - metadataeditor</value>
   </data>
@@ -135,6 +138,15 @@
   <data name="Button_Validate" xml:space="preserve">
     <value>Publiser</value>
   </data>
+  <data name="Cartography" xml:space="preserve">
+    <value>Tegneregler</value>
+  </data>
+  <data name="Concepts" xml:space="preserve">
+    <value>Begreper</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Kontakt oss</value>
+  </data>
   <data name="Contact_Email" xml:space="preserve">
     <value>Kontaktperson - Epost</value>
   </data>
@@ -144,11 +156,45 @@
   <data name="Contact_Organization" xml:space="preserve">
     <value>Kontaktperson - Organisasjonsnavn</value>
   </data>
+  <data name="CreateProductFactSheet" xml:space="preserve">
+    <value>Opprett produktark</value>
+  </data>
+  <data name="DataProductSiteUrl" xml:space="preserve">
+    <value>Produktside (URL)</value>
+  </data>
+  <data name="DataProductSpecification" xml:space="preserve">
+    <value>Produktspesifikasjon</value>
+  </data>
+  <data name="DatasetName" xml:space="preserve">
+    <value>Navn på datasett</value>
+  </data>
   <data name="DateCreated_InvalidDate" xml:space="preserve">
     <value>Opprettet dato må være på formen dd.mm.yyyy, f.eks. 19.01.2014.</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="DisplayInMapCatalogue" xml:space="preserve">
+    <value>Vis i kartkatalogen</value>
+  </data>
+  <data name="Distribution" xml:space="preserve">
+    <value>Distribusjon</value>
+  </data>
+  <data name="DistributionType" xml:space="preserve">
+    <value>Distribusjonstype</value>
+  </data>
   <data name="EditMetadata" xml:space="preserve">
     <value>Rediger metadata</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Feil</value>
+  </data>
+  <data name="ErrorInfo" xml:space="preserve">
+    <value>Det har desverre skjedd en feil med din forespørsel. Prøv igjen om litt.</value>
+  </data>
+  <data name="ErrorReport" xml:space="preserve">
+    <value>&lt;p&gt;Feilen er logget og vil sjekkes av systemansvarlig.&lt;/p&gt;
+&lt;p&gt;Du kan også rapportere feilen til &lt;a mailto:"post@norgedigitalt.no"&gt;post@norgedigitalt.no&lt;/a&gt;.&lt;/p&gt;</value>
   </data>
   <data name="Error_InvalidUuid" xml:space="preserve">
     <value>Ugyldig uuid</value>
@@ -158,6 +204,18 @@
   </data>
   <data name="FieldMustBeNumeric" xml:space="preserve">
     <value>{0} må være et tall.</value>
+  </data>
+  <data name="Formats" xml:space="preserve">
+    <value>Formater</value>
+  </data>
+  <data name="GeographicExtent" xml:space="preserve">
+    <value>Geografisk utstrekning</value>
+  </data>
+  <data name="GraphicsOverview" xml:space="preserve">
+    <value>Illustrasjonsbilde</value>
+  </data>
+  <data name="Helptext_AccessConstraints" xml:space="preserve">
+    <value>&lt;b&gt;Åpne data&lt;/b&gt;: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn)&amp;nbsp;&lt;b&gt;Norge digital-begrenset&lt;/b&gt;: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). &lt;b&gt;Skjermede data&lt;/b&gt;: Data som ikke er tilgjengelige for nedlasting (rød).</value>
   </data>
   <data name="Helptext_BoundingBox" xml:space="preserve">
     <value>Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i Norgeskart.</value>
@@ -171,11 +229,128 @@
   <data name="Helptext_ContactPublisher" xml:space="preserve">
     <value>Kontaktpunkt (person eller avdeling) som kan svare på tekniske detaljer angående publisering og tilgjengeliggjøring av datene. "Navn" kan referer både til avdelingsnavn, enhet eller personnavn men er ikke påkrevd. Organisasjonsnavn skal skrives med det navnet organisasjonen omtales som eksternt uten henvisninger til avdeling eller underliggende enhet. Epost bør gå til fellesadresse som drift@etat.no</value>
   </data>
+  <data name="Helptext_DistributionsFormats" xml:space="preserve">
+    <value>Flere format kan angis. Versjon av formatet som leveres via filer eller tjenester, for eksempel gml 3.2.1.</value>
+  </data>
+  <data name="Helptext_DistributionsFormatsDistributionName" xml:space="preserve">
+    <value>Fylles bare ut for tjenester, og kun hvis metadataene gjelder et enkelt lag eller gruppelag i tjenesten og ikke hele tjenesten.</value>
+  </data>
+  <data name="Helptext_DistributionsFormatsProtocol" xml:space="preserve">
+    <value>Velg riktig distribusjonsform for ressursen (datasette/tjenesten/websiden)</value>
+  </data>
+  <data name="Helptext_DistributionsFormatsURL" xml:space="preserve">
+    <value>Fyll inn adresse til nedlastningsside/webside eller tjeneste. For tjenester skal URL angis med lenke til GetCapabilities (service og request på fylles ut).</value>
+  </data>
   <data name="Helptext_Image" xml:space="preserve">
     <value>Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde.</value>
   </data>
+  <data name="Helptext_KeywordsInspire" xml:space="preserve">
+    <value>Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste).</value>
+  </data>
+  <data name="Helptext_KeywordsNationalInitiative" xml:space="preserve">
+    <value>Nøkkelordliste som viser til lover eller regler datasettet/serien er omfattet av eller forpliktende samarbeid som datasettet/serien inngår i. (Egen kodeliste)</value>
+  </data>
+  <data name="Helptext_KeywordsNationalTheme" xml:space="preserve">
+    <value>En norsk tematisk inndeling basert på kategoriene fra det offentlige kartgrunnlaget.</value>
+  </data>
+  <data name="Helptext_KeywordsOther" xml:space="preserve">
+    <value>Denne nøkkelordtypen skal helst ikke brukes, men her vises nøkkelord som ikke er spesifisert å tilhøre en spesifikk nøkkelordkategori. Det anbefales at nøkkelord fjernes fra denne kategorien og legges inn under riktig kategori.</value>
+  </data>
+  <data name="Helptext_KeywordsPlace" xml:space="preserve">
+    <value>Det kan for eksempel være kommunenavn for kommunale datasett, eller Norges fastland for landsdekkende datasett. Skriv steder datasettet dekker i stedet for hva det ikke dekker.</value>
+  </data>
+  <data name="Helptext_KeywordsTheme" xml:space="preserve">
+    <value>Gode nøkkelord er en forutsetning for at metadataene skal bli funnet av brukerne. Nøkkelord skal skrives i entall og det skal brukes folkelige termer i tillegg til mer spesifikke faguttrykk. Både overordnede metadata og mer detaljerte metadata, helt ned på objektnivå bør vurderes.</value>
+  </data>
+  <data name="Helptext_LicenseTypes" xml:space="preserve">
+    <value>Lisens for datasettet/datatjenesten.</value>
+  </data>
+  <data name="Helptext_OrderingInstructions" xml:space="preserve">
+    <value>For tjenester som omfattes av Norge digitalt-avtalen skal tjenesteerklæring i henhold til avtalens "generelle vilkår" oppgis.</value>
+  </data>
+  <data name="Helptext_ProcessHistory" xml:space="preserve">
+    <value>Dataprodusentens generelle kunnskap om opprinnelsen og prosesshistorien til et datasett eller tjeneste. Forklar kort hvilke vikte operasjoner som er gjort fra datafangst til leveranse, og hvordan dette eventuelt påvirker kvalitet og innhold i datasettet</value>
+  </data>
+  <data name="Helptext_ResolutionScale" xml:space="preserve">
+    <value>Målestokkstallet skal legges inn som et heltall (eks: 5000)</value>
+  </data>
+  <data name="Helptext_SecurityConstraints" xml:space="preserve">
+    <value>Sikkerhetsnivå på datasettet/datatjenesten.</value>
+  </data>
+  <data name="Helptext_SecurityConstraintsNote" xml:space="preserve">
+    <value>Grunngiving av tilgangsbegrensninger eller bruksbegrensninger i form av juridiske forhold eller andre begrensende faktorer. Her kan en henvise til lov, forskrift eller lignende.</value>
+  </data>
+  <data name="Helptext_Status" xml:space="preserve">
+    <value>Status for datasett eller datasett tjenesten opererer mot.</value>
+  </data>
+  <data name="Helptext_TopicCategory" xml:space="preserve">
+    <value>Tematisk inndeling definert i metadatastandarden.</value>
+  </data>
+  <data name="Helptext_UseConstraints" xml:space="preserve">
+    <value>Krav som må være oppfylt for å anvende datasettet/tjenesten.</value>
+  </data>
+  <data name="Helptext_UseLimitations" xml:space="preserve">
+    <value>Angir hvilke områder dataene ikke er egnet for. F.eks "dataene er ikke egnet for kommunens arealplanarbeide" eller "må ikke brukes til å navigere etter". En bør også oppgi hvorfor det er begrensninger på bruk.</value>
+  </data>
+  <data name="HelpUrl" xml:space="preserve">
+    <value>URL til hjelp</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Forside</value>
+  </data>
+  <data name="Language_All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="Language_En" xml:space="preserve">
+    <value>Engelsk</value>
+  </data>
+  <data name="Language_No" xml:space="preserve">
+    <value>Norsk</value>
+  </data>
+  <data name="MetadataContact" xml:space="preserve">
+    <value>Metadatakontakt</value>
+  </data>
   <data name="Metadata_Abstract" xml:space="preserve">
     <value>Beskrivelse</value>
+  </data>
+  <data name="Metadata_AccessConstraints_Label" xml:space="preserve">
+    <value>Tilgangsrestriksjoner</value>
+  </data>
+  <data name="Metadata_Admin_KeywordArealPlans" xml:space="preserve">
+    <value>Arealplaner underlagt Pbl</value>
+  </data>
+  <data name="Metadata_Admin_KeywordDokValidKmd" xml:space="preserve">
+    <value>DOK i henhold til KMD-definisjon</value>
+  </data>
+  <data name="Metadata_Admin_KeywordGeodatalaw" xml:space="preserve">
+    <value>Underlagt Geodataloven</value>
+  </data>
+  <data name="Metadata_Admin_KeywordInspireValid" xml:space="preserve">
+    <value>Inspire i henhold rapportering</value>
+  </data>
+  <data name="Metadata_Admin_KeywordNorgeDigitalt" xml:space="preserve">
+    <value>Norge digitalt-avtale</value>
+  </data>
+  <data name="Metadata_Admin_KeywordsCatalogs" xml:space="preserve">
+    <value>Høsting til ulike samarbeid:</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationDate" xml:space="preserve">
+    <value>Dato</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationDate_Conform" xml:space="preserve">
+    <value>Dataene er produsert iht produktspesifikasjonen</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationDate_NotConform" xml:space="preserve">
+    <value>Dataene avviker fra produktspesifikasjonen</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationExplanation" xml:space="preserve">
+    <value>Avvik fra produktspesifikasjonen</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResult" xml:space="preserve">
+    <value>Datakonformitet</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationTitle" xml:space="preserve">
+    <value>Angitt produktspesifikasjon</value>
   </data>
   <data name="Metadata_BoundingBox_East_Invalid" xml:space="preserve">
     <value>Geografisk utstrekning - Øst - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>
@@ -189,17 +364,65 @@
   <data name="Metadata_BoundingBox_West_Invalid" xml:space="preserve">
     <value>Geografisk utstrekning - Vest - er ikke gyldig. Koordinaten må oppgis med tall og evt punktum som desimaltegn.</value>
   </data>
+  <data name="Metadata_Contact_Email" xml:space="preserve">
+    <value>Epost</value>
+  </data>
   <data name="Metadata_Contact_Email_Required" xml:space="preserve">
     <value>Epost til kontaktperson er påkrevd.</value>
+  </data>
+  <data name="Metadata_Contact_Name" xml:space="preserve">
+    <value>Navn</value>
   </data>
   <data name="Metadata_Contact_Name_Required" xml:space="preserve">
     <value>Navn på kontaktperson er påkrevd.</value>
   </data>
+  <data name="Metadata_Contact_Organization" xml:space="preserve">
+    <value>Organisasjon</value>
+  </data>
   <data name="Metadata_Contact_Organization_Required" xml:space="preserve">
     <value>Organisasjonsnavn er feil.</value>
   </data>
+  <data name="Metadata_CoverageImage_Image" xml:space="preserve">
+    <value>Angi bildefil</value>
+  </data>
+  <data name="Metadata_CoverageImage_Select" xml:space="preserve">
+    <value>Velg fil</value>
+  </data>
+  <data name="Metadata_CoverageImage_Upload" xml:space="preserve">
+    <value>Last opp</value>
+  </data>
+  <data name="Metadata_CoverageServiceMap_Layer" xml:space="preserve">
+    <value>Kartlagsnavn</value>
+  </data>
+  <data name="Metadata_CoverageServiceMap_Type" xml:space="preserve">
+    <value>Tjenestetype</value>
+  </data>
+  <data name="Metadata_CoverageServiceMap_Url" xml:space="preserve">
+    <value>TjenesteURL</value>
+  </data>
+  <data name="Metadata_CoverageType" xml:space="preserve">
+    <value>Type dekningskart</value>
+  </data>
+  <data name="Metadata_CoverageType_ImageCoverage" xml:space="preserve">
+    <value>Bildefil</value>
+  </data>
+  <data name="Metadata_CoverageType_Mapservice" xml:space="preserve">
+    <value>Karttjenestelag</value>
+  </data>
+  <data name="Metadata_CoverageType_Webpage" xml:space="preserve">
+    <value>Webside</value>
+  </data>
+  <data name="Metadata_CoverageWebsite_Url" xml:space="preserve">
+    <value>Webside</value>
+  </data>
   <data name="Metadata_DateCreated" xml:space="preserve">
     <value>Opprettet dato</value>
+  </data>
+  <data name="Metadata_DateMetadataValidFrom" xml:space="preserve">
+    <value>Gyldig fra dato</value>
+  </data>
+  <data name="Metadata_DateMetadataValidTo" xml:space="preserve">
+    <value>Gyldig til dato</value>
   </data>
   <data name="Metadata_DatePublished" xml:space="preserve">
     <value>Publiseringsdato</value>
@@ -219,14 +442,50 @@
   <data name="Metadata_Edit_ServiceFields" xml:space="preserve">
     <value>Detaljer om tjeneste</value>
   </data>
+  <data name="Metadata_KeywordsInspire_Label" xml:space="preserve">
+    <value>Inspire-kategorier</value>
+  </data>
+  <data name="Metadata_KeywordsNationalInitiative_Label" xml:space="preserve">
+    <value>Samarbeid og lover</value>
+  </data>
+  <data name="Metadata_KeywordsNationalTheme_Label" xml:space="preserve">
+    <value>Nasjonal temakategori</value>
+  </data>
+  <data name="Metadata_KeywordsOther_Label" xml:space="preserve">
+    <value>Ukategoriserte nøkkelord</value>
+  </data>
+  <data name="Metadata_KeywordsPlace_Label" xml:space="preserve">
+    <value>Nøkkelord for geografisk område</value>
+  </data>
+  <data name="Metadata_KeywordsTheme_Label" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Metadata_LicenseTypes_Label" xml:space="preserve">
+    <value>Lisens</value>
+  </data>
   <data name="Metadata_Links" xml:space="preserve">
     <value>Lenker</value>
   </data>
-  <data name="Metadata_NationalTheme_Label" xml:space="preserve">
-    <value>Nasjonal temakategori</value>
+  <data name="Metadata_MaintenanceFrequency" xml:space="preserve">
+    <value>Oppdateringshyppighet</value>
+  </data>
+  <data name="Metadata_OrderingInstructions_Label" xml:space="preserve">
+    <value>Tjenesteerklæring</value>
   </data>
   <data name="Metadata_Organization" xml:space="preserve">
     <value>Organisasjon</value>
+  </data>
+  <data name="Metadata_OtherConstraintsLinkText_Label" xml:space="preserve">
+    <value>Valgt lisens</value>
+  </data>
+  <data name="Metadata_OtherConstraintsLink_Label" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Metadata_OtherConstraints_Label" xml:space="preserve">
+    <value>Andre restriksjoner</value>
+  </data>
+  <data name="Metadata_ProcessHistory_Label" xml:space="preserve">
+    <value>Prosesshistorie</value>
   </data>
   <data name="Metadata_Purpose" xml:space="preserve">
     <value>Formål</value>
@@ -234,11 +493,26 @@
   <data name="Metadata_QualitySpecificationExplanation" xml:space="preserve">
     <value>Forklaring av resultat</value>
   </data>
+  <data name="Metadata_ResolutionScale_Label" xml:space="preserve">
+    <value>Målestokkstall</value>
+  </data>
+  <data name="Metadata_SecurityConstraintsNote_Label" xml:space="preserve">
+    <value>Lovhenvisning</value>
+  </data>
+  <data name="Metadata_SecurityConstraints_Label" xml:space="preserve">
+    <value>Sikkerhetsnivå</value>
+  </data>
   <data name="Metadata_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Metadata_Status_Label" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="Metadata_Title" xml:space="preserve">
     <value>Metadata tittel</value>
+  </data>
+  <data name="Metadata_TopicCategory_Label" xml:space="preserve">
+    <value>Tematisk hovedkategori</value>
   </data>
   <data name="Metadata_Type" xml:space="preserve">
     <value>Type</value>
@@ -248,6 +522,12 @@
   </data>
   <data name="Metadata_Type_Service" xml:space="preserve">
     <value>Tjeneste</value>
+  </data>
+  <data name="Metadata_UseConstraints_Label" xml:space="preserve">
+    <value>Brukerrestriksjoner</value>
+  </data>
+  <data name="Metadata_UseLimitations_Label" xml:space="preserve">
+    <value>Bruksbegrensninger</value>
   </data>
   <data name="Metadata_Validate_Error" xml:space="preserve">
     <value>Feil ved validering: {0}.</value>
@@ -261,8 +541,26 @@
   <data name="MyMetadata_Label" xml:space="preserve">
     <value>Mine metadata</value>
   </data>
+  <data name="NamespaceToDataset" xml:space="preserve">
+    <value>Navnerom til datasett</value>
+  </data>
+  <data name="NotFoundText" xml:space="preserve">
+    <value>Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre.</value>
+  </data>
   <data name="Organization" xml:space="preserve">
     <value>Organisasjon</value>
+  </data>
+  <data name="OrSpecifyCoordinates" xml:space="preserve">
+    <value>Eller angi koordinater</value>
+  </data>
+  <data name="OtherDataProductSpecification" xml:space="preserve">
+    <value>Annen produktspesifikasjon</value>
+  </data>
+  <data name="OwnerContact" xml:space="preserve">
+    <value>Faglig kontakt</value>
+  </data>
+  <data name="ProductFactSheet" xml:space="preserve">
+    <value>Produktark</value>
   </data>
   <data name="PropertyValueInvalid" xml:space="preserve">
     <value>Verdien '{0}' er ikke gyldig for feltet {1}.</value>
@@ -270,7 +568,271 @@
   <data name="PropertyValueRequired" xml:space="preserve">
     <value>{0} er et påkrevd felt.</value>
   </data>
+  <data name="PublisherContact" xml:space="preserve">
+    <value>Teknisk kontakt</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Søk</value>
+  </data>
   <data name="SimpleMetadata_Title" xml:space="preserve">
     <value>Navn på datasett</value>
+  </data>
+  <data name="SpatialRepresentationType" xml:space="preserve">
+    <value>Representasjonsform</value>
+  </data>
+  <data name="SpecifyAreas" xml:space="preserve">
+    <value>Angi områder</value>
+  </data>
+  <data name="SpecifyCoverageMap" xml:space="preserve">
+    <value>Angi dekningskart</value>
+  </data>
+  <data name="SpecifyImageFile" xml:space="preserve">
+    <value>Angi bildefil</value>
+  </data>
+  <data name="TabAdministrative" xml:space="preserve">
+    <value>Administrativt</value>
+  </data>
+  <data name="TabBasicInformation" xml:space="preserve">
+    <value>Grunnleggende</value>
+  </data>
+  <data name="TabContactInformation" xml:space="preserve">
+    <value>Kontaktinformasjon</value>
+  </data>
+  <data name="TabDistribution" xml:space="preserve">
+    <value>Distribusjon</value>
+  </data>
+  <data name="TabDocumentation" xml:space="preserve">
+    <value>Dokumentasjon</value>
+  </data>
+  <data name="TabKeywords" xml:space="preserve">
+    <value>Nøkkelord</value>
+  </data>
+  <data name="TabQuality" xml:space="preserve">
+    <value>Kvalitet</value>
+  </data>
+  <data name="TabRestrictions" xml:space="preserve">
+    <value>Restriksjoner</value>
+  </data>
+  <data name="TabTimeAndSpace" xml:space="preserve">
+    <value>Tid og rom</value>
+  </data>
+  <data name="TopicCategory" xml:space="preserve">
+    <value>Tematisk hovedkategori</value>
+  </data>
+  <data name="UMLmodel" xml:space="preserve">
+    <value>UML-modell</value>
+  </data>
+  <data name="UnitsOfDistribution" xml:space="preserve">
+    <value>Geografisk distribusjonsinndeling</value>
+  </data>
+  <data name="Use" xml:space="preserve">
+    <value>Bruksområde</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versjon</value>
+  </data>
+  <data name="MetadataLastUpdated" xml:space="preserve">
+    <value>Metadata sist oppdatert</value>
+  </data>
+  <data name="HelpTextAbstract" xml:space="preserve">
+    <value>Oppgi hva tjenesten/datasettet inneholder. Hva finner brukeren i denne tjenesten/datasettet.</value>
+  </data>
+  <data name="HelpTextHelpUrl" xml:space="preserve">
+    <value>Oppgi link til ekstern side eller PDF-dokument med informasjon og veiledning som gjør det lettere å ta i bruk datasettet.</value>
+  </data>
+  <data name="HelpTextPurpose" xml:space="preserve">
+    <value>Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her. Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert. Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene.</value>
+  </data>
+  <data name="HelpTextResourceReferenceCode" xml:space="preserve">
+    <value>Fullstendig navn på selve datasettet.</value>
+  </data>
+  <data name="HelpTextResourceReferenceCodespace" xml:space="preserve">
+    <value>Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.Eksempel: http://data.geonorge.no/so/</value>
+  </data>
+  <data name="HelpTextSpesificUsage" xml:space="preserve">
+    <value>Oppgi hvilke oppgaver datasettet kan/bør brukes til.For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå. Bruksbegrensninger fylles inn i fanen Restriksjoner</value>
+  </data>
+  <data name="HelpTextTitle" xml:space="preserve">
+    <value>Navn på metadataoppføringen. Navnet skal være kort og konsist og beskrive tjenesten/datasettet best mulig. Generelle begreper må settes inn i en faglig kontekst (eks: Kulturminner - lokaliteter). Navnet skal være identisk med det som blir brukt i eventuell produktspesifikasjon. Navnet kan også inneholde årstall og geografisk område.</value>
+  </data>
+  <data name="HelpTextDate" xml:space="preserve">
+    <value>Datoene refererer til selve datasettet eller tjenesten og ikke metadata. Minst ett av datofeltene må fylles ut. Det anbefales som et minimum at "Dato sist oppdatert" benyttes. Hvis dataene oppdateres kontinuerlig, så holder det å angi tidspunkt for etablering av datasett/tjeneste ("Opprettet dato") eller første publikasjon av datasett/tjeneste ("Publiseringsdato"). Tidsperiode ("Gyldig fra dato" og "Gyldig til dato") datasettet er gyldig i er ikke obligatorisk dersom dato er fylt ut i minst et av de andre feltene.</value>
+  </data>
+  <data name="Conformity" xml:space="preserve">
+    <value>Konformitet</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Egendefinert</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dato</value>
+  </data>
+  <data name="East" xml:space="preserve">
+    <value>Øst</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Skriv inn</value>
+  </data>
+  <data name="FormatNew" xml:space="preserve">
+    <value>Nytt format</value>
+  </data>
+  <data name="Get" xml:space="preserve">
+    <value>Hent</value>
+  </data>
+  <data name="HelpTextMaintenanceFrequency" xml:space="preserve">
+    <value>Angivelse av intervaller for modifikasjon og andre endringer av data etter at de er etablert.</value>
+  </data>
+  <data name="ImageLarge" xml:space="preserve">
+    <value>Stort bilde</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="North" xml:space="preserve">
+    <value>Nord</value>
+  </data>
+  <data name="QualitySpecificationCustom" xml:space="preserve">
+    <value>Annen standard/ egen dokumentasjon</value>
+  </data>
+  <data name="QualitySpecificationResultNotSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI-filer avviker fra applikasjonsskjema</value>
+  </data>
+  <data name="QualitySpecificationResultSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI-filer er i henhold til applikasjonsskjema</value>
+  </data>
+  <data name="QualitySpecificationResultSosiConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML-filer er i henhold til applikasjonsskjema</value>
+  </data>
+  <data name="QualitySpecificationResultSosiNotConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML-filer avviker fra applikasjonsskjema</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Velg fil</value>
+  </data>
+  <data name="South" xml:space="preserve">
+    <value>Sør</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Last opp</value>
+  </data>
+  <data name="West" xml:space="preserve">
+    <value>Vest</value>
+  </data>
+  <data name="CreateMetadata" xml:space="preserve">
+    <value>Opprett metadata</value>
+  </data>
+  <data name="LoggedOffMessage" xml:space="preserve">
+    <value>Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata.</value>
+  </data>
+  <data name="FreeText" xml:space="preserve">
+    <value>Fritekst</value>
+  </data>
+  <data name="DisplayInCatalogue" xml:space="preserve">
+    <value>Vis i katalog</value>
+  </data>
+  <data name="DownloadXml" xml:space="preserve">
+    <value>Last ned XML</value>
+  </data>
+  <data name="FormValidationErrors" xml:space="preserve">
+    <value>Skjemaet er ikke korrekt utfylt. Vennligst rett opp følgende feil og mangler</value>
+  </data>
+  <data name="LinkToService" xml:space="preserve">
+    <value>Lenke til tjenesten</value>
+  </data>
+  <data name="Metadata_Type_Application" xml:space="preserve">
+    <value>Applikasjon</value>
+  </data>
+  <data name="Metadata_Type_DatasetSeries" xml:space="preserve">
+    <value>Datasett serie</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Neste</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Ingen treff</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>av</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Forrige</value>
+  </data>
+  <data name="ShowingMetadata" xml:space="preserve">
+    <value>Viser metadata</value>
+  </data>
+  <data name="WfsService" xml:space="preserve">
+    <value>WFS tjeneste</value>
+  </data>
+  <data name="IgnoreErrors" xml:space="preserve">
+    <value>Ignorer feil</value>
+  </data>
+  <data name="ImageRequired" xml:space="preserve">
+    <value>Illustrasjonsbilde er påkrevd</value>
+  </data>
+  <data name="Metadata_BoundingBox_East" xml:space="preserve">
+    <value>Geografisk utstrekning - øst</value>
+  </data>
+  <data name="Metadata_BoundingBox_North" xml:space="preserve">
+    <value>Geografisk utstrekning nord</value>
+  </data>
+  <data name="Metadata_BoundingBox_South" xml:space="preserve">
+    <value>Geografisk utstrekning sør</value>
+  </data>
+  <data name="Metadata_BoundingBox_West" xml:space="preserve">
+    <value>Geografisk utstrekning vest</value>
+  </data>
+  <data name="Metadata_DistributionsFormats_Required" xml:space="preserve">
+    <value>Distribusjonsformat er påkrevd</value>
+  </data>
+  <data name="DistributionProtocolMissing" xml:space="preserve">
+    <value>Vennligst fyll ut distribusjonstype</value>
+  </data>
+  <data name="Metadata_QualitySpecificationExplanationInspire_Required" xml:space="preserve">
+    <value>Konformitet inspire mangler</value>
+  </data>
+  <data name="Metadata_QualitySpecificationExplanationSosi_Required" xml:space="preserve">
+    <value>Konformitet sosi mangler</value>
+  </data>
+  <data name="Metadata_QualitySpecificationExplanation_Required" xml:space="preserve">
+    <value>Konformitet annen standard mangler</value>
+  </data>
+  <data name="QualitySpecificationResult" xml:space="preserve">
+    <value>Datakonformitet</value>
+  </data>
+  <data name="QualitySpecificationResultInspire" xml:space="preserve">
+    <value>Datakonformitet inspire</value>
+  </data>
+  <data name="QualitySpecificationResultSosi" xml:space="preserve">
+    <value>Datakonformitet sosi</value>
+  </data>
+  <data name="Helptext_SupplementalDescription" xml:space="preserve">
+    <value>Oppgi informasjon og veiledning om hvordan datasettet er organisert, mulige tekniske forhold ved formater og annet som gjør det lettere å ta i bruk datasettet.</value>
+  </data>
+  <data name="Metadata_SupplementalDescription_Label" xml:space="preserve">
+    <value>Hjelp for bruk</value>
+  </data>
+  <data name="Metadata_ReferenceSystems_CoordinateSystem_Label" xml:space="preserve">
+    <value>Romlig referansesystem</value>
+  </data>
+  <data name="Metadata_ReferenceSystems_Namespace_Label" xml:space="preserve">
+    <value>Koderom</value>
+  </data>
+  <data name="EuPriorityDataset" xml:space="preserve">
+    <value>EU - prioriterte datasett</value>
+  </data>
+  <data name="NoKeywordsAddedForCategory" xml:space="preserve">
+    <value>Ingen nøkkelord er lagt til for denne kategorien</value>
+  </data>
+  <data name="Button_New_ReferenceSystem" xml:space="preserve">
+    <value>Nytt referansesystem</value>
+  </data>
+  <data name="ChooseFromList" xml:space="preserve">
+    <value>Velg fra liste</value>
+  </data>
+  <data name="ChooseFromMap" xml:space="preserve">
+    <value>Velg fra kart</value>
+  </data>
+  <data name="Metadata_Distributions_LayerName_Label" xml:space="preserve">
+    <value>Lagnavn</value>
   </data>
 </root>

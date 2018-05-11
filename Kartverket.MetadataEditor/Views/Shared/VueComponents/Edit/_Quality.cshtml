@@ -1,0 +1,110 @@
+﻿@using Resources
+
+<script type="text/x-template" id="quality-template">
+    <div>
+        <div class="form-group" v-if="formElement.visible" v-for="formElement in formElements">
+            <div class="row">
+                <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
+                <div class="col-md-8">
+                    <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                    <div is="field" v-bind:form-element="formElement"></div>
+                </div>
+                <div v-if="formElement.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var Quality = {
+        name: "quality",
+        template: "#quality-template",
+        components: {
+            Field: Field
+        },
+        mounted: function () {
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Quality' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
+        data: function () {
+            return {
+                errors: {},
+                formElements: {
+                    resolutionScale: {
+                        id: 'ResolutionScale',
+                        name: 'ResolutionScale',
+                        getter: 'ResolutionScale',
+                        mutation: 'updateResolutionScale',
+                        label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
+                        type: 'text',
+                        required: false,
+                        visible: !this.$store.getters['isSoftware'],
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_ResolutionScale)'
+                        }
+                    },
+                    status: {
+                        id: 'Status',
+                        name: 'Status',
+                        getter: 'Status',
+                        mutation: 'updateStatus',
+                        label: '@Html.Raw(UI.Metadata_Status_Label)',
+                        type: 'select',
+                        required: false,
+                        visible: true,
+                        options: this.$root.viewBag.StatusValues,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_Status)'
+                        }
+                    },
+                    processHistory: {
+                        multilingual: {
+                            no: {
+                                name: 'ProcessHistory',
+                                getter: 'ProcessHistory',
+                                mutation: 'updateProcessHistory'
+                            },
+                            en: {
+                                name: 'EnglishProcessHistory',
+                                getter: 'EnglishProcessHistory',
+                                mutation: 'updateEnglishProcessHistory'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        label: '@Html.Raw(UI.Metadata_ProcessHistory_Label)',
+                        type: 'textarea',
+                        required: false,
+                        visible: true,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_ProcessHistory)'
+                        }
+                    },
+                    orderingInstructions: {
+                        id: 'OrderingInstructions',
+                        name: 'OrderingInstructions',
+                        getter: 'OrderingInstructions',
+                        mutation: 'updateOrderingInstructions',
+                        label: '@Html.Raw(UI.Metadata_OrderingInstructions_Label)',
+                        type: 'select',
+                        required: false,
+                        visible: this.$store.getters['isSoftware'],
+                        options: this.$root.viewBag.OrderingInstructionsValues,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_OrderingInstructions)'
+                        }
+                    }
+                }
+            }
+        }
+    };
+</script>
+

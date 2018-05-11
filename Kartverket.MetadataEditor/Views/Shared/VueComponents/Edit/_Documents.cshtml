@@ -1,0 +1,421 @@
+﻿@using Resources
+
+<script type="text/x-template" id="documents-template">
+    <div>
+
+        <div v-if="productSpecificationUrl.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ productSpecificationUrl.label }}</label>
+                <div class="col-md-8">
+                    <div class="form-group" v-bind:class="{'required': productSpecificationUrl.required}">
+                        <div class="custom-select">
+                            <select v-bind:name="productSpecificationUrl.name" class="form-control" v-bind:value="$store.getters[productSpecificationUrl.getter]" v-on:change="updateProductSpecificationUrl()">
+                                <option v-for="option in productSpecificationUrl.options" v-bind:value="option.Value">{{option.Text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="applicationSchema.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ applicationSchema.label }}</label>
+                <div class="col-md-6">
+                    <div is="field" v-bind:form-element="applicationSchema"></div>
+                </div>
+                <div class="col-md-2 text-right">
+                    <span class="btn" v-on:click="loadConcepts()">@UI.Get</span>
+                </div>
+            </div>
+        </div>
+        <div v-if="keywordsConcept.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ keywordsConcept.label }}</label>
+                <div class="col-md-8">
+                    <div class="custom-select-list">
+                        <div class="custom-select-list-input-container">
+                            <span v-for="(conceptValue, index) in selectedKeywordsConceptValues" class="custom-select-list-selected">
+                                {{ getConceptNameFromConceptValue(conceptValue) }}
+                                <span v-on:click="removeSelectedConcept(conceptValue, index)" class="custom-select-list-remove-button"></span>
+                            </span>
+                            <input type="text" v-bind:disabled="!keywordsConcept.options.length" class="custom-select-list-input" />
+                        </div>
+
+                        <div class="custom-select-list-dropdown-container">
+                            <div class="custom-select-list-dropdown">
+                                <div class="custom-select-list-dropdown-content">
+                                    <div v-show="keywordsConcept.options.length" class="custom-select-list-option-group">
+                                        <ul class="custom-select-list-options area-option-list">
+                                            <li v-on:click="addSelectedConcept(option)"
+                                                v-bind:class="{'is-selected': conceptIsSelected(option)}"
+                                                v-for="option in keywordsConcept.options">
+                                                {{ option.Text }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div v-if="productSpecificationOther.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ productSpecificationOther.label }}</label>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">{{ productSpecificationOther.fields.name.label }}</span>
+                        <div class="form-group" v-bind:class="{'required': productSpecificationOther.fields.name.required}">
+                            <input v-bind:name="productSpecificationOther.fields.name.name" type="text" class="form-control" v-bind:value="$store.getters[productSpecificationOther.fields.name.getter]" v-on:change="updateProductSpecificationOtherName()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">{{ productSpecificationOther.fields.url.label }}</span>
+                        <div is="field" v-bind:form-element="productSpecificationOther.fields.url"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="productSheetUrl.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ productSheetUrl.label }}</label>
+                <div class="col-md-8">
+                    <div is="field" v-bind:form-element="productSheetUrl"></div>
+                </div>
+            </div>
+        </div>
+        <div v-if="legendDescriptionUrl.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ legendDescriptionUrl.label }}</label>
+                <div class="col-md-8">
+                    <div is="field" v-bind:form-element="legendDescriptionUrl"></div>
+                </div>
+            </div>
+        </div>
+        <div v-if="productPageUrl.visible" class="form-group">
+            <div class="row">
+                <label class="col-md-3 control-label">{{ productPageUrl.label }}</label>
+                <div class="col-md-8">
+                    <div is="field" v-bind:form-element="productPageUrl"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11">
+                        <span class="required">@UI.GraphicsOverview</span>
+                    </div>
+                    <div v-if="thumbnails.helpText" class="col-md-1">
+                        <span v-on:click="thumbnails.helpText.active = !thumbnails.helpText.active" v-bind:class="{active: thumbnails.helpText.active}" class="badge help-text-toggle">?</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p v-if="thumbnails.helpText && thumbnails.helpText.active" class="help-text bg-success" v-html="thumbnails.helpText.content"></p>
+
+                <div class="form-group required has-feedback">
+                    <label class="col-md-3 control-label">{{ thumbnails.fields.thumbnailType.label }}</label>
+                    <div class="col-md-8 bottom-left">
+                        <input type="hidden" value="large_thumbnail" id="thumbnailType">
+                        <div class="@ViewBag.thumbnailMissingCSS" style="margin-top:7px;">@UI.ImageLarge</div>
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                    </div>
+                    <div style="margin-top:7px;">
+                        @Html.ValidationMessage("thumbnailMissing", UI.ImageRequired)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ thumbnails.fields.uploadThumbnailFile.label }}</label>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="input-group upload-input">
+                                    <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
+                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id"/>
+                                    <span class="btn">@UI.SelectFile</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn" id="uploadThumbnailButton" v-on:click="uploadFile">@UI.Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div is="thumbnails"
+                     v-bind:new-images="thumbnailFileUploadData.response.result">
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</script>
+
+@Html.Partial("VueComponents/Edit/Documents/_Thumbnails")
+
+<script>
+    var Documents = {
+        name: "documents",
+        template: "#documents-template",
+        components: {
+            Field: Field,
+            Thumbnails: Thumbnails
+        },
+        mounted: function () {
+            initCustomSelectList();
+            this.initFileUpload();
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Documents' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
+        data: function () {
+            return {
+                errors: {},
+                productSpecificationUrl: {
+                    name: 'ProductSpecificationUrl',
+                    getter: 'ProductSpecificationUrl',
+                    label: '@UI.DataProductSpecification',
+                    type: 'select',
+                    visible: !this.$store.getters['isSoftware'],
+                    options: this.$root.viewBag.ProductspesificationValues
+                },
+                applicationSchema: {
+                    name: 'ApplicationSchema',
+                    getter: 'ApplicationSchema',
+                    mutation: 'updateApplicationSchema',
+                    label: '@UI.UMLmodel',
+                    type: 'text',
+                    visible: !this.$store.getters['isSoftware'],
+                },
+                keywordsConcept: {
+                    name: 'KeywordsConcept',
+                    getter: 'KeywordsConcept',
+                    value: this.$root.model.KeywordsConcept !== null ? this.$root.model.KeywordsConcept : [], 
+                    label: '@UI.Concepts',
+                    type: 'select',
+                    visible: !this.$store.getters['isSoftware'],
+                    options: []
+                },
+                productSpecificationOther: {
+                    label: '@UI.OtherDataProductSpecification',
+                    type: 'group',
+                    visible: !this.$store.getters['isSoftware'],
+                    fields: {
+                        name: {
+                            name: 'ProductSpecificationOther.Name',
+                            getter: 'ProductSpecificationOtherName',
+                            mutation: 'updateProductSpecificationOtherName',
+                            label: '@UI.Name',
+                            type: 'text'
+                        },
+                        url: {
+                            name: 'ProductSpecificationOther.URL',
+                            getter: 'ProductSpecificationOtherURL',
+                            mutation: 'updateProductSpecificationOtherURL',
+                            label: 'URL',
+                            type: 'text'
+                        }
+                    }
+                },
+                productSheetUrl: {
+                    name: 'ProductSheetUrl',
+                    getter: 'ProductSheetUrl',
+                    mutation: 'updateProductSheetUrl',
+                    label: '@UI.ProductFactSheet',
+                    type: 'select',
+                    visible: !this.$store.getters['isSoftware'],
+                    options: this.$store.getters['ProductsheetValues']
+                },
+                legendDescriptionUrl: {
+                    name: 'LegendDescriptionUrl',
+                    getter: 'LegendDescriptionUrl',
+                    mutation: 'updateLegendDescriptionUrl',
+                    label: '@UI.Cartography',
+                    type: 'select',
+                    visible: !this.$store.getters['isSoftware'],
+                    options: this.$store.getters['LegendDescriptionValues']
+                },
+                productPageUrl: {
+                    name: 'ProductPageUrl',
+                    getter: 'ProductPageUrl',
+                    mutation: 'updateProductPageUrl',
+                    label: '@UI.DataProductSiteUrl',
+                    type: 'text',
+                    visible: !this.$store.getters['isSoftware'],
+                },
+                thumbnails: {
+                    fields: {
+                        thumbnailType: {
+                            type: 'hidden',
+                            value: 'large_thumbnail',
+                            required: true,
+                            label: 'type'
+                        },
+                        uploadThumbnailFile: {
+                            id: 'uploadThumbnailFile',
+                            type: 'file',
+                            required: false,
+                            label: '@UI.SpecifyImageFile',
+                            value: ''
+                        },
+                        uploadMode: {
+                            type: 'hidden',
+                            value: 'reference'
+                        }
+                    },
+                    required: true,
+                    helpText: {
+                        active: false,
+                        content: '@UI.Helptext_Image'
+                    }
+                },
+                thumbnailFileUploadData: {
+                    request: {
+                        result: {}
+                    },
+                    response: {}
+                }
+            };
+        },
+        computed: {
+            selectedKeywordsConceptValues: function () {
+                return this.$store.getters['KeywordsConcept'];
+            }
+        },
+        methods: {
+            loadConcepts: function () {
+                $.ajax({
+                    headers: {
+                        Accept: "application/rdf+xml",
+                        "Content-Type": "text/plain; charset=utf-8"
+                    },
+                    type: "GET",
+                    dataType: 'text',
+                    url: this.$store.getters['ApplicationSchema'],
+                    success: function (response) {
+                        this.setConcepts(response);
+                    }.bind(this)
+                });
+            },
+            setConcepts: function (xml) {
+                var conceptFound = false;
+                var keywordsConceptOptions = [];
+                $(xml).find("skos\\:Concept, Concept").each(function () {
+                    var prefLabel = $(this).find("skos\\:prefLabel, prefLabel").text();
+                    var about = $(this).attr("rdf:about");
+                    var optionValue = prefLabel + "|" + about;
+                    keywordsConceptOptions.push({
+                        Text: prefLabel,
+                        Value: optionValue
+                    });
+                    if (!conceptFound) {
+                        console.log("no concepts found")
+                    }
+                });
+                this.keywordsConcept.options = keywordsConceptOptions;
+                this.selectAllConceptValues();
+            },
+            getConceptNameFromConceptValue: function(conceptValue) {
+                return conceptValue.substr(0, conceptValue.indexOf('|'));
+            },
+            conceptIsSelected: function (concept) {
+                var conceptIsSelected = false;
+                this.selectedKeywordsConceptValues.forEach(function (selectedConcept) {
+                    if (concept.Value == selectedConcept) conceptIsSelected = true;
+                })
+                return conceptIsSelected;
+            },
+            removeSelectedConcept: function (conceptValue, conceptIndex) {
+                this.$store.commit('removeValueFromArray', { arrayName: 'KeywordsConcept', arrayIndex: conceptIndex }); // Remove concept keyword value
+            },
+            addSelectedConcept: function (concept) {
+                if (!this.conceptIsSelected(concept)) {
+                    this.$store.commit('addValueToArray', { arrayName: 'KeywordsConcept', value: concept.Value }); // Add concept keyword value
+                }
+            },
+            selectAllConceptValues: function () {
+                var selectedConceptValues = [];
+                this.keywordsConcept.options.forEach(function (option) {
+                    selectedConceptValues.push(option.Value);
+                });
+                this.$store.commit('updateKeywordsConcept', selectedConceptValues);
+            },
+            initFileUpload: function () {
+                $("#" + this.thumbnails.fields.uploadThumbnailFile.id).fileupload({
+                    dataType: 'json',
+                    url: '/Metadata/UploadThumbnailGenerateMiniAndMedium',
+                    add: function (e, data) {
+                        data.formData = {
+                                "uuid": "@Model.Uuid"
+                        };
+                        data.fileName = data.files[0].name;
+                        this.thumbnailFileUploadData.request = data;
+                    }.bind(this),
+                    done: function (e, data) {
+                        this.thumbnailFileUploadData.response = data;
+                        @*if (data.result.status == "ErrorWrongContent") {
+                            $("#thumbnailUrl").val('');
+                            $('#uploadThumbnailStatus').attr('style', 'color: red ;');
+                            $('#uploadThumbnailStatus').text('Feil: Du må velge en fil av type jpeg, gif eller png.');
+                        }
+                        else {
+                            $("#thumbnailUrl").val('@ViewBag.ThumbnailUrl' + data.result.filename);
+                            $("#thumbnailUrlMini").val('@ViewBag.ThumbnailUrl' + data.result.filenamemini);
+                            $("#thumbnailUrlMedium").val('@ViewBag.ThumbnailUrl' + data.result.filenameMedium);
+                            $('#uploadThumbnailStatus').attr('style', 'text-info');
+                        }*@
+                    }.bind(this)
+                });
+            },
+            uploadFile: function (event) {
+                event.preventDefault(),
+                this.thumbnailFileUploadData.request.submit();
+            },
+            setProductSpecificationAcceptedDate: function (productSpecificationUrl) {
+                var apiUrl = productSpecificationUrl;
+                apiUrl = apiUrl.replace("/register/", "/api/register/");
+                $.ajax({
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "text/plain; charset=utf-8"
+                    },
+                    type: "GET",
+                    url: apiUrl,
+                    success: function (response) {
+                        if (response.dateAccepted && response.dateAccepted != "0001-01-01T00:00:00") {
+                            this.$store.commit('updateQualitySpecificationDateSosi', response.dateAccepted);
+                        }
+                        if (response.ApplicationSchema) {
+                            this.$store.commit('updateApplicationSchema', response.ApplicationSchema);
+                        }
+                    }.bind(this)
+                });
+            },
+            updateProductSpecificationUrl: function () {
+                var optionValue = event.target.value;
+                var optionText = event.target.selectedOptions[0].innerText;
+                this.$store.commit('updateProductSpecificationUrl', optionValue);
+                this.$store.commit('updateQualitySpecificationTitleSosi', 'SOSI-produktspesifikasjon: ' + optionText);
+                this.setProductSpecificationAcceptedDate(optionValue);
+            },
+            updateProductSpecificationOtherName: function () {
+                var inputValue = event.target.value;
+                this.$store.commit('updateProductSpecificationOtherName', inputValue)
+                this.$store.commit('updateQualitySpecificationTitle', 'Produktspesifikasjon: ' + inputValue);
+            }
+        }
+    };
+</script>
+

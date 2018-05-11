@@ -1,0 +1,283 @@
+﻿@using Resources
+
+<script type="text/x-template" id="constraints-template">
+    <div>
+
+        @* UseLimitations *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.useLimitations.required}">
+            <label class="col-md-3 control-label">{{ formElements.useLimitations.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.useLimitations.helpText && formElements.useLimitations.helpText.active" class="help-text bg-success" v-html="formElements.useLimitations.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.useLimitations"></div>
+            </div>
+            <div v-if="formElements.useLimitations.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.useLimitations.helpText.active = !formElements.useLimitations.helpText.active" v-bind:class="{active: formElements.useLimitations.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* AccessConstraints *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.accessConstraints.required}">
+            <label class="col-md-3 control-label">{{ formElements.accessConstraints.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.accessConstraints.helpText && formElements.accessConstraints.helpText.active" class="help-text bg-success" v-html="formElements.accessConstraints.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.accessConstraints"></div>
+            </div>
+            <div v-if="formElements.accessConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.accessConstraints.helpText.active = !formElements.accessConstraints.helpText.active" v-bind:class="{active: formElements.accessConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* UseConstraints *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.useConstraints.required}">
+            <label class="col-md-3 control-label">{{ formElements.useConstraints.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.useConstraints.helpText && formElements.useConstraints.helpText.active" class="help-text bg-success" v-html="formElements.useConstraints.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.useConstraints"></div>
+            </div>
+            <div v-if="formElements.useConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.useConstraints.helpText.active = !formElements.useConstraints.helpText.active" v-bind:class="{active: formElements.useConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* LicenseTypes *@
+        <div v-show="showLicenseType" class="form-group has-feedback" v-bind:class="{required: formElements.licenseTypes.required}">
+            <label class="col-md-3 control-label">{{ formElements.licenseTypes.label }}</label>
+            <div class="col-md-6">
+                <p v-if="formElements.licenseTypes.helpText && formElements.licenseTypes.helpText.active" class="help-text bg-success" v-html="formElements.licenseTypes.helpText.content"></p>
+                <div class="custom-select">
+                    <select v-bind:value="getSelectedLicenseType()" v-on:change="setSelectedLicenseType($event)" v-bind:name="formElements.licenseTypes.name" class="form-control">
+                        <option v-bind:value="option.Value" v-for="option in formElements.licenseTypes.options">{{ option.Text }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <span v-on:click="showCustomLicenseType = !showCustomLicenseType" class="btn">{{ formElements.customLicenseType.text }}</span>
+            </div>
+            <div v-if="formElements.useConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.licenseTypes.helpText.active = !formElements.licenseTypes.helpText.active" v-bind:class="{active: formElements.licenseTypes.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        <div v-show="showLicenseType && showCustomLicenseType" class="form-group has-feedback">
+            @* OtherConstraintsLinkText *@
+            <label class="col-md-3 control-label">{{ formElements.otherConstraintsLinkText.label }}</label>
+            <div class="col-md-3">
+                <div is="field" v-bind:form-element="formElements.otherConstraintsLinkText"></div>
+            </div>
+
+            @* OtherConstraintsLink *@
+            <label class="col-md-1 control-label">{{ formElements.otherConstraintsLink.label }}</label>
+            <div class="col-md-4">
+                <div is="field" v-bind:form-element="formElements.otherConstraintsLink"></div>
+            </div>
+        </div>
+
+        @* OtherConstraints *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.otherConstraints.required}">
+            <label class="col-md-3 control-label">{{ formElements.otherConstraints.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.otherConstraints.helpText && formElements.otherConstraints.helpText.active" class="help-text bg-success" v-html="formElements.otherConstraints.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.otherConstraints"></div>
+            </div>
+            <div v-if="formElements.otherConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.otherConstraints.helpText.active = !formElements.otherConstraints.helpText.active" v-bind:class="{active: formElements.otherConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* SecurityConstraints *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.securityConstraints.required}">
+            <label class="col-md-3 control-label">{{ formElements.securityConstraints.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.securityConstraints.helpText && formElements.securityConstraints.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraints.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.securityConstraints"></div>
+            </div>
+            <div v-if="formElements.useConstraints.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.securityConstraints.helpText.active = !formElements.securityConstraints.helpText.active" v-bind:class="{active: formElements.securityConstraints.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+        @* SecurityConstraintsNote *@
+        <div class="form-group has-feedback" v-bind:class="{required: formElements.securityConstraintsNote.required}">
+            <label class="col-md-3 control-label">{{ formElements.securityConstraintsNote.label }}</label>
+            <div class="col-md-8">
+                <p v-if="formElements.securityConstraintsNote.helpText && formElements.securityConstraintsNote.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraintsNote.helpText.content"></p>
+                <div is="field" v-bind:form-element="formElements.securityConstraintsNote"></div>
+            </div>
+            <div v-if="formElements.securityConstraintsNote.helpText" class="col-md-1">
+                <p class="form-control-static">
+                    <span v-on:click="formElements.securityConstraintsNote.helpText.active = !formElements.securityConstraintsNote.helpText.active" v-bind:class="{active: formElements.securityConstraintsNote.helpText.active}" class="badge help-text-toggle">?</span>
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+</script>
+
+<script>
+    var Constraints = {
+        name: "constraints",
+        template: "#constraints-template",
+        components: {
+            Field: Field
+        },
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            },
+            setSelectedLicenseType: function (event) {
+                this.$store.commit('updateOtherConstraintsLinkText', event.target.selectedOptions[0].text);
+                this.$store.commit('updateOtherConstraintsLink', event.target.selectedOptions[0].value);
+            },
+            getSelectedLicenseType: function (target) {
+                return this.$store.getters['OtherConstraintsLink'];
+            }
+        },
+        computed: {
+            showLicenseType: function () {
+                return this.$store.getters['UseConstraints'] == 'license';
+            }
+        },
+        mounted: function () {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Constraints', fieldNames: this.fieldNames });
+            this.$store.dispatch('getErrorsForTab', { tabName: 'Constraints' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
+        data: function () {
+            return {
+                errors: {},
+                fieldNames: ['UseLimitations', 'EnglishUseLimitations', 'AccessConstraints', 'UseConstraints', 'LicenseTypes', 'OtherConstraintsLinkText', 'OtherConstraintsLink', 'OtherConstraints', 'EnglishOtherConstraints', 'SecurityConstraints', 'SecurityConstraintsNote'],
+                showCustomLicenseType: false,
+                formElements: {
+                    useLimitations: {
+                        multilingual: {
+                            no: {
+                                name: 'UseLimitations',
+                                getter: 'UseLimitations',
+                                mutation: 'updateUseLimitations'
+                            },
+                            en: {
+                                name: 'EnglishUseLimitations',
+                                getter: 'EnglishUseLimitations',
+                                mutation: 'updateEnglishUseLimitations'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        label: '@Html.Raw(UI.Metadata_UseLimitations_Label)',
+                        type: 'text',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_UseLimitations)'
+                        }
+                    },
+                    accessConstraints: {
+                        name: 'AccessConstraints',
+                        getter: 'AccessConstraints',
+                        mutation: 'updateAccessConstraints',
+                        label: '@Html.Raw(UI.Metadata_AccessConstraints_Label)',
+                        type: 'select',
+                        options: this.$store.getters['AccessConstraintValues'],
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_AccessConstraints)'
+                        }
+                    },
+                    useConstraints: {
+                        name: 'UseConstraints',
+                        getter: 'UseConstraints',
+                        mutation: 'updateUseConstraints',
+                        label: '@Html.Raw(UI.Metadata_UseConstraints_Label)',
+                        type: 'select',
+                        options: this.$store.getters['UseConstraintValues'],
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_UseConstraints)'
+                        }
+                    },
+                    licenseTypes: {
+                        name: 'LicenseTypes',
+                        getter: 'LicenseTypes',
+                        mutation: 'updateLicenseTypes',
+                        label: '@Html.Raw(UI.Metadata_LicenseTypes_Label)',
+                        type: 'select',
+                        options: this.$store.getters['LicenseTypesValues'],
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_LicenseTypes)'
+                        }
+                    },
+                    customLicenseType: {
+                        text: '@UI.Custom'
+                    },
+                    otherConstraintsLinkText: {
+                        name: 'OtherConstraintsLinkText',
+                        getter: 'OtherConstraintsLinkText',
+                        mutation: 'updateOtherConstraintsLinkText',
+                        label: '@Html.Raw(UI.Metadata_OtherConstraintsLinkText_Label)',
+                        type: 'text'
+                    },
+                    otherConstraintsLink: {
+                        name: 'OtherConstraintsLink',
+                        getter: 'OtherConstraintsLink',
+                        mutation: 'updateOtherConstraintsLink',
+                        label: '@Html.Raw(UI.Metadata_OtherConstraintsLink_Label)',
+                        type: 'text'
+                    },
+                    otherConstraints: {
+                        multilingual: {
+                            no: {
+                                name: 'OtherConstraints',
+                                getter: 'OtherConstraints',
+                                mutation: 'updateOtherConstraints'
+                            },
+                            en: {
+                                name: 'EnglishOtherConstraints',
+                                getter: 'EnglishOtherConstraints',
+                                mutation: 'updateEnglishOtherConstraints'
+                            }
+                        },
+                        selectedLanguage: this.$store.getters['settingsSelectedLanguage'],
+                        label: '@Html.Raw(UI.Metadata_OtherConstraints_Label)',
+                        type: 'text'
+                    },
+                    securityConstraints: {
+                        name: 'SecurityConstraints',
+                        getter: 'SecurityConstraints',
+                        mutation: 'updateSecurityConstraints',
+                        label: '@Html.Raw(UI.Metadata_SecurityConstraints_Label)',
+                        type: 'select',
+                        options: this.$store.getters['SecurityConstraintValues'],
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_SecurityConstraints)'
+                        }
+                    },
+                    securityConstraintsNote: {
+                        name: 'SecurityConstraintsNote',
+                        getter: 'SecurityConstraintsNote',
+                        mutation: 'updateSecurityConstraintsNote',
+                        label: '@Html.Raw(UI.Metadata_SecurityConstraintsNote_Label)',
+                        type: 'text',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_SecurityConstraintsNote)'
+                        }
+                    }
+                }
+            }
+        }
+    };
+</script>

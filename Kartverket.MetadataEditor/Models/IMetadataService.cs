@@ -19,6 +19,9 @@ namespace Kartverket.MetadataEditor.Models
         Dictionary<DistributionGroup, Distribution> GetFormatDistributions(List<SimpleDistribution> distributionsFormats);
         Stream SaveMetadataAsXml(MetadataViewModel model);
         Task<List<LogEntry>> GetLogEntries(string uuid);
-        Task<List<LogEntry>> GetLogEntriesLatest();
+        Task<List<LogEntry>> GetLogEntriesLatest(int limitNumberOfEntries = 50, string operation = "");
+
+        Dictionary<string, string> GetPriorityDatasets();
+        void UpdateRegisterTranslations(string v, string uuid);
     }
 }

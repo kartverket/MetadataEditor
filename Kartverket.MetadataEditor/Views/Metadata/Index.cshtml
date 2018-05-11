@@ -1,4 +1,6 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataIndexViewModel
+@using Resources
+@using Kartverket.MetadataEditor.Helpers
 
 <h1>@Resources.UI.MyMetadata_Label</h1>
 
@@ -12,37 +14,37 @@
         </div>
     </div>
 }
-    @if (Request.IsAuthenticated)
-    {
+@if (Request.IsAuthenticated)
+{
     <div class="row">
         @{ string colSm = "5";
             if (Model.UserIsAdmin)
-            {  colSm = "8"; }
-        }               
+            { colSm = "8"; }
+        }
         <div class="col-sm-offset-2 col-sm-@colSm">
             <div class="panel panel-info" style="margin-top: 20px;">
-                <div class="panel-heading">Søk</div>
+                <div class="panel-heading">@UI.Search</div>
                 <div class="panel-body">
                     <form action="@Url.Action("Index")" method="get" class="form-inline" role="form">
                         <div class="form-group">
-                            <label for="searchString">Fritekst:</label>
+                            <label for="searchString">@UI.FreeText:</label>
                             <input type="text" class="form-control" name="searchString" value="@Model.SearchString" />
                         </div>
                         <div class="form-group">
-                            @if (Model.UserIsAdmin)
+                            @if (Model.UserIsAdmin && CultureHelper.IsNorwegian())
                             {
-                            <label for="searchOrganization">Organisasjon:</label>
-                            <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
+                                <label for="searchOrganization">@UI.Organization:</label>
+                                <input type="text" class="form-control" name="organization" value="@Model.SearchOrganization" />
                             }
                         </div>
-                        <button type="submit" class="btn no-margin-bottom show-loading-animation" data-loading-message="Henter søkeresultater">Søk</button>
+                        <button type="submit" class="btn no-margin-bottom show-loading-animation" data-loading-message="Henter søkeresultater">@UI.Search</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    }
-    
+}
+
 @if (Request.IsAuthenticated)
 {
     if (Model.MetadataItems.Count > 0)
@@ -50,22 +52,22 @@
         @Html.Partial("_MetadataList", Model.MetadataItems)
         <div class="clearfix">
             <p class="text-right">
-                Viser metadata @Model.Offset - @Model.ShowTo() av @Model.TotalNumberOfRecords
+                @UI.ShowingMetadata @Model.Offset - @Model.ShowTo() @UI.Of @Model.TotalNumberOfRecords
             </p>
             <div class="pull-right btn-group">
-                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn @Model.OffsetPreviousState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetPreviousState()>Forrige</a>
-                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn @Model.OffsetNextState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetNextState()>Neste</a>
+                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetPrevious()" class="btn @Model.OffsetPreviousState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetPreviousState()>@UI.Previous</a>
+                <a href="@Url.Action("Index")?@(Model.PaginationLinkParameters())offset=@Model.OffsetNext()" class="btn @Model.OffsetNextState() show-loading-animation" data-loading-message="Henter innhold" @Model.OffsetNextState()>@UI.Next</a>
             </div>
         </div>
     }
     else
     {
-        <p>Ingen treff.</p>
+        <p>@UI.NoResults.</p>
     }
 }
 else
 {
-    <p style="font-style: italic">Ingen metadata tilgjengelig. Du må være pålogget for å kunne redigere dine metadata.</p>
+    <p style="font-style: italic">@UI.LoggedOffMessage</p>
 }
 
 @section scripts {
@@ -94,7 +96,7 @@ else
                         $("#status-" + uuid).addClass("label label-success");
                     }
                     else if (validationStatus == "ERRORS") {
-                        $("#status-" + uuid).text("FEIL");
+                        $("#status-" + uuid).text("@UI.Error");
                         $("#status-" + uuid).removeClass("label label-warning");
                         $("#status-" + uuid).addClass("label label-danger");
                     }
@@ -103,29 +105,32 @@ else
         });
     };
 
-    function getAdditionalData(uuid) {
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+    function getAdditionalData(uuid, culture) {
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/getdata/" + uuid, function (result) {
 
             if (result.length != 0) {
 
-                var DistributionProtocol = result.Results[0].DistributionProtocol;
-                if (DistributionProtocol.indexOf("WFS") > -1)
+                var distribution = result.DistributionDetails;
+                if (distribution != null && distribution.Protocol != null && distribution.Protocol.indexOf("WFS") > -1)
                 {
-                    $("#type-" + uuid).text("WFS tjeneste");
+                    $("#type-" + uuid).text("@UI.WfsService");
                 }
-                
+                if (culture != "@Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode") {
+                    $("#title-" + uuid).text(result.EnglishTitle);
+                    $("#organization-" + uuid).text(result.ContactMetadata.OrganizationEnglish);
+                }
             }
         });
     }
 
     </script>
-}
-
-<script>
-    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "") 
-    { 
+    <script>
+    @if (System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] != "")
+    {
         @:for (v = 0; v < validationUUIDs.length; v++) {
         @:    getValidationStatus(validationUUIDs[v]);
         @:}
     }
-</script>
+    </script>
+}
+

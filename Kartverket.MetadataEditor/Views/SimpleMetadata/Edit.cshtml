@@ -10,7 +10,7 @@
 }
 
 @section breadcrumb{
-    <li>@Model.Title</li>
+    <li>@Model.TitleFromSelectedLanguage</li>
 }
 
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
@@ -96,7 +96,7 @@
     </div>
 
     <h3>@ViewBag.Title</h3>
-    <h2>@Model.Title</h2>
+    <h2>@Model.TitleFromSelectedLanguage</h2>
 
     @if (ViewBag.Saved == true)
     {
@@ -160,7 +160,7 @@
 }
 
 @section scripts {
-    <script>
+<script>
         $(function () {
 
             //  add warning sign to tabs containing input fields with error.
@@ -403,7 +403,7 @@
             $('button#keywords-national-theme-add').click(function (event) {
                 event.preventDefault();
                 if ($('#keywords-national-theme-text').val().trim() == '')
-                    alert('Vennligst velg @UI.Metadata_NationalTheme_Label');
+                    alert('Vennligst velg Nasjonal temainndeling');
                 else
                     addKeywordFromCodeList('keywords-national-theme', "KeywordsNationalTheme");
             });
@@ -459,5 +459,5 @@
 
         });
 
-    </script>
+</script>
 }

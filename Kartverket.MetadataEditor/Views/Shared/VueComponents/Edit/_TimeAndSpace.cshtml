@@ -1,0 +1,153 @@
+﻿@using Resources
+
+<script type="text/x-template" id="timeAndSpace-template">
+    <div class="form-group has-feedback">
+        <div v-for="formElement in formElements" v-if="formElement.visible" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+            <div class="row">
+                <label class="col-md-2 control-label">{{ formElement.label }}</label>
+                <div class="col-md-9">
+                    <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                    <div is="field" v-bind:form-element="formElement"></div>
+                </div>
+                <div v-if="formElement.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div is="keywords-section"
+             v-bind:section="section"
+             v-for="section in sections">
+        </div>
+        <div is="bounding-box"></div>
+        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></div>
+    </div>
+</script>
+
+@Html.Partial("VueComponents/Edit/TimeAndSpace/_BoundingBox")
+@Html.Partial("VueComponents/Edit/TimeAndSpace/_Coverage")
+
+
+
+<script>
+    var TimeAndSpace = {
+        name: "timeAndSpace",
+        template: "#timeAndSpace-template",
+        props: [],
+        components: {
+            Field: Field,
+            BoundingBox: BoundingBox,
+            Coverage: Coverage,
+            KeywordsSection: KeywordsSection
+        },
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            }
+        },
+        mounted: function () {
+            this.$store.dispatch('initDatepicker');
+            this.$store.dispatch('getErrorsForTab', { tabName: 'TimeAndSpace' }).then(function (errors) {
+                this.errors = errors;
+            }.bind(this));
+        },
+        data: function () {
+            return {
+                errors: {},
+                formElements: [
+                    {
+                        name: 'DateUpdated',
+                        getter: 'DateUpdated',
+                        mutation: 'updateDateUpdated',
+                        visible: true,
+                        label: '@Html.Raw(UI.Metadata_DateUpdated)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: '@UI.HelpTextDate'
+                        }
+                    },
+                    {
+                        name: 'DatePublished',
+                        getter: 'DatePublished',
+                        mutation: 'updateDatePublished',
+                        visible: true,
+                        label: '@Html.Raw(UI.Metadata_DatePublished)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: '@UI.HelpTextDate'
+                        }
+                    },
+                    {
+                        name: 'DateCreated',
+                        getter: 'DateCreated',
+                        mutation: 'updateDateCreated',
+                        visible: true,
+                        label: '@Html.Raw(UI.Metadata_DateCreated)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: '@UI.HelpTextDate'
+                        }
+                    },
+                    {
+                        name: 'DateMetadataValidFrom',
+                        getter: 'DateMetadataValidFrom',
+                        mutation: 'updateDateMetadataValidFrom',
+                        visible: !this.$store.getters['isSoftware'],
+                        label: '@Html.Raw(UI.Metadata_DateMetadataValidFrom)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: '@UI.HelpTextDate'
+                        }
+                    },
+                    {
+                        name: 'DateMetadataValidTo',
+                        getter: 'DateMetadataValidTo',
+                        mutation: 'updateDateMetadataValidTo',
+                        visible: !this.$store.getters['isSoftware'],
+                        label: '@Html.Raw(UI.Metadata_DateMetadataValidTo)',
+                        type: 'datepicker',
+                        helpText: {
+                            active: false,
+                            content: '@UI.HelpTextDate'
+                        }
+                    },
+                    {
+                        name: 'MaintenanceFrequency',
+                        getter: 'MaintenanceFrequency',
+                        mutation: 'updateMaintenanceFrequency',
+                        required: true,
+                        visible: true,
+                        label: '@Html.Raw(UI.Metadata_MaintenanceFrequency)',
+                        type: 'select',
+                        options: this.$store.getters['MaintenanceFrequencyValues'],
+                        helpText: {
+                            active: false,
+                            content: '@UI.HelpTextMaintenanceFrequency'
+                        }
+                    },
+
+                ],
+                sections: {
+                    keywordsPlace: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsPlace_Label)',
+                        name: 'Place',
+                        getter: 'Place',
+                        mutation: 'updateKeywordsPlace',
+                        type: 'text',
+                        multilingual: true,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsPlace)'
+                        }
+                    },
+                }
+            };
+        }
+    };
+</script>
+
