@@ -14,7 +14,7 @@
                                     <select class="form-control"
                                             v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
                                             v-bind:value="format.Name"
-                                            v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});">
+                                            v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex, value: $event.target.value});">
                                         <option value="">@UI.ChooseFromList</option>
                                         <option v-bind:value="option.Value" v-for="option in distributionFormatsForSpatialRepresentations">{{ option.Text }}</option>
                                     </select>
@@ -24,7 +24,7 @@
                                            v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
                                            v-bind:value="format.Name"
                                            v-bind:type="formElements.formatName.type"
-                                           v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});" />
+                                           v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex, value: $event.target.value});" />
                                 </div>
                             </div>
                             <label v-bind:for="formElements.formatVersion.id" class="col-md-2 control-label">{{ formElements.formatVersion.label }}</label>
@@ -33,10 +33,10 @@
                                        v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatVersion.name"
                                        v-bind:value="format.Version"
                                        v-bind:type="formElements.formatVersion.type"
-                                       v-on:change="$store.commit('updateFormatDistributionsFormatVersion', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});" />
+                                       v-on:change="$store.commit('updateFormatDistributionsFormatVersion', {distributionIndex: $parent.distributionIndex, localFormatIndex: formatIndex, value: $event.target.value});" />
                             </div>
                             <div class="col-md-3">
-                                <span class="btn" v-on:click="$store.commit('removeFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex});">@UI.Delete</span>
+                                <span v-if="!single" class="btn" v-on:click="$store.commit('removeFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex});">@UI.Delete</span>
                             </div>
                         </div>
                     </div>
@@ -91,6 +91,9 @@
                     }
                 }.bind(this));
                 return formatsAddedInPreviousDistributionItems + this.localFormatIndex;
+            },
+            single: function () {
+                return this.$store.getters['FormatDistributions'][this.distributionIndex].Value.Formats.length == 1;
             },
             hiddenFormElements: function () {
                 return [

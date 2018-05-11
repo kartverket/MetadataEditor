@@ -115,12 +115,12 @@
 
 
             <div class="striped-list">
-                <div class="list-item" is="distribution-item-format" v-bind:format="distributionItemFormat" v-bind:distribution-index="distributionIndex" v-bind:local-format-index="distributionItemFormatIndex" v-for="(distributionItemFormat, distributionItemFormatIndex) in distribution.Value.Formats"></div>
+                <div class="list-item" is="distribution-item-format" v-bind:format="distributionItemFormat" v-bind:distribution-index="distributionIndex" v-bind:local-format-index="distributionItemFormatIndex" v-for="(distributionItemFormat, distributionItemFormatIndex) in distributionItemFormats"></div>
             </div>
 
 
             <div class="margin-top-10 text-right">
-                <span class="btn" v-on:click="$store.commit('addFormatDistributionsFormat', {distributionIndex: distributionIndex});">@UI.FormatNew</span>
+                <span class="btn" v-on:click="addDistributionFormat()">@UI.FormatNew</span>
             </div>
             <hr />
             <div class="form-group">
@@ -179,6 +179,10 @@
         },
         mounted: function () {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Distribution', fieldNames: this.fieldNames });
+            this.distributionItemFormats = this.distribution.Value.Formats;
+            if (!this.distributionItemFormats.length) {
+                this.addDistributionFormat();
+            }
         },
         data: function () {
             return {
@@ -188,6 +192,7 @@
                     'DistributionsFormats[' + this.distributionIndex + '].URL',
                     'DistributionsFormats[' + this.distributionIndex + '].Name'
                 ],
+                distributionItemFormats: [],
                 formats: {
                     visible: true,
                     helpText: {
@@ -265,6 +270,9 @@
             setUnitsOfDistribution: function () {
                 var unitsOfDistribution = this.formElements.unitsOfDistribution.selected.join(', ');
                 this.$store.commit('updateFormatDistributionsUnitsOfDistribution', { distributionIndex: this.distributionIndex, value: unitsOfDistribution });
+            },
+            addDistributionFormat: function () {
+                this.$store.commit('addFormatDistributionsFormat', { distributionIndex: this.distributionIndex });
             }
         }
     };
