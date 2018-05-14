@@ -92,10 +92,8 @@ namespace Kartverket.MetadataEditor
                 var returnUrl = queryString.Get("returnUrl");
                 if (!string.IsNullOrEmpty(returnUrl))
                 {
-                    returnUrl = returnUrl.Replace("http://", "");
-                    returnUrl = returnUrl.Replace("https://", "");
 
-                    if (!returnUrl.StartsWith(Request.Url.Host))
+                    if (!returnUrl.StartsWith("/"))
                         HttpContext.Current.Response.StatusCode = 400;
                 }
             }
