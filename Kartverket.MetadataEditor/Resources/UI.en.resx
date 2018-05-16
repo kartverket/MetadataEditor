@@ -829,4 +829,7 @@
   <data name="Metadata_Distributions_LayerName_Label" xml:space="preserve">
     <value>Layer name</value>
   </data>
+  <data name="NoneSelected" xml:space="preserve">
+    <value>None selected</value>
+  </data>
 </root>
