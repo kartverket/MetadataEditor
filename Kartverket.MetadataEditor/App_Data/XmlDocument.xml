@@ -1017,6 +1017,11 @@
               Looks up a localized string similar to Ingen nøkkelord er lagt til for denne kategorien.
             </summary>
         </member>
+        <member name="P:Resources.UI.NoneSelected">
+            <summary>
+              Looks up a localized string similar to Ingen valgt.
+            </summary>
+        </member>
         <member name="P:Resources.UI.NoResults">
             <summary>
               Looks up a localized string similar to Ingen treff.

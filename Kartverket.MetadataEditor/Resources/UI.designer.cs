@@ -1790,6 +1790,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ingen valgt.
+        /// </summary>
+        public static string NoneSelected {
+            get {
+                return ResourceManager.GetString("NoneSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ingen treff.
         /// </summary>
         public static string NoResults {

@@ -262,8 +262,9 @@ namespace Kartverket.MetadataEditor.Controllers
                                                 };
             ViewBag.Concepts = new MultiSelectList(conceptItems,"Value", "Text", conceptItems.Select(c => c.Value).ToArray());
 
-            var productspesifications = GetRegister("produktspesifikasjoner", model);           
-            if(!string.IsNullOrEmpty(model.ProductSpecificationUrl))
+            var productspesifications = GetRegister("produktspesifikasjoner", model);
+            productspesifications.Add("", " " + UI.NoneSelected);
+            if (!string.IsNullOrEmpty(model.ProductSpecificationUrl))
             {
                 KeyValuePair<string, string> prodspecSelected = new KeyValuePair<string, string>(model.ProductSpecificationUrl, model.ProductSpecificationUrl);
                 if (!productspesifications.ContainsKey(prodspecSelected.Key))
@@ -284,8 +285,13 @@ namespace Kartverket.MetadataEditor.Controllers
             }
             ViewBag.OrderingInstructionsValues = new SelectList(orderingInstructions, "Key", "Value", model.OrderingInstructions);
 
-            ViewBag.ProductsheetValues = new SelectList(GetRegister("produktark", model), "Key", "Value", model.ProductSheetUrl);
-            ViewBag.LegendDescriptionValues = new SelectList(GetRegister("tegneregler", model), "Key", "Value", model.LegendDescriptionUrl);
+            var productSheets = GetRegister("produktark", model);
+            productSheets.Add("", " " + UI.NoneSelected);
+            ViewBag.ProductsheetValues = new SelectList(productSheets, "Key", "Value", model.ProductSheetUrl);
+
+            var legendDescriptions = GetRegister("tegneregler", model);
+            legendDescriptions.Add("", " " + UI.NoneSelected);
+            ViewBag.LegendDescriptionValues = new SelectList(legendDescriptions, "Key", "Value", model.LegendDescriptionUrl);
 
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
 
