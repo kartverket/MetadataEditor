@@ -156,6 +156,11 @@
               Looks up a localized string similar to Opprett produktark.
             </summary>
         </member>
+        <member name="P:Resources.UI.CreateSimpleMetadata_Label">
+            <summary>
+              Looks up a localized string similar to Opprett enkle metadata.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Custom">
             <summary>
               Looks up a localized string similar to Egendefinert.

@@ -241,6 +241,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opprett enkle metadata.
+        /// </summary>
+        public static string CreateSimpleMetadata_Label {
+            get {
+                return ResourceManager.GetString("CreateSimpleMetadata_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Egendefinert.
         /// </summary>
         public static string Custom {
