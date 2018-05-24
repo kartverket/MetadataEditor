@@ -61,6 +61,11 @@
               Looks up a localized string similar to Legg til nøkkelord.
             </summary>
         </member>
+        <member name="P:Resources.UI.AddLinkToService">
+            <summary>
+              Looks up a localized string similar to Koble til tjeneste.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AppPageTitle">
             <summary>
               Looks up a localized string similar to Geonorge - metadataeditor.
@@ -520,6 +525,11 @@
         <member name="P:Resources.UI.Language_No">
             <summary>
               Looks up a localized string similar to Norsk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LinkToDataset">
+            <summary>
+              Looks up a localized string similar to Koble til datasett.
             </summary>
         </member>
         <member name="P:Resources.UI.LinkToService">

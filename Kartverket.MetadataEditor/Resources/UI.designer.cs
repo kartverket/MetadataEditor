@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Koble til tjeneste.
+        /// </summary>
+        public static string AddLinkToService {
+            get {
+                return ResourceManager.GetString("AddLinkToService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geonorge - metadataeditor.
         /// </summary>
         public static string AppPageTitle {
@@ -895,6 +904,15 @@ namespace Resources {
         public static string Language_No {
             get {
                 return ResourceManager.GetString("Language_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koble til datasett.
+        /// </summary>
+        public static string LinkToDataset {
+            get {
+                return ResourceManager.GetString("LinkToDataset", resourceCulture);
             }
         }
         

@@ -838,4 +838,10 @@
   <data name="NoneSelected" xml:space="preserve">
     <value>Ingen valgt</value>
   </data>
+  <data name="AddLinkToService" xml:space="preserve">
+    <value>Koble til tjeneste</value>
+  </data>
+  <data name="LinkToDataset" xml:space="preserve">
+    <value>Koble til datasett</value>
+  </data>
 </root>
