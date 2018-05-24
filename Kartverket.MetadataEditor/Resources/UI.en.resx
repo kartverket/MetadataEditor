@@ -838,4 +838,7 @@
   <data name="LinkToDataset" xml:space="preserve">
     <value>Link to dataset</value>
   </data>
+  <data name="CreateSimpleMetadata_Label" xml:space="preserve">
+    <value>Create simple metadata</value>
+  </data>
 </root>

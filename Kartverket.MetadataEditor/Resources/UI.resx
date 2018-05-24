@@ -844,4 +844,7 @@
   <data name="LinkToDataset" xml:space="preserve">
     <value>Koble til datasett</value>
   </data>
+  <data name="CreateSimpleMetadata_Label" xml:space="preserve">
+    <value>Opprett enkle metadata</value>
+  </data>
 </root>
