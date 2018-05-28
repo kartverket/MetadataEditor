@@ -204,6 +204,9 @@
         ProductSpecificationUrl: function (state) {
             return state.model.ProductSpecificationUrl;
         },
+        productSpecificationUrlIsAdded: function (state) {
+            return state.model.ProductSpecificationUrl !== null && state.model.ProductSpecificationUrl.length > 0;
+        },
         ProductspesificationValues: function (state) {
             return state.viewBag.ProductspesificationValues;
         },
@@ -424,7 +427,9 @@
             return state.model.QualitySpecificationResultSosi;
         },
         showQualitySpecificationExplanationSosi: function (state) {
-            return state.model.QualitySpecificationResultSosi == "false" || state.model.QualitySpecificationResultSosi == false;
+            var qualitySpecificationSosiNeedsExplanation = state.model.QualitySpecificationResultSosi == "false" || state.model.QualitySpecificationResultSosi == false;
+            var productSpecificationUrlIsAdded = state.model.ProductSpecificationUrl !== null && state.model.ProductSpecificationUrl.length > 0;
+            return qualitySpecificationSosiNeedsExplanation && productSpecificationUrlIsAdded;
         },
         QualitySpecificationExplanationSosi: function (state) {
             return state.model.QualitySpecificationExplanationSosi;
