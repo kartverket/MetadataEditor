@@ -847,4 +847,7 @@
   <data name="CreateSimpleMetadata_Label" xml:space="preserve">
     <value>Opprett enkle metadata</value>
   </data>
+  <data name="SelectedValueDiffersFromList" xml:space="preserve">
+    <value>Valgt verdi avviker fra liste</value>
+  </data>
 </root>

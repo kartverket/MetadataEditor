@@ -10,13 +10,13 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div v-if="formElements.formatName.type == 'select'" class="custom-select">
-                                  
                                     <select class="form-control"
                                             v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
                                             v-bind:value="format.Name"
-                                            v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex, value: $event.target.value});">
+                                            v-on:change="updateFormatName($event.target.value)">
                                         <option value="">@UI.ChooseFromList</option>
-                                        <option v-bind:value="option.Value" v-for="option in distributionFormatsForSpatialRepresentations">{{ option.Text }}</option>
+                                        <option v-if="!selectedFormatIsAnOption" v-bind:value="format.Name">{{ format.Name }}</option>
+                                        <option v-bind:value="option.Value" v-for="option in formElements.formatName.options">{{ option.Text }}</option>
                                     </select>
                                 </div>
                                 <div v-else-if="formElements.formatName.type == 'text'">
@@ -26,6 +26,7 @@
                                            v-bind:type="formElements.formatName.type"
                                            v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex, value: $event.target.value});" />
                                 </div>
+                                <div v-show="!selectedFormatIsAnOption" class="help-text form-element-help-text bg-info"><span>@UI.SelectedValueDiffersFromList</span></div>
                             </div>
                             <label v-bind:for="formElements.formatVersion.id" class="col-md-2 control-label">{{ formElements.formatVersion.label }}</label>
                             <div class="col-md-3">
@@ -46,8 +47,7 @@
         <div v-for="formElement in hiddenFormElements">
             <input v-model="formElement.value"
                    v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElement.name"
-                   type="hidden"
-                   />
+                   type="hidden" />
         </div>
     </div>
 </script>
@@ -56,7 +56,7 @@
     var DistributionItemFormat = {
         name: "distributionItemFormat",
         template: "#distribution-item-format-template",
-        props: ["format", "distributionIndex", "localFormatIndex"],
+        props: ["format", "distributionIndex", "localFormatIndex", "formatOptions"],
         methods: {
             updateField: function (value) {
                 this.$store.dispatch('updateField', value);
@@ -71,6 +71,7 @@
                         label: 'Format',
                         type: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'] ? 'select' : 'text',
                         required: !this.$store.getters['isSoftware'],
+                        options: []
                     },
                     formatVersion: {
                         name: 'FormatVersion',
@@ -78,9 +79,14 @@
                         label: '@UI.Version',
                         type: 'text',
                         required: true
-                    }
-                }
+                    },
+                },
+                selectedFormatIsAnOption: true
             }
+        },
+        created: function () {
+            this.updateSelectedFormatIsAnOption();
+            this.formElements.formatName.options = this.formatOptions;
         },
         computed: {
             formatIndex: function () {
@@ -118,22 +124,30 @@
                         value: this.$parent.distribution.Value.Details.Organization
                     },
                 ]
+            }
+        },
+        methods: {
+            updateFormatName: function (value) {
+                this.$store.commit('updateFormatDistributionsFormatName', {
+                    distributionIndex: this.$parent.distributionIndex,
+                    distributionFormatIndex: this.localFormatIndex,
+                    value: value
+                });
             },
-            distributionFormatsForSpatialRepresentations: function () {
-                if (this.$store.getters['SpatialRepresentation'] == 'grid') {
-                    return this.$store.getters['RasterFormats'];
-                } else if (this.$store.getters['SpatialRepresentation'] == 'stereoModel') {
-                    return this.$store.getters['StereoImageFormats'];
-                } else if (this.$store.getters['SpatialRepresentation'] == 'textTable') {
-                    return this.$store.getters['TextFormats'];
-                } else if (this.$store.getters['SpatialRepresentation'] == 'tin') {
-                    return this.$store.getters['TinFormats'];
-                } else if (this.$store.getters['SpatialRepresentation'] == 'vector') {
-                    return this.$store.getters['VectorFormats'];
-                } else if (this.$store.getters['SpatialRepresentation'] == 'video') {
-                    return this.$store.getters['VideoFormats'];
+            updateSelectedFormatIsAnOption: function() {
+                var selectedFormatIsAnOption = false;
+                if (this.format.Name) {
+                    this.formatOptions.forEach(function (format) {
+                        if (this.format.Name == format.Value) {
+                            selectedFormatIsAnOption = true;
+                            return;
+                        }
+                    }.bind(this));
                 } else {
-                    return [];
+                    selectedFormatIsAnOption = true;
+                }
+                if (!selectedFormatIsAnOption) {
+                    this.selectedFormatIsAnOption = false;
                 }
             }
         }

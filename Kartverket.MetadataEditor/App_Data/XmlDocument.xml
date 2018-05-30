@@ -1147,6 +1147,11 @@
               Looks up a localized string similar to Søk.
             </summary>
         </member>
+        <member name="P:Resources.UI.SelectedValueDiffersFromList">
+            <summary>
+              Looks up a localized string similar to Valgt verdi avviker fra liste.
+            </summary>
+        </member>
         <member name="P:Resources.UI.SelectFile">
             <summary>
               Looks up a localized string similar to Velg fil.

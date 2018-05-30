@@ -2024,6 +2024,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valgt verdi avviker fra liste.
+        /// </summary>
+        public static string SelectedValueDiffersFromList {
+            get {
+                return ResourceManager.GetString("SelectedValueDiffersFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Velg fil.
         /// </summary>
         public static string SelectFile {
