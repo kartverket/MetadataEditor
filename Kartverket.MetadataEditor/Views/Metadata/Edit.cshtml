@@ -368,18 +368,6 @@
                 }
             },
             computed: {
-                isDatasetOrDatasetSeries: function () {
-                    var hierarchyLevel = this.$root.model.HierarchyLevel;
-                    return hierarchyLevel == 'dataset' || hierarchyLevel == 'series';
-                },
-                isSoftware: function () {
-                    var hierarchyLevel = this.$root.model.HierarchyLevel;
-                    return hierarchyLevel == 'software' || hierarchyLevel == 'series';
-                },
-                isService: function () {
-                    var hierarchyLevel = this.$root.model.HierarchyLevel;
-                    return hierarchyLevel == "service";
-                },
                 hasCoverageImage: function () {
                     var hasCoverageImage = false;
                     this.$store.getters['Thumbnails'].forEach(function (thumbnail) {
