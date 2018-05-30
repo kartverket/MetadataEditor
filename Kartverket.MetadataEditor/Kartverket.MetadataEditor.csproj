@@ -671,7 +671,6 @@
     <Content Include="Views\Metadata\Edit.cshtml" />
     <Content Include="Views\Metadata\_MetadataList.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
-    <Content Include="Views\Metadata\_Quality.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Metadata\_Dataset.cshtml" />
     <Content Include="Views\Metadata\_Service.cshtml" />
@@ -694,7 +693,6 @@
     <Content Include="settings.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Metadata\_Keywords.cshtml" />
     <Content Include="Views\Shared\_NavbarPartial.cshtml" />
     <Content Include="Views\Metadata\RegisterData.cshtml" />
     <Content Include="Views\Metadata\_OperatesOn.cshtml" />
@@ -721,7 +719,6 @@
     <Content Include="Views\SimpleMetadata\_Parent.cshtml" />
     <Content Include="Views\SimpleMetadata\_English.cshtml" />
     <Content Include="Views\Metadata\_ParentIdentifier.cshtml" />
-    <Content Include="Views\Metadata\_Admin.cshtml" />
     <Content Include="Views\Metadata\_CrossReference.cshtml" />
     <Content Include="Views\Metadata\_Log.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\_Basic.cshtml" />
