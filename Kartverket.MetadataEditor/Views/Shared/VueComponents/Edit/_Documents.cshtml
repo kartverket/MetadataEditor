@@ -36,6 +36,7 @@
                         <div class="custom-select-list-input-container">
                             <span v-for="(conceptValue, index) in selectedKeywordsConceptValues" class="custom-select-list-selected">
                                 {{ getConceptNameFromConceptValue(conceptValue) }}
+                                <input type="hidden" v-bind:name="'KeywordsConcept[' + index + ']'" v-bind:value="conceptValue" />
                                 <span v-on:click="removeSelectedConcept(conceptValue, index)" class="custom-select-list-remove-button"></span>
                             </span>
                             <input type="text" v-bind:disabled="!keywordsConcept.options.length" class="custom-select-list-input" />

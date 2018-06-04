@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Koble til tjeneste.
+        /// </summary>
+        public static string AddLinkToService {
+            get {
+                return ResourceManager.GetString("AddLinkToService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geonorge - metadataeditor.
         /// </summary>
         public static string AppPageTitle {
@@ -228,6 +237,15 @@ namespace Resources {
         public static string CreateProductFactSheet {
             get {
                 return ResourceManager.GetString("CreateProductFactSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opprett enkle metadata.
+        /// </summary>
+        public static string CreateSimpleMetadata_Label {
+            get {
+                return ResourceManager.GetString("CreateSimpleMetadata_Label", resourceCulture);
             }
         }
         
@@ -895,6 +913,15 @@ namespace Resources {
         public static string Language_No {
             get {
                 return ResourceManager.GetString("Language_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koble til datasett.
+        /// </summary>
+        public static string LinkToDataset {
+            get {
+                return ResourceManager.GetString("LinkToDataset", resourceCulture);
             }
         }
         
@@ -1993,6 +2020,15 @@ namespace Resources {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valgt verdi avviker fra liste.
+        /// </summary>
+        public static string SelectedValueDiffersFromList {
+            get {
+                return ResourceManager.GetString("SelectedValueDiffersFromList", resourceCulture);
             }
         }
         

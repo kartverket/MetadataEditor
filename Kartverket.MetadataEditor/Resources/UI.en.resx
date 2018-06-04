@@ -832,4 +832,16 @@
   <data name="NoneSelected" xml:space="preserve">
     <value>None selected</value>
   </data>
+  <data name="AddLinkToService" xml:space="preserve">
+    <value>Link to service</value>
+  </data>
+  <data name="LinkToDataset" xml:space="preserve">
+    <value>Link to dataset</value>
+  </data>
+  <data name="CreateSimpleMetadata_Label" xml:space="preserve">
+    <value>Create simple metadata</value>
+  </data>
+  <data name="SelectedValueDiffersFromList" xml:space="preserve">
+    <value>Selected value differs from list</value>
+  </data>
 </root>

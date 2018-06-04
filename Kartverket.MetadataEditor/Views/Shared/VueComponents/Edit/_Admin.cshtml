@@ -208,6 +208,7 @@
                                 getter: 'QualitySpecificationTitleSosi',
                                 readOnly: true,
                                 label: '@UI.Metadata_Admin_QualitySpecificationTitle',
+                                visibleGetter: 'productSpecificationUrlIsAdded',
                                 helpText: {
                                     active: false,
                                     content: 'Referansenavn på datakilde/tjeneste. Du må velge "Produktspesifikasjon" under fanen "Dokumentasjon". Dersom ønsket ikke finnes i listen må du først registrere produktspesifikasjonen i registeret.'
@@ -220,7 +221,8 @@
                                 mutation: 'updateQualitySpecificationDateSosi',
                                 readOnly: true,
                                 type: 'datepicker',
-                                label: '@UI.Date'
+                                label: '@UI.Date',
+                                visibleGetter: 'productSpecificationUrlIsAdded',
 
                             },
                             {
@@ -233,6 +235,7 @@
                                 getter: 'QualitySpecificationResultSosi',
                                 mutation: 'updateQualitySpecificationResultSosi',
                                 type: 'radio',
+                                visibleGetter: 'productSpecificationUrlIsAdded',
                                 options: [
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
@@ -373,6 +376,7 @@
                 var inspireKeywordIsAdded = this.isAdded('Inspire');
                 var sosiKeywordIsAdded = this.isAdded('Det offentlige kartgrunnlaget') || this.isAdded('geodataloven') || this.isAdded('Norge digitalt') || this.isAdded('arealplanerPBL');
                 var productSpecificationUrlIsAdded = this.$store.getters['ProductSpecificationUrl'] !== null && this.$store.getters['ProductSpecificationUrl'].length > 0;
+                var applicationSchemaIsAdded = this.$store.getters['ApplicationSchema'] !== null && this.$store.getters['ApplicationSchema'].length > 0;
                 var otherProductSpecificationIsAdded = this.$store.getters['ProductSpecificationOtherName'] !== null && this.$store.getters['ProductSpecificationOtherName'].length > 0;
 
                 if (inspireKeywordIsAdded) {
@@ -381,12 +385,12 @@
 
                 this.$store.commit('updateVisibleConformitySections', {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
-                    QualitySpecificationSosi: sosiKeywordIsAdded && productSpecificationUrlIsAdded,
+                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || applicationSchemaIsAdded),
                     QualitySpecificationCustom: otherProductSpecificationIsAdded
                 });
                 return {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
-                    QualitySpecificationSosi: sosiKeywordIsAdded && productSpecificationUrlIsAdded,
+                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || applicationSchemaIsAdded),
                     QualitySpecificationCustom: otherProductSpecificationIsAdded
                 };
             }

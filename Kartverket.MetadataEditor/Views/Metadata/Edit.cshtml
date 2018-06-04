@@ -166,8 +166,8 @@
 
             @if (Model.IsService())
             {
-                <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
-                <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til tjeneste</a>
+                <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.LinkToDataset</a>
+                <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.AddLinkToService</a>
             }
             @if (Model.IsSoftware())
             {
@@ -368,18 +368,6 @@
                 }
             },
             computed: {
-                isDatasetOrDatasetSeries: function () {
-                    var hierarchyLevel = this.$root.model.HierarchyLevel;
-                    return hierarchyLevel == 'dataset' || hierarchyLevel == 'series';
-                },
-                isSoftware: function () {
-                    var hierarchyLevel = this.$root.model.HierarchyLevel;
-                    return hierarchyLevel == 'software' || hierarchyLevel == 'series';
-                },
-                isService: function () {
-                    var hierarchyLevel = this.$root.model.HierarchyLevel;
-                    return hierarchyLevel == "service";
-                },
                 hasCoverageImage: function () {
                     var hasCoverageImage = false;
                     this.$store.getters['Thumbnails'].forEach(function (thumbnail) {

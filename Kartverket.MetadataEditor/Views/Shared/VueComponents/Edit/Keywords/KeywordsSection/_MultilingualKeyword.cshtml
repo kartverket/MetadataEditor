@@ -99,7 +99,7 @@
             getEnglishName: function () {
                 return 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.keywordValue + ']';
             },
-            updateNorwegianKeywordValue(value) {
+            updateNorwegianKeywordValue: function (value) {
                 this.$store.dispatch('updateMultilingualKeyword', { keywordName: this.keywordName, keywordIndex: this.keywordIndex, value: value, language: 'no' });
                 this.englishName = 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.keywordValue + ']';
                 console.log(this.englishName);

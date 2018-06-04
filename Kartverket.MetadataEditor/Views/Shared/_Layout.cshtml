@@ -65,7 +65,7 @@
                             <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateMetadata</a></li>
                             @if (Html.SimpleMetadataEnabled())
                             {
-                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create", "SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> Opprett enkle metadata</a></li>
+                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create", "SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateSimpleMetadata_Label  </a></li>
                             }
                             <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
                             <li class="pull-right">
@@ -132,7 +132,7 @@
 
     <script>
         searchOption.loginUrl = '@Html.Raw(Url.Action("SignIn", "AuthServices", new { ReturnUrl = Request.Url }))';
-        searchOption.logoutUrl = '@Html.Raw(Url.Action("LogOut", "AuthServices"))';
+        searchOption.logoutUrl = '@Html.Raw(Url.Action("SignOut", "AuthServices"))';
         searchOption.loggedIn = @Request.IsAuthenticated.ToString().ToLower();
         searchOption.epiBaseUrl = '@Html.GeonorgeUrl()';
         var orderItems = Cookies.get('orderitems');
@@ -143,8 +143,11 @@
     </script>
     @Scripts.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts")
     @Scripts.Render("~/Scripts/local-scripts")
-    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
 
+    <!-- Script for polyfilling Promises on IE9 and 10 -->
+    <script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
+
+    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
     @RenderSection("scripts", required: false)
 </body>
 </html>

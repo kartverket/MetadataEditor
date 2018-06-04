@@ -61,6 +61,11 @@
               Looks up a localized string similar to Legg til nøkkelord.
             </summary>
         </member>
+        <member name="P:Resources.UI.AddLinkToService">
+            <summary>
+              Looks up a localized string similar to Koble til tjeneste.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AppPageTitle">
             <summary>
               Looks up a localized string similar to Geonorge - metadataeditor.
@@ -149,6 +154,11 @@
         <member name="P:Resources.UI.CreateProductFactSheet">
             <summary>
               Looks up a localized string similar to Opprett produktark.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.CreateSimpleMetadata_Label">
+            <summary>
+              Looks up a localized string similar to Opprett enkle metadata.
             </summary>
         </member>
         <member name="P:Resources.UI.Custom">
@@ -520,6 +530,11 @@
         <member name="P:Resources.UI.Language_No">
             <summary>
               Looks up a localized string similar to Norsk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LinkToDataset">
+            <summary>
+              Looks up a localized string similar to Koble til datasett.
             </summary>
         </member>
         <member name="P:Resources.UI.LinkToService">
@@ -1130,6 +1145,11 @@
         <member name="P:Resources.UI.Search">
             <summary>
               Looks up a localized string similar to Søk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SelectedValueDiffersFromList">
+            <summary>
+              Looks up a localized string similar to Valgt verdi avviker fra liste.
             </summary>
         </member>
         <member name="P:Resources.UI.SelectFile">
