@@ -485,6 +485,30 @@
         },
         visibleConformitySections: function (state) {
             return state.settings.visibleConformitySections
+        },
+        showQualitySpecificationResultSosiConformApplicationSchema: function (state, getters) {
+            var formatIsAdded = false;
+            getters['FormatDistributions'].forEach(function (formatDistribution) {
+                formatDistribution.Value.Formats.forEach(function (format) {
+                    if (format.Name == 'SOSI') {
+                        formatIsAdded = true;
+                        return;
+                    }
+                });
+            });
+            return formatIsAdded && !getters['isService'];
+        },
+        showQualitySpecificationResultSosiConformGmlApplicationSchema: function (state, getters) {
+            var formatIsAdded = false;
+            getters['FormatDistributions'].forEach(function (formatDistribution) {
+                formatDistribution.Value.Formats.forEach(function (format) {
+                    if (format.Name == 'gml') {
+                        formatIsAdded = true;
+                        return;
+                    }
+                });
+            });
+            return formatIsAdded && !getters['isService'];
         }
     }
 </script>
