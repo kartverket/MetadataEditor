@@ -844,4 +844,10 @@
   <data name="SelectedValueDiffersFromList" xml:space="preserve">
     <value>Selected value differs from list</value>
   </data>
+  <data name="Metadata_Admin_QualitySpecificationResult_NotSet" xml:space="preserve">
+    <value>The data is not evaluated according to the product specification</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
 </root>

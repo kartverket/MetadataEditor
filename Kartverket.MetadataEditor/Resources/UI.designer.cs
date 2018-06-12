@@ -1061,6 +1061,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dataene er ikke vurdert iht produktspesifikasjonen.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResult_NotSet {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResult_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angitt produktspesifikasjon.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationTitle {

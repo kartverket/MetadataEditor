@@ -850,4 +850,7 @@
   <data name="SelectedValueDiffersFromList" xml:space="preserve">
     <value>Valgt verdi avviker fra liste</value>
   </data>
+  <data name="Metadata_Admin_QualitySpecificationResult_NotSet" xml:space="preserve">
+    <value>Dataene er ikke vurdert iht produktspesifikasjonen</value>
+  </data>
 </root>

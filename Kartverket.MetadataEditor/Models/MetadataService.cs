@@ -1001,8 +1001,8 @@ namespace Kartverket.MetadataEditor.Models
             var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
             var conformExplanationEnglish = "The data is according to the product specification";
 
-            var conformExplanationNotSet = "Ikke vurdert";
-            var conformExplanationEnglishNotSet = "Not evaluated";
+            var conformExplanationNotSet = "Dataene er ikke vurdert iht produktspesifikasjonen";
+            var conformExplanationEnglishNotSet = "The data is not evaluated according to the product specification";
 
             if (model.QualitySpecificationResultInspire == true)
             { 
