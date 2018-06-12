@@ -83,24 +83,27 @@
                 { id: 'Documents', name: '@UI.TabDocumentation', iconClass: 'glyphicon glyphicon-file' },
                 { id: 'Constraints', name: '@UI.TabRestrictions', iconClass: 'glyphicon glyphicon-lock' },
                 { id: 'Keywords', name: '@Html.Raw(UI.TabKeywords)', iconClass: 'glyphicon glyphicon-ok-sign' },
-                { id: 'Quality', name: '@UI.TabQuality', iconClass: 'glyphicon glyphicon-ok-sign' },
-                { id: 'Admin', name: '@UI.TabAdministrative', iconClass: 'glyphicon glyphicon-cog' }
+                { id: 'Quality', name: '@UI.TabQuality', iconClass: 'glyphicon glyphicon-ok-sign' }
+                @if(ViewBag.IsAdmin == "1")
+                {
+                    @:,{ id: 'Admin', name: '@UI.TabAdministrative', iconClass: 'glyphicon glyphicon-cog' }
+                }
             ],
             languages: {
-                all: '@UI.Language_All',
+                    all: '@UI.Language_All',
                 no: '@UI.Language_No',
                 en: '@UI.Language_En'
             },
             visibleConformitySections: {
-                QualitySpecificationInspire: false,
+                    QualitySpecificationInspire: false,
                 QualitySpecificationSosi: false,
                 QualitySpecificationCustom: false
             },
             selectedLanguage: null,
             datepicker: {
-                regional: {
-                    nb: {
-                        closeText: 'Lukk',
+                    regional: {
+                        nb: {
+                            closeText: 'Lukk',
                         prevText: '&#xAB;Forrige',
                         nextText: 'Neste&#xBB;',
                         currentText: 'I dag',
@@ -115,9 +118,9 @@
                         isRTL: false,
                         showMonthAfterYear: false,
                         yearSuffix: ''
+                        }
                     }
                 }
-            }
         }
     };
 </script>

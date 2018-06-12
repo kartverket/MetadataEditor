@@ -73,7 +73,7 @@
             return state.model.EnglishSpecificUsage;
         },
         Purpose: function (state) {
-            return state.model.EnglishSpecificUsage;
+            return state.model.Purpose;
         },
         EnglishPurpose: function (state) {
             return state.model.EnglishPurpose;
@@ -485,6 +485,30 @@
         },
         visibleConformitySections: function (state) {
             return state.settings.visibleConformitySections
+        },
+        showQualitySpecificationResultSosiConformApplicationSchema: function (state, getters) {
+            var formatIsAdded = false;
+            getters['FormatDistributions'].forEach(function (formatDistribution) {
+                formatDistribution.Value.Formats.forEach(function (format) {
+                    if (format.Name == 'SOSI') {
+                        formatIsAdded = true;
+                        return;
+                    }
+                });
+            });
+            return formatIsAdded && !getters['isService'];
+        },
+        showQualitySpecificationResultSosiConformGmlApplicationSchema: function (state, getters) {
+            var formatIsAdded = false;
+            getters['FormatDistributions'].forEach(function (formatDistribution) {
+                formatDistribution.Value.Formats.forEach(function (format) {
+                    if (format.Name == 'GML') {
+                        formatIsAdded = true;
+                        return;
+                    }
+                });
+            });
+            return formatIsAdded && !getters['isService'];
         }
     }
 </script>

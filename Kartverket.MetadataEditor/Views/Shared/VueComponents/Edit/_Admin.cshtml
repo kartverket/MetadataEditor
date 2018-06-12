@@ -196,7 +196,7 @@
                         ]
                     },
                     {
-                        title: 'Sosi',
+                        title: 'Sosi-standard',
                         name: 'QualitySpecificationSosi',
                         helpText: {
                             active: false,
@@ -268,7 +268,7 @@
                                 getter: 'QualitySpecificationResultSosiConformApplicationSchema',
                                 mutation: 'updateQualitySpecificationResultSosiConformApplicationSchema',
                                 type: 'radio',
-                                visible: !this.$store.getters['isService'],
+                                visibleGetter: 'showQualitySpecificationResultSosiConformApplicationSchema',
                                 options: [
                                     { Text: '@UI.QualitySpecificationResultSosiConformApplicationSchema', Value: 'true' },
                                     { Text: '@UI.QualitySpecificationResultNotSosiConformApplicationSchema', Value: 'false' }
@@ -279,7 +279,7 @@
                                 getter: 'QualitySpecificationResultSosiConformGmlApplicationSchema',
                                 mutation: 'updateQualitySpecificationResultSosiConformGmlApplicationSchema',
                                 type: 'radio',
-                                visible: !this.$store.getters['isService'],
+                                visibleGetter: 'showQualitySpecificationResultSosiConformGmlApplicationSchema',
                                 options: [
                                     { Text: '@UI.QualitySpecificationResultSosiConformGmlApplicationSchema', Value: 'true' },
                                     { Text: '@UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema', Value: 'false' }
@@ -377,6 +377,7 @@
                 var sosiKeywordIsAdded = this.isAdded('Det offentlige kartgrunnlaget') || this.isAdded('geodataloven') || this.isAdded('Norge digitalt') || this.isAdded('arealplanerPBL');
                 var productSpecificationUrlIsAdded = this.$store.getters['ProductSpecificationUrl'] !== null && this.$store.getters['ProductSpecificationUrl'].length > 0;
                 var applicationSchemaIsAdded = this.$store.getters['ApplicationSchema'] !== null && this.$store.getters['ApplicationSchema'].length > 0;
+                var sosiOrGmlFormatIsAdded = this.showQualitySpecificationResultSosiConformApplicationSchema || this.showQualitySpecificationResultSosiConformGmlApplicationSchema;
                 var otherProductSpecificationIsAdded = this.$store.getters['ProductSpecificationOtherName'] !== null && this.$store.getters['ProductSpecificationOtherName'].length > 0;
 
                 if (inspireKeywordIsAdded) {
@@ -385,14 +386,20 @@
 
                 this.$store.commit('updateVisibleConformitySections', {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
-                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || applicationSchemaIsAdded),
+                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
                     QualitySpecificationCustom: otherProductSpecificationIsAdded
                 });
                 return {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
-                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || applicationSchemaIsAdded),
+                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
                     QualitySpecificationCustom: otherProductSpecificationIsAdded
                 };
+            },
+            showQualitySpecificationResultSosiConformApplicationSchema: function () {
+                return this.$store.getters['showQualitySpecificationResultSosiConformApplicationSchema'];
+            },
+            showQualitySpecificationResultSosiConformGmlApplicationSchema: function () {
+                return this.$store.getters['showQualitySpecificationResultSosiConformGmlApplicationSchema'];
             }
         },
         methods: {
