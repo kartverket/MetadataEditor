@@ -423,7 +423,8 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDateTypeInspire = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanationInspire = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
                         model.EnglishQualitySpecificationExplanationInspire = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
-                        model.QualitySpecificationResultInspire = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspire = qualitySpecification.Result.Value;
                         model.QualitySpecificationTitleInspire = qualitySpecification.Title != null ? qualitySpecification.Title : null;
 
                     }
@@ -433,16 +434,19 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDateTypeSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanationSosi = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
                         model.EnglishQualitySpecificationExplanationSosi = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
-                        model.QualitySpecificationResultSosi = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultSosi = qualitySpecification.Result.Value;
                         model.QualitySpecificationTitleSosi = qualitySpecification.Title != null ? qualitySpecification.Title : null;
                     }
                     else if (responsible == "uml-sosi")
                     {
-                        model.QualitySpecificationResultSosiConformApplicationSchema = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultSosiConformApplicationSchema = qualitySpecification.Result.Value;
                     }
                     else if (responsible == "uml-gml")
                     {
-                        model.QualitySpecificationResultSosiConformGmlApplicationSchema = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultSosiConformGmlApplicationSchema = qualitySpecification.Result.Value;
                     }
                     else
                     {
@@ -450,7 +454,8 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDateType = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanation = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
                         model.EnglishQualitySpecificationExplanation = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
-                        model.QualitySpecificationResult = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResult = qualitySpecification.Result.Value;
                         model.QualitySpecificationTitle = qualitySpecification.Title != null ? qualitySpecification.Title : null;
                     }
                 }
@@ -996,23 +1001,43 @@ namespace Kartverket.MetadataEditor.Models
             var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
             var conformExplanationEnglish = "The data is according to the product specification";
 
-            if (model.QualitySpecificationResultInspire)
+            var conformExplanationNotSet = "Ikke vurdert";
+            var conformExplanationEnglishNotSet = "Not evaluated";
+
+            if (model.QualitySpecificationResultInspire == true)
             { 
                 model.QualitySpecificationExplanationInspire = conformExplanation;
                 model.EnglishQualitySpecificationExplanationInspire = conformExplanationEnglish;
             }
+            else if (model.QualitySpecificationResultInspire == null)
+            {
+                model.QualitySpecificationExplanationInspire = conformExplanationNotSet;
+                model.EnglishQualitySpecificationExplanationInspire = conformExplanationEnglishNotSet;
+            }
 
-            if (model.QualitySpecificationResultSosi)
+            if (model.QualitySpecificationResultSosi == true)
             {
                 model.QualitySpecificationExplanationSosi = conformExplanation;
                 model.EnglishQualitySpecificationExplanationSosi = conformExplanationEnglish;
             }
+            else if(model.QualitySpecificationResultSosi == null)
+            {
+                model.QualitySpecificationExplanationSosi = conformExplanationNotSet;
+                model.EnglishQualitySpecificationExplanationSosi = conformExplanationEnglishNotSet;
+            }
 
-            if (model.QualitySpecificationResult)
+            if (model.QualitySpecificationResult == true)
             {
                 model.QualitySpecificationExplanation = conformExplanation;
                 model.EnglishQualitySpecificationExplanation = conformExplanationEnglish;
             }
+            else if (model.QualitySpecificationResult == null)
+            {
+                model.QualitySpecificationExplanation = conformExplanationNotSet;
+                model.EnglishQualitySpecificationExplanation = conformExplanationEnglishNotSet;
+            }
+
+
 
             List<SimpleQualitySpecification> qualityList = new List<SimpleQualitySpecification>();
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleInspire))

@@ -147,15 +147,12 @@ namespace Kartverket.MetadataEditor.Models
         [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessageResourceName = "Metadata_QualitySpecificationExplanationSosi_Required", ErrorMessageResourceType = typeof(UI))]
         public string QualitySpecificationExplanationSosi { get; set; }
         public string EnglishQualitySpecificationExplanationSosi { get; set; }
-        [Required]
         [Display(Name = "QualitySpecificationResult", ResourceType = typeof(UI))]
-        public bool QualitySpecificationResult { get; set; }
-        [Required]
+        public bool? QualitySpecificationResult { get; set; }
         [Display(Name = "QualitySpecificationResultInspire", ResourceType = typeof(UI))]
-        public bool QualitySpecificationResultInspire { get; set; }
-        [Required]
+        public bool? QualitySpecificationResultInspire { get; set; }
         [Display(Name = "QualitySpecificationResultSosi", ResourceType = typeof(UI))]
-        public bool QualitySpecificationResultSosi { get; set; }
+        public bool? QualitySpecificationResultSosi { get; set; }
         public string QualitySpecificationTitle { get; set; }
         public string QualitySpecificationTitleInspire { get; set; }
         public string QualitySpecificationTitleSosi { get; set; }
