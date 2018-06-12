@@ -991,8 +991,29 @@ namespace Kartverket.MetadataEditor.Models
                 }
             }
 
-
             // quality
+
+            var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
+            var conformExplanationEnglish = "The data is according to the product specification";
+
+            if (model.QualitySpecificationResultInspire)
+            { 
+                model.QualitySpecificationExplanationInspire = conformExplanation;
+                model.EnglishQualitySpecificationExplanationInspire = conformExplanationEnglish;
+            }
+
+            if (model.QualitySpecificationResultSosi)
+            {
+                model.QualitySpecificationExplanationSosi = conformExplanation;
+                model.EnglishQualitySpecificationExplanationSosi = conformExplanationEnglish;
+            }
+
+            if (model.QualitySpecificationResult)
+            {
+                model.QualitySpecificationExplanation = conformExplanation;
+                model.EnglishQualitySpecificationExplanation = conformExplanationEnglish;
+            }
+
             List<SimpleQualitySpecification> qualityList = new List<SimpleQualitySpecification>();
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleInspire))
             {
