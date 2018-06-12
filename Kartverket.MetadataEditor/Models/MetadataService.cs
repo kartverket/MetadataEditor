@@ -1069,57 +1069,63 @@ namespace Kartverket.MetadataEditor.Models
 
             if (!string.IsNullOrWhiteSpace(model.ApplicationSchema) && !model.IsService())
             {
-                if (model.QualitySpecificationResultSosiConformApplicationSchema)
-                {
-                    qualityList.Add(new SimpleQualitySpecification
+                if(HasFormat("sosi", model.DistributionsFormats))
+                { 
+                    if (model.QualitySpecificationResultSosiConformApplicationSchema)
                     {
-                        Title = "Sosi applikasjonsskjema",
-                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = dateType,
-                        Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
-                        EnglishExplanation = "SOSI files are according to application form",
-                        Result = true,
-                        Responsible = "uml-sosi"
-                    });
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
+                            EnglishExplanation = "SOSI files are according to application form",
+                            Result = true,
+                            Responsible = "uml-sosi"
+                        });
+                    }
+                    else
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "SOSI-filer avviker fra applikasjonsskjema",
+                            EnglishExplanation = "SOSI files are not according to application form",
+                            Result = false,
+                            Responsible = "uml-sosi"
+                        });
+                    }
                 }
-                else
-                {
-                    qualityList.Add(new SimpleQualitySpecification
+                if (HasFormat("gml", model.DistributionsFormats))
+                { 
+                    if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
                     {
-                        Title = "Sosi applikasjonsskjema",
-                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = dateType,
-                        Explanation = "SOSI-filer avviker fra applikasjonsskjema",
-                        EnglishExplanation = "SOSI files are not according to application form",
-                        Result = false,
-                        Responsible = "uml-sosi"
-                    });
-                }
-                if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
-                {
-                    qualityList.Add(new SimpleQualitySpecification
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "GML-filer er i henhold til applikasjonsskjema",
+                            EnglishExplanation = "GML files are according to application form",
+                            Result = true,
+                            Responsible = "uml-gml"
+                        });
+                    }
+                    else
                     {
-                        Title = "Sosi applikasjonsskjema",
-                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = dateType,
-                        Explanation = "GML-filer er i henhold til applikasjonsskjema",
-                        EnglishExplanation = "GML files are according to application form",
-                        Result = true,
-                        Responsible = "uml-gml"
-                    });
-                }
-                else
-                {
-                    qualityList.Add(new SimpleQualitySpecification
-                    {
-                        Title = "Sosi applikasjonsskjema",
-                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = dateType,
-                        Explanation = "GML-filer avviker fra applikasjonsskjema",
-                        EnglishExplanation = "GML files are not according to application form",
-                        Result = false,
-                        Responsible = "uml-gml"
-                    });
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "GML-filer avviker fra applikasjonsskjema",
+                            EnglishExplanation = "GML files are not according to application form",
+                            Result = false,
+                            Responsible = "uml-gml"
+                        });
+                    }
                 }
             }
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
@@ -1272,6 +1278,15 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.AccessProperties = new SimpleAccessProperties { OrderingInstructions = model.OrderingInstructions }  ;
 
             SetDefaultValuesOnMetadata(metadata);
+        }
+
+        private bool HasFormat(string format, List<SimpleDistribution> distributionsFormats)
+        {
+            foreach (var distribution in distributionsFormats)
+                if (distribution.FormatName.ToLower() == format.ToLower())
+                    return true;
+
+            return false;
         }
 
         private string GetServiceType(string distributionProtocol)
