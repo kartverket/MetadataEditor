@@ -1071,7 +1071,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 if(HasFormat("sosi", model.DistributionsFormats))
                 { 
-                    if (model.QualitySpecificationResultSosiConformApplicationSchema)
+                    if (model.QualitySpecificationResultSosiConformApplicationSchema == true)
                     {
                         qualityList.Add(new SimpleQualitySpecification
                         {
@@ -1080,6 +1080,19 @@ namespace Kartverket.MetadataEditor.Models
                             DateType = dateType,
                             Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
                             EnglishExplanation = "SOSI files are according to application form",
+                            Result = true,
+                            Responsible = "uml-sosi"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultSosiConformApplicationSchema == null)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "SOSI-filer er ikke vurdert i henhold til applikasjonsskjema",
+                            EnglishExplanation = "SOSI files are not evaluated according to application form",
                             Result = true,
                             Responsible = "uml-sosi"
                         });
@@ -1100,7 +1113,7 @@ namespace Kartverket.MetadataEditor.Models
                 }
                 if (HasFormat("gml", model.DistributionsFormats))
                 { 
-                    if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
+                    if (model.QualitySpecificationResultSosiConformGmlApplicationSchema == true)
                     {
                         qualityList.Add(new SimpleQualitySpecification
                         {
@@ -1109,6 +1122,19 @@ namespace Kartverket.MetadataEditor.Models
                             DateType = dateType,
                             Explanation = "GML-filer er i henhold til applikasjonsskjema",
                             EnglishExplanation = "GML files are according to application form",
+                            Result = true,
+                            Responsible = "uml-gml"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultSosiConformGmlApplicationSchema == null)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "GML-filer er ikke vurdert i henhold til applikasjonsskjema",
+                            EnglishExplanation = "GML files are not evaluated according to application form",
                             Result = true,
                             Responsible = "uml-gml"
                         });
