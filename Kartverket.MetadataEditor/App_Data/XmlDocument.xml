@@ -1122,6 +1122,16 @@
               Looks up a localized string similar to Datakonformitet inspire.
             </summary>
         </member>
+        <member name="P:Resources.UI.QualitySpecificationResultNotSetSosiConformApplicationSchema">
+            <summary>
+              Looks up a localized string similar to SOSI-filer er ikke vurdert i henhold til applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualitySpecificationResultNotSetSosiConformGmlApplicationSchema">
+            <summary>
+              Looks up a localized string similar to GML-filer er ikke vurdert i henhold til applikasjonsskjema.
+            </summary>
+        </member>
         <member name="P:Resources.UI.QualitySpecificationResultNotSosiConformApplicationSchema">
             <summary>
               Looks up a localized string similar to SOSI-filer avviker fra applikasjonsskjema.

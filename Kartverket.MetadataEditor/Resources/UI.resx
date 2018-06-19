@@ -853,4 +853,10 @@
   <data name="Metadata_Admin_QualitySpecificationResult_NotSet" xml:space="preserve">
     <value>Dataene er ikke vurdert iht produktspesifikasjonen</value>
   </data>
+  <data name="QualitySpecificationResultNotSetSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI-filer er ikke vurdert i henhold til applikasjonsskjema</value>
+  </data>
+  <data name="QualitySpecificationResultNotSetSosiConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML-filer er ikke vurdert i henhold til applikasjonsskjema</value>
+  </data>
 </root>

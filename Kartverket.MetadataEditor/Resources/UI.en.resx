@@ -850,4 +850,10 @@
   <data name="NotSet" xml:space="preserve">
     <value>Not set</value>
   </data>
+  <data name="QualitySpecificationResultNotSetSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI files are not evaluated according to application form</value>
+  </data>
+  <data name="QualitySpecificationResultNotSetSosiConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML files are not evaluated according to application form</value>
+  </data>
 </root>

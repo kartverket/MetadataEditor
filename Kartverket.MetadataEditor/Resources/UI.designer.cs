@@ -1979,6 +1979,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SOSI-filer er ikke vurdert i henhold til applikasjonsskjema.
+        /// </summary>
+        public static string QualitySpecificationResultNotSetSosiConformApplicationSchema {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultNotSetSosiConformApplicationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GML-filer er ikke vurdert i henhold til applikasjonsskjema.
+        /// </summary>
+        public static string QualitySpecificationResultNotSetSosiConformGmlApplicationSchema {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultNotSetSosiConformGmlApplicationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SOSI-filer avviker fra applikasjonsskjema.
         /// </summary>
         public static string QualitySpecificationResultNotSosiConformApplicationSchema {
