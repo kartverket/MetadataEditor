@@ -311,7 +311,7 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Edit(string uuid, string action, MetadataViewModel model, string ignoreValidationError)
         {
-            ValidateModel(model);
+            ValidateModel(model, ModelState);
 
             if (ignoreValidationError == "1" /*&& ViewBag.IsAdmin == "1"*/) 
             { 
@@ -393,8 +393,28 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
-        private void ValidateModel(MetadataViewModel model)
+        private void ValidQualityResult(MetadataViewModel model, ModelStateDictionary ModelState)
         {
+            if (model.QualitySpecificationResultInspire == null && ModelState["QualitySpecificationResultInspire"] != null)
+                ModelState["QualitySpecificationResultInspire"].Errors.Clear();
+
+            if (model.QualitySpecificationResultSosi == null && ModelState["QualitySpecificationResultSosi"] != null)
+                ModelState["QualitySpecificationResultSosi"].Errors.Clear();
+
+            if (model.QualitySpecificationResultSosiConformApplicationSchema == null && ModelState["QualitySpecificationResultSosiConformApplicationSchema"] != null)
+                ModelState["QualitySpecificationResultSosiConformApplicationSchema"].Errors.Clear();
+
+            if (model.QualitySpecificationResultSosiConformGmlApplicationSchema == null && ModelState["QualitySpecificationResultSosiConformGmlApplicationSchema"] != null)
+                ModelState["QualitySpecificationResultSosiConformGmlApplicationSchema"].Errors.Clear();
+
+            if (model.QualitySpecificationResult == null && ModelState["QualitySpecificationResult"] != null)
+                ModelState["QualitySpecificationResult"].Errors.Clear();
+        }
+
+        private void ValidateModel(MetadataViewModel model, ModelStateDictionary modelstate)
+        {
+            ValidQualityResult(model, modelstate);
+
             ViewBag.thumbnailMissingCSS = "";
             var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
             if (thumb.Count() == 0) 
