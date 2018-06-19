@@ -405,10 +405,11 @@
             return state.model.QualitySpecificationResultInspire == "false" || state.model.QualitySpecificationResultInspire == false;
         },
         QualitySpecificationExplanationInspire: function (state) {
-            return state.model.QualitySpecificationExplanationInspire;
+            return state.model.QualitySpecificationResultInspire == "false" || state.model.QualitySpecificationResultInspire == false ? state.model.QualitySpecificationExplanationInspire : "";
         },
         EnglishQualitySpecificationExplanationInspire: function (state) {
-            return state.model.EnglishQualitySpecificationExplanationInspire;
+            return state.model.QualitySpecificationResultInspire == "false" || state.model.QualitySpecificationResultInspire == false ? state.model.EnglishQualitySpecificationExplanationInspire : "";
+
         },
         QualitySpecificationTitleSosi: function (state) {
             if (state.settings.visibleConformitySections['QualitySpecificationSosi'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationSosi']) {
@@ -432,10 +433,11 @@
             return qualitySpecificationSosiNeedsExplanation && productSpecificationUrlIsAdded;
         },
         QualitySpecificationExplanationSosi: function (state) {
-            return state.model.QualitySpecificationExplanationSosi;
+            return state.model.QualitySpecificationResultSosi == "false" || state.model.QualitySpecificationResultSosi == false ? state.model.QualitySpecificationExplanationSosi : "";
+
         },
         EnglishQualitySpecificationExplanationSosi: function (state) {
-            return state.model.EnglishQualitySpecificationExplanationSosi;
+            return state.model.QualitySpecificationResultSosi == "false" || state.model.QualitySpecificationResultSosi == false ? state.model.EnglishQualitySpecificationExplanationSosi : "";
         },
         QualitySpecificationResultSosiConformApplicationSchema: function (state) {
             return state.model.QualitySpecificationResultSosiConformApplicationSchema;
@@ -463,10 +465,10 @@
             return state.model.QualitySpecificationResult == "false" || state.model.QualitySpecificationResult == false;
         },
         QualitySpecificationExplanation: function (state) {
-            return state.model.QualitySpecificationExplanation;
+            return state.model.QualitySpecificationResult == "false" || state.model.QualitySpecificationResult == false ? state.model.QualitySpecificationExplanation : "";
         },
         EnglishQualitySpecificationExplanation: function (state) {
-            return state.model.EnglishQualitySpecificationExplanation;
+            return state.model.QualitySpecificationResult == "false" || state.model.QualitySpecificationResult == false ? state.model.EnglishQualitySpecificationExplanation : "";
         },
         operation: function (state) {
             return state.viewBag.operation;
