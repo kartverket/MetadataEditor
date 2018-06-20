@@ -1,0 +1,22 @@
+﻿<script type="text/x-template" id="textarea-template">
+    <textarea v-if="formElement" v-bind:name="formElement.name" v-bind:readonly="readOnly" class="form-control" rows="6" v-on:change="$parent.updateField({mutation: formElement.mutation, value: $event.target.value})">{{ $store.getters[formElement.getter] }}</textarea>
+</script>
+
+
+<script>
+    var Textarea = {
+        name: "Textarea",
+        template: "#textarea-template",
+        props: ['formElement', 'readOnly', 'selectedLanguage'],
+        computed: {
+            selectedValue: function () {
+                return "" + this.$store.getters[this.formElement.getter];
+            }
+        },
+        watch: {
+            selectedLanguage: function () {
+                autosize.update(this.$el);
+            }
+        }
+    };
+</script>
