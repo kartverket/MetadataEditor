@@ -156,8 +156,8 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationTitle { get; set; }
         public string QualitySpecificationTitleInspire { get; set; }
         public string QualitySpecificationTitleSosi { get; set; }
-        public bool? QualitySpecificationResultSosiConformApplicationSchema { get; set; } = false;
-        public bool? QualitySpecificationResultSosiConformGmlApplicationSchema { get; set; } = false;
+        public bool? QualitySpecificationResultSosiConformApplicationSchema { get; set; }
+        public bool? QualitySpecificationResultSosiConformGmlApplicationSchema { get; set; }
         //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
         public string ProcessHistory { get; set; }
         [Required]

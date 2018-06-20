@@ -1093,7 +1093,7 @@ namespace Kartverket.MetadataEditor.Models
                             DateType = dateType,
                             Explanation = "SOSI-filer er ikke vurdert i henhold til applikasjonsskjema",
                             EnglishExplanation = "SOSI files are not evaluated according to application form",
-                            Result = true,
+                            Result = null,
                             Responsible = "uml-sosi"
                         });
                     }
@@ -1135,7 +1135,7 @@ namespace Kartverket.MetadataEditor.Models
                             DateType = dateType,
                             Explanation = "GML-filer er ikke vurdert i henhold til applikasjonsskjema",
                             EnglishExplanation = "GML files are not evaluated according to application form",
-                            Result = true,
+                            Result = null,
                             Responsible = "uml-gml"
                         });
                     }
