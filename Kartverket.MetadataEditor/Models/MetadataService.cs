@@ -412,7 +412,8 @@ namespace Kartverket.MetadataEditor.Models
                     string title = qualitySpecification.Title != null ? qualitySpecification.Title : "";
                     title = title.ToLower();
 
-                    if (title.Contains("commission regulation") || title.Contains("Inspire"))
+                    if ((title.Contains("commission regulation") || title.Contains("Inspire")) 
+                        && (responsible != "inspire-interop" && responsible != "inspire-conformance" && responsible != "inspire-networkservice"))
                         responsible = "inspire";
                     else if (title.Contains("sosi") && title != "sosi applikasjonsskjema")
                         responsible = "sosi";
@@ -426,6 +427,39 @@ namespace Kartverket.MetadataEditor.Models
                         if(qualitySpecification.Result.HasValue)
                             model.QualitySpecificationResultInspire = qualitySpecification.Result.Value;
                         model.QualitySpecificationTitleInspire = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+
+                    }
+                    else if (responsible == "inspire-interop")
+                    {
+                        model.QualitySpecificationDateInspireSpatialServiceInteroperability = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspireSpatialServiceInteroperability = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspireSpatialServiceInteroperability = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspireSpatialServiceInteroperability = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
+                        if (qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspireSpatialServiceInteroperability = qualitySpecification.Result.Value;
+                        model.QualitySpecificationTitleInspireSpatialServiceInteroperability = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+
+                    }
+                    else if (responsible == "inspire-conformance")
+                    {
+                        model.QualitySpecificationDateInspireSpatialServiceConformance = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspireSpatialServiceConformance = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspireSpatialServiceConformance = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspireSpatialServiceConformance = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
+                        if (qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspireSpatialServiceConformance = qualitySpecification.Result.Value;
+                        model.QualitySpecificationTitleInspireSpatialServiceConformance = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+
+                    }
+                    else if (responsible == "inspire-networkservice")
+                    {
+                        model.QualitySpecificationDateInspireSpatialNetworkServices = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspireSpatialNetworkServices = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspireSpatialNetworkServices = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspireSpatialNetworkServices = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
+                        if (qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspireSpatialNetworkServices = qualitySpecification.Result.Value;
+                        model.QualitySpecificationTitleInspireSpatialNetworkServices = qualitySpecification.Title != null ? qualitySpecification.Title : null;
 
                     }
                     else if (responsible == "sosi")
@@ -956,6 +990,7 @@ namespace Kartverket.MetadataEditor.Models
 
             var distribution = model.GetDistributionsFormats();
             distribution = SetEnglishTranslationForUnitsOfDistributions(distribution);
+            var distributionProtocolService = "";
 
 
             if (model.IsDataset() || model.IsDatasetSeries())
@@ -993,6 +1028,7 @@ namespace Kartverket.MetadataEditor.Models
                         UnitsOfDistribution = distribution[0].UnitsOfDistribution,
                         EnglishUnitsOfDistribution = metadata.DistributionsFormats[0].EnglishUnitsOfDistribution
                     };
+                    distributionProtocolService = distribution[0].Protocol;
                 }
             }
 
@@ -1166,6 +1202,156 @@ namespace Kartverket.MetadataEditor.Models
                     Result = model.QualitySpecificationResult,
                     Responsible = "other"
                 });
+            }
+            if (model.IsService() && !string.IsNullOrEmpty(distributionProtocolService))
+            {
+                if (SimpleMetadata.IsAccessPoint(distributionProtocolService))
+                {
+                    if (model.QualitySpecificationResultInspireSpatialServiceInteroperability == true)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-1089-2010",
+                            Title = "COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette stasjonære datatjenestesettet er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            EnglishExplanation = "This Spatial Data Service set is conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
+                            Result = true,
+                            Responsible = "inspire-interop"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultInspireSpatialServiceInteroperability == false)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-1089-2010",
+                            Title = "COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette stasjonære datatjenestesettet er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            EnglishExplanation = "This Spatial Data Service set is not conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
+                            Result = false,
+                            Responsible = "inspire-interop"
+                        });
+
+                    }
+                    else
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-1089-2010",
+                            Title = "COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette stasjonære datatjenestesettet er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
+                            Result = null,
+                            Responsible = "inspire-interop"
+                        });
+                    }
+
+
+                    if (model.QualitySpecificationResultInspireSpatialServiceConformance == true)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "invocable",
+                            TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-invocable",
+                            TitleLinkDescription = "INSPIRE Invocable Spatial Data Services metadata",
+                            Date = "2016-05-01",
+                            DateType = dateType,
+                            Explanation = "Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services",
+                            EnglishExplanation = "This Spatial Data Service set is conformant with the INSPIRE requirements for Invocable Spatial Data Services",
+                            Result = true,
+                            Responsible = "inspire-conformance"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultInspireSpatialServiceConformance == false)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "invocable",
+                            TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-invocable",
+                            TitleLinkDescription = "INSPIRE Invocable Spatial Data Services metadata",
+                            Date = "2016-05-01",
+                            DateType = dateType,
+                            Explanation = "Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services",
+                            EnglishExplanation = "This Spatial Data Service set is not conformant with the INSPIRE requirements for Invocable Spatial Data Services",
+                            Result = false,
+                            Responsible = "inspire-conformance"
+                        });
+
+                    }
+                    else
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "invocable",
+                            TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-invocable",
+                            TitleLinkDescription = "INSPIRE Invocable Spatial Data Services metadata",
+                            Date = "2016-05-01",
+                            DateType = dateType,
+                            Explanation = "Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services",
+                            EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for Invocable Spatial Data Services",
+                            Result = null,
+                            Responsible = "inspire-conformance"
+                        });
+                    }
+
+                }
+                if (SimpleMetadata.IsNetworkService(distributionProtocolService))
+                {
+                    if (model.QualitySpecificationResultInspireSpatialNetworkServices == true)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-976-2009",
+                            Title = "COMMISSION REGULATION (EC) No 976/2009 of 19 October 2009 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards the Network Services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2009/976",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette datasettet er i samsvar med INSPIRE Implementeringsregler for nettverkstjenester",
+                            EnglishExplanation = "This data set is conformant with the INSPIRE Implementing Rules for Network Services",
+                            Result = true,
+                            Responsible = "inspire-networkservice"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultInspireSpatialNetworkServices == false)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-976-2009",
+                            Title = "COMMISSION REGULATION (EC) No 976/2009 of 19 October 2009 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards the Network Services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2009/976",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette datasettet er ikke i samsvar med INSPIRE Implementeringsregler for nettverkstjenester",
+                            EnglishExplanation = "This data set is not conformant with the INSPIRE Implementing Rules for Network Services",
+                            Result = false,
+                            Responsible = "inspire-networkservice"
+                        });
+
+                    }
+                    else
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-976-2009",
+                            Title = "COMMISSION REGULATION (EC) No 976/2009 of 19 October 2009 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards the Network Services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2009/976",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester",
+                            EnglishExplanation = "This data set is not evaluated conformant with the INSPIRE Implementing Rules for Network Services",
+                            Result = null,
+                            Responsible = "inspire-networkservice"
+                        });
+                    }
+                }
             }
 
             metadata.QualitySpecifications = qualityList;
