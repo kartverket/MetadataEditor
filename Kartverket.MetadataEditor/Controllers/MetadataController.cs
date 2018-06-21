@@ -157,7 +157,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     if (Request.QueryString["metadatacreated"] == null)
                     {
                         TryValidateModel(model);
-                        ValidateModel(model);
+                        ValidateModel(model, ModelState);
                     }
                     return View(model);
                 }
