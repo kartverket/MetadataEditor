@@ -411,6 +411,42 @@
             return state.model.QualitySpecificationResultInspire == "false" || state.model.QualitySpecificationResultInspire == false ? state.model.EnglishQualitySpecificationExplanationInspire : "";
 
         },
+        QualitySpecificationResultInspireSpatialNetworkServices: function (state) {
+            return state.model.QualitySpecificationResultInspireSpatialNetworkServices;
+        },
+        showQualitySpecificationResultInspireSpatialNetworkServices: function (state, getters) {
+            return getters.isService && getters.isNetworkService;
+        },
+        QualitySpecificationResultInspireSpatialServiceInteroperability: function (state) {
+            return state.model.QualitySpecificationResultInspireSpatialServiceInteroperability;
+        },
+        showQualitySpecificationResultInspireSpatialServiceInteroperability: function (state, getters) {
+            return getters.isService && getters.isAccessPoint;
+        },
+        QualitySpecificationResultInspireSpatialServiceConformance: function (state) {
+            return state.model.QualitySpecificationResultInspireSpatialServiceConformance;
+        },
+        QualitySpecificationTitleInspireSpatialServiceConformance: function (state) {
+            return state.model.QualitySpecificationTitleInspireSpatialServiceConformance;
+        },
+        QualitySpecificationTitleInspireSpatialServiceConformanceValues: function (state, getters) {
+            if (getters.settingsSelectedLanguage == 'no') {
+                return state.data.QualitySpecificationTitleInspireSpatialServiceConformanceValues;
+            } else if (getters.settingsSelectedLanguage == 'en') {
+                return state.data.EnglishQualitySpecificationTitleInspireSpatialServiceConformanceValues;
+            } else {
+                return state.data.EnglishQualitySpecificationTitleInspireSpatialServiceConformanceValues;
+            }
+        },
+        showQualitySpecificationResultInspireSpatialServiceConformance_Invocable: function (state, getters) {
+            return getters.isService && getters.isAccessPoint && getters.QualitySpecificationTitleInspireSpatialServiceConformance == 'invocable';
+        },
+        showQualitySpecificationResultInspireSpatialServiceConformance_Interoperable: function (state, getters) {
+            return getters.isService && getters.isAccessPoint && getters.QualitySpecificationTitleInspireSpatialServiceConformance == 'interoperable';
+        },
+        showQualitySpecificationResultInspireSpatialServiceConformance_Harmonised: function (state, getters) {
+            return getters.isService && getters.isAccessPoint && getters.QualitySpecificationTitleInspireSpatialServiceConformance == 'harmonised';
+        },
         QualitySpecificationTitleSosi: function (state) {
             if (state.settings.visibleConformitySections['QualitySpecificationSosi'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationSosi']) {
                 return state.model.QualitySpecificationTitleSosi;
@@ -484,6 +520,38 @@
         },
         isService: function (state) {
             return state.model.HierarchyLevel == 'service';
+        },
+        isNetworkService: function (state, getters) {
+            let isNetworkService = false;
+            getters.FormatDistributions.forEach(function (formatDistribution) {
+                getters.NetworkServiceProtocols.forEach(function (networkServiceProtocol) {
+                    if (formatDistribution.Key.Protocol == networkServiceProtocol) {
+                        isNetworkService = true;
+                        return;
+                    }
+                });
+                if (isNetworkService) return
+            });
+            return isNetworkService;
+        },
+        isAccessPoint: function (state, getters) {
+            let isAccessPoint = false;
+            getters.FormatDistributions.forEach(function (formatDistribution) {
+                getters.AccessPointProtocols.forEach(function (accessPointProtocol) {
+                    if (formatDistribution.Key.Protocol == accessPointProtocol) {
+                        isAccessPoint = true;
+                        return;
+                    }
+                });
+                if (isAccessPoint) return
+            });
+            return isAccessPoint;
+        },
+        AccessPointProtocols: function (state) {
+            return state.data.AccessPointProtocols;
+        },
+        NetworkServiceProtocols: function (state) {
+            return state.data.NetworkServiceProtocols;
         },
         visibleConformitySections: function (state) {
             return state.settings.visibleConformitySections

@@ -617,6 +617,81 @@
               Looks up a localized string similar to Dataene er ikke vurdert iht produktspesifikasjonen.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_Conform">
+            <summary>
+              Looks up a localized string similar to Dette datasettet er i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotConform">
+            <summary>
+              Looks up a localized string similar to Dette datasettet er ikke i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet">
+            <summary>
+              Looks up a localized string similar to Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotConform">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotConform">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet">
+            <summary>
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationTitle">
             <summary>
               Looks up a localized string similar to Angitt produktspesifikasjon.
@@ -775,6 +850,11 @@
         <member name="P:Resources.UI.Metadata_Distributions_LayerName_Label">
             <summary>
               Looks up a localized string similar to Lagnavn.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceConformanceValues">
+            <summary>
+              Looks up a localized string similar to Tjenestetype.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_DistributionsFormats_Required">

@@ -71,6 +71,29 @@
                 </div>
             </div>
 
+            @* QualitySpecificationTitleInspireSpatialServiceConformance *@
+            <div class="form-group has-feedback" v-show="$store.getters['showQualitySpecificationResultInspireSpatialServiceInteroperability']" v-bind:class="{'required': formElements.qualitySpecificationTitleInspireSpatialServiceConformance.required}">
+                <div class="row">
+                    <label v-bind:for="formElements.qualitySpecificationTitleInspireSpatialServiceConformance.id" class="col-md-3 control-label">{{ formElements.qualitySpecificationTitleInspireSpatialServiceConformance.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElements.qualitySpecificationTitleInspireSpatialServiceConformance.helpText && formElements.qualitySpecificationTitleInspireSpatialServiceConformance.helpText.active" class="help-text bg-success" v-html="formElements.qualitySpecificationTitleInspireSpatialServiceConformance.helpText.content"></p>
+                        <div class="custom-select">
+                            <select class="form-control"
+                                    v-bind:id="formElements.qualitySpecificationTitleInspireSpatialServiceConformance.id"
+                                    v-bind:value="$store.getters['QualitySpecificationTitleInspireSpatialServiceConformance']"
+                                    v-on:change="updateField({
+                                        mutation: formElements.qualitySpecificationTitleInspireSpatialServiceConformance.mutation,
+                                        value: $event.target.value
+                                    })"
+                                    v-bind:name="formElements.qualitySpecificationTitleInspireSpatialServiceConformance.name">
+                                <option value="">@UI.ChooseFromList</option>
+                                <option v-bind:value="option.Value" v-for="option in formElements.qualitySpecificationTitleInspireSpatialServiceConformance.options">{{ option.Text }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @* URL *@
             <div class="form-group has-feedback" v-if="formElements.url.visible" v-bind:class="{'required': formElements.url.required}">
                 <div class="row">
@@ -223,6 +246,15 @@
                             active: false,
                             content: '@Html.Raw(UI.Helptext_DistributionsFormatsProtocol)'
                         }
+                    },
+                    qualitySpecificationTitleInspireSpatialServiceConformance: {
+                        id: 'QualitySpecificationTitleInspireSpatialServiceConformance',
+                        name: 'QualitySpecificationTitleInspireSpatialServiceConformance',
+                        mutation: 'updateQualitySpecificationTitleInspireSpatialServiceConformance',
+                        label: '@Html.Raw(UI.Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceConformanceValues)',
+                        type: 'select',
+                        required: true,
+                        options: this.$store.getters.QualitySpecificationTitleInspireSpatialServiceConformanceValues
                     },
                     url: {
                         id: 'DistributionsFormats[' + this.distributionIndex + '].URL',
