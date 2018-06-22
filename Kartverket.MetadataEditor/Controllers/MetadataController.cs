@@ -409,6 +409,15 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (model.QualitySpecificationResult == null && ModelState["QualitySpecificationResult"] != null)
                 ModelState["QualitySpecificationResult"].Errors.Clear();
+
+            if (model.QualitySpecificationResultInspireSpatialServiceInteroperability == null && ModelState["QualitySpecificationResultInspireSpatialServiceInteroperability"] != null)
+                ModelState["QualitySpecificationResultInspireSpatialServiceInteroperability"].Errors.Clear();
+
+            if (model.QualitySpecificationResultInspireSpatialNetworkServices == null && ModelState["QualitySpecificationResultInspireSpatialNetworkServices"] != null)
+                ModelState["QualitySpecificationResultInspireSpatialNetworkServices"].Errors.Clear();
+
+            if (model.QualitySpecificationResultInspireSpatialServiceConformance == null && ModelState["QualitySpecificationResultInspireSpatialServiceConformance"] != null)
+                ModelState["QualitySpecificationResultInspireSpatialServiceConformance"].Errors.Clear();
         }
 
         private void ValidateModel(MetadataViewModel model, ModelStateDictionary modelstate)
