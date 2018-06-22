@@ -1216,7 +1216,7 @@ namespace Kartverket.MetadataEditor.Models
                             TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
                             Date = "2010-12-08",
                             DateType = dateType,
-                            Explanation = "Dette stasjonære datatjenestesettet er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            Explanation = "Denne romlige datatjenesten er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
                             EnglishExplanation = "This Spatial Data Service set is conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
                             Result = true,
                             Responsible = "inspire-interop"
@@ -1231,7 +1231,7 @@ namespace Kartverket.MetadataEditor.Models
                             TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
                             Date = "2010-12-08",
                             DateType = dateType,
-                            Explanation = "Dette stasjonære datatjenestesettet er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            Explanation = "Denne romlige datatjenesten er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
                             EnglishExplanation = "This Spatial Data Service set is not conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
                             Result = false,
                             Responsible = "inspire-interop"
@@ -1247,7 +1247,7 @@ namespace Kartverket.MetadataEditor.Models
                             TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
                             Date = "2010-12-08",
                             DateType = dateType,
-                            Explanation = "Dette stasjonære datatjenestesettet er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            Explanation = "Denne romlige datatjenesten er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
                             EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
                             Result = null,
                             Responsible = "inspire-interop"
@@ -1255,53 +1255,58 @@ namespace Kartverket.MetadataEditor.Models
                     }
 
 
-                    if (model.QualitySpecificationResultInspireSpatialServiceConformance == true)
+                    if(!string.IsNullOrEmpty(model.QualitySpecificationTitleInspireSpatialServiceConformance))
                     {
-                        qualityList.Add(new SimpleQualitySpecification
-                        {
-                            Title = "invocable",
-                            TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-invocable",
-                            TitleLinkDescription = "INSPIRE Invocable Spatial Data Services metadata",
-                            Date = "2016-05-01",
-                            DateType = dateType,
-                            Explanation = "Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services",
-                            EnglishExplanation = "This Spatial Data Service set is conformant with the INSPIRE requirements for Invocable Spatial Data Services",
-                            Result = true,
-                            Responsible = "inspire-conformance"
-                        });
-                    }
-                    else if (model.QualitySpecificationResultInspireSpatialServiceConformance == false)
-                    {
-                        qualityList.Add(new SimpleQualitySpecification
-                        {
-                            Title = "invocable",
-                            TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-invocable",
-                            TitleLinkDescription = "INSPIRE Invocable Spatial Data Services metadata",
-                            Date = "2016-05-01",
-                            DateType = dateType,
-                            Explanation = "Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services",
-                            EnglishExplanation = "This Spatial Data Service set is not conformant with the INSPIRE requirements for Invocable Spatial Data Services",
-                            Result = false,
-                            Responsible = "inspire-conformance"
-                        });
+                        string sds = model.QualitySpecificationTitleInspireSpatialServiceConformance.ToLower();
+                        string Sds = CapitalizeFirstLetter(sds);
 
-                    }
-                    else
-                    {
-                        qualityList.Add(new SimpleQualitySpecification
+                        if (model.QualitySpecificationResultInspireSpatialServiceConformance == true)
                         {
-                            Title = "invocable",
-                            TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-invocable",
-                            TitleLinkDescription = "INSPIRE Invocable Spatial Data Services metadata",
-                            Date = "2016-05-01",
-                            DateType = dateType,
-                            Explanation = "Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services",
-                            EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for Invocable Spatial Data Services",
-                            Result = null,
-                            Responsible = "inspire-conformance"
-                        });
-                    }
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = sds,
+                                TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-" + sds,
+                                TitleLinkDescription = "INSPIRE " + Sds + " Spatial Data Services metadata",
+                                Date = "2016-05-01",
+                                DateType = dateType,
+                                Explanation = "Denne romlige datatjenesten er i samsvar med INSPIRE-kravene for " + Sds + " Spatial Data Services",
+                                EnglishExplanation = "This Spatial Data Service set is conformant with the INSPIRE requirements for " + Sds + " Spatial Data Services",
+                                Result = true,
+                                Responsible = "inspire-conformance"
+                            });
+                        }
+                        else if (model.QualitySpecificationResultInspireSpatialServiceConformance == false)
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = sds,
+                                TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-" + sds,
+                                TitleLinkDescription = "INSPIRE " + Sds + " Spatial Data Services metadata",
+                                Date = "2016-05-01",
+                                DateType = dateType,
+                                Explanation = "Denne romlige datatjenesten er ikke i samsvar med INSPIRE-kravene for " + Sds + " Spatial Data Services",
+                                EnglishExplanation = "This Spatial Data Service set is not conformant with the INSPIRE requirements for "+ Sds + " Spatial Data Services",
+                                Result = false,
+                                Responsible = "inspire-conformance"
+                            });
 
+                        }
+                        else
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = sds,
+                                TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-" + sds,
+                                TitleLinkDescription = "INSPIRE " + Sds + " Spatial Data Services metadata",
+                                Date = "2016-05-01",
+                                DateType = dateType,
+                                Explanation = "Denne romlige datatjenesten er ikke vurdert i samsvar med INSPIRE-kravene for " + Sds + " Spatial Data Services",
+                                EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for " + Sds + " Spatial Data Services",
+                                Result = null,
+                                Responsible = "inspire-conformance"
+                            });
+                        }
+                    }
                 }
                 if (SimpleMetadata.IsNetworkService(distributionProtocolService))
                 {
@@ -1490,6 +1495,15 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.AccessProperties = new SimpleAccessProperties { OrderingInstructions = model.OrderingInstructions }  ;
 
             SetDefaultValuesOnMetadata(metadata);
+        }
+
+        private string CapitalizeFirstLetter(string s)
+        {
+            if (String.IsNullOrEmpty(s))
+                return s;
+            if (s.Length == 1)
+                return s.ToUpper();
+            return s.Remove(1).ToUpper() + s.Substring(1);
         }
 
         private bool HasFormat(string format, List<SimpleDistribution> distributionsFormats)
