@@ -412,7 +412,8 @@ namespace Kartverket.MetadataEditor.Models
                     string title = qualitySpecification.Title != null ? qualitySpecification.Title : "";
                     title = title.ToLower();
 
-                    if (title.Contains("commission regulation") || title.Contains("Inspire"))
+                    if ((title.Contains("commission regulation") || title.Contains("Inspire")) 
+                        && (responsible != "inspire-interop" && responsible != "inspire-conformance" && responsible != "inspire-networkservice"))
                         responsible = "inspire";
                     else if (title.Contains("sosi") && title != "sosi applikasjonsskjema")
                         responsible = "sosi";
@@ -423,8 +424,42 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDateTypeInspire = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanationInspire = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
                         model.EnglishQualitySpecificationExplanationInspire = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
-                        model.QualitySpecificationResultInspire = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspire = qualitySpecification.Result.Value;
                         model.QualitySpecificationTitleInspire = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+
+                    }
+                    else if (responsible == "inspire-interop")
+                    {
+                        model.QualitySpecificationDateInspireSpatialServiceInteroperability = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspireSpatialServiceInteroperability = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspireSpatialServiceInteroperability = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspireSpatialServiceInteroperability = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
+                        if (qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspireSpatialServiceInteroperability = qualitySpecification.Result.Value;
+                        model.QualitySpecificationTitleInspireSpatialServiceInteroperability = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+
+                    }
+                    else if (responsible == "inspire-conformance")
+                    {
+                        model.QualitySpecificationDateInspireSpatialServiceConformance = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspireSpatialServiceConformance = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspireSpatialServiceConformance = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspireSpatialServiceConformance = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
+                        if (qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspireSpatialServiceConformance = qualitySpecification.Result.Value;
+                        model.QualitySpecificationTitleInspireSpatialServiceConformance = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+
+                    }
+                    else if (responsible == "inspire-networkservice")
+                    {
+                        model.QualitySpecificationDateInspireSpatialNetworkServices = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspireSpatialNetworkServices = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspireSpatialNetworkServices = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspireSpatialNetworkServices = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
+                        if (qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspireSpatialNetworkServices = qualitySpecification.Result.Value;
+                        model.QualitySpecificationTitleInspireSpatialNetworkServices = qualitySpecification.Title != null ? qualitySpecification.Title : null;
 
                     }
                     else if (responsible == "sosi")
@@ -433,16 +468,19 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDateTypeSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanationSosi = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
                         model.EnglishQualitySpecificationExplanationSosi = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
-                        model.QualitySpecificationResultSosi = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultSosi = qualitySpecification.Result.Value;
                         model.QualitySpecificationTitleSosi = qualitySpecification.Title != null ? qualitySpecification.Title : null;
                     }
                     else if (responsible == "uml-sosi")
                     {
-                        model.QualitySpecificationResultSosiConformApplicationSchema = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultSosiConformApplicationSchema = qualitySpecification.Result.Value;
                     }
                     else if (responsible == "uml-gml")
                     {
-                        model.QualitySpecificationResultSosiConformGmlApplicationSchema = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultSosiConformGmlApplicationSchema = qualitySpecification.Result.Value;
                     }
                     else
                     {
@@ -450,7 +488,8 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationDateType = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
                         model.QualitySpecificationExplanation = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
                         model.EnglishQualitySpecificationExplanation = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
-                        model.QualitySpecificationResult = qualitySpecification.Result;
+                        if(qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResult = qualitySpecification.Result.Value;
                         model.QualitySpecificationTitle = qualitySpecification.Title != null ? qualitySpecification.Title : null;
                     }
                 }
@@ -951,6 +990,7 @@ namespace Kartverket.MetadataEditor.Models
 
             var distribution = model.GetDistributionsFormats();
             distribution = SetEnglishTranslationForUnitsOfDistributions(distribution);
+            var distributionProtocolService = "";
 
 
             if (model.IsDataset() || model.IsDatasetSeries())
@@ -988,6 +1028,7 @@ namespace Kartverket.MetadataEditor.Models
                         UnitsOfDistribution = distribution[0].UnitsOfDistribution,
                         EnglishUnitsOfDistribution = metadata.DistributionsFormats[0].EnglishUnitsOfDistribution
                     };
+                    distributionProtocolService = distribution[0].Protocol;
                 }
             }
 
@@ -996,23 +1037,43 @@ namespace Kartverket.MetadataEditor.Models
             var conformExplanation = "Dataene er i henhold til produktspesifikasjonen";
             var conformExplanationEnglish = "The data is according to the product specification";
 
-            if (model.QualitySpecificationResultInspire)
+            var conformExplanationNotSet = "Dataene er ikke vurdert iht produktspesifikasjonen";
+            var conformExplanationEnglishNotSet = "The data is not evaluated according to the product specification";
+
+            if (model.QualitySpecificationResultInspire == true)
             { 
                 model.QualitySpecificationExplanationInspire = conformExplanation;
                 model.EnglishQualitySpecificationExplanationInspire = conformExplanationEnglish;
             }
+            else if (model.QualitySpecificationResultInspire == null)
+            {
+                model.QualitySpecificationExplanationInspire = conformExplanationNotSet;
+                model.EnglishQualitySpecificationExplanationInspire = conformExplanationEnglishNotSet;
+            }
 
-            if (model.QualitySpecificationResultSosi)
+            if (model.QualitySpecificationResultSosi == true)
             {
                 model.QualitySpecificationExplanationSosi = conformExplanation;
                 model.EnglishQualitySpecificationExplanationSosi = conformExplanationEnglish;
             }
+            else if(model.QualitySpecificationResultSosi == null)
+            {
+                model.QualitySpecificationExplanationSosi = conformExplanationNotSet;
+                model.EnglishQualitySpecificationExplanationSosi = conformExplanationEnglishNotSet;
+            }
 
-            if (model.QualitySpecificationResult)
+            if (model.QualitySpecificationResult == true)
             {
                 model.QualitySpecificationExplanation = conformExplanation;
                 model.EnglishQualitySpecificationExplanation = conformExplanationEnglish;
             }
+            else if (model.QualitySpecificationResult == null)
+            {
+                model.QualitySpecificationExplanation = conformExplanationNotSet;
+                model.EnglishQualitySpecificationExplanation = conformExplanationEnglishNotSet;
+            }
+
+
 
             List<SimpleQualitySpecification> qualityList = new List<SimpleQualitySpecification>();
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleInspire))
@@ -1044,57 +1105,89 @@ namespace Kartverket.MetadataEditor.Models
 
             if (!string.IsNullOrWhiteSpace(model.ApplicationSchema) && !model.IsService())
             {
-                if (model.QualitySpecificationResultSosiConformApplicationSchema)
-                {
-                    qualityList.Add(new SimpleQualitySpecification
+                if(HasFormat("sosi", model.DistributionsFormats))
+                { 
+                    if (model.QualitySpecificationResultSosiConformApplicationSchema == true)
                     {
-                        Title = "Sosi applikasjonsskjema",
-                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = dateType,
-                        Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
-                        EnglishExplanation = "SOSI files are according to application form",
-                        Result = true,
-                        Responsible = "uml-sosi"
-                    });
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "SOSI-filer er i henhold til applikasjonsskjema",
+                            EnglishExplanation = "SOSI files are according to application form",
+                            Result = true,
+                            Responsible = "uml-sosi"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultSosiConformApplicationSchema == null)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "SOSI-filer er ikke vurdert i henhold til applikasjonsskjema",
+                            EnglishExplanation = "SOSI files are not evaluated according to application form",
+                            Result = null,
+                            Responsible = "uml-sosi"
+                        });
+                    }
+                    else
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "SOSI-filer avviker fra applikasjonsskjema",
+                            EnglishExplanation = "SOSI files are not according to application form",
+                            Result = false,
+                            Responsible = "uml-sosi"
+                        });
+                    }
                 }
-                else
-                {
-                    qualityList.Add(new SimpleQualitySpecification
+                if (HasFormat("gml", model.DistributionsFormats))
+                { 
+                    if (model.QualitySpecificationResultSosiConformGmlApplicationSchema == true)
                     {
-                        Title = "Sosi applikasjonsskjema",
-                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = dateType,
-                        Explanation = "SOSI-filer avviker fra applikasjonsskjema",
-                        EnglishExplanation = "SOSI files are not according to application form",
-                        Result = false,
-                        Responsible = "uml-sosi"
-                    });
-                }
-                if (model.QualitySpecificationResultSosiConformGmlApplicationSchema)
-                {
-                    qualityList.Add(new SimpleQualitySpecification
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "GML-filer er i henhold til applikasjonsskjema",
+                            EnglishExplanation = "GML files are according to application form",
+                            Result = true,
+                            Responsible = "uml-gml"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultSosiConformGmlApplicationSchema == null)
                     {
-                        Title = "Sosi applikasjonsskjema",
-                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = dateType,
-                        Explanation = "GML-filer er i henhold til applikasjonsskjema",
-                        EnglishExplanation = "GML files are according to application form",
-                        Result = true,
-                        Responsible = "uml-gml"
-                    });
-                }
-                else
-                {
-                    qualityList.Add(new SimpleQualitySpecification
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "GML-filer er ikke vurdert i henhold til applikasjonsskjema",
+                            EnglishExplanation = "GML files are not evaluated according to application form",
+                            Result = null,
+                            Responsible = "uml-gml"
+                        });
+                    }
+                    else
                     {
-                        Title = "Sosi applikasjonsskjema",
-                        Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
-                        DateType = dateType,
-                        Explanation = "GML-filer avviker fra applikasjonsskjema",
-                        EnglishExplanation = "GML files are not according to application form",
-                        Result = false,
-                        Responsible = "uml-gml"
-                    });
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = "Sosi applikasjonsskjema",
+                            Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                            DateType = dateType,
+                            Explanation = "GML-filer avviker fra applikasjonsskjema",
+                            EnglishExplanation = "GML files are not according to application form",
+                            Result = false,
+                            Responsible = "uml-gml"
+                        });
+                    }
                 }
             }
             if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitle))
@@ -1109,6 +1202,161 @@ namespace Kartverket.MetadataEditor.Models
                     Result = model.QualitySpecificationResult,
                     Responsible = "other"
                 });
+            }
+            if (model.IsService() && !string.IsNullOrEmpty(distributionProtocolService))
+            {
+                if (SimpleMetadata.IsAccessPoint(distributionProtocolService))
+                {
+                    if (model.QualitySpecificationResultInspireSpatialServiceInteroperability == true)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-1089-2010",
+                            Title = "COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Denne romlige datatjenesten er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            EnglishExplanation = "This Spatial Data Service set is conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
+                            Result = true,
+                            Responsible = "inspire-interop"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultInspireSpatialServiceInteroperability == false)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-1089-2010",
+                            Title = "COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Denne romlige datatjenesten er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            EnglishExplanation = "This Spatial Data Service set is not conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
+                            Result = false,
+                            Responsible = "inspire-interop"
+                        });
+
+                    }
+                    else
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-1089-2010",
+                            Title = "COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Denne romlige datatjenesten er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
+                            Result = null,
+                            Responsible = "inspire-interop"
+                        });
+                    }
+
+
+                    if(!string.IsNullOrEmpty(model.QualitySpecificationTitleInspireSpatialServiceConformance))
+                    {
+                        string sds = model.QualitySpecificationTitleInspireSpatialServiceConformance.ToLower();
+                        string Sds = CapitalizeFirstLetter(sds);
+
+                        if (model.QualitySpecificationResultInspireSpatialServiceConformance == true)
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = sds,
+                                TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-" + sds,
+                                TitleLinkDescription = "INSPIRE " + Sds + " Spatial Data Services metadata",
+                                Date = "2016-05-01",
+                                DateType = dateType,
+                                Explanation = "Denne romlige datatjenesten er i samsvar med INSPIRE-kravene for " + Sds + " Spatial Data Services",
+                                EnglishExplanation = "This Spatial Data Service set is conformant with the INSPIRE requirements for " + Sds + " Spatial Data Services",
+                                Result = true,
+                                Responsible = "inspire-conformance"
+                            });
+                        }
+                        else if (model.QualitySpecificationResultInspireSpatialServiceConformance == false)
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = sds,
+                                TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-" + sds,
+                                TitleLinkDescription = "INSPIRE " + Sds + " Spatial Data Services metadata",
+                                Date = "2016-05-01",
+                                DateType = dateType,
+                                Explanation = "Denne romlige datatjenesten er ikke i samsvar med INSPIRE-kravene for " + Sds + " Spatial Data Services",
+                                EnglishExplanation = "This Spatial Data Service set is not conformant with the INSPIRE requirements for "+ Sds + " Spatial Data Services",
+                                Result = false,
+                                Responsible = "inspire-conformance"
+                            });
+
+                        }
+                        else
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = sds,
+                                TitleLink = "http://inspire.ec.europa.eu/id/ats/metadata/2.0/sds-" + sds,
+                                TitleLinkDescription = "INSPIRE " + Sds + " Spatial Data Services metadata",
+                                Date = "2016-05-01",
+                                DateType = dateType,
+                                Explanation = "Denne romlige datatjenesten er ikke vurdert i samsvar med INSPIRE-kravene for " + Sds + " Spatial Data Services",
+                                EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for " + Sds + " Spatial Data Services",
+                                Result = null,
+                                Responsible = "inspire-conformance"
+                            });
+                        }
+                    }
+                }
+                if (SimpleMetadata.IsNetworkService(distributionProtocolService))
+                {
+                    if (model.QualitySpecificationResultInspireSpatialNetworkServices == true)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-976-2009",
+                            Title = "COMMISSION REGULATION (EC) No 976/2009 of 19 October 2009 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards the Network Services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2009/976",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette datasettet er i samsvar med INSPIRE Implementeringsregler for nettverkstjenester",
+                            EnglishExplanation = "This data set is conformant with the INSPIRE Implementing Rules for Network Services",
+                            Result = true,
+                            Responsible = "inspire-networkservice"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultInspireSpatialNetworkServices == false)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-976-2009",
+                            Title = "COMMISSION REGULATION (EC) No 976/2009 of 19 October 2009 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards the Network Services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2009/976",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette datasettet er ikke i samsvar med INSPIRE Implementeringsregler for nettverkstjenester",
+                            EnglishExplanation = "This data set is not conformant with the INSPIRE Implementing Rules for Network Services",
+                            Result = false,
+                            Responsible = "inspire-networkservice"
+                        });
+
+                    }
+                    else
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            SpecificationLink = "http://inspire.ec.europa.eu/id/citation/ir/reg-976-2009",
+                            Title = "COMMISSION REGULATION (EC) No 976/2009 of 19 October 2009 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards the Network Services",
+                            TitleLink = "http://data.europa.eu/eli/reg/2009/976",
+                            Date = "2010-12-08",
+                            DateType = dateType,
+                            Explanation = "Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester",
+                            EnglishExplanation = "This data set is not evaluated conformant with the INSPIRE Implementing Rules for Network Services",
+                            Result = null,
+                            Responsible = "inspire-networkservice"
+                        });
+                    }
+                }
             }
 
             metadata.QualitySpecifications = qualityList;
@@ -1247,6 +1495,24 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.AccessProperties = new SimpleAccessProperties { OrderingInstructions = model.OrderingInstructions }  ;
 
             SetDefaultValuesOnMetadata(metadata);
+        }
+
+        private string CapitalizeFirstLetter(string s)
+        {
+            if (String.IsNullOrEmpty(s))
+                return s;
+            if (s.Length == 1)
+                return s.ToUpper();
+            return s.Remove(1).ToUpper() + s.Substring(1);
+        }
+
+        private bool HasFormat(string format, List<SimpleDistribution> distributionsFormats)
+        {
+            foreach (var distribution in distributionsFormats)
+                if (distribution.FormatName.ToLower() == format.ToLower())
+                    return true;
+
+            return false;
         }
 
         private string GetServiceType(string distributionProtocol)

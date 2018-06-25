@@ -1061,6 +1061,163 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dataene er ikke vurdert iht produktspesifikasjonen.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResult_NotSet {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResult_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette datasettet er i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_Conform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_Conform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette datasettet er ikke i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotConform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotConform" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmoni" +
+                        "sed_Conform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmoni" +
+                        "sed_NotConform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmoni" +
+                        "sed_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interop" +
+                        "erable_Conform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotConform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interop" +
+                        "erable_NotConform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interop" +
+                        "erable_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocab" +
+                        "le_Conform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotConform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocab" +
+                        "le_NotConform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocab" +
+                        "le_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Co" +
+                        "nform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_No" +
+                        "tConform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_No" +
+                        "tSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angitt produktspesifikasjon.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationTitle {
@@ -1345,6 +1502,16 @@ namespace Resources {
         public static string Metadata_Distributions_LayerName_Label {
             get {
                 return ResourceManager.GetString("Metadata_Distributions_LayerName_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tjenestetype.
+        /// </summary>
+        public static string Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceConformanceValues {
+            get {
+                return ResourceManager.GetString("Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceConformanceV" +
+                        "alues", resourceCulture);
             }
         }
         
@@ -1966,6 +2133,24 @@ namespace Resources {
         public static string QualitySpecificationResultInspire {
             get {
                 return ResourceManager.GetString("QualitySpecificationResultInspire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SOSI-filer er ikke vurdert i henhold til applikasjonsskjema.
+        /// </summary>
+        public static string QualitySpecificationResultNotSetSosiConformApplicationSchema {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultNotSetSosiConformApplicationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GML-filer er ikke vurdert i henhold til applikasjonsskjema.
+        /// </summary>
+        public static string QualitySpecificationResultNotSetSosiConformGmlApplicationSchema {
+            get {
+                return ResourceManager.GetString("QualitySpecificationResultNotSetSosiConformGmlApplicationSchema", resourceCulture);
             }
         }
         

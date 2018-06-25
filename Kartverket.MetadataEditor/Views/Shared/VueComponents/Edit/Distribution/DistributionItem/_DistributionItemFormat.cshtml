@@ -85,7 +85,8 @@
             }
         },
         created: function () {
-            this.updateSelectedFormatIsAnOption();
+            if (this.$store.getters['isDataset'])
+                this.updateSelectedFormatIsAnOption();
             this.formElements.formatName.options = this.formatOptions;
         },
         computed: {

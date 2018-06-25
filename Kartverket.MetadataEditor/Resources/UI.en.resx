@@ -844,4 +844,64 @@
   <data name="SelectedValueDiffersFromList" xml:space="preserve">
     <value>Selected value differs from list</value>
   </data>
+  <data name="Metadata_Admin_QualitySpecificationResult_NotSet" xml:space="preserve">
+    <value>The data is not evaluated according to the product specification</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="QualitySpecificationResultNotSetSosiConformApplicationSchema" xml:space="preserve">
+    <value>SOSI files are not evaluated according to application form</value>
+  </data>
+  <data name="QualitySpecificationResultNotSetSosiConformGmlApplicationSchema" xml:space="preserve">
+    <value>GML files are not evaluated according to application form</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_Conform" xml:space="preserve">
+    <value>This data set is conformant with the INSPIRE Implementing Rules for Network Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotConform" xml:space="preserve">
+    <value>This data set is not conformant with the INSPIRE Implementing Rules for Network Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet" xml:space="preserve">
+    <value>This data set is not evaluated conformant with the INSPIRE Implementing Rules for Network Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform" xml:space="preserve">
+    <value>This Spatial Data Service set is conformant with the INSPIRE requirements for Harmonised Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform" xml:space="preserve">
+    <value>This Spatial Data Service set is not conformant with the INSPIRE requirements for Harmonised Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet" xml:space="preserve">
+    <value>This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for Harmonised Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform" xml:space="preserve">
+    <value>This Spatial Data Service set is conformant with the INSPIRE requirements for Interoperable Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotConform" xml:space="preserve">
+    <value>This Spatial Data Service set is not conformant with the INSPIRE requirements for Interoperable Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet" xml:space="preserve">
+    <value>This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for Interoperable Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform" xml:space="preserve">
+    <value>This Spatial Data Service set is conformant with the INSPIRE requirements for Invocable Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotConform" xml:space="preserve">
+    <value>This Spatial Data Service set is not conformant with the INSPIRE requirements for Invocable Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet" xml:space="preserve">
+    <value>This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for Invocable Spatial Data Services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform" xml:space="preserve">
+    <value>This Spatial Data Service set is conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform" xml:space="preserve">
+    <value>This Spatial Data Service set is not conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services</value>
+  </data>
+  <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet" xml:space="preserve">
+    <value>This Spatial Data Service set is not evaluated conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services</value>
+  </data>
+  <data name="Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceConformanceValues" xml:space="preserve">
+    <value>Service type</value>
+  </data>
 </root>

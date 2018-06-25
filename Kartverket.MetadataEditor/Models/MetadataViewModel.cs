@@ -147,21 +147,43 @@ namespace Kartverket.MetadataEditor.Models
         [RequiredIf("!IsValidQualitySpesificationSosi()", ErrorMessageResourceName = "Metadata_QualitySpecificationExplanationSosi_Required", ErrorMessageResourceType = typeof(UI))]
         public string QualitySpecificationExplanationSosi { get; set; }
         public string EnglishQualitySpecificationExplanationSosi { get; set; }
-        [Required]
         [Display(Name = "QualitySpecificationResult", ResourceType = typeof(UI))]
-        public bool QualitySpecificationResult { get; set; }
-        [Required]
+        public bool? QualitySpecificationResult { get; set; }
         [Display(Name = "QualitySpecificationResultInspire", ResourceType = typeof(UI))]
-        public bool QualitySpecificationResultInspire { get; set; }
-        [Required]
+        public bool? QualitySpecificationResultInspire { get; set; }
         [Display(Name = "QualitySpecificationResultSosi", ResourceType = typeof(UI))]
-        public bool QualitySpecificationResultSosi { get; set; }
+        public bool? QualitySpecificationResultSosi { get; set; }
         public string QualitySpecificationTitle { get; set; }
         public string QualitySpecificationTitleInspire { get; set; }
         public string QualitySpecificationTitleSosi { get; set; }
-        public bool QualitySpecificationResultSosiConformApplicationSchema { get; set; } = false;
-        public bool QualitySpecificationResultSosiConformGmlApplicationSchema { get; set; } = false;
-        //[Required(ErrorMessage = "Prosesshistorie er påkrevd")]
+        public bool? QualitySpecificationResultSosiConformApplicationSchema { get; set; }
+        public bool? QualitySpecificationResultSosiConformGmlApplicationSchema { get; set; }
+
+        // quality InspireSpatialServiceInteroperability
+        public DateTime? QualitySpecificationDateInspireSpatialServiceInteroperability { get; set; }
+        public string QualitySpecificationDateTypeInspireSpatialServiceInteroperability { get; set; }
+        public string QualitySpecificationExplanationInspireSpatialServiceInteroperability { get; set; }
+        public string EnglishQualitySpecificationExplanationInspireSpatialServiceInteroperability { get; set; }
+        public bool? QualitySpecificationResultInspireSpatialServiceInteroperability { get; set; }
+        public string QualitySpecificationTitleInspireSpatialServiceInteroperability { get; set; }
+
+        // quality InspireSpatialNetworkServices
+        public DateTime? QualitySpecificationDateInspireSpatialNetworkServices { get; set; }
+        public string QualitySpecificationDateTypeInspireSpatialNetworkServices { get; set; }
+        public string QualitySpecificationExplanationInspireSpatialNetworkServices { get; set; }
+        public string EnglishQualitySpecificationExplanationInspireSpatialNetworkServices { get; set; }
+        public bool? QualitySpecificationResultInspireSpatialNetworkServices { get; set; }
+        public string QualitySpecificationTitleInspireSpatialNetworkServices { get; set; }
+
+        // quality InspireSpatialServiceConformance
+        public DateTime? QualitySpecificationDateInspireSpatialServiceConformance { get; set; }
+        public string QualitySpecificationDateTypeInspireSpatialServiceConformance { get; set; }
+        public string QualitySpecificationExplanationInspireSpatialServiceConformance { get; set; }
+        public string EnglishQualitySpecificationExplanationInspireSpatialServiceConformance { get; set; }
+        public bool? QualitySpecificationResultInspireSpatialServiceConformance { get; set; }
+        public string QualitySpecificationTitleInspireSpatialServiceConformance { get; set; }
+
+
         public string ProcessHistory { get; set; }
         [Required]
         [Display(Name = "Metadata_MaintenanceFrequency", ResourceType = typeof(UI))]

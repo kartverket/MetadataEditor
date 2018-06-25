@@ -34,12 +34,14 @@
                 <div v-show="showSection[section.name]" class="panel panel-default" v-for="section in sections">
                     <div class="panel-heading">{{ section.title }}</div>
                     <div class="panel-body">
-                        <div v-show="isVisible(formElement)" v-for="formElement in section.formElements" class="row">
-                            <label class="col-md-3 control-label">{{ formElement.label }}</label>
-                            <div class="col-md-8">
-                                <div is="field" v-bind:form-element="formElement"></div>
+                        <div v-show="isVisible(formElement)" v-for="formElement in section.formElements">
+                            <div v-if="isIncluded(formElement)" class="row">
+                                <label class="col-md-3 control-label">{{ formElement.label }}</label>
+                                <div class="col-md-8">
+                                    <div is="field" v-bind:form-element="formElement"></div>
+                                </div>
+                                <div class="col-md-1"></div>
                             </div>
-                            <div class="col-md-1"></div>
                         </div>
                     </div>
                 </div>
@@ -166,6 +168,7 @@
                                 mutation: 'updateQualitySpecificationResultInspire',
                                 type: 'radio',
                                 options: [
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationResult_NotSet', Value: 'null' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
                                 ]
@@ -191,8 +194,67 @@
                                     active: false,
                                     content: 'Her informerer du om hva som i hovedsak mangler for at ressursen skal være i henhold til spesifikasjonen. Aktuelle tekster kan være: "Ressursen er i henhold til angitt spesifikasjon". Hvis ressursen er delvis i henhold til spesifikasjonen, eller har enkelte avvik, så kan disse angis, eventuelt så kan en bruke teksten: "Ressursen er langt på vei i henhold til angitt standard, men har enkelte avvik"'
                                 }
+                            },
+                            {
+                                name: 'QualitySpecificationResultInspireSpatialNetworkServices',
+                                getter: 'QualitySpecificationResultInspireSpatialNetworkServices',
+                                mutation: 'updateQualitySpecificationResultInspireSpatialNetworkServices',
+                                type: 'radio',
+                                includedGetter: 'showQualitySpecificationResultInspireSpatialNetworkServices',
+                                options: [
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet)', Value: 'null' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_Conform)', Value: 'true' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotConform)', Value: 'false' }
+                                ]
+                            },
+                            {
+                                name: 'QualitySpecificationResultInspireSpatialServiceInteroperability',
+                                getter: 'QualitySpecificationResultInspireSpatialServiceInteroperability',
+                                mutation: 'updateQualitySpecificationResultInspireSpatialServiceInteroperability',
+                                type: 'radio',
+                                includedGetter: 'showQualitySpecificationResultInspireSpatialServiceInteroperability',
+                                options: [
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet)', Value: 'null' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform)', Value: 'true' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform)', Value: 'false' }
+                                ]
+                            },
+                            {
+                                name: 'QualitySpecificationResultInspireSpatialServiceConformance',
+                                getter: 'QualitySpecificationResultInspireSpatialServiceConformance',
+                                mutation: 'updateQualitySpecificationResultInspireSpatialServiceConformance',
+                                type: 'radio',
+                                includedGetter: 'showQualitySpecificationResultInspireSpatialServiceConformance_Invocable',
+                                options: [
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet)', Value: 'null' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform)', Value: 'true' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotConform)', Value: 'false' }
+                                ]
+                            },
+                            {
+                                name: 'QualitySpecificationResultInspireSpatialServiceConformance',
+                                getter: 'QualitySpecificationResultInspireSpatialServiceConformance',
+                                mutation: 'updateQualitySpecificationResultInspireSpatialServiceConformance',
+                                type: 'radio',
+                                includedGetter: 'showQualitySpecificationResultInspireSpatialServiceConformance_Interoperable',
+                                options: [
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet)', Value: 'null' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform)', Value: 'true' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotConform)', Value: 'false' }
+                                ]
+                            },
+                            {
+                                name: 'QualitySpecificationResultInspireSpatialServiceConformance',
+                                getter: 'QualitySpecificationResultInspireSpatialServiceConformance',
+                                mutation: 'updateQualitySpecificationResultInspireSpatialServiceConformance',
+                                type: 'radio',
+                                includedGetter: 'showQualitySpecificationResultInspireSpatialServiceConformance_Harmonised',
+                                options: [
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet)', Value: 'null' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform)', Value: 'true' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform)', Value: 'false' }
+                                ]
                             }
-
                         ]
                     },
                     {
@@ -237,6 +299,7 @@
                                 type: 'radio',
                                 visibleGetter: 'productSpecificationUrlIsAdded',
                                 options: [
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationResult_NotSet', Value: 'null' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
                                 ]
@@ -270,6 +333,7 @@
                                 type: 'radio',
                                 visibleGetter: 'showQualitySpecificationResultSosiConformApplicationSchema',
                                 options: [
+                                    { Text: '@UI.QualitySpecificationResultNotSetSosiConformApplicationSchema', Value: 'null' },
                                     { Text: '@UI.QualitySpecificationResultSosiConformApplicationSchema', Value: 'true' },
                                     { Text: '@UI.QualitySpecificationResultNotSosiConformApplicationSchema', Value: 'false' }
                                    ]
@@ -281,6 +345,7 @@
                                 type: 'radio',
                                 visibleGetter: 'showQualitySpecificationResultSosiConformGmlApplicationSchema',
                                 options: [
+                                    { Text: '@UI.QualitySpecificationResultNotSetSosiConformGmlApplicationSchema', Value: 'null' },
                                     { Text: '@UI.QualitySpecificationResultSosiConformGmlApplicationSchema', Value: 'true' },
                                     { Text: '@UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema', Value: 'false' }
                                 ]
@@ -326,6 +391,7 @@
                                 mutation: 'updateQualitySpecificationResult',
                                 type: 'radio',
                                 options: [
+                                    { Text: '@UI.Metadata_Admin_QualitySpecificationResult_NotSet', Value: 'null' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
                                 ]
@@ -443,6 +509,15 @@
                     return this.$store.getters[formElement.visibleGetter] === true || this.$store.getters[formElement.visibleGetter] == 'true';
                 } else if (formElement.visible !== undefined) {
                     return formElement.visible === true || formElement.visible == 'true';
+                } else {
+                    return true;
+                }
+            },
+            isIncluded: function (formElement) {
+                if (formElement.includedGetter !== undefined) {
+                    return this.$store.getters[formElement.includedGetter] === true || this.$store.getters[formElement.includedGetter] == 'true';
+                } else if (formElement.included !== undefined) {
+                    return formElement.included === true || formElement.included == 'true';
                 } else {
                     return true;
                 }

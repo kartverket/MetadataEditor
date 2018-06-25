@@ -393,7 +393,9 @@
                         }
                     }
                 }
-                $('textarea').autosize();
+                $(document).ready(function () {
+                    autosize($('textarea'));
+                })
             },
             methods: {
                 setSelectedLanguage: function () {
