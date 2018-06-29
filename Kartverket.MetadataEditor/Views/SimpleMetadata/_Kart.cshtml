@@ -116,7 +116,7 @@
                         for (var r = 0; r < result.length; r++) {
                             $("#keywords-place-text").val(result[r]);
                             console.log(result[r]);
-                            $('select#bboxState option[value="' + result[r] + '"]').prop('selected', true);
+                            $("#bboxState option:contains(" + result[r] + ")").attr('selected', 'selected');
 
                             $("#keywords-place-add").click();
                             $("#keywords-place-text").val('');
