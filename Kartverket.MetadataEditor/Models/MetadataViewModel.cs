@@ -183,6 +183,10 @@ namespace Kartverket.MetadataEditor.Models
         public bool? QualitySpecificationResultInspireSpatialServiceConformance { get; set; }
         public string QualitySpecificationTitleInspireSpatialServiceConformance { get; set; }
 
+        //quality QuantitativeResult
+        public string QualityQuantitativeResultAvailability { get; set; }
+        public int? QualityQuantitativeResultCapacity { get; set; }
+        public string QualityQuantitativeResultPerformance { get; set; }
 
         public string ProcessHistory { get; set; }
         [Required]

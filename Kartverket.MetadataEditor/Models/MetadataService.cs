@@ -462,6 +462,18 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationTitleInspireSpatialNetworkServices = qualitySpecification.Title != null ? qualitySpecification.Title : null;
 
                     }
+                    else if (responsible == "sds-availability")
+                    {
+                        model.QualityQuantitativeResultAvailability = qualitySpecification.QuantitativeResult;
+                    }
+                    else if (responsible == "sds-capacity")
+                    {
+                        model.QualityQuantitativeResultCapacity = Convert.ToInt32(qualitySpecification.QuantitativeResult);
+                    }
+                    else if (responsible == "sds-performance")
+                    {
+                        model.QualityQuantitativeResultPerformance = qualitySpecification.QuantitativeResult;
+                    }
                     else if (responsible == "sosi")
                     {
                         model.QualitySpecificationDateSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
@@ -1274,6 +1286,7 @@ namespace Kartverket.MetadataEditor.Models
                                 Result = true,
                                 Responsible = "inspire-conformance"
                             });
+
                         }
                         else if (model.QualitySpecificationResultInspireSpatialServiceConformance == false)
                         {
@@ -1306,6 +1319,34 @@ namespace Kartverket.MetadataEditor.Models
                                 Responsible = "inspire-conformance"
                             });
                         }
+
+                        if (!string.IsNullOrEmpty(model.QualityQuantitativeResultAvailability))
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                QuantitativeResult = model.QualityQuantitativeResultAvailability,
+                                Responsible = "sds-availability"
+                            });
+                        }
+
+                        if (model.QualityQuantitativeResultCapacity != null)
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                QuantitativeResult = model.QualityQuantitativeResultCapacity.ToString(),
+                                Responsible = "sds-capacity"
+                            });
+                        }
+
+                        if (!string.IsNullOrEmpty(model.QualityQuantitativeResultPerformance))
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                QuantitativeResult = model.QualityQuantitativeResultPerformance,
+                                Responsible = "sds-performance"
+                            });
+                        }
+
                     }
                 }
                 if (SimpleMetadata.IsNetworkService(distributionProtocolService))
