@@ -17,7 +17,7 @@
 
         <span v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" v-on:click="$store.commit('addFormatDistributions');" class="btn">@UI.Button_Add_Distribution</span>
 
-        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="reference-systems"></div>
+        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries'] || $store.getters['isService']" is="reference-systems"></div>
     </div>
 </script>
 

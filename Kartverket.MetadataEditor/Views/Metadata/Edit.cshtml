@@ -108,93 +108,93 @@
 
 @Html.ValidationSummary(false, UI.FormValidationErrors + ":", new { @class = "alert alert-danger" })
 
-<form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
-    <div id="vue-container">
-        <ul class="nav nav-tabs">
-            <li is="tab" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></li>
-        </ul>
-        <div v-bind:is="tab.id" v-show="$store.getters['settingsSelectedTab'].id == tab.id" v-for="tab in $store.getters['settingsTabs']"></div>
-    </div>
+    <form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
+        <div id="vue-container">
+            <ul class="nav nav-tabs">
+                <li is="tab" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></li>
+            </ul>
+            <div v-bind:is="tab.id" v-show="$store.getters['settingsSelectedTab'].id == tab.id" v-for="tab in $store.getters['settingsTabs']"></div>
+        </div>
 
-    @Html.HiddenFor(m => m.Uuid)
-    @Html.HiddenFor(m => m.DateMetadataUpdated)
-    @Html.HiddenFor(m => m.HierarchyLevel)
-    @if (Model.IsService())
-    {
-        <div id="operatesOn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
-            @Html.Partial("_OperatesOn", Model)
-        </div>
-        <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
-            @Html.Partial("_ParentIdentifier", Model)
-        </div>
-    }
-    @if (Model.IsSoftware())
-    {
-        <div id="crossReference" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
-            @Html.Partial("_CrossReference", Model)
-        </div>
-    }
+        @Html.HiddenFor(m => m.Uuid)
+        @Html.HiddenFor(m => m.DateMetadataUpdated)
+        @Html.HiddenFor(m => m.HierarchyLevel)
+        @if (Model.IsService())
+        {
+            <div id="operatesOn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
+                @Html.Partial("_OperatesOn", Model)
+            </div>
+            <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
+                @Html.Partial("_ParentIdentifier", Model)
+            </div>
+        }
+        @if (Model.IsSoftware())
+        {
+            <div id="crossReference" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
+                @Html.Partial("_CrossReference", Model)
+            </div>
+        }
 
-    @section ActionMenu {
-        <div class="btn-group">
-            @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
+        @section ActionMenu {
+            <div class="btn-group">
+                @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
                     <i class="glyphicon glyphicon-file"></i> Last ned XML
                 </a>*@
 
-            <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
-                <span class="glyphicon glyphicon-share-alt"></span> @UI.DisplayInMapCatalogue
-            </a>
-            @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
-            {
-                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WMS"))
+                <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
+                    <span class="glyphicon glyphicon-share-alt"></span> @UI.DisplayInMapCatalogue
+                </a>
+                @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
                 {
-                    <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
-                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
-                    </a>
+                    if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WMS"))
+                    {
+                        <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                            <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                        </a>
+                    }
+                    if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WFS"))
+                    {
+                        <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                            <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                        </a>
+                    }
                 }
-                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WFS"))
+                @if (Model.IsDataset() && showProductSheetGeneratorUrl)
                 {
-                    <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
-                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
-                    </a>
+                    <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.CreateProductFactSheet</a>
                 }
-            }
-            @if (Model.IsDataset() && showProductSheetGeneratorUrl)
-            {
-                <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.CreateProductFactSheet</a>
-            }
 
-            @if (Model.IsService())
-            {
-                <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.LinkToDataset</a>
-                <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.AddLinkToService</a>
-            }
-            @if (Model.IsSoftware())
-            {
-                <a href="#" role="button" data-toggle="modal" id="crossReferenceLink" data-target="#crossReference" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
-            }
+                @if (Model.IsService())
+                {
+                    <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.LinkToDataset</a>
+                    <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.AddLinkToService</a>
+                }
+                @if (Model.IsSoftware())
+                {
+                    <a href="#" role="button" data-toggle="modal" id="crossReferenceLink" data-target="#crossReference" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
+                }
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-sm-12 text-right">
+                <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">@UI.Delete</button>
+                @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
+                {
+                    <input type="checkbox" name="ignoreValidationError" value="1" /> <span>@UI.IgnoreErrors</span>
+                }
+                else
+                {
+                    <input type="hidden" name="ignoreValidationError" value="0" />
+                }
+                <input type="hidden" name="published" value="true" />
+                @*}*@
+                <button name="action" type="submit" class="btn btn-primary show-loading-animation" value="@UI.Button_Save" data-loading-message="Lagrer metadata">@UI.Button_Save</button>
+            </div>
         </div>
-    }
-
-    <div class="form-group">
-        <div class="col-sm-12 text-right">
-            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">@UI.Delete</button>
-            @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
-            {
-                <input type="checkbox" name="ignoreValidationError" value="1" /> <span>@UI.IgnoreErrors</span>
-            }
-            else
-            {
-                <input type="hidden" name="ignoreValidationError" value="0" />
-            }
-            <input type="hidden" name="published" value="true" />
-            @*}*@
-            <button name="action" type="submit" class="btn btn-primary show-loading-animation" value="@UI.Button_Save" data-loading-message="Lagrer metadata">@UI.Button_Save</button>
-        </div>
-    </div>
 
 
-</form>
+    </form>
 
 @section scripts {
     <script>

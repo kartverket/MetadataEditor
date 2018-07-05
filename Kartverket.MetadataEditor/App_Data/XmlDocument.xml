@@ -56,6 +56,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Resources.UI.AccessConstraintsRequired">
+            <summary>
+              Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AddKeyword">
             <summary>
               Looks up a localized string similar to Legg til nøkkelord.
@@ -644,7 +649,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform">
@@ -659,7 +664,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform">
@@ -674,7 +679,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform">
@@ -1237,6 +1242,26 @@
               Looks up a localized string similar to GML-filer avviker fra applikasjonsskjema.
             </summary>
         </member>
+        <member name="P:Resources.UI.QuantitativeResultAvailabilityRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (availability).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QuantitativeResultCapacityRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (capacity).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QuantitativeResultPerformanceRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (performance).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ReferenceSystemRequired">
+            <summary>
+              Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Search">
             <summary>
               Looks up a localized string similar to Søk.
@@ -1355,6 +1380,11 @@
         <member name="P:Resources.UI.Use">
             <summary>
               Looks up a localized string similar to Bruksområde.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.UseConstraintsRequired">
+            <summary>
+              Looks up a localized string similar to Brukerrestriksjoner er påkrevd.
             </summary>
         </member>
         <member name="P:Resources.UI.Version">
