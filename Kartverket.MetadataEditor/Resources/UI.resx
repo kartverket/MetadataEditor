@@ -907,4 +907,13 @@
   <data name="Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceConformanceValues" xml:space="preserve">
     <value>Tjenestetype</value>
   </data>
+  <data name="AccessConstraintsRequired" xml:space="preserve">
+    <value>Tilgangsrestriksjoner er påkrevd</value>
+  </data>
+  <data name="ReferenceSystemRequired" xml:space="preserve">
+    <value>Det er påkrevd å fylle ut romlig referense system</value>
+  </data>
+  <data name="UseConstraintsRequired" xml:space="preserve">
+    <value>Brukerrestriksjoner er påkrevd</value>
+  </data>
 </root>

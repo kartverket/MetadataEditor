@@ -56,6 +56,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Resources.UI.AccessConstraintsRequired">
+            <summary>
+              Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AddKeyword">
             <summary>
               Looks up a localized string similar to Legg til nøkkelord.
@@ -1237,6 +1242,11 @@
               Looks up a localized string similar to GML-filer avviker fra applikasjonsskjema.
             </summary>
         </member>
+        <member name="P:Resources.UI.ReferenceSystemRequired">
+            <summary>
+              Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Search">
             <summary>
               Looks up a localized string similar to Søk.
@@ -1355,6 +1365,11 @@
         <member name="P:Resources.UI.Use">
             <summary>
               Looks up a localized string similar to Bruksområde.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.UseConstraintsRequired">
+            <summary>
+              Looks up a localized string similar to Brukerrestriksjoner er påkrevd.
             </summary>
         </member>
         <member name="P:Resources.UI.Version">

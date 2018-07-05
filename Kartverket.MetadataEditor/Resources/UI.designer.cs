@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
+        /// </summary>
+        public static string AccessConstraintsRequired {
+            get {
+                return ResourceManager.GetString("AccessConstraintsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Legg til nøkkelord.
         /// </summary>
         public static string AddKeyword {
@@ -2200,6 +2209,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.
+        /// </summary>
+        public static string ReferenceSystemRequired {
+            get {
+                return ResourceManager.GetString("ReferenceSystemRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Søk.
         /// </summary>
         public static string Search {
@@ -2412,6 +2430,15 @@ namespace Resources {
         public static string Use {
             get {
                 return ResourceManager.GetString("Use", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brukerrestriksjoner er påkrevd.
+        /// </summary>
+        public static string UseConstraintsRequired {
+            get {
+                return ResourceManager.GetString("UseConstraintsRequired", resourceCulture);
             }
         }
         

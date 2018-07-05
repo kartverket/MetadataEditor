@@ -904,4 +904,13 @@
   <data name="Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceConformanceValues" xml:space="preserve">
     <value>Service type</value>
   </data>
+  <data name="AccessConstraintsRequired" xml:space="preserve">
+    <value>Access restrictions is required</value>
+  </data>
+  <data name="ReferenceSystemRequired" xml:space="preserve">
+    <value>It is required to fill in spatial reference system</value>
+  </data>
+  <data name="UseConstraintsRequired" xml:space="preserve">
+    <value>User restrictions is required</value>
+  </data>
 </root>

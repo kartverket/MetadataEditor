@@ -109,9 +109,12 @@
 @Html.ValidationSummary(false, UI.FormValidationErrors + ":", new { @class = "alert alert-danger" })
 
     <form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
+        @if (Model.IsService())
+        {
         <b>Availability: </b>@Html.EditorFor(m => m.QualityQuantitativeResultAvailability) <br />
         <b>Capacity: </b>@Html.EditorFor(m => m.QualityQuantitativeResultCapacity) <br />
         <b>Performance: </b>@Html.EditorFor(m => m.QualityQuantitativeResultPerformance) <br />
+        }
         <div id="vue-container">
             <ul class="nav nav-tabs">
                 <li is="tab" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></li>
