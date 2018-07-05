@@ -1249,12 +1249,12 @@
         </member>
         <member name="P:Resources.UI.QuantitativeResultCapacityRequired">
             <summary>
-              Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres.
+              Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (capacity).
             </summary>
         </member>
         <member name="P:Resources.UI.QuantitativeResultPerformanceRequired">
             <summary>
-              Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder.
+              Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (performance).
             </summary>
         </member>
         <member name="P:Resources.UI.ReferenceSystemRequired">
