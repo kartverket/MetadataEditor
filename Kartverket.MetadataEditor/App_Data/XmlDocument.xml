@@ -649,7 +649,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform">
@@ -664,7 +664,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform">
@@ -679,7 +679,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform">

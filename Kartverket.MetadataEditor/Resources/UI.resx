@@ -875,7 +875,7 @@
     <value>Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services</value>
   </data>
   <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet" xml:space="preserve">
-    <value>Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services</value>
+    <value>Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services</value>
   </data>
   <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform" xml:space="preserve">
     <value>Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services</value>
@@ -884,7 +884,7 @@
     <value>Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services</value>
   </data>
   <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet" xml:space="preserve">
-    <value>Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services</value>
+    <value>Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services</value>
   </data>
   <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform" xml:space="preserve">
     <value>Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services</value>
@@ -893,7 +893,7 @@
     <value>Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services</value>
   </data>
   <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet" xml:space="preserve">
-    <value>Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services</value>
+    <value>Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services</value>
   </data>
   <data name="Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform" xml:space="preserve">
     <value>Dette stasjonære datatjenestesettet er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester</value>
