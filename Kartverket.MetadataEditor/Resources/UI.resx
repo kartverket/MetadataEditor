@@ -910,6 +910,15 @@
   <data name="AccessConstraintsRequired" xml:space="preserve">
     <value>Tilgangsrestriksjoner er påkrevd</value>
   </data>
+  <data name="QuantitativeResultAvailabilityRequired" xml:space="preserve">
+    <value>Påkrevd å fylle ut tjenestens oppetid i % (availability)</value>
+  </data>
+  <data name="QuantitativeResultCapacityRequired" xml:space="preserve">
+    <value>Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (capacity)</value>
+  </data>
+  <data name="QuantitativeResultPerformanceRequired" xml:space="preserve">
+    <value>Påkrevd å fylle ut svartid i sekunder (performance)</value>
+  </data>
   <data name="ReferenceSystemRequired" xml:space="preserve">
     <value>Det er påkrevd å fylle ut romlig referense system</value>
   </data>

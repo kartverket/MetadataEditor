@@ -254,6 +254,40 @@
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform)', Value: 'true' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform)', Value: 'false' }
                                 ]
+                            },
+                            {
+                                name: 'QualityQuantitativeResultAvailability',
+                                getter: 'QualityQuantitativeResultAvailability',
+                                readOnly: false,
+                                label: 'Availability',
+                                helpText: {
+                                    active: true,
+                                    content: 'Lower limit of the percentage of time the service is estimated to be available on a yearly basis'
+                                },
+                                type: 'text'
+                            },
+                            {
+                                name: 'QualityQuantitativeResultCapacity',
+                                getter: 'QualityQuantitativeResultCapacity',
+                                readOnly: false,
+                                label: 'Capacity',
+                                helpText: {
+                                    active: true,
+                                    content: 'Lower limit of the maximum number of simultaneous requests that can be completed within the limits of the declared performance'
+                                },
+                                type: 'text'
+                            }
+                            ,
+                            {
+                                name: 'QualityQuantitativeResultPerformance',
+                                getter: 'QualityQuantitativeResultPerformance',
+                                readOnly: false,
+                                label: 'Performance',
+                                helpText: {
+                                    active: true,
+                                    content: 'The maximum time in which a typical request to the Spatial Data Service can be carried out in a off-peak load situation'
+                                },
+                                type: 'text'
                             }
                         ]
                     },

@@ -907,6 +907,15 @@
   <data name="AccessConstraintsRequired" xml:space="preserve">
     <value>Access restrictions is required</value>
   </data>
+  <data name="QuantitativeResultAvailabilityRequired" xml:space="preserve">
+    <value>Required information service uptime% (availability)</value>
+  </data>
+  <data name="QuantitativeResultCapacityRequired" xml:space="preserve">
+    <value>Required to fill in a performance number (integer) for how many simultaneous requests can be handled (capacity)</value>
+  </data>
+  <data name="QuantitativeResultPerformanceRequired" xml:space="preserve">
+    <value>Required to fill in response time in seconds (performance)</value>
+  </data>
   <data name="ReferenceSystemRequired" xml:space="preserve">
     <value>It is required to fill in spatial reference system</value>
   </data>

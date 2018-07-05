@@ -2209,6 +2209,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (availability).
+        /// </summary>
+        public static string QuantitativeResultAvailabilityRequired {
+            get {
+                return ResourceManager.GetString("QuantitativeResultAvailabilityRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (capacity).
+        /// </summary>
+        public static string QuantitativeResultCapacityRequired {
+            get {
+                return ResourceManager.GetString("QuantitativeResultCapacityRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (performance).
+        /// </summary>
+        public static string QuantitativeResultPerformanceRequired {
+            get {
+                return ResourceManager.GetString("QuantitativeResultPerformanceRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.
         /// </summary>
         public static string ReferenceSystemRequired {

@@ -1242,6 +1242,21 @@
               Looks up a localized string similar to GML-filer avviker fra applikasjonsskjema.
             </summary>
         </member>
+        <member name="P:Resources.UI.QuantitativeResultAvailabilityRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (availability).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QuantitativeResultCapacityRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QuantitativeResultPerformanceRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder.
+            </summary>
+        </member>
         <member name="P:Resources.UI.ReferenceSystemRequired">
             <summary>
               Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.

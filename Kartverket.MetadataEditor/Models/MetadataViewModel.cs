@@ -185,8 +185,11 @@ namespace Kartverket.MetadataEditor.Models
         public string QualitySpecificationTitleInspireSpatialServiceConformance { get; set; }
 
         //quality QuantitativeResult
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "QuantitativeResultAvailabilityRequired", ErrorMessageResourceType = typeof(UI))]
         public string QualityQuantitativeResultAvailability { get; set; }
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "QuantitativeResultCapacityRequired", ErrorMessageResourceType = typeof(UI))]
         public int? QualityQuantitativeResultCapacity { get; set; }
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "QuantitativeResultPerformanceRequired", ErrorMessageResourceType = typeof(UI))]
         public string QualityQuantitativeResultPerformance { get; set; }
 
         public string ProcessHistory { get; set; }
