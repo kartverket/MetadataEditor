@@ -954,6 +954,17 @@ namespace Kartverket.MetadataEditor.Models
             }
             metadata.ContactPublisher = contactPublisher;
 
+            if (model.IsInspireSpatialServiceConformance())
+            {
+                metadata.ContactCustodian = new SimpleContact
+                {
+                    Name = contactPublisher.Name,
+                    Email = contactPublisher.Email,
+                    Organization = contactPublisher.Organization,
+                    Role = "custodian"
+                };
+            }
+
             var contactOwner = model.ContactOwner.ToSimpleContact();
             if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
             {
