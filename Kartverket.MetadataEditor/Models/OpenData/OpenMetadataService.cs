@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GeoNorgeAPI;
 using Kartverket.Geonorge.Utilities;
 using log4net;
+using System.Data.Entity;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
 {
@@ -15,6 +16,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
         private readonly IOpenMetadataFetcher _metadataFetcher;
 
         private IMetadataService _metadataService;
+        
 
         public OpenMetadataService(IMetadataService metadataService, IOpenMetadataFetcher metadataFetcher)
         {
@@ -22,14 +24,14 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             _metadataFetcher = metadataFetcher;
         }
 
-        public async Task<int> SynchronizeMetadata()
+        public async Task<int> SynchronizeMetadata(List<OpenMetadataEndpoint> endpoints)
         {
             Log.Info("Synching open metadata initiated");
 
-            var endpoints = new List<OpenMetadataEndpoint>();
-            endpoints.Add(new OpenMetadataEndpoint {Url = "https://oslokommune-bym.opendata.arcgis.com/data.json", OrganizationName = "Oslo kommune"});
-            endpoints.Add(new OpenMetadataEndpoint {Url = "http://data-tromso.opendata.arcgis.com/data.json", OrganizationName = "Tromsø"});
-            endpoints.Add(new OpenMetadataEndpoint { Url = "https://hub-frstadkomm.opendata.arcgis.com/data.json", OrganizationName = "Fredrikstad kommune" });
+            //var endpoints = new List<OpenMetadataEndpoint>();
+            //endpoints.Add(new OpenMetadataEndpoint {Url = "https://oslokommune-bym.opendata.arcgis.com/data.json", OrganizationName = "Oslo kommune"});
+            //endpoints.Add(new OpenMetadataEndpoint {Url = "http://data-tromso.opendata.arcgis.com/data.json", OrganizationName = "Tromsø"});
+            //endpoints.Add(new OpenMetadataEndpoint { Url = "https://hub-frstadkomm.opendata.arcgis.com/data.json", OrganizationName = "Fredrikstad kommune" });
 
             Log.Info("List of endpoints: ");
             endpoints.ForEach(e => Log.Info(e));
@@ -189,17 +191,6 @@ namespace Kartverket.MetadataEditor.Models.OpenData
         internal static string GetIdentifierFromUri(string identifier)
         {
             return identifier.Split('/').Last();
-        }
-    }
-
-    public class OpenMetadataEndpoint
-    {
-        public string Url { get; set; }
-        public string OrganizationName { get; set; }
-
-        public override string ToString()
-        {
-            return $"{OrganizationName} [url={Url}]";
         }
     }
 }

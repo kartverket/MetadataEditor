@@ -1402,6 +1402,30 @@
               Looks up a localized string similar to WFS tjeneste.
             </summary>
         </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String,System.Boolean)">
+            <summary>
+            Upload thumbnail
+            </summary>
+            <param name="uuid">The identifier of the metadata</param>
+            <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.ValidateMetadata(System.String)">
+            <summary>
+            Validate metadata
+            </summary>
+            <param name="uuid">The identifier of the metadata</param>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.GetPlaces(System.Double,System.Double,System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Get list of places for coordinates
+            </summary>
+            <param name="nordmin">Minimum nord verdi for omskreven boks.</param>
+            <param name="austmin"> Minimum aust verdi for omskreven boks.</param>
+             <param name="nordmax">Maximum nord verdi for omskreven boks.</param>
+             <param name="austmax">Maximum nord verdi for omskreven boks.</param>
+             <param name="koordsysut">SOSI koordinat system for returnerte data. Må alltid være ulik 0.</param>
+             <param name="koordsysinn">SOSI koordinat system for søke data. Må være ulik 0 hvis austMin, austMax, nordMin eller nordMax er ulik 0.</param>
+        </member>
         <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">
             <summary>
             Returns a MetadatViewModel of the metadata with the given uuid.
@@ -1885,30 +1909,6 @@
             Initializes a new instance of the <see cref="T:Kartverket.MetadataEditor.Areas.HelpPage.XmlDocumentationProvider"/> class.
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String,System.Boolean)">
-            <summary>
-            Upload thumbnail
-            </summary>
-            <param name="uuid">The identifier of the metadata</param>
-            <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.ValidateMetadata(System.String)">
-            <summary>
-            Validate metadata
-            </summary>
-            <param name="uuid">The identifier of the metadata</param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.GetPlaces(System.Double,System.Double,System.Double,System.Double,System.Int32,System.Int32)">
-            <summary>
-            Get list of places for coordinates
-            </summary>
-            <param name="nordmin">Minimum nord verdi for omskreven boks.</param>
-            <param name="austmin"> Minimum aust verdi for omskreven boks.</param>
-             <param name="nordmax">Maximum nord verdi for omskreven boks.</param>
-             <param name="austmax">Maximum nord verdi for omskreven boks.</param>
-             <param name="koordsysut">SOSI koordinat system for returnerte data. Må alltid være ulik 0.</param>
-             <param name="koordsysinn">SOSI koordinat system for søke data. Må være ulik 0 hvis austMin, austMax, nordMin eller nordMax er ulik 0.</param>
         </member>
         <member name="M:Kartverket.MetadataEditor.Helpers.CultureHelper.IsRighToLeft">
             <summary>

@@ -18,6 +18,10 @@ using Kartverket.MetadataEditor.Models.Translations;
 using Kartverket.MetadataEditor.App_Start;
 using Autofac;
 using System.Collections.Specialized;
+using System.Web.Helpers;
+using System.Security.Claims;
+using System.Data.Entity;
+using Kartverket.MetadataEditor.Models;
 
 namespace Kartverket.MetadataEditor
 {
@@ -45,6 +49,10 @@ namespace Kartverket.MetadataEditor
 
 
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredAttribute), typeof(MyRequiredAttributeAdapter));
+
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MetadataContext, Migrations.Configuration>());
 
             // init log4net
             log4net.Config.XmlConfigurator.Configure();

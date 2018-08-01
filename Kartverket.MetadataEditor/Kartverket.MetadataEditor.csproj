@@ -66,12 +66,10 @@
       <HintPath>..\packages\Autofac.WebApi2.4.1.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus, Version=4.0.5.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.0.5\lib\net20\EPPlus.dll</HintPath>
@@ -207,6 +205,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Controllers\OpenMetadataEndpointsController.cs" />
+    <Compile Include="Migrations\201807310842181_OpenMetadataEndpoint.cs" />
+    <Compile Include="Migrations\201807310842181_OpenMetadataEndpoint.Designer.cs">
+      <DependentUpon>201807310842181_OpenMetadataEndpoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IBatchService.cs" />
     <Compile Include="Models\IMetadataService.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -260,6 +264,7 @@
     <Compile Include="Models\IValidatorService.cs" />
     <Compile Include="Models\KomDataService.cs" />
     <Compile Include="Models\MemoryCacher.cs" />
+    <Compile Include="Models\MetadataContext.cs" />
     <Compile Include="Models\MetadataCreateViewModel.cs" />
     <Compile Include="Models\MetadataIndexViewModel.cs" />
     <Compile Include="Models\MetadataItemViewModel.cs" />
@@ -272,6 +277,7 @@
     <Compile Include="Models\OpenData\IOpenMetadataFetcher.cs" />
     <Compile Include="Models\OpenData\IOpenMetadataService.cs" />
     <Compile Include="Models\OpenData\Metadata.cs" />
+    <Compile Include="Models\OpenData\OpenMetadataEndpoint.cs" />
     <Compile Include="Models\OpenData\OpenMetadataFetcher.cs" />
     <Compile Include="Models\OpenData\OpenMetadataService.cs" />
     <Compile Include="Models\ReportService.cs" />
@@ -754,6 +760,11 @@
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\ReferenceSystems\_ReferenceSystem.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Keywords\KeywordsSection\_MonolingualKeyword.cshtml" />
     <Content Include="Views\Shared\VueComponents\Fields\Field\_Textarea.cshtml" />
+    <Content Include="Views\OpenMetadataEndpoints\Create.cshtml" />
+    <Content Include="Views\OpenMetadataEndpoints\Delete.cshtml" />
+    <Content Include="Views\OpenMetadataEndpoints\Details.cshtml" />
+    <Content Include="Views\OpenMetadataEndpoints\Edit.cshtml" />
+    <Content Include="Views\OpenMetadataEndpoints\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -769,6 +780,9 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>DefaultResources.Designer.cs</LastGenOutput>
     </Content>
+    <EmbeddedResource Include="Migrations\201807310842181_OpenMetadataEndpoint.resx">
+      <DependentUpon>201807310842181_OpenMetadataEndpoint.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\UI.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UI.en.Designer.cs</LastGenOutput>

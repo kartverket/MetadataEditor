@@ -52,7 +52,7 @@ namespace Kartverket.MetadataEditor.App_Start
             builder.RegisterType<BatchService>().As<IBatchService>();
             builder.RegisterType<OpenMetadataService>().As<IOpenMetadataService>();
             builder.RegisterType<OpenMetadataFetcher>().As<IOpenMetadataFetcher>();
-
+            builder.RegisterType<MetadataContext>().InstancePerRequest().AsSelf();
         }
     }
 }
