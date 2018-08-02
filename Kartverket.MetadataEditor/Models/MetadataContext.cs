@@ -12,5 +12,7 @@ namespace Kartverket.MetadataEditor.Models
         public MetadataContext() : base("DefaultConnection")
         { }
         public virtual DbSet<OpenMetadataEndpoint> OpenMetadataEndpoints { get; set; }
+        public virtual DbSet<MetaDataEntry> MetaDataEntries { get; set; }
+        
     }
 }

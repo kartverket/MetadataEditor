@@ -111,15 +111,6 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Kartverket.Geonorge.Utilities.1.0.42\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions">
-      <HintPath>..\packages\RavenDB.Database.3.0.3690\lib\net45\Raven.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Client.Lightweight">
-      <HintPath>..\packages\RavenDB.Client.3.0.3690\lib\net45\Raven.Client.Lightweight.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Database">
-      <HintPath>..\packages\RavenDB.Database.3.0.3690\lib\net45\Raven.Database.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -210,6 +201,10 @@
     <Compile Include="Migrations\201807310842181_OpenMetadataEndpoint.Designer.cs">
       <DependentUpon>201807310842181_OpenMetadataEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808021106532_AddMetadataEntry.cs" />
+    <Compile Include="Migrations\201808021106532_AddMetadataEntry.Designer.cs">
+      <DependentUpon>201808021106532_AddMetadataEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IBatchService.cs" />
     <Compile Include="Models\IMetadataService.cs" />
@@ -266,6 +261,7 @@
     <Compile Include="Models\MemoryCacher.cs" />
     <Compile Include="Models\MetadataContext.cs" />
     <Compile Include="Models\MetadataCreateViewModel.cs" />
+    <Compile Include="Models\MetaDataEntry.cs" />
     <Compile Include="Models\MetadataIndexViewModel.cs" />
     <Compile Include="Models\MetadataItemViewModel.cs" />
     <Compile Include="Models\MetadataService.cs" />
@@ -782,6 +778,9 @@
     </Content>
     <EmbeddedResource Include="Migrations\201807310842181_OpenMetadataEndpoint.resx">
       <DependentUpon>201807310842181_OpenMetadataEndpoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808021106532_AddMetadataEntry.resx">
+      <DependentUpon>201808021106532_AddMetadataEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\UI.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
