@@ -76,6 +76,11 @@
               Looks up a localized string similar to Geonorge - metadataeditor.
             </summary>
         </member>
+        <member name="P:Resources.UI.Availability">
+            <summary>
+              Looks up a localized string similar to Tilgjengelighet.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Button_Add_Distribution">
             <summary>
               Looks up a localized string similar to Legg til ny distribusjonsløsning.
@@ -104,6 +109,11 @@
         <member name="P:Resources.UI.Button_Validate">
             <summary>
               Looks up a localized string similar to Publiser.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Capacity">
+            <summary>
+              Looks up a localized string similar to Kapasitet.
             </summary>
         </member>
         <member name="P:Resources.UI.Cartography">
@@ -1167,6 +1177,11 @@
               Looks up a localized string similar to Faglig kontakt.
             </summary>
         </member>
+        <member name="P:Resources.UI.Performance">
+            <summary>
+              Looks up a localized string similar to Responstid.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Previous">
             <summary>
               Looks up a localized string similar to Forrige.
@@ -1190,6 +1205,21 @@
         <member name="P:Resources.UI.PublisherContact">
             <summary>
               Looks up a localized string similar to Teknisk kontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultAvailability">
+            <summary>
+              Looks up a localized string similar to Nedre grense for prosentandelen av tjenesten som er estimert å være tilgjengelig på årsbasis (oppgis i prosent) /validering på tall mellom 1 og 100, skilletegn bør kunne være komma eller punktum, men må rettes til riktig skilletegn ved oppdatering av metadata.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultCapacity">
+            <summary>
+              Looks up a localized string similar to Nedre grense for maksimalt antall samtidige forespørsler som kan fullføres innenfor angitt responstid (validering på heltall).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultPerformance">
+            <summary>
+              Looks up a localized string similar to Maksimal svartid for en vanlig forespørsel til tjenesten i en situasjon med lav belastning (oppgis i sekunder) (validering på heltal).
             </summary>
         </member>
         <member name="P:Resources.UI.QualitySpecificationCustom">
@@ -1244,17 +1274,17 @@
         </member>
         <member name="P:Resources.UI.QuantitativeResultAvailabilityRequired">
             <summary>
-              Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (availability).
+              Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (tilgjengelighet).
             </summary>
         </member>
         <member name="P:Resources.UI.QuantitativeResultCapacityRequired">
             <summary>
-              Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (capacity).
+              Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (kapasitet).
             </summary>
         </member>
         <member name="P:Resources.UI.QuantitativeResultPerformanceRequired">
             <summary>
-              Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (performance).
+              Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (responstid).
             </summary>
         </member>
         <member name="P:Resources.UI.ReferenceSystemRequired">

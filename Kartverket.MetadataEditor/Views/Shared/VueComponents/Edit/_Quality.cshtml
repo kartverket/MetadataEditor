@@ -107,13 +107,13 @@
                         name: 'QualityQuantitativeResultAvailability',
                         getter: 'QualityQuantitativeResultAvailability',
                         mutation: 'updateQualityQuantitativeResultAvailability',
-                        label: 'Availability',
+                        label: '@UI.Availability',
                         type: 'text',
                         required: true,
                         visible: this.$store.getters['isService'],
                         helpText: {
                             active: false,
-                            content: 'Lower limit of the percentage of time the service is estimated to be available on a yearly basis'
+                            content: '@UI.QualityQuantitativeResultAvailability'
                         }
                     },
                     qualityQuantitativeResultCapacity: {
@@ -121,13 +121,13 @@
                         name: 'QualityQuantitativeResultCapacity',
                         getter: 'QualityQuantitativeResultCapacity',
                         mutation: 'updateQualityQuantitativeResultCapacity',
-                        label: 'Capacity',
+                        label: '@UI.Capacity',
                         type: 'text',
                         required: true,
                         visible: this.$store.getters['isService'],
                         helpText: {
                             active: false,
-                            content: 'Lower limit of the maximum number of simultaneous requests that can be completed within the limits of the declared performance'
+                            content: '@UI.QualityQuantitativeResultCapacity'
                         }
                     }
                     ,
@@ -136,13 +136,13 @@
                         name: 'QualityQuantitativeResultPerformance',
                         getter: 'QualityQuantitativeResultPerformance',
                         mutation: 'updateQualityQuantitativeResultPerformance',
-                        label: 'Performance',
+                        label: '@UI.Performance',
                         type: 'text',
                         required: true,
                         visible: this.$store.getters['isService'],
                         helpText: {
                             active: false,
-                            content: 'The maximum time in which a typical request to the Spatial Data Service can be carried out in a off-peak load situation'
+                            content: '@UI.QualityQuantitativeResultPerformance'
                         }
                     }
                 }

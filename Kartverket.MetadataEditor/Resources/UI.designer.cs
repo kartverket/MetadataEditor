@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tilgjengelighet.
+        /// </summary>
+        public static string Availability {
+            get {
+                return ResourceManager.GetString("Availability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Legg til ny distribusjonsløsning.
         /// </summary>
         public static string Button_Add_Distribution {
@@ -147,6 +156,15 @@ namespace Resources {
         public static string Button_Validate {
             get {
                 return ResourceManager.GetString("Button_Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kapasitet.
+        /// </summary>
+        public static string Capacity {
+            get {
+                return ResourceManager.GetString("Capacity", resourceCulture);
             }
         }
         
@@ -2074,6 +2092,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Responstid.
+        /// </summary>
+        public static string Performance {
+            get {
+                return ResourceManager.GetString("Performance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forrige.
         /// </summary>
         public static string Previous {
@@ -2115,6 +2142,33 @@ namespace Resources {
         public static string PublisherContact {
             get {
                 return ResourceManager.GetString("PublisherContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nedre grense for prosentandelen av tjenesten som er estimert å være tilgjengelig på årsbasis (oppgis i prosent) /validering på tall mellom 1 og 100, skilletegn bør kunne være komma eller punktum, men må rettes til riktig skilletegn ved oppdatering av metadata.
+        /// </summary>
+        public static string QualityQuantitativeResultAvailability {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultAvailability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nedre grense for maksimalt antall samtidige forespørsler som kan fullføres innenfor angitt responstid (validering på heltall).
+        /// </summary>
+        public static string QualityQuantitativeResultCapacity {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultCapacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maksimal svartid for en vanlig forespørsel til tjenesten i en situasjon med lav belastning (oppgis i sekunder) (validering på heltal).
+        /// </summary>
+        public static string QualityQuantitativeResultPerformance {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultPerformance", resourceCulture);
             }
         }
         
@@ -2209,7 +2263,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (availability).
+        ///   Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (tilgjengelighet).
         /// </summary>
         public static string QuantitativeResultAvailabilityRequired {
             get {
@@ -2218,7 +2272,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (capacity).
+        ///   Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (kapasitet).
         /// </summary>
         public static string QuantitativeResultCapacityRequired {
             get {
@@ -2227,7 +2281,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (performance).
+        ///   Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (responstid).
         /// </summary>
         public static string QuantitativeResultPerformanceRequired {
             get {

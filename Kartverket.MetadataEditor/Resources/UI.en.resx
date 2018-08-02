@@ -922,4 +922,22 @@
   <data name="UseConstraintsRequired" xml:space="preserve">
     <value>User restrictions is required</value>
   </data>
+  <data name="Availability" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Capacity</value>
+  </data>
+  <data name="Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="QualityQuantitativeResultAvailability" xml:space="preserve">
+    <value>Lower limit of the percentage of time the service is estimated to be available on a yearly basis</value>
+  </data>
+  <data name="QualityQuantitativeResultCapacity" xml:space="preserve">
+    <value>Lower limit of the maximum number of simultaneous requests that can be completed within the limits of the declared performance</value>
+  </data>
+  <data name="QualityQuantitativeResultPerformance" xml:space="preserve">
+    <value>The maximum time in which a typical request to the Spatial Data Service can be carried out in a off-peak load situation</value>
+  </data>
 </root>
