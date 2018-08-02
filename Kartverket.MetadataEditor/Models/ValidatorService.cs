@@ -125,8 +125,8 @@ namespace Kartverket.MetadataEditor.Models
 
         public void SendEmail(List<string> emailsTo, List<MetaDataEntry> errors)
         {
-            //try 
-            //{ 
+            try
+            {
                 //var cfg=(System.Web.Configuration.CompilationSection) System.Configuration.ConfigurationManager.GetSection("system.web/compilation");
 
                 List<ErrorReport> reports = new List<ErrorReport>();
@@ -211,13 +211,13 @@ namespace Kartverket.MetadataEditor.Models
 
                 }
 
-            //}
-            //catch (Exception exc) 
-            //{
-            //    Log.Error(exc.Message);
-            //}
+            }
+            catch (Exception exc) 
+            {
+                Log.Error(exc.Message);
+            }
         }
-        
+
     }
 
     class ErrorReport 
