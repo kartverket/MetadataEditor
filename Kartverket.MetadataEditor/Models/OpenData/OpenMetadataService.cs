@@ -7,6 +7,8 @@ using GeoNorgeAPI;
 using Kartverket.Geonorge.Utilities;
 using log4net;
 using System.Data.Entity;
+using www.opengis.net;
+using System.Threading;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
 {
@@ -16,12 +18,14 @@ namespace Kartverket.MetadataEditor.Models.OpenData
         private readonly IOpenMetadataFetcher _metadataFetcher;
 
         private IMetadataService _metadataService;
-        
+        IGeoNorge _geoNorge;
 
-        public OpenMetadataService(IMetadataService metadataService, IOpenMetadataFetcher metadataFetcher)
+
+        public OpenMetadataService(IMetadataService metadataService, IOpenMetadataFetcher metadataFetcher, IGeoNorge geoNorge)
         {
             _metadataService = metadataService;
             _metadataFetcher = metadataFetcher;
+            _geoNorge = geoNorge;
         }
 
         public async Task<int> SynchronizeMetadata(List<OpenMetadataEndpoint> endpoints)
@@ -30,7 +34,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
             //var endpoints = new List<OpenMetadataEndpoint>();
             //endpoints.Add(new OpenMetadataEndpoint {Url = "https://oslokommune-bym.opendata.arcgis.com/data.json", OrganizationName = "Oslo kommune"});
-            //endpoints.Add(new OpenMetadataEndpoint {Url = "http://data-tromso.opendata.arcgis.com/data.json", OrganizationName = "Tromsø"});
+            //endpoints.Add(new OpenMetadataEndpoint {Url = "http://data-tromso.opendata.arcgis.com/data.json", OrganizationName = "Tromsø kommune"});
             //endpoints.Add(new OpenMetadataEndpoint { Url = "https://hub-frstadkomm.opendata.arcgis.com/data.json", OrganizationName = "Fredrikstad kommune" });
 
             Log.Info("List of endpoints: ");
@@ -79,6 +83,61 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                 _metadataService.SaveMetadataModel(metadataModel, SecurityClaim.GetUsername());
                 Log.Info(
                     $"Updated metadata entry for open dataset: [identifier={identifier}, title={metadataModel.Title}, organization={endpoint.OrganizationName}");
+
+                var distributionWms = GetDistributionWms(metadataModel.DistributionsFormats);
+
+                if (distributionWms != null)
+                {
+                    string serviceUuidForDataset = GetServiceForDataset(metadataModel.Uuid);
+
+                    if (!string.IsNullOrEmpty(serviceUuidForDataset))
+                    {
+                        var serviceModel = _metadataService.GetMetadataModel(serviceUuidForDataset);
+                        serviceModel.DistributionsFormats = new List<SimpleDistribution>();
+                        serviceModel.DistributionsFormats
+                            .Add(new SimpleDistribution
+                            {
+                                Organization = metadataModel.ContactMetadata.Organization,
+                                Protocol = "OGC:WMS",
+                                FormatName = "png",
+                                FormatVersion = "1.0",
+                                URL = distributionWms.URL
+                            });
+
+                        _metadataService.SaveMetadataModel(serviceModel, SecurityClaim.GetUsername());
+                        Log.Info(
+                        $"Updated service wms [uuid={serviceUuidForDataset}, title={serviceModel.Title} for metadata entry open dataset: [identifier={identifier}, title={metadataModel.Title}, organization={endpoint.OrganizationName}");
+
+                    }
+                    else
+                    {
+                        dataset.title = dataset.title + " - WMS";
+                        string uuid = InsertOpenMetadata(null, dataset, endpoint, "service");
+                        var serviceModel = _metadataService.GetMetadataModel(uuid);
+                        if(serviceModel != null)
+                        {
+                        serviceModel.OperatesOn = new List<string>();
+                        serviceModel.OperatesOn.Add(identifier);
+
+                            serviceModel.DistributionsFormats = new List<SimpleDistribution>();
+                            serviceModel.DistributionsFormats
+                                .Add(new SimpleDistribution
+                                {
+                                    Organization = metadataModel.ContactMetadata.Organization,
+                                    Protocol = "OGC:WMS",
+                                    FormatName = "png",
+                                    FormatVersion = "1.0",
+                                    URL = distributionWms.URL
+                                });
+
+                            MapDatasetToMetadataViewModel(dataset, serviceModel, endpoint);
+                            _metadataService.SaveMetadataModel(serviceModel, SecurityClaim.GetUsername());
+                        Log.Info(
+                        $"Added service wms [uuid={uuid}, title={serviceModel.Title} for metadata entry open dataset: [identifier={identifier}, title={metadataModel.Title}, organization={endpoint.OrganizationName}");
+                    }
+                    }
+                }
+
             }
             catch (Exception e)
             {
@@ -91,11 +150,74 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             return true;
         }
 
-        private void InsertOpenMetadata(string identifier, Dataset dataset, OpenMetadataEndpoint openMetadataEndpoint)
+        private string GetServiceForDataset(string uuid)
+        {
+            var filters = new object[]
+            {
+                        new PropertyIsLikeType
+                            {
+                                escapeChar = "\\",
+                                singleChar = "_",
+                                wildCard = "%",
+                                PropertyName = new PropertyNameType {Text = new[] {"srv:operatesOn"}},
+                                Literal = new LiteralType {Text = new[] {uuid}}
+                            }
+            };
+
+            var filterNames = new ItemsChoiceType23[]
+            {
+                 ItemsChoiceType23.PropertyIsLike,
+            };
+
+            SearchResultsType res = null;
+
+            var tries = 3;
+            while (true)
+            {
+                try
+                {
+                    res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 200);
+                    break; // success!
+                }
+                catch
+                {
+                    if (--tries == 0)
+                        throw;
+                    Thread.Sleep(3000);
+                }
+            }
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (var item in res.Items)
+                {
+                    RecordType record = (RecordType)item;
+
+                    for (int i = 0; i < record.ItemsElementName.Length; i++)
+                    {
+                        var name = record.ItemsElementName[i];
+                        var value = record.Items[i].Text != null ? record.Items[i].Text[0] : null;
+
+                        if (name == ItemsChoiceType24.identifier)
+                            return value;
+                    }
+                }
+            }
+
+            return null;
+         }
+
+        private SimpleDistribution GetDistributionWms(List<SimpleDistribution> distributionsFormats)
+        {
+            return distributionsFormats.Where(p => p.Protocol == "OGC:WMS").FirstOrDefault();
+        }
+
+        private string InsertOpenMetadata(string identifier, Dataset dataset, OpenMetadataEndpoint openMetadataEndpoint, string type = "dataset")
         {
             var newMetadata = new MetadataCreateViewModel();
-            newMetadata.Uuid = identifier;
-            newMetadata.Type = "dataset";
+            if(!string.IsNullOrEmpty(identifier))
+                newMetadata.Uuid = identifier;
+            newMetadata.Type = type;
             newMetadata.Title = dataset.title;
             newMetadata.MetadataContactOrganization =
                 !string.IsNullOrEmpty(openMetadataEndpoint.OrganizationName)
@@ -105,12 +227,16 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             newMetadata.MetadataContactEmail = dataset.contactPoint.hasEmail.Replace("mailto:", "");
             var uuid = _metadataService.CreateMetadata(newMetadata, SecurityClaim.GetUsername());
             Log.Info("Created open metadata uuid: " + uuid);
+            return uuid;
         }
 
 
         private void MapDatasetToMetadataViewModel(Dataset dataset, MetadataViewModel model,
             OpenMetadataEndpoint openMetadataEndpoint)
         {
+            if (string.IsNullOrEmpty(model.HierarchyLevel))
+                model.HierarchyLevel = "dataset";
+
             model.Title = dataset.title;
             DateTime modified;
             if (DateTime.TryParse(dataset.modified.ToString(), out modified)) model.DateUpdated = modified;
@@ -138,8 +264,9 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             if (dataset.keyword != null && dataset.keyword.Length > 0)
                 model.KeywordsOther = dataset.keyword.ToList();
 
-            model.DistributionsFormats =
-                GetDistributionsFormats(dataset.distribution, model.ContactMetadata.Organization);
+            if(model.IsDataset())
+                model.DistributionsFormats =
+                    GetDistributionsFormats(dataset.distribution, model.ContactMetadata.Organization);
 
             if (string.IsNullOrEmpty(model.MaintenanceFrequency))
                 model.MaintenanceFrequency = "unknown";

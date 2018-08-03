@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Helpers;
 using Arkitektum.GIS.Lib.SerializeUtil;
 using FluentAssertions;
+using GeoNorgeAPI;
 using Kartverket.MetadataEditor.Models;
 using Kartverket.MetadataEditor.Models.OpenData;
 using Moq;
@@ -33,12 +34,14 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
 
             var metadataServiceMock = SetupMetadataServiceMock(metadata);
 
-            var openMetadataService = new OpenMetadataService(metadataServiceMock.Object, metadataFetcherMock.Object);
+            var geoNorgeMock = new Mock<IGeoNorge>();
+
+            var openMetadataService = new OpenMetadataService(metadataServiceMock.Object, metadataFetcherMock.Object, geoNorgeMock.Object);
             
             var numberOfUpdatedDatasets = await openMetadataService.SynchronizeMetadata(_endpoint);
 
             metadataServiceMock
-                .Verify(m => m.CreateMetadata(It.IsAny<MetadataCreateViewModel>(), It.IsAny<string>()), Times.Exactly(16));
+                .Verify(m => m.CreateMetadata(It.IsAny<MetadataCreateViewModel>(), It.IsAny<string>()), Times.Exactly(19));
 
             metadataServiceMock
                 .Verify(m => m.SaveMetadataModel(It.IsAny<MetadataViewModel>(), It.IsAny<string>()), Times.Exactly(16));
@@ -55,12 +58,14 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
 
             var metadataServiceMock = SetupMetadataServiceMockToReturnModel(metadata);
 
-            var openMetadataService = new OpenMetadataService(metadataServiceMock.Object, metadataFetcherMock.Object);
+            var geoNorgeMock = new Mock<IGeoNorge>();
+
+            var openMetadataService = new OpenMetadataService(metadataServiceMock.Object, metadataFetcherMock.Object, geoNorgeMock.Object);
             
             var numberOfUpdatedDatasets = await openMetadataService.SynchronizeMetadata(_endpoint);
 
             metadataServiceMock
-                .Verify(m => m.CreateMetadata(It.IsAny<MetadataCreateViewModel>(), It.IsAny<string>()), Times.Exactly(0));
+                .Verify(m => m.CreateMetadata(It.IsAny<MetadataCreateViewModel>(), It.IsAny<string>()), Times.Exactly(3));
 
             metadataServiceMock
                 .Verify(m => m.SaveMetadataModel(It.IsAny<MetadataViewModel>(), It.IsAny<string>()), Times.Exactly(16));
