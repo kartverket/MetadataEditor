@@ -1116,7 +1116,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+        ///   Looks up a localized string similar to Dette datasettet er ikke evaluert mot INSPIRE Implementeringsregler for nettverkstjenester.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet {
             get {
@@ -1125,7 +1125,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform {
             get {
@@ -1135,7 +1135,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform {
             get {
@@ -1145,7 +1145,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Harmonised Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet {
             get {
@@ -1155,7 +1155,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform {
             get {
@@ -1165,7 +1165,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotConform {
             get {
@@ -1175,7 +1175,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Interoperable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet {
             get {
@@ -1185,7 +1185,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform {
             get {
@@ -1195,7 +1195,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotConform {
             get {
@@ -1205,7 +1205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Invocable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet {
             get {
@@ -1215,7 +1215,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        ///   Looks up a localized string similar to Denne tjenesten er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform {
             get {
@@ -1225,7 +1225,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform {
             get {
@@ -1235,7 +1235,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet {
             get {

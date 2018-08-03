@@ -1270,7 +1270,7 @@ namespace Kartverket.MetadataEditor.Models
                             TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
                             Date = "2010-12-08",
                             DateType = dateType,
-                            Explanation = "Denne romlige datatjenesten er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            Explanation = "Denne tjenesten er ikke evaluert mot INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
                             EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
                             Result = null,
                             Responsible = "inspire-interop"
@@ -1324,7 +1324,7 @@ namespace Kartverket.MetadataEditor.Models
                                 TitleLinkDescription = "INSPIRE " + Sds + " Spatial Data Services metadata",
                                 Date = "2016-05-01",
                                 DateType = dateType,
-                                Explanation = "Denne romlige datatjenesten er ikke vurdert i samsvar med INSPIRE-kravene for " + Sds + " Spatial Data Services",
+                                Explanation = "Denne tjenesten er ikke evaluert mot INSPIRE-kravene for " + Sds + " Spatial Data Services",
                                 EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for " + Sds + " Spatial Data Services",
                                 Result = null,
                                 Responsible = "inspire-conformance"
@@ -1402,7 +1402,7 @@ namespace Kartverket.MetadataEditor.Models
                             TitleLink = "http://data.europa.eu/eli/reg/2009/976",
                             Date = "2010-12-08",
                             DateType = dateType,
-                            Explanation = "Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester",
+                            Explanation = "Dette datasettet er ikke evaluert mot INSPIRE Implementeringsregler for nettverkstjenester",
                             EnglishExplanation = "This data set is not evaluated conformant with the INSPIRE Implementing Rules for Network Services",
                             Result = null,
                             Responsible = "inspire-networkservice"
