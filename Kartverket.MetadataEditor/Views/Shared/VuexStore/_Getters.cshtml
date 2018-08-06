@@ -438,6 +438,15 @@
                 return state.data.EnglishQualitySpecificationTitleInspireSpatialServiceConformanceValues;
             }
         },
+        QualityQuantitativeResultAvailability: function (state) {
+            return state.model.QualityQuantitativeResultAvailability;
+        },
+        QualityQuantitativeResultCapacity: function (state) {
+            return state.model.QualityQuantitativeResultCapacity;
+        },
+        QualityQuantitativeResultPerformance: function (state) {
+            return state.model.QualityQuantitativeResultPerformance;
+        },
         showQualitySpecificationResultInspireSpatialServiceConformance_Invocable: function (state, getters) {
             return getters.isService && getters.isAccessPoint && getters.QualitySpecificationTitleInspireSpatialServiceConformance == 'invocable';
         },

@@ -462,6 +462,18 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationTitleInspireSpatialNetworkServices = qualitySpecification.Title != null ? qualitySpecification.Title : null;
 
                     }
+                    else if (responsible == "sds-availability")
+                    {
+                        model.QualityQuantitativeResultAvailability = qualitySpecification.QuantitativeResult;
+                    }
+                    else if (responsible == "sds-capacity")
+                    {
+                        model.QualityQuantitativeResultCapacity = Convert.ToInt32(qualitySpecification.QuantitativeResult);
+                    }
+                    else if (responsible == "sds-performance")
+                    {
+                        model.QualityQuantitativeResultPerformance = qualitySpecification.QuantitativeResult;
+                    }
                     else if (responsible == "sosi")
                     {
                         model.QualitySpecificationDateSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
@@ -942,6 +954,17 @@ namespace Kartverket.MetadataEditor.Models
             }
             metadata.ContactPublisher = contactPublisher;
 
+            if (model.IsInspireSpatialServiceConformance())
+            {
+                metadata.ContactCustodian = new SimpleContact
+                {
+                    Name = contactPublisher.Name,
+                    Email = contactPublisher.Email,
+                    Organization = contactPublisher.Organization,
+                    Role = "custodian"
+                };
+            }
+
             var contactOwner = model.ContactOwner.ToSimpleContact();
             if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
             {
@@ -1247,7 +1270,7 @@ namespace Kartverket.MetadataEditor.Models
                             TitleLink = "http://data.europa.eu/eli/reg/2010/1089",
                             Date = "2010-12-08",
                             DateType = dateType,
-                            Explanation = "Denne romlige datatjenesten er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
+                            Explanation = "Denne tjenesten er ikke evaluert mot INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester",
                             EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE Implementing Rules for the interoperability of spatial data sets and services",
                             Result = null,
                             Responsible = "inspire-interop"
@@ -1274,6 +1297,7 @@ namespace Kartverket.MetadataEditor.Models
                                 Result = true,
                                 Responsible = "inspire-conformance"
                             });
+
                         }
                         else if (model.QualitySpecificationResultInspireSpatialServiceConformance == false)
                         {
@@ -1300,12 +1324,40 @@ namespace Kartverket.MetadataEditor.Models
                                 TitleLinkDescription = "INSPIRE " + Sds + " Spatial Data Services metadata",
                                 Date = "2016-05-01",
                                 DateType = dateType,
-                                Explanation = "Denne romlige datatjenesten er ikke vurdert i samsvar med INSPIRE-kravene for " + Sds + " Spatial Data Services",
+                                Explanation = "Denne tjenesten er ikke evaluert mot INSPIRE-kravene for " + Sds + " Spatial Data Services",
                                 EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the INSPIRE requirements for " + Sds + " Spatial Data Services",
                                 Result = null,
                                 Responsible = "inspire-conformance"
                             });
                         }
+
+                        if (!string.IsNullOrEmpty(model.QualityQuantitativeResultAvailability))
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                QuantitativeResult = model.QualityQuantitativeResultAvailability,
+                                Responsible = "sds-availability"
+                            });
+                        }
+
+                        if (model.QualityQuantitativeResultCapacity != null)
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                QuantitativeResult = model.QualityQuantitativeResultCapacity.ToString(),
+                                Responsible = "sds-capacity"
+                            });
+                        }
+
+                        if (!string.IsNullOrEmpty(model.QualityQuantitativeResultPerformance))
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                QuantitativeResult = model.QualityQuantitativeResultPerformance,
+                                Responsible = "sds-performance"
+                            });
+                        }
+
                     }
                 }
                 if (SimpleMetadata.IsNetworkService(distributionProtocolService))
@@ -1350,7 +1402,7 @@ namespace Kartverket.MetadataEditor.Models
                             TitleLink = "http://data.europa.eu/eli/reg/2009/976",
                             Date = "2010-12-08",
                             DateType = dateType,
-                            Explanation = "Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester",
+                            Explanation = "Dette datasettet er ikke evaluert mot INSPIRE Implementeringsregler for nettverkstjenester",
                             EnglishExplanation = "This data set is not evaluated conformant with the INSPIRE Implementing Rules for Network Services",
                             Result = null,
                             Responsible = "inspire-networkservice"

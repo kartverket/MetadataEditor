@@ -9,6 +9,6 @@ namespace Kartverket.MetadataEditor.Models
     public interface IValidatorService
     {
         List<string> ValidateAllMetadata();
-        void SendEmail(List<string> emails);
+        void SendEmail(List<string> emails, List<MetaDataEntry> errors);
     }
 }

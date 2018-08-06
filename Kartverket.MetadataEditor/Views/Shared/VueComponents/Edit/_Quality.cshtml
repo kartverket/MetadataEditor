@@ -101,6 +101,49 @@
                             active: false,
                             content: '@Html.Raw(UI.Helptext_OrderingInstructions)'
                         }
+                    },
+                    qualityQuantitativeResultAvailability: {
+                        id: 'QualityQuantitativeResultAvailability',
+                        name: 'QualityQuantitativeResultAvailability',
+                        getter: 'QualityQuantitativeResultAvailability',
+                        mutation: 'updateQualityQuantitativeResultAvailability',
+                        label: '@UI.Availability',
+                        type: 'text',
+                        required: true,
+                        visible: this.$store.getters['isService'],
+                        helpText: {
+                            active: false,
+                            content: '@UI.QualityQuantitativeResultAvailability'
+                        }
+                    },
+                    qualityQuantitativeResultCapacity: {
+                        id: 'QualityQuantitativeResultCapacity',
+                        name: 'QualityQuantitativeResultCapacity',
+                        getter: 'QualityQuantitativeResultCapacity',
+                        mutation: 'updateQualityQuantitativeResultCapacity',
+                        label: '@UI.Capacity',
+                        type: 'text',
+                        required: true,
+                        visible: this.$store.getters['isService'],
+                        helpText: {
+                            active: false,
+                            content: '@UI.QualityQuantitativeResultCapacity'
+                        }
+                    }
+                    ,
+                    qualityQuantitativeResultPerformance: {
+                        id: 'QualityQuantitativeResultPerformance',
+                        name: 'QualityQuantitativeResultPerformance',
+                        getter: 'QualityQuantitativeResultPerformance',
+                        mutation: 'updateQualityQuantitativeResultPerformance',
+                        label: '@UI.Performance',
+                        type: 'text',
+                        required: true,
+                        visible: this.$store.getters['isService'],
+                        helpText: {
+                            active: false,
+                            content: '@UI.QualityQuantitativeResultPerformance'
+                        }
                     }
                 }
             }

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Kartverket.MetadataEditor.Controllers;
-using Raven.Client;
-using Raven.Abstractions.Data;
 using log4net;
 using System.Net.Mail;
 using System.Reflection;
@@ -15,10 +13,12 @@ namespace Kartverket.MetadataEditor.Models
     {
         private IMetadataService _metadataService;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly MetadataContext _db;
 
-        public ValidatorService(IMetadataService metadataService) 
+        public ValidatorService(IMetadataService metadataService, MetadataContext dbContext) 
         {
             _metadataService = metadataService;
+            _db = dbContext;
         }
 
         public List<string> ValidateAllMetadata() 
@@ -26,8 +26,10 @@ namespace Kartverket.MetadataEditor.Models
             List<string> emails = new List<string>();
 
             try 
-            { 
-                DeleteFiles(MvcApplication.Store);
+            {
+                _db.Database.ExecuteSqlCommand("truncate table errors");
+                _db.Database.ExecuteSqlCommand("delete from MetaDataEntries");
+
                 GetAllMetadata();
                 //SendEmail();
                 emails = GetEmails();
@@ -44,8 +46,7 @@ namespace Kartverket.MetadataEditor.Models
 
         private List<string> GetEmails()
         {
-            var session = MvcApplication.Store.OpenSession();
-            var results = session.Query<MetaDataEntry>().Take(1024).OrderBy(o => o.ContactEmail);
+            var results = _db.MetaDataEntries.OrderBy(o => o.ContactEmail);
 
             var resultsList = results.ToList();
 
@@ -111,12 +112,8 @@ namespace Kartverket.MetadataEditor.Models
             {
             if (result.Status == "ERRORS" && result.ContactEmail != null && result.ContactEmail != "" && result.ContactEmail.Contains('@'))
                 {
-                    using (var session = MvcApplication.Store.OpenSession())
-                    {
-                        session.Store(result);
-                        session.SaveChanges();
-                        
-                    }
+                    _db.MetaDataEntries.Add(result);
+                    _db.SaveChanges();                    
                 }
             }
             catch(Exception ex){
@@ -125,32 +122,18 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
-        private static void DeleteFiles(IDocumentStore documentStore)
+
+        public void SendEmail(List<string> emailsTo, List<MetaDataEntry> errors)
         {
-            var indexDefinitions = documentStore.DatabaseCommands.GetIndexes(0, 100);
-            foreach (var indexDefinition in indexDefinitions)
+            try
             {
-                documentStore.DatabaseCommands.DeleteByIndex(indexDefinition.Name, new IndexQuery());
-                Log.Info("Delete index: " + indexDefinition.Name);
-            }
-        }
-
-
-        public void SendEmail(List<string> emailsTo)
-        {
-            try 
-            { 
                 //var cfg=(System.Web.Configuration.CompilationSection) System.Configuration.ConfigurationManager.GetSection("system.web/compilation");
 
-                var session = MvcApplication.Store.OpenSession();
-                var results = session.Query<MetaDataEntry>().Take(1024);
-
-                var resultsList = results.ToList();
                 List<ErrorReport> reports = new List<ErrorReport>();
 
                 foreach (var contactEmail in emailsTo) 
                 {
-                    var resultOrgs = resultsList.Where(r => r.ContactEmail == contactEmail).ToList();
+                    var resultOrgs = errors.Where(r => r.ContactEmail == contactEmail).ToList();
                     ErrorReport errReport = new ErrorReport();
 
                     foreach(var resultOrg in resultOrgs)
@@ -234,7 +217,7 @@ namespace Kartverket.MetadataEditor.Models
                 Log.Error(exc.Message);
             }
         }
-        
+
     }
 
     class ErrorReport 

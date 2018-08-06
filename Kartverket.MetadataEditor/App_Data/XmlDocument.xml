@@ -56,6 +56,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Resources.UI.AccessConstraintsRequired">
+            <summary>
+              Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AddKeyword">
             <summary>
               Looks up a localized string similar to Legg til nøkkelord.
@@ -69,6 +74,11 @@
         <member name="P:Resources.UI.AppPageTitle">
             <summary>
               Looks up a localized string similar to Geonorge - metadataeditor.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Availability">
+            <summary>
+              Looks up a localized string similar to Tilgjengelighet.
             </summary>
         </member>
         <member name="P:Resources.UI.Button_Add_Distribution">
@@ -99,6 +109,11 @@
         <member name="P:Resources.UI.Button_Validate">
             <summary>
               Looks up a localized string similar to Publiser.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Capacity">
+            <summary>
+              Looks up a localized string similar to Kapasitet.
             </summary>
         </member>
         <member name="P:Resources.UI.Cartography">
@@ -629,67 +644,67 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet">
             <summary>
-              Looks up a localized string similar to Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+              Looks up a localized string similar to Dette datasettet er ikke evaluert mot INSPIRE Implementeringsregler for nettverkstjenester.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Harmonised Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotConform">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Interoperable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotConform">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+              Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Invocable Spatial Data Services.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+              Looks up a localized string similar to Denne tjenesten er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+              Looks up a localized string similar to Denne tjenesten er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet">
             <summary>
-              Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+              Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationTitle">
@@ -1162,6 +1177,11 @@
               Looks up a localized string similar to Faglig kontakt.
             </summary>
         </member>
+        <member name="P:Resources.UI.Performance">
+            <summary>
+              Looks up a localized string similar to Responstid.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Previous">
             <summary>
               Looks up a localized string similar to Forrige.
@@ -1185,6 +1205,21 @@
         <member name="P:Resources.UI.PublisherContact">
             <summary>
               Looks up a localized string similar to Teknisk kontakt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultAvailability">
+            <summary>
+              Looks up a localized string similar to Nedre grense for prosentandelen av tjenesten som er estimert å være tilgjengelig på årsbasis (oppgis i prosent) /validering på tall mellom 1 og 100, skilletegn bør kunne være komma eller punktum, men må rettes til riktig skilletegn ved oppdatering av metadata.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultCapacity">
+            <summary>
+              Looks up a localized string similar to Nedre grense for maksimalt antall samtidige forespørsler som kan fullføres innenfor angitt responstid (validering på heltall).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultPerformance">
+            <summary>
+              Looks up a localized string similar to Maksimal svartid for en vanlig forespørsel til tjenesten i en situasjon med lav belastning (oppgis i sekunder) (validering på heltal).
             </summary>
         </member>
         <member name="P:Resources.UI.QualitySpecificationCustom">
@@ -1235,6 +1270,26 @@
         <member name="P:Resources.UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema">
             <summary>
               Looks up a localized string similar to GML-filer avviker fra applikasjonsskjema.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QuantitativeResultAvailabilityRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (tilgjengelighet).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QuantitativeResultCapacityRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (kapasitet).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QuantitativeResultPerformanceRequired">
+            <summary>
+              Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (responstid).
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ReferenceSystemRequired">
+            <summary>
+              Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.
             </summary>
         </member>
         <member name="P:Resources.UI.Search">
@@ -1357,6 +1412,11 @@
               Looks up a localized string similar to Bruksområde.
             </summary>
         </member>
+        <member name="P:Resources.UI.UseConstraintsRequired">
+            <summary>
+              Looks up a localized string similar to Brukerrestriksjoner er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Version">
             <summary>
               Looks up a localized string similar to Versjon.
@@ -1371,6 +1431,30 @@
             <summary>
               Looks up a localized string similar to WFS tjeneste.
             </summary>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String,System.Boolean)">
+            <summary>
+            Upload thumbnail
+            </summary>
+            <param name="uuid">The identifier of the metadata</param>
+            <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.ValidateMetadata(System.String)">
+            <summary>
+            Validate metadata
+            </summary>
+            <param name="uuid">The identifier of the metadata</param>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.GetPlaces(System.Double,System.Double,System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Get list of places for coordinates
+            </summary>
+            <param name="nordmin">Minimum nord verdi for omskreven boks.</param>
+            <param name="austmin"> Minimum aust verdi for omskreven boks.</param>
+             <param name="nordmax">Maximum nord verdi for omskreven boks.</param>
+             <param name="austmax">Maximum nord verdi for omskreven boks.</param>
+             <param name="koordsysut">SOSI koordinat system for returnerte data. Må alltid være ulik 0.</param>
+             <param name="koordsysinn">SOSI koordinat system for søke data. Må være ulik 0 hvis austMin, austMax, nordMin eller nordMax er ulik 0.</param>
         </member>
         <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">
             <summary>
@@ -1855,30 +1939,6 @@
             Initializes a new instance of the <see cref="T:Kartverket.MetadataEditor.Areas.HelpPage.XmlDocumentationProvider"/> class.
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String,System.Boolean)">
-            <summary>
-            Upload thumbnail
-            </summary>
-            <param name="uuid">The identifier of the metadata</param>
-            <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.ValidateMetadata(System.String)">
-            <summary>
-            Validate metadata
-            </summary>
-            <param name="uuid">The identifier of the metadata</param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.GetPlaces(System.Double,System.Double,System.Double,System.Double,System.Int32,System.Int32)">
-            <summary>
-            Get list of places for coordinates
-            </summary>
-            <param name="nordmin">Minimum nord verdi for omskreven boks.</param>
-            <param name="austmin"> Minimum aust verdi for omskreven boks.</param>
-             <param name="nordmax">Maximum nord verdi for omskreven boks.</param>
-             <param name="austmax">Maximum nord verdi for omskreven boks.</param>
-             <param name="koordsysut">SOSI koordinat system for returnerte data. Må alltid være ulik 0.</param>
-             <param name="koordsysinn">SOSI koordinat system for søke data. Må være ulik 0 hvis austMin, austMax, nordMin eller nordMax er ulik 0.</param>
         </member>
         <member name="M:Kartverket.MetadataEditor.Helpers.CultureHelper.IsRighToLeft">
             <summary>

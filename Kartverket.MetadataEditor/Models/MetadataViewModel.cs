@@ -124,6 +124,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public string ReferenceSystemCoordinateSystem { get; set; }
         public string ReferenceSystemNamespace { get; set; }
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "ReferenceSystemRequired", ErrorMessageResourceType = typeof(UI))]
         public List<SimpleReferenceSystem> ReferenceSystems { get; set; }
 
         public string ResourceReferenceCode { get; set; }
@@ -183,6 +184,13 @@ namespace Kartverket.MetadataEditor.Models
         public bool? QualitySpecificationResultInspireSpatialServiceConformance { get; set; }
         public string QualitySpecificationTitleInspireSpatialServiceConformance { get; set; }
 
+        //quality QuantitativeResult
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "QuantitativeResultAvailabilityRequired", ErrorMessageResourceType = typeof(UI))]
+        public string QualityQuantitativeResultAvailability { get; set; }
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "QuantitativeResultCapacityRequired", ErrorMessageResourceType = typeof(UI))]
+        public int? QualityQuantitativeResultCapacity { get; set; }
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "QuantitativeResultPerformanceRequired", ErrorMessageResourceType = typeof(UI))]
+        public string QualityQuantitativeResultPerformance { get; set; }
 
         public string ProcessHistory { get; set; }
         [Required]
@@ -194,7 +202,9 @@ namespace Kartverket.MetadataEditor.Models
         // constraints
         public string UseLimitations { get; set; }
         public string EnglishUseLimitations { get; set; }
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "AccessConstraintsRequired", ErrorMessageResourceType = typeof(UI))]
         public string AccessConstraints { get; set; }
+        [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "UseConstraintsRequired", ErrorMessageResourceType = typeof(UI))]
         public string UseConstraints { get; set; }
         public string OtherConstraints { get; set; }
         public string EnglishOtherConstraints { get; set; }
@@ -313,6 +323,11 @@ namespace Kartverket.MetadataEditor.Models
             else
                 return true;
 
+        }
+
+        public bool IsInspireSpatialServiceConformance()
+        {
+            return QualitySpecificationTitleInspireSpatialServiceConformance == "interoperable";
         }
 
         internal void FixThumbnailUrls()

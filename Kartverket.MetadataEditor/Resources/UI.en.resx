@@ -904,4 +904,40 @@
   <data name="Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceConformanceValues" xml:space="preserve">
     <value>Service type</value>
   </data>
+  <data name="AccessConstraintsRequired" xml:space="preserve">
+    <value>Access restrictions is required</value>
+  </data>
+  <data name="QuantitativeResultAvailabilityRequired" xml:space="preserve">
+    <value>Required information service uptime% (availability)</value>
+  </data>
+  <data name="QuantitativeResultCapacityRequired" xml:space="preserve">
+    <value>Required to fill in a performance number (integer) for how many simultaneous requests can be handled (capacity)</value>
+  </data>
+  <data name="QuantitativeResultPerformanceRequired" xml:space="preserve">
+    <value>Required to fill in response time in seconds (performance)</value>
+  </data>
+  <data name="ReferenceSystemRequired" xml:space="preserve">
+    <value>It is required to fill in spatial reference system</value>
+  </data>
+  <data name="UseConstraintsRequired" xml:space="preserve">
+    <value>User restrictions is required</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Capacity</value>
+  </data>
+  <data name="Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="QualityQuantitativeResultAvailability" xml:space="preserve">
+    <value>Lower limit of the percentage of time the service is estimated to be available on a yearly basis</value>
+  </data>
+  <data name="QualityQuantitativeResultCapacity" xml:space="preserve">
+    <value>Lower limit of the maximum number of simultaneous requests that can be completed within the limits of the declared performance</value>
+  </data>
+  <data name="QualityQuantitativeResultPerformance" xml:space="preserve">
+    <value>The maximum time in which a typical request to the Spatial Data Service can be carried out in a off-peak load situation</value>
+  </data>
 </root>

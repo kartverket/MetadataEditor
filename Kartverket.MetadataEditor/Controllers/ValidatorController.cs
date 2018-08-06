@@ -13,10 +13,12 @@ namespace Kartverket.MetadataEditor.Controllers
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private IValidatorService _validatorService;
+        private readonly MetadataContext _db;
 
-        public ValidatorController(IValidatorService validatorService)
+        public ValidatorController(IValidatorService validatorService, MetadataContext dbContext)
         {
             _validatorService = validatorService;
+            _db = dbContext;
         }
 
         // GET: Validator
@@ -47,8 +49,9 @@ namespace Kartverket.MetadataEditor.Controllers
             Log.Info("Start sending email");
 
             List<string> emails = GetFormData(form);
+            List<MetaDataEntry> errors = _db.MetaDataEntries.Include("Errors").ToList();
 
-            new Thread(() => _validatorService.SendEmail(emails)).Start();
+            new Thread(() => _validatorService.SendEmail(emails, errors)).Start();
 
             TempData["message"] = "Sender epost";
 

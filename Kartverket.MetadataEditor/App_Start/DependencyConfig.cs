@@ -46,13 +46,23 @@ namespace Kartverket.MetadataEditor.App_Start
                 new AutowiringParameter()
             });
 
+            // GeoNorgeAPI
+            builder.RegisterType<GeoNorge>()
+                .As<IGeoNorge>()
+                .WithParameters(new List<Parameter>
+                {
+                    new NamedParameter("geonetworkUsername", ""),
+                    new NamedParameter("geonetworkPassword", ""),
+                    new NamedParameter("geonetworkEndpoint", WebConfigurationManager.AppSettings["GeoNetworkUrl"])
+                });
+
             builder.RegisterType<MetadataService>().As<IMetadataService>();
             builder.RegisterType<ReportService>().As<IReportService>();
             builder.RegisterType<ValidatorService>().As<IValidatorService>();
             builder.RegisterType<BatchService>().As<IBatchService>();
             builder.RegisterType<OpenMetadataService>().As<IOpenMetadataService>();
             builder.RegisterType<OpenMetadataFetcher>().As<IOpenMetadataFetcher>();
-
+            builder.RegisterType<MetadataContext>().InstancePerRequest().AsSelf();
         }
     }
 }

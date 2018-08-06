@@ -11,20 +11,21 @@ using System.Web.Http;
 using System;
 using System.Reflection;
 using log4net;
-using Raven.Client.Document;
-using Raven.Client.Embedded;
 using System.Web;
 using Kartverket.MetadataEditor.Models.Translations;
 using Kartverket.MetadataEditor.App_Start;
 using Autofac;
 using System.Collections.Specialized;
+using System.Web.Helpers;
+using System.Security.Claims;
+using System.Data.Entity;
+using Kartverket.MetadataEditor.Models;
 
 namespace Kartverket.MetadataEditor
 {
     public class MvcApplication : System.Web.HttpApplication
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        public static EmbeddableDocumentStore Store;
 
         protected void Application_Start()
         {
@@ -46,13 +47,14 @@ namespace Kartverket.MetadataEditor
 
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredAttribute), typeof(MyRequiredAttributeAdapter));
 
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MetadataContext, Migrations.Configuration>());
+
             // init log4net
             log4net.Config.XmlConfigurator.Configure();
 
             MvcHandler.DisableMvcResponseHeader = true;
-
-            Store = new EmbeddableDocumentStore { ConnectionStringName = "RavenDB" };
-            Store.Initialize();
 
         }
 

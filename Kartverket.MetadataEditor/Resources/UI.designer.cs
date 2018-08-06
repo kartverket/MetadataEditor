@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
+        /// </summary>
+        public static string AccessConstraintsRequired {
+            get {
+                return ResourceManager.GetString("AccessConstraintsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Legg til nøkkelord.
         /// </summary>
         public static string AddKeyword {
@@ -84,6 +93,15 @@ namespace Resources {
         public static string AppPageTitle {
             get {
                 return ResourceManager.GetString("AppPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tilgjengelighet.
+        /// </summary>
+        public static string Availability {
+            get {
+                return ResourceManager.GetString("Availability", resourceCulture);
             }
         }
         
@@ -138,6 +156,15 @@ namespace Resources {
         public static string Button_Validate {
             get {
                 return ResourceManager.GetString("Button_Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kapasitet.
+        /// </summary>
+        public static string Capacity {
+            get {
+                return ResourceManager.GetString("Capacity", resourceCulture);
             }
         }
         
@@ -1089,7 +1116,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette datasettet er ikke vurdert i samsvar med INSPIRE Implementeringsregler for nettverkstjenester.
+        ///   Looks up a localized string similar to Dette datasettet er ikke evaluert mot INSPIRE Implementeringsregler for nettverkstjenester.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet {
             get {
@@ -1098,7 +1125,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform {
             get {
@@ -1108,7 +1135,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform {
             get {
@@ -1118,7 +1145,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Harmonised Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Harmonised Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet {
             get {
@@ -1128,7 +1155,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform {
             get {
@@ -1138,7 +1165,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotConform {
             get {
@@ -1148,7 +1175,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Interoperable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Interoperable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet {
             get {
@@ -1158,7 +1185,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform {
             get {
@@ -1168,7 +1195,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke i samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotConform {
             get {
@@ -1178,7 +1205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i ikke vurdert samsvar med INSPIRE-kravene for Invocable Spatial Data Services.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE-kravene for Invocable Spatial Data Services.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet {
             get {
@@ -1188,7 +1215,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        ///   Looks up a localized string similar to Denne tjenesten er i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform {
             get {
@@ -1198,7 +1225,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform {
             get {
@@ -1208,7 +1235,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dette stasjonære datatjenestesettet er ikke vurdert i overensstemmelse med INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
+        ///   Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet {
             get {
@@ -2065,6 +2092,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Responstid.
+        /// </summary>
+        public static string Performance {
+            get {
+                return ResourceManager.GetString("Performance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forrige.
         /// </summary>
         public static string Previous {
@@ -2106,6 +2142,33 @@ namespace Resources {
         public static string PublisherContact {
             get {
                 return ResourceManager.GetString("PublisherContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nedre grense for prosentandelen av tjenesten som er estimert å være tilgjengelig på årsbasis (oppgis i prosent) /validering på tall mellom 1 og 100, skilletegn bør kunne være komma eller punktum, men må rettes til riktig skilletegn ved oppdatering av metadata.
+        /// </summary>
+        public static string QualityQuantitativeResultAvailability {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultAvailability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nedre grense for maksimalt antall samtidige forespørsler som kan fullføres innenfor angitt responstid (validering på heltall).
+        /// </summary>
+        public static string QualityQuantitativeResultCapacity {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultCapacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maksimal svartid for en vanlig forespørsel til tjenesten i en situasjon med lav belastning (oppgis i sekunder) (validering på heltal).
+        /// </summary>
+        public static string QualityQuantitativeResultPerformance {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultPerformance", resourceCulture);
             }
         }
         
@@ -2196,6 +2259,42 @@ namespace Resources {
         public static string QualitySpecificationResultSosiNotConformGmlApplicationSchema {
             get {
                 return ResourceManager.GetString("QualitySpecificationResultSosiNotConformGmlApplicationSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Påkrevd å fylle ut tjenestens oppetid i % (tilgjengelighet).
+        /// </summary>
+        public static string QuantitativeResultAvailabilityRequired {
+            get {
+                return ResourceManager.GetString("QuantitativeResultAvailabilityRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Påkrevd å fylle ut et ytelse antall (heltall) for hvor mange samtidige forespørsler som kan håndteres (kapasitet).
+        /// </summary>
+        public static string QuantitativeResultCapacityRequired {
+            get {
+                return ResourceManager.GetString("QuantitativeResultCapacityRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Påkrevd å fylle ut svartid i sekunder (responstid).
+        /// </summary>
+        public static string QuantitativeResultPerformanceRequired {
+            get {
+                return ResourceManager.GetString("QuantitativeResultPerformanceRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.
+        /// </summary>
+        public static string ReferenceSystemRequired {
+            get {
+                return ResourceManager.GetString("ReferenceSystemRequired", resourceCulture);
             }
         }
         
@@ -2412,6 +2511,15 @@ namespace Resources {
         public static string Use {
             get {
                 return ResourceManager.GetString("Use", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brukerrestriksjoner er påkrevd.
+        /// </summary>
+        public static string UseConstraintsRequired {
+            get {
+                return ResourceManager.GetString("UseConstraintsRequired", resourceCulture);
             }
         }
         

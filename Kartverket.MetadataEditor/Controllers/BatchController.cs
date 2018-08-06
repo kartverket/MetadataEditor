@@ -17,12 +17,14 @@ namespace Kartverket.MetadataEditor.Controllers
         private IBatchService _batchService;
         private readonly IMetadataService _metadataService;
         private readonly IOpenMetadataService _openMetadataService;
+        private readonly MetadataContext _db;
 
-        public BatchController(IMetadataService metadataService, IBatchService batchService, IOpenMetadataService openMetadataService)
+        public BatchController(IMetadataService metadataService, IBatchService batchService, IOpenMetadataService openMetadataService, MetadataContext dbContext)
         {
             _metadataService = metadataService;
             _batchService = batchService;
             _openMetadataService = openMetadataService;
+            _db = dbContext;
         }
 
         [Authorize]
@@ -114,7 +116,8 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult OpenData()
         {
-            new Thread(() => _openMetadataService.SynchronizeMetadata()).Start();
+            var endpoints = _db.OpenMetadataEndpoints.ToList();
+            new Thread(() => _openMetadataService.SynchronizeMetadata(endpoints)).Start();
 
             return RedirectToAction("Index");
         }
