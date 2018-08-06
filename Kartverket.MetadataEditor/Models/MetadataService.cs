@@ -205,6 +205,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 Uuid = metadata.Uuid,
                 Title = metadata.Title,
+                Language = metadata.Language,
                 HierarchyLevel = metadata.HierarchyLevel,
                 ParentIdentifier = metadata.ParentIdentifier,
                 MetadataStandard = metadata.MetadataStandard,
@@ -1004,8 +1005,9 @@ namespace Kartverket.MetadataEditor.Models
 
             // distribution
             metadata.SpatialRepresentation = model.SpatialRepresentation;
-            if(metadata.IsDataset())
-                metadata.Language = "";
+
+            if(model.IsDataset() || model.IsDatasetSeries())
+                metadata.Language = model.Language;
 
             var refsys = model.GetReferenceSystems();
             if (refsys != null)

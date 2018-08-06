@@ -412,6 +412,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Engelsk.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skriv inn.
         /// </summary>
         public static string Enter {
@@ -913,6 +922,15 @@ namespace Resources {
         public static string ImageRequired {
             get {
                 return ResourceManager.GetString("ImageRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Språk.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
             }
         }
         
@@ -2034,6 +2052,15 @@ namespace Resources {
         public static string North {
             get {
                 return ResourceManager.GetString("North", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norsk.
+        /// </summary>
+        public static string Norwegian {
+            get {
+                return ResourceManager.GetString("Norwegian", resourceCulture);
             }
         }
         

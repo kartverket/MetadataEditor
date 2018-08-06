@@ -251,6 +251,11 @@
               Looks up a localized string similar to Rediger metadata.
             </summary>
         </member>
+        <member name="P:Resources.UI.English">
+            <summary>
+              Looks up a localized string similar to Engelsk.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Enter">
             <summary>
               Looks up a localized string similar to Skriv inn.
@@ -530,6 +535,11 @@
         <member name="P:Resources.UI.ImageRequired">
             <summary>
               Looks up a localized string similar to Illustrasjonsbilde er påkrevd.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Language">
+            <summary>
+              Looks up a localized string similar to Språk.
             </summary>
         </member>
         <member name="P:Resources.UI.Language_All">
@@ -1145,6 +1155,11 @@
         <member name="P:Resources.UI.North">
             <summary>
               Looks up a localized string similar to Nord.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Norwegian">
+            <summary>
+              Looks up a localized string similar to Norsk.
             </summary>
         </member>
         <member name="P:Resources.UI.NotFoundText">

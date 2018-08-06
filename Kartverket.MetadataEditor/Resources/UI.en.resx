@@ -940,4 +940,13 @@
   <data name="QualityQuantitativeResultPerformance" xml:space="preserve">
     <value>The maximum time in which a typical request to the Spatial Data Service can be carried out in a off-peak load situation</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Norwegian" xml:space="preserve">
+    <value>Norwegian</value>
+  </data>
 </root>
