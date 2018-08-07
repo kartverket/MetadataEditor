@@ -304,6 +304,9 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
 
+            if (model.IsService())
+                model.Operations = metadata.ContainOperations;
+
             if (metadata.BoundingBox != null)
             {
                 model.BoundingBoxEast = ConvertCoordinateWithCommaToPoint(metadata.BoundingBox.EastBoundLongitude);
@@ -1056,6 +1059,9 @@ namespace Kartverket.MetadataEditor.Models
                     distributionProtocolService = distribution[0].Protocol;
                 }
             }
+
+            if(model.IsService())
+                metadata.ContainOperations = model.Operations;
 
             // quality
 

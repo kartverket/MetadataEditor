@@ -30,6 +30,7 @@ namespace Kartverket.MetadataEditor.Models
             Thumbnails = new List<Thumbnail>();
             OperatesOn = new List<string>();
             CrossReference = new List<string>();
+            Operations = new List<SimpleOperation>();
         }
         
         public string Uuid { get; set; }
@@ -123,6 +124,8 @@ namespace Kartverket.MetadataEditor.Models
         public string DistributionProtocol { get; set; }
         public string DistributionName { get; set; }
         public string UnitsOfDistribution { get; set; }
+
+        public List<SimpleOperation> Operations { get; set; }
 
         public string ReferenceSystemCoordinateSystem { get; set; }
         public string ReferenceSystemNamespace { get; set; }
