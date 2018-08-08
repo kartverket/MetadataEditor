@@ -250,6 +250,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kall som tjenesten tilbyr.
+        /// </summary>
+        public static string ContainsOperations {
+            get {
+                return ResourceManager.GetString("ContainsOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plattform.
+        /// </summary>
+        public static string ContainsOperationsDCP {
+            get {
+                return ResourceManager.GetString("ContainsOperationsDCP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribuert databehandlingsplattform som operasjonen er implementert på.
+        /// </summary>
+        public static string ContainsOperationsDCPHelp {
+            get {
+                return ResourceManager.GetString("ContainsOperationsDCPHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse.
+        /// </summary>
+        public static string ContainsOperationsDescription {
+            get {
+                return ResourceManager.GetString("ContainsOperationsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detaljer om kallet.
+        /// </summary>
+        public static string ContainsOperationsDescriptionHelp {
+            get {
+                return ResourceManager.GetString("ContainsOperationsDescriptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Navn.
+        /// </summary>
+        public static string ContainsOperationsName {
+            get {
+                return ResourceManager.GetString("ContainsOperationsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unikt navn på kallet.
+        /// </summary>
+        public static string ContainsOperationsNameHelp {
+            get {
+                return ResourceManager.GetString("ContainsOperationsNameHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tilkoplings-URL.
+        /// </summary>
+        public static string ContainsOperationsURL {
+            get {
+                return ResourceManager.GetString("ContainsOperationsURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL for å få tilgang til operasjonens grensesnitt.
+        /// </summary>
+        public static string ContainsOperationsURLHelp {
+            get {
+                return ResourceManager.GetString("ContainsOperationsURLHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprett metadata.
         /// </summary>
         public static string CreateMetadata {

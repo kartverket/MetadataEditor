@@ -161,6 +161,51 @@
               Looks up a localized string similar to Kontakt oss.
             </summary>
         </member>
+        <member name="P:Resources.UI.ContainsOperations">
+            <summary>
+              Looks up a localized string similar to Kall som tjenesten tilbyr.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsDCP">
+            <summary>
+              Looks up a localized string similar to Plattform.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsDCPHelp">
+            <summary>
+              Looks up a localized string similar to Distribuert databehandlingsplattform som operasjonen er implementert på.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsDescription">
+            <summary>
+              Looks up a localized string similar to Beskrivelse.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsDescriptionHelp">
+            <summary>
+              Looks up a localized string similar to Detaljer om kallet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsName">
+            <summary>
+              Looks up a localized string similar to Navn.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsNameHelp">
+            <summary>
+              Looks up a localized string similar to Unikt navn på kallet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsURL">
+            <summary>
+              Looks up a localized string similar to Tilkoplings-URL.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsURLHelp">
+            <summary>
+              Looks up a localized string similar to URL for å få tilgang til operasjonens grensesnitt.
+            </summary>
+        </member>
         <member name="P:Resources.UI.CreateMetadata">
             <summary>
               Looks up a localized string similar to Opprett metadata.

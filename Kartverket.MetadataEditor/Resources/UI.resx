@@ -952,6 +952,33 @@
   <data name="Norwegian" xml:space="preserve">
     <value>Norsk</value>
   </data>
+  <data name="ContainsOperations" xml:space="preserve">
+    <value>Kall som tjenesten tilbyr</value>
+  </data>
+  <data name="ContainsOperationsDCP" xml:space="preserve">
+    <value>Plattform</value>
+  </data>
+  <data name="ContainsOperationsDCPHelp" xml:space="preserve">
+    <value>Distribuert databehandlingsplattform som operasjonen er implementert på</value>
+  </data>
+  <data name="ContainsOperationsDescription" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="ContainsOperationsDescriptionHelp" xml:space="preserve">
+    <value>Detaljer om kallet</value>
+  </data>
+  <data name="ContainsOperationsName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="ContainsOperationsNameHelp" xml:space="preserve">
+    <value>Unikt navn på kallet</value>
+  </data>
+  <data name="ContainsOperationsURL" xml:space="preserve">
+    <value>Tilkoplings-URL</value>
+  </data>
+  <data name="ContainsOperationsURLHelp" xml:space="preserve">
+    <value>URL for å få tilgang til operasjonens grensesnitt</value>
+  </data>
   <data name="LanguageInDataset" xml:space="preserve">
     <value>Språk i datasett</value>
   </data>
