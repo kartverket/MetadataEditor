@@ -308,12 +308,12 @@ namespace Kartverket.MetadataEditor.Models
 
             bool IsSosi = false;
 
-            if (KeywordsNationalInitiative != null)
-            {
-                if (KeywordsNationalInitiative.Contains("Det offentlige kartgrunnlaget") || KeywordsNationalInitiative.Contains("geodataloven")
-                    || KeywordsNationalInitiative.Contains("Norge digitalt") || KeywordsNationalInitiative.Contains("arealplanerPBL") )
-                    IsSosi = true;
-            }
+            //if (KeywordsNationalInitiative != null)
+            //{
+            //    if (KeywordsNationalInitiative.Contains("Det offentlige kartgrunnlaget") || KeywordsNationalInitiative.Contains("geodataloven")
+            //        || KeywordsNationalInitiative.Contains("Norge digitalt") || KeywordsNationalInitiative.Contains("arealplanerPBL") )
+            //        IsSosi = true;
+            //}
 
             if (!string.IsNullOrEmpty(ApplicationSchema) && string.IsNullOrEmpty(ProductSpecificationUrl) && IsSosi)
                 return true;
