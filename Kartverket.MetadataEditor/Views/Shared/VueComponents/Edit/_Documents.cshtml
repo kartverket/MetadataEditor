@@ -408,7 +408,7 @@
                 var optionValue = event.target.value;
                 var optionText = event.target.selectedOptions[0].innerText;
                 this.$store.commit('updateProductSpecificationUrl', optionValue);
-                this.$store.commit('updateQualitySpecificationTitleSosi', 'SOSI-produktspesifikasjon: ' + optionText);
+                this.$store.commit('updateQualitySpecificationTitleSosi', 'SOSI produktspesifikasjon: ' + optionText);
                 this.setProductSpecificationAcceptedDate(optionValue);
             },
             updateProductSpecificationOtherName: function () {
