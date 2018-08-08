@@ -69,18 +69,18 @@
                     y2 = c3[1];
 
 
-                    $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x1 + '&nord=' + y1 + '&fra=84&til=23', function (result) {
-                        if (result.errKode == 0) {
+                    $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x1 + '&nord=' + y1 + '&fra=23&til=84', function (result) {
+                        if (result.kode == 0) {
                             BBWest = result.ost;
-                            BBSouth = result.nord
+                            BBSouth = result.nord;
                         }
                     }
                     );
 
-                    $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x2 + '&nord=' + y2 + '&fra=84&til=23', function (result) {
-                        if (result.errKode == 0) {
+                    $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x2 + '&nord=' + y2 + '&fra=23&til=84', function (result) {
+                        if (result.kode == 0) {
                             BBEast = result.ost;
-                            BBNorth = result.nord
+                            BBNorth = result.nord;
                         }
                     }
                 );
@@ -94,7 +94,7 @@
 
         $("#container").html("<iframe src='@Html.SecureNorgeskartUrl()select-rect.html' id='iframe' name='iframe'></iframe>");
 
-        function setBoundingBoxAndPlaces() {
+    function setBoundingBoxAndPlaces() {
             if (typeof BBWest != 'undefined') {
 
                 BBWest = BBWest.toFixed(4);
@@ -116,7 +116,7 @@
                         for (var r = 0; r < result.length; r++) {
                             $("#keywords-place-text").val(result[r]);
                             console.log(result[r]);
-                            $('select#bboxState option[value="' + result[r] + '"]').prop('selected', true);
+                            $("#bboxState option:contains(" + result[r] + ")").attr('selected', 'selected');
 
                             $("#keywords-place-add").click();
                             $("#keywords-place-text").val('');
