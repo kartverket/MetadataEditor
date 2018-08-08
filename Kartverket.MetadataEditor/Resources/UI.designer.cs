@@ -295,7 +295,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Produktspesifikasjon.
+        ///   Looks up a localized string similar to SOSI produktspesifikasjon.
         /// </summary>
         public static string DataProductSpecification {
             get {
