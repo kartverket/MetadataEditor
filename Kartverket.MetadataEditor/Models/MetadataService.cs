@@ -16,6 +16,7 @@ using Kartverket.Geonorge.Utilities.Organization;
 using Kartverket.MetadataEditor.Models.InspireCodelist;
 using Newtonsoft.Json;
 using Kartverket.MetadataEditor.Models.Translations;
+using Resources;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -1112,7 +1113,7 @@ namespace Kartverket.MetadataEditor.Models
                     Responsible = "inspire"
                 });
             }
-            if (!string.IsNullOrWhiteSpace(model.QualitySpecificationTitleSosi))
+            if (!string.IsNullOrEmpty(model.ProductSpecificationUrl) && !string.IsNullOrWhiteSpace(model.QualitySpecificationTitleSosi) && !model.QualitySpecificationTitleSosi.Contains(UI.NoneSelected))
             {
                 qualityList.Add(new SimpleQualitySpecification
                 {
