@@ -952,4 +952,10 @@
   <data name="Norwegian" xml:space="preserve">
     <value>Norsk</value>
   </data>
+  <data name="LanguageInDataset" xml:space="preserve">
+    <value>Språk i datasett</value>
+  </data>
+  <data name="LanguageInDatasetHelp" xml:space="preserve">
+    <value>Angi språk som i hovedsak er benyttet i tekstfelt og kolonne-overskrifter i datasettet</value>
+  </data>
 </root>

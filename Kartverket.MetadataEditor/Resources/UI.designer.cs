@@ -962,6 +962,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Språk i datasett.
+        /// </summary>
+        public static string LanguageInDataset {
+            get {
+                return ResourceManager.GetString("LanguageInDataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angi språk som i hovedsak er benyttet i tekstfelt og kolonne-overskrifter i datasettet.
+        /// </summary>
+        public static string LanguageInDatasetHelp {
+            get {
+                return ResourceManager.GetString("LanguageInDatasetHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Koble til datasett.
         /// </summary>
         public static string LinkToDataset {
