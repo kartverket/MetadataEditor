@@ -9,7 +9,7 @@
                 <div class="col-md-8">
                     <div class="form-group" v-bind:class="{'required': productSpecificationUrl.required}">
                         <div class="custom-select">
-                            <select v-bind:name="productSpecificationUrl.name" class="form-control" v-bind:value="$store.getters[productSpecificationUrl.getter]" v-on:change="updateProductSpecificationUrl()">
+                            <select v-bind:name="productSpecificationUrl.name" class="form-control" v-bind:value="$store.getters[productSpecificationUrl.getter]" v-on:change="updateProductSpecificationUrl">
                                 <option v-for="option in productSpecificationUrl.options" v-bind:value="option.Value">{{option.Text}}</option>
                             </select>
                         </div>
@@ -70,7 +70,7 @@
                     <div class="input-group">
                         <span class="input-group-addon">{{ productSpecificationOther.fields.name.label }}</span>
                         <div class="form-group" v-bind:class="{'required': productSpecificationOther.fields.name.required}">
-                            <input v-bind:name="productSpecificationOther.fields.name.name" type="text" class="form-control" v-bind:value="$store.getters[productSpecificationOther.fields.name.getter]" v-on:change="updateProductSpecificationOtherName()" />
+                            <input v-bind:name="productSpecificationOther.fields.name.name" type="text" class="form-control" v-bind:value="$store.getters[productSpecificationOther.fields.name.getter]" v-on:change="updateProductSpecificationOtherName" />
                         </div>
                     </div>
                 </div>
@@ -404,14 +404,21 @@
                     }.bind(this)
                 });
             },
-            updateProductSpecificationUrl: function () {
+            updateProductSpecificationUrl: function (event) {
                 var optionValue = event.target.value;
-                var optionText = event.target.selectedOptions[0].innerText;
+                var optionText = null;
+                console.log(event.target);
+                for (i = 0; i < event.target.length; i++) {
+                    var option = event.target[i];
+                    if (option.value == optionValue) {
+                        optionText = option.innerText;
+                    }
+                };
                 this.$store.commit('updateProductSpecificationUrl', optionValue);
                 this.$store.commit('updateQualitySpecificationTitleSosi', 'SOSI produktspesifikasjon: ' + optionText);
                 this.setProductSpecificationAcceptedDate(optionValue);
             },
-            updateProductSpecificationOtherName: function () {
+            updateProductSpecificationOtherName: function (event) {
                 var inputValue = event.target.value;
                 this.$store.commit('updateProductSpecificationOtherName', inputValue)
                 this.$store.commit('updateQualitySpecificationTitle', 'Produktspesifikasjon: ' + inputValue);
