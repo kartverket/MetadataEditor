@@ -452,12 +452,12 @@
 
                 this.$store.commit('updateVisibleConformitySections', {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
-                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
+                    QualitySpecificationSosi: (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
                     QualitySpecificationCustom: otherProductSpecificationIsAdded
                 });
                 return {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
-                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
+                    QualitySpecificationSosi: (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
                     QualitySpecificationCustom: otherProductSpecificationIsAdded
                 };
             },
