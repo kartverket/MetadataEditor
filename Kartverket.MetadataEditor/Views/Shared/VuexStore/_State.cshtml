@@ -92,18 +92,16 @@
         settings: {
             selectedTab: 'Basic',
             tabs: [
-                { id: 'Basic', name: '@UI.TabBasicInformation', iconClass: 'glyphicon glyphicon-home' },
-                { id: 'TimeAndSpace', name: '@UI.TabTimeAndSpace', iconClass: 'glyphicon glyphicon-list-alt' },
-                { id: 'Contact', name: '@UI.TabContactInformation', iconClass: 'glyphicon glyphicon-user' },
-                { id: 'Distribution', name: '@UI.TabDistribution', iconClass: 'glyphicon glyphicon-globe' },
-                { id: 'Documents', name: '@UI.TabDocumentation', iconClass: 'glyphicon glyphicon-file' },
-                { id: 'Constraints', name: '@UI.TabRestrictions', iconClass: 'glyphicon glyphicon-lock' },
-                { id: 'Keywords', name: '@Html.Raw(UI.TabKeywords)', iconClass: 'glyphicon glyphicon-ok-sign' },
-                { id: 'Quality', name: '@UI.TabQuality', iconClass: 'glyphicon glyphicon-ok-sign' }
-                @if(ViewBag.IsAdmin == "1")
-                {
-                    @:,{ id: 'Admin', name: '@UI.TabAdministrative', iconClass: 'glyphicon glyphicon-cog' }
-                }
+                { id: 'Basic', name: '@UI.TabBasicInformation', iconClass: 'glyphicon glyphicon-home', display: true },
+                { id: 'TimeAndSpace', name: '@UI.TabTimeAndSpace', iconClass: 'glyphicon glyphicon-list-alt', display: true },
+                { id: 'Contact', name: '@UI.TabContactInformation', iconClass: 'glyphicon glyphicon-user', display: true },
+                { id: 'Distribution', name: '@UI.TabDistribution', iconClass: 'glyphicon glyphicon-globe', display: true },
+                { id: 'Documents', name: '@UI.TabDocumentation', iconClass: 'glyphicon glyphicon-file', display: true },
+                { id: 'Constraints', name: '@UI.TabRestrictions', iconClass: 'glyphicon glyphicon-lock', display: true },
+                { id: 'Keywords', name: '@Html.Raw(UI.TabKeywords)', iconClass: 'glyphicon glyphicon-ok-sign', display: true },
+                { id: 'Quality', name: '@UI.TabQuality', iconClass: 'glyphicon glyphicon-ok-sign', display: true },
+                { id: 'Admin', name: '@UI.TabAdministrative', iconClass: 'glyphicon glyphicon-cog', display: @(ViewBag.IsAdmin == "1" ? Json.Encode(true) : Json.Encode(false)) }
+
             ],
             languages: {
                     all: '@UI.Language_All',
