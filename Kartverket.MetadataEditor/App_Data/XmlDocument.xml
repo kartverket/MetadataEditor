@@ -233,7 +233,7 @@
         </member>
         <member name="P:Resources.UI.DataProductSpecification">
             <summary>
-              Looks up a localized string similar to Produktspesifikasjon.
+              Looks up a localized string similar to SOSI produktspesifikasjon.
             </summary>
         </member>
         <member name="P:Resources.UI.DatasetName">

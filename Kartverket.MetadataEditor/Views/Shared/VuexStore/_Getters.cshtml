@@ -460,11 +460,7 @@
             return getters.isService && getters.isAccessPoint && getters.QualitySpecificationTitleInspireSpatialServiceConformance == 'harmonised';
         },
         QualitySpecificationTitleSosi: function (state) {
-            if (state.settings.visibleConformitySections['QualitySpecificationSosi'] !== undefined && state.settings.visibleConformitySections['QualitySpecificationSosi']) {
-                return state.model.QualitySpecificationTitleSosi;
-            } else {
-                return '';
-            }
+            return state.model.QualitySpecificationTitleSosi;
         },
         QualitySpecificationDateSosi: function (state) {
             return state.model.QualitySpecificationDateSosi;

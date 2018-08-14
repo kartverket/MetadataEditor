@@ -262,7 +262,7 @@
                         name: 'QualitySpecificationSosi',
                         helpText: {
                             active: false,
-                            content: 'Referanse til SOSI-produktspesifikasjon eller SOSI-fagområde kan legges inn for nasjonale datasett. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med SOSI. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man må velge/registere produktspesifikasjon.'
+                            content: 'Referanse til SOSI produktspesifikasjon eller SOSI-fagområde kan legges inn for nasjonale datasett. Datasettet eller tjenesten trenger ikke være fullstendig i tråd med SOSI. Da skal heller ikke "Er datasettet produsert iht angitt produktspesifikasjon?" være huket av. Man må velge/registere produktspesifikasjon.'
                         },
                         formElements: [
                             {
@@ -452,12 +452,12 @@
 
                 this.$store.commit('updateVisibleConformitySections', {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
-                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
+                    QualitySpecificationSosi: (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
                     QualitySpecificationCustom: otherProductSpecificationIsAdded
                 });
                 return {
                     QualitySpecificationInspire: inspireKeywordIsAdded,
-                    QualitySpecificationSosi: sosiKeywordIsAdded && (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
+                    QualitySpecificationSosi: (productSpecificationUrlIsAdded || (applicationSchemaIsAdded && sosiOrGmlFormatIsAdded)),
                     QualitySpecificationCustom: otherProductSpecificationIsAdded
                 };
             },
