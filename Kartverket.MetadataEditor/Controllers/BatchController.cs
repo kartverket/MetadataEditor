@@ -116,10 +116,21 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult OpenData()
         {
-            var endpoints = _db.OpenMetadataEndpoints.ToList();
-            new Thread(() => _openMetadataService.SynchronizeMetadata(endpoints)).Start();
+            if (User.Identity.IsAuthenticated)
+            {
+                string userOrganization = GetSecurityClaim("organization");
+                string role = GetSecurityClaim("role");
+                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                {
+                    var endpoints = _db.OpenMetadataEndpoints.ToList();
+                    new Thread(() => _openMetadataService.SynchronizeMetadata(endpoints)).Start();
+                }
+                else
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            }
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+
         }
 
         [Authorize]
