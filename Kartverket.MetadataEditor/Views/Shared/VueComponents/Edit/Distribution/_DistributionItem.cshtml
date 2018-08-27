@@ -167,7 +167,8 @@
                                class="form-control"
                                v-bind:id="formElements.name.id"
                                v-bind:name="formElements.name.name"
-                               v-bind:type="formElements.name.type" />
+                               v-bind:type="formElements.name.type"
+                               v-on:change="$store.commit(formElements.name.mutation, {distributionIndex: distributionIndex, value: $event.target.value});" />
                     </div>
                     <div v-if="formElements.name.helpText" class="col-md-1">
                         <p class="form-control-static">
@@ -286,6 +287,7 @@
                     name: {
                         id: 'DistributionsFormats[' + this.distributionIndex + '].Name',
                         name: 'DistributionsFormats[' + this.distributionIndex + '].Name',
+                        mutation: 'updateFormatDistributionsName',
                         value: this.distribution.Value.Details.Name,
                         visible: this.$store.getters['isService'],
                         label: '@Html.Raw(UI.Metadata_Distributions_LayerName_Label)',
