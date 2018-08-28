@@ -50,8 +50,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Arkitektum.GIS.Lib.MetadataCSW, Version=1.9.99.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Arkitektum.GIS.Lib.MetadataCSW.1.9.99\lib\net40\Arkitektum.GIS.Lib.MetadataCSW.dll</HintPath>
+    <Reference Include="Arkitektum.GIS.Lib.MetadataCSW, Version=1.9.100.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Arkitektum.GIS.Lib.MetadataCSW.1.9.100\lib\net40\Arkitektum.GIS.Lib.MetadataCSW.dll</HintPath>
     </Reference>
     <Reference Include="Arkitektum.GIS.Lib.SerializeUtil, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Arkitektum.GIS.Lib.SerializeUtil.1.3.1\lib\net40\Arkitektum.GIS.Lib.SerializeUtil.dll</HintPath>
@@ -83,8 +83,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExpressiveAnnotations.2.2.7\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=3.0.65.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoNorgeAPI.3.0.65\lib\net40\GeoNorgeAPI.dll</HintPath>
+    <Reference Include="GeoNorgeAPI, Version=3.0.70.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoNorgeAPI.3.0.70\lib\net40\GeoNorgeAPI.dll</HintPath>
     </Reference>
     <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ImageResizer.4.1.9\lib\net45\ImageResizer.dll</HintPath>
@@ -383,6 +383,12 @@
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\dekningskart.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\den-norske-loeve.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\dok.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-added.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-disabled-added.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-disabled.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-white-added.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud-white.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\download-cloud.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\eksternlink-disabled.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\eksternlink-white.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\eksternlink.svg" />
@@ -437,7 +443,9 @@
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\lastned-white.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\lastned.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\lukk_968c83_50px-01-01.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\metadata-i-soketjeneste.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\metadatatjeneste.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\netverkstjeneste.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\norge-digitalt.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\open_fe5000_50px-01.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\produktark.svg" />
@@ -458,7 +466,9 @@
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\smile-yellow.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\soek.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\sosi.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\spatialdataservice.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\tick_fe5000_16px.svg" />
+    <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\tjenestestatus.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\totop_3867c8_75px-01.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\warning.svg" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\images\svg\wfs.svg" />
@@ -505,6 +515,7 @@
     <Content Include="dist\main.css" />
     <Content Include="dist\main.js" />
     <Content Include="dist\partials\Footer.html" />
+    <Content Include="dist\partials\Footer_v2.html" />
     <Content Include="dist\partials\Header.html" />
     <Content Include="dist\partials\_autoCompleteRow.html" />
     <Content Include="dist\vendor.css" />
@@ -560,6 +571,10 @@
     <Content Include="dist\maps\vendor.js.map" />
     <Content Include="dist\maps\main.css.map" />
     <Content Include="dist\maps\main.js.map" />
+    <Content Include="App_Data\PriorityDataset.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\.bower.json" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\fonts\702ZOKiLJc3WVjuplzInF5uFdDttMLvmWuJdhhgs.ttf" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\assets\fonts\fontawesome-webfont.eot" />
@@ -589,10 +604,6 @@
     <Content Include="Content\bower_components\kartverket-felleskomponenter\package-lock.json" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\README.md" />
     <Content Include="Content\bower_components\kartverket-felleskomponenter\yarn.lock" />
-    <Content Include="App_Data\PriorityDataset.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\folder deploy.pubxml" />
     <Content Include="robots.txt" />

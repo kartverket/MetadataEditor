@@ -206,6 +206,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 Uuid = metadata.Uuid,
                 Title = metadata.Title,
+                Language = metadata.Language,
                 HierarchyLevel = metadata.HierarchyLevel,
                 ParentIdentifier = metadata.ParentIdentifier,
                 MetadataStandard = metadata.MetadataStandard,
@@ -303,6 +304,9 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactPublisherOrganization = metadata.ContactPublisher != null ? metadata.ContactPublisher.OrganizationEnglish : null,
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
+
+            if (model.IsService())
+                model.Operations = metadata.ContainOperations;
 
             if (metadata.BoundingBox != null)
             {
@@ -1005,8 +1009,9 @@ namespace Kartverket.MetadataEditor.Models
 
             // distribution
             metadata.SpatialRepresentation = model.SpatialRepresentation;
-            if(metadata.IsDataset())
-                metadata.Language = "";
+
+            if(model.IsDataset() || model.IsDatasetSeries())
+                metadata.Language = model.Language;
 
             var refsys = model.GetReferenceSystems();
             if (refsys != null)
@@ -1055,6 +1060,9 @@ namespace Kartverket.MetadataEditor.Models
                     distributionProtocolService = distribution[0].Protocol;
                 }
             }
+
+            if(model.IsService())
+                metadata.ContainOperations = model.Operations;
 
             // quality
 

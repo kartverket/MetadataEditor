@@ -161,6 +161,51 @@
               Looks up a localized string similar to Kontakt oss.
             </summary>
         </member>
+        <member name="P:Resources.UI.ContainsOperations">
+            <summary>
+              Looks up a localized string similar to Kall som tjenesten tilbyr.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsDCP">
+            <summary>
+              Looks up a localized string similar to Plattform.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsDCPHelp">
+            <summary>
+              Looks up a localized string similar to Distribuert databehandlingsplattform som operasjonen er implementert på.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsDescription">
+            <summary>
+              Looks up a localized string similar to Beskrivelse.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsDescriptionHelp">
+            <summary>
+              Looks up a localized string similar to Detaljer om kallet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsName">
+            <summary>
+              Looks up a localized string similar to Navn.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsNameHelp">
+            <summary>
+              Looks up a localized string similar to Unikt navn på kallet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsURL">
+            <summary>
+              Looks up a localized string similar to Tilkoplings-URL.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.ContainsOperationsURLHelp">
+            <summary>
+              Looks up a localized string similar to URL for å få tilgang til operasjonens grensesnitt.
+            </summary>
+        </member>
         <member name="P:Resources.UI.CreateMetadata">
             <summary>
               Looks up a localized string similar to Opprett metadata.
@@ -249,6 +294,11 @@
         <member name="P:Resources.UI.EditMetadata">
             <summary>
               Looks up a localized string similar to Rediger metadata.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.English">
+            <summary>
+              Looks up a localized string similar to Engelsk.
             </summary>
         </member>
         <member name="P:Resources.UI.Enter">
@@ -532,6 +582,11 @@
               Looks up a localized string similar to Illustrasjonsbilde er påkrevd.
             </summary>
         </member>
+        <member name="P:Resources.UI.Language">
+            <summary>
+              Looks up a localized string similar to Språk.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Language_All">
             <summary>
               Looks up a localized string similar to Alle.
@@ -545,6 +600,16 @@
         <member name="P:Resources.UI.Language_No">
             <summary>
               Looks up a localized string similar to Norsk.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LanguageInDataset">
+            <summary>
+              Looks up a localized string similar to Språk i datasett.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LanguageInDatasetHelp">
+            <summary>
+              Looks up a localized string similar to Angi språk som i hovedsak er benyttet i tekstfelt og kolonne-overskrifter i datasettet.
             </summary>
         </member>
         <member name="P:Resources.UI.LinkToDataset">
@@ -1145,6 +1210,11 @@
         <member name="P:Resources.UI.North">
             <summary>
               Looks up a localized string similar to Nord.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Norwegian">
+            <summary>
+              Looks up a localized string similar to Norsk.
             </summary>
         </member>
         <member name="P:Resources.UI.NotFoundText">

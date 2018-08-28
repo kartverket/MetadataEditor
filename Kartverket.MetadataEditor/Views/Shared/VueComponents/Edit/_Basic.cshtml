@@ -42,7 +42,7 @@
         data: function () {
             return {
                 errors: {},
-                fieldNames: ['Title', 'EnglishTitle', 'ResourceReferenceCodespace', 'ResourceReferenceCode', 'Abstract', 'EnglishAbstract', 'HelpUrl', 'SpecificUsage', 'EnglishSpecificUsage'],
+                fieldNames: ['Title', 'EnglishTitle', 'Language', 'ResourceReferenceCodespace', 'ResourceReferenceCode', 'Abstract', 'EnglishAbstract', 'HelpUrl', 'SpecificUsage', 'EnglishSpecificUsage'],
                 formElements: [
                     {
                         multilingual: {
@@ -67,6 +67,24 @@
                             content: '@UI.HelpTextTitle'
                         }
                     },
+
+                    {
+                        name: 'Language',
+                        getter: 'Language',
+                        mutation: 'updateLanguage',
+                        type: 'radio',
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        label: '@Html.Raw(UI.LanguageInDataset)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.LanguageInDatasetHelp)'
+                        },
+                        options: [
+                            { Text: '@Html.Raw(UI.Norwegian)', Value: 'nor' },
+                            { Text: '@Html.Raw(UI.English)', Value: 'eng' },
+                        ]
+                    },
+
                     {
                         name: 'ResourceReferenceCodespace',
                         getter: 'ResourceReferenceCodespace',

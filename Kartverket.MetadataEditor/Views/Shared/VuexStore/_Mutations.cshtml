@@ -30,6 +30,9 @@
         updateResourceReferenceCodespace: function (state, payload) {
             state.model.ResourceReferenceCodespace = payload;
         },
+        updateLanguage: function (state, payload) {
+            state.model.Language = payload;
+        },
         updateResourceReferenceCode: function (state, payload) {
             state.model.ResourceReferenceCode = payload;
         },
@@ -225,6 +228,9 @@
         },
         updateFormatDistributionsUnitsOfDistribution: function (state, payload) {
             state.model.FormatDistributions[payload.distributionIndex].Value.Details.UnitsOfDistribution = payload.value;
+        },
+        updateFormatDistributionsName: function (state, payload) {
+            state.model.FormatDistributions[payload.distributionIndex].Value.Details.Name = payload.value;
         },
         updateReferenceSystems: function (state, payload) {
             state.model.ReferenceSystems = payload;

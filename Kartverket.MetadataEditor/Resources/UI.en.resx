@@ -940,4 +940,46 @@
   <data name="QualityQuantitativeResultPerformance" xml:space="preserve">
     <value>The maximum time in which a typical request to the Spatial Data Service can be carried out in a off-peak load situation</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Norwegian" xml:space="preserve">
+    <value>Norwegian</value>
+  </data>
+  <data name="ContainsOperations" xml:space="preserve">
+    <value>Contains operations</value>
+  </data>
+  <data name="ContainsOperationsDCP" xml:space="preserve">
+    <value>DCP</value>
+  </data>
+  <data name="ContainsOperationsDCPHelp" xml:space="preserve">
+    <value>Distributed computing platforms on which the operation has been implemented</value>
+  </data>
+  <data name="ContainsOperationsDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ContainsOperationsDescriptionHelp" xml:space="preserve">
+    <value>Call details</value>
+  </data>
+  <data name="ContainsOperationsName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ContainsOperationsNameHelp" xml:space="preserve">
+    <value>A unique identifier for this interface</value>
+  </data>
+  <data name="ContainsOperationsURL" xml:space="preserve">
+    <value>Connect point</value>
+  </data>
+  <data name="ContainsOperationsURLHelp" xml:space="preserve">
+    <value>Handle for accessing the service interface</value>
+  </data>
+  <data name="LanguageInDataset" xml:space="preserve">
+    <value>Language in dataset</value>
+  </data>
+  <data name="LanguageInDatasetHelp" xml:space="preserve">
+    <value>Enter languages that are mainly used in text fields and column headings in the data set</value>
+  </data>
 </root>

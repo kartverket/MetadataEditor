@@ -250,6 +250,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kall som tjenesten tilbyr.
+        /// </summary>
+        public static string ContainsOperations {
+            get {
+                return ResourceManager.GetString("ContainsOperations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plattform.
+        /// </summary>
+        public static string ContainsOperationsDCP {
+            get {
+                return ResourceManager.GetString("ContainsOperationsDCP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribuert databehandlingsplattform som operasjonen er implementert på.
+        /// </summary>
+        public static string ContainsOperationsDCPHelp {
+            get {
+                return ResourceManager.GetString("ContainsOperationsDCPHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse.
+        /// </summary>
+        public static string ContainsOperationsDescription {
+            get {
+                return ResourceManager.GetString("ContainsOperationsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detaljer om kallet.
+        /// </summary>
+        public static string ContainsOperationsDescriptionHelp {
+            get {
+                return ResourceManager.GetString("ContainsOperationsDescriptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Navn.
+        /// </summary>
+        public static string ContainsOperationsName {
+            get {
+                return ResourceManager.GetString("ContainsOperationsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unikt navn på kallet.
+        /// </summary>
+        public static string ContainsOperationsNameHelp {
+            get {
+                return ResourceManager.GetString("ContainsOperationsNameHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tilkoplings-URL.
+        /// </summary>
+        public static string ContainsOperationsURL {
+            get {
+                return ResourceManager.GetString("ContainsOperationsURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL for å få tilgang til operasjonens grensesnitt.
+        /// </summary>
+        public static string ContainsOperationsURLHelp {
+            get {
+                return ResourceManager.GetString("ContainsOperationsURLHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprett metadata.
         /// </summary>
         public static string CreateMetadata {
@@ -408,6 +489,15 @@ namespace Resources {
         public static string EditMetadata {
             get {
                 return ResourceManager.GetString("EditMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Engelsk.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
             }
         }
         
@@ -917,6 +1007,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Språk.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle.
         /// </summary>
         public static string Language_All {
@@ -940,6 +1039,24 @@ namespace Resources {
         public static string Language_No {
             get {
                 return ResourceManager.GetString("Language_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Språk i datasett.
+        /// </summary>
+        public static string LanguageInDataset {
+            get {
+                return ResourceManager.GetString("LanguageInDataset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angi språk som i hovedsak er benyttet i tekstfelt og kolonne-overskrifter i datasettet.
+        /// </summary>
+        public static string LanguageInDatasetHelp {
+            get {
+                return ResourceManager.GetString("LanguageInDatasetHelp", resourceCulture);
             }
         }
         
@@ -2034,6 +2151,15 @@ namespace Resources {
         public static string North {
             get {
                 return ResourceManager.GetString("North", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Norsk.
+        /// </summary>
+        public static string Norwegian {
+            get {
+                return ResourceManager.GetString("Norwegian", resourceCulture);
             }
         }
         

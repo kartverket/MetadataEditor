@@ -252,6 +252,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.CatalogValues = new SelectList(GetListOfCatalogs(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(CultureHelper.GetCurrentCulture()), "Key", "Value");
             ViewBag.InspirePriorityDatasets = new SelectList(_metadataService.GetPriorityDatasets(), "Key", "Value");
+            ViewBag.ServicePlatforms = new SelectList(GetListOfServicePlatforms(CultureHelper.GetCurrentCulture()), "Key", "Value");
 
             IEnumerable<SelectListItem> conceptItems = from concept in model.KeywordsConcept
                                                 select new SelectListItem
@@ -537,6 +538,11 @@ namespace Kartverket.MetadataEditor.Controllers
         public Dictionary<string, string> GetListOfNationalTheme(string culture = Culture.NorwegianCode)
         {
             return GetCodeList("42CECF70-0359-49E6-B8FF-0D6D52EBC73F", culture);
+        }
+
+        public Dictionary<string, string> GetListOfServicePlatforms(string culture = Culture.NorwegianCode)
+        {
+            return GetCodeList("992e8244-831a-446e-8f3f-069d8decbb08", culture);
         }
 
         public Dictionary<string, string> GetListOfNationalInitiative(string culture = Culture.NorwegianCode)
