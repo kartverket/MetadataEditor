@@ -1,0 +1,62 @@
+﻿@using Resources
+
+<script type="text/x-template" id="contains-operations-template">
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>@UI.ContainsOperations</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div v-if="$store.getters['Operations']" class="striped-list">
+                    <div class="list-item"
+                         is="operation"
+                         v-bind:operation="operation"
+                         v-bind:operation-index="operationIndex"
+                         v-for="(operation, operationIndex) in $store.getters['Operations']">
+                    </div>
+                </div>
+                <div class="margin-top-10 text-right">
+                    <span v-on:click="addOperation()" class="btn">@UI.Button_New_Operation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+@Html.Partial("VueComponents/Edit/Distribution/ContainsOperations/_Operation")
+
+<script>
+    var ContainsOperations = {
+        name: "ContainsOperations",
+        template: "#contains-operations-template",
+        components: {
+            Operation: Operation
+        },
+        data: function () {
+            return {
+            }
+        },
+        methods: {
+            updateField: function (value) {
+                this.$store.dispatch('updateField', value);
+            },
+            addOperation: function () {
+                this.$store.commit('addValueToArray', {
+                    arrayName: 'Operations',
+                    value: {
+                        Description: null,
+                        Name: null,
+                        Platform: null,
+                        URL: null
+                    }
+                });
+            }
+        }
+    };
+</script>
+

@@ -204,6 +204,12 @@
         ReferenceSystemsValues: function (state) {
             return state.viewBag.ReferenceSystemsValues;
         },
+        Operations: function (state) {
+            return state.model.Operations;
+        },
+        ServicePlatforms: function (state) {
+            return state.viewBag.ServicePlatforms;
+        },
         ProductSpecificationUrl: function (state) {
             return state.model.ProductSpecificationUrl;
         },
@@ -528,6 +534,9 @@
         },
         isService: function (state) {
             return state.model.HierarchyLevel == 'service';
+        },
+        isHarmonized: function (state) {
+            return state.model.QualitySpecificationTitleInspireSpatialServiceConformance == 'harmonised';
         },
         isNetworkService: function (state, getters) {
             let isNetworkService = false;

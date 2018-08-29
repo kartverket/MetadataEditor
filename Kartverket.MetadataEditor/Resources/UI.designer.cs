@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nytt tjenestekall.
+        /// </summary>
+        public static string Button_New_Operation {
+            get {
+                return ResourceManager.GetString("Button_New_Operation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nytt referansesystem.
         /// </summary>
         public static string Button_New_ReferenceSystem {

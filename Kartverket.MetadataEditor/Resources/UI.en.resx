@@ -982,4 +982,7 @@
   <data name="LanguageInDatasetHelp" xml:space="preserve">
     <value>Enter languages that are mainly used in text fields and column headings in the data set</value>
   </data>
+  <data name="Button_New_Operation" xml:space="preserve">
+    <value>New operation</value>
+  </data>
 </root>

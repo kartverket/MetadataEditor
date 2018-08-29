@@ -985,4 +985,7 @@
   <data name="LanguageInDatasetHelp" xml:space="preserve">
     <value>Angi språk som i hovedsak er benyttet i tekstfelt og kolonne-overskrifter i datasettet</value>
   </data>
+  <data name="Button_New_Operation" xml:space="preserve">
+    <value>Nytt tjenestekall</value>
+  </data>
 </root>

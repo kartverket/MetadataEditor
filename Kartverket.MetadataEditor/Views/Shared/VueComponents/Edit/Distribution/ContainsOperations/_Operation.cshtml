@@ -1,0 +1,100 @@
+﻿@using Resources
+
+<script type="text/x-template" id="operation-template">
+    <div>
+        <div class="row">
+            <div class="form-group">
+                <label class="col-md-2 control-label">
+                    {{ formElements.name.label }}
+                </label>
+                <div class="col-md-3">
+                    <input v-bind:name="formElements.name.name"
+                           v-bind:value="operation.Name"
+                           type="text"
+                           class="form-control" />
+                </div>
+                <label class="col-md-2 control-label">
+                    {{ formElements.url.label }}
+                </label>
+                <div class="col-md-3">
+                    <input v-bind:name="formElements.url.name"
+                           v-bind:value="operation.URL"
+                           type="text"
+                           class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-md-2 control-label">
+                {{ formElements.platform.label }}
+            </label>
+            <div class="col-md-3">
+                <div class="custom-select">
+                    <select v-bind:name="formElements.platform.name"
+                            v-bind:value="operation.Platform"
+                            class="form-control">
+                        <option v-for="platform in $store.getters['ServicePlatforms']" v-bind:value="platform.Value">{{ platform.Text }}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <label class="col-md-2 control-label">
+                {{ formElements.description.label }}
+            </label>
+            <div class="col-md-8">
+                <textarea v-bind:name="formElements.description.name"
+                          type="text"
+                          class="form-control"> {{ operation.Description }}
+                    </textarea>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-2 pull-right">
+                <span v-on:click="$store.commit('removeValueFromArray', {arrayName: 'Operations', arrayIndex: operationIndex});" class="btn">@UI.Delete</span>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var Operation = {
+        name: "Operation",
+        template: "#operation-template",
+        props: ['operation', 'operationIndex'],
+        data: function () {
+            return {
+                formElements: {
+                    name: {
+                        name: 'Operations[' + this.operationIndex + '].Name',
+                        label: '@Html.Raw(UI.ContainsOperationsName)'
+                    },
+                    platform: {
+                        name: 'Operations[' + this.operationIndex + '].Platform',
+                        label: '@Html.Raw(UI.ContainsOperationsDCP)',
+                        options: this.$store.getters['ServicePlatforms'],
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.ContainsOperationsDCPHelp)'
+                        }
+                    },
+                    url: {
+                        name: 'Operations[' + this.operationIndex + '].URL',
+                        label: '@Html.Raw(UI.ContainsOperationsURL)',
+                    },
+                    description: {
+                        name: 'Operations[' + this.operationIndex + '].Description',
+                        label: '@Html.Raw(UI.ContainsOperationsDescription)',
+                    }
+                }
+            }
+        },
+        methods: {
+            updateOperationValue: function (value) {
+                this.$store.commit('updateArrayValue', { arrayName: 'Operations', arrayIndex: this.operationIndex, value: value });
+            }
+        }
+    };
+</script>
