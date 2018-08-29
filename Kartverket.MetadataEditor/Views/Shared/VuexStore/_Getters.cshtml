@@ -1,4 +1,4 @@
-﻿<script>
+<script>
     var Getters = {
         modelStateValues: function (state) {
             return state.modelStateValues;
@@ -528,6 +528,9 @@
         },
         isService: function (state) {
             return state.model.HierarchyLevel == 'service';
+        },
+        isHarmonized: function (state) {
+            return state.model.QualitySpecificationTitleInspireSpatialServiceConformance == 'harmonised';
         },
         isNetworkService: function (state, getters) {
             let isNetworkService = false;
