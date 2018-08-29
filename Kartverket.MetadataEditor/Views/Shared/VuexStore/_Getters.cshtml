@@ -1,4 +1,4 @@
-<script>
+﻿<script>
     var Getters = {
         modelStateValues: function (state) {
             return state.modelStateValues;
@@ -203,6 +203,12 @@
         },
         ReferenceSystemsValues: function (state) {
             return state.viewBag.ReferenceSystemsValues;
+        },
+        Operations: function (state) {
+            return state.model.Operations;
+        },
+        ServicePlatforms: function (state) {
+            return state.viewBag.ServicePlatforms;
         },
         ProductSpecificationUrl: function (state) {
             return state.model.ProductSpecificationUrl;

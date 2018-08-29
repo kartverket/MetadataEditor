@@ -772,6 +772,8 @@
     <Content Include="Views\OpenMetadataEndpoints\Details.cshtml" />
     <Content Include="Views\OpenMetadataEndpoints\Edit.cshtml" />
     <Content Include="Views\OpenMetadataEndpoints\Index.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Distribution\ContainsOperations\_Operation.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\Distribution\_ContainsOperations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

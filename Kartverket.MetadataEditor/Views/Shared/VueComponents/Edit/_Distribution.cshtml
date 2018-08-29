@@ -3,8 +3,9 @@
     <div>
         <div v-if="errors.DistributionsFormats" class="validation-summary-errors alert alert-danger">
             <span v-for="error in errors.DistributionsFormats">{{ error.ErrorMessage }}</span>
-            
+
         </div>
+
         <div v-if="spatialRepresentation.visible" class="form-group">
             <div class="row">
                 <label for="SpatialRepresentation" class="col-md-3 control-label">@UI.SpatialRepresentationType</label>
@@ -17,10 +18,13 @@
 
         <span v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" v-on:click="$store.commit('addFormatDistributions');" class="btn">@UI.Button_Add_Distribution</span>
 
+        <div v-if="$store.getters['isService'] && $store.getters['isHarmonized']" is="contains-operations"></div>
+
         <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries'] || $store.getters['isService']" is="reference-systems"></div>
     </div>
 </script>
 
+@Html.Partial("VueComponents/Edit/Distribution/_ContainsOperations")
 @Html.Partial("VueComponents/Edit/Distribution/_DistributionItem")
 @Html.Partial("VueComponents/Edit/Distribution/_ReferenceSystems")
 
@@ -31,6 +35,7 @@
         template: "#distribution-template",
         components: {
             Field: Field,
+            ContainsOperations: ContainsOperations,
             DistributionItem: DistributionItem,
             ReferenceSystems: ReferenceSystems
         },
