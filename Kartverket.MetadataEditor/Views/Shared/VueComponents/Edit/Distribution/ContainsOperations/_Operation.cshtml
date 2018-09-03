@@ -3,28 +3,15 @@
 <script type="text/x-template" id="operation-template">
     <div>
         <div class="row">
-            <div class="form-group">
-                <label class="col-md-2 control-label">
-                    {{ formElements.name.label }}
-                </label>
-                <div class="col-md-3">
-                    <input v-bind:name="formElements.name.name"
-                           v-bind:value="operation.Name"
-                           type="text"
-                           class="form-control" />
-                </div>
-                <label class="col-md-2 control-label">
-                    {{ formElements.url.label }}
-                </label>
-                <div class="col-md-3">
-                    <input v-bind:name="formElements.url.name"
-                           v-bind:value="operation.URL"
-                           type="text"
-                           class="form-control" />
-                </div>
+            <label class="col-md-2 control-label">
+                {{ formElements.name.label }}
+            </label>
+            <div class="col-md-5">
+                <input v-bind:name="formElements.name.name"
+                       v-bind:value="operation.Name"
+                       type="text"
+                       class="form-control" />
             </div>
-        </div>
-        <div class="row">
             <label class="col-md-2 control-label">
                 {{ formElements.platform.label }}
             </label>
@@ -37,24 +24,36 @@
                     </select>
                 </div>
             </div>
-
         </div>
         <div class="row">
-            <label class="col-md-2 control-label">
-                {{ formElements.description.label }}
-            </label>
-            <div class="col-md-8">
-                <textarea v-bind:name="formElements.description.name"
-                          type="text"
-                          class="form-control"> {{ operation.Description }}
+            <div class="form-group">
+                <label class="col-md-2 control-label">
+                    {{ formElements.url.label }}
+                </label>
+                <div class="col-md-10">
+                    <input v-bind:name="formElements.url.name"
+                           v-bind:value="operation.URL"
+                           type="text"
+                           class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="col-md-2 control-label">
+                    {{ formElements.description.label }}
+                </label>
+                <div class="col-md-10">
+                    <textarea v-bind:name="formElements.description.name"
+                              type="text"
+                              class="form-control textarea-small"> {{ operation.Description }}
                     </textarea>
+                </div>
             </div>
-            
         </div>
-        <div class="row">
-            <div class="col-md-2 pull-right">
-                <span v-on:click="$store.commit('removeValueFromArray', {arrayName: 'Operations', arrayIndex: operationIndex});" class="btn">@UI.Delete</span>
-            </div>
+        <div>
+            <span v-on:click="$store.commit('removeValueFromArray', {arrayName: 'Operations', arrayIndex: operationIndex});" class="btn pull-right">@UI.Delete</span>
+            <div class="clearfix"></div>
         </div>
     </div>
 </script>
