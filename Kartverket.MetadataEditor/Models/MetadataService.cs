@@ -1286,8 +1286,57 @@ namespace Kartverket.MetadataEditor.Models
                         });
                     }
 
+                    //start conform technical specification
 
-                    if(!string.IsNullOrEmpty(model.QualitySpecificationTitleInspireSpatialServiceConformance))
+                    var technicalSpesification = Technical.GetSpecification(model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance);
+
+                    if (model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance == true)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = technicalSpesification.Name,
+                            TitleLink = technicalSpesification.Url,
+                            Date = technicalSpesification.PublicationDate,
+                            DateType = dateType,
+                            Explanation = "Denne romlige datatjenesten er i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                            EnglishExplanation = "This Spatial Data Service set is conformant with the " + technicalSpesification.Name +  " specification",
+                            Result = true,
+                            Responsible = "conformity-to-technical-specification"
+                        });
+                    }
+                    else if (model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance == false)
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = technicalSpesification.Name,
+                            TitleLink = technicalSpesification.Url,
+                            Date = technicalSpesification.PublicationDate,
+                            DateType = dateType,
+                            Explanation = "Denne romlige datatjenesten er ikke i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                            EnglishExplanation = "This Spatial Data Service set is not conformant with the " + technicalSpesification.Name + " specification",
+                            Result = false,
+                            Responsible = "conformity-to-technical-specification"
+                        });
+
+                    }
+                    else
+                    {
+                        qualityList.Add(new SimpleQualitySpecification
+                        {
+                            Title = technicalSpesification.Name,
+                            TitleLink = technicalSpesification.Url,
+                            Date = technicalSpesification.PublicationDate,
+                            DateType = dateType,
+                            Explanation = "Denne romlige datatjenesten er ikke evaluert i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                            EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the " + technicalSpesification.Name + " specification",
+                            Result = null,
+                            Responsible = "conformity-to-technical-specification"
+                        });
+                    }
+                    //end conform technical spesification
+
+
+                    if (!string.IsNullOrEmpty(model.QualitySpecificationTitleInspireSpatialServiceConformance))
                     {
                         string sds = model.QualitySpecificationTitleInspireSpatialServiceConformance.ToLower();
                         string Sds = CapitalizeFirstLetter(sds);
