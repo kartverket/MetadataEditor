@@ -145,3 +145,9 @@
         color: #333;
     }
 }
+
+
+textarea.textarea-small {
+    height: 60px;
+    min-height: 0;
+}
