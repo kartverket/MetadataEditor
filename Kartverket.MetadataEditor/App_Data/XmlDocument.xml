@@ -777,6 +777,21 @@
               Looks up a localized string similar to Denne tjenesten er ikke evaluert mot INSPIRE Implementing Rules for interoperabilitet av romlige datasett og tjenester.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_Conform">
+            <summary>
+              Looks up a localized string similar to Denne romlige datatjenesten er i overensstemmelse med tjenestespesifikasjonen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotConform">
+            <summary>
+              Looks up a localized string similar to Denne romlige datatjenesten er ikke i overensstemmelse med tjenestespesifikasjonen.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotSet">
+            <summary>
+              Looks up a localized string similar to Denne romlige datatjenesten er ikke evaluert i overensstemmelse med tjenestespesifikasjonen.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationTitle">
             <summary>
               Looks up a localized string similar to Angitt produktspesifikasjon.

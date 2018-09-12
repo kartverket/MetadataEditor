@@ -1371,6 +1371,36 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Denne romlige datatjenesten er i overensstemmelse med tjenestespesifikasjonen.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_Conform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteropera" +
+                        "bility_Conform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denne romlige datatjenesten er ikke i overensstemmelse med tjenestespesifikasjonen.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotConform {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteropera" +
+                        "bility_NotConform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Denne romlige datatjenesten er ikke evaluert i overensstemmelse med tjenestespesifikasjonen.
+        /// </summary>
+        public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotSet {
+            get {
+                return ResourceManager.GetString("Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteropera" +
+                        "bility_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angitt produktspesifikasjon.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationTitle {

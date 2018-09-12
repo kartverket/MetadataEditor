@@ -429,7 +429,13 @@
         QualitySpecificationResultInspireSpatialServiceInteroperability: function (state) {
             return state.model.QualitySpecificationResultInspireSpatialServiceInteroperability;
         },
+        QualitySpecificationResultInspireSpatialServiceTechnicalConformance: function (state) {
+            return state.model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance;
+        },
         showQualitySpecificationResultInspireSpatialServiceInteroperability: function (state, getters) {
+            return getters.isService && getters.isAccessPoint;
+        },
+        showQualitySpecificationResultInspireSpatialServiceTechnicalConformance: function (state, getters) {
             return getters.isService && getters.isAccessPoint;
         },
         QualitySpecificationResultInspireSpatialServiceConformance: function (state) {
