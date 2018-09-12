@@ -1669,6 +1669,16 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tjenestespesifikasjon.
+        /// </summary>
+        public static string Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceTechnicalConformanceValues {
+            get {
+                return ResourceManager.GetString("Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceTechnicalCon" +
+                        "formanceValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Distribusjonsformat er påkrevd.
         /// </summary>
         public static string Metadata_DistributionsFormats_Required {

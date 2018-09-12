@@ -942,6 +942,11 @@
               Looks up a localized string similar to Tjenestetype.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceTechnicalConformanceValues">
+            <summary>
+              Looks up a localized string similar to Tjenestespesifikasjon.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_DistributionsFormats_Required">
             <summary>
               Looks up a localized string similar to Distribusjonsformat er påkrevd.

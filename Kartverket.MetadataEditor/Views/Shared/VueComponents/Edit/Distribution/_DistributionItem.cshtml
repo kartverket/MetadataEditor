@@ -94,6 +94,28 @@
                 </div>
             </div>
 
+            @* QualitySpecificationTitleInspireSpatialServiceTechnicalConformance *@
+            <div class="form-group has-feedback" v-show="$store.getters['showQualitySpecificationResultInspireSpatialServiceInteroperability']">
+                <div class="row">
+                    <label v-bind:for="formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.id" class="col-md-3 control-label">{{ formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.label }}</label>
+                    <div class="col-md-8">
+                        <div class="custom-select">
+                            <select class="form-control"
+                                    v-bind:id="formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.id"
+                                    v-bind:value="$store.getters['QualitySpecificationTitleInspireSpatialServiceTechnicalConformance']"
+                                    v-on:change="updateField({
+                                        mutation: formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.mutation,
+                                        value: $event.target.value
+                                    })"
+                                    v-bind:name="formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.name">
+                                <option value="">@UI.ChooseFromList</option>
+                                <option v-bind:value="option.Value" v-for="option in formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.options">{{ option.Text }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @* URL *@
             <div class="form-group has-feedback" v-if="formElements.url.visible" v-bind:class="{'required': formElements.url.required}">
                 <div class="row">
@@ -137,13 +159,13 @@
             <p v-if="formats.helpText && formats.helpText.active" class="help-text bg-success" v-html="formats.helpText.content"></p>
 
             <div class="striped-list">
-                <div class="list-item" 
-                     is="distribution-item-format" 
-                     v-bind:format="distributionItemFormat" 
-                     v-bind:distribution-index="distributionIndex" 
-                     v-bind:local-format-index="distributionItemFormatIndex" 
-                     v-bind:format-options="distributionFormatsForSpatialRepresentations" 
-                     v-bind:key="distributionItemFormat.Name + distributionItemFormat.Version" 
+                <div class="list-item"
+                     is="distribution-item-format"
+                     v-bind:format="distributionItemFormat"
+                     v-bind:distribution-index="distributionIndex"
+                     v-bind:local-format-index="distributionItemFormatIndex"
+                     v-bind:format-options="distributionFormatsForSpatialRepresentations"
+                     v-bind:key="distributionItemFormat.Name + distributionItemFormat.Version"
                      v-for="(distributionItemFormat, distributionItemFormatIndex) in distributionItemFormats">
                 </div>
             </div>
@@ -263,6 +285,15 @@
                         type: 'select',
                         required: true,
                         options: this.$store.getters.QualitySpecificationTitleInspireSpatialServiceConformanceValues
+                    },
+                    qualitySpecificationTitleInspireSpatialServiceTechnicalConformance: {
+                        id: 'QualitySpecificationTitleInspireSpatialServiceTechnicalConformance',
+                        name: 'QualitySpecificationTitleInspireSpatialServiceTechnicalConformance',
+                        mutation: 'updateQualitySpecificationTitleInspireSpatialServiceTechnicalConformance',
+                        label: '@Html.Raw(UI.Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceTechnicalConformanceValues)',
+                        type: 'select',
+                        required: false,
+                        options: this.$root.viewBag.TechnicalSpecifications
                     },
                     url: {
                         id: 'DistributionsFormats[' + this.distributionIndex + '].URL',

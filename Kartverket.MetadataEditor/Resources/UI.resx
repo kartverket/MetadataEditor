@@ -988,4 +988,7 @@
   <data name="Button_New_Operation" xml:space="preserve">
     <value>Nytt tjenestekall</value>
   </data>
+  <data name="Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceTechnicalConformanceValues" xml:space="preserve">
+    <value>Tjenestespesifikasjon</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿<script>
+<script>
     var Getters = {
         modelStateValues: function (state) {
             return state.modelStateValues;
@@ -437,6 +437,9 @@
         },
         QualitySpecificationTitleInspireSpatialServiceConformance: function (state) {
             return state.model.QualitySpecificationTitleInspireSpatialServiceConformance;
+        },
+        QualitySpecificationTitleInspireSpatialServiceTechnicalConformance: function (state) {
+            return state.model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance;
         },
         QualitySpecificationTitleInspireSpatialServiceConformanceValues: function (state, getters) {
             if (getters.settingsSelectedLanguage == 'no') {
