@@ -456,6 +456,17 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationTitleInspireSpatialServiceConformance = qualitySpecification.Title != null ? qualitySpecification.Title : null;
 
                     }
+                    else if (responsible == "conformity-to-technical-specification")
+                    {
+                        model.QualitySpecificationDateInspireSpatialServiceTechnicalConformance = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspireSpatialServiceTechnicalConformance = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspireSpatialServiceTechnicalConformance = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspireSpatialServiceTechnicalConformance = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
+                        if (qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance = qualitySpecification.Result.Value;
+                        model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+
+                    }
                     else if (responsible == "inspire-networkservice")
                     {
                         model.QualitySpecificationDateInspireSpatialNetworkServices = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
@@ -1287,6 +1298,9 @@ namespace Kartverket.MetadataEditor.Models
                     }
 
                     //start conform technical specification
+
+                    //test
+                    model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance = "EN ISO 19128:2005(E): Geographic information — Web map server interface";
 
                     var technicalSpesification = Technical.GetSpecification(model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance);
 

@@ -419,6 +419,9 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (model.QualitySpecificationResultInspireSpatialServiceConformance == null && ModelState["QualitySpecificationResultInspireSpatialServiceConformance"] != null)
                 ModelState["QualitySpecificationResultInspireSpatialServiceConformance"].Errors.Clear();
+
+            if (model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance == null && ModelState["QualitySpecificationResultInspireSpatialServiceTechnicalConformance"] != null)
+                ModelState["QualitySpecificationResultInspireSpatialServiceTechnicalConformance"].Errors.Clear();
         }
 
         private void ValidateModel(MetadataViewModel model, ModelStateDictionary modelstate)
