@@ -29,6 +29,28 @@
                     </div>
                 </div>
             </div>
+            <br />
+            @* QualitySpecificationTitleInspireSpatialServiceTechnicalConformance *@
+            <div class="form-group" v-show="$store.getters['showQualitySpecificationResultInspireSpatialServiceInteroperability']">
+                <div class="row">
+                    <label v-bind:for="formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.id" class="col-md-3 control-label">{{ formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.label }}</label>
+                    <div class="col-md-8">
+                        <div class="custom-select">
+                            <select class="form-control"
+                                    v-bind:id="formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.id"
+                                    v-bind:value="$store.getters['QualitySpecificationTitleInspireSpatialServiceTechnicalConformance']"
+                                    v-on:change="updateField({
+                                        mutation: formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.mutation,
+                                        value: $event.target.value
+                                    })"
+                                    v-bind:name="formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.name">
+                                <option value="">@UI.ChooseFromList</option>
+                                <option v-bind:value="option.Value" v-for="option in formElements.qualitySpecificationTitleInspireSpatialServiceTechnicalConformance.options">{{ option.Text }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div v-show="showSections">
                 <h3>@UI.Conformity</h3>
                 <div v-show="showSection[section.name]" class="panel panel-default" v-for="section in sections">
@@ -88,7 +110,8 @@
                     'QualitySpecificationDateType',
                     'QualitySpecificationResult',
                     'QualitySpecificationExplanation',
-                    'EnglishQualitySpecificationExplanation'
+                    'EnglishQualitySpecificationExplanation',
+                    'QualitySpecificationTitleInspireSpatialServiceTechnicalConformance'
                 ],
                 checkboxes: {
                     keywordDokValidKmd: {
@@ -128,6 +151,19 @@
                     type: 'select',
                     options: this.$store.getters['CatalogValues']
                 },
+                formElements: 
+                    {
+                        qualitySpecificationTitleInspireSpatialServiceTechnicalConformance: {
+                            id: 'QualitySpecificationTitleInspireSpatialServiceTechnicalConformance',
+                            name: 'QualitySpecificationTitleInspireSpatialServiceTechnicalConformance',
+                            mutation: 'updateQualitySpecificationTitleInspireSpatialServiceTechnicalConformance',
+                            label: '@Html.Raw(UI.Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceTechnicalConformanceValues)',
+                            type: 'select',
+                            required: false,
+                            options: this.$root.viewBag.TechnicalSpecifications
+                        }
+                    }
+                ,
                 sections: [
                     {
                         title: 'Inspire',
@@ -217,6 +253,18 @@
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet)', Value: 'null' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform)', Value: 'true' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform)', Value: 'false' }
+                                ]
+                            },
+                            {
+                                name: 'QualitySpecificationResultInspireSpatialServiceTechnicalConformance',
+                                getter: 'QualitySpecificationResultInspireSpatialServiceTechnicalConformance',
+                                mutation: 'updateQualitySpecificationResultInspireSpatialServiceTechnicalConformance',
+                                type: 'radio',
+                                includedGetter: 'showQualitySpecificationResultInspireSpatialServiceTechnicalConformance',
+                                options: [
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotSet)', Value: 'null' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_Conform)', Value: 'true' },
+                                    { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotConform)', Value: 'false' }
                                 ]
                             },
                             {
