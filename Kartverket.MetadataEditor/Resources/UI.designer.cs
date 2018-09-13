@@ -1371,7 +1371,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Denne romlige datatjenesten er i overensstemmelse med tjenestespesifikasjonen.
+        ///   Looks up a localized string similar to Denne geodatatjenesten er i overensstemmelse med tjenestespesifikasjonen.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_Conform {
             get {
@@ -1381,7 +1381,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Denne romlige datatjenesten er ikke i overensstemmelse med tjenestespesifikasjonen.
+        ///   Looks up a localized string similar to Denne geodatatjenesten er ikke i overensstemmelse med tjenestespesifikasjonen.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotConform {
             get {
@@ -1391,7 +1391,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Denne romlige datatjenesten er ikke evaluert i overensstemmelse med tjenestespesifikasjonen.
+        ///   Looks up a localized string similar to Denne geodatatjenesten er ikke evaluert i overensstemmelse med tjenestespesifikasjonen.
         /// </summary>
         public static string Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotSet {
             get {

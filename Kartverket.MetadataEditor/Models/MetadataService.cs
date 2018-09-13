@@ -1309,7 +1309,7 @@ namespace Kartverket.MetadataEditor.Models
                                 TitleLink = technicalSpesification.Url,
                                 Date = technicalSpesification.PublicationDate,
                                 DateType = dateType,
-                                Explanation = "Denne romlige datatjenesten er i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                                Explanation = "Denne geodatatjenesten er i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
                                 EnglishExplanation = "This Spatial Data Service set is conformant with the " + technicalSpesification.Name + " specification",
                                 Result = true,
                                 Responsible = "conformity-to-technical-specification"
@@ -1323,7 +1323,7 @@ namespace Kartverket.MetadataEditor.Models
                                 TitleLink = technicalSpesification.Url,
                                 Date = technicalSpesification.PublicationDate,
                                 DateType = dateType,
-                                Explanation = "Denne romlige datatjenesten er ikke i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                                Explanation = "Denne geodatatjenesten er ikke i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
                                 EnglishExplanation = "This Spatial Data Service set is not conformant with the " + technicalSpesification.Name + " specification",
                                 Result = false,
                                 Responsible = "conformity-to-technical-specification"
@@ -1338,7 +1338,7 @@ namespace Kartverket.MetadataEditor.Models
                                 TitleLink = technicalSpesification.Url,
                                 Date = technicalSpesification.PublicationDate,
                                 DateType = dateType,
-                                Explanation = "Denne romlige datatjenesten er ikke evaluert i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                                Explanation = "Denne geodatatjenesten er ikke evaluert i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
                                 EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the " + technicalSpesification.Name + " specification",
                                 Result = null,
                                 Responsible = "conformity-to-technical-specification"
