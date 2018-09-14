@@ -137,13 +137,13 @@
             <p v-if="formats.helpText && formats.helpText.active" class="help-text bg-success" v-html="formats.helpText.content"></p>
 
             <div class="striped-list">
-                <div class="list-item" 
-                     is="distribution-item-format" 
-                     v-bind:format="distributionItemFormat" 
-                     v-bind:distribution-index="distributionIndex" 
-                     v-bind:local-format-index="distributionItemFormatIndex" 
-                     v-bind:format-options="distributionFormatsForSpatialRepresentations" 
-                     v-bind:key="distributionItemFormat.Name + distributionItemFormat.Version" 
+                <div class="list-item"
+                     is="distribution-item-format"
+                     v-bind:format="distributionItemFormat"
+                     v-bind:distribution-index="distributionIndex"
+                     v-bind:local-format-index="distributionItemFormatIndex"
+                     v-bind:format-options="distributionFormatsForSpatialRepresentations"
+                     v-bind:key="distributionItemFormat.Name + distributionItemFormat.Version"
                      v-for="(distributionItemFormat, distributionItemFormatIndex) in distributionItemFormats">
                 </div>
             </div>

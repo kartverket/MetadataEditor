@@ -456,6 +456,17 @@ namespace Kartverket.MetadataEditor.Models
                         model.QualitySpecificationTitleInspireSpatialServiceConformance = qualitySpecification.Title != null ? qualitySpecification.Title : null;
 
                     }
+                    else if (responsible == "conformity-to-technical-specification")
+                    {
+                        model.QualitySpecificationDateInspireSpatialServiceTechnicalConformance = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
+                        model.QualitySpecificationDateTypeInspireSpatialServiceTechnicalConformance = (!string.IsNullOrWhiteSpace(qualitySpecification.DateType)) ? qualitySpecification.DateType : null;
+                        model.QualitySpecificationExplanationInspireSpatialServiceTechnicalConformance = qualitySpecification.Explanation != null ? qualitySpecification.Explanation : null;
+                        model.EnglishQualitySpecificationExplanationInspireSpatialServiceTechnicalConformance = qualitySpecification.Explanation != null ? qualitySpecification.EnglishExplanation : null;
+                        if (qualitySpecification.Result.HasValue)
+                            model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance = qualitySpecification.Result.Value;
+                        model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance = qualitySpecification.Title != null ? qualitySpecification.Title : null;
+
+                    }
                     else if (responsible == "inspire-networkservice")
                     {
                         model.QualitySpecificationDateInspireSpatialNetworkServices = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
@@ -1286,8 +1297,56 @@ namespace Kartverket.MetadataEditor.Models
                         });
                     }
 
+                    if (!string.IsNullOrEmpty(model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance))
+                    {
+                        var technicalSpesification = Technical.GetSpecification(model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance);
 
-                    if(!string.IsNullOrEmpty(model.QualitySpecificationTitleInspireSpatialServiceConformance))
+                        if (model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance == true)
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = technicalSpesification.Name,
+                                TitleLink = technicalSpesification.Url,
+                                Date = technicalSpesification.PublicationDate,
+                                DateType = dateType,
+                                Explanation = "Denne geodatatjenesten er i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                                EnglishExplanation = "This Spatial Data Service set is conformant with the " + technicalSpesification.Name + " specification",
+                                Result = true,
+                                Responsible = "conformity-to-technical-specification"
+                            });
+                        }
+                        else if (model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance == false)
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = technicalSpesification.Name,
+                                TitleLink = technicalSpesification.Url,
+                                Date = technicalSpesification.PublicationDate,
+                                DateType = dateType,
+                                Explanation = "Denne geodatatjenesten er ikke i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                                EnglishExplanation = "This Spatial Data Service set is not conformant with the " + technicalSpesification.Name + " specification",
+                                Result = false,
+                                Responsible = "conformity-to-technical-specification"
+                            });
+
+                        }
+                        else
+                        {
+                            qualityList.Add(new SimpleQualitySpecification
+                            {
+                                Title = technicalSpesification.Name,
+                                TitleLink = technicalSpesification.Url,
+                                Date = technicalSpesification.PublicationDate,
+                                DateType = dateType,
+                                Explanation = "Denne geodatatjenesten er ikke evaluert i overensstemmelse med " + technicalSpesification.Name + " spesifikasjonen",
+                                EnglishExplanation = "This Spatial Data Service set is not evaluated conformant with the " + technicalSpesification.Name + " specification",
+                                Result = null,
+                                Responsible = "conformity-to-technical-specification"
+                            });
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(model.QualitySpecificationTitleInspireSpatialServiceConformance))
                     {
                         string sds = model.QualitySpecificationTitleInspireSpatialServiceConformance.ToLower();
                         string Sds = CapitalizeFirstLetter(sds);

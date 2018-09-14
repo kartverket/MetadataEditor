@@ -18,6 +18,7 @@ using Kartverket.Geonorge.Utilities.LogEntry;
 using System.Threading.Tasks;
 using Kartverket.MetadataEditor.Helpers;
 using Kartverket.MetadataEditor.Models.Translations;
+using Kartverket.MetadataEditor.Models.InspireCodelist;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -252,6 +253,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.CatalogValues = new SelectList(GetListOfCatalogs(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(CultureHelper.GetCurrentCulture()), "Key", "Value");
             ViewBag.InspirePriorityDatasets = new SelectList(_metadataService.GetPriorityDatasets(), "Key", "Value");
+            ViewBag.TechnicalSpecifications = new SelectList(Technical.GetSpecifications, "Name", "Name");
             ViewBag.ServicePlatforms = new SelectList(GetListOfServicePlatforms(CultureHelper.GetCurrentCulture()), "Key", "Value");
 
             IEnumerable<SelectListItem> conceptItems = from concept in model.KeywordsConcept
@@ -419,6 +421,9 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (model.QualitySpecificationResultInspireSpatialServiceConformance == null && ModelState["QualitySpecificationResultInspireSpatialServiceConformance"] != null)
                 ModelState["QualitySpecificationResultInspireSpatialServiceConformance"].Errors.Clear();
+
+            if (model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance == null && ModelState["QualitySpecificationResultInspireSpatialServiceTechnicalConformance"] != null)
+                ModelState["QualitySpecificationResultInspireSpatialServiceTechnicalConformance"].Errors.Clear();
         }
 
         private void ValidateModel(MetadataViewModel model, ModelStateDictionary modelstate)

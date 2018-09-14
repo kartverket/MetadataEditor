@@ -255,6 +255,7 @@
     <Compile Include="Models\BatchService.cs" />
     <Compile Include="Models\InspireCodelist\PriorityDataset.cs" />
     <Compile Include="Models\DictionaryAsArrayResolver.cs" />
+    <Compile Include="Models\InspireCodelist\TechnicalSpecification.cs" />
     <Compile Include="Models\IReportService.cs" />
     <Compile Include="Models\IValidatorService.cs" />
     <Compile Include="Models\KomDataService.cs" />

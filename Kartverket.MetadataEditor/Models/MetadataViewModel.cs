@@ -189,6 +189,14 @@ namespace Kartverket.MetadataEditor.Models
         public bool? QualitySpecificationResultInspireSpatialServiceConformance { get; set; }
         public string QualitySpecificationTitleInspireSpatialServiceConformance { get; set; }
 
+        // quality InspireSpatialServiceTechnicalConformance
+        public DateTime? QualitySpecificationDateInspireSpatialServiceTechnicalConformance { get; set; }
+        public string QualitySpecificationDateTypeInspireSpatialServiceTechnicalConformance { get; set; }
+        public string QualitySpecificationExplanationInspireSpatialServiceTechnicalConformance { get; set; }
+        public string EnglishQualitySpecificationExplanationInspireSpatialServiceTechnicalConformance { get; set; }
+        public bool? QualitySpecificationResultInspireSpatialServiceTechnicalConformance { get; set; }
+        public string QualitySpecificationTitleInspireSpatialServiceTechnicalConformance { get; set; }
+
         //quality QuantitativeResult
         [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "QuantitativeResultAvailabilityRequired", ErrorMessageResourceType = typeof(UI))]
         public string QualityQuantitativeResultAvailability { get; set; }

@@ -1,4 +1,4 @@
-﻿<script>
+<script>
     var Getters = {
         modelStateValues: function (state) {
             return state.modelStateValues;
@@ -429,7 +429,13 @@
         QualitySpecificationResultInspireSpatialServiceInteroperability: function (state) {
             return state.model.QualitySpecificationResultInspireSpatialServiceInteroperability;
         },
+        QualitySpecificationResultInspireSpatialServiceTechnicalConformance: function (state) {
+            return state.model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance;
+        },
         showQualitySpecificationResultInspireSpatialServiceInteroperability: function (state, getters) {
+            return getters.isService && getters.isAccessPoint;
+        },
+        showQualitySpecificationResultInspireSpatialServiceTechnicalConformance: function (state, getters) {
             return getters.isService && getters.isAccessPoint;
         },
         QualitySpecificationResultInspireSpatialServiceConformance: function (state) {
@@ -437,6 +443,9 @@
         },
         QualitySpecificationTitleInspireSpatialServiceConformance: function (state) {
             return state.model.QualitySpecificationTitleInspireSpatialServiceConformance;
+        },
+        QualitySpecificationTitleInspireSpatialServiceTechnicalConformance: function (state) {
+            return state.model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance;
         },
         QualitySpecificationTitleInspireSpatialServiceConformanceValues: function (state, getters) {
             if (getters.settingsSelectedLanguage == 'no') {
