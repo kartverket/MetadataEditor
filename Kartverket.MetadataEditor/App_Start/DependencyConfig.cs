@@ -14,6 +14,7 @@ using System.Web.Configuration;
 using Kartverket.Geonorge.Utilities.LogEntry;
 using Kartverket.MetadataEditor.Models;
 using Kartverket.MetadataEditor.Models.OpenData;
+using Kartverket.MetadataEditor.Models.Rdf;
 
 namespace Kartverket.MetadataEditor.App_Start
 {
@@ -62,6 +63,7 @@ namespace Kartverket.MetadataEditor.App_Start
             builder.RegisterType<BatchService>().As<IBatchService>();
             builder.RegisterType<OpenMetadataService>().As<IOpenMetadataService>();
             builder.RegisterType<OpenMetadataFetcher>().As<IOpenMetadataFetcher>();
+            builder.RegisterType<AdministrativeUnitService>().As<IAdministrativeUnitService>();
             builder.RegisterType<MetadataContext>().InstancePerRequest().AsSelf();
         }
     }

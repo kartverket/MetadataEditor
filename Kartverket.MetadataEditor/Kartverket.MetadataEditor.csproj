@@ -206,6 +206,9 @@
       <DependentUpon>201808021106532_AddMetadataEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AdministrativeUnit.cs" />
+    <Compile Include="Models\AdministrativeUnitService.cs" />
+    <Compile Include="Models\IAdministrativeUnitService.cs" />
     <Compile Include="Models\IBatchService.cs" />
     <Compile Include="Models\IMetadataService.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

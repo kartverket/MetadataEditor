@@ -10,6 +10,7 @@ using System.Reflection;
 using Kartverket.MetadataEditor.Models.Translations;
 using Newtonsoft.Json.Linq;
 using www.opengis.net;
+using Kartverket.MetadataEditor.Models.Rdf;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -20,10 +21,12 @@ namespace Kartverket.MetadataEditor.Models
         string thumbnailFolder;
 
         private GeoNorge _geoNorge;
+        private IAdministrativeUnitService _administrativeUnitService;
 
-        public BatchService(IMetadataService metadataService) 
+        public BatchService(IMetadataService metadataService, IAdministrativeUnitService administrativeUnitService)
         {
             _metadataService = metadataService;
+            _administrativeUnitService = administrativeUnitService;
         }
 
         private void LogEventsDebug(string log)
@@ -289,7 +292,7 @@ namespace Kartverket.MetadataEditor.Models
                 }
 
                 model.KeywordsEnglish = englishKeywords;
-
+                model.KeywordsPlace = _administrativeUnitService.UpdateKeywordsPlaceWithUri(model.KeywordsPlace);
                 metadata.Keywords = model.GetAllKeywords();
 
                 metadata.RemoveUnnecessaryElements();
@@ -1148,7 +1151,7 @@ namespace Kartverket.MetadataEditor.Models
 
                                 string filenamePathLarge;
                                 string filename;
-                                Uri uri = new Uri(urlLarge);
+                                System.Uri uri = new System.Uri(urlLarge);
                                 filename = System.IO.Path.GetFileName(uri.LocalPath);
                                 filenamePathLarge = thumbnailFolder + filename;
 

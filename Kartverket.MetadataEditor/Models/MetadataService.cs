@@ -16,6 +16,7 @@ using Kartverket.Geonorge.Utilities.Organization;
 using Kartverket.MetadataEditor.Models.InspireCodelist;
 using Newtonsoft.Json;
 using Kartverket.MetadataEditor.Models.Translations;
+using Kartverket.MetadataEditor.Models.Rdf;
 using Resources;
 
 namespace Kartverket.MetadataEditor.Models
@@ -26,14 +27,16 @@ namespace Kartverket.MetadataEditor.Models
 
         private GeoNorge _geoNorge;
         private ILogEntryService _logEntryService;
+        private IAdministrativeUnitService _administrativeUnitService;
 
-        public MetadataService(GeoNorge geonorge, ILogEntryService logEntryService)
+        public MetadataService(GeoNorge geonorge, ILogEntryService logEntryService, IAdministrativeUnitService administrativeUnitService)
         {
             _geoNorge = geonorge;
             _logEntryService = logEntryService;
+            _administrativeUnitService = administrativeUnitService;
         }
 
-        public MetadataService(ILogEntryService logEntryService)
+        public MetadataService(ILogEntryService logEntryService, IAdministrativeUnitService administrativeUnitService)
         {
             System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
             string server = settings["GeoNetworkUrl"];
@@ -43,6 +46,7 @@ namespace Kartverket.MetadataEditor.Models
             _geoNorge.OnLogEventDebug += new GeoNorgeAPI.LogEventHandlerDebug(LogEventsDebug);
             _geoNorge.OnLogEventError += new GeoNorgeAPI.LogEventHandlerError(LogEventsError);
             _logEntryService = logEntryService;
+            _administrativeUnitService = administrativeUnitService;
         }
 
         private void LogEventsDebug(string log)
@@ -555,7 +559,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 foreach (var keyword in input)
                 {
-                    if(!string.IsNullOrEmpty(keyword.KeywordLink))
+                    if(!string.IsNullOrEmpty(keyword.KeywordLink) && keyword.Type != "place")
                         output.Add(keyword.Keyword + "|" + keyword.KeywordLink);
                     else
                     output.Add(keyword.Keyword);
@@ -749,6 +753,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 model.KeywordsEnglish = englishKeywords;
 
+                model.KeywordsPlace = _administrativeUnitService.UpdateKeywordsPlaceWithUri(model.KeywordsPlace);
                 metadata.Keywords = model.GetAllKeywords();
 
                 metadata.RemoveUnnecessaryElements();
@@ -851,7 +856,7 @@ namespace Kartverket.MetadataEditor.Models
                         writer.Write("&action=post");
                     }
                     NetworkCredential networkCredential = new NetworkCredential(username, password);
-                    CredentialCache myCredentialCache = new CredentialCache { { new Uri(url), "Basic", networkCredential } };
+                    CredentialCache myCredentialCache = new CredentialCache { { new System.Uri(url), "Basic", networkCredential } };
                     request.PreAuthenticate = true;
                     request.Credentials = myCredentialCache;
                     HttpWebResponse response = (HttpWebResponse) request.GetResponse();
@@ -869,7 +874,7 @@ namespace Kartverket.MetadataEditor.Models
                         writer.Write("&action=post");
                     }
                     NetworkCredential networkCredential = new NetworkCredential(username, password);
-                    CredentialCache myCredentialCache = new CredentialCache { { new Uri(url), "Basic", networkCredential } };
+                    CredentialCache myCredentialCache = new CredentialCache { { new System.Uri(url), "Basic", networkCredential } };
                     request.PreAuthenticate = true;
                     request.Credentials = myCredentialCache;
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -1554,6 +1559,7 @@ namespace Kartverket.MetadataEditor.Models
                 model.KeywordsServiceType = AddKeywordForService(model);
                 metadata.ServiceType = GetServiceType(model.DistributionsFormats[0].Protocol);
             }
+            model.KeywordsPlace = _administrativeUnitService.UpdateKeywordsPlaceWithUri(model.KeywordsPlace);
             metadata.Keywords = model.GetAllKeywords();
 
             bool hasEnglishFields = false;
