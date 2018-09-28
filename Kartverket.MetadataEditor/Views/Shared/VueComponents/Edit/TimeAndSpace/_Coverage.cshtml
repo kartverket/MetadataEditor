@@ -57,6 +57,15 @@
                         </div>
                     </div>
 
+                    <div v-show="coverageType.value == 'mapserviceGeonorge'">
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ mapServiceLayerName.label }}</label>
+                            <div class="col-md-5">
+                                <input v-bind:name="mapServiceLayerName.name" type="text" v-model="mapServiceLayerName.value" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
                     <div v-show="coverageType.value == 'imageCoverage'">
                         <div class="row">
                             <label class="col-md-2 control-label">{{ coverageFile.label }}</label>
@@ -110,6 +119,7 @@
                     options: [
                         { Text: '@Html.Raw(UI.Metadata_CoverageType_Webpage)', Value: 'webpage' },
                         { Text: '@Html.Raw(UI.Metadata_CoverageType_Mapservice)', Value: 'mapservice' },
+                        { Text: '@Html.Raw(UI.Metadata_CoverageType_MapserviceGeonorge)', Value: 'mapserviceGeonorge' },
                         { Text: '@Html.Raw(UI.Metadata_CoverageType_ImageCoverage)', Value: 'imageCoverage' }
                     ]
                 },
@@ -168,6 +178,8 @@
                     computedCoverageUrl.value = this.url.value;
                 } else if (this.coverageType.value == 'mapservice') {
                     computedCoverageUrl.value = 'TYPE:' + this.mapServiceType.value + '@@PATH:' + this.url.value + '@@LAYER:' + this.mapServiceLayerName.value;
+                } else if (this.coverageType.value == 'mapserviceGeonorge') {
+                    computedCoverageUrl.value = 'TYPE:GEONORGE-WMS@@PATH:https://wms.geonorge.no/wms?@@LAYER:' + this.mapServiceLayerName.value;
                 } else if (this.coverageType.value == 'imageCoverage') {
                     computedCoverageUrl.value = this.computedThumbnailUrl;
                 }
@@ -217,8 +229,13 @@
                 var regex = /TYPE:(.*)@@PATH(.*)@@LAYER:(.*)/;
                 return this.getValueFromCoverageUrl(regex) !== '';
             },
+            isMapServiceGeonorge: function () {
+                var regex = /TYPE:GEONORGE-WMS(.*)@@PATH(.*)@@LAYER:(.*)/;
+                return this.getValueFromCoverageUrl(regex) !== '';
+            },
             getSelectedCoverageType: function () {
                 if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
+                else if (this.isMapServiceGeonorge()) this.coverageType.value = 'mapserviceGeonorge';
                 else if (this.isMapService()) this.coverageType.value = 'mapservice';
                 else this.coverageType.value = 'webpage';
             },

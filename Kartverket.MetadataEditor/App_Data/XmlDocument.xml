@@ -912,6 +912,11 @@
               Looks up a localized string similar to Karttjenestelag.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_CoverageType_MapserviceGeonorge">
+            <summary>
+              Looks up a localized string similar to Karttjenestelag Geonorge.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_CoverageType_Webpage">
             <summary>
               Looks up a localized string similar to Webside.

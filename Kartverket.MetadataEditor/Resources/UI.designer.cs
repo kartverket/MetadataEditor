@@ -1617,6 +1617,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Karttjenestelag Geonorge.
+        /// </summary>
+        public static string Metadata_CoverageType_MapserviceGeonorge {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageType_MapserviceGeonorge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Webside.
         /// </summary>
         public static string Metadata_CoverageType_Webpage {

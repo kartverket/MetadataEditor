@@ -1000,4 +1000,7 @@
   <data name="Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceTechnicalConformanceValues" xml:space="preserve">
     <value>Tjenestespesifikasjon</value>
   </data>
+  <data name="Metadata_CoverageType_MapserviceGeonorge" xml:space="preserve">
+    <value>Karttjenestelag Geonorge</value>
+  </data>
 </root>
