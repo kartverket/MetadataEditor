@@ -58,7 +58,7 @@ namespace Kartverket.MetadataEditor.Models.Rdf
             try
             {
                 var adminUnit = FetchAdministrativeUnitAsync(area);
-                if (adminUnit != null)
+                if (adminUnit != null && adminUnit.Result.results.bindings.Length == 1)
                 {
                     url = adminUnit.Result.results.bindings[0].uri.value;
                 }
