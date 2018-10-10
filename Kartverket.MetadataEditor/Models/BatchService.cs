@@ -21,12 +21,10 @@ namespace Kartverket.MetadataEditor.Models
         string thumbnailFolder;
 
         private GeoNorge _geoNorge;
-        private IAdministrativeUnitService _administrativeUnitService;
 
-        public BatchService(IMetadataService metadataService, IAdministrativeUnitService administrativeUnitService)
+        public BatchService(IMetadataService metadataService)
         {
             _metadataService = metadataService;
-            _administrativeUnitService = administrativeUnitService;
         }
 
         private void LogEventsDebug(string log)
@@ -292,7 +290,6 @@ namespace Kartverket.MetadataEditor.Models
                 }
 
                 model.KeywordsEnglish = englishKeywords;
-                model.KeywordsPlace = _administrativeUnitService.UpdateKeywordsPlaceWithUri(model.KeywordsPlace);
                 metadata.Keywords = model.GetAllKeywords();
 
                 metadata.RemoveUnnecessaryElements();

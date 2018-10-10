@@ -27,13 +27,11 @@ namespace Kartverket.MetadataEditor.Models
 
         private GeoNorge _geoNorge;
         private ILogEntryService _logEntryService;
-        private IAdministrativeUnitService _administrativeUnitService;
 
-        public MetadataService(GeoNorge geonorge, ILogEntryService logEntryService, IAdministrativeUnitService administrativeUnitService)
+        public MetadataService(GeoNorge geonorge, ILogEntryService logEntryService)
         {
             _geoNorge = geonorge;
             _logEntryService = logEntryService;
-            _administrativeUnitService = administrativeUnitService;
         }
 
         public MetadataService(ILogEntryService logEntryService, IAdministrativeUnitService administrativeUnitService)
@@ -46,7 +44,6 @@ namespace Kartverket.MetadataEditor.Models
             _geoNorge.OnLogEventDebug += new GeoNorgeAPI.LogEventHandlerDebug(LogEventsDebug);
             _geoNorge.OnLogEventError += new GeoNorgeAPI.LogEventHandlerError(LogEventsError);
             _logEntryService = logEntryService;
-            _administrativeUnitService = administrativeUnitService;
         }
 
         private void LogEventsDebug(string log)
@@ -559,7 +556,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 foreach (var keyword in input)
                 {
-                    if(!string.IsNullOrEmpty(keyword.KeywordLink) && keyword.Type != "place")
+                    if(!string.IsNullOrEmpty(keyword.KeywordLink))
                         output.Add(keyword.Keyword + "|" + keyword.KeywordLink);
                     else
                     output.Add(keyword.Keyword);
@@ -753,7 +750,6 @@ namespace Kartverket.MetadataEditor.Models
 
                 model.KeywordsEnglish = englishKeywords;
 
-                model.KeywordsPlace = _administrativeUnitService.UpdateKeywordsPlaceWithUri(model.KeywordsPlace);
                 metadata.Keywords = model.GetAllKeywords();
 
                 metadata.RemoveUnnecessaryElements();
@@ -1559,7 +1555,6 @@ namespace Kartverket.MetadataEditor.Models
                 model.KeywordsServiceType = AddKeywordForService(model);
                 metadata.ServiceType = GetServiceType(model.DistributionsFormats[0].Protocol);
             }
-            model.KeywordsPlace = _administrativeUnitService.UpdateKeywordsPlaceWithUri(model.KeywordsPlace);
             metadata.Keywords = model.GetAllKeywords();
 
             bool hasEnglishFields = false;
