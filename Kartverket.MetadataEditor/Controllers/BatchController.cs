@@ -156,6 +156,22 @@ namespace Kartverket.MetadataEditor.Controllers
         }
 
         [Authorize]
+        public ActionResult SyncronizeAdminUnitsUri()
+        {
+            string role = GetSecurityClaim("role");
+            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+            {
+                new Thread(() => _batchService.UpdateKeywordPlaceUri(GetUsername())).Start();
+                TempData["message"] = "Batch-oppdatering av stedsnavn URI for geografiske nøkkelord kjører i bakgrunnen!";
+                return RedirectToAction("Index");
+            }
+            else
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+
+        }
+
+
+        [Authorize]
         public ActionResult UpdateKeywordServiceType()
         {
             new Thread(() => _batchService.UpdateKeywordServiceType(GetUsername())).Start();

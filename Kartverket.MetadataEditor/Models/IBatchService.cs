@@ -10,6 +10,7 @@ namespace Kartverket.MetadataEditor.Models
     public interface IBatchService
     {
         void UpdateRegisterTranslations(string username, string uuid);
+        void UpdateKeywordPlaceUri(string username);
         void UpdateAll(BatchData data, string v1, string v2);
         void Update(BatchData data, string v);
         void GenerateMediumThumbnails(string v1, string v2, string v3);
