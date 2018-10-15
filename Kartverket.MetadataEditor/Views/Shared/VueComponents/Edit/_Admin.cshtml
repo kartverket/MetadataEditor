@@ -1,4 +1,4 @@
-﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@model Kartverket.MetadataEditor.Models.MetadataViewModel
 @using Resources
 
 
@@ -7,7 +7,7 @@
         @Html.Partial("_Log", Model)
         <div v-if="!$store.getters['isSoftware']">
             <div v-for="formElement in checkboxes">
-                <input type="checkbox" v-bind:id="formElement.name" v-bind:checked="isAdded(formElement.value)" v-bind:value="formElement.value" v-on:change="toggleCheckbox(formElement.value)" />
+                <input type="checkbox" v-bind:id="formElement.name" v-bind:disabled="!formElement.active?true:false" v-bind:checked="isAdded(formElement.value)" v-bind:value="formElement.value" v-on:change="toggleCheckbox(formElement.value)" />
                 <label v-bind:for="formElement.name">{{ formElement.label }}</label>
             </div>
             <label>{{ keywordsCatalogs.label }}</label>
@@ -118,31 +118,36 @@
                         name: 'keyword-dok-valid-kmd',
                         value: 'Det offentlige kartgrunnlaget',
                         label: '@Html.Raw(UI.Metadata_Admin_KeywordDokValidKmd)',
-                        type: 'checkbox'
+                        type: 'checkbox',
+                        active: State.adminUser
                     },
                     keywordInspireValid: {
                         name: 'keyword-inspire-valid',
                         value: 'Inspire',
                         label: '@Html.Raw(UI.Metadata_Admin_KeywordInspireValid)',
-                        type: 'checkbox'
+                        type: 'checkbox',
+                        active: State.adminUser
                     },
                     keywordGeodatalaw: {
                         name: 'keyword-geodatalaw',
                         value: 'geodataloven',
                         label: '@Html.Raw(UI.Metadata_Admin_KeywordGeodatalaw)',
-                        type: 'checkbox'
+                        type: 'checkbox',
+                        active: State.adminUser
                     },
                     keywordNorgedigitalt: {
                         name: 'keyword-norgedigitalt',
                         value: 'Norge digitalt',
                         label: '@Html.Raw(UI.Metadata_Admin_KeywordNorgeDigitalt)',
-                        type: 'checkbox'
+                        type: 'checkbox',
+                        active: State.adminUser
                     },
                     keywordArealPlans: {
                         name: 'keyword-areal-plans',
                         value: 'arealplanerPBL',
                         label: '@Html.Raw(UI.Metadata_Admin_KeywordArealPlans)',
-                        type: 'checkbox'
+                        type: 'checkbox',
+                        active: State.adminUser
                     }
                 },
                 keywordsCatalogs: {
@@ -207,7 +212,8 @@
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationResult_NotSet', Value: 'null' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 multilingual: {
@@ -241,7 +247,8 @@
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotSet)', Value: 'null' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_Conform)', Value: 'true' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialNetworkServices_NotConform)', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 name: 'QualitySpecificationResultInspireSpatialServiceInteroperability',
@@ -253,7 +260,8 @@
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotSet)', Value: 'null' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_Conform)', Value: 'true' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceInteroperability_NotConform)', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 name: 'QualitySpecificationResultInspireSpatialServiceTechnicalConformance',
@@ -265,7 +273,8 @@
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotSet)', Value: 'null' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_Conform)', Value: 'true' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceTechnicalInteroperability_NotConform)', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 name: 'QualitySpecificationResultInspireSpatialServiceConformance',
@@ -277,7 +286,8 @@
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotSet)', Value: 'null' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_Conform)', Value: 'true' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Invocable_NotConform)', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 name: 'QualitySpecificationResultInspireSpatialServiceConformance',
@@ -289,7 +299,8 @@
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotSet)', Value: 'null' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_Conform)', Value: 'true' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Interoperable_NotConform)', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 name: 'QualitySpecificationResultInspireSpatialServiceConformance',
@@ -301,7 +312,8 @@
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotSet)', Value: 'null' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_Conform)', Value: 'true' },
                                     { Text: '@Html.Raw(UI.Metadata_Admin_QualitySpecificationResultInspireSpatialServiceConformance_Harmonised_NotConform)', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             }
                         ]
                     },
@@ -350,7 +362,8 @@
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationResult_NotSet', Value: 'null' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 multilingual: {
@@ -384,7 +397,8 @@
                                     { Text: '@UI.QualitySpecificationResultNotSetSosiConformApplicationSchema', Value: 'null' },
                                     { Text: '@UI.QualitySpecificationResultSosiConformApplicationSchema', Value: 'true' },
                                     { Text: '@UI.QualitySpecificationResultNotSosiConformApplicationSchema', Value: 'false' }
-                                   ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 name: 'QualitySpecificationResultSosiConformGmlApplicationSchema',
@@ -396,7 +410,8 @@
                                     { Text: '@UI.QualitySpecificationResultNotSetSosiConformGmlApplicationSchema', Value: 'null' },
                                     { Text: '@UI.QualitySpecificationResultSosiConformGmlApplicationSchema', Value: 'true' },
                                     { Text: '@UI.QualitySpecificationResultSosiNotConformGmlApplicationSchema', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             }
 
                         ]
@@ -442,7 +457,8 @@
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationResult_NotSet', Value: 'null' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_Conform', Value: 'true' },
                                     { Text: '@UI.Metadata_Admin_QualitySpecificationDate_NotConform', Value: 'false' }
-                                ]
+                                ],
+                                active: State.adminUser
                             },
                             {
                                 multilingual: {
