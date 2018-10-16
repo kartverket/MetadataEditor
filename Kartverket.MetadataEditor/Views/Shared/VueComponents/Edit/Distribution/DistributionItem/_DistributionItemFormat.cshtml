@@ -3,45 +3,44 @@
 <script type="text/x-template" id="distribution-item-format-template">
     <div>
         <div class="row">
-            <div class="form-group has-feedback" v-bind:class="{'required': formElements.formatName.required}">
-                <label v-bind:for="formElements.formatName.id" class="col-md-3 control-label">{{ formElements.formatName.label }}</label>
-                <div class="col-md-8">
-                    <div class="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div v-if="formElements.formatName.type == 'select'" class="custom-select">
-                                    <select class="form-control"
-                                            v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
-                                            v-model="format.Name"
-                                            v-on:change="updateFormatName($event.target.value)">
-                                        <option value="">@UI.ChooseFromList</option>
-                                        <option v-if="!selectedFormatIsAnOption" v-bind:value="format.Name">{{ format.Name }}</option>
-                                        <option v-bind:value="option.Value" v-for="option in formatOptions">{{ option.Text }}</option>
-                                    </select>
-                                </div>
-                                <div v-else-if="formElements.formatName.type == 'text'">
-                                    <input class="form-control"
-                                           v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
-                                           v-bind:value="format.Name"
-                                           v-bind:type="formElements.formatName.type"
-                                           v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex, value: $event.target.value});" />
-                                </div>
-                                <div v-show="!selectedFormatIsAnOption" class="help-text form-element-help-text bg-info"><span>@UI.SelectedValueDiffersFromList</span></div>
-                            </div>
-                            <label v-bind:for="formElements.formatVersion.id" class="col-md-2 control-label">{{ formElements.formatVersion.label }}</label>
-                            <div class="col-md-3">
-                                <input class="form-control"
-                                       v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatVersion.name"
-                                       v-model="format.Version"
-                                       v-bind:type="formElements.formatVersion.type"
-                                       v-on:change="$store.commit('updateFormatDistributionsFormatVersion', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});" />
-                            </div>
-                            <div class="col-md-3">
-                                <span v-if="!single" class="btn" v-on:click="$store.commit('removeFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex});">@UI.Delete</span>
-                            </div>
-                        </div>
+            <div class="col-sm-6 form-group has-feedback" v-bind:class="{'required': formElements.formatName.required}">
+                <label v-bind:for="formElements.formatName.id" class="col-md-6 control-label">{{ formElements.formatName.label }}</label>
+                <div class="col-md-6">
+                    <div v-if="formElements.formatName.type == 'select'" class="custom-select">
+                        <select class="form-control"
+                                v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
+                                v-model="format.Name"
+                                v-on:change="updateFormatName($event.target.value)">
+                            <option value="">@UI.ChooseFromList</option>
+                            <option v-if="!selectedFormatIsAnOption" v-bind:value="format.Name">{{ format.Name }}</option>
+                            <option v-bind:value="option.Value" v-for="option in formatOptions">{{ option.Text }}</option>
+                        </select>
                     </div>
+                    <div v-else-if="formElements.formatName.type == 'text'">
+                        <input class="form-control"
+                               v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatName.name"
+                               v-bind:value="format.Name"
+                               v-bind:type="formElements.formatName.type"
+                               v-on:change="$store.commit('updateFormatDistributionsFormatName', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex, value: $event.target.value});" />
+                    </div>
+                    <div v-show="!selectedFormatIsAnOption" class="help-text form-element-help-text bg-info"><span>@UI.SelectedValueDiffersFromList</span></div>
                 </div>
+            </div>
+
+
+            <div class="col-sm-3 form-group has-feedback" v-bind:class="{'required': formElements.formatVersion.required}">
+
+                <label v-bind:for="formElements.formatVersion.id" class="col-md-4 control-label">{{ formElements.formatVersion.label }}</label>
+                <div class="col-md-8">
+                    <input class="form-control"
+                           v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatVersion.name"
+                           v-model="format.Version"
+                           v-bind:type="formElements.formatVersion.type"
+                           v-on:change="$store.commit('updateFormatDistributionsFormatVersion', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <span v-if="!single" class="btn" v-on:click="$store.commit('removeFormatDistributionsFormat', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: localFormatIndex});">@UI.Delete</span>
             </div>
         </div>
         <div v-for="formElement in hiddenFormElements">
@@ -78,7 +77,7 @@
                         value: this.format.Version,
                         label: '@UI.Version',
                         type: 'text',
-                        required: true
+                        required: false
                     },
                 },
                 selectedFormatIsAnOption: true
