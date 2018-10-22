@@ -37,19 +37,22 @@ namespace Kartverket.MetadataEditor.Models.Rdf
             return await response.Content.ReadAsAsync<AdministrativeUnit>().ConfigureAwait(false);
         }
 
-        public List<string> UpdateKeywordsPlaceWithUri(List<string> keywordsPlace)
+        public void UpdateKeywordsAdministrativeUnitsWithUri(ref List<string> keywordsAdministrativeUnits, ref List<string> keywordsPlace)
         {
             if (keywordsPlace != null)
             {
-                for (int k = 0; k < keywordsPlace.Count(); k++)
+                int numberOfPlaces = keywordsPlace.Count();
+                for (int k = 0; k < numberOfPlaces; k++)
                 {
                     string uri = GetAdministativeUnitUri(keywordsPlace[k]);
-                    if (!string.IsNullOrEmpty(uri))
-                        keywordsPlace[k] = keywordsPlace[k] + "|" + uri;
+                    if (!string.IsNullOrEmpty(uri)) {
+                        keywordsAdministrativeUnits.Remove(keywordsPlace[k]);
+                        keywordsAdministrativeUnits.Add(keywordsPlace[k] + "|" + uri);
+                        keywordsPlace.Remove(keywordsPlace[k]);
+                        k--; numberOfPlaces--;
+                    }
                 }
             }
-
-            return keywordsPlace;
         }
 
         private string GetAdministativeUnitUri(string area)

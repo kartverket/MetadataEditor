@@ -377,23 +377,34 @@ namespace Kartverket.MetadataEditor.Models
         {
             try
             {
-                Log.Info("Running batch update keyword place URI for uuid: " + uuid);
+                Log.Info("Running batch update keyword place/administrative units URI for uuid: " + uuid);
 
                 SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
                 if (model.KeywordsPlace != null && model.KeywordsPlace.Count > 0)
-                { 
-                    model.KeywordsPlace = _administrativeUnitService.UpdateKeywordsPlaceWithUri(model.KeywordsPlace);
+                {
+                    var administrativeUnits = model.KeywordsAdministrativeUnits;
+                    var places = model.KeywordsPlace;
+                    _administrativeUnitService.UpdateKeywordsAdministrativeUnitsWithUri(ref administrativeUnits, ref places);
+                    model.KeywordsAdministrativeUnits = administrativeUnits;
+                    model.KeywordsPlace = places;
                     metadata.Keywords = model.GetAllKeywords();
 
-                    metadata.RemoveUnnecessaryElements();
-                    var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
-                    if (transaction.TotalUpdated == "0")
-                        Log.Error("No records updated batch update keyword place URI uuid: " + uuid);
+                    if (model.KeywordsAdministrativeUnits.Count > 0)
+                    {
 
-                    NumberOfUpdatedKeywordPlaceUris++;
-                    Log.Info("Finished batch update keyword place URI uuid: " + uuid);
+                        metadata.RemoveUnnecessaryElements();
+                        var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
+                        if (transaction.TotalUpdated == "0")
+                            Log.Error("No records updated batch update keyword place/administrative units URI uuid: " + uuid);
+
+                        NumberOfUpdatedKeywordPlaceUris++;
+                        Log.Info("Finished batch update keyword place/administrative units URI uuid: " + uuid);
+                    }
+                    else {
+                        Log.Info("No keywords to update for administrative units uuid: " + uuid);
+                    }
                 }
 
             }

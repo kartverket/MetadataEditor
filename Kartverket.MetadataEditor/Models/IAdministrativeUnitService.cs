@@ -8,6 +8,6 @@ namespace Kartverket.MetadataEditor.Models.Rdf
 {
     public interface IAdministrativeUnitService
     {
-        List<string> UpdateKeywordsPlaceWithUri(List<string> keywordsPlace);
+        void UpdateKeywordsAdministrativeUnitsWithUri(ref List<string> keywordsAdministrativeUnits, ref List<string> keywordsPlace);
     }
 }
