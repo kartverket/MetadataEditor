@@ -30,10 +30,28 @@
             <div v-else class="row">
                 <div v-show="selectedLanguage == 'no'" class="col-sm-10">
                     <span class="form-element-badge">{{ this.getEnglishKeywordValue() }}</span>
-                    <input v-if="inputType == 'text' || !this.isAnOption(keywordValue)" v-bind:name="norwegianName" type="text"
-                           v-bind:value="keywordValue"
-                           v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'no'});"
-                           class="form-control" />
+                    <div v-if="inputType == 'filter-select'" v-on:blur="active = false" class="custom-select-list">
+                        <input type="hidden" v-bind:name="norwegianName" v-bind:value="keywordValue" />
+                        <div class="custom-select-list-input-container" style="height: 34px;">
+                            <span v-show="!activeFilterSelects.norwegian" style="font-size: 12pt; font-family: Open Sans,sans-serif; padding: 0 15px; line-height: 34px; white-space: nowrap; overflow: hidden; display: block">{{ keywordValue }}</span>
+                            <input type="text" v-on:blur="activeFilterSelects.norwegian = false; $event.target.value = ''" v-on:focus="activeFilterSelects.norwegian = true; $event.target.value = keywordValue" class="custom-select-list-input" />
+                        </div>
+                        <div class="custom-select-list-dropdown-container">
+                            <div class="custom-select-list-dropdown">
+                                <div class="custom-select-list-dropdown-content">
+                                    <ul class="custom-select-list-options area-option-list">
+                                        <li v-on:click="updateNorwegianKeywordValue(option.Value);" v-bind:class="{'is-selected': isAdded(option.Value)}" v-for="option in options">{{ option.Text }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else-if="inputType == 'text' || !this.isAnOption(keywordValue)">
+                        <input v-bind:name="norwegianName" type="text"
+                               v-bind:value="keywordValue"
+                               v-on:change="$store.dispatch('updateMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex, value: $event.target.value, language: 'no'});"
+                               class="form-control" />
+                    </div>
                     <div v-else-if="inputType == 'select'" type="text" class="custom-select">
                         <select v-bind:name="norwegianName"
                                 v-bind:value="keywordValue"
@@ -68,7 +86,11 @@
         data: function () {
             return {
                 englishName: 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.keywordValue + ']',
-                norwegianName: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']'
+                norwegianName: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']',
+                activeFilterSelects: {
+                    norwegian: false,
+                    english: false
+                }
             }
         },
         methods: {
