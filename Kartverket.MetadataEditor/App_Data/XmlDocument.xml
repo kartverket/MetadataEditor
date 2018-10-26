@@ -992,6 +992,11 @@
               Looks up a localized string similar to Detaljer om tjeneste.
             </summary>
         </member>
+        <member name="P:Resources.UI.Metadata_KeywordsAdministrativeUnits_Label">
+            <summary>
+              Looks up a localized string similar to Nøkkelord for administrative enheter.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Metadata_KeywordsInspire_Label">
             <summary>
               Looks up a localized string similar to Inspire-kategorier.

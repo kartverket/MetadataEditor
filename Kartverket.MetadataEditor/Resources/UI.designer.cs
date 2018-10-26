@@ -1763,6 +1763,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nøkkelord for administrative enheter.
+        /// </summary>
+        public static string Metadata_KeywordsAdministrativeUnits_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsAdministrativeUnits_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inspire-kategorier.
         /// </summary>
         public static string Metadata_KeywordsInspire_Label {
