@@ -1248,7 +1248,7 @@ namespace Kartverket.MetadataEditor.Models
                     Responsible = "other"
                 });
             }
-            if (model.IsService() && !string.IsNullOrEmpty(distributionProtocolService))
+            if (model.IsService() && model.KeywordsNationalInitiative.Contains("Inspire") && !string.IsNullOrEmpty(distributionProtocolService))
             {
                 if (SimpleMetadata.IsAccessPoint(distributionProtocolService))
                 {
