@@ -1,4 +1,5 @@
 ﻿@using Resources
+@model Kartverket.MetadataEditor.Models.MetadataViewModel
 
 <script type="text/x-template" id="coverage-template">
     <div class="panel panel-default">
@@ -15,7 +16,7 @@
                         <label class="col-md-2 control-label">{{ coverageType.label }}</label>
                         <div class="col-md-3">
                             <div class="custom-select">
-                                <select v-model="coverageType.value" class="form-control">
+                                <select v-model="coverageType.value" name="CoverageType" class="form-control">
                                     <option v-bind:value="option.Value" v-for="option in coverageType.options">{{ option.Text }}</option>
                                 </select>
                             </div>
@@ -59,9 +60,15 @@
 
                     <div v-show="coverageType.value == 'mapserviceGeonorge'">
                         <div class="row">
-                            <label class="col-md-2 control-label">{{ mapServiceLayerName.label }}</label>
-                            <div class="col-md-5">
-                                <input v-bind:name="mapServiceLayerName.name" type="text" v-model="mapServiceLayerName.value" class="form-control" />
+                            <label class="col-md-2 control-label">Kommune</label>
+                            <div class="col-md-10">
+                                <input type="text" name="CoverageUrl" value="@Model.CoverageUrl" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <label class="col-md-2 control-label">Rutenett</label>
+                            <div class="col-md-10">
+                                <input type="text" name="CoverageGridUrl" value="@Model.CoverageGridUrl" class="form-control" />
                             </div>
                         </div>
                     </div>

@@ -79,6 +79,7 @@ namespace Kartverket.MetadataEditor.Models
         public string ApplicationSchema { get; set; }
         public SimpleOnlineResource ProductSpecificationOther { get; set; }
         public string CoverageUrl { get; set; }
+        public string CoverageGridUrl { get; set; }
         public string HelpUrl { get; set; }
 
         public List<Thumbnail> Thumbnails { get; set; }
@@ -264,7 +265,6 @@ namespace Kartverket.MetadataEditor.Models
         public string Published { get; set; }
 
         public bool ValidateAllRequirements { get; set; }
-
 
         public bool IsValidQualitySpesification() 
         {
