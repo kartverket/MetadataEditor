@@ -250,6 +250,16 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informasjon som legges inn for ulike kontaktpunkt blir åpent tilgjengelig og skal være klarert med personer som oppgis med navn eller e-postadresser. 
+        ///Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersoner samt å ikke oppgi navn på enkeltpersoner men heller angi enhet eller gruppe som har fagansvar eller distribusjonsansvar..
+        /// </summary>
+        public static string ContactInfoGDPR {
+            get {
+                return ResourceManager.GetString("ContactInfoGDPR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontakt oss.
         /// </summary>
         public static string ContactUs {

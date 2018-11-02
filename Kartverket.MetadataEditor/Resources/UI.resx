@@ -1006,4 +1006,8 @@
   <data name="Metadata_KeywordsAdministrativeUnits_Label" xml:space="preserve">
     <value>Nøkkelord for administrative enheter</value>
   </data>
+  <data name="ContactInfoGDPR" xml:space="preserve">
+    <value>Informasjon som legges inn for ulike kontaktpunkt blir åpent tilgjengelig og skal være klarert med personer som oppgis med navn eller e-postadresser. 
+Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersoner samt å ikke oppgi navn på enkeltpersoner men heller angi enhet eller gruppe som har fagansvar eller distribusjonsansvar.</value>
+  </data>
 </root>
