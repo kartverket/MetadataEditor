@@ -93,7 +93,7 @@
             getOptions: function () {
                 if (this.inputValue.length >= 2) {
                     this.gettingOptions = true;
-                    var url = 'http://rdf.kartverket.no/api/1.0/adminstrative_unit/search?search=' + this.inputValue;
+                    var url = 'https://rdf.kartverket.no/api/1.0/adminstrative_unit/search?search=' + this.inputValue;
 
                     this.currentRequest = $.ajax({
                         type: 'GET',
@@ -130,7 +130,6 @@
             convertToCorrectKeywordJsonURI: function (wrongKeywordJsonURI) { // This should be fixed in API
                 var newKeywordJsonURI = wrongKeywordJsonURI + '.json';
                 newKeywordJsonURI = newKeywordJsonURI.replace('/id/', '/doc/');
-                newKeywordJsonURI = newKeywordJsonURI.replace('http://', 'https://');
                 return newKeywordJsonURI;
             },
             convertApiNamesToBindingName: function (apiNames) {
