@@ -8,6 +8,15 @@
             content: 'søker...';
             display: block;
         }
+
+    .custom-select-list.search-select .custom-select-list-input-container {
+        padding: 0 35px 0 15px;
+        background-image: url(/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/soek.svg);
+        font-size: 12pt;
+    }
+    .custom-select-list.search-select .custom-select-list-input-container input {
+        padding: 0;
+    }
 </style>
 
 <script type="text/x-template" id="keywords-administrative-unit-template">
@@ -16,12 +25,18 @@
             <div class="row">
                 <div class="col-sm-10">
                     <span class="form-element-badge"></span>
-                    <div class="custom-select-list" v-bind:class="{working: gettingOptions}">
+                    <div class="custom-select-list search-select" v-bind:class="{working: gettingOptions}">
                         <div class="custom-select-list-input-container">
-                            <span class="" v-if="selectedOption">
+                            <span class="" v-if="selectedOption && !active">
                                 {{ selectedOption.Text }} <span class="badge">{{ selectedOption.AreaType }}</span> <span class="badge" v-if="selectedOption.AreaParent">{{ selectedOption.AreaParent }}</span>
                             </span>
-                            <input type="text" v-model="inputValue" class="custom-select-list-input" style="width: auto" v-bind:placeholder="selectedOption ? '' : 'Søk etter område'" />
+                            <input type="text"
+                                   v-model="inputValue" 
+                                   v-on:focus="active = true;"
+                                   v-on:focusout="active = false"
+                                   class="custom-select-list-input" 
+                                   style="width: auto" 
+                                   v-bind:placeholder="showPlaceholder ? 'Søk etter område' : ''" />
                         </div>
                         <div v-show="(options && options.length) || gettingOptions" class="custom-select-list-dropdown-container">
                             <div class="custom-select-list-dropdown">
@@ -57,7 +72,13 @@
                 options: [],
                 gettingOptions: false,
                 currentRequest: null,
-                selectedOption: null
+                selectedOption: null,
+                active: false
+            }
+        },
+        computed: {
+            showPlaceholder: function () {
+                return !this.selectedOption || this.active;
             }
         },
         methods: {
