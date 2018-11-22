@@ -16,6 +16,7 @@ using Kartverket.Geonorge.Utilities.Organization;
 using Kartverket.MetadataEditor.Models.InspireCodelist;
 using Newtonsoft.Json;
 using Kartverket.MetadataEditor.Models.Translations;
+using Kartverket.MetadataEditor.Models.Rdf;
 using Resources;
 
 namespace Kartverket.MetadataEditor.Models
@@ -33,7 +34,7 @@ namespace Kartverket.MetadataEditor.Models
             _logEntryService = logEntryService;
         }
 
-        public MetadataService(ILogEntryService logEntryService)
+        public MetadataService(ILogEntryService logEntryService, IAdministrativeUnitService administrativeUnitService)
         {
             System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
             string server = settings["GeoNetworkUrl"];
@@ -219,6 +220,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 KeywordsTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_THEME, null)),
                 KeywordsPlace = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null)),
+                KeywordsAdministrativeUnits = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_ADMIN_UNITS)),
                 KeywordsNationalInitiative = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE)),
                 KeywordsNationalTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_THEME)),
                 KeywordsConcept = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_CONCEPT)),
@@ -239,6 +241,7 @@ namespace Kartverket.MetadataEditor.Models
                 ApplicationSchema = metadata.ApplicationSchema,
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
                 CoverageUrl = metadata.CoverageUrl,
+                CoverageGridUrl = metadata.CoverageGridUrl,
                 HelpUrl = metadata.HelpUrl,
 
                 Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails),
@@ -851,7 +854,7 @@ namespace Kartverket.MetadataEditor.Models
                         writer.Write("&action=post");
                     }
                     NetworkCredential networkCredential = new NetworkCredential(username, password);
-                    CredentialCache myCredentialCache = new CredentialCache { { new Uri(url), "Basic", networkCredential } };
+                    CredentialCache myCredentialCache = new CredentialCache { { new System.Uri(url), "Basic", networkCredential } };
                     request.PreAuthenticate = true;
                     request.Credentials = myCredentialCache;
                     HttpWebResponse response = (HttpWebResponse) request.GetResponse();
@@ -869,7 +872,7 @@ namespace Kartverket.MetadataEditor.Models
                         writer.Write("&action=post");
                     }
                     NetworkCredential networkCredential = new NetworkCredential(username, password);
-                    CredentialCache myCredentialCache = new CredentialCache { { new Uri(url), "Basic", networkCredential } };
+                    CredentialCache myCredentialCache = new CredentialCache { { new System.Uri(url), "Basic", networkCredential } };
                     request.PreAuthenticate = true;
                     request.Credentials = myCredentialCache;
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -1005,7 +1008,11 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ProductSheetUrl = model.ProductSheetUrl;
                 metadata.ProductPageUrl = model.ProductPageUrl;
                 metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
+            if (model.IsDataset()) { 
                 metadata.CoverageUrl = model.CoverageUrl;
+                metadata.CoverageGridUrl = model.CoverageGridUrl;
+            }
+
             metadata.HelpUrl = model.HelpUrl;
 
             metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);

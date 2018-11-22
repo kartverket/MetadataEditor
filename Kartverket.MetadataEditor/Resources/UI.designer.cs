@@ -250,6 +250,16 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informasjon som legges inn for ulike kontaktpunkt blir åpent tilgjengelig og skal være klarert med personer som oppgis med navn eller e-postadresser. 
+        ///Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersoner samt å ikke oppgi navn på enkeltpersoner men heller angi enhet eller gruppe som har fagansvar eller distribusjonsansvar..
+        /// </summary>
+        public static string ContactInfoGDPR {
+            get {
+                return ResourceManager.GetString("ContactInfoGDPR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontakt oss.
         /// </summary>
         public static string ContactUs {
@@ -1617,6 +1627,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Karttjenestelag Geonorge.
+        /// </summary>
+        public static string Metadata_CoverageType_MapserviceGeonorge {
+            get {
+                return ResourceManager.GetString("Metadata_CoverageType_MapserviceGeonorge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Webside.
         /// </summary>
         public static string Metadata_CoverageType_Webpage {
@@ -1750,6 +1769,15 @@ namespace Resources {
         public static string Metadata_Edit_ServiceFields {
             get {
                 return ResourceManager.GetString("Metadata_Edit_ServiceFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nøkkelord for administrative enheter.
+        /// </summary>
+        public static string Metadata_KeywordsAdministrativeUnits_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsAdministrativeUnits_Label", resourceCulture);
             }
         }
         

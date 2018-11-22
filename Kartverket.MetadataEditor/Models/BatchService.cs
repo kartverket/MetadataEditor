@@ -10,6 +10,7 @@ using System.Reflection;
 using Kartverket.MetadataEditor.Models.Translations;
 using Newtonsoft.Json.Linq;
 using www.opengis.net;
+using Kartverket.MetadataEditor.Models.Rdf;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -20,10 +21,12 @@ namespace Kartverket.MetadataEditor.Models
         string thumbnailFolder;
 
         private GeoNorge _geoNorge;
+        private IAdministrativeUnitService _administrativeUnitService;
 
-        public BatchService(IMetadataService metadataService) 
+        public BatchService(IMetadataService metadataService, IAdministrativeUnitService administrativeUnitService)
         {
             _metadataService = metadataService;
+            _administrativeUnitService = administrativeUnitService;
         }
 
         private void LogEventsDebug(string log)
@@ -289,7 +292,6 @@ namespace Kartverket.MetadataEditor.Models
                 }
 
                 model.KeywordsEnglish = englishKeywords;
-
                 metadata.Keywords = model.GetAllKeywords();
 
                 metadata.RemoveUnnecessaryElements();
@@ -304,6 +306,112 @@ namespace Kartverket.MetadataEditor.Models
             catch (Exception ex)
             {
                 Log.Error("Error batch update english translation: " + ex.Message);
+            }
+        }
+
+        int NumberOfUpdatedKeywordPlaceUris = 0;
+
+        public void UpdateKeywordPlaceUri(string username)
+        {
+            string searchString = "";
+            System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
+            string server = settings["GeoNetworkUrl"];
+            string usernameGeonetwork = settings["GeoNetworkUsername"];
+            string password = settings["GeoNetworkPassword"];
+            _geoNorge = new GeoNorgeAPI.GeoNorge(usernameGeonetwork, password, server);
+            _geoNorge.OnLogEventDebug += new GeoNorgeAPI.LogEventHandlerDebug(LogEventsDebug);
+            _geoNorge.OnLogEventError += new GeoNorgeAPI.LogEventHandlerError(LogEventsError);
+
+
+            inspireList = GetCodeListEnglish("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6");
+            nationalThemeList = GetCodeListEnglish("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
+            nationalInitiativeList = GetCodeListEnglish("37204B11-4802-44B6-80A1-519968BD072F");
+
+            Log.Info("Start batch update keyword place URI");
+
+            try
+            {
+                SearchResultsType model = null;
+                int offset = 1;
+                int limit = 50;
+                model = _geoNorge.SearchIso(searchString, offset, limit, false);
+                Log.Info("Running search from position:" + offset);
+                foreach (var item in model.Items)
+                {
+                    var metadataItem = item as MD_Metadata_Type;
+                    string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
+                    UpdateAdminUnitUri(identifier, username);
+                }
+
+                int numberOfRecordsMatched = int.Parse(model.numberOfRecordsMatched);
+                int next = int.Parse(model.nextRecord);
+
+                while (next > 0 && next < numberOfRecordsMatched)
+                {
+                    Log.Info("Running search from position:" + next);
+                    model = _geoNorge.SearchIso(searchString, next, limit, false);
+
+                    foreach (var item in model.Items)
+                    {
+                        var metadataItem = item as MD_Metadata_Type;
+                        string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
+                        UpdateAdminUnitUri(identifier, username);
+                    }
+
+                    next = int.Parse(model.nextRecord);
+                    if (next == 0) break;
+                }
+
+                Log.Info("Finished batch update keyword place URI, updated: " + NumberOfUpdatedKeywordPlaceUris + " of total:" + numberOfRecordsMatched + " metadata");
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("Error batch update stopped for batch update keyword place URI: " + ex.Message);
+            }
+
+
+        }
+
+        private void UpdateAdminUnitUri(string uuid, string username)
+        {
+            try
+            {
+                Log.Info("Running batch update keyword place/administrative units URI for uuid: " + uuid);
+
+                SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
+                MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
+
+                if (model.KeywordsPlace != null && model.KeywordsPlace.Count > 0)
+                {
+                    var administrativeUnits = model.KeywordsAdministrativeUnits;
+                    var places = model.KeywordsPlace;
+                    _administrativeUnitService.UpdateKeywordsAdministrativeUnitsWithUri(ref administrativeUnits, ref places);
+                    model.KeywordsAdministrativeUnits = administrativeUnits;
+                    model.KeywordsPlace = places;
+                    metadata.Keywords = model.GetAllKeywords();
+
+                    if (model.KeywordsAdministrativeUnits.Count > 0)
+                    {
+
+                        metadata.RemoveUnnecessaryElements();
+                        var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
+                        if (transaction.TotalUpdated == "0")
+                            Log.Error("No records updated batch update keyword place/administrative units URI uuid: " + uuid);
+
+                        NumberOfUpdatedKeywordPlaceUris++;
+                        Log.Info("Finished batch update keyword place/administrative units URI uuid: " + uuid);
+                    }
+                    else {
+                        Log.Info("No keywords to update for administrative units uuid: " + uuid);
+                    }
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("Error batch update keyword place URI: " + ex.Message);
             }
         }
 
@@ -1148,7 +1256,7 @@ namespace Kartverket.MetadataEditor.Models
 
                                 string filenamePathLarge;
                                 string filename;
-                                Uri uri = new Uri(urlLarge);
+                                System.Uri uri = new System.Uri(urlLarge);
                                 filename = System.IO.Path.GetFileName(uri.LocalPath);
                                 filenamePathLarge = thumbnailFolder + filename;
 

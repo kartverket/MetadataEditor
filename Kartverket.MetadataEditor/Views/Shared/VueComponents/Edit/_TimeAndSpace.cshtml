@@ -20,6 +20,7 @@
              v-bind:section="section"
              v-for="section in sections">
         </div>
+        <div is="keywords-administrative-units"></div>
         <div is="bounding-box"></div>
         <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></div>
     </div>
@@ -27,6 +28,7 @@
 
 @Html.Partial("VueComponents/Edit/TimeAndSpace/_BoundingBox")
 @Html.Partial("VueComponents/Edit/TimeAndSpace/_Coverage")
+@Html.Partial("VueComponents/Edit/TimeAndSpace/_KeywordsAdministrativeUnits")
 
 
 
@@ -39,7 +41,8 @@
             Field: Field,
             BoundingBox: BoundingBox,
             Coverage: Coverage,
-            KeywordsSection: KeywordsSection
+            KeywordsSection: KeywordsSection,
+            KeywordsAdministrativeUnits: KeywordsAdministrativeUnits
         },
         methods: {
             updateField: function (value) {

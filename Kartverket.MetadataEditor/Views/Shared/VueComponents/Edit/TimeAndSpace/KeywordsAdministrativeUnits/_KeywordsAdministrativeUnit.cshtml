@@ -1,0 +1,263 @@
+﻿@using Resources
+
+<style>
+    .custom-select-list.working {
+    }
+
+        .custom-select-list.working .custom-select-list-dropdown-container.active .custom-select-list-dropdown .custom-select-list-dropdown-content:before {
+            content: 'søker...';
+            display: block;
+        }
+
+    .custom-select-list.search-select .custom-select-list-input-container {
+        padding: 0 35px 0 15px;
+        background-image: url(/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/soek.svg);
+        font-size: 12pt;
+    }
+    .custom-select-list.search-select .custom-select-list-input-container input {
+        padding: 0;
+    }
+</style>
+
+<script type="text/x-template" id="keywords-administrative-unit-template">
+    <div>
+        <div class="form-group has-feedback">
+            <div class="row">
+                <div class="col-sm-10">
+                    <span class="form-element-badge"></span>
+                    <div class="custom-select-list search-select" v-bind:class="{working: gettingOptions}">
+                        <div class="custom-select-list-input-container">
+                            <span class="" v-if="selectedOption && !active">
+                                {{ selectedOption.Text }} <span class="badge">{{ selectedOption.AreaType }}</span> <span class="badge" v-if="selectedOption.AreaParent">{{ selectedOption.AreaParent }}</span>
+                            </span>
+                            <input type="text"
+                                   v-model="inputValue" 
+                                   v-on:focus="active = true;"
+                                   v-on:focusout="active = false"
+                                   class="custom-select-list-input" 
+                                   style="width: auto" 
+                                   v-bind:placeholder="showPlaceholder ? 'Søk etter område' : ''" />
+                        </div>
+                        <div v-show="(options && options.length) || gettingOptions" class="custom-select-list-dropdown-container">
+                            <div class="custom-select-list-dropdown">
+                                <div class="custom-select-list-dropdown-content">
+                                    <ul class="custom-select-list-options area-option-list">
+                                        <li v-on:click="updateKeywordValue(option.Value);" v-bind:class="{'is-selected': isAdded(option.Value)}" v-for="option in options">
+                                            {{ option.Text }} <span class="badge">{{option.AreaType}}</span><span class="badge badge-success" v-if="option.AreaParent">{{option.AreaParent}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <span class="btn" v-on:click="$store.dispatch('removeMultilingualKeyword', {keywordName: keywordName, keywordIndex: keywordIndex});" style="margin-top: 22px;">@UI.Delete</span>
+                </div>
+                <input type="hidden" v-bind:name="name" v-bind:value="keywordValue" />
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    var KeywordsAdministrativeUnit = {
+        name: "KeywordsAdministrativeUnit",
+        template: "#keywords-administrative-unit-template",
+        props: ['keywordName', 'inputType', 'keywordIndex', 'keywordValue'],
+        data: function () {
+            return {
+                name: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']',
+                inputValue: '',
+                options: [],
+                gettingOptions: false,
+                currentRequest: null,
+                selectedOption: null,
+                active: false
+            }
+        },
+        computed: {
+            showPlaceholder: function () {
+                return !this.selectedOption || this.active;
+            }
+        },
+        methods: {
+            convertBindingToOption: function (binding) {
+                var optionText = binding.enh_navn.value;
+                var optionValue = binding.enh_navn.value;
+                var areaType = null;
+                var areaParent = null;
+                if (binding.enh_type.value.indexOf('Kommune') !== -1) { // Kommune
+                    optionText = binding.enh_navn.value;
+                    optionValue = binding.enh_navn.value + ' kommune, ' + binding.upper_enh.value + '|' + binding.uri.value;
+                    areaType = 'kommune';
+                    areaParent = binding.upper_enh.value;
+                } else if (binding.enh_type.value.indexOf('Fylke') !== -1) { // Fylke
+                    optionText = binding.enh_navn.value;
+                    optionValue = binding.enh_navn.value + ' fylke|' + binding.uri.value;
+                    areaType = 'fylke';
+                }
+                return {
+                    Text: optionText,
+                    AreaType: areaType,
+                    AreaParent: areaParent,
+                    Value: optionValue
+                };
+            },
+            convertBindingsToOptions: function (bindings) {
+                var options = [];
+                bindings.forEach(function (binding) {
+                    options.push(this.convertBindingToOption(binding));
+                }.bind(this));
+                return options;
+            },
+            getOptions: function () {
+                if (this.inputValue.length >= 2) {
+                    this.gettingOptions = true;
+                    var url = 'https://rdf.kartverket.no/api/1.0/adminstrative_unit/search?search=' + this.inputValue;
+
+                    this.currentRequest = $.ajax({
+                        type: 'GET',
+                        url: url,
+                        headers: {
+                            Accept: "application/json;odata=verbose"
+                        },
+                        crossDomain: true,
+                        async: true,
+                        beforeSend: function () {
+                            if (this.currentRequest != null) {
+                                this.currentRequest.abort();
+                            }
+                        }.bind(this),
+                        success: function (data) {
+                            if (data.results && data.results.bindings) {
+                                this.options = this.convertBindingsToOptions(data.results.bindings);
+                            }
+                            this.gettingOptions = false;
+                        }.bind(this),
+                        error: function (jqxr, errorCode, errorThrown) {
+                            console.log(jqxr.responseText);
+                            this.gettingOptions = false;
+                        },
+                        complete: function () {
+                            this.gettingOptions = false;
+                        }
+                    });
+                } else {
+                    this.gettingOptions = false;
+                    this.currentRequest.abort();
+                }
+            },
+            convertToCorrectKeywordJsonURI: function (wrongKeywordJsonURI) { // This should be fixed in API
+                var newKeywordJsonURI = wrongKeywordJsonURI + '.json';
+                newKeywordJsonURI = newKeywordJsonURI.replace('/id/', '/doc/');
+                return newKeywordJsonURI;
+            },
+            convertApiNamesToBindingName: function (apiNames) {
+                return apiNames[0];
+            },
+            convertApiTypesToBindingType: function (apiTypes) {
+                var bindingType = null;
+                apiTypes.forEach(function (apiType) {
+                    if (apiType.value.indexOf('http://rdf.kartverket.no/onto/adm_enhet_4.0.owl') !== -1) {
+                        bindingType = apiType;
+                        return;
+                    }
+                }.bind(this));
+                return bindingType;
+            },
+            convertApiUpperItemsToBindingUpperItem: function (apiUpperItems) {
+                return apiUpperItems[0];
+            },
+
+            selectKeywordOptionByValue: function (keywordOptionValue) {
+                var keywordURI = keywordOptionValue.split('|')[1];
+                return this.selectKeywordOptionFromApi(keywordURI);
+            },
+            selectKeywordOptionFromApi: function (keywordURI, partialBinding) {
+                var keywordJsonDocSecureURI = this.convertToCorrectKeywordJsonURI(keywordURI);
+                var binding = partialBinding !== undefined ? partialBinding : null;
+                if (keywordJsonDocSecureURI) {
+                    this.currentRequest = $.ajax({
+                        type: 'GET',
+                        url: keywordJsonDocSecureURI,
+                        headers: {
+                            Accept: "application/json;odata=verbose"
+                        },
+                        crossDomain: true,
+                        async: false,
+                        success: function (data) {
+                            if (data[keywordURI]) {
+                                data = data[keywordURI];
+                                var isMunicipality = this.convertApiTypesToBindingType(data['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']).value == 'http://rdf.kartverket.no/onto/adm_enhet_4.0.owl#Kommune';
+                                if (!binding) {
+                                    binding = {
+                                        enh_navn: this.convertApiNamesToBindingName(data['http://www.w3.org/2004/02/skos/core#prefLabel']),
+                                        enh_type: this.convertApiTypesToBindingType(data['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']),
+                                        uri: {
+                                            type: 'uri',
+                                            value: keywordURI
+                                        }
+                                    };
+                                } else {
+                                    binding.upper_enh = this.convertApiNamesToBindingName(data['http://www.w3.org/2004/02/skos/core#prefLabel']);
+                                }
+                                if (isMunicipality) {
+                                    var upper_enh = this.convertApiUpperItemsToBindingUpperItem(data['http://www.opengis.net/ont/geosparql#sfWithin'])
+                                    this.selectKeywordOptionFromApi(upper_enh.value, binding);
+                                } else {
+                                    var option = this.convertBindingToOption(binding);
+                                    this.selectedOption = option;
+                                }
+                            }
+                        }.bind(this),
+                        error: function (jqxr, errorCode, errorThrown) {
+                            console.log(jqxr.responseText);
+                        }
+                    });
+                } else {
+                    return null;
+                }
+            },
+            updateKeywordValue: function (value) {
+                this.$store.commit('updateArrayValue', { arrayName: 'Keywords' + this.keywordName, arrayIndex: this.keywordIndex, value: value });
+            },
+            isAnOption: function (keyword) {
+                if (keyword == "") { return true }
+                else {
+                    var isAnOption = false;
+                    if (this.options && this.options.length) {
+                        this.options.forEach(function (option) {
+                            if (option.Value == keyword) isAnOption = true;
+                        });
+                    }
+                    return isAnOption;
+                }
+            },
+            isAdded: function (keyword) {
+                var isAdded = false;
+                this.$store.getters['Keywords' + this.keywordName].forEach(function (addedKeyword) {
+                    if (keyword == addedKeyword) isAdded = true;
+                });
+                return isAdded;
+            }
+        },
+        mounted: function () {
+            if (this.keywordValue) {
+                this.selectKeywordOptionByValue(this.keywordValue);
+            }
+        },
+        watch: {
+            inputValue: function () {
+                this.options = [];
+                this.getOptions();
+            },
+            keywordValue: function () {
+                this.selectKeywordOptionByValue(this.keywordValue);
+                this.inputValue = "";
+            }
+        }
+    };
+</script>
+
+

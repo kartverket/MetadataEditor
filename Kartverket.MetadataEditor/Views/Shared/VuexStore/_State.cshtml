@@ -24,6 +24,7 @@
         model: @ViewModelJson,
         viewBag: @ViewBagJson,
         modelStateValues: @ModelStateValuesJson,
+        adminUser: @(ViewBag.IsAdmin == "1" ? Json.Encode(true) : Json.Encode(false)),
         errorsInTabs: {
             Basic: [],
             TimeAndSpace: [],
@@ -100,7 +101,7 @@
                 { id: 'Constraints', name: '@UI.TabRestrictions', iconClass: 'glyphicon glyphicon-lock', display: true },
                 { id: 'Keywords', name: '@Html.Raw(UI.TabKeywords)', iconClass: 'glyphicon glyphicon-ok-sign', display: true },
                 { id: 'Quality', name: '@UI.TabQuality', iconClass: 'glyphicon glyphicon-ok-sign', display: true },
-                { id: 'Admin', name: '@UI.TabAdministrative', iconClass: 'glyphicon glyphicon-cog', display: @(ViewBag.IsAdmin == "1" ? Json.Encode(true) : Json.Encode(false)) }
+                { id: 'Admin', name: '@UI.TabAdministrative', iconClass: 'glyphicon glyphicon-cog', display: true }
 
             ],
             languages: {

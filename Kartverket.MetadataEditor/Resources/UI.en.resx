@@ -997,4 +997,14 @@
   <data name="Metadata_Distributions_QualitySpecificationTitleInspireSpatialServiceTechnicalConformanceValues" xml:space="preserve">
     <value>Service technical spesification</value>
   </data>
+  <data name="Metadata_CoverageType_MapserviceGeonorge" xml:space="preserve">
+    <value>Map service layer Geonorge</value>
+  </data>
+  <data name="Metadata_KeywordsAdministrativeUnits_Label" xml:space="preserve">
+    <value>Administrative units keywords</value>
+  </data>
+  <data name="ContactInfoGDPR" xml:space="preserve">
+    <value>Information submitted for different contact points will be exposed on the Internet and must be clarified by persons provided with names or e-mail addresses.
+It is encouraged to use email addresses to groups and not to individuals, as well as not to provide names of individuals, but to specify unit or group that has professional responsibility or are responsible for the distribution.</value>
+  </data>
 </root>

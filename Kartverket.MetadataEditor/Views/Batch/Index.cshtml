@@ -198,6 +198,37 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default" style="">
+                    <div class="panel-heading">Stedsnavn URI for nøkkelord geografisk område</div>
+                    <div class="panel-body">
+                        <form action="@Url.Action("SyncronizeAdminUnitsUri","Batch")" method="get" class="form-horizontal" role="form">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="row pull-right">
+                                        <button type="submit" onclick="return clickAdminUnitsUriDisable(this);" class="btn no-margin-bottom show-loading-animation" data-loading-message=""><span id="update-admin-units-uri">Oppdater stedsnavn URI</span></button>
+                                        <script>
+                                            function clickAdminUnitsUriDisable(link) {
+                                                document.getElementById('update-admin-units-uri').innerText = 'Oppdaterer stedsnavn URI for nøkkelord geografisk område, vennligst vent...';
+                                                if (link.className != "visited btn btn-sm btn-default") {
+                                                    link.className = "visited btn btn-sm btn-default";
+                                                    return true;
+                                                }
+
+                                                return false;
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default" style="">
                     <div class="panel-heading">Open metadata</div>
                     <div class="panel-body">
                         <form action="@Url.Action("OpenData","Batch")" method="get" class="form-horizontal" role="form">

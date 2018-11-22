@@ -41,13 +41,16 @@ else if (ViewBag.DisplayLog == true)
 
 <br /><br />
 <a class="btn btn-default" href="/Metadata/Edit?uuid=@Model.Uuid&displayLog=true">Vis logg for metadata</a>
+@if(ViewBag.IsAdmin == "1")
+{
 <a id="logLink" href="" class="btn btn-default" v-on:click="GetLog()">Vis siste logg-hendelser</a>
-Antall hendelser:<input size="3" id="limitNumberOfEntries" name="limitNumberOfEntries" value="@ViewBag.limitNumberOfEntries" />
-Begrens operasjon:
+<span>Antall hendelser:</span><input size="3" id="limitNumberOfEntries" name="limitNumberOfEntries" value="@ViewBag.limitNumberOfEntries" />
+                              <span>Begrens operasjon:</span>
 <select id="operation" v-bind:value="$store.getters['operation']" name="operation">
     <option value=""></option>
     <option value="@Operation.Deleted">@Operation.Deleted</option>
     <option value="@Operation.Added">@Operation.Added</option>
     <option value="@Operation.Modified">@Operation.Modified</option>
 </select>
+}
 <br /><br />

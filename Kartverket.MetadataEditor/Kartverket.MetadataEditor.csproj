@@ -83,8 +83,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExpressiveAnnotations.2.2.7\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="GeoNorgeAPI, Version=3.0.70.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoNorgeAPI.3.0.70\lib\net40\GeoNorgeAPI.dll</HintPath>
+    <Reference Include="GeoNorgeAPI, Version=3.0.72.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoNorgeAPI.3.0.72\lib\net40\GeoNorgeAPI.dll</HintPath>
     </Reference>
     <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ImageResizer.4.1.9\lib\net45\ImageResizer.dll</HintPath>
@@ -206,6 +206,9 @@
       <DependentUpon>201808021106532_AddMetadataEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AdministrativeUnit.cs" />
+    <Compile Include="Models\AdministrativeUnitService.cs" />
+    <Compile Include="Models\IAdministrativeUnitService.cs" />
     <Compile Include="Models\IBatchService.cs" />
     <Compile Include="Models\IMetadataService.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -775,6 +778,8 @@
     <Content Include="Views\OpenMetadataEndpoints\Index.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\ContainsOperations\_Operation.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\_ContainsOperations.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_KeywordsAdministrativeUnits.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\KeywordsAdministrativeUnits\_KeywordsAdministrativeUnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
