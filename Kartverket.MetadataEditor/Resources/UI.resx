@@ -647,7 +647,7 @@
     <value>Fullstendig navn på selve datasettet.</value>
   </data>
   <data name="HelpTextResourceReferenceCodespace" xml:space="preserve">
-    <value>Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.Eksempel: http://data.geonorge.no/so/</value>
+    <value>Velg URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.</value>
   </data>
   <data name="HelpTextSpesificUsage" xml:space="preserve">
     <value>Oppgi hvilke oppgaver datasettet kan/bør brukes til.For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå. Bruksbegrensninger fylles inn i fanen Restriksjoner</value>

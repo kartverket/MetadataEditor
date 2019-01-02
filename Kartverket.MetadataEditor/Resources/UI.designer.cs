@@ -954,7 +954,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.Eksempel: http://data.geonorge.no/so/.
+        ///   Looks up a localized string similar to Velg URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator..
         /// </summary>
         public static string HelpTextResourceReferenceCodespace {
             get {

@@ -641,7 +641,7 @@
     <value>Full name of the data set itself.</value>
   </data>
   <data name="HelpTextResourceReferenceCodespace" xml:space="preserve">
-    <value>Final clarification on the naming of namespaces is not available. It is considered to be a URL pointing to a common namespace for geographic data sets managed by the National Geodata Coordinator.</value>
+    <value>Select URL pointing to a common namespace for geographic data sets managed by the National Geodata Coordinator.</value>
   </data>
   <data name="HelpTextSpesificUsage" xml:space="preserve">
     <value>Specify what tasks the data set may/should be used for. For DOK data, particular reference should be made to applications related to the municipalitys planning and construction work. Please state the level of data the data is appropriate for information on whether they are for detailed planning or planning at the overview level. Usage restrictions are filled in on the tab Restrictions</value>
