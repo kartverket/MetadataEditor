@@ -84,18 +84,21 @@
                             { Text: '@Html.Raw(UI.English)', Value: 'eng' },
                         ]
                     },
-
                     {
+                        id: 'ResourceReferenceCodespace',
                         name: 'ResourceReferenceCodespace',
                         getter: 'ResourceReferenceCodespace',
                         mutation: 'updateResourceReferenceCodespace',
-                        type: 'text',
-                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                         label: '@Html.Raw(UI.NamespaceToDataset)',
+                        type: 'select',
+                        required: false,
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        options: this.$root.viewBag.NamespaceValues,
                         helpText: {
                             active: false,
-                            content: '@Html.Raw(UI.HelpTextResourceReferenceCodespace)'
+                            content: '@Html.Raw(UI.LanguageInDatasetHelp)'
                         }
+
                     },
                     {
                         name: 'ResourceReferenceCode',

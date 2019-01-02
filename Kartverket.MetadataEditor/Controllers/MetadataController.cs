@@ -182,6 +182,8 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private void PrepareViewBagForEditing(MetadataViewModel model)
         {
+            ViewBag.NamespaceValues = new SelectList(GetListOfNamespace(), "Key", "Value", model.ResourceReferenceCodespace);
+
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(CultureHelper.GetCurrentCulture()), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SpatialRepresentation);
 
@@ -576,6 +578,11 @@ namespace Kartverket.MetadataEditor.Controllers
         public Dictionary<string, string> GetListOfRasterFormats(string culture = Culture.NorwegianCode)
         {
             return GetCodeList("25EF67D3-974F-4B0C-841D-BDD0B29CE78B", culture);
+        }
+
+        public Dictionary<string, string> GetListOfNamespace(string culture = Culture.NorwegianCode)
+        {
+            return GetCodeList("61e5a933-ea1e-4b16-8ce4-b1a1645b5b51", culture);
         }
 
         public Dictionary<string, string> GetCodeList(string systemid, string culture = Culture.NorwegianCode)
