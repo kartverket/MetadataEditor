@@ -183,11 +183,10 @@ namespace Kartverket.MetadataEditor.Controllers
         private void PrepareViewBagForEditing(MetadataViewModel model)
         {
             var namespaceValues = GetListOfNamespace(CultureHelper.GetCurrentCulture());
-            namespaceValues.Add("", UI.NoneSelected);
-            var NamespaceValues = new SelectList(namespaceValues, "Key", "Value", model.TopicCategory);
-            ViewBag.NamespaceValues = NamespaceValues;
-
-            ViewBag.NamespaceValues = new SelectList(GetListOfNamespace(), "Key", "Value", model.ResourceReferenceCodespace);
+            if(!namespaceValues.ContainsKey(""))
+                namespaceValues.Add("", UI.NoneSelected);
+            var NamespaceValuesSelect = new SelectList(namespaceValues, "Key", "Value", model.ResourceReferenceCodespace);
+            ViewBag.NamespaceValues = NamespaceValuesSelect;
 
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(CultureHelper.GetCurrentCulture()), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SpatialRepresentation);
