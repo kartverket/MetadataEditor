@@ -1010,4 +1010,7 @@
     <value>Informasjon som legges inn for ulike kontaktpunkt blir åpent tilgjengelig og skal være klarert med personer som oppgis med navn eller e-postadresser. 
 Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersoner samt å ikke oppgi navn på enkeltpersoner men heller angi enhet eller gruppe som har fagansvar eller distribusjonsansvar.</value>
   </data>
+  <data name="ErrorDuplicateDatasetName" xml:space="preserve">
+    <value>Navn på datasett er allerede registrert</value>
+  </data>
 </root>

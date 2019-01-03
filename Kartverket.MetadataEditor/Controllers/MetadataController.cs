@@ -443,6 +443,32 @@ namespace Kartverket.MetadataEditor.Controllers
                 ModelState.AddModelError("thumbnailMissing", UI.ImageRequired);
                 ViewBag.thumbnailMissingCSS = "input-validation-error";
                 }
+
+            if(!string.IsNullOrEmpty(model.ResourceReferenceCodespace) && !string.IsNullOrEmpty(model.ResourceReferenceCode))
+            {
+                try
+                {
+                    System.Net.WebClient c = new System.Net.WebClient();
+                    c.Encoding = System.Text.Encoding.UTF8;
+                    var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/datasets-namespace?namespace=" + Server.UrlEncode(model.ResourceReferenceCodespace));
+                    var response = Newtonsoft.Json.Linq.JArray.Parse(data);
+                    foreach (var item in response)
+                    {
+                        JToken uuidToken = item["Uuid"];
+                        string uuid = uuidToken?.ToString();
+
+                        JToken datasetNameToken = item["DatasetName"];
+                        string datasetName = datasetNameToken?.ToString();
+
+                        if (uuid != model.Uuid && model.ResourceReferenceCode == datasetName)
+                        {
+                            ModelState.AddModelError("DatasetNameDuplicate", UI.ErrorDuplicateDatasetName + ", uuid = " + model.Uuid);
+                        }
+
+                    }
+                }
+                catch (Exception ex) { Log.Error(ex); }
+            }
         }
 
         [HttpGet]

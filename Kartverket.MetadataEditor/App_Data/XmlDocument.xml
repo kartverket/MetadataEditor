@@ -327,6 +327,11 @@
               Looks up a localized string similar to Ugyldig uuid.
             </summary>
         </member>
+        <member name="P:Resources.UI.ErrorDuplicateDatasetName">
+            <summary>
+              Looks up a localized string similar to Navn på datasett er allerede registrert.
+            </summary>
+        </member>
         <member name="P:Resources.UI.ErrorInfo">
             <summary>
               Looks up a localized string similar to Det har desverre skjedd en feil med din forespørsel. Prøv igjen om litt..

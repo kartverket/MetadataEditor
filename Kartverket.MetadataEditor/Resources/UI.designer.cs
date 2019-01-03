@@ -548,6 +548,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Navn på datasett er allerede registrert.
+        /// </summary>
+        public static string ErrorDuplicateDatasetName {
+            get {
+                return ResourceManager.GetString("ErrorDuplicateDatasetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Det har desverre skjedd en feil med din forespørsel. Prøv igjen om litt..
         /// </summary>
         public static string ErrorInfo {
