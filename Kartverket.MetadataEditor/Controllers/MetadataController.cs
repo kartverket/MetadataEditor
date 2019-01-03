@@ -462,7 +462,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                         if (uuid != model.Uuid && model.ResourceReferenceCode == datasetName)
                         {
-                            ModelState.AddModelError("DatasetNameDuplicate", UI.ErrorDuplicateDatasetName + ", uuid = " + model.Uuid);
+                            ModelState.AddModelError("DatasetNameDuplicate", UI.ErrorDuplicateDatasetName + ", uuid = " + uuid);
                         }
 
                     }
