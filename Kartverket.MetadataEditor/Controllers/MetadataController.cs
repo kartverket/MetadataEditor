@@ -450,22 +450,21 @@ namespace Kartverket.MetadataEditor.Controllers
                 {
                     System.Net.WebClient c = new System.Net.WebClient();
                     c.Encoding = System.Text.Encoding.UTF8;
-                    var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/datasets-namespace?namespace=" + Server.UrlEncode(model.ResourceReferenceCodespace));
-                    var response = Newtonsoft.Json.Linq.JArray.Parse(data);
-                    foreach (var item in response)
+                    var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/valid-dataset-name?namespace=" + Server.UrlEncode(model.ResourceReferenceCodespace) + "&datasetName=" + Server.UrlEncode(model.ResourceReferenceCode) + "&uuid=" + model.Uuid);
+                    var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                    var IsValidToken = response["IsValid"];
+                    bool IsValid = IsValidToken.ToObject<Boolean>();
+
+                    if (!IsValid)
                     {
-                        JToken uuidToken = item["Uuid"];
-                        string uuid = uuidToken?.ToString();
 
-                        JToken datasetNameToken = item["DatasetName"];
-                        string datasetName = datasetNameToken?.ToString();
+                        JToken resultToken = response["Result"];
+                        string uuid = resultToken?.ToString();
 
-                        if (uuid != model.Uuid && model.ResourceReferenceCode == datasetName)
-                        {
-                            ModelState.AddModelError("DatasetNameDuplicate", UI.ErrorDuplicateDatasetName + ", uuid = " + uuid);
-                        }
-
+                        ModelState.AddModelError("DatasetNameDuplicate", UI.ErrorDuplicateDatasetName + ", uuid = " + uuid);
                     }
+
                 }
                 catch (Exception ex) { Log.Error(ex); }
             }
