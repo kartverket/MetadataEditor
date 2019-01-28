@@ -182,6 +182,12 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private void PrepareViewBagForEditing(MetadataViewModel model)
         {
+            var namespaceValues = GetListOfNamespace(CultureHelper.GetCurrentCulture());
+            if(!namespaceValues.ContainsKey(""))
+                namespaceValues.Add("", UI.NoneSelected);
+            var NamespaceValuesSelect = new SelectList(namespaceValues, "Key", "Value", model.ResourceReferenceCodespace);
+            ViewBag.NamespaceValues = NamespaceValuesSelect;
+
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(CultureHelper.GetCurrentCulture()), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SpatialRepresentation);
 
@@ -437,6 +443,31 @@ namespace Kartverket.MetadataEditor.Controllers
                 ModelState.AddModelError("thumbnailMissing", UI.ImageRequired);
                 ViewBag.thumbnailMissingCSS = "input-validation-error";
                 }
+
+            if(!string.IsNullOrEmpty(model.ResourceReferenceCodespace) && !string.IsNullOrEmpty(model.ResourceReferenceCode))
+            {
+                try
+                {
+                    System.Net.WebClient c = new System.Net.WebClient();
+                    c.Encoding = System.Text.Encoding.UTF8;
+                    var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/valid-dataset-name?namespace=" + Server.UrlEncode(model.ResourceReferenceCodespace) + "&datasetName=" + Server.UrlEncode(model.ResourceReferenceCode) + "&uuid=" + model.Uuid);
+                    var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                    var IsValidToken = response["IsValid"];
+                    bool IsValid = IsValidToken.ToObject<Boolean>();
+
+                    if (!IsValid)
+                    {
+
+                        JToken resultToken = response["Result"];
+                        string uuid = resultToken?.ToString();
+
+                        ModelState.AddModelError("DatasetNameDuplicate", UI.ErrorDuplicateDatasetName + ", uuid = " + uuid);
+                    }
+
+                }
+                catch (Exception ex) { Log.Error(ex); }
+            }
         }
 
         [HttpGet]
@@ -576,6 +607,11 @@ namespace Kartverket.MetadataEditor.Controllers
         public Dictionary<string, string> GetListOfRasterFormats(string culture = Culture.NorwegianCode)
         {
             return GetCodeList("25EF67D3-974F-4B0C-841D-BDD0B29CE78B", culture);
+        }
+
+        public Dictionary<string, string> GetListOfNamespace(string culture = Culture.NorwegianCode)
+        {
+            return GetCodeList("61e5a933-ea1e-4b16-8ce4-b1a1645b5b51", culture);
         }
 
         public Dictionary<string, string> GetCodeList(string systemid, string culture = Culture.NorwegianCode)

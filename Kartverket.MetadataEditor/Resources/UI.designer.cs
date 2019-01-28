@@ -548,6 +548,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Navn på datasett er allerede registrert.
+        /// </summary>
+        public static string ErrorDuplicateDatasetName {
+            get {
+                return ResourceManager.GetString("ErrorDuplicateDatasetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Det har desverre skjedd en feil med din forespørsel. Prøv igjen om litt..
         /// </summary>
         public static string ErrorInfo {
@@ -954,7 +963,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Endelig avklaring om oppbygging av navnerom foreligger ikke. Den er vurdert til å være en URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.Eksempel: http://data.geonorge.no/so/.
+        ///   Looks up a localized string similar to Velg URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator..
         /// </summary>
         public static string HelpTextResourceReferenceCodespace {
             get {

@@ -218,6 +218,11 @@
                         valueFromCoverageUrl = match;
                     });
                 }
+                else if ((regexResult = regex.exec(this.$root.model.CoverageGridUrl)) !== null) {
+                    regexResult.forEach(function (match, groupIndex) {
+                        valueFromCoverageUrl = match;
+                    });
+                }
                 return valueFromCoverageUrl;
             },
             getMapServiceType: function () {
