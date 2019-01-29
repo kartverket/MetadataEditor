@@ -1,18 +1,41 @@
 ﻿using Kartverket.MetadataEditor.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
+using Microsoft.Owin.Security.Notifications;
+using System.Threading.Tasks;
 
 namespace Kartverket.MetadataEditor.Views.Home
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+
             return RedirectToAction("Index", "Metadata");
         }
+
+        public void SignIn()
+        {
+            var redirectUrl = Url.Action(nameof(HomeController.Index), "Home");
+            HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = redirectUrl },
+                            OpenIdConnectAuthenticationDefaults.AuthenticationType);
+        }
+
+        public void SignOut()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut(
+                        OpenIdConnectAuthenticationDefaults.AuthenticationType,
+                        CookieAuthenticationDefaults.AuthenticationType);
+        }
+
         [Route("setculture/{culture}")]
         public ActionResult SetCulture(string culture, string ReturnUrl)
         {

@@ -2124,5 +2124,18 @@
         <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.ssbNr">
             <remarks/>
         </member>
+        <member name="M:Kartverket.MetadataEditor.Startup.Configuration(Owin.IAppBuilder)">
+            <summary>
+            Configure OWIN to use OpenIdConnect 
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Startup.OnAuthenticationFailed(Microsoft.Owin.Security.Notifications.AuthenticationFailedNotification{Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectMessage,Microsoft.Owin.Security.OpenIdConnect.OpenIdConnectAuthenticationOptions})">
+            <summary>
+            Handle failed authentication requests by redirecting the user to the home page with an error in the query string
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
