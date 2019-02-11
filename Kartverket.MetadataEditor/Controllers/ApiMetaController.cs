@@ -39,7 +39,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             try
             {
-
                 if (HttpContext.Current.Request.Files.Count > 0)
                 {
                     HttpPostedFile file = HttpContext.Current.Request.Files[0];
@@ -48,17 +47,17 @@ namespace Kartverket.MetadataEditor.Controllers
                     {
 
                         var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                        var filename = uuid + "_" + timestamp + "_" + file.FileName;
-                        var fullPath = HttpContext.Current.Server.MapPath("~/thumbnails/" + filename);
+                        //var filename = uuid + "_" + timestamp + "_" + file.FileName;
+                        //var fullPath = HttpContext.Current.Server.MapPath("~/thumbnails/" + filename);
 
-                        file.SaveAs(fullPath);
-                        url = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filename;
+                        //file.SaveAs(fullPath);
+                        //url = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filename;
 
-                        var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
-                        var fullPathMini = HttpContext.Current.Server.MapPath("~/thumbnails/" + filenameMini);
+                        //var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
+                        //var fullPathMini = HttpContext.Current.Server.MapPath("~/thumbnails/" + filenameMini);
 
-                        OptimizeImage(file, 180, 1000, fullPathMini);
-                        urlMini = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filenameMini;
+                        //OptimizeImage(file, 180, 1000, fullPathMini);
+                        //urlMini = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filenameMini;
 
                         var filenameMedium = uuid + "_" + timestamp + "_medium_" + file.FileName;
                         var fullPathMedium = HttpContext.Current.Server.MapPath("~/thumbnails/" + filenameMedium);
@@ -79,7 +78,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 Log.Error(ex);
             }
 
-            return new Upload { UrlOriginalImage = url, UrlSmallImage = urlMini, UrlMediumImage = urlMedium };
+            return new Upload { UrlMediumImage = urlMedium };
         }
 
         public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
@@ -254,8 +253,8 @@ namespace Kartverket.MetadataEditor.Controllers
 
     public class Upload
     {
-        public String UrlOriginalImage { get; set; }
-        public String UrlSmallImage { get; set; }
+        //public String UrlOriginalImage { get; set; }
+        //public String UrlSmallImage { get; set; }
         public String UrlMediumImage { get; set; }
     }
 }
