@@ -404,7 +404,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Navn på datasett.
+        ///   Looks up a localized string similar to Datasett-ID.
         /// </summary>
         public static string DatasetName {
             get {
@@ -954,7 +954,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fullstendig navn på selve datasettet..
+        ///   Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt..
         /// </summary>
         public static string HelpTextResourceReferenceCode {
             get {
@@ -2187,7 +2187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Navnerom til datasett.
+        ///   Looks up a localized string similar to Velg blant forhåndsdefinerte navnerom for datasett..
         /// </summary>
         public static string NamespaceToDataset {
             get {

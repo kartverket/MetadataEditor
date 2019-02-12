@@ -249,7 +249,7 @@
         </member>
         <member name="P:Resources.UI.DatasetName">
             <summary>
-              Looks up a localized string similar to Navn på datasett.
+              Looks up a localized string similar to Datasett-ID.
             </summary>
         </member>
         <member name="P:Resources.UI.Date">
@@ -555,7 +555,7 @@
         </member>
         <member name="P:Resources.UI.HelpTextResourceReferenceCode">
             <summary>
-              Looks up a localized string similar to Fullstendig navn på selve datasettet..
+              Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt..
             </summary>
         </member>
         <member name="P:Resources.UI.HelpTextResourceReferenceCodespace">
@@ -1230,7 +1230,7 @@
         </member>
         <member name="P:Resources.UI.NamespaceToDataset">
             <summary>
-              Looks up a localized string similar to Navnerom til datasett.
+              Looks up a localized string similar to Velg blant forhåndsdefinerte navnerom for datasett..
             </summary>
         </member>
         <member name="P:Resources.UI.Next">
