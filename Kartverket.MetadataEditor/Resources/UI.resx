@@ -542,7 +542,7 @@
     <value>Mine metadata</value>
   </data>
   <data name="NamespaceToDataset" xml:space="preserve">
-    <value>Velg blant forhåndsdefinerte navnerom for datasett.</value>
+    <value>Navnerom til datasett</value>
   </data>
   <data name="NotFoundText" xml:space="preserve">
     <value>Vi finner ikke siden du leter etter, men Geonorge skal hjelpe deg videre.</value>

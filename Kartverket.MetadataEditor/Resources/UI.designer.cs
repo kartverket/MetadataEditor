@@ -2187,7 +2187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg blant forhåndsdefinerte navnerom for datasett..
+        ///   Looks up a localized string similar to Navnerom til datasett.
         /// </summary>
         public static string NamespaceToDataset {
             get {

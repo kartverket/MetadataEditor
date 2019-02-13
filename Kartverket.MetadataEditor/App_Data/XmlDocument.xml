@@ -1230,7 +1230,7 @@
         </member>
         <member name="P:Resources.UI.NamespaceToDataset">
             <summary>
-              Looks up a localized string similar to Velg blant forhåndsdefinerte navnerom for datasett..
+              Looks up a localized string similar to Navnerom til datasett.
             </summary>
         </member>
         <member name="P:Resources.UI.Next">
