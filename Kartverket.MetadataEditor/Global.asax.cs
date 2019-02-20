@@ -20,6 +20,7 @@ using System.Web.Helpers;
 using System.Security.Claims;
 using System.Data.Entity;
 using Kartverket.MetadataEditor.Models;
+using System.Net;
 
 namespace Kartverket.MetadataEditor
 {
@@ -55,6 +56,8 @@ namespace Kartverket.MetadataEditor
             log4net.Config.XmlConfigurator.Configure();
 
             MvcHandler.DisableMvcResponseHeader = true;
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
         }
 
