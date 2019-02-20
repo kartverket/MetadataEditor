@@ -56,9 +56,6 @@ namespace Kartverket.MetadataEditor
             log4net.Config.XmlConfigurator.Configure();
 
             MvcHandler.DisableMvcResponseHeader = true;
-
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
         }
 
         protected void Application_Error(Object sender, EventArgs e)
