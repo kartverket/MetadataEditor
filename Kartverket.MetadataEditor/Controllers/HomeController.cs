@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
 
 namespace Kartverket.MetadataEditor.Views.Home
 {
@@ -53,6 +57,20 @@ namespace Kartverket.MetadataEditor.Views.Home
                 return Redirect(ReturnUrl);
             else
                 return RedirectToAction("Index");
+        }
+
+        public void SignIn()
+        {
+            var redirectUrl = Url.Action(nameof(HomeController.Index), "Home");
+            HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = redirectUrl },
+                OpenIdConnectAuthenticationDefaults.AuthenticationType);
+        }
+
+        public void SignOut()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut(
+                OpenIdConnectAuthenticationDefaults.AuthenticationType,
+                CookieAuthenticationDefaults.AuthenticationType);
         }
     }
 }
