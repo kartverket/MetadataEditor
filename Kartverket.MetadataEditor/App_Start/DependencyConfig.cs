@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Web.Http;
 using System.Collections.Generic;
 using System.Web.Configuration;
+using Geonorge.AuthLib.NetFull;
 using Kartverket.Geonorge.Utilities.LogEntry;
 using Kartverket.MetadataEditor.Models;
 using Kartverket.MetadataEditor.Models.OpenData;
@@ -20,7 +21,7 @@ namespace Kartverket.MetadataEditor.App_Start
 {
     public class DependencyConfig
     {
-        public static void Configure(ContainerBuilder builder)
+        public static IContainer Configure(ContainerBuilder builder)
         {
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
@@ -34,6 +35,8 @@ namespace Kartverket.MetadataEditor.App_Start
 
             // dependency resolver for Web API
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+
+            return container;
         }
 
         // the order of component registration is significant. must wire up dependencies in other packages before types in this project.
@@ -65,6 +68,7 @@ namespace Kartverket.MetadataEditor.App_Start
             builder.RegisterType<OpenMetadataFetcher>().As<IOpenMetadataFetcher>();
             builder.RegisterType<AdministrativeUnitService>().As<IAdministrativeUnitService>();
             builder.RegisterType<MetadataContext>().InstancePerRequest().AsSelf();
+            builder.RegisterModule<GeonorgeAuthenticationModule>();
         }
     }
 }
