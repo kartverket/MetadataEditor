@@ -1,4 +1,5 @@
-﻿@using Kartverket.MetadataEditor.Helpers
+﻿@using System.Security.Claims
+@using Kartverket.MetadataEditor.Helpers
 @using Resources
 
 <!DOCTYPE html>
@@ -151,5 +152,19 @@
 
     @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
     @RenderSection("scripts", required: false)
+
+
+
+
+    @if (Html.EnvironmentName() == "dev" && HttpContext.Current.IsDebuggingEnabled)
+    {
+        var cp = (ClaimsPrincipal)User;
+        foreach (var claim in cp.Claims)
+        {
+            <!-- @claim.Type = @claim.Value -->
+        }
+
+    }
+
 </body>
 </html>
