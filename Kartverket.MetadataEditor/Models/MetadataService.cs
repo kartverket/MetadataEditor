@@ -573,7 +573,7 @@ namespace Kartverket.MetadataEditor.Models
 
             UpdateMetadataFromModel(model, metadata);
             metadata.RemoveUnnecessaryElements();
-            var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username, model.Published));
+            var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, model.Published));
             if (transaction.TotalUpdated == "0")
                 throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
 
@@ -755,7 +755,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.Keywords = model.GetAllKeywords();
 
                 metadata.RemoveUnnecessaryElements();
-                var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+                var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
                 if (transaction.TotalUpdated == "0")
                     Log.Error("No records updated batch update english translation uuid: " + uuid);
 
@@ -1677,42 +1677,6 @@ namespace Kartverket.MetadataEditor.Models
             return serviceType;
         }
 
-        public Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "")
-        {
-            Dictionary<string, string> header = new Dictionary<string, string> { { "GeonorgeUsername", username } };
-
-            bool isAdmin = false;
-            bool editorRole = false;
-
-            foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-
-                if (c.Type == "organization")
-                    header.Add("GeonorgeOrganization", c.Value);
-                else if (c.Type == "role")
-                {
-                    if (c.Value == "nd.metadata_admin")
-                    {
-                        header.Add("GeonorgeRole", c.Value);
-                        isAdmin = true;
-                    }
-                    else if (c.Value == "nd.metadata_editor")
-                    {
-                        editorRole = true;
-                    }
-                }                 
-            }
-
-            if (!isAdmin && editorRole)
-                header.Add("GeonorgeRole", "nd.metadata_editor");
-
-            header.Add("published", published);
-
-            return header;
-        }
-
-           
-
         private void SetDefaultValuesOnMetadata(SimpleMetadata metadata)
         {
             metadata.DateMetadataUpdated = DateTime.Now;
@@ -1720,7 +1684,6 @@ namespace Kartverket.MetadataEditor.Models
             metadata.MetadataStandardVersion = "2003";
             metadata.MetadataLanguage = "nor";
         }
-
 
         public List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers, string[] keywords, string username)
         {
@@ -1734,7 +1697,7 @@ namespace Kartverket.MetadataEditor.Models
                 try
                 {
                     SimpleMetadata simpleLayer = createMetadataForLayer(parentMetadata, selectedKeywordsFromParent, layer);
-                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
                     if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
                     {
                         layer.Uuid = transaction.Identifiers[0];
@@ -1768,7 +1731,7 @@ namespace Kartverket.MetadataEditor.Models
                 try
                 {
                     SimpleMetadata simpleLayer = createMetadataForFeature(parentMetadata, selectedKeywordsFromParent, layer);
-                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
                     if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
                     {
                         layer.Uuid = transaction.Identifiers[0];
@@ -2144,7 +2107,7 @@ namespace Kartverket.MetadataEditor.Models
 
             SetDefaultValuesOnMetadata(metadata);
 
-            _geoNorge.MetadataInsert(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+            _geoNorge.MetadataInsert(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
 
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Added, User = username, Description = "Created metadata title: " + metadata.Title }));
             return metadata.Uuid;
@@ -2154,7 +2117,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public void DeleteMetadata(MetadataViewModel metadata, string username)
         {
-            _geoNorge.MetadataDelete(metadata.Uuid, CreateAdditionalHeadersWithUsername(username));
+            _geoNorge.MetadataDelete(metadata.Uuid, GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Deleted,  User = username, Description = "Delete metadata title: " + metadata.Title }));
         }
 

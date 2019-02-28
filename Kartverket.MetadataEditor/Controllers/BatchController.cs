@@ -10,7 +10,7 @@ using Kartverket.MetadataEditor.Models.OpenData;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
-    public class BatchController : Controller
+    public class BatchController : ControllerBase
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -40,7 +40,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                     if (data != null)
                     {
-                        new Thread(() => _batchService.UpdateAll(data, GetUsername(), GetSecurityClaim("organization"))).Start();
+                        new Thread(() => _batchService.UpdateAll(data, GetUsername(), GetCurrentUserOrganizationName())).Start();
                         TempData["message"] = "Batch-oppdatering: " + data.dataField  +" = "  + data.dataValue + ", er startet og kjører i bakgrunnen!";
                     }
                     else
@@ -70,21 +70,13 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult ThumbnailGeneration()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                string userOrganization = GetSecurityClaim("organization");
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
-                { 
-                    Log.Info("Starting batch update thumbnail generation.");
-                    new Thread(() => _batchService.GenerateMediumThumbnails(GetUsername(), GetSecurityClaim("organization"), Server.MapPath("~/thumbnails/"))).Start();
-                    TempData["message"] = "Batch-oppdatering: generering av thumbnails er startet og kjører i bakgrunnen!";
-                }
-                else
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            if (!UserHasMetadataAdminRole())
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
 
-            }
-
+            Log.Info("Starting batch update thumbnail generation.");
+            new Thread(() => _batchService.GenerateMediumThumbnails(GetUsername(), GetCurrentUserOrganizationName(), Server.MapPath("~/thumbnails/"))).Start();
+            TempData["message"] = "Batch-oppdatering: generering av thumbnails er startet og kjører i bakgrunnen!";
+               
             return RedirectToAction("Index");
         }
 
@@ -116,21 +108,12 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult OpenData()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                string userOrganization = GetSecurityClaim("organization");
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
-                {
-                    var endpoints = _db.OpenMetadataEndpoints.ToList();
-                    new Thread(() => _openMetadataService.SynchronizeMetadata(endpoints)).Start();
-                }
-                else
-                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-            }
+            if (!UserHasMetadataAdminRole())
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
 
-                return RedirectToAction("Index");
-
+            var endpoints = _db.OpenMetadataEndpoints.ToList();
+            new Thread(() => _openMetadataService.SynchronizeMetadata(endpoints)).Start();
+            return RedirectToAction("Index");
         }
 
         [Authorize]
@@ -143,31 +126,23 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult SyncronizeRegisterTranslations(string uuid = null)
         {
-            string role = GetSecurityClaim("role");
-            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
-            {
-                new Thread(() => _batchService.UpdateRegisterTranslations(GetUsername(), uuid)).Start();
-                TempData["message"] = "Batch-oppdatering: synkronisering av engelske register tekster kjører i bakgrunnen!";
-                return RedirectToAction("Index");
-            }
-            else
+            if (!UserHasMetadataAdminRole())
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
 
+            new Thread(() => _batchService.UpdateRegisterTranslations(GetUsername(), uuid)).Start();
+            TempData["message"] = "Batch-oppdatering: synkronisering av engelske register tekster kjører i bakgrunnen!";
+            return RedirectToAction("Index");
         }
 
         [Authorize]
         public ActionResult SyncronizeAdminUnitsUri()
         {
-            string role = GetSecurityClaim("role");
-            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
-            {
-                new Thread(() => _batchService.UpdateKeywordPlaceUri(GetUsername())).Start();
-                TempData["message"] = "Batch-oppdatering av stedsnavn URI for geografiske nøkkelord kjører i bakgrunnen!";
-                return RedirectToAction("Index");
-            }
-            else
+            if (!UserHasMetadataAdminRole())
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
-
+            
+            new Thread(() => _batchService.UpdateKeywordPlaceUri(GetUsername())).Start();
+            TempData["message"] = "Batch-oppdatering av stedsnavn URI for geografiske nøkkelord kjører i bakgrunnen!";
+            return RedirectToAction("Index");
         }
 
 
@@ -232,9 +207,8 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                string userOrganization = GetSecurityClaim("organization");
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                string userOrganization = GetCurrentUserOrganizationName();
+                if (UserHasMetadataAdminRole())
                 {
                     model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
                     model.UserIsAdmin = true;
@@ -258,32 +232,6 @@ namespace Kartverket.MetadataEditor.Controllers
             }
 
             return View(model);
-        }
-
-        private string GetUsername()
-        {
-            return GetSecurityClaim("username");
-        }
-
-        private string GetSecurityClaim(string type)
-        {
-            string result = null;
-            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
-                {
-                    result = claim.Value;
-                    break;
-                }
-            }
-
-            // bad hack, must fix BAAT
-            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
-            {
-                result = "Kartverket";
-            }
-
-            return result;
         }
 
         public Dictionary<string, string> GetListOfOrganizations()

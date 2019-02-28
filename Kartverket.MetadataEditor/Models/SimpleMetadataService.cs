@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using Arkitektum.GIS.Lib.SerializeUtil;
 using Kartverket.MetadataEditor.Util;
@@ -262,7 +263,7 @@ namespace Kartverket.MetadataEditor.Models
 
             UpdateMetadataFromModel(model, metadata);
 
-            _geoNorge.MetadataUpdate(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username, model.Published));
+            _geoNorge.MetadataUpdate(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, model.Published));
         }
 
         private void UpdateMetadataFromModel(SimpleMetadataViewModel model, SimpleMetadata metadata)
@@ -380,39 +381,7 @@ namespace Kartverket.MetadataEditor.Models
             SetDefaultValuesOnMetadata(metadata);
         }
 
-        private Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "")
-        {
-            Dictionary<string, string> header = new Dictionary<string, string> { { "GeonorgeUsername", username } };
-
-            bool isAdmin = false;
-            bool editorRole = false;
-
-            foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-
-                if (c.Type == "organization")
-                    header.Add("GeonorgeOrganization", c.Value);
-                else if (c.Type == "role")
-                {
-                    if (c.Value == "nd.metadata_admin")
-                    {
-                        header.Add("GeonorgeRole", c.Value);
-                        isAdmin = true;
-                    }
-                    else if (c.Value == "nd.metadata_editor")
-                    {
-                        editorRole = true;
-                    }
-                }
-            }
-
-            if (!isAdmin && editorRole)
-                header.Add("GeonorgeRole", "nd.metadata_editor");
-
-            header.Add("published", published);
-
-            return header;
-        }
+        
 
 
 
@@ -437,7 +406,7 @@ namespace Kartverket.MetadataEditor.Models
                 try
                 {
                     SimpleMetadata simpleLayer = createMetadataForLayer(parentMetadata, selectedKeywordsFromParent, layer);
-                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
                     if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
                     {
                         layer.Uuid = transaction.Identifiers[0];
@@ -471,7 +440,7 @@ namespace Kartverket.MetadataEditor.Models
                 try
                 {
                     SimpleMetadata simpleLayer = createMetadataForFeature(parentMetadata, selectedKeywordsFromParent, layer);
-                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+                    MetadataTransaction transaction = _geoNorge.MetadataInsert(simpleLayer.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
                     if (transaction.Identifiers != null && transaction.Identifiers.Count > 0)
                     {
                         layer.Uuid = transaction.Identifiers[0];
@@ -843,7 +812,7 @@ namespace Kartverket.MetadataEditor.Models
 
             SetDefaultValuesOnMetadata(metadata);
 
-            _geoNorge.MetadataInsert(metadata.GetMetadata(), CreateAdditionalHeadersWithUsername(username));
+            _geoNorge.MetadataInsert(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
 
             return metadata.Uuid;
         }
@@ -852,7 +821,7 @@ namespace Kartverket.MetadataEditor.Models
 
         internal void DeleteMetadata(string uuid, string username)
         {
-            _geoNorge.MetadataDelete(uuid, CreateAdditionalHeadersWithUsername(username));
+            _geoNorge.MetadataDelete(uuid, GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
         }
 
     }

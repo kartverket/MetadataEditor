@@ -90,11 +90,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExpressiveAnnotations.2.2.7\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Geonorge.AuthLib.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geonorge.AuthLib.Common.1.0.33\lib\netstandard2.0\Geonorge.AuthLib.Common.dll</HintPath>
+    <Reference Include="Geonorge.AuthLib.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Geonorge.AuthLib.Common.1.0.35\lib\netstandard2.0\Geonorge.AuthLib.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Geonorge.AuthLib.NetFull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geonorge.AuthLib.NetFull.1.0.33\lib\net461\Geonorge.AuthLib.NetFull.dll</HintPath>
+    <Reference Include="Geonorge.AuthLib.NetFull, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Geonorge.AuthLib.NetFull.1.0.35\lib\net461\Geonorge.AuthLib.NetFull.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="GeoNorgeAPI, Version=3.0.72.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GeoNorgeAPI.3.0.72\lib\net40\GeoNorgeAPI.dll</HintPath>
@@ -104,10 +106,6 @@
     </Reference>
     <Reference Include="Kartverket.Geonorge.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Kartverket.Geonorge.Utilities.1.0.43\lib\net45\Kartverket.Geonorge.Utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Kentor.AuthServices.Mvc, Version=0.17.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Kentor.AuthServices.Mvc.0.17.2\lib\net45\Kentor.AuthServices.Mvc.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -296,6 +294,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Controllers\ApiControllerBase.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\OpenMetadataEndpointsController.cs" />
     <Compile Include="Migrations\201807310842181_OpenMetadataEndpoint.cs" />
     <Compile Include="Migrations\201807310842181_OpenMetadataEndpoint.Designer.cs">
