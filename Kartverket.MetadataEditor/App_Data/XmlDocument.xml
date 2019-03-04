@@ -249,7 +249,7 @@
         </member>
         <member name="P:Resources.UI.DatasetName">
             <summary>
-              Looks up a localized string similar to Navn på datasett.
+              Looks up a localized string similar to Datasett-ID.
             </summary>
         </member>
         <member name="P:Resources.UI.Date">
@@ -555,7 +555,7 @@
         </member>
         <member name="P:Resources.UI.HelpTextResourceReferenceCode">
             <summary>
-              Looks up a localized string similar to Fullstendig navn på selve datasettet..
+              Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt..
             </summary>
         </member>
         <member name="P:Resources.UI.HelpTextResourceReferenceCodespace">
@@ -1548,7 +1548,7 @@
               Looks up a localized string similar to WFS tjeneste.
             </summary>
         </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String,System.Boolean)">
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String)">
             <summary>
             Upload thumbnail
             </summary>

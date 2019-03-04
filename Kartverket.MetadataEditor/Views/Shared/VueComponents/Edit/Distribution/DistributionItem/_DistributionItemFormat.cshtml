@@ -34,7 +34,7 @@
                 <div class="col-md-8">
                     <input class="form-control"
                            v-bind:name="'DistributionsFormats[' + formatIndex + '].' + formElements.formatVersion.name"
-                           v-model="format.Version"
+                           v-bind:value="format.Version"
                            v-bind:type="formElements.formatVersion.type"
                            v-on:change="$store.commit('updateFormatDistributionsFormatVersion', {distributionIndex: $parent.distributionIndex, distributionFormatIndex: formatIndex, value: $event.target.value});" />
                 </div>

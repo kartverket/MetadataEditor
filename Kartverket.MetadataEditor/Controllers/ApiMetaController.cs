@@ -1,11 +1,13 @@
 ﻿using Kartverket.MetadataEditor.Models;
 using Kartverket.MetadataEditor.no.geonorge.ws;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 
@@ -15,6 +17,7 @@ namespace Kartverket.MetadataEditor.Controllers
     public class ApiMetaController : ApiController
     {
         private IMetadataService _metadataService;
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public ApiMetaController(IMetadataService metadataService)
         {
@@ -25,18 +28,17 @@ namespace Kartverket.MetadataEditor.Controllers
         /// </summary>
         /// <param name="uuid">The identifier of the metadata</param>
         /// <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
-        [Authorize]
+        [ApiAuthorizeAttribute]
         [Route("api/uploadthumbnail/{uuid}")]
         [HttpPost]
-        public HttpResponseMessage UploadThumbnail(string uuid, bool scaleImage = false)
+        public Upload UploadThumbnail(string uuid)
         {
-            string filename = null;
-            string fullPath = null;
             string url = null;
+            string urlMini = null;
+            string urlMedium = null;
 
             try
             {
-
                 if (HttpContext.Current.Request.Files.Count > 0)
                 {
                     HttpPostedFile file = HttpContext.Current.Request.Files[0];
@@ -45,19 +47,25 @@ namespace Kartverket.MetadataEditor.Controllers
                     {
 
                         var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                        filename = uuid + "_" + timestamp + "_" + file.FileName;
-                        fullPath = HttpContext.Current.Server.MapPath("~/thumbnails/" + filename);
+                        //var filename = uuid + "_" + timestamp + "_" + file.FileName;
+                        //var fullPath = HttpContext.Current.Server.MapPath("~/thumbnails/" + filename);
 
-                        url = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filename;
+                        //file.SaveAs(fullPath);
+                        //url = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filename;
 
-                        if (scaleImage)
-                        {
-                            OptimizeImage(file, 180, 1000, fullPath);
-                        }
-                        else
-                        {
-                            file.SaveAs(fullPath);
-                        }
+                        //var filenameMini = uuid + "_" + timestamp + "_mini_" + file.FileName;
+                        //var fullPathMini = HttpContext.Current.Server.MapPath("~/thumbnails/" + filenameMini);
+
+                        //OptimizeImage(file, 180, 1000, fullPathMini);
+                        //urlMini = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filenameMini;
+
+                        var filenameMedium = uuid + "_" + timestamp + "_medium_" + file.FileName;
+                        var fullPathMedium = HttpContext.Current.Server.MapPath("~/thumbnails/" + filenameMedium);
+
+                        OptimizeImage(file, 300, 1000, fullPathMedium);
+                        urlMedium = "https://" + HttpContext.Current.Request.Url.Host + (HttpContext.Current.Request.Url.IsDefaultPort ? "" : ":" + HttpContext.Current.Request.Url.Port) + "/thumbnails/" + filenameMedium;
+
+
                     }
                     else
                     {
@@ -65,18 +73,12 @@ namespace Kartverket.MetadataEditor.Controllers
                     }
                 }
             }
-            catch (HttpResponseException e)
+            catch(Exception ex)
             {
-                var error = new { errorMessage = "Bare filtype jpeg, gif eller png er tillatt" };
-                return Request.CreateResponse(HttpStatusCode.UnsupportedMediaType, error);
+                Log.Error(ex);
             }
-            catch (System.Exception e) 
-            {
-                var error = new { errorMessage = e.Message };
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, error); 
-            }
-            var uploaded = new { uploadedToURL = url };
-            return Request.CreateResponse(HttpStatusCode.OK, uploaded);
+
+            return new Upload { UrlMediumImage = urlMedium };
         }
 
         public static Image ScaleImage(Image image, int maxWidth, int maxHeight)
@@ -248,4 +250,11 @@ namespace Kartverket.MetadataEditor.Controllers
 
 
         }
+
+    public class Upload
+    {
+        //public String UrlOriginalImage { get; set; }
+        //public String UrlSmallImage { get; set; }
+        public String UrlMediumImage { get; set; }
+    }
 }
