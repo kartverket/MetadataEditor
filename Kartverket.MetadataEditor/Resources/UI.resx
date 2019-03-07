@@ -647,7 +647,7 @@
     <value>Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt.</value>
   </data>
   <data name="HelpTextResourceReferenceCodespace" xml:space="preserve">
-    <value>Velg URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator.</value>
+    <value>Velg blant forhåndsdefinerte navnerom for datasett</value>
   </data>
   <data name="HelpTextSpesificUsage" xml:space="preserve">
     <value>Oppgi hvilke oppgaver datasettet kan/bør brukes til.For DOK- data bør det spesielt henvises til bruksområder relatert til kommunens plan- og byggesaksarbeid. Oppgi gjerne plannivå dataene er hensiktsmessig for evt opplysning om de er for detaljplanlegging eller planlegging på oversiktsnivå. Bruksbegrensninger fylles inn i fanen Restriksjoner</value>
