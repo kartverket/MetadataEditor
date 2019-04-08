@@ -90,13 +90,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExpressiveAnnotations.2.2.7\lib\net45\ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Geonorge.AuthLib.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\Geonorge.AuthLib.Common.1.0.35\lib\netstandard2.0\Geonorge.AuthLib.Common.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Geonorge.AuthLib.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geonorge.AuthLib.Common.1.0.38\lib\netstandard2.0\Geonorge.AuthLib.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Geonorge.AuthLib.NetFull, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\Geonorge.AuthLib.NetFull.1.0.35\lib\net461\Geonorge.AuthLib.NetFull.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Geonorge.AuthLib.NetFull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geonorge.AuthLib.NetFull.1.0.38\lib\net461\Geonorge.AuthLib.NetFull.dll</HintPath>
     </Reference>
     <Reference Include="GeoNorgeAPI, Version=3.0.72.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GeoNorgeAPI.3.0.72\lib\net40\GeoNorgeAPI.dll</HintPath>
