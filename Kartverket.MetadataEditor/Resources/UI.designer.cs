@@ -1636,7 +1636,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karttjenestelag Geonorge.
+        ///   Looks up a localized string similar to Dekningskart Geonorge.
         /// </summary>
         public static string Metadata_CoverageType_MapserviceGeonorge {
             get {
