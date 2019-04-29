@@ -925,7 +925,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_CoverageType_MapserviceGeonorge">
             <summary>
-              Looks up a localized string similar to Karttjenestelag Geonorge.
+              Looks up a localized string similar to Dekningskart Geonorge.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_CoverageType_Webpage">

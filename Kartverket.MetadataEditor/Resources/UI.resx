@@ -1001,7 +1001,7 @@
     <value>Tjenestespesifikasjon</value>
   </data>
   <data name="Metadata_CoverageType_MapserviceGeonorge" xml:space="preserve">
-    <value>Karttjenestelag Geonorge</value>
+    <value>Dekningskart Geonorge</value>
   </data>
   <data name="Metadata_KeywordsAdministrativeUnits_Label" xml:space="preserve">
     <value>Nøkkelord for administrative enheter</value>
