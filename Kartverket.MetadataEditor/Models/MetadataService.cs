@@ -1016,14 +1016,6 @@ namespace Kartverket.MetadataEditor.Models
             metadata.HelpUrl = model.HelpUrl;
 
             metadata.Thumbnails = Thumbnail.ToSimpleThumbnailList(model.Thumbnails);
-            foreach (var thumb in metadata.Thumbnails)
-            {
-                if (thumb.Type == "dekningsoversikt")
-                {
-                    metadata.CoverageUrl = "";
-                    break;
-                }
-            }
 
             // distribution
             metadata.SpatialRepresentation = model.SpatialRepresentation;
