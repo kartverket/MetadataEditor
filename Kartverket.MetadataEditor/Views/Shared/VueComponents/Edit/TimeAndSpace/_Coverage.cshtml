@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div v-if="computedThumbnailUrl">
-                <h3>Valgt dekningskart</h3>
+                <h3>Valgt dekningskart-bildefil</h3>
                 <div class="striped-list">
                     <div class="list-item">
                         <div class="row">
@@ -102,6 +102,7 @@
                             <div class="col-sm-9">
                                 <p><b>Type:</b> {{ computedThumbnailType }}</p>
                                 <p><b>URL:</b> {{ computedThumbnailUrl }}</p>
+                                <button class="btn" v-on:click="removeFile">Fjern bildefil</button>
                             </div>
                         </div>
                     </div>
@@ -246,10 +247,10 @@
                 return this.getValueFromCoverageUrl(regex) !== '';
             },
             getSelectedCoverageType: function () {
-                if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
-                else if (this.isMapServiceGeonorge()) this.coverageType.value = 'mapserviceGeonorge';
+                if (this.isMapServiceGeonorge()) this.coverageType.value = 'mapserviceGeonorge';
                 else if (this.isMapService()) this.coverageType.value = 'mapservice';
-                else this.coverageType.value = 'webpage';
+                else if (this.coverageType.value = 'webpage');
+                else if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
             },
             initFileUpload: function () {
                 $("#" + this.coverageFile.id).fileupload({
@@ -284,6 +285,21 @@
             uploadFile: function (event) {
                 event.preventDefault(),
                 this.thumbnailFileUploadData.request.submit();
+            }
+            ,
+            removeFile: function (event) {
+                event.preventDefault();
+                var thumbnails = this.$root.model.Thumbnails;
+                for (var t = 0; t < thumbnails.length; t++)
+                {
+                    if (thumbnails[t].Type == "dekningsoversikt")
+                    {
+                        thumbnails.splice(t, 1);
+                        break;
+                    }
+                }
+                console.log(this.$root.model.Thumbnails);
+                this.$store.commit('updateThumbnails', thumbnails);
             }
         },
         mounted: function () {
