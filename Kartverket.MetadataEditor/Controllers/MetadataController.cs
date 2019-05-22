@@ -283,6 +283,8 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.ProductspesificationValues = new SelectList(productspesifications, "Key", "Value", model.ProductSpecificationUrl);
 
             var orderingInstructions = GetSubRegister("metadata-kodelister/kartverket/norge-digitalt-tjenesteerklaering", model);
+            if (!orderingInstructions.ContainsKey(""))
+                orderingInstructions.Add("", " " + UI.NoneSelected);
             if (!string.IsNullOrEmpty(model.OrderingInstructions))
             {
                 KeyValuePair<string, string> orderingInstructionsSelected = new KeyValuePair<string, string>(model.OrderingInstructions, model.OrderingInstructions);
