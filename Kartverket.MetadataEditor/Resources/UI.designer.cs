@@ -963,7 +963,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg URL som peker til et felles navnerom for geografiske datasett som administreres av nasjonal geodatakoordinator..
+        ///   Looks up a localized string similar to Velg blant forhåndsdefinerte navnerom for datasett.
         /// </summary>
         public static string HelpTextResourceReferenceCodespace {
             get {
@@ -1636,7 +1636,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karttjenestelag Geonorge.
+        ///   Looks up a localized string similar to Dekningskart Geonorge.
         /// </summary>
         public static string Metadata_CoverageType_MapserviceGeonorge {
             get {

@@ -182,8 +182,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 System.Web.Configuration.WebConfigurationManager.AppSettings["EditorUrl"] + "thumbnails/";
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
-            var seoUrl = new SeoUrl("", model.Title);
-            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + seoUrl.Title + "/" + model.Uuid;
+            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + model.Uuid;
 
             Dictionary<string, string> OrganizationList = GetListOfOrganizations(CultureHelper.GetCurrentCulture());
 
@@ -254,6 +253,8 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.ProductspesificationValues = new SelectList(productspesifications, "Key", "Value", model.ProductSpecificationUrl);
 
             var orderingInstructions = GetSubRegister("metadata-kodelister/kartverket/norge-digitalt-tjenesteerklaering", model);
+            if (!orderingInstructions.ContainsKey(""))
+                orderingInstructions.Add("", " " + UI.NoneSelected);
             if (!string.IsNullOrEmpty(model.OrderingInstructions))
             {
                 KeyValuePair<string, string> orderingInstructionsSelected = new KeyValuePair<string, string>(model.OrderingInstructions, model.OrderingInstructions);
