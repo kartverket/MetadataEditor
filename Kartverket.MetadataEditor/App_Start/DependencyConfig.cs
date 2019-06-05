@@ -4,7 +4,6 @@ using Autofac.Core;
 using Autofac.Core.Activators.Reflection;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Kartverket.Geonorge.Utilities;
 using Kartverket.Geonorge.Utilities.Organization;
 using GeoNorgeAPI;
 using System.Reflection;
