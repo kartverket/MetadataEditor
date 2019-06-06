@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -68,9 +69,22 @@ namespace Kartverket.MetadataEditor.Views.Home
 
         public void SignOut()
         {
+            var authenticationProperties = new AuthenticationProperties {RedirectUri = WebConfigurationManager.AppSettings["GeoID:PostLogoutRedirectUri"]};
+
             HttpContext.GetOwinContext().Authentication.SignOut(
+                authenticationProperties,
                 OpenIdConnectAuthenticationDefaults.AuthenticationType,
                 CookieAuthenticationDefaults.AuthenticationType);
+        }
+
+        /// <summary>
+        /// This is the action responding to the signout-callback-oidc route after logout at the identity provider
+        /// </summary>
+        /// <returns></returns>
+        [Route("signout-callback-oidc")]
+        public ActionResult SignOutCallback()
+        {
+            return RedirectToAction(nameof(HomeController.Index));
         }
     }
 }
