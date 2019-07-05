@@ -4,7 +4,7 @@
 
     function getMetadata(uuid) {
 
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid + "&lang=" + Cookies.get('_culture'), function (result) {
 
 
             if (result.length != 0) {
@@ -34,7 +34,7 @@
 
         var counter = 0;
 
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?limit=25&facets[0]name=type&facets[0]value=dataset&text=" + searchStr, function (result) {
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?limit=25&facets[0]name=type&facets[0]value=dataset&text=" + searchStr + "&lang=" + Cookies.get('_culture'), function (result) {
             
             if (result.length != 0) {
 
@@ -49,7 +49,7 @@
 
         });
 
-        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr, function (result) {
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr + "&lang=" + Cookies.get('_culture'), function (result) {
             
             if (result.length != 0) {
 
