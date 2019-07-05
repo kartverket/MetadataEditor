@@ -1652,6 +1652,9 @@ namespace Kartverket.MetadataEditor.Models
                 case "OGC:WCS":
                     serviceType = "download";
                     break;
+                case "W3C:AtomFeed":
+                    serviceType = "download";
+                    break;
                 case "OGC:CSW":
                     serviceType = "discovery";
                     break;
