@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.IO;
+﻿using System.IO;
 using Kartverket.MetadataEditor.Models;
 using System;
 using System.Collections.Generic;
@@ -12,18 +11,19 @@ using Resources;
 using log4net;
 using System.Net;
 using System.Reflection;
+using System.Security.Claims;
 using Newtonsoft.Json.Linq;
-using System.Threading;
-using Kartverket.Geonorge.Utilities.LogEntry;
 using System.Threading.Tasks;
+using Geonorge.AuthLib.Common;
 using Kartverket.MetadataEditor.Helpers;
 using Kartverket.MetadataEditor.Models.Translations;
 using Kartverket.MetadataEditor.Models.InspireCodelist;
+using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
     [HandleError]
-    public class MetadataController : Controller
+    public class MetadataController : ControllerBase
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -43,9 +43,7 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             MetadataCreateViewModel model = new MetadataCreateViewModel
             {
-                MetadataContactName = GetSecurityClaim("urn:oid:1.3.6.1.4.1.5923.1.1.1.6"),
-                MetadataContactOrganization = GetSecurityClaim("organization"),
-                MetadataContactEmail = GetSecurityClaim("urn:oid:1.2.840.113549.1.9.1"),
+                MetadataContactOrganization = GetCurrentUserOrganizationName(),
             };
 
             return View(model);
@@ -55,7 +53,7 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Create(MetadataCreateViewModel model)
         {
-            string organization = GetSecurityClaim("organization");
+            string organization = GetCurrentUserOrganizationName();
             model.MetadataContactOrganization = organization;
             if (ModelState.IsValid)
             {
@@ -75,11 +73,10 @@ namespace Kartverket.MetadataEditor.Controllers
 
             MetadataIndexViewModel model = new MetadataIndexViewModel();
 
-            if (User.Identity.IsAuthenticated)
+            if (User is ClaimsPrincipal principal && principal.IsAuthenticated())
             {
-                string userOrganization = GetSecurityClaim("organization");
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                string userOrganization = principal.GetOrganizationName();
+                if (principal.IsInRole(GeonorgeRoles.MetadataAdmin))
                 {
                     model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
                     model.UserIsAdmin = true;
@@ -99,33 +96,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
             return View(model);
         }
-
-        private string GetUsername()
-        {
-            return GetSecurityClaim("username");
-        }
-
-        private string GetSecurityClaim(string type)
-        {
-            string result = null;
-            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
-                {
-                    result = claim.Value;
-                    break;
-                }
-            }
-
-            // bad hack, must fix BAAT
-            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
-            {
-                result = "Kartverket";
-            }
-
-            return result;
-        }
-
+        
 
         [HttpGet]
         [Authorize]
@@ -145,8 +116,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     ViewBag.LogEntries = await _metadataService.GetLogEntries(uuid);
 
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                if (UserHasMetadataAdminRole())
                     model.ValidateAllRequirements = true;
 
                 if (HasAccessToMetadata(model))
@@ -310,8 +280,8 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.NewDistribution = false;
 
             ViewBag.IsAdmin = "0";
-            string role = GetSecurityClaim("role");
-            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+            
+            if (UserHasMetadataAdminRole())
             {
                 ViewBag.IsAdmin = "1";
             }
@@ -754,8 +724,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetRegister(string registername, MetadataViewModel model)
         {
-            string role = GetSecurityClaim("role");
-
             MemoryCacher memCacher = new MemoryCacher();
 
             var cache = memCacher.GetValue("registeritem-"+ registername);
@@ -801,7 +769,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
             foreach(var item in RegisterItems)
             {
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(item.Organization))
+                if (UserHasMetadataAdminRole() || model.HasAccess(item.Organization))
                 {
                     RegisterItemsForUser.Add(item.Id, item.Label);
                 }
@@ -815,9 +783,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetSubRegister(string registername, MetadataViewModel model)
         {
-            string role = GetSecurityClaim("role");
-
-
             MemoryCacher memCacher = new MemoryCacher();
 
             var cache = memCacher.GetValue("subregisteritem");
@@ -1021,7 +986,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
-            string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
                 return View(model);
@@ -1036,7 +1000,6 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
-            string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
                 _metadataService.DeleteMetadata(model, GetUsername());
@@ -1052,16 +1015,14 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private bool HasAccessToMetadata(MetadataViewModel model)
         {
-            string organization = GetSecurityClaim("organization");
-            string role = GetSecurityClaim("role");
-            bool isAdmin = !string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin");
-            return isAdmin || model.HasAccess(organization);
+            string organization = GetCurrentUserOrganizationName();
+            return UserHasMetadataAdminRole() || model.HasAccess(organization);
         }
 
         [Authorize]
         public ActionResult RegisterData()
         {
-            string organization = GetSecurityClaim("organization");
+            string organization = GetCurrentUserOrganizationName();
             ViewBag.RegisterOrganizationUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/search?facets[0]name=organization&facets[0]value=" + organization;
             return View();
         

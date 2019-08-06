@@ -1,15 +1,15 @@
 ﻿using Kartverket.MetadataEditor.Models;
 using log4net;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Web.Mvc;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
-    public class ValidatorController : Controller
+    public class ValidatorController : ControllerBase
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private IValidatorService _validatorService;
@@ -31,6 +31,9 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult ValidateAll()
         {
+            if (!UserHasMetadataAdminRole())
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            
             Log.Info("Start validating all metadata.");
 
             //new Thread(() => new ValidatorService().ValidateAllMetadata()).Start();
@@ -46,6 +49,9 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult SendEmail(FormCollection form)
         {
+            if (!UserHasMetadataAdminRole())
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            
             Log.Info("Start sending email");
 
             List<string> emails = GetFormData(form);
@@ -61,7 +67,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private List<string> GetFormData(FormCollection form)
         {
-
             List<string> emails = new List<string>();
             if (form["emails"] != null)
             {

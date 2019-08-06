@@ -7,10 +7,12 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using System.Reflection;
+using Kartverket.Geonorge.Utilities;
 using Kartverket.MetadataEditor.Models.Translations;
 using Newtonsoft.Json.Linq;
 using www.opengis.net;
 using Kartverket.MetadataEditor.Models.Rdf;
+using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -295,7 +297,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.Keywords = model.GetAllKeywords();
 
                 metadata.RemoveUnnecessaryElements();
-                var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
+                var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
                 if (transaction.TotalUpdated == "0")
                     Log.Error("No records updated batch update english translation uuid: " + uuid);
 
@@ -395,7 +397,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
 
                         metadata.RemoveUnnecessaryElements();
-                        var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
+                        var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
                         if (transaction.TotalUpdated == "0")
                             Log.Error("No records updated batch update keyword place/administrative units URI uuid: " + uuid);
 

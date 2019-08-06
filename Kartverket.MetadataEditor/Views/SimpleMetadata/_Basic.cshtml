@@ -1,4 +1,7 @@
 ﻿@model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
+@using System.Security.Claims
+@using Geonorge.AuthLib.Common
+@using Kartverket.MetadataEditor.Util
 @using Resources
 <div class="form-group required has-feedback">
     @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
@@ -144,17 +147,11 @@
         </p>
     </div>
 </div>
-
-@{  bool IsAdmin = false;
+@{
     string displayDistributionProtocol = "hidden";
-    foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+    if (ClaimsPrincipal.Current.IsInRole(GeonorgeRoles.MetadataAdmin))
     {
-        if (c.Value == "nd.metadata_admin")
-        {
-            IsAdmin = true;
-            displayDistributionProtocol = "";
-            break;
-        }
+        displayDistributionProtocol = "";
     }
 }
 

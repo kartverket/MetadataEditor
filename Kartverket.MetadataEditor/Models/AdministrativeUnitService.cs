@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
+using IHttpClientFactory = Kartverket.Geonorge.Utilities.Organization.IHttpClientFactory;
 
 namespace Kartverket.MetadataEditor.Models.Rdf
 {

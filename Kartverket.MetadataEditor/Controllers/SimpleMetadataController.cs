@@ -18,7 +18,7 @@ using System.Text;
 namespace Kartverket.MetadataEditor.Controllers
 {
     [HandleError]
-    public class SimpleMetadataController : Controller
+    public class SimpleMetadataController : ControllerBase
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -35,9 +35,7 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             MetadataCreateViewModel model = new MetadataCreateViewModel
             {
-                MetadataContactName = GetSecurityClaim("urn:oid:1.3.6.1.4.1.5923.1.1.1.6"),
-                MetadataContactOrganization = GetSecurityClaim("organization"),
-                MetadataContactEmail = GetSecurityClaim("urn:oid:1.2.840.113549.1.9.1"),
+                MetadataContactOrganization = GetCurrentUserOrganizationName()
             };
 
             return View(model);
@@ -47,7 +45,7 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Create(MetadataCreateViewModel model)
         {
-            string organization = GetSecurityClaim("organization");
+            string organization = GetCurrentUserOrganizationName();
             model.MetadataContactOrganization = organization;
             if (ModelState.IsValid)
             {
@@ -69,9 +67,8 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                string userOrganization = GetSecurityClaim("organization");
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                string userOrganization = GetCurrentUserOrganizationName();
+                if (UserHasMetadataAdminRole())
                 {
                     model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
                     model.UserIsAdmin = true;
@@ -92,33 +89,6 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
-        private string GetUsername()
-        {
-            return GetSecurityClaim("username");
-        }
-
-        private string GetSecurityClaim(string type)
-        {
-            string result = null;
-            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
-                {
-                    result = claim.Value;
-                    break;
-                }
-            }
-
-            // bad hack, must fix BAAT
-            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
-            {
-                result = "Kartverket";
-            }
-
-            return result;
-        }
-
-
         [HttpGet]
         [Authorize]
         public ActionResult Edit(string uuid)
@@ -129,7 +99,6 @@ namespace Kartverket.MetadataEditor.Controllers
             try
             {
                 SimpleMetadataViewModel model = _metadataService.GetMetadataModel(uuid);
-                string role = GetSecurityClaim("role");
                 if (HasAccessToMetadata(model))
                 {
                     PrepareViewBagForEditing(model);
@@ -218,24 +187,20 @@ namespace Kartverket.MetadataEditor.Controllers
         public ActionResult Edit(string uuid, string action, SimpleMetadataViewModel model, string ignoreValidationError)
         {
             ViewBag.IsAdmin = "0";
-            string role = GetSecurityClaim("role");
-            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+            if (UserHasMetadataAdminRole())
             {
                 ViewBag.IsAdmin = "1";
             }
 
-
             if (ModelState.IsValid)
             {
-               
-                    SaveMetadataToCswServer(model);
-                    if (action.Equals(UI.Button_Validate))
-                    {
-                        ValidateMetadata(uuid);
-                    }
+                SaveMetadataToCswServer(model);
+                if (action.Equals(UI.Button_Validate))
+                {
+                    ValidateMetadata(uuid);
+                }
 
-                    return RedirectToAction("Edit", new { uuid = model.Uuid });
-               
+                return RedirectToAction("Edit", new { uuid = model.Uuid });
             }
             else
             {
@@ -552,7 +517,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             SimpleMetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
-            string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
                 return View(model);
@@ -569,7 +533,6 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             SimpleMetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
-            string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
                 _metadataService.DeleteMetadata(uuid, GetUsername());
@@ -585,16 +548,15 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private bool HasAccessToMetadata(SimpleMetadataViewModel model)
         {
-            string organization = GetSecurityClaim("organization");
-            string role = GetSecurityClaim("role");
-            bool isAdmin = !string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin");
+            string organization = GetCurrentUserOrganizationName();
+            bool isAdmin = UserHasMetadataAdminRole();
             return isAdmin || model.HasAccess(organization);
         }
 
         [Authorize]
         public ActionResult RegisterData()
         {
-            string organization = GetSecurityClaim("organization");
+            string organization = GetCurrentUserOrganizationName();
             ViewBag.RegisterOrganizationUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/search/organisasjon/" + organization;
             return View();
 

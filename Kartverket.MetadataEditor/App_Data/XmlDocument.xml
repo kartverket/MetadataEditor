@@ -2073,6 +2073,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Kartverket.MetadataEditor.Views.Home.HomeController.SignOutCallback">
+            <summary>
+            This is the action responding to the signout-callback-oidc route after logout at the identity provider
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes">
             <remarks/>
         </member>
