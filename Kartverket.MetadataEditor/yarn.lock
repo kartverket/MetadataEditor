@@ -662,16 +662,14 @@ gaze@^0.5.1:
   dependencies:
     globule "~0.1.0"
 
-geonorge-shared-partials@^0.0.24:
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/geonorge-shared-partials/-/geonorge-shared-partials-0.0.24.tgz#bcc14198904f61185c92b27ccf239450b882c3dc"
+geonorge-shared-partials@^0.0.59:
+  version "0.0.59"
+  resolved "https://registry.yarnpkg.com/geonorge-shared-partials/-/geonorge-shared-partials-0.0.59.tgz#9d522450cd9be85ae7fb24c5bb3ee7857083ea83"
   dependencies:
     angular "^1.6.9"
     angular-ui-bootstrap "^2.5.6"
     bootstrap "^3.3.5"
-    gulp "^3.9.1"
     gulp-bundle-assets "^2.29.0"
-    gulp-if "^2.0.2"
     jquery "^3.3.1"
     js-cookie "^2.2.0"
 
@@ -859,14 +857,6 @@ gulp-if@2.0.1:
     ternary-stream "^2.0.0"
     through2 "^2.0.1"
 
-gulp-if@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/gulp-if/-/gulp-if-2.0.2.tgz#a497b7e7573005041caa2bc8b7dda3c80444d629"
-  dependencies:
-    gulp-match "^1.0.3"
-    ternary-stream "^2.0.1"
-    through2 "^2.0.1"
-
 gulp-less@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/gulp-less/-/gulp-less-3.1.0.tgz#c54c2ee014ebe6e135bfcb0169db4ddb93506de6"
@@ -878,7 +868,7 @@ gulp-less@3.1.0:
     through2 "^2.0.0"
     vinyl-sourcemaps-apply "^0.2.0"
 
-gulp-match@^1.0.2, gulp-match@^1.0.3:
+gulp-match@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/gulp-match/-/gulp-match-1.0.3.tgz#91c7c0d7f29becd6606d57d80a7f8776a87aba8e"
   dependencies:
@@ -992,7 +982,7 @@ gulp-util@~2.2.14:
     through2 "^0.5.0"
     vinyl "^0.2.1"
 
-gulp@3.9.1, gulp@^3.9.1:
+gulp@3.9.1:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/gulp/-/gulp-3.9.1.tgz#571ce45928dd40af6514fc4011866016c13845b4"
   dependencies:
@@ -1661,8 +1651,8 @@ merge-stream@^1.0.0:
     readable-stream "^2.0.1"
 
 merge@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.1.tgz#38bebf80c3220a8a487b6fcfb3941bb11720c145"
 
 micromatch@^3.0.4:
   version "3.1.5"
@@ -2382,7 +2372,7 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-ternary-stream@^2.0.0, ternary-stream@^2.0.1:
+ternary-stream@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ternary-stream/-/ternary-stream-2.0.1.tgz#064e489b4b5bf60ba6a6b7bc7f2f5c274ecf8269"
   dependencies:
