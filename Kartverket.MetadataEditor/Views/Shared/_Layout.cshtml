@@ -1,4 +1,7 @@
-﻿@using Kartverket.MetadataEditor.Helpers
+﻿@using System.Security.Claims
+@using Geonorge.AuthLib.Common
+@using Kartverket.MetadataEditor.Helpers
+@using Kartverket.MetadataEditor.Util
 @using Resources
 
 <!DOCTYPE html>
@@ -71,15 +74,17 @@
                             }
                             <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
                             <li class="pull-right">
-                                @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-                                {
-                                    if (c.Value == "nd.metadata_admin")
+                                
+                                @{
+                                    var principal = User as ClaimsPrincipal;
+                                    if (principal != null && principal.IsInRole(GeonorgeRoles.MetadataAdmin))
                                     {
                                         <a href="@Url.Action("ValidateAll", "Validator")" onclick="return clickAndDisable(this);" class="btn show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
                                         <script>
                                             function clickAndDisable(link) {
 
-                                                document.getElementById('link-email-error').innerText = 'Henter eposter, vennligst vent...';
+                                                document.getElementById('link-email-error').innerText =
+                                                    'Henter eposter, vennligst vent...';
                                                 if (link.className != "visited btn btn-sm btn-default") {
                                                     link.className = "visited btn btn-sm btn-default";
                                                     return true;
@@ -88,8 +93,8 @@
                                                 return false;
                                             }
                                         </script>
-                                        break;
                                     }
+                                    
                                 }
                             </li>
                         </ul>
@@ -133,8 +138,8 @@
     }
 
     <script>
-        searchOption.loginUrl = '@Html.Raw(Url.Action("SignIn", "AuthServices", new { ReturnUrl = Request.Url }))';
-        searchOption.logoutUrl = '@Html.Raw(Url.Action("LogOut", "AuthServices"))';
+        searchOption.loginUrl = '@Html.Raw(Url.Action("SignIn", "Home", new { ReturnUrl = Request.Url }))';
+        searchOption.logoutUrl = '@Html.Raw(Url.Action("SignOut", "Home"))';
         searchOption.loggedIn = @Request.IsAuthenticated.ToString().ToLower();
         searchOption.epiBaseUrl = '@Html.GeonorgeUrl()';
         var orderItems = Cookies.get('orderitems');
@@ -151,5 +156,19 @@
 
     @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
     @RenderSection("scripts", required: false)
+
+
+
+
+    @if (Html.EnvironmentName() == "dev" && HttpContext.Current.IsDebuggingEnabled)
+    {
+        var cp = (ClaimsPrincipal)User;
+        foreach (var claim in cp.Claims)
+        {
+            <!-- @claim.Type = @claim.Value -->
+        }
+
+    }
+
 </body>
 </html>

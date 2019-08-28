@@ -436,7 +436,7 @@
             return state.model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance;
         },
         showQualitySpecificationResultInspireSpatialServiceInteroperability: function (state, getters) {
-            return getters.isService && getters.isAccessPoint;
+            return getters.isService && getters.isAccessPoint && getters.isInspire;
         },
         showQualitySpecificationResultInspireSpatialServiceTechnicalConformance: function (state, getters) {
             return getters.isService && getters.isAccessPoint;
@@ -547,6 +547,9 @@
         isService: function (state) {
             return state.model.HierarchyLevel == 'service';
         },
+        showQualityQuantitativeResult: function (state, getters) {
+            return getters.isService && getters.isInspire;
+        },
         isHarmonized: function (state) {
             return state.model.QualitySpecificationTitleInspireSpatialServiceConformance == 'harmonised';
         },
@@ -608,6 +611,16 @@
                 });
             });
             return formatIsAdded && !getters['isService'];
+        },
+        isInspire: function (state, getters) {
+            var keyword = 'Inspire';
+            var isAdded = false;
+            if (getters['KeywordsNationalInitiative'] !== null) {
+                getters['KeywordsNationalInitiative'].forEach(function (addedKeyword) {
+                    if (keyword == addedKeyword) isAdded = true;
+                });
+            }
+            return isAdded;
         }
     }
 </script>

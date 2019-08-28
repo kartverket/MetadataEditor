@@ -14,7 +14,6 @@ namespace Kartverket.MetadataEditor.Models
         void SaveMetadataModel(MetadataViewModel model, string username);
         List<WfsLayerViewModel> CreateMetadataForFeature(string uuid, List<WfsLayerViewModel> createMetadataForLayers, string[] keywords, string username);
         List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> createMetadataForLayers, string[] keywords, string username);
-        Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published="");
         void DeleteMetadata(MetadataViewModel model, string user);
         Dictionary<DistributionGroup, Distribution> GetFormatDistributions(List<SimpleDistribution> distributionsFormats);
         Stream SaveMetadataAsXml(MetadataViewModel model);

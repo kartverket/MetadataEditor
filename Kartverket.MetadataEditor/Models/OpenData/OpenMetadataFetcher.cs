@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Kartverket.Geonorge.Utilities.Organization;
 using log4net;
+using IHttpClientFactory = Kartverket.Geonorge.Utilities.Organization.IHttpClientFactory;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
 {

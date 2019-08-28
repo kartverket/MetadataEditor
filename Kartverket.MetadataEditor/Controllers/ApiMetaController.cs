@@ -14,7 +14,7 @@ using System.Web.Http;
 namespace Kartverket.MetadataEditor.Controllers
 {
     
-    public class ApiMetaController : ApiController
+    public class ApiMetaController : ApiControllerBase
     {
         private IMetadataService _metadataService;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -123,8 +123,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                 if (model != null) 
                 {
-                    string role = GetSecurityClaim("role");
-                    if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                    if (UserHasMetadataAdminRole())
                         model.ValidateAllRequirements = true;
 
                     metadata.Uuid = model.Uuid;
@@ -206,27 +205,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             return metadata;
         
-        }
-
-        private string GetSecurityClaim(string type)
-        {
-            string result = null;
-            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
-                {
-                    result = claim.Value;
-                    break;
-                }
-            }
-
-            // bad hack, must fix BAAT
-            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
-            {
-                result = "Kartverket";
-            }
-
-            return result;
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace Kartverket.MetadataEditor.Controllers
 {
     [HandleError]
     [Authorize]
-    public class ServiceController : Controller
+    public class ServiceController : ControllerBase
     {
         private WmsServiceParser _wmsServiceParser;
 
@@ -84,32 +84,7 @@ namespace Kartverket.MetadataEditor.Controllers
             return View("LayersCreated", model);
         }
 
-        private string GetUsername()
-        {
-            return GetSecurityClaim("username");
-        }
-
-        private string GetSecurityClaim(string type)
-        {
-            string result = null;
-            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
-                {
-                    result = claim.Value;
-                    break;
-                }
-            }
-
-            // bad hack, must fix BAAT
-            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
-            {
-                result = "Kartverket";
-            }
-
-            return result;
-        }
-
+      
         protected override void OnException(ExceptionContext filterContext)
         {
             Log.Error("Error", filterContext.Exception);
