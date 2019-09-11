@@ -14,10 +14,10 @@ namespace Kartverket.MetadataEditor.Views.Home
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return RedirectToAction("Index", "Metadata");
-        }
+        //public ActionResult Index()
+        //{
+        //    return RedirectToAction("Index", "Metadata");
+        //}
         [Route("setculture/{culture}")]
         public ActionResult SetCulture(string culture, string ReturnUrl)
         {
@@ -62,7 +62,7 @@ namespace Kartverket.MetadataEditor.Views.Home
 
         public void SignIn()
         {
-            var redirectUrl = Url.Action(nameof(HomeController.Index), "Home");
+            var redirectUrl = Url.Action(nameof(Controllers.MetadataController.Index), "Metadata");
             HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = redirectUrl },
                 OpenIdConnectAuthenticationDefaults.AuthenticationType);
         }
@@ -81,10 +81,9 @@ namespace Kartverket.MetadataEditor.Views.Home
         /// This is the action responding to the signout-callback-oidc route after logout at the identity provider
         /// </summary>
         /// <returns></returns>
-        [Route("signout-callback-oidc")]
         public ActionResult SignOutCallback()
         {
-            return RedirectToAction(nameof(HomeController.Index));
+            return RedirectToAction(nameof(Controllers.MetadataController.Index), "Metadata");
         }
     }
 }
