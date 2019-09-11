@@ -63,6 +63,8 @@ namespace Kartverket.MetadataEditor
             Log.Error("Application error: " + ex.Message, ex);
         }
 
+        protected void Session_Start() { }
+
         protected void Application_BeginRequest()
         {
             ValidateReturnUrl(Context.Request.QueryString);
