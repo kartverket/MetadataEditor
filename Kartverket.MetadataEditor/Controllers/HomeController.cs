@@ -62,7 +62,7 @@ namespace Kartverket.MetadataEditor.Views.Home
 
         public void SignIn()
         {
-            var redirectUrl = Url.Action(nameof(Controllers.MetadataController.Index), "Metadata");
+            var redirectUrl = Url.Action(nameof(HomeController.Index), "Home");
             HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = redirectUrl },
                 OpenIdConnectAuthenticationDefaults.AuthenticationType);
         }
