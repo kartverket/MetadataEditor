@@ -75,18 +75,21 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (User is ClaimsPrincipal principal && principal.IsAuthenticated())
             {
-                string userOrganization = principal.GetOrganizationName();
-                if (principal.IsInRole(GeonorgeRoles.MetadataAdmin))
-                {
-                    model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
-                    model.UserIsAdmin = true;
-                }
-                else
-                {
-                    model = _metadataService.SearchMetadata(userOrganization, searchString, offset, limit);
-                }
+                if (UserHasMetadataAdminRole() || UserHasEditorRole())
+                { 
+                    string userOrganization = principal.GetOrganizationName();
+                    if (principal.IsInRole(GeonorgeRoles.MetadataAdmin))
+                    {
+                        model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
+                        model.UserIsAdmin = true;
+                    }
+                    else
+                    {
+                        model = _metadataService.SearchMetadata(userOrganization, searchString, offset, limit);
+                    }
 
-                model.UserOrganization = userOrganization;
+                    model.UserOrganization = userOrganization;
+                }
             }
 
             if (TempData["Message"] != null)
@@ -1016,7 +1019,7 @@ namespace Kartverket.MetadataEditor.Controllers
         private bool HasAccessToMetadata(MetadataViewModel model)
         {
             string organization = GetCurrentUserOrganizationName();
-            return UserHasMetadataAdminRole() || model.HasAccess(organization);
+            return UserHasMetadataAdminRole() || (UserHasEditorRole() && model.HasAccess(organization));
         }
 
         [Authorize]
