@@ -23,14 +23,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         protected bool UserHasEditorRole()
         {
-            if (User is System.Security.Claims.ClaimsPrincipal principal && principal.IsAuthenticated())
-            {
-                string userOrganization = principal.GetOrganizationName();
-                if (principal.IsInRole(GeonorgeRoles.MetadataEditor))
-                    return true;
-            }
-
-            return false;
+            return ClaimsPrincipalUtility.UserHasMetadataEditorRole(User);
         }
     }
 }
