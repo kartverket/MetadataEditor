@@ -20,5 +20,10 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             return ClaimsPrincipalUtility.UserHasMetadataAdminRole(User);
         }
+
+        protected bool UserHasEditorRole()
+        {
+            return ClaimsPrincipalUtility.UserHasMetadataEditorRole(User);
+        }
     }
 }
