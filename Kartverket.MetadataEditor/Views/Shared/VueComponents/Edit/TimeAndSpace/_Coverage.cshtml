@@ -1,4 +1,4 @@
-﻿@using Resources
+@using Resources
 @model Kartverket.MetadataEditor.Models.MetadataViewModel
 
 <script type="text/x-template" id="coverage-template">
@@ -62,7 +62,7 @@
                         <div class="row">
                             <label class="col-md-2 control-label">Kommune</label>
                             <div class="col-md-10">
-                                <input type="text" name="CoverageUrl" value="@Model.CoverageUrl" class="form-control" />
+                                <input type="text" name="CoverageUrl" v-model="computedCoverageUrl.value" class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
@@ -132,7 +132,7 @@
                     ]
                 },
                 url: {
-                    value: '',
+                    value: this.$root.model.CoverageUrl,
                     type: 'text',
                     fields: {
                         websiteUrl: {
@@ -180,8 +180,9 @@
                     value: 'test',
                     label: this.$root.model.CoverageUrl,
                     type: 'text'
-               };
-
+                };
+                if (this.coverageType.value == '')
+                    this.coverageType.value = 'webpage';
                 if (this.coverageType.value == 'webpage') {
                     computedCoverageUrl.value = this.url.value;
                 } else if (this.coverageType.value == 'mapservice') {
@@ -304,7 +305,9 @@
         },
         mounted: function () {
             this.mapServiceType.value = this.getMapServiceType();
-            this.url.value = this.getMapServiceUrl();
+            var mapServiceUrl = this.getMapServiceUrl();
+            if (mapServiceUrl != '')
+                this.url.value = mapServiceUrl;
             this.mapServiceLayerName.value = this.getMapServiceLayerName();
             this.getSelectedCoverageType();
             this.initFileUpload();
