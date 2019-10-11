@@ -16,6 +16,22 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <label class="col-md-2 control-label">Spatial scope</label>
+            <div class="col-md-9">
+                <div class="custom-select">
+                    <select name="KeywordsSpatialScope[0]" v-model="$root.model.KeywordsSpatialScope[0]" class="form-control">
+                        <option></option>
+                        <option v-for="option in $root.viewBag.InspireSpatialScopes" v-bind:value="option.Value">
+                            {{ option.Text }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+        <br />
         <div is="keywords-section"
              v-bind:section="section"
              v-for="section in sections">

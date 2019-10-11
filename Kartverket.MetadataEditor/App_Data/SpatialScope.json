@@ -1,0 +1,483 @@
+
+        {
+        "metadata-codelist":{
+        
+        
+        "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope" 
+        
+            ,"thisversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope:1"
+        
+            ,"latestversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope"
+           
+        ,"language":"en",
+        
+            "label":{
+            "lang":"en",
+            "text":"Spatial scope"
+            },
+        
+            "definition":{
+            "lang":"en",
+            "text":"Administrative level that the data set intends to cover."
+            },
+        
+            "description":{
+            "lang":"en",
+            "text":"The spatial scope can be different from the actual geographical coverage, e.g. a national coastline data set may cover only a fraction of the full spatial extent of a country.\n The spatial scope of the data set does not necessarily reflect the administrative level responsible for collecting and maintaining the data, e.g. the responsibility for maintaining the data inside the national address data set can be at regional or local level.\n The code list contains values governed at the level of INSPIRE legal acts (governance level: Legal (EU)) and values governed at the level of INSPIRE Technical Guidelines (governance level: Technical (EU)). The former directly support the INSPIRE Monitoring and Reporting Decision, while the latter  provide additional options for tagging other data sets."
+            },
+        
+        "itemclass":{
+        "id":"MetadataCodeList",
+        "label":{
+        "lang":"en",
+        "text":"Metadata Code list"
+        }
+        },
+        "status":{
+        "id":" http://inspire.ec.europa.eu/registry/status/valid",
+        "label":{
+        "lang":"en",
+        "text":"Valid"
+        }
+        }
+                            
+                        ,"governance-level":{                        
+                        "id":"http://inspire.ec.europa.eu/registry/governance-level/eu-technical",
+                        "label":{
+                        "lang":"en",
+                        "text":"eu-technical"
+                        }
+                        } 
+                     
+        ,"register":{
+        "id":"http://inspire.ec.europa.eu/metadata-codelist",
+        "label":{
+        "lang":"en",
+        "text":"INSPIRE metadata code list register"
+        },
+        "registry":{
+        "id":"http://inspire.ec.europa.eu/registry",
+        "label":{
+        "lang":"en",
+        "text":"INSPIRE registry"
+        }
+        }
+        }
+        
+                ,"containeditems":[
+                
+                    {        
+                    "value":{
+                    
+                            "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national" 
+                        
+                        ,"thisversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national:2"
+                    
+                        ,"latestversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national"
+                    
+                            ,"historyversion":[
+                               
+                                {
+                                "version":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/national:1"
+                                }                
+                                
+                            ]
+                        
+                        ,"label":{
+                        "lang":"en",
+                        "text":"National"
+                        }
+                    
+                        ,"definition":{
+                        "lang":"en",
+                        "text":"The scope of the data set intends to cover the national territory."
+                        }
+                    
+                        ,"description":{
+                        "lang":"en",
+                        "text":"Datasets intending to contain all objects of a certain theme for the national territory shall be considered as datasets of national scope.\n The territory covered by a dataset of national scope may be different from the actual geographical extent of the national territory (e.g. a dataset of drilling platforms would only extend over the maritime area of a country, a dataset comprising buildings or forests would only cover terrestrial areas).\n The national territory may consist of several subdivisions, for administrative or other purposes, at different levels (e.g. federal states, regions, provinces, municipalities). Datasets intending to contain all objects of a certain theme for all relevant entities on a certain subdivision level (e.g. all relevant federal states, all relevant regions, all relevant provinces, all relevant municipalities) of a member state are seen here as datasets of national scope."
+                        }
+                    
+                        ,"itemclass":{
+                        "id":"MetadataCodeListValue",
+                        "label":{
+                        "lang":"en",
+                        "text":"Metadata Code list value"
+                        }
+                        }
+                    
+                        ,"status":{
+                        "id":"http://inspire.ec.europa.eu/registry/status/valid",
+                        "label":{
+                        "lang":"en",
+                        "text":"Valid"
+                        }
+                        }
+                    
+                        ,"register":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE metadata code list register"
+                        },
+                        "registry":{
+                        "id":"http://inspire.ec.europa.eu/registry",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE registry"
+                        }
+                        }
+                        }
+                                        
+                                    ,"governance-level":{                        
+                                    "id":"http://inspire.ec.europa.eu/registry/governance-level/eu-legal",
+                                    "label":{
+                                    "lang":"en",
+                                    "text":"eu-legal"
+                                    }
+                                    } 
+                                
+                        ,"metadata-codelist":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope",
+                        
+                        "label":{
+                        "lang":"en",
+                        "text":"Spatial scope"
+                        }
+                        }
+                                                            
+                    }
+                    }
+                    
+                            , 
+                        
+                    {        
+                    "value":{
+                    
+                            "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional" 
+                        
+                        ,"thisversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional:2"
+                    
+                        ,"latestversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional"
+                    
+                            ,"historyversion":[
+                               
+                                {
+                                "version":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/regional:1"
+                                }                
+                                
+                            ]
+                        
+                        ,"label":{
+                        "lang":"en",
+                        "text":"Regional"
+                        }
+                    
+                        ,"definition":{
+                        "lang":"en",
+                        "text":"The scope of the data set intends to cover the territory of one or several sub-national level administrative units."
+                        }
+                    
+                        ,"description":{
+                        "lang":"en",
+                        "text":"The regional territory may consist of several subdivisions, for administrative or other purposes, at different levels (e.g. provinces, municipalities).\n Datasets intending to contain all objects of a certain theme for all relevant entities on a certain subdivision level (e.g. all relevant provinces, all relevant municipalities) of one or several regions of a member state are seen here as datasets of regional scope."
+                        }
+                    
+                        ,"itemclass":{
+                        "id":"MetadataCodeListValue",
+                        "label":{
+                        "lang":"en",
+                        "text":"Metadata Code list value"
+                        }
+                        }
+                    
+                        ,"status":{
+                        "id":"http://inspire.ec.europa.eu/registry/status/valid",
+                        "label":{
+                        "lang":"en",
+                        "text":"Valid"
+                        }
+                        }
+                    
+                        ,"register":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE metadata code list register"
+                        },
+                        "registry":{
+                        "id":"http://inspire.ec.europa.eu/registry",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE registry"
+                        }
+                        }
+                        }
+                                        
+                                    ,"governance-level":{                        
+                                    "id":"http://inspire.ec.europa.eu/registry/governance-level/eu-legal",
+                                    "label":{
+                                    "lang":"en",
+                                    "text":"eu-legal"
+                                    }
+                                    } 
+                                
+                        ,"metadata-codelist":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope",
+                        
+                        "label":{
+                        "lang":"en",
+                        "text":"Spatial scope"
+                        }
+                        }
+                                                            
+                    }
+                    }
+                    
+                            , 
+                        
+                    {        
+                    "value":{
+                    
+                            "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local" 
+                        
+                        ,"thisversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local:2"
+                    
+                        ,"latestversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local"
+                    
+                            ,"historyversion":[
+                               
+                                {
+                                "version":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/local:1"
+                                }                
+                                
+                            ]
+                        
+                        ,"label":{
+                        "lang":"en",
+                        "text":"Local"
+                        }
+                    
+                        ,"definition":{
+                        "lang":"en",
+                        "text":"The scope of the data set intends to cover the territory of one or several local administrative units."
+                        }
+                    
+                        ,"description":{
+                        "lang":"en",
+                        "text":"A local territory may consist of one or several municipalities (or any other similar local entity). Datasets intending to contain all the objects of a certain theme of one or several municipalities (or any other similar local entity) of a member state are seen here as datasets of local scope."
+                        }
+                    
+                        ,"itemclass":{
+                        "id":"MetadataCodeListValue",
+                        "label":{
+                        "lang":"en",
+                        "text":"Metadata Code list value"
+                        }
+                        }
+                    
+                        ,"status":{
+                        "id":"http://inspire.ec.europa.eu/registry/status/valid",
+                        "label":{
+                        "lang":"en",
+                        "text":"Valid"
+                        }
+                        }
+                    
+                        ,"register":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE metadata code list register"
+                        },
+                        "registry":{
+                        "id":"http://inspire.ec.europa.eu/registry",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE registry"
+                        }
+                        }
+                        }
+                                        
+                                    ,"governance-level":{                        
+                                    "id":"http://inspire.ec.europa.eu/registry/governance-level/eu-technical",
+                                    "label":{
+                                    "lang":"en",
+                                    "text":"eu-technical"
+                                    }
+                                    } 
+                                
+                        ,"metadata-codelist":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope",
+                        
+                        "label":{
+                        "lang":"en",
+                        "text":"Spatial scope"
+                        }
+                        }
+                                                            
+                    }
+                    }
+                    
+                            , 
+                        
+                    {        
+                    "value":{
+                    
+                            "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global" 
+                        
+                        ,"thisversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global:1"
+                    
+                        ,"latestversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/global"
+                    
+                        ,"label":{
+                        "lang":"en",
+                        "text":"Global"
+                        }
+                    
+                        ,"definition":{
+                        "lang":"en",
+                        "text":"The scope of the data set intends to cover the whole Earth."
+                        }
+                    
+                        ,"itemclass":{
+                        "id":"MetadataCodeListValue",
+                        "label":{
+                        "lang":"en",
+                        "text":"Metadata Code list value"
+                        }
+                        }
+                    
+                        ,"status":{
+                        "id":"http://inspire.ec.europa.eu/registry/status/valid",
+                        "label":{
+                        "lang":"en",
+                        "text":"Valid"
+                        }
+                        }
+                    
+                        ,"register":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE metadata code list register"
+                        },
+                        "registry":{
+                        "id":"http://inspire.ec.europa.eu/registry",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE registry"
+                        }
+                        }
+                        }
+                                        
+                                    ,"governance-level":{                        
+                                    "id":"http://inspire.ec.europa.eu/registry/governance-level/eu-technical",
+                                    "label":{
+                                    "lang":"en",
+                                    "text":"eu-technical"
+                                    }
+                                    } 
+                                
+                        ,"metadata-codelist":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope",
+                        
+                        "label":{
+                        "lang":"en",
+                        "text":"Spatial scope"
+                        }
+                        }
+                                                            
+                    }
+                    }
+                    
+                            , 
+                        
+                    {        
+                    "value":{
+                    
+                            "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/european" 
+                        
+                        ,"thisversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/european:2"
+                    
+                        ,"latestversion":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/european"
+                    
+                            ,"historyversion":[
+                               
+                                {
+                                "version":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope/european:1"
+                                }                
+                                
+                            ]
+                        
+                        ,"label":{
+                        "lang":"en",
+                        "text":"European"
+                        }
+                    
+                        ,"definition":{
+                        "lang":"en",
+                        "text":"The scope of the data set intends to cover Europe."
+                        }
+                    
+                        ,"description":{
+                        "lang":"en",
+                        "text":"The term may be applied to a loose definition of Europe, i.e. strictly covering the full continent or alternatively diverse configurations of countries with a clear European scope, e.g. European Union, EEA/Eionet countries, etc."
+                        }
+                    
+                        ,"itemclass":{
+                        "id":"MetadataCodeListValue",
+                        "label":{
+                        "lang":"en",
+                        "text":"Metadata Code list value"
+                        }
+                        }
+                    
+                        ,"status":{
+                        "id":"http://inspire.ec.europa.eu/registry/status/valid",
+                        "label":{
+                        "lang":"en",
+                        "text":"Valid"
+                        }
+                        }
+                    
+                        ,"register":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE metadata code list register"
+                        },
+                        "registry":{
+                        "id":"http://inspire.ec.europa.eu/registry",
+                        "label":{
+                        "lang":"en",
+                        "text":"INSPIRE registry"
+                        }
+                        }
+                        }
+                                        
+                                    ,"governance-level":{                        
+                                    "id":"http://inspire.ec.europa.eu/registry/governance-level/eu-technical",
+                                    "label":{
+                                    "lang":"en",
+                                    "text":"eu-technical"
+                                    }
+                                    } 
+                                
+                        ,"metadata-codelist":{
+                        "id":"http://inspire.ec.europa.eu/metadata-codelist/SpatialScope",
+                        
+                        "label":{
+                        "lang":"en",
+                        "text":"Spatial scope"
+                        }
+                        }
+                                                            
+                    }
+                    }
+                    
+                ]            
+            
+        }
+        }
+    

@@ -27,6 +27,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsConcept = new List<string>();
             KeywordsServiceType = new List<string>();
             KeywordsOther = new List<string>();
+            KeywordsSpatialScope = new List<string>();
             KeywordsEnglish = new Dictionary<string, string>();
             Thumbnails = new List<Thumbnail>();
             OperatesOn = new List<string>();
@@ -70,6 +71,7 @@ namespace Kartverket.MetadataEditor.Models
         public List<String> KeywordsConcept { get; set; }
         public List<String> KeywordsServiceType { get; set; }
         public List<String> KeywordsOther { get; set; }
+        public List<String> KeywordsSpatialScope { get; set; }
         public Dictionary<string, string> KeywordsEnglish { get; set; }
 
         public string LegendDescriptionUrl { get; set; }
@@ -406,6 +408,7 @@ namespace Kartverket.MetadataEditor.Models
             allKeywords.AddRange(CreateKeywords(KeywordsConcept, "Concept", null , SimpleKeyword.THESAURUS_CONCEPT));
             allKeywords.AddRange(CreateKeywords(KeywordsServiceType, "ServiceType", null, SimpleKeyword.THESAURUS_SERVICE_TYPE));
             allKeywords.AddRange(CreateKeywords(KeywordsOther, "Other", null, null));
+            allKeywords.AddRange(CreateKeywords(KeywordsSpatialScope, "SpatialScope", null, SimpleKeyword.THESAURUS_SPATIAL_SCOPE));
             return allKeywords;
         }
 
