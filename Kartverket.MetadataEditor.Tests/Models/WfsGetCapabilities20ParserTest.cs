@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -17,7 +18,7 @@ namespace Kartverket.MetadataEditor.Tests.Models
         [SetUp]
         public void SetUp()
         {
-            xmlFile = File.ReadAllText("xml\\WFS_2_0_GetCapabilitiesWithFeatureTypes.xml");
+            xmlFile = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\xml\\WFS_2_0_GetCapabilitiesWithFeatureTypes.xml");
         }
 
 

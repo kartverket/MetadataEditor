@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using Arkitektum.GIS.Lib.SerializeUtil;
@@ -41,7 +42,7 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
             var numberOfUpdatedDatasets = await openMetadataService.SynchronizeMetadata(_endpoint);
 
             metadataServiceMock
-                .Verify(m => m.CreateMetadata(It.IsAny<MetadataCreateViewModel>(), It.IsAny<string>()), Times.Exactly(19));
+                .Verify(m => m.CreateMetadata(It.IsAny<MetadataCreateViewModel>(), It.IsAny<string>()), Times.Exactly(3));
 
             metadataServiceMock
                 .Verify(m => m.SaveMetadataModel(It.IsAny<MetadataViewModel>(), It.IsAny<string>()), Times.Exactly(16));
@@ -77,7 +78,7 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
 
         private static Metadata SetupMetadataFetcherMock(Mock<IOpenMetadataFetcher> metadataFetcherMock, OpenMetadataEndpoint endpoint)
         {
-            Metadata metadata = JsonConvert.DeserializeObject<Metadata>(File.ReadAllText("Models\\OpenData\\data.json"));
+            Metadata metadata = JsonConvert.DeserializeObject<Metadata>(File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Models\\OpenData\\data.json"));
 
             metadataFetcherMock.Setup(f => f.FetchMetadataAsync(endpoint)).ReturnsAsync(metadata);
             return metadata;
@@ -95,7 +96,7 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
             {
                 metadataServiceMock.SetupSequence(m =>
                         m.GetMetadataModel(OpenMetadataService.GetIdentifierFromUri(dataset.identifier)))
-                    .Returns(null)
+                    //.Returns(null)
                     .Returns(MetadataViewModel);
             }
 

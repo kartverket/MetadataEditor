@@ -28,14 +28,7 @@ namespace Kartverket.MetadataEditor.Areas.HelpPage.Controllers
         public ActionResult Index()
         {
             ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
-            //return View(Configuration.Services.GetApiExplorer().ApiDescriptions); 
-            var apiExplorer = Configuration.Services.GetApiExplorer();
-            for (int i = apiExplorer.ApiDescriptions.Count - 1; i >= 0; i--)
-            {
-                if (!apiExplorer.ApiDescriptions[i].ActionDescriptor.ControllerDescriptor.ControllerName.Contains("ApiMeta")) { apiExplorer.ApiDescriptions.RemoveAt(i); }
-            }
-            return View(apiExplorer.ApiDescriptions);
-
+            return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
         }
 
         public ActionResult Api(string apiId)

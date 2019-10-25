@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using ExpressiveAnnotations.Attributes;
-using ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.Validators;
 using Kartverket.MetadataEditor.Util;
 using System.Web.Http;
 using System;
@@ -13,14 +12,12 @@ using System.Reflection;
 using log4net;
 using System.Web;
 using Kartverket.MetadataEditor.Models.Translations;
-using Kartverket.MetadataEditor.App_Start;
-using Autofac;
 using System.Collections.Specialized;
 using System.Web.Helpers;
 using System.Security.Claims;
 using System.Data.Entity;
 using Kartverket.MetadataEditor.Models;
-using System.Net;
+using ExpressiveAnnotations.MvcUnobtrusive.Validators;
 
 namespace Kartverket.MetadataEditor
 {
