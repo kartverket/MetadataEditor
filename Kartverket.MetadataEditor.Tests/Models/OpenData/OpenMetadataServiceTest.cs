@@ -11,7 +11,7 @@ using Kartverket.MetadataEditor.Models;
 using Kartverket.MetadataEditor.Models.OpenData;
 using Moq;
 using Newtonsoft.Json;
-using NUnit.Framework;
+using Xunit;
 
 namespace Kartverket.MetadataEditor.Tests.Models.OpenData
 {
@@ -26,7 +26,7 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
             ContactPublisher = new Contact()
         };
 
-        [Test]
+        [Fact]
         public async Task CreateNewMetadataWhenItDoesNotExistInGeonorge()
         {
             var metadataFetcherMock = new Mock<IOpenMetadataFetcher>();
@@ -50,7 +50,7 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
             numberOfUpdatedDatasets.Should().Be(16);
         }
 
-        [Test]
+        [Fact]
         public async Task ShouldUpdateMetadataWhenItAlreadyExistsInGeonorge()
         {
             var metadataFetcherMock = new Mock<IOpenMetadataFetcher>();
@@ -78,7 +78,7 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
 
         private static Metadata SetupMetadataFetcherMock(Mock<IOpenMetadataFetcher> metadataFetcherMock, OpenMetadataEndpoint endpoint)
         {
-            Metadata metadata = JsonConvert.DeserializeObject<Metadata>(File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Models\\OpenData\\data.json"));
+            Metadata metadata = JsonConvert.DeserializeObject<Metadata>(File.ReadAllText("Models\\OpenData\\data.json"));
 
             metadataFetcherMock.Setup(f => f.FetchMetadataAsync(endpoint)).ReturnsAsync(metadata);
             return metadata;

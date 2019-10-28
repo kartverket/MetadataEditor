@@ -1,5 +1,5 @@
 ﻿using Kartverket.MetadataEditor.Models;
-using NUnit.Framework;
+using Xunit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,25 +11,19 @@ using System.Xml.Linq;
 
 namespace Kartverket.MetadataEditor.Tests.Models
 {
-    [TestFixture]
-    class WfsGetCapabilities20ParserTest
+    public class WfsGetCapabilities20ParserTest
     {
         private string xmlFile;
-        [SetUp]
-        public void SetUp()
-        {
-            xmlFile = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\xml\\WFS_2_0_GetCapabilitiesWithFeatureTypes.xml");
-        }
 
-
-        [Test]
+        [Fact]
         public void ShouldParseFeatureTypesFromWfs2_0_GetCapabilitiesDocument()
         {
+            xmlFile = File.ReadAllText("xml\\WFS_2_0_GetCapabilitiesWithFeatureTypes.xml");
             XDocument doc = XDocument.Parse(xmlFile);
             WfsServiceViewModel serviceModel = new WfsGetCapabilities20Parser().Parse(doc);
 
-            Assert.NotNull(serviceModel.Layers, "No features/layers found");
-            Assert.AreEqual(1, serviceModel.Layers.Count, "Should have featureType");
+            Assert.NotNull(serviceModel.Layers);
+            Assert.Single(serviceModel.Layers);
         }
     }
 }

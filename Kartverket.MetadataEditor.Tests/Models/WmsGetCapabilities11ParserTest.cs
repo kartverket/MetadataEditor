@@ -1,5 +1,5 @@
 ﻿using Kartverket.MetadataEditor.Models;
-using NUnit.Framework;
+using Xunit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,25 +11,20 @@ using System.Xml.Linq;
 
 namespace Kartverket.MetadataEditor.Tests.Models
 {
-    [TestFixture]
-    class WmsGetCapabilities11ParserTest
+    public class WmsGetCapabilities11ParserTest
     {
 
         private string xmlFile;
-        [SetUp]
-        public void SetUp()
-        {
-            xmlFile = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\xml\\WMS_1_1_GetCapabilitiesWithLayerGroups.xml");
-        }
 
-        [Test]
+        [Fact]
         public void ShouldParseLayerGroupsFromWms1_1_GetCapabilitiesDocument()
         {
+            xmlFile = File.ReadAllText("xml\\WMS_1_1_GetCapabilitiesWithLayerGroups.xml");
             XDocument doc = XDocument.Parse(xmlFile);
             WmsServiceViewModel serviceModel = new WmsGetCapabilities11Parser().Parse(doc);
 
-            Assert.NotNull(serviceModel.Layers, "No layers found");
-            Assert.AreEqual(26, serviceModel.Layers.Count, "Should have many layers");
+            Assert.NotNull(serviceModel.Layers);
+            Assert.Equal(26, serviceModel.Layers.Count);
         }
 
     }
