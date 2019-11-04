@@ -228,6 +228,7 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsInspirePriorityDataset = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_INSPIRE_PRIORITY_DATASET)),
                 KeywordsServiceTaxonomy = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY)),
                 KeywordsServiceType = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICE_TYPE)),
+                KeywordsSpatialScope = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SPATIAL_SCOPE)),
                 KeywordsOther = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, null)),
                 KeywordsEnglish = CreateDictionaryOfEnglishKeywords(metadata.Keywords),
 
@@ -2189,7 +2190,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             string file = System.Web.Hosting.HostingEnvironment.MapPath(@"/App_Data/PriorityDataset.json");
             string json = File.ReadAllText(file);
-            PriorityDataset priorityDataset = JsonConvert.DeserializeObject<PriorityDataset>(json);
+            Inspire priorityDataset = JsonConvert.DeserializeObject<Inspire>(json);
 
             Dictionary<string, string> priorityList = new Dictionary<string, string>();
 
@@ -2201,6 +2202,24 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             return priorityList;
+        }
+
+        public Dictionary<string, string> GetSpatialScopes()
+        {
+            string file = System.Web.Hosting.HostingEnvironment.MapPath(@"/App_Data/SpatialScope.json");
+            string json = File.ReadAllText(file);
+            Inspire spatialScope = JsonConvert.DeserializeObject<Inspire>(json);
+
+            Dictionary<string, string> spatialScopeList = new Dictionary<string, string>();
+
+            foreach (var containedItem in spatialScope.metadatacodelist.containeditems.Where(s => s.value.status.label.text == "Valid").OrderBy(o => o.value.label.text))
+            {
+                var label = containedItem.value.label.text;
+                var id = containedItem.value.id;
+                spatialScopeList.Add(label + "|" + id, label);
+            }
+
+            return spatialScopeList;
         }
 
     }

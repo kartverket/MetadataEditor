@@ -7,7 +7,7 @@ using System.Web;
 namespace Kartverket.MetadataEditor.Models.InspireCodelist
 {
 
-    public class PriorityDataset
+    public class Inspire
     {
         [JsonProperty("metadata-codelist")]
         public MetadataCodelist metadatacodelist { get; set; }

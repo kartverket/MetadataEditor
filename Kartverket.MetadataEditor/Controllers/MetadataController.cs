@@ -231,6 +231,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.CatalogValues = new SelectList(GetListOfCatalogs(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(CultureHelper.GetCurrentCulture()), "Key", "Value");
             ViewBag.InspirePriorityDatasets = new SelectList(_metadataService.GetPriorityDatasets(), "Key", "Value");
+            ViewBag.InspireSpatialScopes = new SelectList(_metadataService.GetSpatialScopes(), "Key", "Value");
             ViewBag.TechnicalSpecifications = new SelectList(Technical.GetSpecifications, "Name", "Name");
             ViewBag.ServicePlatforms = new SelectList(GetListOfServicePlatforms(CultureHelper.GetCurrentCulture()), "Key", "Value");
 
