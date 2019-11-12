@@ -680,7 +680,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_KeywordsCatalogs">
             <summary>
-              Looks up a localized string similar to Høsting til ulike samarbeid:.
+              Looks up a localized string similar to Høsting og samarbeid:.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationDate">

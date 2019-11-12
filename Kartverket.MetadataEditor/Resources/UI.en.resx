@@ -326,10 +326,10 @@
     <value>In scope of Inspire Directive</value>
   </data>
   <data name="Metadata_Admin_KeywordNorgeDigitalt" xml:space="preserve">
-    <value>In scope of Norway digital agreement</value>
+    <value>In scope of Norway digital agreement:</value>
   </data>
   <data name="Metadata_Admin_KeywordsCatalogs" xml:space="preserve">
-    <value>Harvest to portals</value>
+    <value>Harvesting and cooperation</value>
   </data>
   <data name="Metadata_Admin_QualitySpecificationDate" xml:space="preserve">
     <value>Date</value>
