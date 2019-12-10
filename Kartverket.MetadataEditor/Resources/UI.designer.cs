@@ -1179,7 +1179,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Høsting til ulike samarbeid:.
+        ///   Looks up a localized string similar to Høsting og samarbeid:.
         /// </summary>
         public static string Metadata_Admin_KeywordsCatalogs {
             get {
