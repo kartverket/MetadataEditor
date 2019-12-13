@@ -505,9 +505,82 @@ namespace Kartverket.MetadataEditor.Models
                 UpdateLicense(username, deleteData);
             else if (metadatafield == "EnglishTexts")
                 UpdateEnglishTexts(username, deleteData, metadatafieldEnglish);
+            else if (metadatafield == "SpatialScope")
+                UpdateSpatialScope(username, deleteData);
 
             excelPackage.Dispose();
 
+        }
+
+        private void UpdateSpatialScope(string username, bool deleteData)
+        {
+            Dictionary<string, string> spatialScopes = _metadataService.GetSpatialScopes();
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            if (deleteData)
+            {
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveSpatialScope(uuidDelete, username);
+                }
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var spatialScope = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(spatialScope) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    if (spatialScopes.ContainsValue(spatialScope))
+                    {
+                        var spatialScopeInfo = spatialScopes.Where(s => s.Value == spatialScope).Select(s => s.Key).First();
+                        SaveSpatialScope(uuid, spatialScopeInfo, username);
+                    }
+                }
+            }
+        }
+
+        private void SaveSpatialScope(string uuid, string spatialScopeInfo, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                if (metadata.KeywordsSpatialScope != null && metadata.KeywordsSpatialScope.Count > 0)
+                {
+                    metadata.KeywordsSpatialScope.RemoveAt(0);
+                }
+                
+                metadata.KeywordsSpatialScope.Add(spatialScopeInfo);
+
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", spatial scope: " + spatialScopeInfo);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        private void RemoveSpatialScope(string uuidDelete, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuidDelete);
+                if(metadata.KeywordsSpatialScope != null && metadata.KeywordsSpatialScope.Count > 0) { 
+                    metadata.KeywordsSpatialScope.RemoveAt(0);
+                    _metadataService.SaveMetadataModel(metadata, username);
+
+                    Log.Info("Batch remove spatial scope, uuid: " + uuidDelete);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuidDelete, ex);
+            }
         }
 
         private void UpdateLicense(string username, bool deleteData)
