@@ -32,7 +32,23 @@
                                     <label for="ReferenceSystems"><input type="radio" name="metadatafield" value="ReferenceSystems" id="ReferenceSystems" />Romlig referansesystem </label>
                                     <label for="License"><input type="radio" name="metadatafield" value="License" id="License" />Lisens </label>
                                     <label for="EnglishTexts"><input type="radio" name="metadatafield" value="EnglishTexts" id="EnglishTexts" />Engelske tekster </label>
+                                    <label for="SpatialScope"><input type="radio" name="metadatafield" value="SpatialScope" id="SpatialScope" />Spatial scope </label>
                                     <br /><input type="checkbox" name="deleteData" checked="checked" value="true" />Slett eksisterende data
+                                </div>
+                            </div>
+                            <div id="SpatialScopeInfo" class="row table-responsive" style="display:none;">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <caption>Excel-ark skal ha følgende struktur for å oppdatere spatial scope/dekningsområde:</caption>
+                                        <thead><tr><th>uuid</th><th>spatial scope</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>European</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Global</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Local</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>National</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Regional</td></tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div id="EnglishTextsInfo" class="row table-responsive" style="display:none;">
@@ -357,6 +373,9 @@ else
                 } else if (selectedField == "AccessConstraints") {
                     $("#AccessConstraintsInfo").show();
                 }
+                else if (selectedField == "SpatialScope") {
+                    $("#SpatialScopeInfo").show();
+                }
                 else if (selectedField == "KeywordsNationalInitiative") {
                     $("#KeywordsNationalInitiativeInfo").show();
                 }
@@ -389,6 +408,7 @@ else
             $("#ReferenceSystemsInfo").hide();
             $("#LicenseInfo").hide();
             $("#EnglishTextsInfo").hide();
+            $("#SpatialScopeInfo").hide();
         }
 
 
