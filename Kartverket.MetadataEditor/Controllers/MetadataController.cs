@@ -423,6 +423,14 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 try
                 {
+                    var regex = @"^[a-zA-Z_]\w*(\.[a-zA-Z_]\w*)*$";
+                    var match = System.Text.RegularExpressions.Regex.Match(model.ResourceReferenceCode, regex, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+                    if (!match.Success)
+                    {
+                        ModelState.AddModelError("ResourceReferenceCode", "Ulovlig tegn");
+                    }
+
                     System.Net.WebClient c = new System.Net.WebClient();
                     c.Encoding = System.Text.Encoding.UTF8;
                     var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/valid-dataset-name?namespace=" + Server.UrlEncode(model.ResourceReferenceCodespace) + "&datasetName=" + Server.UrlEncode(model.ResourceReferenceCode) + "&uuid=" + model.Uuid);
