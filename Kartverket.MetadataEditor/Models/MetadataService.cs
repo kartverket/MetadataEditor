@@ -848,6 +848,7 @@ namespace Kartverket.MetadataEditor.Models
                     string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                     request.Method = WebRequestMethods.Http.Post;
+                    request.Headers["Authorization"] = "Basic " + Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(username + ":" + password));
                     request.ContentType = "application/x-www-form-urlencoded";
                     using (var writer = new StreamWriter(request.GetRequestStream()))
                     {
@@ -866,6 +867,7 @@ namespace Kartverket.MetadataEditor.Models
                     string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                     request.Method = WebRequestMethods.Http.Post;
+                    request.Headers["Authorization"] = "Basic " + Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(username + ":" + password));
                     request.ContentType = "application/x-www-form-urlencoded";
                     using (var writer = new StreamWriter(request.GetRequestStream()))
                     {
