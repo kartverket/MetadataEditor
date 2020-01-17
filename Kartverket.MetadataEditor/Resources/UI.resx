@@ -644,7 +644,7 @@
     <value>Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her. Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert. Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene.</value>
   </data>
   <data name="HelpTextResourceReferenceCode" xml:space="preserve">
-    <value>Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt.</value>
+    <value>Teknisk navn for datasettet. Unngå mellomrom og spesialtegn. Understrek er tillatt.</value>
   </data>
   <data name="HelpTextResourceReferenceCodespace" xml:space="preserve">
     <value>Velg blant forhåndsdefinerte navnerom for datasett</value>
