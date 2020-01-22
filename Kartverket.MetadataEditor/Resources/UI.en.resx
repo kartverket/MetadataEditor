@@ -1008,6 +1008,6 @@
 It is encouraged to use email addresses to groups and not to individuals, as well as not to provide names of individuals, but to specify unit or group that has professional responsibility or are responsible for the distribution.</value>
   </data>
   <data name="ErrorDuplicateDatasetName" xml:space="preserve">
-    <value>Dataset name is already registered</value>
+    <value>Dataset Id is already registered</value>
   </data>
 </root>

@@ -423,7 +423,7 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 try
                 {
-                    var regex = @"^[a-zA-Z_]\w*(\.[a-zA-Z_]\w*)*$";
+                    var regex = @"^[A-Za-z0-9_\-\.]*$";
                     var match = System.Text.RegularExpressions.Regex.Match(model.ResourceReferenceCode, regex, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
                     if (!match.Success)
