@@ -2070,6 +2070,8 @@ namespace Kartverket.MetadataEditor.Models
                 else if (model.Type.Equals("series"))
                 {
                     metadata.HierarchyLevel = "series";
+                    if(!string.IsNullOrEmpty(model.TypeName))
+                        metadata.HierarchyLevelName = model.TypeName;
                 }
             }
 

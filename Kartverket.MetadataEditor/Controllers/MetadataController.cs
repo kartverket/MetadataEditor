@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Kartverket.MetadataEditor.Models;
 using System;
 using System.Collections.Generic;
@@ -44,9 +44,20 @@ namespace Kartverket.MetadataEditor.Controllers
             MetadataCreateViewModel model = new MetadataCreateViewModel
             {
                 MetadataContactOrganization = GetCurrentUserOrganizationName(),
+                AvailableTypeNames = GetTypeNames()
             };
 
             return View(model);
+        }
+
+        private Dictionary<string, string> GetTypeNames()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "series_thematic","series_thematic" },
+                { "series_historic","series_historic" },
+                { "series_geographic","series_geographic" }
+            };
         }
 
         [HttpPost]
@@ -55,6 +66,7 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             string organization = GetCurrentUserOrganizationName();
             model.MetadataContactOrganization = organization;
+            model.AvailableTypeNames = GetTypeNames();
             if (ModelState.IsValid)
             {
                 string username = GetUsername();

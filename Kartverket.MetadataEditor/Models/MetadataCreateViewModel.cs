@@ -23,5 +23,8 @@ namespace Kartverket.MetadataEditor.Models
 
         [Required(ErrorMessage = "Type er påkrevd.")]
         public string Type { get; set; }
+
+        public string TypeName { get; set; }
+        public Dictionary<string,string> AvailableTypeNames { get; set; }
     }
 }
