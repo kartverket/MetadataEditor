@@ -971,6 +971,7 @@
     <Content Include="Views\Shared\VueComponents\Edit\Distribution\_ContainsOperations.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_KeywordsAdministrativeUnits.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\KeywordsAdministrativeUnits\_KeywordsAdministrativeUnit.cshtml" />
+    <Content Include="Views\Metadata\_ParentIdentifierSeries.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
