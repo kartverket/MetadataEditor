@@ -1630,7 +1630,7 @@ namespace Kartverket.MetadataEditor.Models
 
         private bool HasFormat(string format, List<SimpleDistribution> distributionsFormats)
         {
-            if(distributionsFormats != null) { 
+            if(distributionsFormats != null && distributionsFormats.Count()> 0) { 
             foreach (var distribution in distributionsFormats)
                 if (distribution.FormatName.ToLower() == format.ToLower())
                     return true;
