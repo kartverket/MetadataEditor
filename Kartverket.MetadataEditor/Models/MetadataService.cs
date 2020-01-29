@@ -1139,7 +1139,7 @@ namespace Kartverket.MetadataEditor.Models
                 qualityList.Add(new SimpleQualitySpecification
                 {
                     Title = model.QualitySpecificationTitleSosi,
-                    Date = string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi),
+                    Date = model.QualitySpecificationDateSosi.HasValue ? string.Format("{0:yyyy-MM-dd}", model.QualitySpecificationDateSosi) : null,
                     DateType = dateType,
                     Explanation = model.QualitySpecificationExplanationSosi,
                     EnglishExplanation = model.EnglishQualitySpecificationExplanationSosi,
