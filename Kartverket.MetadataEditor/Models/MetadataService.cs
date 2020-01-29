@@ -1632,7 +1632,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             if(distributionsFormats != null && distributionsFormats.Count()> 0) { 
             foreach (var distribution in distributionsFormats)
-                if (distribution.FormatName.ToLower() == format.ToLower())
+                if (distribution.FormatName?.ToLower() == format?.ToLower())
                     return true;
             }
 
