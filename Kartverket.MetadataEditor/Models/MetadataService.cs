@@ -973,8 +973,7 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Abstract = model.Abstract;
             var dateType = "publication";
 
-            if (!string.IsNullOrEmpty(model.ParentIdentifier))
-                metadata.ParentIdentifier = model.ParentIdentifier;
+            metadata.ParentIdentifier = model.ParentIdentifier;
 
             metadata.Purpose = !string.IsNullOrWhiteSpace(model.Purpose) ? model.Purpose : " ";
 

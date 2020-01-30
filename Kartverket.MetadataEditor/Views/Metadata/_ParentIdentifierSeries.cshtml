@@ -61,7 +61,7 @@
         }
         else
         {
-        var h = '<div id="parentIdentifier-' + Uuid + '" class="row">';
+        var h = '<div id="parentIdentifier" class="row">';
         h += '<input type="hidden" value="' + Uuid + '" name="ParentIdentifier" />';
 
         h += '<div class="col-sm-8">';
@@ -76,15 +76,20 @@
         h += '<a href="@Html.KartkatalogUrl()metadata/uuid/' + Uuid + '" target="_blank" class="btn btn-default btn-xs">';
         h += ' <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog';
         h += '   </a>';
+            h += '<input type="button" class="btn btn -default btn - xs" value="Slett" onclick="removeParent(' + Uuid+')" />'
         h += '</div>';
 
         h += '</div>';
         h += '<hr style="margin: 2px 2px 2px 2px" />';
 
             $('#parentIdentifierDIV').html(h);
-        }
-            
 
+            $('#parentIdentifier').show();
+        }
+    }
+    function removeParent(uuid) {
+        $('input[name="ParentIdentifier"]').val('');
+        $('#titleSeries-'+uuid).text('');
     }
 
 </script>
@@ -117,8 +122,8 @@
                     <div id="parentIdentifierDIV">
                             @if(!string.IsNullOrEmpty(Model.ParentIdentifier))
                             {
-                            <div id="parentIdentifier-@Model.ParentIdentifier" class="row">
-                                <input type="hidden" value="@Model.ParentIdentifier" name="parentIdentifier" />
+                            <div id="parentIdentifier" class="row">
+                                <input type="hidden" value="@Model.ParentIdentifier" name="ParentIdentifier" />
                                 <div class="col-sm-8">
                                     <div id="titleSeries-@Model.ParentIdentifier">
                                         <script>getMetadataForSeries('@Model.ParentIdentifier');</script>
@@ -128,6 +133,7 @@
                                     <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier" target="_blank" class="btn btn-default btn-xs">
                                         <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
                                     </a>
+                                    <input type="button" class="btn btn-default btn-xs" value="Slett" onclick="removeParent('@Model.ParentIdentifier')" />
                                 </div>
                
                             </div>
