@@ -70,6 +70,12 @@
                             <div class="col-md-10">
                                 <input type="text" name="CoverageGridUrl" value="@Model.CoverageGridUrl" class="form-control" />
                             </div>
+                        </div><br />
+                        <div class="row">
+                            <label class="col-md-2 control-label">Celle</label>
+                            <div class="col-md-10">
+                                <input type="text" name="CoverageCellUrl" value="@Model.CoverageCellUrl" class="form-control" />
+                            </div>
                         </div>
                     </div>
 
@@ -216,15 +222,30 @@
                 var valueFromCoverageUrl = '';
                 var regexResult;
                 if ((regexResult = regex.exec(this.$root.model.CoverageUrl)) !== null) {
-                    regexResult.forEach(function (match, groupIndex) {
+                    regexResult.some(function (match, groupIndex) {
                         valueFromCoverageUrl = match;
+                        if (valueFromCoverageUrl !== '') {
+                            return valueFromCoverageUrl;
+                        }
                     });
                 }
                 else if ((regexResult = regex.exec(this.$root.model.CoverageGridUrl)) !== null) {
-                    regexResult.forEach(function (match, groupIndex) {
+                    regexResult.some(function (match, groupIndex) {
                         valueFromCoverageUrl = match;
+                        if (valueFromCoverageUrl !== '') {
+                            return valueFromCoverageUrl;
+                        }
                     });
                 }
+                else if ((regexResult = regex.exec(this.$root.model.CoverageCellUrl)) !== null) {
+                    regexResult.some(function (match, groupIndex) {
+                        valueFromCoverageUrl = match;
+                        if (valueFromCoverageUrl !== '') {
+                            return valueFromCoverageUrl;
+                        }
+                    });
+                }
+
                 return valueFromCoverageUrl;
             },
             getMapServiceType: function () {

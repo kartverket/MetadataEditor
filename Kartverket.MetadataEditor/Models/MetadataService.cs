@@ -244,6 +244,7 @@ namespace Kartverket.MetadataEditor.Models
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
                 CoverageUrl = metadata.CoverageUrl,
                 CoverageGridUrl = metadata.CoverageGridUrl,
+                CoverageCellUrl = metadata.CoverageCellUrl,
                 HelpUrl = metadata.HelpUrl,
 
                 Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails),
@@ -1037,6 +1038,7 @@ namespace Kartverket.MetadataEditor.Models
             if (model.IsDataset()) { 
                 metadata.CoverageUrl = model.CoverageUrl;
                 metadata.CoverageGridUrl = model.CoverageGridUrl;
+                metadata.CoverageCellUrl = model.CoverageCellUrl;
             }
 
             metadata.HelpUrl = model.HelpUrl;
