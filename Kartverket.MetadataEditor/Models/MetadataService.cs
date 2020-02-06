@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Kartverket.MetadataEditor.Models.Translations;
 using Kartverket.MetadataEditor.Models.Rdf;
 using Resources;
+using System.Threading;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -906,6 +907,90 @@ namespace Kartverket.MetadataEditor.Models
                     request.Credentials = myCredentialCache;
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             }
+
+            if (metadata.IsDatasetSeries())
+            {
+                //Oppdater alle som har metadata.Uuid som parentIdentifier
+                List<string> datasets = GetDatasetsForSerie(metadata.Uuid);
+
+                foreach(var dataset in datasets)
+                {
+                    string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    request.Method = WebRequestMethods.Http.Post;
+                    request.Headers["Authorization"] = "Basic " + Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(username + ":" + password));
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    using (var writer = new StreamWriter(request.GetRequestStream()))
+                    {
+                        writer.Write("uuid=" + dataset);
+                        writer.Write("&action=post");
+                    }
+                    NetworkCredential networkCredential = new NetworkCredential(username, password);
+                    CredentialCache myCredentialCache = new CredentialCache { { new System.Uri(url), "Basic", networkCredential } };
+                    request.PreAuthenticate = true;
+                    request.Credentials = myCredentialCache;
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                }
+            }
+        }
+
+        private List<string> GetDatasetsForSerie(string uuid)
+        {
+            List<string> datasets = new List<string>();
+
+            var filters = new object[]
+            {
+                new PropertyIsLikeType
+                    {
+                        escapeChar = "\\",
+                        singleChar = "_",
+                        wildCard = "%",
+                        PropertyName = new PropertyNameType {Text = new[] {"srv:parentIdentifier"}},
+                        Literal = new LiteralType {Text = new[] {uuid}}
+                    }
+            };
+
+            var filterNames = new ItemsChoiceType23[]
+            {
+                 ItemsChoiceType23.PropertyIsLike,
+            };
+
+            SearchResultsType res = null;
+
+            var tries = 3;
+            while (true)
+            {
+                try
+                {
+                    res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 200);
+                    break; // success!
+                }
+                catch
+                {
+                    if (--tries == 0)
+                        throw;
+                    Thread.Sleep(3000);
+                }
+            }
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (var item in res.Items)
+                {
+                    RecordType record = (RecordType)item;
+
+                    for (int i = 0; i < record.ItemsElementName.Length; i++)
+                    {
+                        var name = record.ItemsElementName[i];
+                        var value = record.Items[i].Text != null ? record.Items[i].Text[0] : null;
+
+                        if (name == ItemsChoiceType24.identifier)
+                            datasets.Add(value);
+                    }
+                }
+            }
+
+            return datasets;
         }
 
         private void RemoveCache(MetadataViewModel metadata)
