@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Kartverket.MetadataEditor.Models;
 using System;
 using System.Collections.Generic;
@@ -44,9 +44,20 @@ namespace Kartverket.MetadataEditor.Controllers
             MetadataCreateViewModel model = new MetadataCreateViewModel
             {
                 MetadataContactOrganization = GetCurrentUserOrganizationName(),
+                AvailableTypeNames = GetTypeNames()
             };
 
             return View(model);
+        }
+
+        private Dictionary<string, string> GetTypeNames()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "series_thematic","series_thematic" },
+                { "series_historic","series_historic" },
+                { "series_geographic","series_geographic" }
+            };
         }
 
         [HttpPost]
@@ -55,6 +66,7 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             string organization = GetCurrentUserOrganizationName();
             model.MetadataContactOrganization = organization;
+            model.AvailableTypeNames = GetTypeNames();
             if (ModelState.IsValid)
             {
                 string username = GetUsername();
@@ -423,6 +435,14 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 try
                 {
+                    var regex = @"^[A-Za-z0-9_\-\.]*$";
+                    var match = System.Text.RegularExpressions.Regex.Match(model.ResourceReferenceCode, regex, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+                    if (!match.Success)
+                    {
+                        ModelState.AddModelError("ResourceReferenceCode", "Ulovlig tegn");
+                    }
+
                     System.Net.WebClient c = new System.Net.WebClient();
                     c.Encoding = System.Text.Encoding.UTF8;
                     var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/valid-dataset-name?namespace=" + Server.UrlEncode(model.ResourceReferenceCodespace) + "&datasetName=" + Server.UrlEncode(model.ResourceReferenceCode) + "&uuid=" + model.Uuid);

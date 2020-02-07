@@ -548,7 +548,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Navn på datasett er allerede registrert.
+        ///   Looks up a localized string similar to Datasett-ID er allerede registrert.
         /// </summary>
         public static string ErrorDuplicateDatasetName {
             get {
@@ -954,7 +954,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt..
+        ///   Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellomrom og spesialtegn. Understrek er tillatt..
         /// </summary>
         public static string HelpTextResourceReferenceCode {
             get {

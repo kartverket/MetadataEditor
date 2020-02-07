@@ -329,7 +329,7 @@
         </member>
         <member name="P:Resources.UI.ErrorDuplicateDatasetName">
             <summary>
-              Looks up a localized string similar to Navn på datasett er allerede registrert.
+              Looks up a localized string similar to Datasett-ID er allerede registrert.
             </summary>
         </member>
         <member name="P:Resources.UI.ErrorInfo">
@@ -555,7 +555,7 @@
         </member>
         <member name="P:Resources.UI.HelpTextResourceReferenceCode">
             <summary>
-              Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt..
+              Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellomrom og spesialtegn. Understrek er tillatt..
             </summary>
         </member>
         <member name="P:Resources.UI.HelpTextResourceReferenceCodespace">

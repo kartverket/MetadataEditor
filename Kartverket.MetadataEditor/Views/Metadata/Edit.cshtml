@@ -61,7 +61,10 @@
         <br />
         <small>
             <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
-
+            @if (Model.HierarchyLevel == "series" && !string.IsNullOrEmpty(Model.HierarchyLevelName) )
+            {
+                <span>@Model.HierarchyLevelName</span>
+            }
             @if (!string.IsNullOrWhiteSpace(Model.ParentIdentifier) && Model.HierarchyLevel == "service")
             {
                 <span>[<a href="@Url.Action("Edit", new { uuid = @Model.ParentIdentifier})">Lenke til tjenesten</a>]</span>
@@ -134,12 +137,18 @@
                 @Html.Partial("_CrossReference", Model)
             </div>
         }
+        @if (Model.IsDataset())
+        {
+            <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
+                @Html.Partial("_ParentIdentifierSeries", Model)
+            </div>
+        }
 
         @section ActionMenu {
             <div class="btn-group">
                 @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
-                    <i class="glyphicon glyphicon-file"></i> Last ned XML
-                </a>*@
+            <i class="glyphicon glyphicon-file"></i> Last ned XML
+        </a>*@
 
                 <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
                     <span class="glyphicon glyphicon-share-alt"></span> @UI.DisplayInMapCatalogue
@@ -172,6 +181,10 @@
                 @if (Model.IsSoftware())
                 {
                     <a href="#" role="button" data-toggle="modal" id="crossReferenceLink" data-target="#crossReference" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
+                }
+                @if (Model.IsDataset())
+                {
+                    <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasettserie</a>
                 }
             </div>
         }

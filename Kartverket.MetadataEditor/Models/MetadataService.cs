@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Kartverket.MetadataEditor.Models.Translations;
 using Kartverket.MetadataEditor.Models.Rdf;
 using Resources;
+using System.Threading;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -209,6 +210,7 @@ namespace Kartverket.MetadataEditor.Models
                 Title = metadata.Title,
                 Language = metadata.Language,
                 HierarchyLevel = metadata.HierarchyLevel,
+                HierarchyLevelName = metadata.HierarchyLevelName,
                 ParentIdentifier = metadata.ParentIdentifier,
                 MetadataStandard = metadata.MetadataStandard,
                 Abstract = metadata.Abstract != null ? metadata.Abstract.Replace("...", "") : "",
@@ -243,6 +245,7 @@ namespace Kartverket.MetadataEditor.Models
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
                 CoverageUrl = metadata.CoverageUrl,
                 CoverageGridUrl = metadata.CoverageGridUrl,
+                CoverageCellUrl = metadata.CoverageCellUrl,
                 HelpUrl = metadata.HelpUrl,
 
                 Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails),
@@ -578,7 +581,7 @@ namespace Kartverket.MetadataEditor.Models
             if (transaction.TotalUpdated == "0")
                 throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
 
-            Task.Run(() => ReIndexOperatesOn(model));
+            Task.Run(() => ReIndexRelated(model));
             Task.Run(() => RemoveCache(model));
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Modified, User = username, Description = "Saved metadata title: "+ model.Title }));
             Task.Run(async delegate
@@ -835,14 +838,14 @@ namespace Kartverket.MetadataEditor.Models
 
         Dictionary<string, string> OrganizationsEnglish = new Dictionary<string, string>();
 
-        private void ReIndexOperatesOn(MetadataViewModel metadata)
+        private void ReIndexRelated(MetadataViewModel metadata)
         {
+            System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
+            string username = settings["KartkatalogUsername"];
+            string password = settings["KartkatalogPassword"];
+
             if (metadata.OperatesOn != null)
             {
-                System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
-                string username = settings["KartkatalogUsername"];
-                string password = settings["KartkatalogPassword"];
-
                 foreach (var uuid in metadata.OperatesOn)
                 {
                     string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
@@ -861,7 +864,10 @@ namespace Kartverket.MetadataEditor.Models
                     request.Credentials = myCredentialCache;
                     HttpWebResponse response = (HttpWebResponse) request.GetResponse();
                 }
+            }
 
+            if (metadata.CrossReference != null)
+            {
                 foreach (var uuid in metadata.CrossReference)
                 {
                     string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
@@ -881,6 +887,110 @@ namespace Kartverket.MetadataEditor.Models
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 }
             }
+
+            if (metadata.ParentIdentifier != null)
+            {
+
+                    string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    request.Method = WebRequestMethods.Http.Post;
+                    request.Headers["Authorization"] = "Basic " + Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(username + ":" + password));
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    using (var writer = new StreamWriter(request.GetRequestStream()))
+                    {
+                        writer.Write("uuid=" + metadata.ParentIdentifier);
+                        writer.Write("&action=post");
+                    }
+                    NetworkCredential networkCredential = new NetworkCredential(username, password);
+                    CredentialCache myCredentialCache = new CredentialCache { { new System.Uri(url), "Basic", networkCredential } };
+                    request.PreAuthenticate = true;
+                    request.Credentials = myCredentialCache;
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            }
+
+            if (metadata.IsDatasetSeries())
+            {
+                //Oppdater alle som har metadata.Uuid som parentIdentifier
+                List<string> datasets = GetDatasetsForSerie(metadata.Uuid);
+
+                foreach(var dataset in datasets)
+                {
+                    string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                    request.Method = WebRequestMethods.Http.Post;
+                    request.Headers["Authorization"] = "Basic " + Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(username + ":" + password));
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    using (var writer = new StreamWriter(request.GetRequestStream()))
+                    {
+                        writer.Write("uuid=" + dataset);
+                        writer.Write("&action=post");
+                    }
+                    NetworkCredential networkCredential = new NetworkCredential(username, password);
+                    CredentialCache myCredentialCache = new CredentialCache { { new System.Uri(url), "Basic", networkCredential } };
+                    request.PreAuthenticate = true;
+                    request.Credentials = myCredentialCache;
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                }
+            }
+        }
+
+        private List<string> GetDatasetsForSerie(string uuid)
+        {
+            List<string> datasets = new List<string>();
+
+            var filters = new object[]
+            {
+                new PropertyIsLikeType
+                    {
+                        escapeChar = "\\",
+                        singleChar = "_",
+                        wildCard = "%",
+                        PropertyName = new PropertyNameType {Text = new[] {"srv:parentIdentifier"}},
+                        Literal = new LiteralType {Text = new[] {uuid}}
+                    }
+            };
+
+            var filterNames = new ItemsChoiceType23[]
+            {
+                 ItemsChoiceType23.PropertyIsLike,
+            };
+
+            SearchResultsType res = null;
+
+            var tries = 3;
+            while (true)
+            {
+                try
+                {
+                    res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 200);
+                    break; // success!
+                }
+                catch
+                {
+                    if (--tries == 0)
+                        throw;
+                    Thread.Sleep(3000);
+                }
+            }
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (var item in res.Items)
+                {
+                    RecordType record = (RecordType)item;
+
+                    for (int i = 0; i < record.ItemsElementName.Length; i++)
+                    {
+                        var name = record.ItemsElementName[i];
+                        var value = record.Items[i].Text != null ? record.Items[i].Text[0] : null;
+
+                        if (name == ItemsChoiceType24.identifier)
+                            datasets.Add(value);
+                    }
+                }
+            }
+
+            return datasets;
         }
 
         private void RemoveCache(MetadataViewModel metadata)
@@ -949,8 +1059,7 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Abstract = model.Abstract;
             var dateType = "publication";
 
-            if (!string.IsNullOrEmpty(model.ParentIdentifier))
-                metadata.ParentIdentifier = model.ParentIdentifier;
+            metadata.ParentIdentifier = model.ParentIdentifier;
 
             metadata.Purpose = !string.IsNullOrWhiteSpace(model.Purpose) ? model.Purpose : " ";
 
@@ -1014,6 +1123,7 @@ namespace Kartverket.MetadataEditor.Models
             if (model.IsDataset()) { 
                 metadata.CoverageUrl = model.CoverageUrl;
                 metadata.CoverageGridUrl = model.CoverageGridUrl;
+                metadata.CoverageCellUrl = model.CoverageCellUrl;
             }
 
             metadata.HelpUrl = model.HelpUrl;
@@ -2072,6 +2182,8 @@ namespace Kartverket.MetadataEditor.Models
                 else if (model.Type.Equals("series"))
                 {
                     metadata.HierarchyLevel = "series";
+                    if(!string.IsNullOrEmpty(model.TypeName))
+                        metadata.HierarchyLevelName = model.TypeName;
                 }
             }
 

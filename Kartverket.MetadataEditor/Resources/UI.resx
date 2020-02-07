@@ -644,7 +644,7 @@
     <value>Oppgi hvis datasettet er samlet inn med tanke på et spesielt formål. Hvis dataene ikke kan brukes til andre formål uten videre, skal dette framkomme her. Det er ikke nødvendig å legge inn noe her hvis formål ikke er definert. Det kan henvises til lover og forskrifter, stortingsmeldinger og annet som beskriver formålet med dataene.</value>
   </data>
   <data name="HelpTextResourceReferenceCode" xml:space="preserve">
-    <value>Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt.</value>
+    <value>Teknisk navn for datasettet. Unngå mellomrom og spesialtegn. Understrek er tillatt.</value>
   </data>
   <data name="HelpTextResourceReferenceCodespace" xml:space="preserve">
     <value>Velg blant forhåndsdefinerte navnerom for datasett</value>
@@ -1011,6 +1011,6 @@
 Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersoner samt å ikke oppgi navn på enkeltpersoner men heller angi enhet eller gruppe som har fagansvar eller distribusjonsansvar.</value>
   </data>
   <data name="ErrorDuplicateDatasetName" xml:space="preserve">
-    <value>Navn på datasett er allerede registrert</value>
+    <value>Datasett-ID er allerede registrert</value>
   </data>
 </root>
