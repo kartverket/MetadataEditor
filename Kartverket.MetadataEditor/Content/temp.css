@@ -101,13 +101,15 @@
     padding-bottom: 0;
 }
 
-.upload-input input[type="file"] {
+.upload-input {
+    position: static;
+}
+    .upload-input input[type="file"] {
     opacity: 0;
     display: inline !important;
     width: 85px;
     padding: 0 !important;
     margin: 0 -85px 0 0;
-    height: 35px;
     vertical-align: top;
     position: relative;
     z-index: 2;
@@ -115,8 +117,9 @@
 }
 
     .upload-input input[type="file"] + .btn {
-        position: absolute;
         z-index: 1;
+        position: absolute;
+        top: 0;
     }
 
 .upload-input input:hover[type="file"] + .btn {
