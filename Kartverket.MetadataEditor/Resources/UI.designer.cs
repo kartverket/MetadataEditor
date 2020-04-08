@@ -205,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kommentar.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Begreper.
         /// </summary>
         public static string Concepts {

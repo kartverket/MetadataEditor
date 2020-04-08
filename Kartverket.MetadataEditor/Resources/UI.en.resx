@@ -1010,4 +1010,7 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   <data name="ErrorDuplicateDatasetName" xml:space="preserve">
     <value>Dataset Id is already registered</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
 </root>

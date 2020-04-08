@@ -1,4 +1,5 @@
 ﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@using Resources
 
 <h2>Slett metadata</h2>
 
@@ -7,5 +8,9 @@
 @using (Html.BeginForm("Delete", "Metadata", FormMethod.Post))
 {
     @Html.Hidden("uuid", Model.Uuid);
+    <div class="form-group has-feedback required">
+        <label for="comment" class="control-label">@UI.Comment:</label>
+        <input type="text" id="comment" name="comment" required />
+    </div>
     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span> Slett</button>
 }

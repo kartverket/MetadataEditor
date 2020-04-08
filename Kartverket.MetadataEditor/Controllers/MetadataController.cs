@@ -1020,13 +1020,13 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Delete(string uuid)
+        public ActionResult Delete(string uuid, string comment)
         {
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
             if (HasAccessToMetadata(model))
             {
-                _metadataService.DeleteMetadata(model, GetUsername());
+                _metadataService.DeleteMetadata(model, GetUsername(), comment);
 
                 TempData["Message"] = "Metadata med uuid " + uuid + " ble slettet.";
                 return RedirectToAction("Index");

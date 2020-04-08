@@ -136,6 +136,11 @@
               Looks up a localized string similar to Velg fra kart.
             </summary>
         </member>
+        <member name="P:Resources.UI.Comment">
+            <summary>
+              Looks up a localized string similar to Kommentar.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Concepts">
             <summary>
               Looks up a localized string similar to Begreper.
