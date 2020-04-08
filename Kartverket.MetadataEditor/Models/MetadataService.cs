@@ -2227,10 +2227,10 @@ namespace Kartverket.MetadataEditor.Models
 
 
 
-        public void DeleteMetadata(MetadataViewModel metadata, string username)
+        public void DeleteMetadata(MetadataViewModel metadata, string username, string comment)
         {
             _geoNorge.MetadataDelete(metadata.Uuid, GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
-            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Deleted,  User = username, Description = "Delete metadata title: " + metadata.Title }));
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Deleted,  User = username, Description = "Delete metadata title: " + metadata.Title + ". Comment: " + comment }));
         }
 
         public Stream SaveMetadataAsXml(MetadataViewModel model)
