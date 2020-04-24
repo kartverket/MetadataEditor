@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -1191,8 +1191,11 @@ namespace Kartverket.MetadataEditor.Models
                 }
             }
 
-            if(model.IsService())
+            if (model.IsService())
+            {
+                metadata.HierarchyLevelName = "service";
                 metadata.ContainOperations = model.Operations;
+            }
 
             // quality
 
@@ -2199,6 +2202,7 @@ namespace Kartverket.MetadataEditor.Models
             if (model.Type.Equals("service"))
             {
                 metadata = SimpleMetadata.CreateService();
+                metadata.HierarchyLevelName = "service";
             }
             else
             {
