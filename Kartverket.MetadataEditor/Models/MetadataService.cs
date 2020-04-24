@@ -276,7 +276,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 UseLimitations = metadata.Constraints != null ? metadata.Constraints.UseLimitations : null,
                 EnglishUseLimitations = metadata.Constraints != null ? metadata.Constraints.EnglishUseLimitations : null,
-                UseConstraints = metadata.Constraints != null ? metadata.Constraints.UseConstraints : null,
+                UseConstraints = metadata.Constraints != null && !string.IsNullOrEmpty(metadata.Constraints?.UseConstraintsLicenseLink) && !metadata.Constraints.UseConstraintsLicenseLink.Contains("noConditionsApply") ? "license" : null,
                 AccessConstraints = metadata.Constraints != null ? metadata.Constraints.AccessConstraints : null,
                 SecurityConstraints = metadata.Constraints != null ? metadata.Constraints.SecurityConstraints : null,
                 SecurityConstraintsNote = metadata.Constraints != null ? metadata.Constraints.SecurityConstraintsNote : null,
@@ -311,6 +311,13 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactPublisherOrganization = metadata.ContactPublisher != null ? metadata.ContactPublisher.OrganizationEnglish : null,
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
+
+            if (model.AccessConstraints == "Ingen begrensninger på tilgang")
+                model.AccessConstraints = "no restrictions";
+            else if (model.AccessConstraints == "Økonomiske- eller forretningsmessige forhold")
+                model.AccessConstraints = "norway digital restricted";
+            else if (model.AccessConstraints == "Samfunnets hensyn til sikkerhet")
+                model.AccessConstraints = "restricted";
 
             if (model.IsService())
                 model.Operations = metadata.ContainOperations;
@@ -1630,35 +1637,56 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             var accessConstraintsSelected = model.AccessConstraints;
-            string otherConstraintsAccess = model.OtherConstraintsAccess; 
+            string otherConstraintsAccess = model.OtherConstraintsAccess;
+
+            var accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations";
 
             if (!string.IsNullOrEmpty(accessConstraintsSelected))
             {
                 if (accessConstraintsSelected.ToLower() == "no restrictions" || accessConstraintsSelected.ToLower() == "norway digital restricted")
                 {
                     otherConstraintsAccess = accessConstraintsSelected;
-                    accessConstraintsSelected = "otherRestrictions";
+                    //accessConstraintsSelected = "otherRestrictions";
+
+                    if(accessConstraintsSelected.ToLower() == "no restrictions")
+                        accessConstraintsSelected = "Ingen begrensninger på tilgang";
+
+                    if (accessConstraintsSelected.ToLower() == "norway digital restricted") { 
+                        accessConstraintsSelected = "Økonomiske- eller forretningsmessige forhold";
+                        accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
+                    }
 
                 }
                 else if(accessConstraintsSelected == "restricted")
                 {
                     otherConstraintsAccess = null;
+                    accessConstraintsSelected = "Samfunnets hensyn til sikkerhet";
+                    accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
                 }
+            }
+
+            if (string.IsNullOrEmpty(model.UseConstraints))
+            {
+                model.OtherConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/noConditionsApply";
+                model.OtherConstraintsLinkText = "No conditions apply to access and use";
             }
 
             metadata.Constraints = new SimpleConstraints
             {
                 AccessConstraints = !string.IsNullOrWhiteSpace(accessConstraintsSelected) ? accessConstraintsSelected : "",
+                AccessConstraintsLink = accessConstraintsLink,
                 OtherConstraints = !string.IsNullOrWhiteSpace(model.OtherConstraints) ? model.OtherConstraints : "",
                 EnglishOtherConstraints = !string.IsNullOrWhiteSpace(model.EnglishOtherConstraints) ? model.EnglishOtherConstraints : "",
-                OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
-                OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
+                //OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
+                UseConstraintsLicenseLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
+                //OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
+                UseConstraintsLicenseLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
                 SecurityConstraints = !string.IsNullOrWhiteSpace(model.SecurityConstraints) ? model.SecurityConstraints : "",
                 SecurityConstraintsNote = !string.IsNullOrWhiteSpace(model.SecurityConstraintsNote) ? model.SecurityConstraintsNote : "",
-                UseConstraints = !string.IsNullOrWhiteSpace(model.UseConstraints) ? model.UseConstraints : "",
+                //UseConstraints = !string.IsNullOrWhiteSpace(model.UseConstraints) ? "license" : "",
                 UseLimitations = !string.IsNullOrWhiteSpace(model.UseLimitations) ? model.UseLimitations : "",
                 EnglishUseLimitations = !string.IsNullOrWhiteSpace(model.EnglishUseLimitations) ? model.EnglishUseLimitations : "",
-                OtherConstraintsAccess = !string.IsNullOrWhiteSpace(otherConstraintsAccess) ? otherConstraintsAccess : "",
+                //OtherConstraintsAccess = !string.IsNullOrWhiteSpace(otherConstraintsAccess) ? otherConstraintsAccess : "",
             };
 
             if(model.IsService() && model.DistributionsFormats != null && model.DistributionsFormats.Count > 0)

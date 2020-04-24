@@ -548,8 +548,14 @@ namespace Kartverket.MetadataEditor.Controllers
         public Dictionary<string, string> GetListOfRestrictionValues(string culture = Culture.NorwegianCode)
         {
 
-            return GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57", culture);
+            var codeList = GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57", culture);
+            var license = codeList.Where(k => k.Key == "license").FirstOrDefault();
 
+            Dictionary<string, string> useLimitations = new Dictionary<string, string>();
+            useLimitations.Add("", "");
+            useLimitations.Add(license.Key, license.Value);
+
+            return useLimitations;
         }
 
         public Dictionary<string, string> GetListOfRestrictionValuesAdjusted(string culture = Culture.NorwegianCode)
