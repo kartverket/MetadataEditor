@@ -2309,6 +2309,7 @@ namespace Kartverket.MetadataEditor.Models
 
         private List<string> AddKeywordForService(MetadataViewModel model)
         {
+            string href = "http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory/humanCatalogueViewer";
             string serviceKeyword = GetServiceKeyword(model.DistributionsFormats[0].Protocol);
             if (!string.IsNullOrEmpty(serviceKeyword) && !model.KeywordsServiceType.Contains(serviceKeyword)) {
                 foreach (var serviceDistribution in model.ServiceDistributionKeywords)
@@ -2317,7 +2318,7 @@ namespace Kartverket.MetadataEditor.Models
                     model.KeywordsServiceType.Remove(serviceDistribution.Key);
                 }
 
-                model.KeywordsServiceType.Add(serviceKeyword);
+                model.KeywordsServiceType.Add(serviceKeyword + "|" + href);
             }
 
             return model.KeywordsServiceType;
