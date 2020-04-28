@@ -2299,7 +2299,7 @@ namespace Kartverket.MetadataEditor.Models
                 case "OGC:SOS":
                     keyword = "";
                     break;
-                case "REST-API":
+                case "W3C:REST":
                     keyword = "infoFeatureAccessService";
                     break;
             }
