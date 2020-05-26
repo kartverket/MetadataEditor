@@ -312,11 +312,11 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
 
-            if (model.AccessConstraints == "Ingen begrensninger på tilgang")
+            if (model.OtherConstraintsAccess == "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations")
                 model.AccessConstraints = "no restrictions";
-            else if (model.AccessConstraints == "Økonomiske- eller forretningsmessige forhold")
+            else if (model.OtherConstraintsAccess == "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d")
                 model.AccessConstraints = "norway digital restricted";
-            else if (model.AccessConstraints == "Samfunnets hensyn til sikkerhet")
+            else if (model.OtherConstraintsAccess == "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b")
                 model.AccessConstraints = "restricted";
 
             if (model.IsService())
@@ -1649,13 +1649,12 @@ namespace Kartverket.MetadataEditor.Models
                 if (accessConstraintsSelected.ToLower() == "no restrictions" || accessConstraintsSelected.ToLower() == "norway digital restricted")
                 {
                     otherConstraintsAccess = accessConstraintsSelected;
-                    //accessConstraintsSelected = "otherRestrictions";
 
                     if(accessConstraintsSelected.ToLower() == "no restrictions")
-                        accessConstraintsSelected = "Ingen begrensninger på tilgang";
+                        accessConstraintsSelected = "Det er ingen begrensninger på tilgang til datasett og tjenester";
 
                     if (accessConstraintsSelected.ToLower() == "norway digital restricted") { 
-                        accessConstraintsSelected = "Økonomiske- eller forretningsmessige forhold";
+                        accessConstraintsSelected = "Tilgang begrenses på grunn av fare for negativ innvirkning på konfidensialitet knyttet til økonomisk eller forretningsmessige forhold";
                         accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
                     }
 
@@ -1663,7 +1662,7 @@ namespace Kartverket.MetadataEditor.Models
                 else if(accessConstraintsSelected == "restricted")
                 {
                     otherConstraintsAccess = null;
-                    accessConstraintsSelected = "Samfunnets hensyn til sikkerhet";
+                    accessConstraintsSelected = "Tilgang begrenses på grunn av fare for rikets sikkerhet";
                     accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
                 }
             }
