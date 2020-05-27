@@ -329,7 +329,11 @@
             var mapServiceUrl = this.getMapServiceUrl();
             if (mapServiceUrl != '')
                 this.url.value = mapServiceUrl;
-            this.mapServiceLayerName.value = this.getMapServiceLayerName();
+            var layerName = this.getMapServiceLayerName();
+            if (layerName.substr(0, 7) == "@@LAYER:") {
+                layerName = layerName.substr(7, layerName.length - 7);
+            }
+            this.mapServiceLayerName.value = layerName;
             this.getSelectedCoverageType();
             this.initFileUpload();
         }
