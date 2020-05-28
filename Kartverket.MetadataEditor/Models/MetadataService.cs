@@ -1651,10 +1651,10 @@ namespace Kartverket.MetadataEditor.Models
                     otherConstraintsAccess = accessConstraintsSelected;
 
                     if(accessConstraintsSelected.ToLower() == "no restrictions")
-                        accessConstraintsSelected = "Det er ingen begrensninger på tilgang til datasett og tjenester";
+                        accessConstraintsSelected = "Åpne data";
 
                     if (accessConstraintsSelected.ToLower() == "norway digital restricted") { 
-                        accessConstraintsSelected = "Tilgang begrenses på grunn av fare for negativ innvirkning på konfidensialitet knyttet til økonomisk eller forretningsmessige forhold";
+                        accessConstraintsSelected = "Norge digitalt begrenset";
                         accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
                     }
 
@@ -1662,7 +1662,7 @@ namespace Kartverket.MetadataEditor.Models
                 else if(accessConstraintsSelected == "restricted")
                 {
                     otherConstraintsAccess = null;
-                    accessConstraintsSelected = "Tilgang begrenses på grunn av fare for rikets sikkerhet";
+                    accessConstraintsSelected = "Skjermede data";
                     accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
                 }
             }
