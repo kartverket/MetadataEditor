@@ -560,7 +560,15 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfRestrictionValuesAdjusted(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D", culture);
+            var codelist = GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D", culture);
+
+            var inspire = _metadataService.GetInspireAccessRestrictions(culture);
+
+            codelist["norway digital restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"];
+            codelist["restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
+            codelist["no restrictions"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
+
+            return codelist;
 
         }
 

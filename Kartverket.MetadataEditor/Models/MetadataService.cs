@@ -312,11 +312,11 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
 
-            if (model.OtherConstraintsAccess == "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations")
+            if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations")
                 model.AccessConstraints = "no restrictions";
-            else if (model.OtherConstraintsAccess == "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d")
+            else if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d")
                 model.AccessConstraints = "norway digital restricted";
-            else if (model.OtherConstraintsAccess == "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b")
+            else if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b")
                 model.AccessConstraints = "restricted";
 
             if (model.IsService())
@@ -1642,7 +1642,9 @@ namespace Kartverket.MetadataEditor.Models
             var accessConstraintsSelected = model.AccessConstraints;
             string otherConstraintsAccess = model.OtherConstraintsAccess;
 
-            var accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations";
+            var accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations";
+
+            Dictionary<string, string> inspireAccessRestrictions = GetInspireAccessRestrictions();
 
             if (!string.IsNullOrEmpty(accessConstraintsSelected))
             {
@@ -1651,19 +1653,19 @@ namespace Kartverket.MetadataEditor.Models
                     otherConstraintsAccess = accessConstraintsSelected;
 
                     if(accessConstraintsSelected.ToLower() == "no restrictions")
-                        accessConstraintsSelected = "Åpne data";
+                        accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
 
-                    if (accessConstraintsSelected.ToLower() == "norway digital restricted") { 
-                        accessConstraintsSelected = "Norge digitalt begrenset";
-                        accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
+                    if (accessConstraintsSelected.ToLower() == "norway digital restricted") {
+                        accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
+                        accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
                     }
 
                 }
                 else if(accessConstraintsSelected == "restricted")
                 {
                     otherConstraintsAccess = null;
-                    accessConstraintsSelected = "Skjermede data";
-                    accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
+                    accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
+                    accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
                 }
             }
 
@@ -1757,6 +1759,36 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.AccessProperties = new SimpleAccessProperties { OrderingInstructions = model.OrderingInstructions }  ;
 
             SetDefaultValuesOnMetadata(metadata);
+        }
+
+        public Dictionary<string, string> GetInspireAccessRestrictions(string culture = "no")
+        {
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            c.Headers.Remove("Accept-Language");
+            c.Headers.Add("Accept-Language", culture);
+            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/metadata-kodelister/inspire-tilgangsrestriksjoner");
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            Dictionary<string, string> inspire = new Dictionary<string, string>();
+
+            var items = response["containeditems"];
+
+            foreach (var item in items)
+            {
+                var id = item["codevalue"].ToString();
+                string label = item["label"].ToString();
+                string status = item["status"].ToString();
+
+
+
+                if (status == "Gyldig" || status == "Valid")
+                {
+                    inspire.Add(id, label);
+                }
+            }
+
+            return inspire;
         }
 
         private string CapitalizeFirstLetter(string s)
