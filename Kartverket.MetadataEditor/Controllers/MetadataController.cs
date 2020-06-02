@@ -548,13 +548,27 @@ namespace Kartverket.MetadataEditor.Controllers
         public Dictionary<string, string> GetListOfRestrictionValues(string culture = Culture.NorwegianCode)
         {
 
-            return GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57", culture);
+            var codeList = GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57", culture);
+            var license = codeList.Where(k => k.Key == "license").FirstOrDefault();
 
+            Dictionary<string, string> useLimitations = new Dictionary<string, string>();
+            useLimitations.Add("", "");
+            useLimitations.Add(license.Key, license.Value);
+
+            return useLimitations;
         }
 
         public Dictionary<string, string> GetListOfRestrictionValuesAdjusted(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D", culture);
+            var codelist = GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D", culture);
+
+            var inspire = _metadataService.GetInspireAccessRestrictions(culture);
+
+            codelist["norway digital restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"];
+            codelist["restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
+            codelist["no restrictions"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
+
+            return codelist;
 
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -276,7 +276,7 @@ namespace Kartverket.MetadataEditor.Models
 
                 UseLimitations = metadata.Constraints != null ? metadata.Constraints.UseLimitations : null,
                 EnglishUseLimitations = metadata.Constraints != null ? metadata.Constraints.EnglishUseLimitations : null,
-                UseConstraints = metadata.Constraints != null ? metadata.Constraints.UseConstraints : null,
+                UseConstraints = metadata.Constraints != null && !string.IsNullOrEmpty(metadata.Constraints?.UseConstraintsLicenseLink) && !metadata.Constraints.UseConstraintsLicenseLink.Contains("noConditionsApply") ? "license" : null,
                 AccessConstraints = metadata.Constraints != null ? metadata.Constraints.AccessConstraints : null,
                 SecurityConstraints = metadata.Constraints != null ? metadata.Constraints.SecurityConstraints : null,
                 SecurityConstraintsNote = metadata.Constraints != null ? metadata.Constraints.SecurityConstraintsNote : null,
@@ -311,6 +311,13 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactPublisherOrganization = metadata.ContactPublisher != null ? metadata.ContactPublisher.OrganizationEnglish : null,
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
+
+            if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations")
+                model.AccessConstraints = "no restrictions";
+            else if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d")
+                model.AccessConstraints = "norway digital restricted";
+            else if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b")
+                model.AccessConstraints = "restricted";
 
             if (model.IsService())
                 model.Operations = metadata.ContainOperations;
@@ -1184,8 +1191,11 @@ namespace Kartverket.MetadataEditor.Models
                 }
             }
 
-            if(model.IsService())
+            if (model.IsService())
+            {
+                metadata.HierarchyLevelName = "service";
                 metadata.ContainOperations = model.Operations;
+            }
 
             // quality
 
@@ -1630,35 +1640,57 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             var accessConstraintsSelected = model.AccessConstraints;
-            string otherConstraintsAccess = model.OtherConstraintsAccess; 
+            string otherConstraintsAccess = model.OtherConstraintsAccess;
+
+            var accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations";
+
+            Dictionary<string, string> inspireAccessRestrictions = GetInspireAccessRestrictions();
 
             if (!string.IsNullOrEmpty(accessConstraintsSelected))
             {
                 if (accessConstraintsSelected.ToLower() == "no restrictions" || accessConstraintsSelected.ToLower() == "norway digital restricted")
                 {
                     otherConstraintsAccess = accessConstraintsSelected;
-                    accessConstraintsSelected = "otherRestrictions";
+
+                    if(accessConstraintsSelected.ToLower() == "no restrictions")
+                        accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
+
+                    if (accessConstraintsSelected.ToLower() == "norway digital restricted") {
+                        accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
+                        accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
+                    }
 
                 }
                 else if(accessConstraintsSelected == "restricted")
                 {
                     otherConstraintsAccess = null;
+                    accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
+                    accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
                 }
+            }
+
+            if (string.IsNullOrEmpty(model.UseConstraints))
+            {
+                model.OtherConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/noConditionsApply";
+                model.OtherConstraintsLinkText = "No conditions apply to access and use";
             }
 
             metadata.Constraints = new SimpleConstraints
             {
                 AccessConstraints = !string.IsNullOrWhiteSpace(accessConstraintsSelected) ? accessConstraintsSelected : "",
+                AccessConstraintsLink = accessConstraintsLink,
                 OtherConstraints = !string.IsNullOrWhiteSpace(model.OtherConstraints) ? model.OtherConstraints : "",
                 EnglishOtherConstraints = !string.IsNullOrWhiteSpace(model.EnglishOtherConstraints) ? model.EnglishOtherConstraints : "",
-                OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
-                OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
+                //OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
+                UseConstraintsLicenseLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
+                //OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
+                UseConstraintsLicenseLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
                 SecurityConstraints = !string.IsNullOrWhiteSpace(model.SecurityConstraints) ? model.SecurityConstraints : "",
                 SecurityConstraintsNote = !string.IsNullOrWhiteSpace(model.SecurityConstraintsNote) ? model.SecurityConstraintsNote : "",
-                UseConstraints = !string.IsNullOrWhiteSpace(model.UseConstraints) ? model.UseConstraints : "",
+                //UseConstraints = !string.IsNullOrWhiteSpace(model.UseConstraints) ? "license" : "",
                 UseLimitations = !string.IsNullOrWhiteSpace(model.UseLimitations) ? model.UseLimitations : "",
                 EnglishUseLimitations = !string.IsNullOrWhiteSpace(model.EnglishUseLimitations) ? model.EnglishUseLimitations : "",
-                OtherConstraintsAccess = !string.IsNullOrWhiteSpace(otherConstraintsAccess) ? otherConstraintsAccess : "",
+                //OtherConstraintsAccess = !string.IsNullOrWhiteSpace(otherConstraintsAccess) ? otherConstraintsAccess : "",
             };
 
             if(model.IsService() && model.DistributionsFormats != null && model.DistributionsFormats.Count > 0)
@@ -1727,6 +1759,36 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.AccessProperties = new SimpleAccessProperties { OrderingInstructions = model.OrderingInstructions }  ;
 
             SetDefaultValuesOnMetadata(metadata);
+        }
+
+        public Dictionary<string, string> GetInspireAccessRestrictions(string culture = "no")
+        {
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            c.Headers.Remove("Accept-Language");
+            c.Headers.Add("Accept-Language", culture);
+            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/metadata-kodelister/inspire-tilgangsrestriksjoner");
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            Dictionary<string, string> inspire = new Dictionary<string, string>();
+
+            var items = response["containeditems"];
+
+            foreach (var item in items)
+            {
+                var id = item["codevalue"].ToString();
+                string label = item["label"].ToString();
+                string status = item["status"].ToString();
+
+
+
+                if (status == "Gyldig" || status == "Valid")
+                {
+                    inspire.Add(id, label);
+                }
+            }
+
+            return inspire;
         }
 
         private string CapitalizeFirstLetter(string s)
@@ -2171,6 +2233,7 @@ namespace Kartverket.MetadataEditor.Models
             if (model.Type.Equals("service"))
             {
                 metadata = SimpleMetadata.CreateService();
+                metadata.HierarchyLevelName = "service";
             }
             else
             {
@@ -2267,7 +2330,7 @@ namespace Kartverket.MetadataEditor.Models
                 case "OGC:SOS":
                     keyword = "";
                     break;
-                case "REST-API":
+                case "W3C:REST":
                     keyword = "infoFeatureAccessService";
                     break;
             }
@@ -2277,6 +2340,7 @@ namespace Kartverket.MetadataEditor.Models
 
         private List<string> AddKeywordForService(MetadataViewModel model)
         {
+            string href = "http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory/humanCatalogueViewer";
             string serviceKeyword = GetServiceKeyword(model.DistributionsFormats[0].Protocol);
             if (!string.IsNullOrEmpty(serviceKeyword) && !model.KeywordsServiceType.Contains(serviceKeyword)) {
                 foreach (var serviceDistribution in model.ServiceDistributionKeywords)
@@ -2285,7 +2349,7 @@ namespace Kartverket.MetadataEditor.Models
                     model.KeywordsServiceType.Remove(serviceDistribution.Key);
                 }
 
-                model.KeywordsServiceType.Add(serviceKeyword);
+                model.KeywordsServiceType.Add(serviceKeyword + "|" + href);
             }
 
             return model.KeywordsServiceType;
