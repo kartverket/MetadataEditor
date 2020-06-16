@@ -170,6 +170,9 @@ namespace Kartverket.MetadataEditor.Controllers
             var namespaceValues = GetListOfNamespace(CultureHelper.GetCurrentCulture());
             if(!namespaceValues.ContainsKey(""))
                 namespaceValues.Add("", UI.NoneSelected);
+            int lastSlash = model.ResourceReferenceCodespace != null ? model.ResourceReferenceCodespace.LastIndexOf('/') : 0;
+            if(model.ResourceReferenceCodespace != null)
+                model.ResourceReferenceCodespace = (lastSlash > -1) ? model.ResourceReferenceCodespace.Substring(0, lastSlash) : model.ResourceReferenceCodespace;
             var NamespaceValuesSelect = new SelectList(namespaceValues, "Key", "Value", model.ResourceReferenceCodespace);
             ViewBag.NamespaceValues = NamespaceValuesSelect;
 
