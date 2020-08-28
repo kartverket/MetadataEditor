@@ -970,8 +970,8 @@ namespace Kartverket.MetadataEditor.Models
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
                 if (metadata.ReferenceSystems == null)
                     metadata.ReferenceSystems = new List<SimpleReferenceSystem>();
-                var refSys = new SimpleReferenceSystem { CoordinateSystem = referencesystem, Namespace = "EPSG" };
-                var exists = metadata.ReferenceSystems.Where(r => r.CoordinateSystem == refSys.CoordinateSystem && r.Namespace == refSys.Namespace).ToList().Count();
+                var refSys = new SimpleReferenceSystem { CoordinateSystem = GeoNetworkUtil.GetCoordinatesystemText(referencesystem), CoordinateSystemLink = referencesystem };
+                var exists = metadata.ReferenceSystems.Where(r => r.CoordinateSystem == referencesystem || r.CoordinateSystemLink == referencesystem).ToList().Count();
                     if(exists == 0)
                     metadata.ReferenceSystems.Add(refSys);
 

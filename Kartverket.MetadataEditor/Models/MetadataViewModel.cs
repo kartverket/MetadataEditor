@@ -8,6 +8,8 @@ using Resources;
 using System.Linq;
 using Kartverket.MetadataEditor.Helpers;
 using Kartverket.MetadataEditor.Models.Translations;
+using Kartverket.Geonorge.Utilities;
+using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -447,23 +449,16 @@ namespace Kartverket.MetadataEditor.Models
             for (int r = 0; r < ReferenceSystems.Count; r++)
             {
                 SimpleReferenceSystem referenceSystem = new SimpleReferenceSystem();
-                referenceSystem.CoordinateSystem = GetCoordinatesystemText(ReferenceSystems[r].CoordinateSystem);
-                referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystem;
+                referenceSystem.CoordinateSystem = GeoNetworkUtil.GetCoordinatesystemText(ReferenceSystems[r].CoordinateSystem);
+                if(!string.IsNullOrEmpty(ReferenceSystems[r].CoordinateSystemLink))
+                    referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystemLink;
+                else
+                    referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystem;
                 referenceSystems.Add(referenceSystem);
             }
 
             return referenceSystems;
 
-        }
-
-        private string GetCoordinatesystemText(string coordinateSystem)
-        {
-            string coordinateSystemtext = coordinateSystem;
-            string coordinateSystemCode = coordinateSystem.Substring(coordinateSystem.LastIndexOf('/') + 1);
-            if (!string.IsNullOrEmpty(coordinateSystemCode))
-                coordinateSystemtext = "EPSG:" + coordinateSystemCode;
-
-            return coordinateSystemtext;
         }
 
         internal bool HasAccess(string organization)
