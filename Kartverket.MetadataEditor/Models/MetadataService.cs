@@ -362,13 +362,16 @@ namespace Kartverket.MetadataEditor.Models
 
         private List<SimpleReferenceSystem> FixOldReferenceSystem(List<SimpleReferenceSystem> referenceSystems)
         {
-            for (int r = 0; r < referenceSystems.Count; r++)
-            {
-                if(!string.IsNullOrEmpty(referenceSystems[r].CoordinateSystem) && referenceSystems[r].CoordinateSystem.StartsWith("http"))
-                    referenceSystems[r].CoordinateSystemLink = referenceSystems[r].CoordinateSystem;
+            if(referenceSystems != null)
+            { 
+                for (int r = 0; r < referenceSystems.Count; r++)
+                {
+                    if(!string.IsNullOrEmpty(referenceSystems[r].CoordinateSystem) && referenceSystems[r].CoordinateSystem.StartsWith("http"))
+                        referenceSystems[r].CoordinateSystemLink = referenceSystems[r].CoordinateSystem;
+                }
             }
 
-                return referenceSystems;
+            return referenceSystems;
         }
 
         public Dictionary<DistributionGroup, Distribution> GetFormatDistributions(List<SimpleDistribution> distributions)
