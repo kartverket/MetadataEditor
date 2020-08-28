@@ -447,8 +447,8 @@ namespace Kartverket.MetadataEditor.Models
             for (int r = 0; r < ReferenceSystems.Count; r++)
             {
                 SimpleReferenceSystem referenceSystem = new SimpleReferenceSystem();
-                referenceSystem.CoordinateSystem = ReferenceSystems[r].CoordinateSystem;
-                referenceSystem.Namespace = ReferenceSystems[r].Namespace;
+                referenceSystem.CoordinateSystem = GetCoordinatesystemText(ReferenceSystems[r].CoordinateSystem);
+                referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystem;
                 referenceSystems.Add(referenceSystem);
             }
 
@@ -456,6 +456,15 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
+        private string GetCoordinatesystemText(string coordinateSystem)
+        {
+            string coordinateSystemtext = coordinateSystem;
+            string coordinateSystemCode = coordinateSystem.Substring(coordinateSystem.LastIndexOf('/') + 1);
+            if (!string.IsNullOrEmpty(coordinateSystemCode))
+                coordinateSystemtext = "EPSG:" + coordinateSystemCode;
+
+            return coordinateSystemtext;
+        }
 
         internal bool HasAccess(string organization)
         {
