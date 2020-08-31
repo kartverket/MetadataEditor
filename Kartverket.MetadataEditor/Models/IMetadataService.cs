@@ -22,7 +22,7 @@ namespace Kartverket.MetadataEditor.Models
 
         Dictionary<string, string> GetPriorityDatasets();
         Dictionary<string, string> GetSpatialScopes();
-        void UpdateRegisterTranslations(string v, string uuid);
+        void UpdateRegisterTranslations(string username, string uuid);
         Dictionary<string, string> GetInspireAccessRestrictions(string culture);
     }
 }

@@ -607,11 +607,11 @@ namespace Kartverket.MetadataEditor.Models
             Task.Run(() => ReIndexRelated(model));
             Task.Run(() => RemoveCache(model));
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Modified, User = username, Description = "Saved metadata title: "+ model.Title }));
-            //Task.Run(async delegate
-            //{
-            //    await Task.Delay(TimeSpan.FromSeconds(20));
-            //    UpdateRegisterTranslations(username, model.Uuid);
-            //});
+            Task.Run(async delegate
+            {
+                await Task.Delay(TimeSpan.FromSeconds(20));
+                UpdateRegisterTranslations(username, model.Uuid);
+            });
         }
 
         Dictionary<string, string> inspireList;
@@ -682,7 +682,7 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
-        private void UpdateEnglish(string uuid, string username)
+        public void UpdateEnglish(string uuid, string username)
         {
             try
             {
