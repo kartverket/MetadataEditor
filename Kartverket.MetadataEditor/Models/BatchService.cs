@@ -768,17 +768,17 @@ namespace Kartverket.MetadataEditor.Models
             try
             {
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
-                if(metadata.DistributionFormats.Count == 1 && string.IsNullOrEmpty(metadata.DistributionFormats[0].Name))
+                if(metadata.DistributionsFormats.Count == 1 && string.IsNullOrEmpty(metadata.DistributionsFormats[0].Name))
                 {
-                    metadata.DistributionFormats[0].Name = format;
-                    metadata.DistributionFormats[0].Version = version;
+                    metadata.DistributionsFormats[0].FormatName = format;
+                    metadata.DistributionsFormats[0].FormatVersion = version;
                 }
                 else
                 {
-                    var dsFormat = new SimpleDistributionFormat { Name = format, Version = version };
-                    var exists = metadata.DistributionFormats.Where(f => f.Name == format && f.Version == version).ToList().Count();
+                    var dsFormat = new SimpleDistribution { FormatName = format, FormatVersion = version };
+                    var exists = metadata.DistributionsFormats.Where(f => f.FormatName == format && f.FormatVersion == version).ToList().Count();
                     if (exists == 0)
-                        metadata.DistributionFormats.Add(dsFormat);
+                        metadata.DistributionsFormats.Add(dsFormat);
                 }
 
                 _metadataService.SaveMetadataModel(metadata, username);
@@ -851,7 +851,7 @@ namespace Kartverket.MetadataEditor.Models
             try
             {
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
-                metadata.DistributionFormats = new List<SimpleDistributionFormat>();
+                metadata.DistributionsFormats = new List<SimpleDistribution>();
                 _metadataService.SaveMetadataModel(metadata, username);
 
                 Log.Info("Batch remove Distributionformats, uuid: " + uuid);
