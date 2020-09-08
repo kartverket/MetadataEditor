@@ -352,10 +352,26 @@ namespace Kartverket.MetadataEditor.Models
 
             getQualitySpecifications(model, metadata);
 
+            model.ReferenceSystems = FixOldReferenceSystem(model.ReferenceSystems);
+
             // Translations
             model.TitleFromSelectedLanguage = model.NameTranslated();
 
             return model;
+        }
+
+        private List<SimpleReferenceSystem> FixOldReferenceSystem(List<SimpleReferenceSystem> referenceSystems)
+        {
+            if(referenceSystems != null)
+            { 
+                for (int r = 0; r < referenceSystems.Count; r++)
+                {
+                    if(!string.IsNullOrEmpty(referenceSystems[r].CoordinateSystem) && referenceSystems[r].CoordinateSystem.StartsWith("http"))
+                        referenceSystems[r].CoordinateSystemLink = referenceSystems[r].CoordinateSystem;
+                }
+            }
+
+            return referenceSystems;
         }
 
         public Dictionary<DistributionGroup, Distribution> GetFormatDistributions(List<SimpleDistribution> distributions)
@@ -666,7 +682,7 @@ namespace Kartverket.MetadataEditor.Models
 
         }
 
-        private void UpdateEnglish(string uuid, string username)
+        public void UpdateEnglish(string uuid, string username)
         {
             try
             {
@@ -764,6 +780,15 @@ namespace Kartverket.MetadataEditor.Models
                 model.KeywordsEnglish = englishKeywords;
 
                 metadata.Keywords = model.GetAllKeywords();
+
+                DateTime? DateMetadataValidFrom = model.DateMetadataValidFrom;
+                DateTime? DateMetadataValidTo = model.DateMetadataValidTo;
+
+                metadata.ValidTimePeriod = new SimpleValidTimePeriod()
+                {
+                    ValidFrom = DateMetadataValidFrom != null ? String.Format("{0:yyyy-MM-dd}", DateMetadataValidFrom) : "",
+                    ValidTo = DateMetadataValidTo != null ? String.Format("{0:yyyy-MM-dd}", DateMetadataValidTo) : ""
+                };
 
                 metadata.RemoveUnnecessaryElements();
                 var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));

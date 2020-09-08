@@ -8,7 +8,7 @@
                 <div class="custom-select">
                     <select class="form-control"
                             v-bind:name="formElements.coordinateSystem.name"
-                            v-bind:value="referenceSystem.CoordinateSystem"
+                            v-bind:value="referenceSystem.CoordinateSystemLink"
                             v-on:change="$store.commit('updateReferenceSystemsCoordinateSystem', {arrayIndex: referenceSystemIndex, value: $event.target.value});">
                         <option value="">@UI.ChooseFromList</option>
                         <option v-bind:value="option.Value" v-for="option in $store.getters['ReferenceSystemsValues']">{{ option.Text }}</option>

@@ -8,6 +8,8 @@ using Resources;
 using System.Linq;
 using Kartverket.MetadataEditor.Helpers;
 using Kartverket.MetadataEditor.Models.Translations;
+using Kartverket.Geonorge.Utilities;
+using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -447,15 +449,17 @@ namespace Kartverket.MetadataEditor.Models
             for (int r = 0; r < ReferenceSystems.Count; r++)
             {
                 SimpleReferenceSystem referenceSystem = new SimpleReferenceSystem();
-                referenceSystem.CoordinateSystem = ReferenceSystems[r].CoordinateSystem;
-                referenceSystem.Namespace = ReferenceSystems[r].Namespace;
+                referenceSystem.CoordinateSystem = GeoNetworkUtil.GetCoordinatesystemText(ReferenceSystems[r].CoordinateSystem);
+                if(!string.IsNullOrEmpty(ReferenceSystems[r].CoordinateSystemLink))
+                    referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystemLink;
+                else
+                    referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystem;
                 referenceSystems.Add(referenceSystem);
             }
 
             return referenceSystems;
 
         }
-
 
         internal bool HasAccess(string organization)
         {

@@ -47,5 +47,20 @@ namespace Kartverket.MetadataEditor.Util
 
             return headers;
         }
+
+        public static string GetCoordinatesystemText(string coordinateSystem)
+        {
+            string coordinateSystemtext = coordinateSystem;
+            string coordinateSystemCode = coordinateSystem.Substring(coordinateSystem.LastIndexOf('/') + 1);
+            if (!string.IsNullOrEmpty(coordinateSystemCode))
+            {
+                if (!coordinateSystemCode.StartsWith("EPSG"))
+                    coordinateSystemtext = "EPSG:" + coordinateSystemCode;
+                else
+                    coordinateSystemtext = coordinateSystemCode;
+            }
+
+            return coordinateSystemtext;
+        }
     }
 }
