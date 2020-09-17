@@ -450,7 +450,7 @@ namespace Kartverket.MetadataEditor.Models
                     if ((title.Contains("commission regulation") || title.Contains("Inspire")) 
                         && (responsible != "inspire-interop" && responsible != "inspire-conformance" && responsible != "inspire-networkservice"))
                         responsible = "inspire";
-                    else if (title.Contains("sosi") && title != "sosi applikasjonsskjema")
+                    else if (title.Contains("sosi") && title != "sosi applikasjonsskjema" && responsible != "other")
                         responsible = "sosi";
 
                     if (responsible == "inspire")
