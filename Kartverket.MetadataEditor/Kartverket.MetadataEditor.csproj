@@ -686,8 +686,6 @@
     <Content Include="Content\fonts\MetaWeb-Book.woff" />
     <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="bower.json" />
-    <Content Include=".bowerrc" />
     <Content Include="Content\bower_components\vue\.babelrc" />
     <Content Include="Content\bower_components\vue\.bower.json" />
     <Content Include="Content\bower_components\vue\.editorconfig" />
