@@ -1,0 +1,17 @@
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
+@using Resources
+
+<h2>Slett metadata</h2>
+
+<p>For å slette <strong>@Model.Title</strong> må du sende en anmodning:</p>
+
+@using (Html.BeginForm("RequestDelete", "Metadata", FormMethod.Post))
+{
+    @Html.Hidden("uuid", Model.Uuid);
+    @Html.Hidden("title", Model.Title);
+    <div class="form-group has-feedback required">
+        <label for="comment" class="control-label">@UI.Comment:</label>
+        <input type="text" id="comment" name="comment" required />
+    </div>
+    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span> Anmod om sletting</button>
+}
