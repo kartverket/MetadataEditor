@@ -167,11 +167,30 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private void PrepareViewBagForEditing(MetadataViewModel model)
         {
+            ViewBag.IsAdmin = "0";
+
+            if (UserHasMetadataAdminRole())
+            {
+                ViewBag.IsAdmin = "1";
+            }
+
             var namespaceValues = GetListOfNamespace(CultureHelper.GetCurrentCulture());
             if(!namespaceValues.ContainsKey(""))
                 namespaceValues.Add("", UI.NoneSelected);
             var NamespaceValuesSelect = new SelectList(namespaceValues, "Key", "Value", model.ResourceReferenceCodespace);
             ViewBag.NamespaceValues = NamespaceValuesSelect;
+
+            if(ViewBag.IsAdmin == "0")
+            {
+                Dictionary<string, string> nameSpace = new Dictionary<string, string>();
+                if(!string.IsNullOrEmpty(model.ResourceReferenceCodespace))
+                    nameSpace.Add(model.ResourceReferenceCodespace, model.ResourceReferenceCodespace);
+                else
+                    nameSpace.Add("", UI.NoneSelected);
+
+                NamespaceValuesSelect = new SelectList(nameSpace, "Key", "Value", model.ResourceReferenceCodespace);
+                ViewBag.NamespaceValues = NamespaceValuesSelect;
+            }
 
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(CultureHelper.GetCurrentCulture()), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SpatialRepresentation);
@@ -295,12 +314,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ViewBag.NewDistribution = false;
 
-            ViewBag.IsAdmin = "0";
-            
-            if (UserHasMetadataAdminRole())
-            {
-                ViewBag.IsAdmin = "1";
-            }
         }
 
         [HttpPost]

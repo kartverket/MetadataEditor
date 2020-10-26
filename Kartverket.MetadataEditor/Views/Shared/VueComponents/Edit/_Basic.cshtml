@@ -105,6 +105,7 @@
                         getter: 'ResourceReferenceCode',
                         mutation: 'updateResourceReferenceCode',
                         type: 'text',
+                        readOnly: @(ViewBag.IsAdmin == "1" ? "false" : "true"),
                         visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                         label: '@Html.Raw(UI.DatasetName)',
                         helpText: {
