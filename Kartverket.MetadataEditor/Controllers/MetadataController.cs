@@ -19,6 +19,8 @@ using Kartverket.MetadataEditor.Helpers;
 using Kartverket.MetadataEditor.Models.Translations;
 using Kartverket.MetadataEditor.Models.InspireCodelist;
 using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
+using System.Net.Mail;
+using System.Text;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -167,11 +169,30 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private void PrepareViewBagForEditing(MetadataViewModel model)
         {
+            ViewBag.IsAdmin = "0";
+
+            if (UserHasMetadataAdminRole())
+            {
+                ViewBag.IsAdmin = "1";
+            }
+
             var namespaceValues = GetListOfNamespace(CultureHelper.GetCurrentCulture());
             if(!namespaceValues.ContainsKey(""))
                 namespaceValues.Add("", UI.NoneSelected);
             var NamespaceValuesSelect = new SelectList(namespaceValues, "Key", "Value", model.ResourceReferenceCodespace);
             ViewBag.NamespaceValues = NamespaceValuesSelect;
+
+            if(ViewBag.IsAdmin == "0")
+            {
+                Dictionary<string, string> nameSpace = new Dictionary<string, string>();
+                if(!string.IsNullOrEmpty(model.ResourceReferenceCodespace))
+                    nameSpace.Add(model.ResourceReferenceCodespace, model.ResourceReferenceCodespace);
+                else
+                    nameSpace.Add("", UI.NoneSelected);
+
+                NamespaceValuesSelect = new SelectList(nameSpace, "Key", "Value", model.ResourceReferenceCodespace);
+                ViewBag.NamespaceValues = NamespaceValuesSelect;
+            }
 
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(CultureHelper.GetCurrentCulture()), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SpatialRepresentation);
@@ -295,12 +316,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ViewBag.NewDistribution = false;
 
-            ViewBag.IsAdmin = "0";
-            
-            if (UserHasMetadataAdminRole())
-            {
-                ViewBag.IsAdmin = "1";
-            }
         }
 
         [HttpPost]
@@ -1026,6 +1041,9 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (HasAccessToMetadata(model))
             {
+                if(RequireRequestDelete(model))
+                    return View("RequestDelete", model);
+                else
                 return View(model);
             } else {
                 return new HttpUnauthorizedResult();
@@ -1038,6 +1056,9 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
+            if(RequireRequestDelete(model))
+                return new HttpUnauthorizedResult();
+
             if (HasAccessToMetadata(model))
             {
                 _metadataService.DeleteMetadata(model, GetUsername(), comment);
@@ -1049,6 +1070,70 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 return new HttpUnauthorizedResult();
             }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult RequestDelete(string uuid, string title, string comment)
+        {
+            SendEmail(uuid, title, comment);
+            TempData["Message"] = "Sendt anmodning om å slette " + title;
+            return RedirectToAction("Index");
+        }
+
+        private void SendEmail(string uuid, string title, string comment)
+        {
+            var fromEmail = ClaimsPrincipal.Current.GetUserEmail();
+
+            var nameFull = ClaimsPrincipal.Current.GetUserFullName();
+
+            if (string.IsNullOrEmpty(fromEmail))
+                fromEmail = System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"];
+
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]));
+            message.From = new MailAddress(fromEmail);
+            message.Subject = "Anmodning om sletting av metadata  " + title;
+            StringBuilder b = new StringBuilder();
+            b.Append("Hei!<br/>\r\n");
+            b.Append("<p>Ønsker å slette metadata "+title+" med uuid: "+uuid+"</p>");
+            b.Append("Kommentar:<br/>\r\n");
+            b.Append(comment);
+            if(!string.IsNullOrEmpty(nameFull))
+                b.Append("<br/><br/>Mvh.<br/>" + nameFull);
+
+            message.Body = b.ToString();
+            message.IsBodyHtml = true;
+
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Host = System.Web.Configuration.WebConfigurationManager.AppSettings["SmtpHost"];
+
+                try
+                {
+                    smtp.Send(message);
+                }
+                catch (Exception excep)
+                {
+                    Log.Error(excep.Message);
+                    Log.Error(excep.InnerException);
+                    throw new Exception("Sending av epost feilet");
+                }
+                Log.Info("Send email to:" + message.To.ToString());
+                Log.Info("Subject:" + message.Subject);
+                Log.Info("Body:" + message.Body);
+            }
+
+        }
+
+        private bool RequireRequestDelete(MetadataViewModel model)
+        {
+            var created = model.DateCreated;
+            if(!UserHasMetadataAdminRole() && (created.HasValue && created.Value != DateTime.Today))
+                return true;
+
+            return false;
         }
 
         private bool HasAccessToMetadata(MetadataViewModel model)

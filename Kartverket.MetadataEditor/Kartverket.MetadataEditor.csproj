@@ -686,8 +686,6 @@
     <Content Include="Content\fonts\MetaWeb-Book.woff" />
     <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="bower.json" />
-    <Content Include=".bowerrc" />
     <Content Include="Content\bower_components\vue\.babelrc" />
     <Content Include="Content\bower_components\vue\.bower.json" />
     <Content Include="Content\bower_components\vue\.editorconfig" />
@@ -972,6 +970,7 @@
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_KeywordsAdministrativeUnits.cshtml" />
     <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\KeywordsAdministrativeUnits\_KeywordsAdministrativeUnit.cshtml" />
     <Content Include="Views\Metadata\_ParentIdentifierSeries.cshtml" />
+    <Content Include="Views\Metadata\RequestDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
