@@ -50,6 +50,9 @@ namespace Kartverket.MetadataEditor.Util
 
         public static string GetCoordinatesystemText(string coordinateSystem)
         {
+            if (string.IsNullOrEmpty(coordinateSystem))
+                return null;
+
             string coordinateSystemtext = coordinateSystem;
             string coordinateSystemCode = coordinateSystem.Substring(coordinateSystem.LastIndexOf('/') + 1);
             if (!string.IsNullOrEmpty(coordinateSystemCode))

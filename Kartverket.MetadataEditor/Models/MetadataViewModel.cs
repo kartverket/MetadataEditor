@@ -448,13 +448,16 @@ namespace Kartverket.MetadataEditor.Models
 
             for (int r = 0; r < ReferenceSystems.Count; r++)
             {
-                SimpleReferenceSystem referenceSystem = new SimpleReferenceSystem();
-                referenceSystem.CoordinateSystem = GeoNetworkUtil.GetCoordinatesystemText(ReferenceSystems[r].CoordinateSystem);
-                if(!string.IsNullOrEmpty(ReferenceSystems[r].CoordinateSystemLink))
-                    referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystemLink;
-                else
-                    referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystem;
-                referenceSystems.Add(referenceSystem);
+                if (!string.IsNullOrEmpty(ReferenceSystems[r]?.CoordinateSystem))
+                { 
+                    SimpleReferenceSystem referenceSystem = new SimpleReferenceSystem();
+                    referenceSystem.CoordinateSystem = GeoNetworkUtil.GetCoordinatesystemText(ReferenceSystems[r].CoordinateSystem);
+                    if(!string.IsNullOrEmpty(ReferenceSystems[r].CoordinateSystemLink))
+                        referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystemLink;
+                    else
+                        referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystem;
+                    referenceSystems.Add(referenceSystem);
+                }
             }
 
             return referenceSystems;

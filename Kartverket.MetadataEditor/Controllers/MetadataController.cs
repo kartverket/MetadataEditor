@@ -579,9 +579,19 @@ namespace Kartverket.MetadataEditor.Controllers
 
             var inspire = _metadataService.GetInspireAccessRestrictions(culture);
 
-            codelist["norway digital restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"];
-            codelist["restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
-            codelist["no restrictions"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
+            if(inspire.ContainsKey("https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"))
+                codelist["norway digital restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"];
+            if (inspire.ContainsKey("https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"))
+                codelist["restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
+            if (inspire.ContainsKey("https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"))
+                codelist["no restrictions"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
+
+            if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"))
+                codelist["norway digital restricted"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"];
+            if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"))
+                codelist["restricted"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
+            if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"))
+                codelist["no restrictions"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
 
             return codelist;
 

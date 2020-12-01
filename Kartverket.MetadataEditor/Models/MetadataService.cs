@@ -312,11 +312,11 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
 
-            if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations")
+            if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("noLimitations"))
                 model.AccessConstraints = "no restrictions";
-            else if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d")
+            else if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("INSPIRE_Directive_Article13_1d"))
                 model.AccessConstraints = "norway digital restricted";
-            else if (model.OtherConstraintsAccess == "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b")
+            else if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("INSPIRE_Directive_Article13_1b"))
                 model.AccessConstraints = "restricted";
 
             if (model.IsService())
@@ -1667,7 +1667,7 @@ namespace Kartverket.MetadataEditor.Models
             var accessConstraintsSelected = model.AccessConstraints;
             string otherConstraintsAccess = model.OtherConstraintsAccess;
 
-            var accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations";
+            var accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations";
 
             Dictionary<string, string> inspireAccessRestrictions = GetInspireAccessRestrictions();
 
@@ -1681,7 +1681,7 @@ namespace Kartverket.MetadataEditor.Models
                         accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
 
                     if (accessConstraintsSelected.ToLower() == "norway digital restricted") {
-                        accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
+                        accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
                         accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
                     }
 
@@ -1689,7 +1689,7 @@ namespace Kartverket.MetadataEditor.Models
                 else if(accessConstraintsSelected == "restricted")
                 {
                     otherConstraintsAccess = null;
-                    accessConstraintsLink = "https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
+                    accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
                     accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
                 }
             }
@@ -1802,6 +1802,7 @@ namespace Kartverket.MetadataEditor.Models
             foreach (var item in items)
             {
                 var id = item["codevalue"].ToString();
+                id = id.Replace("https","http");
                 string label = item["label"].ToString();
                 string status = item["status"].ToString();
 
