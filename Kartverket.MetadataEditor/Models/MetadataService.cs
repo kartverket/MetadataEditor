@@ -1152,7 +1152,7 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ProductSheetUrl = model.ProductSheetUrl;
                 metadata.ProductPageUrl = model.ProductPageUrl;
                 metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
-            if (model.IsDataset()) { 
+            if (model.IsDataset() || model.IsDatasetSeries()) { 
                 metadata.CoverageUrl = model.CoverageUrl;
                 metadata.CoverageGridUrl = model.CoverageGridUrl;
                 metadata.CoverageCellUrl = model.CoverageCellUrl;
