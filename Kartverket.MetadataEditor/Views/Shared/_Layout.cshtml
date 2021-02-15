@@ -41,7 +41,14 @@
 <body class="geonorge-container prototype  geonorge ng-scope">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
-    @Html.Raw(File.ReadAllText(Server.MapPath("~/dist/partials/Header.html")))
+    <main-navigation environment="@Html.EnvironmentName()"
+                     signinurl="@Html.Raw(Url.Action("SignIn", "Home", new { ReturnUrl = Request.Url }))"
+                     signouturl="@Html.Raw(Url.Action("SignOut", "Home"))"
+                     isLoggedIn="@Request.IsAuthenticated.ToString().ToLower()"
+                     norwegianurl="@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url }))"
+                     englishurl="@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))"
+                     language="@CultureHelper.GetCurrentCulture()"></main-navigation>
+
     @Styles.Render("~/shared-partials-styles")
     @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
 
@@ -74,7 +81,7 @@
                             }
                             <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
                             <li class="pull-right">
-                                
+
                                 @{
                                     var principal = User as ClaimsPrincipal;
                                     if (principal != null && principal.IsInRole(GeonorgeRoles.MetadataAdmin))
@@ -94,7 +101,7 @@
                                             }
                                         </script>
                                     }
-                                    
+
                                 }
                             </li>
                         </ul>
@@ -169,6 +176,6 @@
         }
 
     }
-
+    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.33/MainNavigation.js")"></script>
 </body>
 </html>
