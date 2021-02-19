@@ -38,7 +38,7 @@
 
     @Scripts.Render("~/shared-partials-scripts")
 </head>
-<body class="geonorge-container prototype  geonorge ng-scope">
+<body class="geonorge-container prototype geonorge ng-scope fixed-menu-margin">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
     <main-navigation environment="@Html.EnvironmentName()"
@@ -53,7 +53,7 @@
     @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
 
 
-    <div class="body-content" style="padding: 60px;">
+    <div class="body-content">
         <div class="container">
             <div class="container container-breadcrumbs" id="navTabCont">
                 <ul class="breadcrumbs col-md-12">
@@ -176,6 +176,6 @@
         }
 
     }
-    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.33/MainNavigation.js")"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.1.41/MainNavigation.js")"></script>
 </body>
 </html>
