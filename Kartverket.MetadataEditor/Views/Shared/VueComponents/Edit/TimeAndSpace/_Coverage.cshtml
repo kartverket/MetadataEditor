@@ -222,12 +222,10 @@
                 var valueFromCoverageUrl = '';
                 var regexResult;
                 if ((regexResult = regex.exec(this.$root.model.CoverageUrl)) !== null) {
-                    regexResult.some(function (match, groupIndex) {
-                        valueFromCoverageUrl = match;
-                        if (valueFromCoverageUrl !== '') {
-                            return valueFromCoverageUrl;
-                        }
-                    });
+                    valueFromCoverageUrl = regexResult[regexResult.length - 1];
+                    if (valueFromCoverageUrl !== '') {
+                        return valueFromCoverageUrl;
+                    }
                 }
                 else if ((regexResult = regex.exec(this.$root.model.CoverageGridUrl)) !== null) {
                     regexResult.some(function (match, groupIndex) {
