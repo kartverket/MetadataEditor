@@ -262,6 +262,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public string EnglishContactMetadataOrganization { get; set; }
         public string EnglishContactPublisherOrganization { get; set; }
+        public string ContactOwnerPositionName { get; set; }
         public string EnglishContactOwnerOrganization { get; set; }
 
         public List<string> OperatesOn { get; set; }

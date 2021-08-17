@@ -219,6 +219,7 @@ namespace Kartverket.MetadataEditor.Models
                 ContactMetadata = new Contact(metadata.ContactMetadata, "pointOfContact"),
                 ContactPublisher = new Contact(metadata.ContactPublisher, "publisher"),
                 ContactOwner = new Contact(metadata.ContactOwner, "owner"),
+                ContactOwnerPositionName = metadata.ContactOwner?.PositionName,
 
                 KeywordsTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_THEME, null)),
                 KeywordsPlace = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, SimpleKeyword.TYPE_PLACE, null)),
@@ -1133,6 +1134,12 @@ namespace Kartverket.MetadataEditor.Models
             {
                 contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
             }
+
+            if (!string.IsNullOrWhiteSpace(model.ContactOwnerPositionName))
+            {
+                contactOwner.PositionName = model.ContactOwnerPositionName;
+            }
+
             metadata.ContactOwner = contactOwner;
 
             // documents

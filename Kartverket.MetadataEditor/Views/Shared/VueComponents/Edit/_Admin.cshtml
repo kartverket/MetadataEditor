@@ -1,10 +1,23 @@
-@model Kartverket.MetadataEditor.Models.MetadataViewModel
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 @using Resources
 
 
 <script type="text/x-template" id="admin-template">
     <div>
         @Html.Partial("_Log", Model)
+        <div>
+            <div>
+                <label for="ContactOwnerPositionName">Spesifisering av eier av datasett/tjeneste/applikasjon</label>
+                <select id="ContactOwnerPositionName" name="ContactOwnerPositionName">
+                    <option value=""></option>
+                    <option value="Kontaktpunkt Eiendom" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Eiendom"))>Kontaktpunkt Eiendom</option>
+                    <option value="Kontaktpunkt Geodesi" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Geodesi"))>Kontaktpunkt Geodesi</option>
+                    <option value="Kontaktpunkt Geonorge" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Geonorge"))>Kontaktpunkt Geonorge</option>
+                    <option value="Kontaktpunkt Land" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Land"))>Kontaktpunkt Land</option>
+                    <option value="@Html.Raw("Kontaktpunkt Sjø")" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Sjø"))>@Html.Raw("Kontaktpunkt Sjø")</option>
+                </select>
+            </div>
+        </div>
         <div v-if="!$store.getters['isSoftware']">
             <div v-for="formElement in checkboxes">
                 <input type="checkbox" v-bind:id="formElement.name" v-bind:disabled="!formElement.active?true:false" v-bind:checked="isAdded(formElement.value)" v-bind:value="formElement.value" v-on:change="toggleCheckbox(formElement.value)" />
@@ -71,6 +84,19 @@
         </div>
     </div>
 </script>
+
+@functions {
+    public static string IsSelected(string selectedValue, string value)
+    {
+        string selected = "";
+
+        if (selectedValue == value) {
+            selected = "selected";
+        }
+
+        return selected;
+    }
+}
 
 <script>
     var Admin = {
@@ -156,7 +182,7 @@
                     type: 'select',
                     options: this.$store.getters['CatalogValues']
                 },
-                formElements: 
+                formElements:
                     {
                         qualitySpecificationTitleInspireSpatialServiceTechnicalConformance: {
                             id: 'QualitySpecificationTitleInspireSpatialServiceTechnicalConformance',
