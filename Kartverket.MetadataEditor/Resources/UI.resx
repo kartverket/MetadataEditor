@@ -1016,10 +1016,22 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="Comment" xml:space="preserve">
     <value>Kommentar</value>
   </data>
+  <data name="AbstractEnglishRequired" xml:space="preserve">
+    <value>Beskrivelse engelsk er påkrevd</value>
+  </data>
+  <data name="AbstractNorwegianRequired" xml:space="preserve">
+    <value>Beskrivelse norsk er påkrevd</value>
+  </data>
   <data name="LanguageInMetadata" xml:space="preserve">
     <value>Språk i metadata</value>
   </data>
   <data name="LanguageInMetadataHelp" xml:space="preserve">
     <value>Angi standard språk for metadata</value>
+  </data>
+  <data name="TitleEnglishRequired" xml:space="preserve">
+    <value>Tittel engelsk er påkrevd felt</value>
+  </data>
+  <data name="TitleNorweginRequired" xml:space="preserve">
+    <value>Tittel norsk er påkrevd felt</value>
   </data>
 </root>

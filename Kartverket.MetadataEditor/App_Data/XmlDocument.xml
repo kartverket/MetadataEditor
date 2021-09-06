@@ -56,6 +56,16 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Resources.UI.AbstractEnglishRequired">
+            <summary>
+              Looks up a localized string similar to Beskrivelse engelsk er påkrevd.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.AbstractNorwegianRequired">
+            <summary>
+              Looks up a localized string similar to Beskrivelse norsk er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AccessConstraintsRequired">
             <summary>
               Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
@@ -1516,6 +1526,16 @@
         <member name="P:Resources.UI.TabTimeAndSpace">
             <summary>
               Looks up a localized string similar to Tid og rom.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TitleEnglishRequired">
+            <summary>
+              Looks up a localized string similar to Tittel engelsk er påkrevd felt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TitleNorweginRequired">
+            <summary>
+              Looks up a localized string similar to Tittel norsk er påkrevd felt.
             </summary>
         </member>
         <member name="P:Resources.UI.TopicCategory">

@@ -2269,11 +2269,13 @@ namespace Kartverket.MetadataEditor.Models
             if (model.Type.Equals("service"))
             {
                 metadata = SimpleMetadata.CreateService();
+                metadata.MetadataLanguage = model.MetadataLanguage;
                 metadata.HierarchyLevelName = "service";
             }
             else
             {
                 metadata = SimpleMetadata.CreateDataset(model.Uuid);
+                metadata.MetadataLanguage = model.MetadataLanguage;
                 if (model.Type.Equals("software"))
                 {
                     metadata.HierarchyLevel = "software";
@@ -2286,8 +2288,10 @@ namespace Kartverket.MetadataEditor.Models
                 }
             }
 
-            metadata.Title = model.Title;
-            metadata.MetadataLanguage = model.MetadataLanguage;
+            if(metadata.MetadataLanguage == "eng")
+                metadata.EnglishTitle = model.Title;
+            else
+                metadata.Title = model.Title;
 
             metadata.Abstract = "...";
             metadata.ContactMetadata = new SimpleContact

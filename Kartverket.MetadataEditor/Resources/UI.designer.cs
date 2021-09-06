@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse engelsk er påkrevd.
+        /// </summary>
+        public static string AbstractEnglishRequired {
+            get {
+                return ResourceManager.GetString("AbstractEnglishRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse norsk er påkrevd.
+        /// </summary>
+        public static string AbstractNorwegianRequired {
+            get {
+                return ResourceManager.GetString("AbstractNorwegianRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
         /// </summary>
         public static string AccessConstraintsRequired {
@@ -2705,6 +2723,24 @@ namespace Resources {
         public static string TabTimeAndSpace {
             get {
                 return ResourceManager.GetString("TabTimeAndSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tittel engelsk er påkrevd felt.
+        /// </summary>
+        public static string TitleEnglishRequired {
+            get {
+                return ResourceManager.GetString("TitleEnglishRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tittel norsk er påkrevd felt.
+        /// </summary>
+        public static string TitleNorweginRequired {
+            get {
+                return ResourceManager.GetString("TitleNorweginRequired", resourceCulture);
             }
         }
         
