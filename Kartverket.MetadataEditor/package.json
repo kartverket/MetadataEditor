@@ -6,8 +6,8 @@
     "gulp": "^4.0.2"
   },
   "dependencies": {
-    "geonorge-base": "https://github.com/kartverket/felleskomponenter.git",
-    "geonorge-shared-partials": "https://github.com/kartverket/Geonorge.SharedPartials.git",
+    "geonorge-base": "^10.0.1",
+    "geonorge-shared-partials": "^1.0.0",
     "vue": "^2.6.10",
     "vuex": "^3.1.1"
   }
