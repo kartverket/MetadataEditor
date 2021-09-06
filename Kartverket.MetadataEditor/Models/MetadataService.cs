@@ -209,6 +209,7 @@ namespace Kartverket.MetadataEditor.Models
                 Uuid = metadata.Uuid,
                 Title = metadata.Title,
                 Language = metadata.Language,
+                MetadataLanguage = metadata.MetadataLanguage,
                 HierarchyLevel = metadata.HierarchyLevel,
                 HierarchyLevelName = metadata.HierarchyLevelName,
                 ParentIdentifier = metadata.ParentIdentifier,
@@ -1887,7 +1888,8 @@ namespace Kartverket.MetadataEditor.Models
             metadata.DateMetadataUpdated = DateTime.Now;
             metadata.MetadataStandard = "ISO19115";
             metadata.MetadataStandardVersion = "2003";
-            metadata.MetadataLanguage = "nor";
+            if(string.IsNullOrEmpty(metadata.MetadataLanguage))
+                metadata.MetadataLanguage = "nor";
         }
 
         public List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> layers, string[] keywords, string username)
@@ -2284,6 +2286,8 @@ namespace Kartverket.MetadataEditor.Models
             }
 
             metadata.Title = model.Title;
+            metadata.MetadataLanguage = model.MetadataLanguage;
+
             metadata.Abstract = "...";
             metadata.ContactMetadata = new SimpleContact
             {

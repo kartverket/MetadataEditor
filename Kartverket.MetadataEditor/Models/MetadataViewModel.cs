@@ -50,6 +50,7 @@ namespace Kartverket.MetadataEditor.Models
         public string TitleFromSelectedLanguage { get; set; }
         [Display(Name = "Language", ResourceType = typeof(UI))]
         public string Language { get; set; } = "nor";
+        public string MetadataLanguage { get; set; } = "nor";
 
         //[Required(ErrorMessage = null)]
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]

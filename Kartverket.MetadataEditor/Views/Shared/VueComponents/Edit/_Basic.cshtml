@@ -67,7 +67,22 @@
                             content: '@UI.HelpTextTitle'
                         }
                     },
-
+                    {
+                        name: 'MetadataLanguage',
+                        getter: 'MetadataLanguage',
+                        mutation: 'updateMetadataLanguage',
+                        type: 'radio',
+                        visible: true,
+                        label: '@Html.Raw(UI.LanguageInMetadata)',
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.LanguageInDatasetHelp)'
+                        },
+                        options: [
+                            { Text: '@Html.Raw(UI.Norwegian)', Value: 'nor' },
+                            { Text: '@Html.Raw(UI.English)', Value: 'eng' },
+                        ]
+                    },
                     {
                         name: 'Language',
                         getter: 'Language',

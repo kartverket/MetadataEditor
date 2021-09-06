@@ -633,6 +633,11 @@
               Looks up a localized string similar to Angi språk som i hovedsak er benyttet i tekstfelt og kolonne-overskrifter i datasettet.
             </summary>
         </member>
+        <member name="P:Resources.UI.LanguageInMetadata">
+            <summary>
+              Looks up a localized string similar to Språk i metadata.
+            </summary>
+        </member>
         <member name="P:Resources.UI.LinkToDataset">
             <summary>
               Looks up a localized string similar to Koble til datasett.

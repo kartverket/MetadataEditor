@@ -1013,4 +1013,7 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="LanguageInMetadata" xml:space="preserve">
+    <value>Metadata language</value>
+  </data>
 </root>

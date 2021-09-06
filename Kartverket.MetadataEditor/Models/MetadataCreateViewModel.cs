@@ -26,5 +26,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public string TypeName { get; set; }
         public Dictionary<string,string> AvailableTypeNames { get; set; }
+
+        public string MetadataLanguage { get; set; } = "nor";
     }
 }

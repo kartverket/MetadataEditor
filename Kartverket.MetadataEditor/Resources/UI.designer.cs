@@ -1098,6 +1098,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Språk i metadata.
+        /// </summary>
+        public static string LanguageInMetadata {
+            get {
+                return ResourceManager.GetString("LanguageInMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Koble til datasett.
         /// </summary>
         public static string LinkToDataset {
