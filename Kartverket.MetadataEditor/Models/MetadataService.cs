@@ -1089,6 +1089,7 @@ namespace Kartverket.MetadataEditor.Models
 
         private void UpdateMetadataFromModel(MetadataViewModel model, SimpleMetadata metadata)
         {
+            metadata.MetadataLanguage = model.MetadataLanguage;
             metadata.Title = model.Title;
             metadata.Abstract = model.Abstract;
             var dateType = "publication";
