@@ -1016,4 +1016,7 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   <data name="LanguageInMetadata" xml:space="preserve">
     <value>Metadata language</value>
   </data>
+  <data name="LanguageInMetadataHelp" xml:space="preserve">
+    <value>Default language for metadata</value>
+  </data>
 </root>

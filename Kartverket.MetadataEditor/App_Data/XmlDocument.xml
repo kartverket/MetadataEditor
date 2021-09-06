@@ -638,6 +638,11 @@
               Looks up a localized string similar to Språk i metadata.
             </summary>
         </member>
+        <member name="P:Resources.UI.LanguageInMetadataHelp">
+            <summary>
+              Looks up a localized string similar to Angi standard språk for metadata.
+            </summary>
+        </member>
         <member name="P:Resources.UI.LinkToDataset">
             <summary>
               Looks up a localized string similar to Koble til datasett.

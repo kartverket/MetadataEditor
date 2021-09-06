@@ -1107,6 +1107,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angi standard språk for metadata.
+        /// </summary>
+        public static string LanguageInMetadataHelp {
+            get {
+                return ResourceManager.GetString("LanguageInMetadataHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Koble til datasett.
         /// </summary>
         public static string LinkToDataset {

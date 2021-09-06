@@ -1019,4 +1019,7 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="LanguageInMetadata" xml:space="preserve">
     <value>Språk i metadata</value>
   </data>
+  <data name="LanguageInMetadataHelp" xml:space="preserve">
+    <value>Angi standard språk for metadata</value>
+  </data>
 </root>
