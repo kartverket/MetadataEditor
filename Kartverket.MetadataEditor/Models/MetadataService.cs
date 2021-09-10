@@ -1111,12 +1111,20 @@ namespace Kartverket.MetadataEditor.Models
             {
                 contactMetadata.OrganizationEnglish = model.EnglishContactMetadataOrganization;
             }
+            else if (model.MetadataLanguage == "eng")
+            {
+                contactMetadata.OrganizationEnglish = contactMetadata.Organization;
+            }
             metadata.ContactMetadata = contactMetadata;
 
             var contactPublisher = model.ContactPublisher.ToSimpleContact();
             if (!string.IsNullOrWhiteSpace(model.EnglishContactPublisherOrganization))
             {
                 contactPublisher.OrganizationEnglish = model.EnglishContactPublisherOrganization;
+            }
+            else if (model.MetadataLanguage == "eng")
+            {
+                contactPublisher.OrganizationEnglish = contactPublisher.Organization;
             }
             metadata.ContactPublisher = contactPublisher;
 
@@ -1135,6 +1143,10 @@ namespace Kartverket.MetadataEditor.Models
             if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
             {
                 contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
+            }
+            else if (model.MetadataLanguage == "eng")
+            {
+                contactOwner.OrganizationEnglish = contactOwner.Organization;
             }
 
             if (!string.IsNullOrWhiteSpace(model.ContactOwnerPositionName))
