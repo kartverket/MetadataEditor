@@ -6,10 +6,4 @@ gulp.task('copy-felles', function () {
   )
 })
 
-gulp.task('copy-shared', function () {
-  return gulp.src('./node_modules/geonorge-shared-partials/dist/*').pipe(
-    gulp.dest('./dist/')
-  )
-})
-
-gulp.task('default', gulp.series('copy-felles', 'copy-shared'))
+gulp.task('default', gulp.series('copy-felles'))

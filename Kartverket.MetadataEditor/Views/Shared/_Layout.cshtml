@@ -24,19 +24,6 @@
     <script>
         var validationUUIDs = [];
     </script>
-    <script>
-        var applicationVersionNumber = '@Html.ApplicationVersionNumber()';
-        var applicationEnvironment = '@Html.EnvironmentName()';
-
-        var cultureData = {
-            friendlyUrlEN: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))',
-            friendlyUrlNO: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url }))',
-            currentCulture: '@CultureHelper.GetCurrentCulture()'
-            };
-    </script>
-
-
-    @Scripts.Render("~/shared-partials-scripts")
 </head>
 <body class="geonorge-container prototype geonorge ng-scope fixed-menu-margin">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
@@ -49,7 +36,6 @@
                      englishurl="@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))"
                      language="@CultureHelper.GetCurrentCulture()"></main-navigation>
 
-    @Styles.Render("~/shared-partials-styles")
     @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
 
 
@@ -144,17 +130,7 @@
         @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer_eng.min.cshtml");
     }
 
-    <script>
-        searchOption.loginUrl = '@Html.Raw(Url.Action("SignIn", "Home", new { ReturnUrl = Request.Url }))';
-        searchOption.logoutUrl = '@Html.Raw(Url.Action("SignOut", "Home"))';
-        searchOption.loggedIn = @Request.IsAuthenticated.ToString().ToLower();
-        searchOption.epiBaseUrl = '@Html.GeonorgeUrl()';
-        var orderItems = Cookies.get('orderitems');
-        if (orderItems && orderItems > 0) {
-            $('.downloads__count').show();
-            $('.downloads__count').text(orderItems);
-        }
-    </script>
+
     @Scripts.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts")
     @Scripts.Render("~/Scripts/local-scripts")
 
