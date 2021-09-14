@@ -693,93 +693,100 @@ namespace Kartverket.MetadataEditor.Models
                 SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
                 MetadataViewModel model = GetMetadataModel(uuid);
 
-                if (metadata.ContactMetadata != null && !string.IsNullOrEmpty(metadata.ContactMetadata.Organization))
+                if(model.MetadataLanguage == "eng")
                 {
-                    var organization = GetOrganization(metadata.ContactMetadata.Organization);
-                    if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactMetadataOrganization = organization;
+                    //Todo handle english metadata, set Norwegian translations
                 }
-
-                if (metadata.ContactOwner != null && !string.IsNullOrEmpty(metadata.ContactOwner.Organization))
-                {
-                    var organization = GetOrganization(metadata.ContactOwner.Organization);
-                    if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactOwnerOrganization = organization;
-                }
-
-                if (metadata.ContactPublisher != null && !string.IsNullOrEmpty(metadata.ContactPublisher.Organization))
-                {
-                    var organization = GetOrganization(metadata.ContactPublisher.Organization);
-                    if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactPublisherOrganization = organization;
-                }
-
-                var contactMetadata = model.ContactMetadata.ToSimpleContact();
-                if (!string.IsNullOrWhiteSpace(model.EnglishContactMetadataOrganization))
-                {
-                    contactMetadata.OrganizationEnglish = model.EnglishContactMetadataOrganization;
-                }
-                metadata.ContactMetadata = contactMetadata;
-
-                var contactPublisher = model.ContactPublisher.ToSimpleContact();
-                if (!string.IsNullOrWhiteSpace(model.EnglishContactPublisherOrganization))
-                {
-                    contactPublisher.OrganizationEnglish = model.EnglishContactPublisherOrganization;
-                }
-                metadata.ContactPublisher = contactPublisher;
-
-                var contactOwner = model.ContactOwner.ToSimpleContact();
-                if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
-                {
-                    contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
-                }
-                metadata.ContactOwner = contactOwner;
-
-                var englishKeywords = model.KeywordsEnglish;
-
-                string keywordPrefix = "NationalTheme";
-                //Update keywords nationalTheme
-                foreach (var keyword in model.KeywordsNationalTheme)
-                {
-                    if (nationalThemeList.ContainsKey(keyword) && keyword != nationalThemeList[keyword])
+                else
+                { 
+                    if (metadata.ContactMetadata != null && !string.IsNullOrEmpty(metadata.ContactMetadata.Organization))
                     {
-                        var key = keywordPrefix + "_" + keyword;
-                        if (englishKeywords.ContainsKey(key))
-                            englishKeywords[key] = nationalThemeList[keyword];
-                        else
-                            englishKeywords.Add(key, nationalThemeList[keyword]);
+                        var organization = GetOrganization(metadata.ContactMetadata.Organization);
+                        if (!string.IsNullOrEmpty(organization))
+                            model.EnglishContactMetadataOrganization = organization;
                     }
-                }
 
-                keywordPrefix = "NationalInitiative";
-                //Update keywords NationalInitiative
-                foreach (var keyword in model.KeywordsNationalInitiative)
-                {
-                    if (nationalInitiativeList.ContainsKey(keyword) && keyword != nationalInitiativeList[keyword])
+                    if (metadata.ContactOwner != null && !string.IsNullOrEmpty(metadata.ContactOwner.Organization))
                     {
-                        var key = keywordPrefix + "_" + keyword;
-                        if (englishKeywords.ContainsKey(key))
-                            englishKeywords[key] = nationalInitiativeList[keyword];
-                        else
-                            englishKeywords.Add(key, nationalInitiativeList[keyword]);
+                        var organization = GetOrganization(metadata.ContactOwner.Organization);
+                        if (!string.IsNullOrEmpty(organization))
+                            model.EnglishContactOwnerOrganization = organization;
                     }
-                }
 
-                keywordPrefix = "Inspire";
-                //Update keywords Inspire
-                foreach (var keyword in model.KeywordsInspire)
-                {
-                    if (inspireList.ContainsKey(keyword) && keyword != inspireList[keyword])
+                    if (metadata.ContactPublisher != null && !string.IsNullOrEmpty(metadata.ContactPublisher.Organization))
                     {
-                        var key = keywordPrefix + "_" + keyword;
-                        if (englishKeywords.ContainsKey(key))
-                            englishKeywords[key] = inspireList[keyword];
-                        else
-                            englishKeywords.Add(key, inspireList[keyword]);
+                        var organization = GetOrganization(metadata.ContactPublisher.Organization);
+                        if (!string.IsNullOrEmpty(organization))
+                            model.EnglishContactPublisherOrganization = organization;
                     }
-                }
 
-                model.KeywordsEnglish = englishKeywords;
+                    var contactMetadata = model.ContactMetadata.ToSimpleContact();
+                    if (!string.IsNullOrWhiteSpace(model.EnglishContactMetadataOrganization))
+                    {
+                        contactMetadata.OrganizationEnglish = model.EnglishContactMetadataOrganization;
+                    }
+                    metadata.ContactMetadata = contactMetadata;
+
+                    var contactPublisher = model.ContactPublisher.ToSimpleContact();
+                    if (!string.IsNullOrWhiteSpace(model.EnglishContactPublisherOrganization))
+                    {
+                        contactPublisher.OrganizationEnglish = model.EnglishContactPublisherOrganization;
+                    }
+                    metadata.ContactPublisher = contactPublisher;
+
+                    var contactOwner = model.ContactOwner.ToSimpleContact();
+                    if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
+                    {
+                        contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
+                    }
+                    metadata.ContactOwner = contactOwner;
+
+                    var englishKeywords = model.KeywordsEnglish;
+
+                    string keywordPrefix = "NationalTheme";
+                    //Update keywords nationalTheme
+                    foreach (var keyword in model.KeywordsNationalTheme)
+                    {
+                        if (nationalThemeList.ContainsKey(keyword) && keyword != nationalThemeList[keyword])
+                        {
+                            var key = keywordPrefix + "_" + keyword;
+                            if (englishKeywords.ContainsKey(key))
+                                englishKeywords[key] = nationalThemeList[keyword];
+                            else
+                                englishKeywords.Add(key, nationalThemeList[keyword]);
+                        }
+                    }
+
+                    keywordPrefix = "NationalInitiative";
+                    //Update keywords NationalInitiative
+                    foreach (var keyword in model.KeywordsNationalInitiative)
+                    {
+                        if (nationalInitiativeList.ContainsKey(keyword) && keyword != nationalInitiativeList[keyword])
+                        {
+                            var key = keywordPrefix + "_" + keyword;
+                            if (englishKeywords.ContainsKey(key))
+                                englishKeywords[key] = nationalInitiativeList[keyword];
+                            else
+                                englishKeywords.Add(key, nationalInitiativeList[keyword]);
+                        }
+                    }
+
+                    keywordPrefix = "Inspire";
+                    //Update keywords Inspire
+                    foreach (var keyword in model.KeywordsInspire)
+                    {
+                        if (inspireList.ContainsKey(keyword) && keyword != inspireList[keyword])
+                        {
+                            var key = keywordPrefix + "_" + keyword;
+                            if (englishKeywords.ContainsKey(key))
+                                englishKeywords[key] = inspireList[keyword];
+                            else
+                                englishKeywords.Add(key, inspireList[keyword]);
+                        }
+                    }
+
+                    model.KeywordsEnglish = englishKeywords;
+                }
 
                 metadata.Keywords = model.GetAllKeywords();
 
