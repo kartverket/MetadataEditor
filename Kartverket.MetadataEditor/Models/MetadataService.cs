@@ -1135,10 +1135,7 @@ namespace Kartverket.MetadataEditor.Models
                 contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
             }
 
-            if (!string.IsNullOrWhiteSpace(model.ContactOwnerPositionName))
-            {
-                contactOwner.PositionName = model.ContactOwnerPositionName;
-            }
+            contactOwner.PositionName = model.ContactOwnerPositionName;
 
             metadata.ContactOwner = contactOwner;
 
