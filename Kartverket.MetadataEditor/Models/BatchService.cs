@@ -335,9 +335,74 @@ namespace Kartverket.MetadataEditor.Models
                 UpdateEnglishTexts(username, deleteData, metadatafieldEnglish);
             else if (metadatafield == "SpatialScope")
                 UpdateSpatialScope(username, deleteData);
+            else if (metadatafield == "ContactOwnerPositionName")
+                UpdateContactOwnerPositionName(username, deleteData);
 
             excelPackage.Dispose();
 
+        }
+
+        private void UpdateContactOwnerPositionName(string username, bool deleteData)
+        {
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            if (deleteData)
+            {
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveContactOwnerPositionName(uuidDelete, username);
+                }
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var contactOwnerPositionName = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(contactOwnerPositionName) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    SaveContactOwnerPositionName(uuid, contactOwnerPositionName, username);
+                }
+            }
+        }
+
+        private void SaveContactOwnerPositionName(string uuid, string contactOwnerPositionNameInfo, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+
+                metadata.ContactOwnerPositionName = contactOwnerPositionNameInfo;
+
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", ContactOwnerPositionName: " + contactOwnerPositionNameInfo);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        private void RemoveContactOwnerPositionName(string uuidDelete, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuidDelete);
+                if (!string.IsNullOrEmpty(metadata.ContactOwnerPositionName))
+                {
+                    metadata.ContactOwnerPositionName = "";
+                    _metadataService.SaveMetadataModel(metadata, username);
+
+                    Log.Info("Batch remove ContactOwnerPositionName, uuid: " + uuidDelete);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuidDelete, ex);
+            }
         }
 
         private void UpdateSpatialScope(string username, bool deleteData)
