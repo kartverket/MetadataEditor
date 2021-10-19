@@ -87,11 +87,11 @@
                                                     return false;
                                                 }
                                             </script>
-                                            }
                                         }
-
                                     }
-                                </li>
+
+                                }
+                            </li>
                         </ul>
 
                     }
@@ -110,9 +110,6 @@
                 <div id="savedOKMsg" class="alert alert-success">
                     @TempData["success"]
                 </div>
-                @section scripts {
-                <script>function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }</script>
-                }
             }
             @if (TempData["failure"] != null)
             {
@@ -140,7 +137,7 @@
 
     <!-- Script for polyfilling Promises on IE9 and 10 -->
     <script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
-
+    <script>function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }</script>
     @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
     @RenderSection("scripts", required: false)
 
