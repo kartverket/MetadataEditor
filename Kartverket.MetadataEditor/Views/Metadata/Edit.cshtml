@@ -235,14 +235,118 @@
     }
     @if (Model.IsSoftware())
     {
-        <div id="crossReference" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
-            @Html.Partial("_CrossReference", Model)
+        <div id="crossReference" class="modal" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
+            <div class="modal-dialog" style="width: 75%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Koble til datasett (@Model.Title)</h4>
+                        <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>
+                                <span id="searchInfo" style="color:red"></span>
+                            </div>
+                            <div class="col-sm-6"><b>Tilknyttede datasett:</b></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br />
+                                <div id="searchresultsDS">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="crossReferenceDIV">
+                                    @for (int i = 0; i < Model.CrossReference.Count; i++)
+                                    {
+                                        <div id="crossReference-@Model.CrossReference[i].ToString()" class="row">
+                                            <input type="hidden" value="@Model.CrossReference[i].ToString()" name="CrossReference" />
+                                            <div class="col-sm-8">
+                                                <div id="title-@Model.CrossReference[i].ToString()">
+                                                    <script>getMetadata('@Model.CrossReference[i].ToString()');</script>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 btn-group">
+                                                <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.CrossReference[i].ToString()" target="_blank" class="btn btn-default btn-xs">
+                                                    <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-2 btn-group">
+                                                <a href="#" onclick="document.getElementById('crossReference-@Model.CrossReference[i].ToString()').parentNode.removeChild(document.getElementById('crossReference-@Model.CrossReference[i].ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
+                                            </div>
+                                        </div>
+                                        <hr style="margin: 2px 2px 2px 2px" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     }
     @if (Model.IsDataset())
     {
-        <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
-            @Html.Partial("_ParentIdentifierSeries", Model)
+        <div id="parentIdentifier" class="modal" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
+            <div class="modal-dialog" style="width: 75%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Koble til datasettserie (@Model.Title)</h4>
+                        <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" id="searchmetadataSeries" onkeydown="if (event.keyCode == 13) { getMetadataSeries(document.getElementById('searchmetadataSeries').value); return false; }" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="form-control" onclick="getMetadataSeries(document.getElementById('searchmetadataSeries').value);">Søk</button>
+                                <span id="searchInfoSeries" style="color:red"></span>
+                            </div>
+                            <div class="col-sm-6"><b>Tilknyttet datasettserie:</b></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br />
+                                <div id="searchresultsSeries">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="parentIdentifierDIV">
+                                    @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
+                                    {
+                                        <div id="parentIdentifier" class="row">
+                                            <input type="hidden" value="@Model.ParentIdentifier" name="ParentIdentifier" />
+                                            <div class="col-sm-8">
+                                                <div id="titleSeries-@Model.ParentIdentifier">
+                                                    <script>getMetadataForSeries('@Model.ParentIdentifier');</script>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 btn-group">
+                                                <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier" target="_blank" class="btn btn-default btn-xs">
+                                                    <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                                </a>
+                                                <input type="button" class="btn btn-default btn-xs" value="Slett" onclick="removeParent('@Model.ParentIdentifier')" />
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     }
 
@@ -723,6 +827,207 @@
     }
 
     </script>
+    <script>
+
+    function getMetadata(uuid) {
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+
+            if (result.length != 0) {
+                if (result.Results.length != 0) {
+                    var title = result.Results[0].Title;
+                    $("#title-" + uuid).text(title);
+                }
+                else { $("#title-" + uuid).text("TITTEL MANGLER"); }
+            }
+
+            else {
+                $("#title-" + uuid).text("TITTEL MANGLER");
+            }
+
+        });
+    };
+
+
+    function getMetadataFreetext(searchStr) {
+
+        $('#searchresultsDS').empty();
+        $('#searchInfo').text('Fant ingen metadata');
+        if (searchStr == '') {
+            $('#searchInfo').text('Vennligst skriv inn søkeord');
+            return false;
+        }
+
+        var counter = 0;
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=dataset&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataRow(result.Results[r]);
+                    }
+                    $('#searchInfo').text('');
+                }
+
+            }
+
+        });
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataRow(result.Results[r]);
+                    }
+
+                    $('#searchInfo').text('');
+                }
+
+            }
+
+        });
+
+    };
+
+
+    function displayMetadataRow(result) {
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addCrossReference(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        $('#searchresultsDS').append(div);
+    }
+
+    function addCrossReference(Uuid) {
+        var h = '<div id="crossReference-' + Uuid + '" class="row">';
+        h += '<input type="hidden" value="' + Uuid + '" name="CrossReference" />';
+
+        h += '<div class="col-sm-8">';
+
+        h += '<div id="title-' + Uuid + '">';
+        h += '<script>getMetadata(\'' + Uuid + '\'' + '\)\;\<\/script>';
+        h += '</div>';
+
+        h += '</div>';
+
+        h += '<div class="col-sm-2 btn-group">';
+        h += '<a href="@Html.KartkatalogUrl()metadata/uuid/' + Uuid + '" target="_blank" class="btn btn-default btn-xs">';
+        h += ' <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog';
+        h += '   </a>';
+        h += '</div>';
+
+        h += '<div class="col-sm-2 btn-group">';
+        h += '<a href="#" onclick="document.getElementById(\'crossReference-' + Uuid + '\').parentNode.removeChild(document.getElementById(\'crossReference-' + Uuid + '\'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>';
+        h += '</div>';
+
+        h += '</div>';
+        h += '<hr style="margin: 2px 2px 2px 2px" />';
+        if (document.getElementById('crossReference-' + Uuid) == null) {
+            $('#crossReferenceDIV').append(h);
+            alert('Datasett ble lagt til');
+        }
+        else { alert('Datasett er allerede lagt til');}
+
+    }
+
+    </script>
+
+    <script>
+    function getMetadataForSeries(uuid) {
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+
+            if (result.length != 0) {
+                if (result.Results.length != 0) {
+                    var titleSeries = result.Results[0].Title;
+                    $("#titleSeries-" + uuid).text(titleSeries);
+                }
+                else { $("#titleSeries-" + uuid).text("TITTEL MANGLER"); }
+            }
+
+            else {
+                $("#titleSeries-" + uuid).text("TITTEL MANGLER");
+            }
+
+        });
+    };
+
+    function getMetadataSeries(searchStr) {
+
+        $('#searchresultsSeries').empty();
+        $('#searchInfoSeries').text('Fant ingen metadata');
+        if (searchStr == '') {
+            $('#searchInfoSeries').text('Vennligst skriv inn søkeord');
+            return false;
+        }
+
+        var counter = 0;
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataSeriesRow(result.Results[r]);
+                    }
+                    $('#searchInfoSeries').text('');
+                }
+
+            }
+
+        });
+
+    };
+
+
+    function displayMetadataSeriesRow(result) {
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="setParentIdentifier(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Velg' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        $('#searchresultsSeries').append(div);
+    }
+
+    function setParentIdentifier(Uuid) {
+        if (Uuid == $('#Uuid').val()) {
+            $('#searchInfoSeries').text('Kan ikke koble datasettet til seg selv');
+        }
+        else
+        {
+        var h = '<div id="parentIdentifier" class="row">';
+        h += '<input type="hidden" value="' + Uuid + '" name="ParentIdentifier" />';
+
+        h += '<div class="col-sm-8">';
+
+        h += '<div id="titleSeries-' + Uuid + '">';
+        h += '<script>getMetadataForSeries(\'' + Uuid + '\'' + '\)\;\<\/script>';
+        h += '</div>';
+
+        h += '</div>';
+
+        h += '<div class="col-sm-4 btn-group">';
+        h += '<a href="@Html.KartkatalogUrl()metadata/uuid/' + Uuid + '" target="_blank" class="btn btn-default btn-xs">';
+        h += ' <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog';
+        h += '   </a>';
+            h += '<input type="button" class="btn btn -default btn - xs" value="Slett" onclick="removeParent(' + Uuid+')" />'
+        h += '</div>';
+
+        h += '</div>';
+        h += '<hr style="margin: 2px 2px 2px 2px" />';
+
+            $('#parentIdentifierDIV').html(h);
+
+            $('#parentIdentifier').show();
+        }
+    }
+    function removeParent(uuid) {
+        $('input[name="ParentIdentifier"]').val('');
+        $('#titleSeries-'+uuid).text('');
+    }
+
+    </script>
+
     @for (int i = 0; i < Model.OperatesOn.Count; i++)
     {
         <script>getMetadata('@Model.OperatesOn[i].ToString()');</script>
