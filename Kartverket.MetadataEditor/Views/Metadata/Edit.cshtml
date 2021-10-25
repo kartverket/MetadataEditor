@@ -245,10 +245,10 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-5">
-                                <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />
+                                <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetextCrossReference(document.getElementById('searchmetadata').value); return false; }" />
                             </div>
                             <div class="col-sm-1">
-                                <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>
+                                <button type="button" class="form-control" onclick="getMetadataFreetextCrossReference(document.getElementById('searchmetadata').value);">Søk</button>
                                 <span id="searchInfo" style="color:red"></span>
                             </div>
                             <div class="col-sm-6"><b>Tilknyttede datasett:</b></div>
@@ -848,7 +848,7 @@
     };
 
 
-    function getMetadataFreetext(searchStr) {
+        function getMetadataFreetextCrossReference(searchStr) {
 
         $('#searchresultsDS').empty();
         $('#searchInfo').text('Fant ingen metadata');
@@ -865,7 +865,7 @@
 
                 if (result.Results.length != 0) {
                     for (r = counter ; r < result.Results.length; r++) {
-                        displayMetadataRow(result.Results[r]);
+                        displayMetadataRowCrossReference(result.Results[r]);
                     }
                     $('#searchInfo').text('');
                 }
@@ -880,7 +880,7 @@
 
                 if (result.Results.length != 0) {
                     for (r = counter ; r < result.Results.length; r++) {
-                        displayMetadataRow(result.Results[r]);
+                        displayMetadataRowCrossReference(result.Results[r]);
                     }
 
                     $('#searchInfo').text('');
@@ -893,7 +893,7 @@
     };
 
 
-    function displayMetadataRow(result) {
+        function displayMetadataRowCrossReference(result) {
         var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addCrossReference(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
         $('#searchresultsDS').append(div);
     }
