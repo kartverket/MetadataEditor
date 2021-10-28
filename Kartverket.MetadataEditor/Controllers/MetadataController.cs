@@ -59,7 +59,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 { "series_thematic","series_thematic" },
                 { "series_historic","series_historic" },
                 { "series_geographic","series_geographic" },
-                { "series_collection","series_collection" }
+                { "series_collection","series_collection" },
+                { "series_time","series_time" }
             };
         }
 
