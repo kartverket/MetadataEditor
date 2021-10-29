@@ -293,9 +293,9 @@ namespace Kartverket.MetadataEditor.Models
                 DateUpdated = metadata.DateUpdated,
                 DateMetadataUpdated = metadata.DateMetadataUpdated,
                 DateMetadataValidFrom = string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidFrom) ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidFrom),
-                DateMetadataValidTo = string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidTo) ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidTo),
+                DateMetadataValidTo = (string.IsNullOrEmpty(metadata.ValidTimePeriod.ValidTo) || metadata.ValidTimePeriod.ValidTo == "unknown") ? (DateTime?)null : DateTime.Parse(metadata.ValidTimePeriod.ValidTo),
 
-                Status = metadata.Status,
+            Status = metadata.Status,
                 OrderingInstructions = (metadata.AccessProperties != null && !string.IsNullOrEmpty(metadata.AccessProperties.OrderingInstructions)) ? metadata.AccessProperties.OrderingInstructions : "",
 
                 BoundingBoxEast = metadata.BoundingBox != null ? metadata.BoundingBox.EastBoundLongitude : null,
