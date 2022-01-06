@@ -3,7 +3,7 @@
 <script type="text/x-template" id="keywords-template">
     <div>
 
-        <div class="form-group">
+        <div class="form-group" v-show="topicCategory.visible">
             <label v-bind:for="topicCategory.id" class="col-md-2 control-label">@UI.TopicCategory</label>
             <div class="col-md-9">
                 <p v-if="topicCategory.helpText && topicCategory.helpText.active" class="help-text bg-success" v-html="topicCategory.helpText.content"></p>
@@ -50,7 +50,7 @@
                     mutation: 'updateTopicCategory',
                     label: '@Html.Raw(UI.Metadata_TopicCategory_Label)',
                     type: 'select',
-                    visible: true,
+                    visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                     helpText: {
                         active: false,
                         content: '@Html.Raw(UI.Helptext_TopicCategory)'
