@@ -94,7 +94,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 if (UserHasMetadataAdminRole() || UserHasEditorRole())
                 { 
                     string userOrganization = principal.GetOrganizationName();
-                    if (principal.IsInRole(GeonorgeRoles.MetadataAdmin))
+                    if (principal.IsInRole(GeonorgeRoles.MetadataAdmin) || principal.IsInRole(GeonorgeRoles.MetadataManager))
                     {
                         model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
                         model.UserIsAdmin = true;

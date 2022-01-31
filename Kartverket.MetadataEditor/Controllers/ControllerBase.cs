@@ -18,7 +18,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         protected bool UserHasMetadataAdminRole()
         {
-            return ClaimsPrincipalUtility.UserHasMetadataAdminRole(User);
+            return ClaimsPrincipalUtility.UserHasMetadataAdminRole(User) || ClaimsPrincipalUtility.UserHasMetadataManagerRole(User); ;
         }
 
         protected bool UserHasEditorRole()

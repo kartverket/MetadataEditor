@@ -32,7 +32,7 @@ namespace Kartverket.MetadataEditor.Util
             var isAdmin = false;
             var editorRole = false;
 
-            if (currentUser.IsInRole(GeonorgeRoles.MetadataAdmin))
+            if (currentUser.IsInRole(GeonorgeRoles.MetadataAdmin) || currentUser.IsInRole(GeonorgeRoles.MetadataManager))
                 isAdmin = true;
             
             if (currentUser.IsInRole(GeonorgeRoles.MetadataEditor))
