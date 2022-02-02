@@ -149,7 +149,7 @@
 </div>
 @{
     string displayDistributionProtocol = "hidden";
-    if (ClaimsPrincipal.Current.IsInRole(GeonorgeRoles.MetadataAdmin))
+    if (ClaimsPrincipal.Current.IsInRole(GeonorgeRoles.MetadataAdmin) || ClaimsPrincipal.Current.IsInRole(GeonorgeRoles.MetadataManager))
     {
         displayDistributionProtocol = "";
     }
