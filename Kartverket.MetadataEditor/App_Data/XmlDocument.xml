@@ -1468,6 +1468,16 @@
               Looks up a localized string similar to Representasjonsform.
             </summary>
         </member>
+        <member name="P:Resources.UI.SpatialScope">
+            <summary>
+              Looks up a localized string similar to Geografisk nivå.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpatialScopeHelp">
+            <summary>
+              Looks up a localized string similar to Administrativt nivå som datasettet har til hensikt å dekke.
+            </summary>
+        </member>
         <member name="P:Resources.UI.SpecifyAreas">
             <summary>
               Looks up a localized string similar to Angi områder.

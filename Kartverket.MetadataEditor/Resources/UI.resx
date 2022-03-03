@@ -1034,4 +1034,10 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="TitleNorweginRequired" xml:space="preserve">
     <value>Tittel norsk er påkrevd felt</value>
   </data>
+  <data name="SpatialScope" xml:space="preserve">
+    <value>Geografisk nivå</value>
+  </data>
+  <data name="SpatialScopeHelp" xml:space="preserve">
+    <value>Administrativt nivå som datasettet har til hensikt å dekke</value>
+  </data>
 </root>

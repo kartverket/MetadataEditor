@@ -1031,4 +1031,10 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   <data name="TitleNorweginRequired" xml:space="preserve">
     <value>Title norwegian is required</value>
   </data>
+  <data name="SpatialScope" xml:space="preserve">
+    <value>Spatial scope</value>
+  </data>
+  <data name="SpatialScopeHelp" xml:space="preserve">
+    <value>Administrative level that the data set intends to cover</value>
+  </data>
 </root>

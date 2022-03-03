@@ -17,8 +17,9 @@
             </div>
         </div>
         <div class="row">
-            <label class="col-md-2 control-label">Spatial scope</label>
+            <label class="col-md-2 control-label">@UI.SpatialScope</label>
             <div class="col-md-9">
+                <p id="spatialscopehelp" class="help-text bg-success" style="display:none">@UI.SpatialScopeHelp</p>
                 <div class="custom-select">
                     <select name="KeywordsSpatialScope[0]" v-model="$root.model.KeywordsSpatialScope[0]" class="form-control">
                         <option></option>
@@ -29,6 +30,9 @@
                 </div>
             </div>
             <div class="col-md-1">
+                <p class="form-control-static">
+                    <span class="badge help-text-toggle" onclick="$('#spatialscopehelp').toggle();">?</span>
+                </p>
             </div>
         </div>
         <br />
