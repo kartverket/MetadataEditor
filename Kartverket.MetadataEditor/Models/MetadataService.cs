@@ -2353,7 +2353,10 @@ namespace Kartverket.MetadataEditor.Models
 
         public void DeleteMetadata(MetadataViewModel metadata, string username, string comment)
         {
-            _geoNorge.MetadataDelete(metadata.Uuid, GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
+            var transaction = _geoNorge.MetadataDelete(metadata.Uuid, GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
+            if (transaction.TotalUpdated == "0")
+                throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
+
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Deleted,  User = username, Description = "Delete metadata title: " + metadata.Title + ". Comment: " + comment }));
         }
 
