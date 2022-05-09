@@ -395,6 +395,9 @@
                     type: "GET",
                     url: apiUrl,
                     success: function (response) {
+                        if (response.draftDate && response.draftDate != "0001-01-01T00:00:00") {
+                            this.$store.commit('updateQualitySpecificationDateSosi', response.draftDate);
+                        }
                         if (response.dateAccepted && response.dateAccepted != "0001-01-01T00:00:00") {
                             this.$store.commit('updateQualitySpecificationDateSosi', response.dateAccepted);
                         }
