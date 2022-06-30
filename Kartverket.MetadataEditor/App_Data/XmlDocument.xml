@@ -1600,6 +1600,18 @@
             <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
             <returns>The ID as a string.</returns>
         </member>
+        <member name="T:Kartverket.MetadataEditor.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:Kartverket.MetadataEditor.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
         <member name="M:Kartverket.MetadataEditor.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
             <summary>
             Sets the documentation provider for help page.
@@ -2057,18 +2069,6 @@
             Initializes a new instance of the <see cref="T:Kartverket.MetadataEditor.Areas.HelpPage.XmlDocumentationProvider"/> class.
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
-        </member>
-        <member name="T:Kartverket.MetadataEditor.Areas.HelpPage.HelpPageConfig">
-            <summary>
-            Use this class to customize the Help Page.
-            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
-            or you can provide the samples for the requests/responses.
-            </summary>
-        </member>
-        <member name="T:Kartverket.MetadataEditor.Areas.HelpPage.Controllers.HelpController">
-            <summary>
-            The controller that will handle requests for the help page.
-            </summary>
         </member>
         <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String)">
             <summary>

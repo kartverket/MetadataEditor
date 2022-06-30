@@ -1,5 +1,5 @@
-﻿/// <reference path="jquery-ui-1.12.1.js" />
-/// <reference path="jquery-3.4.1.js" />
+﻿/// <reference path="jquery-ui-1.13.1.js" />
+/// <reference path="jquery-3.6.0.js" />
 /// <autosync enabled="true" />
 /// <reference path="bootstrap.js" />
 /// <reference path="bootstrap-filestyle.js" />
