@@ -79,10 +79,10 @@
       <HintPath>..\packages\FluentAssertions.6.7.0\lib\net47\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="Geonorge.AuthLib.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geonorge.AuthLib.Common.1.0.48\lib\netstandard2.0\Geonorge.AuthLib.Common.dll</HintPath>
+      <HintPath>..\packages\Geonorge.AuthLib.Common.1.0.49\lib\netstandard2.0\Geonorge.AuthLib.Common.dll</HintPath>
     </Reference>
     <Reference Include="Geonorge.AuthLib.NetFull, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Geonorge.AuthLib.NetFull.1.0.48\lib\net472\Geonorge.AuthLib.NetFull.dll</HintPath>
+      <HintPath>..\packages\Geonorge.AuthLib.NetFull.1.0.49\lib\net472\Geonorge.AuthLib.NetFull.dll</HintPath>
     </Reference>
     <Reference Include="GeoNorgeAPI, Version=3.4.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GeoNorgeAPI.3.4.3\lib\net48\GeoNorgeAPI.dll</HintPath>
