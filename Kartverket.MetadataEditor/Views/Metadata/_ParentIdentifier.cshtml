@@ -1,6 +1,7 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
 @model Kartverket.MetadataEditor.Models.MetadataViewModel
-<script>
+@section scripts {
+    <script>
     function getMetadataForService(uuid) {
 
         $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
@@ -83,59 +84,60 @@
 
             $('#parentIdentifierDIV').html(h);
         }
-            
+
 
     }
 
-</script>
-<div class="modal-dialog" style="width: 75%;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4>Koble til tjeneste (@Model.Title)</h4>
-            <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-5">
-                    <input class="form-control" type="text" id="searchmetadataService" onkeydown="if (event.keyCode == 13) { getMetadataService(document.getElementById('searchmetadataService').value); return false; }" />
-                </div>
-                <div class="col-sm-1">
-                    <button type="button" class="form-control" onclick="getMetadataService(document.getElementById('searchmetadataService').value);">Søk</button>
-                    <span id="searchInfoService" style="color:red"></span>
-                </div>
-                <div class="col-sm-6"><b>Tilknyttet tjeneste:</b></div>
+    </script>
+    }
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Koble til tjeneste (@Model.Title)</h4>
+                <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
             </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <br />
-                    <div id="searchresultsService">
-
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" id="searchmetadataService" onkeydown="if (event.keyCode == 13) { getMetadataService(document.getElementById('searchmetadataService').value); return false; }" />
                     </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="form-control" onclick="getMetadataService(document.getElementById('searchmetadataService').value);">Søk</button>
+                        <span id="searchInfoService" style="color:red"></span>
+                    </div>
+                    <div class="col-sm-6"><b>Tilknyttet tjeneste:</b></div>
                 </div>
-                <div class="col-sm-6">
-                    <div id="parentIdentifierDIV">
-                            @if(!string.IsNullOrEmpty(Model.ParentIdentifier))
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <br />
+                        <div id="searchresultsService">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="parentIdentifierDIV">
+                            @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
                             {
-                            <div id="parentIdentifier-@Model.ParentIdentifier" class="row">
-                                <input type="hidden" value="@Model.ParentIdentifier" name="parentIdentifier" />
-                                <div class="col-sm-8">
-                                    <div id="titleService-@Model.ParentIdentifier">
-                                        <script>getMetadataForService('@Model.ParentIdentifier');</script>
+                                <div id="parentIdentifier-@Model.ParentIdentifier" class="row">
+                                    <input type="hidden" value="@Model.ParentIdentifier" name="parentIdentifier" />
+                                    <div class="col-sm-8">
+                                        <div id="titleService-@Model.ParentIdentifier">
+                                            <script>getMetadataForService('@Model.ParentIdentifier');</script>
+                                        </div>
                                     </div>
+                                    <div class="col-sm-4 btn-group">
+                                        <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier" target="_blank" class="btn btn-default btn-xs">
+                                            <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                        </a>
+                                    </div>
+
                                 </div>
-                                <div class="col-sm-4 btn-group">
-                                    <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier" target="_blank" class="btn btn-default btn-xs">
-                                        <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
-                                    </a>
-                                </div>
-               
-                            </div>
                             }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 

@@ -1013,4 +1013,28 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="AbstractEnglishRequired" xml:space="preserve">
+    <value>Description english is required field</value>
+  </data>
+  <data name="AbstractNorwegianRequired" xml:space="preserve">
+    <value>Description norwegian is required</value>
+  </data>
+  <data name="LanguageInMetadata" xml:space="preserve">
+    <value>Metadata language</value>
+  </data>
+  <data name="LanguageInMetadataHelp" xml:space="preserve">
+    <value>Default language for metadata</value>
+  </data>
+  <data name="TitleEnglishRequired" xml:space="preserve">
+    <value>Title english is required</value>
+  </data>
+  <data name="TitleNorweginRequired" xml:space="preserve">
+    <value>Title norwegian is required</value>
+  </data>
+  <data name="SpatialScope" xml:space="preserve">
+    <value>Spatial scope</value>
+  </data>
+  <data name="SpatialScopeHelp" xml:space="preserve">
+    <value>Administrative level that the data set intends to cover</value>
+  </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
 @model Kartverket.MetadataEditor.Models.MetadataViewModel
-<script>
+@section scripts {
+    <script>
     function getMetadataForSeries(uuid) {
 
         $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
@@ -92,56 +93,57 @@
         $('#titleSeries-'+uuid).text('');
     }
 
-</script>
-<div class="modal-dialog" style="width: 75%;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4>Koble til datasettserie (@Model.Title)</h4>
-            <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-5">
-                    <input class="form-control" type="text" id="searchmetadataSeries" onkeydown="if (event.keyCode == 13) { getMetadataSeries(document.getElementById('searchmetadataSeries').value); return false; }" />
-                </div>
-                <div class="col-sm-1">
-                    <button type="button" class="form-control" onclick="getMetadataSeries(document.getElementById('searchmetadataSeries').value);">Søk</button>
-                    <span id="searchInfoSeries" style="color:red"></span>
-                </div>
-                <div class="col-sm-6"><b>Tilknyttet datasettserie:</b></div>
+    </script>
+    }
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Koble til datasettserie (@Model.Title)</h4>
+                <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
             </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <br />
-                    <div id="searchresultsSeries">
-
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" id="searchmetadataSeries" onkeydown="if (event.keyCode == 13) { getMetadataSeries(document.getElementById('searchmetadataSeries').value); return false; }" />
                     </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="form-control" onclick="getMetadataSeries(document.getElementById('searchmetadataSeries').value);">Søk</button>
+                        <span id="searchInfoSeries" style="color:red"></span>
+                    </div>
+                    <div class="col-sm-6"><b>Tilknyttet datasettserie:</b></div>
                 </div>
-                <div class="col-sm-6">
-                    <div id="parentIdentifierDIV">
-                            @if(!string.IsNullOrEmpty(Model.ParentIdentifier))
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <br />
+                        <div id="searchresultsSeries">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="parentIdentifierDIV">
+                            @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
                             {
-                            <div id="parentIdentifier" class="row">
-                                <input type="hidden" value="@Model.ParentIdentifier" name="ParentIdentifier" />
-                                <div class="col-sm-8">
-                                    <div id="titleSeries-@Model.ParentIdentifier">
-                                        <script>getMetadataForSeries('@Model.ParentIdentifier');</script>
+                                <div id="parentIdentifier" class="row">
+                                    <input type="hidden" value="@Model.ParentIdentifier" name="ParentIdentifier" />
+                                    <div class="col-sm-8">
+                                        <div id="titleSeries-@Model.ParentIdentifier">
+                                            <script>getMetadataForSeries('@Model.ParentIdentifier');</script>
+                                        </div>
                                     </div>
+                                    <div class="col-sm-4 btn-group">
+                                        <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier" target="_blank" class="btn btn-default btn-xs">
+                                            <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                        </a>
+                                        <input type="button" class="btn btn-default btn-xs" value="Slett" onclick="removeParent('@Model.ParentIdentifier')" />
+                                    </div>
+
                                 </div>
-                                <div class="col-sm-4 btn-group">
-                                    <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier" target="_blank" class="btn btn-default btn-xs">
-                                        <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
-                                    </a>
-                                    <input type="button" class="btn btn-default btn-xs" value="Slett" onclick="removeParent('@Model.ParentIdentifier')" />
-                                </div>
-               
-                            </div>
                             }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 

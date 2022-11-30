@@ -51,6 +51,9 @@
         Language: function (state) {
             return state.model.Language;
         },
+        MetadataLanguage: function (state) {
+            return state.model.MetadataLanguage;
+        },
         ResourceReferenceCode: function (state) {
             return state.model.ResourceReferenceCode;
         },
@@ -439,7 +442,7 @@
             return getters.isService && getters.isAccessPoint && getters.isInspire;
         },
         showQualitySpecificationResultInspireSpatialServiceTechnicalConformance: function (state, getters) {
-            return getters.isService && getters.isAccessPoint;
+            return getters.isService && getters.isAccessPoint && (state.model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance != null && state.model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance !='');
         },
         QualitySpecificationResultInspireSpatialServiceConformance: function (state) {
             return state.model.QualitySpecificationResultInspireSpatialServiceConformance;

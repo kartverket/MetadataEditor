@@ -1,6 +1,7 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
 @model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
-<script>
+@section scripts {
+    <script>
 
     function getMetadata(uuid) {
         $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
@@ -96,64 +97,67 @@
 
         h += '</div>';
         h += '<hr style="margin: 2px 2px 2px 2px" />';
-        
+
         $('#parentIdentifierDIV').html(h);
         alert('Metadata ble lagt til');
-        
+
 
     }
 
-</script>
-<div class="modal-dialog" style="width: 75%;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4>Overordnet metadata for @Model.Title</h4>
-            <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-sm-5">
-                    <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />
-                </div>
-                <div class="col-sm-1">
-                    <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>
-                    <span id="searchInfo" style="color:red"></span>
-                </div>
-                <div class="col-sm-6"><b>Valgt overordnet metadata:</b></div>
+    </script>
+    }
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Overordnet metadata for @Model.Title</h4>
+                <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
             </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <br />
-                    <div id="searchresultsDS">
-
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />
                     </div>
+                    <div class="col-sm-1">
+                        <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>
+                        <span id="searchInfo" style="color:red"></span>
+                    </div>
+                    <div class="col-sm-6"><b>Valgt overordnet metadata:</b></div>
                 </div>
-                <div class="col-sm-6">
-                    <div id="parentIdentifierDIV">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <br />
+                        <div id="searchresultsDS">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="parentIdentifierDIV">
                             @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
                             {
-                            <div id="parentIdentifier-@Model.ParentIdentifier.ToString()" class="row">
-                                <input type="hidden" value="@Model.ParentIdentifier.ToString()" name="ParentIdentifier" />
-                                <div class="col-sm-8">
-                                    <div id="title-@Model.ParentIdentifier.ToString()">
-                                        <script>getMetadata('@Model.ParentIdentifier.ToString()');</script>
+                                <div id="parentIdentifier-@Model.ParentIdentifier.ToString()" class="row">
+                                    <input type="hidden" value="@Model.ParentIdentifier.ToString()" name="ParentIdentifier" />
+                                    <div class="col-sm-8">
+                                        <div id="title-@Model.ParentIdentifier.ToString()">
+                                            @section scripts {
+                                                <script>getMetadata('@Model.ParentIdentifier.ToString()');</script>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 btn-group">
+                                        <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier.ToString()" target="_blank" class="btn btn-default btn-xs">
+                                            <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-2 btn-group">
+                                        <a href="#" onclick="document.getElementById('parentIdentifier-@Model.ParentIdentifier.ToString()').parentNode.removeChild(document.getElementById('parentIdentifier-@Model.ParentIdentifier.ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
                                     </div>
                                 </div>
-                                <div class="col-sm-2 btn-group">
-                                    <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier.ToString()" target="_blank" class="btn btn-default btn-xs">
-                                        <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
-                                    </a>
-                                </div>
-                                <div class="col-sm-2 btn-group">
-                                    <a href="#" onclick="document.getElementById('parentIdentifier-@Model.ParentIdentifier.ToString()').parentNode.removeChild(document.getElementById('parentIdentifier-@Model.ParentIdentifier.ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
-                                </div>
-                            </div>
                             }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 

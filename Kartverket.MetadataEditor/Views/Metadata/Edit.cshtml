@@ -61,7 +61,7 @@
         <br />
         <small>
             <div class="label @Model.GetInnholdstypeCSS()">@Model.GetInnholdstype()</div>
-            @if (Model.HierarchyLevel == "series" && !string.IsNullOrEmpty(Model.HierarchyLevelName) )
+            @if (Model.HierarchyLevel == "series" && !string.IsNullOrEmpty(Model.HierarchyLevelName))
             {
                 <span>@Model.HierarchyLevelName</span>
             }
@@ -111,248 +111,555 @@
 
 @Html.ValidationSummary(false, UI.FormValidationErrors + ":", new { @class = "alert alert-danger" })
 
-    <form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
-        <div id="vue-container">
-            <ul class="nav nav-tabs">
-                <li is="tab" v-show="tab.display == true" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></li>
-            </ul>
-            <div v-bind:is="tab.id" v-show="$store.getters['settingsSelectedTab'].id == tab.id" v-for="tab in $store.getters['settingsTabs']"></div>
-        </div>
+<form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
+    <div id="vue-container">
+        <ul class="nav nav-tabs">
+            <li is="tab" v-show="tab.display == true" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></li>
+        </ul>
+        <div v-bind:is="tab.id" v-show="$store.getters['settingsSelectedTab'].id == tab.id" v-for="tab in $store.getters['settingsTabs']"></div>
+    </div>
 
-        @Html.HiddenFor(m => m.Uuid)
-        @Html.HiddenFor(m => m.DateMetadataUpdated)
-        @Html.HiddenFor(m => m.HierarchyLevel)
-        @if (Model.IsService())
-        {
-            <div id="operatesOn" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
-                @Html.Partial("_OperatesOn", Model)
-            </div>
-            <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
-                @Html.Partial("_ParentIdentifier", Model)
-            </div>
-        }
-        @if (Model.IsSoftware())
-        {
-            <div id="crossReference" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
-                @Html.Partial("_CrossReference", Model)
-            </div>
-        }
-        @if (Model.IsDataset())
-        {
-            <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
-                @Html.Partial("_ParentIdentifierSeries", Model)
-            </div>
-        }
+    @Html.HiddenFor(m => m.Uuid)
+    @Html.HiddenFor(m => m.DateMetadataUpdated)
+    @Html.HiddenFor(m => m.HierarchyLevel)
+    @if (Model.IsService())
+    {
+        <div id="operatesOn" class="modal" tabindex="-1" role="dialog" aria-labelledby="operatesOn" aria-hidden="true">
 
-        @section ActionMenu {
-            <div class="btn-group">
-                @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
-            <i class="glyphicon glyphicon-file"></i> Last ned XML
-        </a>*@
+            <div class="modal-dialog" style="width: 75%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Koble til datasett (@Model.Title)</h4>
+                        <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>
+                                <span id="searchInfo" style="color:red"></span>
+                            </div>
+                            <div class="col-sm-6"><b>Tilknyttede datasett:</b></div>
+                        </div>
 
-                <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
-                    <span class="glyphicon glyphicon-share-alt"></span> @UI.DisplayInMapCatalogue
-                </a>
-                @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
-                {
-                    if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WMS"))
-                    {
-                        <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
-                            <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
-                        </a>
-                    }
-                    if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WFS"))
-                    {
-                        <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
-                            <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
-                        </a>
-                    }
-                }
-                @if (Model.IsDataset() && showProductSheetGeneratorUrl)
-                {
-                    <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.CreateProductFactSheet</a>
-                }
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br />
+                                <div id="searchresultsDS">
 
-                @if (Model.IsService())
-                {
-                    <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.LinkToDataset</a>
-                    <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.AddLinkToService</a>
-                }
-                @if (Model.IsSoftware())
-                {
-                    <a href="#" role="button" data-toggle="modal" id="crossReferenceLink" data-target="#crossReference" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
-                }
-                @if (Model.IsDataset())
-                {
-                    <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasettserie</a>
-                }
-            </div>
-        }
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="operatesOnDIV">
+                                    @for (int i = 0; i < Model.OperatesOn.Count; i++)
+                                    {
+                                        <div id="operatesOn-@Model.OperatesOn[i].ToString()" class="row">
+                                            <input type="hidden" value="@Model.OperatesOn[i].ToString()" name="OperatesOn" />
+                                            <div class="col-sm-8">
+                                                <div id="title-@Model.OperatesOn[i].ToString()">
 
-        <div class="form-group">
-            <div class="col-sm-12 text-right">
-                <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">@UI.Delete</button>
-                @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
-                {
-                    <input type="checkbox" name="ignoreValidationError" value="1" /> <span>@UI.IgnoreErrors</span>
-                }
-                else
-                {
-                    <input type="hidden" name="ignoreValidationError" value="0" />
-                }
-                <input type="hidden" name="published" value="true" />
-                @*}*@
-                <button name="action" type="submit" class="btn btn-primary show-loading-animation" value="@UI.Button_Save" data-loading-message="Lagrer metadata">@UI.Button_Save</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 btn-group">
+                                                <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.OperatesOn[i].ToString()" target="_blank" class="btn btn-default btn-xs">
+                                                    <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-2 btn-group">
+                                                <a href="#" onclick="document.getElementById('operatesOn-@Model.OperatesOn[i].ToString()').parentNode.removeChild(document.getElementById('operatesOn-@Model.OperatesOn[i].ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
+                                            </div>
+                                        </div>
+                                        <hr style="margin: 2px 2px 2px 2px" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div id="parentIdentifier" class="modal" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
+            <div class="modal-dialog" style="width: 75%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Koble til tjeneste (@Model.Title)</h4>
+                        <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" id="searchmetadataService" onkeydown="if (event.keyCode == 13) { getMetadataService(document.getElementById('searchmetadataService').value); return false; }" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="form-control" onclick="getMetadataService(document.getElementById('searchmetadataService').value);">Søk</button>
+                                <span id="searchInfoService" style="color:red"></span>
+                            </div>
+                            <div class="col-sm-6"><b>Tilknyttet tjeneste:</b></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br />
+                                <div id="searchresultsService">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="parentIdentifierDIV">
+                                    @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
+                                    {
+                                        <div id="parentIdentifier-@Model.ParentIdentifier" class="row">
+                                            <input type="hidden" value="@Model.ParentIdentifier" name="parentIdentifier" />
+                                            <div class="col-sm-8">
+                                                <div id="titleService-@Model.ParentIdentifier">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 btn-group">
+                                                <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier" target="_blank" class="btn btn-default btn-xs">
+                                                    <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (Model.IsSoftware())
+    {
+        <div id="crossReference" class="modal" tabindex="-1" role="dialog" aria-labelledby="crossReference" aria-hidden="true">
+            <div class="modal-dialog" style="width: 75%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Koble til datasett (@Model.Title)</h4>
+                        <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetextCrossReference(document.getElementById('searchmetadata').value); return false; }" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="form-control" onclick="getMetadataFreetextCrossReference(document.getElementById('searchmetadata').value);">Søk</button>
+                                <span id="searchInfo" style="color:red"></span>
+                            </div>
+                            <div class="col-sm-6"><b>Tilknyttede datasett:</b></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br />
+                                <div id="searchresultsDS">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="crossReferenceDIV">
+                                    @for (int i = 0; i < Model.CrossReference.Count; i++)
+                                    {
+                                        <div id="crossReference-@Model.CrossReference[i].ToString()" class="row">
+                                            <input type="hidden" value="@Model.CrossReference[i].ToString()" name="CrossReference" />
+                                            <div class="col-sm-8">
+                                                <div id="title-@Model.CrossReference[i].ToString()">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 btn-group">
+                                                <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.CrossReference[i].ToString()" target="_blank" class="btn btn-default btn-xs">
+                                                    <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-2 btn-group">
+                                                <a href="#" onclick="document.getElementById('crossReference-@Model.CrossReference[i].ToString()').parentNode.removeChild(document.getElementById('crossReference-@Model.CrossReference[i].ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
+                                            </div>
+                                        </div>
+                                        <hr style="margin: 2px 2px 2px 2px" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (Model.IsDataset())
+    {
+        <div id="parentIdentifier" class="modal" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
+            <div class="modal-dialog" style="width: 75%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Koble til datasettserie (@Model.Title)</h4>
+                        <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input class="form-control" type="text" id="searchmetadataSeries" onkeydown="if (event.keyCode == 13) { getMetadataSeries(document.getElementById('searchmetadataSeries').value); return false; }" />
+                            </div>
+                            <div class="col-sm-1">
+                                <button type="button" class="form-control" onclick="getMetadataSeries(document.getElementById('searchmetadataSeries').value);">Søk</button>
+                                <span id="searchInfoSeries" style="color:red"></span>
+                            </div>
+                            <div class="col-sm-6"><b>Tilknyttet datasettserie:</b></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br />
+                                <div id="searchresultsSeries">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="parentIdentifierDIV">
+                                    @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
+                                    {
+                                        <div id="parentIdentifier" class="row">
+                                            <input type="hidden" value="@Model.ParentIdentifier" name="ParentIdentifier" />
+                                            <div class="col-sm-8">
+                                                <div id="titleSeries-@Model.ParentIdentifier">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 btn-group">
+                                                <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier" target="_blank" class="btn btn-default btn-xs">
+                                                    <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                                </a>
+                                                <input type="button" class="btn btn-default btn-xs" value="Slett" onclick="removeParent('@Model.ParentIdentifier')" />
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-    </form>
+        </div>
+    }
+
+    @section ActionMenu {
+        <div class="btn-group">
+            @*<a href="@ViewBag.GeoNetworkXmlDownloadUrl" class="btn btn-sm btn-default">
+                    <i class="glyphicon glyphicon-file"></i> Last ned XML
+                </a>*@
+
+            <a href="@ViewBag.KartkatalogViewUrl" target="_blank" class="btn btn-sm btn-default">
+                <span class="glyphicon glyphicon-share-alt"></span> @UI.DisplayInMapCatalogue
+            </a>
+            @if (Model.IsService() && string.IsNullOrWhiteSpace(Model.ParentIdentifier))
+            {
+                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WMS"))
+                {
+                    <a href="@Url.Action("Index", "Service", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                    </a>
+                }
+                if (@Model.DistributionProtocol != null && @Model.DistributionProtocol.Contains("OGC:WFS"))
+                {
+                    <a href="@Url.Action("Index", "ServiceWfs", new { uuid = @Model.Uuid })" class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-plus-sign"></span> Opprett metadata for tjenestelag
+                    </a>
+                }
+            }
+            @if (Model.IsDataset() && showProductSheetGeneratorUrl)
+            {
+                <a href="@ViewBag.CreateProductSheetUrl" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.CreateProductFactSheet</a>
+            }
+
+            @if (Model.IsService())
+            {
+                <a href="#" role="button" data-toggle="modal" id="operatesOnLink" data-target="#operatesOn" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.LinkToDataset</a>
+                <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> @UI.AddLinkToService</a>
+            }
+            @if (Model.IsSoftware())
+            {
+                <a href="#" role="button" data-toggle="modal" id="crossReferenceLink" data-target="#crossReference" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasett</a>
+            }
+            @if (Model.IsDataset())
+            {
+                <a href="#" role="button" data-toggle="modal" id="parentIdentifierLink" data-target="#parentIdentifier" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list-alt"></span> Koble til datasettserie</a>
+            }
+        </div>
+    }
+
+    <div class="form-group">
+        <div class="col-sm-12 text-right">
+            <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">@UI.Delete</button>
+            @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
+            {
+                <input type="checkbox" name="ignoreValidationError" value="1" /> <span>@UI.IgnoreErrors</span>
+            }
+            else
+            {
+                <input type="hidden" name="ignoreValidationError" value="0" />
+            }
+            <input type="hidden" name="published" value="true" />
+            @*}*@
+            <button name="action" type="submit" class="btn btn-primary show-loading-animation" value="@UI.Button_Save" data-loading-message="Lagrer metadata">@UI.Button_Save</button>
+        </div>
+    </div>
+
+
+</form>
 
 @section scripts {
     <script>
-        $(function () {
+                        function getMetadata(uuid) {
 
-            //  add warning sign to tabs containing input fields with error.
-            $('.input-validation-error').each(function () {
-                var inputElement = $(this);
-                var id = inputElement.closest(".tab-pane").attr('id');
-                var tabLink = $('ul.nav-tabs a[href="#' + id + '"]');
-
-                inputElement.closest('.form-group').addClass('has-error');
-                tabLink.parent().addClass("has-error");
-
-                var warning = tabLink.parent().find('span.glyphicon-warning-sign');
-                if (warning.length == 0) {
-                    tabLink.parent().attr('data-toggle', 'tooltip');
-                    tabLink.parent().prop('title', 'Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet');
-                }
-            });
+    $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid + "&lang=" + Cookies.get('_culture'), function (result) {
 
 
-            // Check date not in future
-            $("#DateUpdated").change(function (event) {
-                event.preventDefault();
-                var currentDate = new Date();
-                var selectedDateStr = $('#DateUpdated').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                if (selectedDate > currentDate) {
-                    alert('Dato kan ikke være i fremtiden');
-                    $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
-            });
+    if (result.length != 0) {
+    if (result.Results.length != 0) {
+    var title = result.Results[0].Title;
+    $("#title-" + uuid).text(title);
+    }
+    else { $("#title-" + uuid).text("TITTEL MANGLER"); }
+    }
 
-            $("#DatePublished").change(function (event) {
-                event.preventDefault();
-                var currentDate = new Date();
-                var selectedDateStr = $('#DatePublished').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                if (selectedDate > currentDate) {
-                    alert('Dato kan ikke være i fremtiden');
-                    $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
-            });
+    else {
+    $("#title-" + uuid).text("TITTEL MANGLER");
+    }
 
-            $("#DateCreated").change(function (event) {
-                event.preventDefault();
-                var currentDate = new Date();
-                var selectedDateStr = $('#DateCreated').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                if (selectedDate > currentDate) {
-                    alert('Dato kan ikke være i fremtiden');
-                    $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
-            });
-
-            $("#DateMetadataValidFrom").change(function (event) {
-                event.preventDefault();
-                var selectedDateStr = $('#DateMetadataValidFrom').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                var validToStr = $('#DateMetadataValidTo').val();
-                var validToArr = validToStr.split('.');
-                var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
-
-                if (ValidToDate < selectedDate) {
-                    alert('Gyldig fra dato må være mindre enn gyldig til dato');
-                    var newDate = new Date(ValidToDate);
-                    newDate.setDate(newDate.getDate() - 1);
-                    $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                }
-            });
-
-            $("#DateMetadataValidTo").change(function (event) {
-                event.preventDefault();
-                var selectedDateStr = $('#DateMetadataValidTo').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                var validFromStr = $('#DateMetadataValidFrom').val();
-                var validFromArr = validFromStr.split('.');
-                var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
-
-                if (selectedDate < ValidFromDate) {
-                    alert('Gyldig til dato må være større enn gyldig fra dato');
-                    var newDate = new Date(ValidFromDate);
-                    newDate.setDate(newDate.getDate() + 1);
-                    $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                }
-            });
-
-            $("#QualitySpecificationDate").change(function (event) {
-                event.preventDefault();
-                var currentDate = new Date();
-                var selectedDateStr = $('#QualitySpecificationDate').val();
-                var selectedDateArr = selectedDateStr.split('.');
-                var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                if (selectedDate > currentDate) {
-                    alert('Dato kan ikke være i fremtiden');
-                    $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                }
-            });
-        });
-
-        function removeReferenceSystem(refID) {
-            var elem = document.getElementById("referenceRow" + refID);
-            elem.parentNode.removeChild(elem);
-            document.getElementById('ReferenceSystemsCount').value -= 1;
-        };
+    });
+    };
 
 
+    function getMetadataFreetext(searchStr) {
 
-        function loadConcepts() {
-            $.ajax({
-                headers: {
-                    Accept: "application/rdf+xml",
-                    "Content-Type": "text/plain; charset=utf-8"
-                },
-                type: "GET",
-                url: $("#ApplicationSchema").val(),
-                success: setConcepts
-            });
+    $('#searchresultsDS').empty();
+    $('#searchInfo').text('Fant ingen metadata');
+    if (searchStr == '') {
+    $('#searchInfo').text('Vennligst skriv inn søkeord');
+    return false;
+    }
+
+    var counter = 0;
+
+    $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?limit=25&facets[0]name=type&facets[0]value=dataset&text=" + searchStr + "&lang=" + Cookies.get('_culture'), function (result) {
+
+    if (result.length != 0) {
+
+    if (result.Results.length != 0) {
+    for (r = counter ; r < result.Results.length; r++) {
+    displayMetadataRow(result.Results[r]);
+    }
+    $('#searchInfo').text('');
+    }
+
+    }
+
+    });
+
+    $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr + "&lang=" + Cookies.get('_culture'), function (result) {
+
+    if (result.length != 0) {
+
+    if (result.Results.length != 0) {
+    for (r = counter ; r < result.Results.length; r++) {
+    displayMetadataRow(result.Results[r]);
+    }
+
+    $('#searchInfo').text('');
+    }
+
+    }
+
+    });
+
+    };
+
+
+    function displayMetadataRow(result) {
+    var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addOperatesOn(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+    $('#searchresultsDS').append(div);
+    }
+
+    function addOperatesOn(Uuid) {
+    var h = '<div id="operatesOn-' + Uuid + '" class="row">';
+        h += '<input type="hidden" value="' + Uuid + '" name="OperatesOn" />';
+
+        h += '<div class="col-sm-8">';
+
+            h += '<div id="title-' + Uuid + '">';
+                h += '<script>getMetadata(\'' + Uuid + '\'' + '\)\;\<\/script>';
+        h += '</div>';
+
+        h += '</div>';
+
+        h += '<div class="col-sm-2 btn-group">';
+        h += '<a href="@Html.KartkatalogUrl()metadata/uuid/' + Uuid + '" target="_blank" class="btn btn-default btn-xs">';
+        h += ' <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog';
+        h += '   </a>';
+        h += '</div>';
+
+        h += '<div class="col-sm-2 btn-group">';
+        h += '<a href="#" onclick="document.getElementById(\'operatesOn-' + Uuid + '\').parentNode.removeChild(document.getElementById(\'operatesOn-' + Uuid + '\'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>';
+        h += '</div>';
+
+        h += '</div>';
+        h += '<hr style="margin: 2px 2px 2px 2px" />';
+        if(document.getElementById('operatesOn-' + Uuid) == null){
+            $('#operatesOnDIV').append(h);
+            alert('Datasett ble lagt til');
         }
+        else { alert('Datasett er allerede lagt til');}
 
-        function setConcepts(xml) {
-            var conceptFound = false;
-            $('#KeywordsConceptAlert').removeClass("alert alert-warning");
-            $('#KeywordsConceptAlert').html("");
-            $("#KeywordsConcept option").remove();
-            $(xml).find("skos\\:Concept, Concept").each(function () {
-                var prefLabel = $(this).find("skos\\:prefLabel, prefLabel").text();
-                var about = $(this).attr("rdf:about");
-                $('#KeywordsConcept').append($("<option selected></option>")
-                    .attr("value", prefLabel + "|" + about)
-                    .text(prefLabel));
-                conceptFound = true;
-            });
-            $('#KeywordsConcept').trigger("chosen:updated");
-            if (!conceptFound) {
-                $('#KeywordsConceptAlert').addClass("alert alert-warning");
-                $('#KeywordsConceptAlert').html("Fant ingen begreper");
-            }
-        }
+    }
+
+                            $(function () {
+
+                                    //  add warning sign to tabs containing input fields with error.
+                                    $('.input-validation-error').each(function () {
+                                        var inputElement = $(this);
+                                        var id = inputElement.closest(".tab-pane").attr('id');
+                                        var tabLink = $('ul.nav-tabs a[href="#' + id + '"]');
+
+                                        inputElement.closest('.form-group').addClass('has-error');
+                                        tabLink.parent().addClass("has-error");
+
+                                        var warning = tabLink.parent().find('span.glyphicon-warning-sign');
+                                        if (warning.length == 0) {
+                                            tabLink.parent().attr('data-toggle', 'tooltip');
+                                            tabLink.parent().prop('title', 'Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet');
+                                        }
+                                    });
+
+
+                                // Check date not in future
+                                $("#DateUpdated").change(function (event) {
+                                    event.preventDefault();
+                                    var currentDate = new Date();
+                                    var selectedDateStr = $('#DateUpdated').val();
+                                    var selectedDateArr = selectedDateStr.split('.');
+                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                                    if (selectedDate > currentDate) {
+                                    alert('Dato kan ikke være i fremtiden');
+                                        $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                                    }
+                                });
+
+                                $("#DatePublished").change(function (event) {
+                                    event.preventDefault();
+                                    var currentDate = new Date();
+                                    var selectedDateStr = $('#DatePublished').val();
+                                    var selectedDateArr = selectedDateStr.split('.');
+                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                                    if (selectedDate > currentDate) {
+                                    alert('Dato kan ikke være i fremtiden');
+                                        $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                                    }
+                                });
+
+                                $("#DateCreated").change(function (event) {
+                                    event.preventDefault();
+                                    var currentDate = new Date();
+                                    var selectedDateStr = $('#DateCreated').val();
+                                    var selectedDateArr = selectedDateStr.split('.');
+                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                                    if (selectedDate > currentDate) {
+                                    alert('Dato kan ikke være i fremtiden');
+                                        $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                                    }
+                                });
+
+                                $("#DateMetadataValidFrom").change(function (event) {
+                                    event.preventDefault();
+                                    var selectedDateStr = $('#DateMetadataValidFrom').val();
+                                    var selectedDateArr = selectedDateStr.split('.');
+                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                                    var validToStr = $('#DateMetadataValidTo').val();
+                                    var validToArr = validToStr.split('.');
+                                    var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
+
+                                    if (ValidToDate < selectedDate) {
+                                    alert('Gyldig fra dato må være mindre enn gyldig til dato');
+                                        var newDate = new Date(ValidToDate);
+                                        newDate.setDate(newDate.getDate() - 1);
+                                        $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+                                    }
+                                });
+
+                                $("#DateMetadataValidTo").change(function (event) {
+                                    event.preventDefault();
+                                    var selectedDateStr = $('#DateMetadataValidTo').val();
+                                    var selectedDateArr = selectedDateStr.split('.');
+                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                                    var validFromStr = $('#DateMetadataValidFrom').val();
+                                    var validFromArr = validFromStr.split('.');
+                                    var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
+
+                                    if (selectedDate < ValidFromDate) {
+                                    alert('Gyldig til dato må være større enn gyldig fra dato');
+                                        var newDate = new Date(ValidFromDate);
+                                        newDate.setDate(newDate.getDate() + 1);
+                                        $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+                                    }
+                                });
+
+                                $("#QualitySpecificationDate").change(function (event) {
+                                    event.preventDefault();
+                                    var currentDate = new Date();
+                                    var selectedDateStr = $('#QualitySpecificationDate').val();
+                                    var selectedDateArr = selectedDateStr.split('.');
+                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+                                    if (selectedDate > currentDate) {
+                                    alert('Dato kan ikke være i fremtiden');
+                                        $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+                                    }
+                                });
+                            });
+
+                            function removeReferenceSystem(refID) {
+                                var elem = document.getElementById("referenceRow" + refID);
+                                elem.parentNode.removeChild(elem);
+                                document.getElementById('ReferenceSystemsCount').value -= 1;
+                            };
+
+
+
+                            function loadConcepts() {
+                                    $.ajax({
+                                        headers: {
+                                            Accept: "application/rdf+xml",
+                                            "Content-Type": "text/plain; charset=utf-8"
+                                        },
+                                        type: "GET",
+                                        url: $("#ApplicationSchema").val(),
+                                        success: setConcepts
+                                    });
+                            }
+
+                            function setConcepts(xml) {
+                                var conceptFound = false;
+                                $('#KeywordsConceptAlert').removeClass("alert alert-warning");
+                                $('#KeywordsConceptAlert').html("");
+                                $("#KeywordsConcept option").remove();
+                                $(xml).find("skos\\:Concept, Concept").each(function () {
+                                    var prefLabel = $(this).find("skos\\:prefLabel, prefLabel").text();
+                                    var about = $(this).attr("rdf:about");
+                                    $('#KeywordsConcept').append($("<option selected></option>")
+                                        .attr("value", prefLabel + "|" + about)
+                                        .text(prefLabel));
+                                    conceptFound = true;
+                                });
+                                $('#KeywordsConcept').trigger("chosen:updated");
+                                if (!conceptFound) {
+                                    $('#KeywordsConceptAlert').addClass("alert alert-warning");
+                                    $('#KeywordsConceptAlert').html("Fant ingen begreper");
+                                }
+                            }
 
     </script>
 
@@ -430,5 +737,313 @@
             }
         });
     </script>
+    <script>
+    function getMetadataForService(uuid) {
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+
+            if (result.length != 0) {
+                if (result.Results.length != 0) {
+                    var titleService = result.Results[0].Title;
+                    $("#titleService-" + uuid).text(titleService);
+                }
+                else { $("#titleService-" + uuid).text("TITTEL MANGLER"); }
+            }
+
+            else {
+                $("#titleService-" + uuid).text("TITTEL MANGLER");
+            }
+
+        });
+    };
+
+    function getMetadataService(searchStr) {
+
+        $('#searchresultsService').empty();
+        $('#searchInfoService').text('Fant ingen metadata');
+        if (searchStr == '') {
+            $('#searchInfoService').text('Vennligst skriv inn søkeord');
+            return false;
+        }
+
+        var counter = 0;
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=service&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataServiceRow(result.Results[r]);
+                    }
+                    $('#searchInfoService').text('');
+                }
+
+            }
+
+        });
+
+    };
+
+
+    function displayMetadataServiceRow(result) {
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="setParentIdentifier(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Velg' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        $('#searchresultsService').append(div);
+    }
+
+    function setParentIdentifier(Uuid) {
+        if (Uuid == $('#Uuid').val()) {
+            $('#searchInfoService').text('Kan ikke koble tjenesten til seg selv');
+        }
+        else
+        {
+        var h = '<div id="parentIdentifier-' + Uuid + '" class="row">';
+        h += '<input type="hidden" value="' + Uuid + '" name="ParentIdentifier" />';
+
+        h += '<div class="col-sm-8">';
+
+        h += '<div id="titleService-' + Uuid + '">';
+        h += '<script>getMetadataForService(\'' + Uuid + '\'' + '\)\;\<\/script>';
+        h += '</div>';
+
+        h += '</div>';
+
+        h += '<div class="col-sm-4 btn-group">';
+        h += '<a href="@Html.KartkatalogUrl()metadata/uuid/' + Uuid + '" target="_blank" class="btn btn-default btn-xs">';
+        h += ' <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog';
+        h += '   </a>';
+        h += '</div>';
+
+        h += '</div>';
+        h += '<hr style="margin: 2px 2px 2px 2px" />';
+
+            $('#parentIdentifierDIV').html(h);
+        }
+
+
+    }
+
+    </script>
+    <script>
+
+    function getMetadata(uuid) {
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+
+            if (result.length != 0) {
+                if (result.Results.length != 0) {
+                    var title = result.Results[0].Title;
+                    $("#title-" + uuid).text(title);
+                }
+                else { $("#title-" + uuid).text("TITTEL MANGLER"); }
+            }
+
+            else {
+                $("#title-" + uuid).text("TITTEL MANGLER");
+            }
+
+        });
+    };
+
+
+        function getMetadataFreetextCrossReference(searchStr) {
+
+        $('#searchresultsDS').empty();
+        $('#searchInfo').text('Fant ingen metadata');
+        if (searchStr == '') {
+            $('#searchInfo').text('Vennligst skriv inn søkeord');
+            return false;
+        }
+
+        var counter = 0;
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=dataset&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataRowCrossReference(result.Results[r]);
+                    }
+                    $('#searchInfo').text('');
+                }
+
+            }
+
+        });
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataRowCrossReference(result.Results[r]);
+                    }
+
+                    $('#searchInfo').text('');
+                }
+
+            }
+
+        });
+
+    };
+
+
+        function displayMetadataRowCrossReference(result) {
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addCrossReference(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        $('#searchresultsDS').append(div);
+    }
+
+    function addCrossReference(Uuid) {
+        var h = '<div id="crossReference-' + Uuid + '" class="row">';
+        h += '<input type="hidden" value="' + Uuid + '" name="CrossReference" />';
+
+        h += '<div class="col-sm-8">';
+
+        h += '<div id="title-' + Uuid + '">';
+        h += '<script>getMetadata(\'' + Uuid + '\'' + '\)\;\<\/script>';
+        h += '</div>';
+
+        h += '</div>';
+
+        h += '<div class="col-sm-2 btn-group">';
+        h += '<a href="@Html.KartkatalogUrl()metadata/uuid/' + Uuid + '" target="_blank" class="btn btn-default btn-xs">';
+        h += ' <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog';
+        h += '   </a>';
+        h += '</div>';
+
+        h += '<div class="col-sm-2 btn-group">';
+        h += '<a href="#" onclick="document.getElementById(\'crossReference-' + Uuid + '\').parentNode.removeChild(document.getElementById(\'crossReference-' + Uuid + '\'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>';
+        h += '</div>';
+
+        h += '</div>';
+        h += '<hr style="margin: 2px 2px 2px 2px" />';
+        if (document.getElementById('crossReference-' + Uuid) == null) {
+            $('#crossReferenceDIV').append(h);
+            alert('Datasett ble lagt til');
+        }
+        else { alert('Datasett er allerede lagt til');}
+
+    }
+
+    </script>
+
+    <script>
+    function getMetadataForSeries(uuid) {
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?text=" + uuid, function (result) {
+
+
+            if (result.length != 0) {
+                if (result.Results.length != 0) {
+                    var titleSeries = result.Results[0].Title;
+                    $("#titleSeries-" + uuid).text(titleSeries);
+                }
+                else { $("#titleSeries-" + uuid).text("TITTEL MANGLER"); }
+            }
+
+            else {
+                $("#titleSeries-" + uuid).text("TITTEL MANGLER");
+            }
+
+        });
+    };
+
+    function getMetadataSeries(searchStr) {
+
+        $('#searchresultsSeries').empty();
+        $('#searchInfoSeries').text('Fant ingen metadata');
+        if (searchStr == '') {
+            $('#searchInfoSeries').text('Vennligst skriv inn søkeord');
+            return false;
+        }
+
+        var counter = 0;
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataSeriesRow(result.Results[r]);
+                    }
+                    $('#searchInfoSeries').text('');
+                }
+
+            }
+
+        });
+
+    };
+
+
+    function displayMetadataSeriesRow(result) {
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="setParentIdentifier(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Velg' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        $('#searchresultsSeries').append(div);
+    }
+
+    function setParentIdentifier(Uuid) {
+        if (Uuid == $('#Uuid').val()) {
+            $('#searchInfoSeries').text('Kan ikke koble datasettet til seg selv');
+        }
+        else
+        {
+        var h = '<div id="parentIdentifier" class="row">';
+        h += '<input type="hidden" value="' + Uuid + '" name="ParentIdentifier" />';
+
+        h += '<div class="col-sm-8">';
+
+        h += '<div id="titleSeries-' + Uuid + '">';
+        h += '<script>getMetadataForSeries(\'' + Uuid + '\'' + '\)\;\<\/script>';
+        h += '</div>';
+
+        h += '</div>';
+
+        h += '<div class="col-sm-4 btn-group">';
+        h += '<a href="@Html.KartkatalogUrl()metadata/uuid/' + Uuid + '" target="_blank" class="btn btn-default btn-xs">';
+        h += ' <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog';
+        h += '   </a>';
+            h += '<input type="button" class="btn btn -default btn - xs" value="Slett" onclick="removeParent(' + Uuid+')" />'
+        h += '</div>';
+
+        h += '</div>';
+        h += '<hr style="margin: 2px 2px 2px 2px" />';
+
+            $('#parentIdentifierDIV').html(h);
+
+            $('#parentIdentifier').show();
+        }
+    }
+    function removeParent(uuid) {
+        $('input[name="ParentIdentifier"]').val('');
+        $('#titleSeries-'+uuid).text('');
+    }
+
+    </script>
+
+    @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
+    {
+        <script>getMetadataForService('@Model.ParentIdentifier');</script>
+    }
+
+    @for (int i = 0; i < Model.OperatesOn.Count; i++)
+    {
+        <script>getMetadata('@Model.OperatesOn[i].ToString()');</script>
+    }
+
+    @for (int i = 0; i < Model.CrossReference.Count; i++)
+    {
+        <script>getMetadata('@Model.CrossReference[i].ToString()');</script>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
+    {
+        <script>getMetadataForSeries('@Model.ParentIdentifier');</script>
+    }
 }
 

@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UI {
@@ -57,6 +57,24 @@ namespace Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse engelsk er påkrevd.
+        /// </summary>
+        public static string AbstractEnglishRequired {
+            get {
+                return ResourceManager.GetString("AbstractEnglishRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse norsk er påkrevd.
+        /// </summary>
+        public static string AbstractNorwegianRequired {
+            get {
+                return ResourceManager.GetString("AbstractNorwegianRequired", resourceCulture);
             }
         }
         
@@ -1094,6 +1112,24 @@ namespace Resources {
         public static string LanguageInDatasetHelp {
             get {
                 return ResourceManager.GetString("LanguageInDatasetHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Språk i metadata.
+        /// </summary>
+        public static string LanguageInMetadata {
+            get {
+                return ResourceManager.GetString("LanguageInMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angi standard språk for metadata.
+        /// </summary>
+        public static string LanguageInMetadataHelp {
+            get {
+                return ResourceManager.GetString("LanguageInMetadataHelp", resourceCulture);
             }
         }
         
@@ -2583,6 +2619,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geografisk nivå.
+        /// </summary>
+        public static string SpatialScope {
+            get {
+                return ResourceManager.GetString("SpatialScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrativt nivå som datasettet har til hensikt å dekke.
+        /// </summary>
+        public static string SpatialScopeHelp {
+            get {
+                return ResourceManager.GetString("SpatialScopeHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angi områder.
         /// </summary>
         public static string SpecifyAreas {
@@ -2687,6 +2741,24 @@ namespace Resources {
         public static string TabTimeAndSpace {
             get {
                 return ResourceManager.GetString("TabTimeAndSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tittel engelsk er påkrevd felt.
+        /// </summary>
+        public static string TitleEnglishRequired {
+            get {
+                return ResourceManager.GetString("TitleEnglishRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tittel norsk er påkrevd felt.
+        /// </summary>
+        public static string TitleNorweginRequired {
+            get {
+                return ResourceManager.GetString("TitleNorweginRequired", resourceCulture);
             }
         }
         

@@ -1,5 +1,5 @@
 ﻿<script type="text/x-template" id="textarea-template">
-    <textarea v-if="formElement" v-bind:name="formElement.name" v-bind:readonly="readOnly" class="form-control" rows="6" v-on:change="$parent.updateField({mutation: formElement.mutation, value: $event.target.value})">{{ $store.getters[formElement.getter] }}</textarea>
+    <textarea v-if="formElement" v-bind:name="formElement.name" style="resize: vertical" v-bind:readonly="readOnly" class="form-control" rows="6" v-on:change="$parent.updateField({mutation: formElement.mutation, value: $event.target.value})">{{ $store.getters[formElement.getter] }}</textarea>
 </script>
 
 

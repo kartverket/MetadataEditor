@@ -559,6 +559,10 @@
             }
         },
         methods: {
+            updateField: function (value) {
+                State.model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance = value.value;
+            },
+
             toggleCheckbox: function (keyword) {
                 if (this.isAdded(keyword)) {
                     this.removeKeyword(keyword);

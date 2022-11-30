@@ -56,6 +56,16 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Resources.UI.AbstractEnglishRequired">
+            <summary>
+              Looks up a localized string similar to Beskrivelse engelsk er påkrevd.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.AbstractNorwegianRequired">
+            <summary>
+              Looks up a localized string similar to Beskrivelse norsk er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AccessConstraintsRequired">
             <summary>
               Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
@@ -631,6 +641,16 @@
         <member name="P:Resources.UI.LanguageInDatasetHelp">
             <summary>
               Looks up a localized string similar to Angi språk som i hovedsak er benyttet i tekstfelt og kolonne-overskrifter i datasettet.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LanguageInMetadata">
+            <summary>
+              Looks up a localized string similar to Språk i metadata.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LanguageInMetadataHelp">
+            <summary>
+              Looks up a localized string similar to Angi standard språk for metadata.
             </summary>
         </member>
         <member name="P:Resources.UI.LinkToDataset">
@@ -1448,6 +1468,16 @@
               Looks up a localized string similar to Representasjonsform.
             </summary>
         </member>
+        <member name="P:Resources.UI.SpatialScope">
+            <summary>
+              Looks up a localized string similar to Geografisk nivå.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpatialScopeHelp">
+            <summary>
+              Looks up a localized string similar to Administrativt nivå som datasettet har til hensikt å dekke.
+            </summary>
+        </member>
         <member name="P:Resources.UI.SpecifyAreas">
             <summary>
               Looks up a localized string similar to Angi områder.
@@ -1506,6 +1536,16 @@
         <member name="P:Resources.UI.TabTimeAndSpace">
             <summary>
               Looks up a localized string similar to Tid og rom.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TitleEnglishRequired">
+            <summary>
+              Looks up a localized string similar to Tittel engelsk er påkrevd felt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TitleNorweginRequired">
+            <summary>
+              Looks up a localized string similar to Tittel norsk er påkrevd felt.
             </summary>
         </member>
         <member name="P:Resources.UI.TopicCategory">

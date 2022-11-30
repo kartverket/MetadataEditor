@@ -4,22 +4,22 @@
 <h1>@Model.Metadata.Title</h1>
 @section ActionMenu {}
 
-    <h5>
-        <b>URL til WFS-tjenesten:</b> @Model.WfsUrl
-    </h5>
+<h5>
+    <b>URL til WFS-tjenesten:</b> @Model.WfsUrl
+</h5>
 
-    @if (ViewBag.Message != null)
-    {
-        <div class="alert alert-warning">
-            @ViewBag.Message
-        </div>
-    }
-    else if (Model.Layers.Count == 0)
-    {
-        <div class="alert alert-warning">
-            Serveren returnerte ingen laginformasjon. Vennligst sjekk at URL til WFS-tjenesten er korrekt.
-        </div>
-    }
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning">
+        @ViewBag.Message
+    </div>
+}
+else if (Model.Layers.Count == 0)
+{
+    <div class="alert alert-warning">
+        Serveren returnerte ingen laginformasjon. Vennligst sjekk at URL til WFS-tjenesten er korrekt.
+    </div>
+}
 
 
 <form method="post" action="@Url.Action("CreateMetadataForLayers")">
@@ -45,7 +45,7 @@
             </div>
         }
         @if (Model.Metadata.KeywordsNationalInitiative != null && Model.Metadata.KeywordsNationalInitiative.Count > 0)
-        { 
+        {
             <div class="col-sm-6 col-md-4">
                 <p class="keyword-header">Nasjonale intiativ</p>
                 <ul>
@@ -69,7 +69,7 @@
             </div>
         }
         @if (Model.Metadata.KeywordsInspire != null && Model.Metadata.KeywordsInspire.Count > 0)
-        { 
+        {
             <div class="col-sm-6 col-md-4">
                 <p class="keyword-header">Inspire</p>
                 <ul>
@@ -99,12 +99,12 @@
                 <ul>
                     @foreach (var k in Model.Metadata.KeywordsOther)
                     {
-                        <li @{ string displayStyle = ""; { if (@k == "infoFeatureAccessService") { displayStyle = "display:none; visibility:hidden;"; } } }  style="@displayStyle"><input type="checkbox" name="keywords" checked="checked" value="Other_@k" />@k</li>
+                        <li @{ string displayStyle = ""; { if (@k == "infoFeatureAccessService") { displayStyle = "display:none; visibility:hidden;"; } } } style="@displayStyle"><input type="checkbox" name="keywords" checked="checked" value="Other_@k" />@k</li>
                     }
                 </ul>
             </div>
         }
-        
+
     </div>
 
     <hr />
@@ -155,34 +155,35 @@
     </div>
 </form>
 
-
-<script>
-    $('#toggleSelectedWfsLayers').click(function (event) {
-        event.preventDefault();
-        $('input[name="selectedLayers"]').each(function () {
-            if ($(this).prop('checked')) {
-                $(this).prop('checked', false);
-            } else {
-                $(this).prop('checked', true);
-            }
+@section scripts {
+    <script>
+        $('#toggleSelectedWfsLayers').click(function (event) {
+            event.preventDefault();
+            $('input[name="selectedLayers"]').each(function () {
+                if ($(this).prop('checked')) {
+                    $(this).prop('checked', false);
+                } else {
+                    $(this).prop('checked', true);
+                }
+            });
         });
-    });
 
-    $('#toggleWfsLayerDetails').click(function (event) {
-        event.preventDefault();
-        $('div.wfs-layer > div.panel-body').toggle();
-        $('div.wfs-layer > div.panel-heading span.layer-name').toggle();
-    });
-
-    $('#toggleSelectedKeywords').click(function (event) {
-        event.preventDefault();
-        $('input[name="keywords"]').each(function () {
-            if ($(this).prop('checked')) {
-                $(this).prop('checked', false);
-            } else {
-                $(this).prop('checked', true);
-            }
+        $('#toggleWfsLayerDetails').click(function (event) {
+            event.preventDefault();
+            $('div.wfs-layer > div.panel-body').toggle();
+            $('div.wfs-layer > div.panel-heading span.layer-name').toggle();
         });
-    });
 
-</script>
+        $('#toggleSelectedKeywords').click(function (event) {
+            event.preventDefault();
+            $('input[name="keywords"]').each(function () {
+                if ($(this).prop('checked')) {
+                    $(this).prop('checked', false);
+                } else {
+                    $(this).prop('checked', true);
+                }
+            });
+        });
+
+    </script>
+}

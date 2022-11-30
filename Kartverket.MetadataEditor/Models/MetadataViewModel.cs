@@ -43,19 +43,20 @@ namespace Kartverket.MetadataEditor.Models
         public string ParentIdentifier { get; set; }
         public string MetadataStandard { get; set; }
 
-        [Required(ErrorMessage=null)]
+        [RequiredIf("IsNorwegianMetadata()", ErrorMessageResourceName = "TitleNorweginRequired", ErrorMessageResourceType = typeof(UI))]
         [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
 
         public string TitleFromSelectedLanguage { get; set; }
         [Display(Name = "Language", ResourceType = typeof(UI))]
         public string Language { get; set; } = "nor";
+        public string MetadataLanguage { get; set; } = "nor";
 
         //[Required(ErrorMessage = null)]
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
         public string Purpose { get; set; }
 
-        [Required]
+        [RequiredIf("IsNorwegianMetadata()", ErrorMessageResourceName = "AbstractNorwegianRequired", ErrorMessageResourceType = typeof(UI))]
         [Display(Name = "Metadata_Abstract", ResourceType = typeof(UI))]
         public string Abstract { get; set; }
 
@@ -253,7 +254,9 @@ namespace Kartverket.MetadataEditor.Models
         public DateTime? DateMetadataValidFrom { get; set; }
         public DateTime? DateMetadataValidTo { get; set; }
 
+        [RequiredIf("IsEnglishMetadata()", ErrorMessageResourceName = "TitleEnglishRequired", ErrorMessageResourceType = typeof(UI))]
         public string EnglishTitle { get; set; }
+        [RequiredIf("IsEnglishMetadata()", ErrorMessageResourceName = "AbstractEnglishRequired", ErrorMessageResourceType = typeof(UI))]
         public string EnglishAbstract { get; set; }
         public string EnglishPurpose { get; set; }
         public string EnglishSupplementalDescription { get; set; }
@@ -350,6 +353,16 @@ namespace Kartverket.MetadataEditor.Models
         public bool IsInspireSpatialServiceConformance()
         {
             return QualitySpecificationTitleInspireSpatialServiceConformance == "interoperable";
+        }
+
+        public bool IsNorwegianMetadata()
+        {
+            return MetadataLanguage == "nor";
+        }
+
+        public bool IsEnglishMetadata()
+        {
+            return MetadataLanguage == "eng";
         }
 
         internal void FixThumbnailUrls()

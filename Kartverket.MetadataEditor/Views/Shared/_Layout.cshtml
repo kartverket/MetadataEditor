@@ -24,19 +24,6 @@
     <script>
         var validationUUIDs = [];
     </script>
-    <script>
-        var applicationVersionNumber = '@Html.ApplicationVersionNumber()';
-        var applicationEnvironment = '@Html.EnvironmentName()';
-
-        var cultureData = {
-            friendlyUrlEN: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))',
-            friendlyUrlNO: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url }))',
-            currentCulture: '@CultureHelper.GetCurrentCulture()'
-            };
-    </script>
-
-
-    @Scripts.Render("~/shared-partials-scripts")
 </head>
 <body class="geonorge-container prototype geonorge ng-scope fixed-menu-margin">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
@@ -49,7 +36,6 @@
                      englishurl="@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))"
                      language="@CultureHelper.GetCurrentCulture()"></main-navigation>
 
-    @Styles.Render("~/shared-partials-styles")
     @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
 
 
@@ -74,34 +60,40 @@
                     {
                         var principal = User as ClaimsPrincipal;
 
-                <ul class="nav nav-tabs link-tabs">
-                    <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> @UI.MyMetadata_Label</a></li>
-                    <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateMetadata</a></li>
-                    @if (Html.SimpleMetadataEnabled())
-                    {
-                        <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create", "SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateSimpleMetadata_Label  </a></li>
-                    }
-
-                    @if (principal != null && (principal.IsInRole(GeonorgeRoles.MetadataAdmin) ))
-                    {
-                        <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
-                    }
-                    <li class="pull-right">
-
-                        @{
-                            if (principal != null && principal.IsInRole(GeonorgeRoles.MetadataAdmin))
+                        <ul class="nav nav-tabs link-tabs">
+                            <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> @UI.MyMetadata_Label</a></li>
+                            <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateMetadata</a></li>
+                            @if (Html.SimpleMetadataEnabled())
                             {
-                                <a href="@Url.Action("ValidateAll", "Validator")" onclick="return clickAndDisable(this);" class="btn show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
-                                @section scripts {
-                                    <script>
-                                        function clickAndDisable(link) {
+                                <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create", "SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateSimpleMetadata_Label  </a></li>
+                            }
 
-                                            document.getElementById('link-email-error').innerText =
-                                                'Henter eposter, vennligst vent...';
-                                            if (link.className != "visited btn btn-sm btn-default") {
-                                                link.className = "visited btn btn-sm btn-default";
-                                                return true;
-                                            }
+                            @if (principal != null && (principal.IsInRole(GeonorgeRoles.MetadataAdmin)))
+                            {
+                                <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
+                            }
+                            <li class="pull-right">
+
+                                @{
+                                    if (principal != null && principal.IsInRole(GeonorgeRoles.MetadataAdmin))
+                                    {
+                                        <a href="@Url.Action("ValidateAll", "Validator")" onclick="return clickAndDisable(this);" class="btn show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
+                                        @section scripts {
+                                            <script>
+                                                function clickAndDisable(link) {
+
+                                                    document.getElementById('link-email-error').innerText =
+                                                        'Henter eposter, vennligst vent...';
+                                                    if (link.className != "visited btn btn-sm btn-default") {
+                                                        link.className = "visited btn btn-sm btn-default";
+                                                        return true;
+                                                    }
+
+                                                    return false;
+                                                }
+                                            </script>
+                                        }
+                                    }
 
                                             return false;
                                         }
@@ -129,7 +121,6 @@
                 <div id="savedOKMsg" class="alert alert-success">
                     @TempData["success"]
                 </div>
-                <script>function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }</script>
             }
             @if (TempData["failure"] != null)
             {
@@ -144,23 +135,12 @@
 
     <geonorge-footer language="@CultureHelper.GetCurrentCulture()" version="@Html.ApplicationVersionNumber()" environment="@Html.EnvironmentName()" />
 
-    <script>
-        searchOption.loginUrl = '@Html.Raw(Url.Action("SignIn", "Home", new { ReturnUrl = Request.Url }))';
-        searchOption.logoutUrl = '@Html.Raw(Url.Action("SignOut", "Home"))';
-        searchOption.loggedIn = @Request.IsAuthenticated.ToString().ToLower();
-        searchOption.epiBaseUrl = '@Html.GeonorgeUrl()';
-        var orderItems = Cookies.get('orderitems');
-        if (orderItems && orderItems > 0) {
-            $('.downloads__count').show();
-            $('.downloads__count').text(orderItems);
-        }
-    </script>
-    @Scripts.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts")
+
+    @Scripts.Render("~/bundle/js")
     @Scripts.Render("~/Scripts/local-scripts")
 
-    <!-- Script for polyfilling Promises on IE9 and 10 -->
-    <script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
-
+    <script>function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }</script>
+    <script>var environmentIsProduction = @(Html.EnvironmentName() == "" ? "true" : "false");</script>
     @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
     @RenderSection("scripts", required: false)
 
@@ -176,7 +156,6 @@
         }
 
     }
-            <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.2.6/MainNavigation.js")"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@0.2.6/GeonorgeFooter.js")"></script>
+    @Scripts.Render("~/node-modules/scripts")
 </body>
 </html>

@@ -1,6 +1,7 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
 @model Kartverket.MetadataEditor.Models.MetadataViewModel
-<script>
+@section scripts {
+    <script>
 
     function getMetadata(uuid) {
 
@@ -35,7 +36,7 @@
         var counter = 0;
 
         $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?limit=25&facets[0]name=type&facets[0]value=dataset&text=" + searchStr + "&lang=" + Cookies.get('_culture'), function (result) {
-            
+
             if (result.length != 0) {
 
                 if (result.Results.length != 0) {
@@ -50,7 +51,7 @@
         });
 
         $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?facets[0]name=type&facets[0]value=series&text=" + searchStr + "&lang=" + Cookies.get('_culture'), function (result) {
-            
+
             if (result.length != 0) {
 
                 if (result.Results.length != 0) {
@@ -64,7 +65,7 @@
             }
 
         });
-          
+
     };
 
 
@@ -105,25 +106,26 @@
 
     }
 
-</script>
-<div class="modal-dialog" style="width: 75%;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4>Koble til datasett (@Model.Title)</h4>
-            <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
-        </div>
-        <div class="modal-body">    
+    </script>
+    }
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Koble til datasett (@Model.Title)</h4>
+                <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+            </div>
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-5">
-                        <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />                    
+                        <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />
                     </div>
                     <div class="col-sm-1">
-                        <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>                        
-                        <span id="searchInfo" style="color:red"></span>                    
+                        <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>
+                        <span id="searchInfo" style="color:red"></span>
                     </div>
                     <div class="col-sm-6"><b>Tilknyttede datasett:</b></div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-6">
                         <br />
@@ -135,8 +137,8 @@
                         <div id="operatesOnDIV">
                             @for (int i = 0; i < Model.OperatesOn.Count; i++)
                             {
-                                <div id="operatesOn-@Model.OperatesOn[i].ToString()" class="row">     
-                                        <input type="hidden" value="@Model.OperatesOn[i].ToString()" name="OperatesOn" />                                 
+                                <div id="operatesOn-@Model.OperatesOn[i].ToString()" class="row">
+                                    <input type="hidden" value="@Model.OperatesOn[i].ToString()" name="OperatesOn" />
                                     <div class="col-sm-8">
                                         <div id="title-@Model.OperatesOn[i].ToString()">
                                             <script>getMetadata('@Model.OperatesOn[i].ToString()');</script>
@@ -147,15 +149,15 @@
                                             <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
                                         </a>
                                     </div>
-                                        <div class="col-sm-2 btn-group">
-                                            <a href="#" onclick="document.getElementById('operatesOn-@Model.OperatesOn[i].ToString()').parentNode.removeChild(document.getElementById('operatesOn-@Model.OperatesOn[i].ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
-                                        </div>
+                                    <div class="col-sm-2 btn-group">
+                                        <a href="#" onclick="document.getElementById('operatesOn-@Model.OperatesOn[i].ToString()').parentNode.removeChild(document.getElementById('operatesOn-@Model.OperatesOn[i].ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
+                                    </div>
                                 </div>
                                 <hr style="margin: 2px 2px 2px 2px" />
                             }
                         </div>
                     </div>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
-</div>

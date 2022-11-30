@@ -84,17 +84,18 @@
     </div>
 
 </div>
-<script>
+@section scripts {
+    <script>
 
 
-    function setLicense()
-    {
-        var e = document.getElementById("LicenseTypes");
-        var linkValue = e.options[e.selectedIndex].value;
-        var linkText = e.options[e.selectedIndex].text;
+        function setLicense() {
+            var e = document.getElementById("LicenseTypes");
+            var linkValue = e.options[e.selectedIndex].value;
+            var linkText = e.options[e.selectedIndex].text;
 
-        document.getElementById('OtherConstraintsLink').value = linkValue;
-        document.getElementById('OtherConstraintsLinkText').value = linkText;
-    }
+            document.getElementById('OtherConstraintsLink').value = linkValue;
+            document.getElementById('OtherConstraintsLinkText').value = linkText;
+        }
 
-</script>
+    </script>
+}
