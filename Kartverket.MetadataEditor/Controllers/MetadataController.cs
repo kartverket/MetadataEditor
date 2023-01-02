@@ -306,10 +306,26 @@ namespace Kartverket.MetadataEditor.Controllers
 
             var productSheets = GetRegister("produktark", model);
             productSheets.Add("", " " + UI.NoneSelected);
+            if (!string.IsNullOrEmpty(model.ProductSheetUrl))
+            {
+                KeyValuePair<string, string> prodsheetSelected = new KeyValuePair<string, string>(model.ProductSheetUrl, model.ProductSheetUrl);
+                if (!productSheets.ContainsKey(prodsheetSelected.Key))
+                {
+                    productSheets.Add(prodsheetSelected.Key, prodsheetSelected.Value);
+                }
+            }
             ViewBag.ProductsheetValues = new SelectList(productSheets, "Key", "Value", model.ProductSheetUrl);
 
             var legendDescriptions = GetRegister("tegneregler", model);
             legendDescriptions.Add("", " " + UI.NoneSelected);
+            if (!string.IsNullOrEmpty(model.LegendDescriptionUrl))
+            {
+                KeyValuePair<string, string> legendSelected = new KeyValuePair<string, string>(model.LegendDescriptionUrl, model.LegendDescriptionUrl);
+                if (!legendDescriptions.ContainsKey(legendSelected.Key))
+                {
+                    legendDescriptions.Add(legendSelected.Key, legendSelected.Value);
+                }
+            }
             ViewBag.LegendDescriptionValues = new SelectList(legendDescriptions, "Key", "Value", model.LegendDescriptionUrl);
 
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
