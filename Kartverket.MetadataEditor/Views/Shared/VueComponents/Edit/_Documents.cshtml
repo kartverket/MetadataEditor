@@ -1,4 +1,4 @@
-﻿@using Resources
+@using Resources
 
 <script type="text/x-template" id="documents-template">
     <div>
@@ -386,7 +386,8 @@
             },
             setProductSpecificationAcceptedDate: function (productSpecificationUrl) {
                 var apiUrl = productSpecificationUrl;
-                apiUrl = apiUrl.replace("/register/", "/api/register/");
+                console.log(apiUrl);
+                apiUrl = apiUrl.replace("geonorge.no", "geonorge.no/api");
                 $.ajax({
                     headers: {
                         Accept: "application/json",
