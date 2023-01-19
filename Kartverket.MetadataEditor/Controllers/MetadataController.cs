@@ -81,6 +81,15 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Authorize]
+        public ActionResult CopyMetadata(MetadataViewModel model)
+        {
+            string username = GetUsername();
+            string uuid = _metadataService.CopyMetadata(model.Uuid, username);
+            return RedirectToAction("Edit", new { uuid = uuid, metadatacreated = true });
+        }
+
         public ActionResult Index(MetadataMessages? message, string organization = "", string searchString = "", int offset = 1, int limit = 50)
         {
             ViewBag.StatusMessage =
@@ -340,6 +349,10 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Edit(string uuid, string action, MetadataViewModel model, string ignoreValidationError)
         {
+            if(action.Equals(UI.Copy))
+            {
+               return CopyMetadata(model);
+            }
             ValidateModel(model, ModelState);
 
             if (ignoreValidationError == "1" /*&& ViewBag.IsAdmin == "1"*/) 

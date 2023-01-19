@@ -232,6 +232,11 @@
               Looks up a localized string similar to URL for å få tilgang til operasjonens grensesnitt.
             </summary>
         </member>
+        <member name="P:Resources.UI.Copy">
+            <summary>
+              Looks up a localized string similar to Kopier.
+            </summary>
+        </member>
         <member name="P:Resources.UI.CreateMetadata">
             <summary>
               Looks up a localized string similar to Opprett metadata.
