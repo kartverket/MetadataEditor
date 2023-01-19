@@ -2355,6 +2355,18 @@ namespace Kartverket.MetadataEditor.Models
             metadata.Uuid = Guid.NewGuid().ToString();
             metadata.Title = metadata.Title + " (kopi)";
 
+            if(metadata.ResourceReference != null && !string.IsNullOrEmpty(metadata.ResourceReference.Code)) 
+            {
+                var code = metadata.ResourceReference.Code + "Ny";
+                var codespace = metadata.ResourceReference?.Codespace;
+
+                metadata.ResourceReference = new SimpleResourceReference
+                {
+                    Code = code,
+                    Codespace = codespace
+                };
+            }
+
             _geoNorge.MetadataInsert(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
 
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Added, User = username, Description = "Created copy of metadata uuid: " + uuid + ", new uuid: " + metadata.Uuid }));
