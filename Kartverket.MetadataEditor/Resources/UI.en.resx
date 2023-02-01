@@ -1037,4 +1037,7 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   <data name="SpatialScopeHelp" xml:space="preserve">
     <value>Administrative level that the data set intends to cover</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
 </root>

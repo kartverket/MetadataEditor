@@ -2349,7 +2349,29 @@ namespace Kartverket.MetadataEditor.Models
             return metadata.Uuid;
         }
 
+        public string CopyMetadata(string uuid, string username)
+        {
+            SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
+            metadata.Uuid = Guid.NewGuid().ToString();
+            metadata.Title = metadata.Title + " (kopi)";
 
+            if(metadata.ResourceReference != null && !string.IsNullOrEmpty(metadata.ResourceReference.Code)) 
+            {
+                var code = metadata.ResourceReference.Code + "Ny";
+                var codespace = metadata.ResourceReference?.Codespace;
+
+                metadata.ResourceReference = new SimpleResourceReference
+                {
+                    Code = code,
+                    Codespace = codespace
+                };
+            }
+
+            _geoNorge.MetadataInsert(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
+
+            Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Added, User = username, Description = "Created copy of metadata uuid: " + uuid + ", new uuid: " + metadata.Uuid }));
+            return metadata.Uuid;
+        }
 
         public void DeleteMetadata(MetadataViewModel metadata, string username, string comment)
         {

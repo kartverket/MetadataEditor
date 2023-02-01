@@ -396,6 +396,7 @@
     <div class="form-group">
         <div class="col-sm-12 text-right">
             <button onclick="location.href='@Url.Action("ConfirmDelete")?uuid=@Model.Uuid';return false;" name="action" type="button" class="btn btn-primary" value="">@UI.Delete</button>
+            <button name="action" type="submit" class="btn btn-primary show-loading-animation" value="@UI.Copy" data-loading-message="Kopierer metadata">@UI.Copy</button>
             @if (!Html.ViewData.ModelState.IsValid /*&& ViewBag.IsAdmin == "1"*/)
             {
                 <input type="checkbox" name="ignoreValidationError" value="1" /> <span>@UI.IgnoreErrors</span>

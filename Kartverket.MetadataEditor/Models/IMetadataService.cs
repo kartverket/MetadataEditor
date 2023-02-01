@@ -11,6 +11,7 @@ namespace Kartverket.MetadataEditor.Models
         MetadataViewModel GetMetadataModel(string uuid);
         MetadataIndexViewModel SearchMetadata(string v1, string v2, int next, int limit);
         string CreateMetadata(MetadataCreateViewModel newMetadata, string username);
+        string CopyMetadata(string uuid, string username);
         void SaveMetadataModel(MetadataViewModel model, string username);
         List<WfsLayerViewModel> CreateMetadataForFeature(string uuid, List<WfsLayerViewModel> createMetadataForLayers, string[] keywords, string username);
         List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> createMetadataForLayers, string[] keywords, string username);

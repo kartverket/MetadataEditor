@@ -1040,4 +1040,7 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="SpatialScopeHelp" xml:space="preserve">
     <value>Administrativt nivå som datasettet har til hensikt å dekke</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopier</value>
+  </data>
 </root>

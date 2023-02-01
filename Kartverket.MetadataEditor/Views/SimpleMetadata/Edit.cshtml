@@ -78,7 +78,7 @@
         <div class="btn-group">
             @if (Html.SimpleMetadataEnabled())
             {
-                <a href="@Url.Action("Edit", "Metadata", new { uuid = @Model.Uuid, editor = "standard" })" class="btn btn-sm btn-default" style="background-color:Highlight;">
+                <a href="@Url.Action("Edit", "Metadata", new { uuid = @Model.Uuid, editor = "standard" })" onclick="alert('Dersom du lagrer oppføringen i standard editor kan du ikke gå tilbake til enkle metadata')" class="btn btn-sm btn-default" style="background-color:Highlight;">
                     <span class="glyphicon glyphicon-share-alt"></span> Vis standard editor
                 </a>
             }
