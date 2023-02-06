@@ -9,6 +9,7 @@ using log4net;
 using System.Data.Entity;
 using www.opengis.net;
 using System.Threading;
+using System.Web;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
 {
@@ -317,7 +318,16 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
         internal static string GetIdentifierFromUri(string identifier)
         {
-            return identifier.Split('/').Last();
+            var id = identifier.Split('/').Last();
+            if (id.Contains("?id="))
+            {
+                Uri myUri = new Uri(identifier);
+                string paramId = HttpUtility.ParseQueryString(myUri.Query).Get("id");
+                if (!string.IsNullOrEmpty(paramId))
+                    id = paramId;
+            }
+            return id;
         }
+
     }
 }
