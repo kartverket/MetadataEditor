@@ -56,12 +56,71 @@ namespace Kartverket.MetadataEditor.Models.OpenData
         {
             var openMetadata = await _metadataFetcher.FetchMetadataAsync(endpoint).ConfigureAwait(false);
 
+            if (openMetadata != null && openMetadata?.dataset?.Length > 0)
+                RemoveExistingOpenMetadata();
+
             var numberOfMetadataCreatedUpdated = 0;
             foreach (var dataset in openMetadata.dataset)
                 if (CreateOrUpdateMetadata(dataset, endpoint))
                     numberOfMetadataCreatedUpdated++;
 
             return numberOfMetadataCreatedUpdated;
+        }
+
+        private void RemoveExistingOpenMetadata()
+        {
+            var filters = new object[]
+            {
+                        new PropertyIsLikeType
+                            {
+                                escapeChar = "\\",
+                                singleChar = "_",
+                                wildCard = "%",
+                                PropertyName = new PropertyNameType {Text = new[] {"AnyText"}},
+                                Literal = new LiteralType {Text = new[] {"ISO19115:Fra openmetadata standard"}}
+                            }
+            };
+
+            var filterNames = new ItemsChoiceType23[]
+            {
+                 ItemsChoiceType23.PropertyIsLike,
+            };
+
+            SearchResultsType res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 400);
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (var item in res.Items)
+                {
+                    RecordType record = (RecordType)item;
+                    string uuid = "";
+                    string title = "";
+                    for (int i = 0; i < record.ItemsElementName.Length; i++)
+                    {
+                        var name = record.ItemsElementName[i];
+                        var value = record.Items[i].Text != null ? record.Items[i].Text[0] : null;
+
+                        if (name == ItemsChoiceType24.title)
+                        {
+                            title = value;
+                        }
+                        if (name == ItemsChoiceType24.identifier) {
+                            uuid = value;
+                        }
+                    }
+
+                    if(!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(uuid)) 
+                    {
+                        MetadataViewModel model = new MetadataViewModel();
+                        model.Uuid = uuid;
+                        model.Title = title;
+                        _metadataService.DeleteMetadata(model, SecurityClaim.GetUsername(), "Openmetadata synchronize");
+                    }
+
+                }
+            }
+
+
         }
 
         private bool CreateOrUpdateMetadata(Dataset dataset, OpenMetadataEndpoint endpoint)
@@ -237,6 +296,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
         {
             if (string.IsNullOrEmpty(model.HierarchyLevel))
                 model.HierarchyLevel = "dataset";
+
+            model.MetadataStandard = "ISO19115:Fra openmetadata standard";
 
             model.Title = dataset.title;
             DateTime modified;
