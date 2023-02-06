@@ -219,7 +219,6 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             if(!string.IsNullOrEmpty(identifier))
                 newMetadata.Uuid = identifier;
             newMetadata.Type = type;
-            newMetadata.MetadataStandard = "ISO19115:Fra openmetadata standard";
             newMetadata.Title = dataset.title;
             newMetadata.MetadataContactOrganization =
                 !string.IsNullOrEmpty(openMetadataEndpoint.OrganizationName)
@@ -283,6 +282,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             }
 
             model.AccessConstraints = "no restrictions";
+
+            model.MetadataStandard = "ISO19115:Fra openmetadata standard";
         }
 
         private List<SimpleDistribution> GetDistributionsFormats(Distribution[] distributions, string organization)
