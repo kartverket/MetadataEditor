@@ -219,6 +219,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             if(!string.IsNullOrEmpty(identifier))
                 newMetadata.Uuid = identifier;
             newMetadata.Type = type;
+            newMetadata.MetadataStandard = "ISO19115:Fra openmetadata standard";
             newMetadata.Title = dataset.title;
             newMetadata.MetadataContactOrganization =
                 !string.IsNullOrEmpty(openMetadataEndpoint.OrganizationName)

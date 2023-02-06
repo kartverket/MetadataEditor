@@ -2343,6 +2343,9 @@ namespace Kartverket.MetadataEditor.Models
 
             SetDefaultValuesOnMetadata(metadata);
 
+            if(!string.IsNullOrEmpty(model.MetadataStandard))
+                metadata.MetadataStandard = model.MetadataStandard;
+
             _geoNorge.MetadataInsert(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
 
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = metadata.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Added, User = username, Description = "Created metadata title: " + metadata.Title }));

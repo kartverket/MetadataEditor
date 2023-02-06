@@ -13,6 +13,8 @@ namespace Kartverket.MetadataEditor.Models
 
         public string Uuid { get; set; }
 
+        public string MetadataStandard { get; set; }
+
         public string MetadataContactName { get; set; }
 
         [Required(ErrorMessage = "Epost er påkrevd.")]
