@@ -1812,6 +1812,9 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.AccessProperties = new SimpleAccessProperties { OrderingInstructions = model.OrderingInstructions }  ;
 
             SetDefaultValuesOnMetadata(metadata);
+
+            if(!string.IsNullOrEmpty(model.MetadataStandard))
+                metadata.MetadataStandard = model.MetadataStandard;
         }
 
         public Dictionary<string, string> GetInspireAccessRestrictions(string culture = "no")

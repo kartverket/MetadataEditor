@@ -9,6 +9,7 @@ using log4net;
 using System.Data.Entity;
 using www.opengis.net;
 using System.Threading;
+using System.Web;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
 {
@@ -40,11 +41,20 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             Log.Info("List of endpoints: ");
             endpoints.ForEach(e => Log.Info(e));
 
+            RemoveExistingOpenMetadata();
+
             var numberOfUpdatedMetadata = 0;
             foreach (var endPoint in endpoints)
             {
-                var updateCount = await SynchronizeMetadata(endPoint).ConfigureAwait(false);
-                numberOfUpdatedMetadata += updateCount;
+                try
+                {
+                    var updateCount = await SynchronizeMetadata(endPoint).ConfigureAwait(false);
+                    numberOfUpdatedMetadata += updateCount;
+                }
+                catch (Exception ex) 
+                {
+                    Log.Error($"Error openmetadata endpoint : {endPoint.Url} ", ex);
+                }
             }
 
             Log.Info("Number of metadata updated: " + numberOfUpdatedMetadata);
@@ -53,7 +63,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
         public async Task<int> SynchronizeMetadata(OpenMetadataEndpoint endpoint)
         {
-            var openMetadata = await _metadataFetcher.FetchMetadataAsync(endpoint).ConfigureAwait(false);
+            var openMetadata = await _metadataFetcher.FetchMetadataAsync(endpoint).ConfigureAwait(false);               
 
             var numberOfMetadataCreatedUpdated = 0;
             foreach (var dataset in openMetadata.dataset)
@@ -61,6 +71,62 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                     numberOfMetadataCreatedUpdated++;
 
             return numberOfMetadataCreatedUpdated;
+        }
+
+        private void RemoveExistingOpenMetadata()
+        {
+            var filters = new object[]
+            {
+                        new PropertyIsLikeType
+                            {
+                                escapeChar = "\\",
+                                singleChar = "_",
+                                wildCard = "%",
+                                PropertyName = new PropertyNameType {Text = new[] {"AnyText"}},
+                                Literal = new LiteralType {Text = new[] {"ISO19115:Fra openmetadata standard"}}
+                            }
+            };
+
+            var filterNames = new ItemsChoiceType23[]
+            {
+                 ItemsChoiceType23.PropertyIsLike,
+            };
+
+            SearchResultsType res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 400);
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (var item in res.Items)
+                {
+                    RecordType record = (RecordType)item;
+                    string uuid = "";
+                    string title = "";
+                    for (int i = 0; i < record.ItemsElementName.Length; i++)
+                    {
+                        var name = record.ItemsElementName[i];
+                        var value = record.Items[i].Text != null ? record.Items[i].Text[0] : null;
+
+                        if (name == ItemsChoiceType24.title)
+                        {
+                            title = value;
+                        }
+                        if (name == ItemsChoiceType24.identifier) {
+                            uuid = value;
+                        }
+                    }
+
+                    if(!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(uuid)) 
+                    {
+                        MetadataViewModel model = new MetadataViewModel();
+                        model.Uuid = uuid;
+                        model.Title = title;
+                        _metadataService.DeleteMetadata(model, SecurityClaim.GetUsername(), "Openmetadata synchronize");
+                    }
+
+                }
+            }
+
+
         }
 
         private bool CreateOrUpdateMetadata(Dataset dataset, OpenMetadataEndpoint endpoint)
@@ -237,6 +303,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             if (string.IsNullOrEmpty(model.HierarchyLevel))
                 model.HierarchyLevel = "dataset";
 
+            model.MetadataStandard = "ISO19115:Fra openmetadata standard";
+
             model.Title = dataset.title;
             DateTime modified;
             if (DateTime.TryParse(dataset.modified.ToString(), out modified)) model.DateUpdated = modified;
@@ -281,6 +349,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             }
 
             model.AccessConstraints = "no restrictions";
+
+            model.MetadataStandard = "ISO19115:Fra openmetadata standard";
         }
 
         private List<SimpleDistribution> GetDistributionsFormats(Distribution[] distributions, string organization)
@@ -317,7 +387,16 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
         internal static string GetIdentifierFromUri(string identifier)
         {
-            return identifier.Split('/').Last();
+            var id = identifier.Split('/').Last();
+            if (id.Contains("?id="))
+            {
+                Uri myUri = new Uri(identifier);
+                string paramId = HttpUtility.ParseQueryString(myUri.Query).Get("id");
+                if (!string.IsNullOrEmpty(paramId))
+                    id = paramId;
+            }
+            return id;
         }
+
     }
 }
