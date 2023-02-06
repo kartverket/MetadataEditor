@@ -41,11 +41,20 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             Log.Info("List of endpoints: ");
             endpoints.ForEach(e => Log.Info(e));
 
+            RemoveExistingOpenMetadata();
+
             var numberOfUpdatedMetadata = 0;
             foreach (var endPoint in endpoints)
             {
-                var updateCount = await SynchronizeMetadata(endPoint).ConfigureAwait(false);
-                numberOfUpdatedMetadata += updateCount;
+                try
+                {
+                    var updateCount = await SynchronizeMetadata(endPoint).ConfigureAwait(false);
+                    numberOfUpdatedMetadata += updateCount;
+                }
+                catch (Exception ex) 
+                {
+                    Log.Error($"Error openmetadata endpoint : {endPoint.Url} ", ex);
+                }
             }
 
             Log.Info("Number of metadata updated: " + numberOfUpdatedMetadata);
@@ -54,10 +63,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
         public async Task<int> SynchronizeMetadata(OpenMetadataEndpoint endpoint)
         {
-            var openMetadata = await _metadataFetcher.FetchMetadataAsync(endpoint).ConfigureAwait(false);
-
-            if (openMetadata != null && openMetadata?.dataset?.Length > 0)
-                RemoveExistingOpenMetadata();
+            var openMetadata = await _metadataFetcher.FetchMetadataAsync(endpoint).ConfigureAwait(false);               
 
             var numberOfMetadataCreatedUpdated = 0;
             foreach (var dataset in openMetadata.dataset)
