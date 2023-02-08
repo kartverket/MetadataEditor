@@ -5,6 +5,6 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 {
     public interface IOpenMetadataService
     {
-        Task<int> SynchronizeMetadata(List<OpenMetadataEndpoint> metadataEndpoints);
+        Task<int> SynchronizeMetadata(List<OpenMetadataEndpoint> metadataEndpoints, string username);
     }
 }

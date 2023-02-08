@@ -26,6 +26,8 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
             ContactPublisher = new Contact()
         };
 
+        string _username = "test";
+
         [Fact]
         public async Task CreateNewMetadataWhenItDoesNotExistInGeonorge()
         {
@@ -39,7 +41,7 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
 
             var openMetadataService = new OpenMetadataService(metadataServiceMock.Object, metadataFetcherMock.Object, geoNorgeMock.Object);
             
-            var numberOfUpdatedDatasets = await openMetadataService.SynchronizeMetadata(_endpoint);
+            var numberOfUpdatedDatasets = await openMetadataService.SynchronizeMetadata(_endpoint, _username);
 
             metadataServiceMock
                 .Verify(m => m.CreateMetadata(It.IsAny<MetadataCreateViewModel>(), It.IsAny<string>()), Times.Exactly(3));
@@ -63,7 +65,7 @@ namespace Kartverket.MetadataEditor.Tests.Models.OpenData
 
             var openMetadataService = new OpenMetadataService(metadataServiceMock.Object, metadataFetcherMock.Object, geoNorgeMock.Object);
             
-            var numberOfUpdatedDatasets = await openMetadataService.SynchronizeMetadata(_endpoint);
+            var numberOfUpdatedDatasets = await openMetadataService.SynchronizeMetadata(_endpoint, _username);
 
             metadataServiceMock
                 .Verify(m => m.CreateMetadata(It.IsAny<MetadataCreateViewModel>(), It.IsAny<string>()), Times.Exactly(3));

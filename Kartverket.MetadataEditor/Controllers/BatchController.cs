@@ -111,8 +111,10 @@ namespace Kartverket.MetadataEditor.Controllers
             if (!UserHasMetadataAdminRole())
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
 
+            string username = GetUsername();
+
             var endpoints = _db.OpenMetadataEndpoints.ToList();
-            new Thread(() => _openMetadataService.SynchronizeMetadata(endpoints)).Start();
+            new Thread(() => _openMetadataService.SynchronizeMetadata(endpoints, username)).Start();
             return RedirectToAction("Index");
         }
 
