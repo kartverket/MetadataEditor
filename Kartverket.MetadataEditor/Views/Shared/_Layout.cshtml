@@ -134,10 +134,7 @@
     @Scripts.Render("~/Scripts/local-scripts")
 
     <script>
-        function removeokmsg() {
-            //setTimeout(removeokmsgBox, 5000);
-        }
-        function removeokmsgBox() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }
+        function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }
     </script>
     <script>var environmentIsProduction = @(Html.EnvironmentName() == "" ? "true" : "false");</script>
     @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
