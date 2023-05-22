@@ -894,8 +894,9 @@ namespace Kartverket.MetadataEditor.Models
             {
                 foreach (var uuid in metadata.OperatesOn)
                 {
-                    try { 
+                    try {
                     string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
+                    Log.Info($"Sending metadataupdated for uuid: {uuid} to {url}");
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                     request.Method = WebRequestMethods.Http.Post;
                     request.Headers["Authorization"] = "Basic " + Convert.ToBase64String(System.Text.Encoding.Default.GetBytes(username + ":" + password));
