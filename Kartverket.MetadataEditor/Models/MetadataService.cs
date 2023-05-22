@@ -607,6 +607,11 @@ namespace Kartverket.MetadataEditor.Models
                 throw new Exception("Kunne ikke lagre endringene - kontakt systemansvarlig");
 
             Task.Run(() => ReIndexRelated(model));
+            Task.Run(async delegate
+            {
+                await Task.Delay(TimeSpan.FromSeconds(20));
+                ReIndexRelated(model);
+            });
             Task.Run(() => RemoveCache(model));
             Task.Run(() => _logEntryService.AddLogEntry(new LogEntry { ElementId = model.Uuid, Operation = Geonorge.Utilities.LogEntry.Operation.Modified, User = username, Description = "Saved metadata title: "+ model.Title }));
             Task.Run(async delegate
@@ -889,6 +894,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 foreach (var uuid in metadata.OperatesOn)
                 {
+                    try { 
                     string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadataupdated";
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                     request.Method = WebRequestMethods.Http.Post;
@@ -904,6 +910,11 @@ namespace Kartverket.MetadataEditor.Models
                     request.PreAuthenticate = true;
                     request.Credentials = myCredentialCache;
                     HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+                    }
+                    catch (Exception ex) 
+                    {
+                        Log.Error("Error sending metadataupdated: " + ex);
+                    }
                 }
             }
 
