@@ -49,6 +49,20 @@
                             content: '@Html.Raw(UI.Helptext_ResolutionScale)'
                         }
                     },
+                    resolutionDistance: {
+                        id: 'ResolutionDistance',
+                        name: 'ResolutionDistance',
+                        getter: 'ResolutionDistance',
+                        mutation: 'updateResolutionDistance',
+                        label: '@Html.Raw(UI.Metadata_ResolutionDistance_Label)',
+                        type: 'text',
+                        required: false,
+                        visible: !this.$store.getters['isService'],
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_SpatialResolution)'
+                        }
+                    },
                     status: {
                         id: 'Status',
                         name: 'Status',

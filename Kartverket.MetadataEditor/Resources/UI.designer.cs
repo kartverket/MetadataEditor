@@ -900,6 +900,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Denne oppgis som regel med målestokkstall for vektordata og som distanse for rasterdata og rutenettsdata, men en kan feks. gjerne legge inn at nøyaktighet er 2 meter på vegnett. “Målestokk” oppgis som heltall og “Distanse” oppgis som desimaltall med punktum som skilletegn.
+        /// </summary>
+        public static string Helptext_SpatialResolution {
+            get {
+                return ResourceManager.GetString("Helptext_SpatialResolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
         /// </summary>
         public static string Helptext_Status {
@@ -2039,6 +2048,15 @@ namespace Resources {
         public static string Metadata_ReferenceSystems_Namespace_Label {
             get {
                 return ResourceManager.GetString("Metadata_ReferenceSystems_Namespace_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distanse i meter.
+        /// </summary>
+        public static string Metadata_ResolutionDistance_Label {
+            get {
+                return ResourceManager.GetString("Metadata_ResolutionDistance_Label", resourceCulture);
             }
         }
         

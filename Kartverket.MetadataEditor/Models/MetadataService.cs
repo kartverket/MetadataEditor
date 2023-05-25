@@ -275,6 +275,7 @@ namespace Kartverket.MetadataEditor.Models
                 ProcessHistory = metadata.ProcessHistory,
                 MaintenanceFrequency = metadata.MaintenanceFrequency,
                 ResolutionScale = metadata.ResolutionScale,
+                ResolutionDistance = metadata.ResolutionDistance.HasValue ? metadata.ResolutionDistance : null,
 
                 UseLimitations = metadata.Constraints != null ? metadata.Constraints.UseLimitations : null,
                 EnglishUseLimitations = metadata.Constraints != null ? metadata.Constraints.EnglishUseLimitations : null,
@@ -1675,6 +1676,9 @@ namespace Kartverket.MetadataEditor.Models
 
             if (!model.IsService())
                 metadata.ResolutionScale = !string.IsNullOrWhiteSpace(model.ResolutionScale) ? model.ResolutionScale : " ";
+
+            if (!model.IsService() && model.ResolutionDistance.HasValue)
+                metadata.ResolutionDistance = model.ResolutionDistance;
 
             if (!string.IsNullOrWhiteSpace(model.Status))
                 metadata.Status = model.Status;
