@@ -1,7 +1,49 @@
 ﻿@using Resources
 
+<script type="text/x-template" id="resolution-section-template">
+    <div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11">
+                        <span>{{ title }}</span>
+                    </div>
+                    <div class="col-md-1">
+                        <span v-on:click="helpText.active = !helpText.active" v-bind:class="{active: helpText.active}" class="badge help-text-toggle">?</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p v-if="helpText && helpText.active" class="help-text bg-success" v-html="helpText.content"></p>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="ResolutionScale" class="control-label">@Html.Raw(UI.Metadata_ResolutionScale_Label)</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control" id="ResolutionScale" name="ResolutionScale" type="text" v-bind:value="$store.getters['ResolutionScale']" v-on:change="checkResolution()" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="ResolutionDistance" class="control-label">@Html.Raw(UI.Metadata_ResolutionDistance_Label)</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control" id="ResolutionDistance" name="ResolutionDistance" type="text" v-bind:value="$store.getters['ResolutionDistance']" v-on:change="checkResolution()" />
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+</script>
+
 <script type="text/x-template" id="quality-template">
     <div>
+        <div is="Resolution"></div>
         <div class="form-group" v-if="isVisible(formElement)" v-for="formElement in formElements">
             <div class="row">
                 <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
@@ -19,12 +61,44 @@
     </div>
 </script>
 
+
+<script>
+    var Resolution = {
+        name: "ResolutionSection",
+        template: "#resolution-section-template",
+        components: {
+            Resolution: Resolution
+        },
+        props: ["section"],
+        data: function () {
+            return {
+                title: "Romlig oppløsning",
+                helpText: {
+                        active: true,
+                        content: '@Html.Raw(UI.Helptext_SpatialResolution)'
+                    },
+                selectedLanguage: this.$store.getters['settingsSelectedLanguage']
+            }
+        },
+        methods: {
+            checkResolution: function () {
+                if (document.getElementById('ResolutionScale').value != '' && document.getElementById('ResolutionDistance').value != '')
+                {
+                    alert('Du må velge enten Målestokkstall eller Distanse i meter');
+                }
+            }
+        }
+    };
+</script>
+
+
 <script>
     var Quality = {
         name: "quality",
         template: "#quality-template",
         components: {
-            Field: Field
+            Field: Field,
+            Resolution: Resolution
         },
         mounted: function () {
             this.$store.dispatch('getErrorsForTab', { tabName: 'Quality' }).then(function (errors) {
@@ -35,34 +109,6 @@
             return {
                 errors: {},
                 formElements: {
-                    resolutionScale: {
-                        id: 'ResolutionScale',
-                        name: 'ResolutionScale',
-                        getter: 'ResolutionScale',
-                        mutation: 'updateResolutionScale',
-                        label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
-                        type: 'text',
-                        required: false,
-                        visible: !this.$store.getters['isService'],
-                        helpText: {
-                            active: false,
-                            content: '@Html.Raw(UI.Helptext_ResolutionScale)'
-                        }
-                    },
-                    resolutionDistance: {
-                        id: 'ResolutionDistance',
-                        name: 'ResolutionDistance',
-                        getter: 'ResolutionDistance',
-                        mutation: 'updateResolutionDistance',
-                        label: '@Html.Raw(UI.Metadata_ResolutionDistance_Label)',
-                        type: 'text',
-                        required: false,
-                        visible: !this.$store.getters['isService'],
-                        helpText: {
-                            active: false,
-                            content: '@Html.Raw(UI.Helptext_SpatialResolution)'
-                        }
-                    },
                     status: {
                         id: 'Status',
                         name: 'Status',
