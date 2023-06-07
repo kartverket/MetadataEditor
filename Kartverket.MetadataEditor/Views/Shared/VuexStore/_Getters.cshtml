@@ -358,11 +358,32 @@
         KeywordsAdministrativeUnits: function (state) {
             return state.model.KeywordsAdministrativeUnits;
         },
+        SelectedResolutionFormat: function (state) {
+            if (state.data.SelectedResolutionFormat) {
+                return state.data.SelectedResolutionFormat;
+            }
+            else if (state.data.ResolutionScale?.length) {
+                return "ResolutionScale";
+            } else if (state.data.ResolutionDistance?.length) {
+                return "ResolutionDistance";
+            } else {
+                return "ResolutionScale";
+            };
+        },
+        showSpatialResolution: function (state, getters) {
+            return !getters.isService;
+        },
         ResolutionScale: function (state) {
             return state.model.ResolutionScale;
         },
+        showResolutionScale: function (state, getters) {
+            return getters.SelectedResolutionFormat == 'ResolutionScale';
+        },
         ResolutionDistance: function (state) {
             return state.model.ResolutionDistance;
+        },
+        showResolutionDistance: function (state, getters) {
+            return getters.SelectedResolutionFormat == 'ResolutionDistance';
         },
         Status: function (state) {
             return state.model.Status;
