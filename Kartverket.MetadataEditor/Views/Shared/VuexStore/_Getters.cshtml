@@ -371,7 +371,7 @@
             };
         },
         showSpatialResolution: function (state, getters) {
-            return !getters.isService;
+            return getters.isDatasetOrSeries;
         },
         ResolutionScale: function (state) {
             return state.model.ResolutionScale;
@@ -567,6 +567,9 @@
         },
         isDatasetSeries: function (state) {
             return state.model.HierarchyLevel == 'series';
+        },
+        isDatasetOrSeries: function (state, getters) {
+            return getters.isDataset || getters.isDatasetSeries;
         },
         isSoftware: function (state) {
             return state.model.HierarchyLevel == 'software';
