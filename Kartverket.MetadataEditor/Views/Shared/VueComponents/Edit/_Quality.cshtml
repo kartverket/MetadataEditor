@@ -2,42 +2,34 @@
 
 <script type="text/x-template" id="resolution-section-template">
     <div>
-
-        <div class="panel panel-default">
+        <div v-show="isVisible(section)" v-for="section in sections" class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-11">
-                        <span>{{ title }}</span>
+                        <span class="required">{{ section.name }}</span>
                     </div>
                     <div class="col-md-1">
-                        <span v-on:click="helpText.active = !helpText.active" v-bind:class="{active: helpText.active}" class="badge help-text-toggle">?</span>
+                        <span v-on:click="section.helpText.active = !section.helpText.active" v-bind:class="{active: section.helpText.active}" class="badge help-text-toggle">?</span>
                     </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
             <div class="panel-body">
-                <p v-if="helpText && helpText.active" class="help-text bg-success" v-html="helpText.content"></p>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="ResolutionScale" class="control-label">@Html.Raw(UI.Metadata_ResolutionScale_Label)</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="form-control" id="ResolutionScale" name="ResolutionScale" type="text" v-bind:value="$store.getters['ResolutionScale']" v-on:change="checkResolution()" />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="ResolutionDistance" class="control-label">@Html.Raw(UI.Metadata_ResolutionDistance_Label)</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="form-control" id="ResolutionDistance" name="ResolutionDistance" type="text" v-bind:value="$store.getters['ResolutionDistance']" v-on:change="checkResolution()" />
+                <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
+                <div v-show="isVisible(formElement)" v-for="formElement in section.formElements">
+                    <div v-if="formElement.type == 'hidden'" is="field" v-bind:form-element="formElement"></div>
+                    <div v-else class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                        <div class="row">
+                            <label for="abstract" class="col-md-2 control-label">{{ formElement.label }}</label>
+                            <div class="col-md-9">
+                                <div is="field" v-bind:form-element="formElement"></div>
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
-
     </div>
 </script>
 
@@ -67,26 +59,65 @@
         name: "ResolutionSection",
         template: "#resolution-section-template",
         components: {
-            Resolution: Resolution
+            Field: Field
         },
         props: ["section"],
         data: function () {
             return {
-                title: "Romlig oppløsning",
-                helpText: {
-                        active: true,
-                        content: '@Html.Raw(UI.Helptext_SpatialResolution)'
-                    },
-                selectedLanguage: this.$store.getters['settingsSelectedLanguage']
+                 sections: [
+                    {
+                        name: 'Romlig oppløsning',
+                        helpText: {
+                             active: true,
+                             content: '@Html.Raw(UI.Helptext_SpatialResolution)'
+                         },
+                         visibleGetter: 'showSpatialResolution',
+                         formElements: [
+                             {
+                                 name: 'SelectedResolutionFormat',
+                                 getter: 'SelectedResolutionFormat',
+                                 mutation: 'updateSelectedResolutionFormat',
+                                 label: 'Måleenhet',
+                                 type: 'radio',
+                                 required: false,
+                                 active: true,
+                                 options: [
+                                     { Text: '@Html.Raw(UI.Metadata_ResolutionScale_Label)', Value: 'ResolutionScale' },
+                                     { Text: '@Html.Raw(UI.Metadata_ResolutionDistance_Label)', Value: 'ResolutionDistance' }
+                                 ],
+                             },
+                            {
+                                name: 'ResolutionScale',
+                                getter: 'ResolutionScale',
+                                mutation: 'updateResolutionScale',
+                                label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
+                                type: 'text',
+                                visibleGetter: 'showResolutionScale'
+                             },
+                            {
+                                name: 'ResolutionDistance',
+                                getter: 'ResolutionDistance',
+                                mutation: 'updateResolutionDistance',
+                                label: '@Html.Raw(UI.Metadata_ResolutionDistance_Label)',
+                                type: 'text',
+                                visibleGetter: 'showResolutionDistance',
+                                required: false
+                            }
+                        ]
+                    }
+                ]
             }
         },
         methods: {
-            checkResolution: function () {
-                if (document.getElementById('ResolutionScale').value != '' && document.getElementById('ResolutionDistance').value != '')
-                {
-                    alert('Du må velge enten Målestokkstall eller Distanse i meter');
+            isVisible: function (formElement) {
+                if (formElement.visibleGetter !== undefined) {
+                    return this.$store.getters[formElement.visibleGetter] === true || this.$store.getters[formElement.visibleGetter] == 'true';
+                } else if (formElement.visible !== undefined) {
+                    return formElement.visible === true || formElement.visible == 'true';
+                } else {
+                    return true;
                 }
-            }
+            },
         }
     };
 </script>
