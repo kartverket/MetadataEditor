@@ -362,9 +362,9 @@
             if (state.data.SelectedResolutionFormat) {
                 return state.data.SelectedResolutionFormat;
             }
-            else if (state.data.ResolutionScale?.length) {
+            else if (state.model.ResolutionScale?.trim()?.length) {
                 return "ResolutionScale";
-            } else if (state.data.ResolutionDistance?.length) {
+            } else if (state.model.ResolutionDistance?.trim()?.length) {
                 return "ResolutionDistance";
             } else {
                 return "ResolutionScale";
