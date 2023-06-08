@@ -1680,7 +1680,7 @@ namespace Kartverket.MetadataEditor.Models
 
             if ((model.IsDataset() || model.IsDatasetSeries()) && !string.IsNullOrEmpty(model.ResolutionDistance)) {
                 var distance = String.Format(CultureInfo.InvariantCulture, model.ResolutionDistance);
-                metadata.ResolutionDistance = Double.Parse(distance);
+                metadata.ResolutionDistance = Double.Parse(distance, CultureInfo.InvariantCulture);
             }
 
             if (!string.IsNullOrWhiteSpace(model.Status))
