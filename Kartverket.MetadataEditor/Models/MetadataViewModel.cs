@@ -221,7 +221,7 @@ namespace Kartverket.MetadataEditor.Models
         public string MaintenanceFrequency { get; set; }
         //[RequiredIf("!IsService()", ErrorMessage = "Målestokktall er påkrevd")]
         public string ResolutionScale { get; set; }
-        public double? ResolutionDistance { get; set; }
+        public string ResolutionDistance { get; set; }
 
         // constraints
         public string UseLimitations { get; set; }

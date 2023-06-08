@@ -364,7 +364,7 @@
             }
             else if (state.model.ResolutionScale?.trim()?.length) {
                 return "ResolutionScale";
-            } else if (state.model.ResolutionDistance?.trim()?.length) {
+            } else if (state.model.ResolutionDistance?.toString().trim()?.length) {
                 return "ResolutionDistance";
             } else {
                 return "ResolutionScale";

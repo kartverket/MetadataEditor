@@ -19,6 +19,7 @@ using Kartverket.MetadataEditor.Models.Translations;
 using Kartverket.MetadataEditor.Models.Rdf;
 using Resources;
 using System.Threading;
+using System.Globalization;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -275,7 +276,7 @@ namespace Kartverket.MetadataEditor.Models
                 ProcessHistory = metadata.ProcessHistory,
                 MaintenanceFrequency = metadata.MaintenanceFrequency,
                 ResolutionScale = metadata.ResolutionScale,
-                ResolutionDistance = metadata.ResolutionDistance.HasValue ? metadata.ResolutionDistance : null,
+                ResolutionDistance = metadata.ResolutionDistance.HasValue ? metadata.ResolutionDistance.Value.ToString().Replace(",",".") : null,
 
                 UseLimitations = metadata.Constraints != null ? metadata.Constraints.UseLimitations : null,
                 EnglishUseLimitations = metadata.Constraints != null ? metadata.Constraints.EnglishUseLimitations : null,
@@ -1674,11 +1675,13 @@ namespace Kartverket.MetadataEditor.Models
             if (!string.IsNullOrWhiteSpace(model.MaintenanceFrequency))
                 metadata.MaintenanceFrequency = model.MaintenanceFrequency;
 
-            if (!model.IsService())
-                metadata.ResolutionScale = !string.IsNullOrWhiteSpace(model.ResolutionScale) ? model.ResolutionScale : " ";
+            if (model.IsDataset() || model.IsDatasetSeries())
+                metadata.ResolutionScale = !string.IsNullOrEmpty(model.ResolutionScale) ? model.ResolutionScale : " ";
 
-            if (!model.IsService() && model.ResolutionDistance.HasValue)
-                metadata.ResolutionDistance = model.ResolutionDistance;
+            if ((model.IsDataset() || model.IsDatasetSeries()) && !string.IsNullOrEmpty(model.ResolutionDistance)) {
+                var distance = String.Format(CultureInfo.InvariantCulture, model.ResolutionDistance);
+                metadata.ResolutionDistance = Double.Parse(distance);
+            }
 
             if (!string.IsNullOrWhiteSpace(model.Status))
                 metadata.Status = model.Status;
