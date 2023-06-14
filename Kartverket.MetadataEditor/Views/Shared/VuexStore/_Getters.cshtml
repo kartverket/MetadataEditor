@@ -358,8 +358,32 @@
         KeywordsAdministrativeUnits: function (state) {
             return state.model.KeywordsAdministrativeUnits;
         },
+        SelectedResolutionFormat: function (state) {
+            if (state.data.SelectedResolutionFormat) {
+                return state.data.SelectedResolutionFormat;
+            }
+            else if (state.model.ResolutionScale?.trim()?.length) {
+                return "ResolutionScale";
+            } else if (state.model.ResolutionDistance?.toString().trim()?.length) {
+                return "ResolutionDistance";
+            } else {
+                return "ResolutionScale";
+            };
+        },
+        showSpatialResolution: function (state, getters) {
+            return getters.isDatasetOrSeries;
+        },
         ResolutionScale: function (state) {
             return state.model.ResolutionScale;
+        },
+        showResolutionScale: function (state, getters) {
+            return getters.SelectedResolutionFormat == 'ResolutionScale';
+        },
+        ResolutionDistance: function (state) {
+            return state.model.ResolutionDistance;
+        },
+        showResolutionDistance: function (state, getters) {
+            return getters.SelectedResolutionFormat == 'ResolutionDistance';
         },
         Status: function (state) {
             return state.model.Status;
@@ -543,6 +567,9 @@
         },
         isDatasetSeries: function (state) {
             return state.model.HierarchyLevel == 'series';
+        },
+        isDatasetOrSeries: function (state, getters) {
+            return getters.isDataset || getters.isDatasetSeries;
         },
         isSoftware: function (state) {
             return state.model.HierarchyLevel == 'software';

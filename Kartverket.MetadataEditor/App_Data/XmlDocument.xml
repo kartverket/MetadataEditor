@@ -523,6 +523,11 @@
               Looks up a localized string similar to Grunngiving av tilgangsbegrensninger eller bruksbegrensninger i form av juridiske forhold eller andre begrensende faktorer. Her kan en henvise til lov, forskrift eller lignende..
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_SpatialResolution">
+            <summary>
+              Looks up a localized string similar to Denne oppgis som regel med målestokkstall for vektordata og som distanse for rasterdata og rutenettsdata, men en kan feks. gjerne legge inn at nøyaktighet er 2 meter på vegnett. “Målestokk” oppgis som heltall og “Distanse” oppgis som desimaltall med punktum som skilletegn.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_Status">
             <summary>
               Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
@@ -1146,6 +1151,11 @@
         <member name="P:Resources.UI.Metadata_ReferenceSystems_Namespace_Label">
             <summary>
               Looks up a localized string similar to Koderom.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_ResolutionDistance_Label">
+            <summary>
+              Looks up a localized string similar to Oppløsning i meter.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_ResolutionScale_Label">

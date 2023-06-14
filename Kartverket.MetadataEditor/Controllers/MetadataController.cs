@@ -465,8 +465,25 @@ namespace Kartverket.MetadataEditor.Controllers
                 ModelState["QualitySpecificationResultInspireSpatialServiceTechnicalConformance"].Errors.Clear();
         }
 
+        public static bool IsDoubleRealNumber(string valueToTest)
+        {
+            if (double.TryParse(valueToTest, out double d) && !Double.IsNaN(d) && !Double.IsInfinity(d))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private void ValidateModel(MetadataViewModel model, ModelStateDictionary modelstate)
         {
+            if(!string.IsNullOrWhiteSpace(model.ResolutionDistance))
+            {
+                model.ResolutionDistance = model.ResolutionDistance.Replace('.',',');
+                if (!IsDoubleRealNumber(model.ResolutionDistance))
+                    ModelState.AddModelError("ResolutionDistance", "Ugyldig tall");
+                model.ResolutionDistance = model.ResolutionDistance.Replace(',', '.');
+            }
             ValidQualityResult(model, modelstate);
 
             ViewBag.thumbnailMissingCSS = "";

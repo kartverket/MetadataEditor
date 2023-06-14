@@ -1,7 +1,41 @@
 ﻿@using Resources
 
+<script type="text/x-template" id="resolution-section-template">
+    <div>
+        <div v-show="isVisible(section)" v-for="section in sections" class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11">
+                        <span class="required">{{ section.name }}</span>
+                    </div>
+                    <div class="col-md-1">
+                        <span v-on:click="section.helpText.active = !section.helpText.active" v-bind:class="{active: section.helpText.active}" class="badge help-text-toggle">?</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
+                <div v-show="isVisible(formElement)" v-for="formElement in section.formElements">
+                    <div v-if="formElement.type == 'hidden'" is="field" v-bind:form-element="formElement"></div>
+                    <div v-else class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                        <div class="row">
+                            <label for="abstract" class="col-md-2 control-label">{{ formElement.label }}</label>
+                            <div class="col-md-9">
+                                <div is="field" v-bind:form-element="formElement"></div>
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
 <script type="text/x-template" id="quality-template">
     <div>
+        <div is="Resolution"></div>
         <div class="form-group" v-if="isVisible(formElement)" v-for="formElement in formElements">
             <div class="row">
                 <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
@@ -19,12 +53,83 @@
     </div>
 </script>
 
+
+<script>
+    var Resolution = {
+        name: "ResolutionSection",
+        template: "#resolution-section-template",
+        components: {
+            Field: Field
+        },
+        props: ["section"],
+        data: function () {
+            return {
+                 sections: [
+                    {
+                        name: 'Romlig oppløsning',
+                        helpText: {
+                             active: true,
+                             content: '@Html.Raw(UI.Helptext_SpatialResolution)'
+                         },
+                         visibleGetter: 'showSpatialResolution',
+                         formElements: [
+                             {
+                                 name: 'SelectedResolutionFormat',
+                                 getter: 'SelectedResolutionFormat',
+                                 mutation: 'updateSelectedResolutionFormat',
+                                 label: 'Måleenhet',
+                                 type: 'radio',
+                                 required: false,
+                                 active: true,
+                                 options: [
+                                     { Text: '@Html.Raw(UI.Metadata_ResolutionScale_Label)', Value: 'ResolutionScale' },
+                                     { Text: '@Html.Raw(UI.Metadata_ResolutionDistance_Label)', Value: 'ResolutionDistance' }
+                                 ],
+                             },
+                            {
+                                name: 'ResolutionScale',
+                                getter: 'ResolutionScale',
+                                mutation: 'updateResolutionScale',
+                                label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
+                                type: 'text',
+                                visibleGetter: 'showResolutionScale'
+                             },
+                            {
+                                name: 'ResolutionDistance',
+                                getter: 'ResolutionDistance',
+                                mutation: 'updateResolutionDistance',
+                                label: '@Html.Raw(UI.Metadata_ResolutionDistance_Label)',
+                                type: 'text',
+                                visibleGetter: 'showResolutionDistance',
+                                required: false
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        methods: {
+            isVisible: function (formElement) {
+                if (formElement.visibleGetter !== undefined) {
+                    return this.$store.getters[formElement.visibleGetter] === true || this.$store.getters[formElement.visibleGetter] == 'true';
+                } else if (formElement.visible !== undefined) {
+                    return formElement.visible === true || formElement.visible == 'true';
+                } else {
+                    return true;
+                }
+            },
+        }
+    };
+</script>
+
+
 <script>
     var Quality = {
         name: "quality",
         template: "#quality-template",
         components: {
-            Field: Field
+            Field: Field,
+            Resolution: Resolution
         },
         mounted: function () {
             this.$store.dispatch('getErrorsForTab', { tabName: 'Quality' }).then(function (errors) {
@@ -35,20 +140,6 @@
             return {
                 errors: {},
                 formElements: {
-                    resolutionScale: {
-                        id: 'ResolutionScale',
-                        name: 'ResolutionScale',
-                        getter: 'ResolutionScale',
-                        mutation: 'updateResolutionScale',
-                        label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
-                        type: 'text',
-                        required: false,
-                        visible: !this.$store.getters['isService'],
-                        helpText: {
-                            active: false,
-                            content: '@Html.Raw(UI.Helptext_ResolutionScale)'
-                        }
-                    },
                     status: {
                         id: 'Status',
                         name: 'Status',

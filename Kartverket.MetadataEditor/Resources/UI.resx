@@ -1043,4 +1043,10 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="Copy" xml:space="preserve">
     <value>Kopier</value>
   </data>
+  <data name="Helptext_SpatialResolution" xml:space="preserve">
+    <value>Denne oppgis som regel med målestokkstall for vektordata og som distanse for rasterdata og rutenettsdata, men en kan feks. gjerne legge inn at nøyaktighet er 2 meter på vegnett. “Målestokk” oppgis som heltall og “Distanse” oppgis som desimaltall med punktum som skilletegn</value>
+  </data>
+  <data name="Metadata_ResolutionDistance_Label" xml:space="preserve">
+    <value>Oppløsning i meter</value>
+  </data>
 </root>
