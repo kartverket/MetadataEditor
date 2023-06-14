@@ -1155,7 +1155,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_ResolutionDistance_Label">
             <summary>
-              Looks up a localized string similar to Distanse i meter.
+              Looks up a localized string similar to Oppløsning i meter.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_ResolutionScale_Label">

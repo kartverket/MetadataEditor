@@ -2052,7 +2052,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Distanse i meter.
+        ///   Looks up a localized string similar to Oppløsning i meter.
         /// </summary>
         public static string Metadata_ResolutionDistance_Label {
             get {
