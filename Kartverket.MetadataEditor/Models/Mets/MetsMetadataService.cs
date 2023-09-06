@@ -165,7 +165,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                                         singleChar = "_",
                                         wildCard = "%",
                                         PropertyName = new PropertyNameType {Text = new[] {"OrganisationName"}},
-                                        Literal = new LiteralType {Text = new[] { "Norwegian Meteorological Institute" }} // todo error no match
+                                        Literal = new LiteralType {Text = new[] { "Meteorologisk_institutt" }}
                                     }
                                 },
 
