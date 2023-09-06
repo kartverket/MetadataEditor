@@ -177,7 +177,7 @@ namespace Kartverket.MetadataEditor.Models
                         UriName = uriName
                     };
 
-                    if (uuid != null)
+                    if (uuid != null && !metadata.ContainsKey(uuid))
                         metadata.Add(uuid, metadataItem);
 
 
