@@ -7,6 +7,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Kartverket.MetadataEditor.Models.OpenData;
+using Kartverket.MetadataEditor.Models.Mets;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -17,14 +18,16 @@ namespace Kartverket.MetadataEditor.Controllers
         private IBatchService _batchService;
         private readonly IMetadataService _metadataService;
         private readonly IOpenMetadataService _openMetadataService;
+        private readonly IMetsMetadataService _metsMetadataService;
         private readonly MetadataContext _db;
 
-        public BatchController(IMetadataService metadataService, IBatchService batchService, IOpenMetadataService openMetadataService, MetadataContext dbContext)
+        public BatchController(IMetadataService metadataService, IBatchService batchService, IOpenMetadataService openMetadataService, MetadataContext dbContext, IMetsMetadataService metsMetadataService)
         {
             _metadataService = metadataService;
             _batchService = batchService;
             _openMetadataService = openMetadataService;
             _db = dbContext;
+            _metsMetadataService = metsMetadataService;
         }
 
         [Authorize]
@@ -115,6 +118,19 @@ namespace Kartverket.MetadataEditor.Controllers
 
             var endpoints = _db.OpenMetadataEndpoints.ToList();
             new Thread(() => _openMetadataService.SynchronizeMetadata(endpoints, username)).Start();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult MetsData()
+        {
+            if (!UserHasMetadataAdminRole())
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+
+            string username = GetUsername();
+
+            new Thread(() => _metsMetadataService.SynchronizeMetadata(username)).Start();
             return RedirectToAction("Index");
         }
 
