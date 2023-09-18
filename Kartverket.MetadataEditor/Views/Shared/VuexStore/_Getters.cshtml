@@ -360,6 +360,10 @@
         },
         SelectedResolutionFormat: function (state) {
             if (state.data.SelectedResolutionFormat) {
+
+                state.model.ResolutionScale = '';
+                state.model.ResolutionDistance = '';
+
                 return state.data.SelectedResolutionFormat;
             }
             else if (state.model.ResolutionScale?.trim()?.length) {
