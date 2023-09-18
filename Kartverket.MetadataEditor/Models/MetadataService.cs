@@ -573,7 +573,7 @@ namespace Kartverket.MetadataEditor.Models
             Dictionary<string, string> englishKeywords = new Dictionary<string, string>();
             foreach (var keyword in keywords)
             {
-                if (!string.IsNullOrWhiteSpace(keyword.EnglishKeyword))
+                if (!string.IsNullOrWhiteSpace(keyword.EnglishKeyword) && !englishKeywords.ContainsKey(keyword.GetPrefix() + "_" + keyword.Keyword))
                 {
                     englishKeywords.Add(keyword.GetPrefix() + "_" + keyword.Keyword, keyword.EnglishKeyword);
                 }
