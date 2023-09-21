@@ -61,6 +61,8 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
         private async Task<int> UpdateMetsMetadata(string username)
         {
+            //todo handle nextRecord (only 10 returned) and logging
+
             _geoNorge = new GeoNorge("", "", "https://data.csw.met.no/?");
 
             var filters = new object[]
@@ -120,16 +122,145 @@ namespace Kartverket.MetadataEditor.Models.Mets
                     }
                     catch { }
 
-                    if (existingMetadata == null) { 
+                    if (existingMetadata == null)
+                    {
 
-                        var trans =  _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
+                        var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
                     }
-                    else 
+                    else
                     {
                         var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
                     }
 
                     numberOfItems++;
+                }
+            }
+
+            //NIVA
+
+            _geoNorge = new GeoNorge("", "", " https://adc.csw.met.no/");
+
+            filters = new object[]
+            {
+                        new PropertyIsLikeType
+                            {
+                                escapeChar = "\\",
+                                singleChar = "_",
+                                wildCard = "%",
+                                PropertyName = new PropertyNameType {Text = new[] {"apiso:OrganisationName"}},
+                                Literal = new LiteralType {Text = new[] {"NIVA"}}
+                            }
+            };
+
+            filterNames = new ItemsChoiceType23[]
+            {
+                 ItemsChoiceType23.PropertyIsLike,
+            };
+
+
+            res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 50, false, true);
+
+            _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (MD_Metadata_Type item in res.Items)
+                {
+                    try
+                    {
+                        MD_Metadata_Type existingMetadata = null;
+
+                        try
+                        {
+                            existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                        }
+                        catch { }
+
+                        SimpleMetadata simpleMetadata = new SimpleMetadata(item);
+                        string organizationName = "Norsk institutt for vannforskning";
+                        string organizationNameEnglish = "Research institute for water and the environment";
+                        simpleMetadata.ContactMetadata = new SimpleContact { Organization = organizationName, Email = simpleMetadata.ContactMetadata.Email, Name = simpleMetadata.ContactMetadata.Name, Role = simpleMetadata.ContactMetadata.Role, PositionName = simpleMetadata.ContactMetadata.PositionName, OrganizationEnglish = organizationNameEnglish };
+                        simpleMetadata.ContactOwner = new SimpleContact { Organization = organizationName, Email = simpleMetadata.ContactMetadata.Email, Name = simpleMetadata.ContactMetadata.Name, Role = "owner", PositionName = simpleMetadata.ContactMetadata.PositionName, OrganizationEnglish = organizationNameEnglish };
+
+                        if (existingMetadata == null)
+                        {
+
+                            var trans = _geoNorge.MetadataInsert(simpleMetadata.GetMetadata(), Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
+                        }
+                        else
+                        {
+                            var trans = _geoNorge.MetadataUpdate(simpleMetadata.GetMetadata(), Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
+                        }
+
+                        numberOfItems++;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex);
+                    }
+                }
+            }
+
+
+            //NILU
+
+            filters = new object[]
+            {
+                        new PropertyIsLikeType
+                            {
+                                escapeChar = "\\",
+                                singleChar = "_",
+                                wildCard = "%",
+                                PropertyName = new PropertyNameType {Text = new[] {"apiso:OrganisationName"}},
+                                Literal = new LiteralType {Text = new[] {"NILU"}}
+                            }
+            };
+
+            filterNames = new ItemsChoiceType23[]
+            {
+                 ItemsChoiceType23.PropertyIsLike,
+            };
+
+
+            res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 50, false, true);
+
+            _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (MD_Metadata_Type item in res.Items)
+                {
+                    try
+                    {
+                        MD_Metadata_Type existingMetadata = null;
+
+                        try
+                        {
+                            existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                        }
+                        catch { }
+
+                        SimpleMetadata simpleMetadata = new SimpleMetadata(item);
+                        string organizationName = "Stiftelsen NILU";
+                        simpleMetadata.ContactMetadata = new SimpleContact { Organization = organizationName, Email = simpleMetadata.ContactMetadata.Email, Name = simpleMetadata.ContactMetadata.Name, Role = simpleMetadata.ContactMetadata.Role, PositionName = simpleMetadata.ContactMetadata.PositionName };
+                        simpleMetadata.ContactOwner = new SimpleContact { Organization = organizationName, Email = simpleMetadata.ContactMetadata.Email, Name = simpleMetadata.ContactMetadata.Name, Role = "owner", PositionName = simpleMetadata.ContactMetadata.PositionName };
+
+                        if (existingMetadata == null)
+                        {
+
+                            var trans = _geoNorge.MetadataInsert(simpleMetadata.GetMetadata(), Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
+                        }
+                        else
+                        {
+                            var trans = _geoNorge.MetadataUpdate(simpleMetadata.GetMetadata(), Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
+                        }
+
+                        numberOfItems++;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex);
+                    }
                 }
             }
 
