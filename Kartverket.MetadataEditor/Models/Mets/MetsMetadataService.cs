@@ -61,7 +61,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
         private async Task<int> UpdateMetsMetadata(string username)
         {
-            //todo handle nextRecord (only 10 returned) and logging
+            //todo handle nextRecord (only 10 returned) or use series or selected datasets
 
             _geoNorge = new GeoNorge("", "", "https://data.csw.met.no/?");
 
@@ -118,13 +118,13 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                     try
                     {
+                        Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
                         existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
                     }
                     catch { }
 
                     if (existingMetadata == null)
                     {
-
                         var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
                     }
                     else
@@ -138,7 +138,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             //NIVA
 
-            _geoNorge = new GeoNorge("", "", " https://adc.csw.met.no/");
+            _geoNorge = new GeoNorge("", "", "https://adc.csw.met.no/");
 
             filters = new object[]
             {
@@ -172,6 +172,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                         try
                         {
+                            Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
                             existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
                         }
                         catch { }
@@ -184,7 +185,6 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                         if (existingMetadata == null)
                         {
-
                             var trans = _geoNorge.MetadataInsert(simpleMetadata.GetMetadata(), Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
                         }
                         else
@@ -203,6 +203,8 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
 
             //NILU
+
+            _geoNorge = new GeoNorge("", "", "https://adc.csw.met.no/");
 
             filters = new object[]
             {
@@ -236,6 +238,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                         try
                         {
+                            Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
                             existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
                         }
                         catch { }
@@ -247,7 +250,6 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                         if (existingMetadata == null)
                         {
-
                             var trans = _geoNorge.MetadataInsert(simpleMetadata.GetMetadata(), Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
                         }
                         else
@@ -269,7 +271,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
         private void RemoveOldMetsMetadata(string username)
         {
-
+            //todo remove NIVA and NILU?
             List<string> metsSeriesInGeonorge = new List<string>();
             List<string> metsSeries = new List<string>();
 
@@ -393,6 +395,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                 MetadataViewModel model = new MetadataViewModel();
                 model.Uuid = uuid;
                 _metadataService.DeleteMetadata(model, username, "Mets delete synchronize");
+                Log.Info("Delete metadata for uuid: " + uuid);
             }
 
         }
