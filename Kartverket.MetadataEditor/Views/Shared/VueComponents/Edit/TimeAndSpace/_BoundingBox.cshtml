@@ -125,7 +125,25 @@
                     type: 'select',
                     showMap: false,
                     counties: [
-                        @if (DateTime.Today >= System.DateTime.Parse("1/1/2020 00:00:00"))
+                        @if (DateTime.Today >= System.DateTime.Parse("1/1/2024 00:00:00"))
+                        {
+                        @: { Name: 'Akershus', CountyCode: '32', BoundingBoxNorth: '60.605148', BoundingBoxSouth: '59.471882', BoundingBoxEast: '11.926978', BoundingBoxWest: '10.328467', Municipalities: this.getMunicipalitiesInCounty('32') },
+                        @: { Name: 'Agder', CountyCode: '42', BoundingBoxNorth: '59.672687', BoundingBoxSouth: '57.759005', BoundingBoxEast: '9.668877', BoundingBoxWest: '6.149699', Municipalities: this.getMunicipalitiesInCounty('42') },
+                        @: { Name: 'Buskerud', CountyCode: '33', BoundingBoxNorth: '61.09172', BoundingBoxSouth: '59.407871', BoundingBoxEast: '10.634994', BoundingBoxWest: '7.438842', Municipalities: this.getMunicipalitiesInCounty('33') },
+                        @: { Name: 'Finnmark', CountyCode: '56', BoundingBoxNorth: '71.384879', BoundingBoxSouth: '68.554592', BoundingBoxEast: '31.761485', BoundingBoxWest: '20.479733', Municipalities: this.getMunicipalitiesInCounty('56') },
+                        @: { Name: 'Innlandet', CountyCode: '34', BoundingBoxNorth: '62.696928', BoundingBoxSouth: '59.840785', BoundingBoxEast: '12.870849', BoundingBoxWest: '7.34253', Municipalities: this.getMunicipalitiesInCounty('34') },
+                        @: { Name: 'Møre og Romsdal', CountyCode: '15', BoundingBoxNorth: '63.768169', BoundingBoxSouth: '61.956584', BoundingBoxEast: '9.584212', BoundingBoxWest: '4.816602', Municipalities: this.getMunicipalitiesInCounty('15') },
+                        @: { Name: 'Nordland', CountyCode: '18', BoundingBoxNorth: '69.596701', BoundingBoxSouth: '64.939497', BoundingBoxEast: '18.151355', BoundingBoxWest: '10.57806', Municipalities: this.getMunicipalitiesInCounty('18') },
+                        @: { Name: 'Oslo', CountyCode: '21', BoundingBoxNorth: '60.135106', BoundingBoxSouth: '59.809311', BoundingBoxEast: '10.951389', BoundingBoxWest: '10.489165', Municipalities: this.getMunicipalitiesInCounty('21') },
+                        @: { Name: 'Rogaland', CountyCode: '11', BoundingBoxNorth: '59.844574', BoundingBoxSouth: '58.027854', BoundingBoxEast: '7.214667', BoundingBoxWest: '4.454274', Municipalities: this.getMunicipalitiesInCounty('11') },
+                        @: { Name: 'Troms', CountyCode: '55', BoundingBoxNorth: '70.703616', BoundingBoxSouth: '68.356014', BoundingBoxEast: '22.894466', BoundingBoxWest: '15.592542', Municipalities: this.getMunicipalitiesInCounty('19') },
+                        @: { Name: 'Trøndelag', CountyCode: '50', BoundingBoxNorth: '65.470175', BoundingBoxSouth: '63.180687', BoundingBoxEast: '14.325986', BoundingBoxWest: '9.699817', Municipalities: this.getMunicipalitiesInCounty('50') },
+                        @: { Name: 'Telemark', CountyCode: '40', BoundingBoxNorth: '60.188272', BoundingBoxSouth: '58.603311', BoundingBoxEast: '9.969765', BoundingBoxWest: '7.096288', Municipalities: this.getMunicipalitiesInCounty('40') },
+                        @: { Name: 'Vestfold', CountyCode: '39', BoundingBoxNorth: '59.701938', BoundingBoxSouth: '58.720455', BoundingBoxEast: '10.67502', BoundingBoxWest: '9.755336', Municipalities: this.getMunicipalitiesInCounty('39') },
+                        @: { Name: 'Vestland', CountyCode: '46', BoundingBoxNorth: '62.382396', BoundingBoxSouth: '59.475421', BoundingBoxEast: '8.322053', BoundingBoxWest: '4.184771', Municipalities: this.getMunicipalitiesInCounty('46') },
+                        @: { Name: 'Østfold', CountyCode: '31', BoundingBoxNorth: '59.790586', BoundingBoxSouth: '58.76096', BoundingBoxEast: '11.946004', BoundingBoxWest: '10.536679', Municipalities: this.getMunicipalitiesInCounty('31') },
+                        }
+                        else
                         {
                         @: { Name: 'Agder', CountyCode: '42', BoundingBoxNorth: '59.672687', BoundingBoxSouth: '57.759005', BoundingBoxEast: '9.668877', BoundingBoxWest: '6.149699', Municipalities: this.getMunicipalitiesInCounty('42') },
                         @: { Name: 'Innlandet', CountyCode: '34', BoundingBoxNorth: '62.696928', BoundingBoxSouth: '59.840785', BoundingBoxEast: '12.870849', BoundingBoxWest: '7.34253', Municipalities: this.getMunicipalitiesInCounty('34') },
@@ -138,27 +156,6 @@
                         @: { Name: 'Vestfold og Telemark', CountyCode: '38', BoundingBoxNorth: '60.188272', BoundingBoxSouth: '58.603311', BoundingBoxEast: '10.67502', BoundingBoxWest: '7.096288', Municipalities: this.getMunicipalitiesInCounty('38') },
                         @: { Name: 'Vestland', CountyCode: '46', BoundingBoxNorth: '62.382396', BoundingBoxSouth: '59.475421', BoundingBoxEast: '8.322053', BoundingBoxWest: '4.184771', Municipalities: this.getMunicipalitiesInCounty('46') },
                         @: { Name: 'Viken', CountyCode: '30', BoundingBoxNorth: '61.09172', BoundingBoxSouth: '58.76096', BoundingBoxEast: '11.946004', BoundingBoxWest: '7.438842', Municipalities: this.getMunicipalitiesInCounty('30') },
-                        }
-                        else
-                        {
-                        @: { Name: 'Akershus', CountyCode: '02', BoundingBoxNorth: '60.605148', BoundingBoxSouth: '59.471882', BoundingBoxEast: '11.926978', BoundingBoxWest: '10.328467', Municipalities: this.getMunicipalitiesInCounty('02') },
-                        @: { Name: 'Aust-Agder', CountyCode: '09', BoundingBoxNorth: '59.672687', BoundingBoxSouth: '57.917234', BoundingBoxEast: '9.668877', BoundingBoxWest: '6.824533', Municipalities: this.getMunicipalitiesInCounty('09') },
-                        @: { Name: 'Buskerud', CountyCode: '06', BoundingBoxNorth: '61.09172', BoundingBoxSouth: '59.407871', BoundingBoxEast: '10.634994', BoundingBoxWest: '7.438842', Municipalities: this.getMunicipalitiesInCounty('06') },
-                        @: { Name: 'Finnmark', CountyCode: '20', BoundingBoxNorth: '71.384879', BoundingBoxSouth: '68.554592', BoundingBoxEast: '31.761485', BoundingBoxWest: '20.479733', Municipalities: this.getMunicipalitiesInCounty('20') },
-                        @: { Name: 'Hedmark', CountyCode: '04', BoundingBoxNorth: '62.696928', BoundingBoxSouth: '59.840785', BoundingBoxEast: '12.870849', BoundingBoxWest: '9.583827', Municipalities: this.getMunicipalitiesInCounty('04') },
-                        @: { Name: 'Hordaland', CountyCode: '12', BoundingBoxNorth: '61.035238', BoundingBoxSouth: '59.475421', BoundingBoxEast: '7.732115', BoundingBoxWest: '4.184771', Municipalities: this.getMunicipalitiesInCounty('12') },
-                        @: { Name: 'Møre og Romsdal', CountyCode: '15', BoundingBoxNorth: '63.768169', BoundingBoxSouth: '61.956584', BoundingBoxEast: '9.584212', BoundingBoxWest: '4.816602', Municipalities: this.getMunicipalitiesInCounty('15') },
-                        @: { Name: 'Nordland', CountyCode: '18', BoundingBoxNorth: '69.596701', BoundingBoxSouth: '64.939497', BoundingBoxEast: '18.151355', BoundingBoxWest: '10.57806', Municipalities: this.getMunicipalitiesInCounty('18') },
-                        @: { Name: 'Oppland', CountyCode: '05', BoundingBoxNorth: '62.378402', BoundingBoxSouth: '60.13161', BoundingBoxEast: '11.153986', BoundingBoxWest: '7.34253', Municipalities: this.getMunicipalitiesInCounty('05') },
-                        @: { Name: 'Oslo', CountyCode: '21', BoundingBoxNorth: '60.135106', BoundingBoxSouth: '59.809311', BoundingBoxEast: '10.951389', BoundingBoxWest: '10.489165', Municipalities: this.getMunicipalitiesInCounty('21') },
-                        @: { Name: 'Rogaland', CountyCode: '11', BoundingBoxNorth: '59.844574', BoundingBoxSouth: '58.027854', BoundingBoxEast: '7.214667', BoundingBoxWest: '4.454274', Municipalities: this.getMunicipalitiesInCounty('11') },
-                        @: { Name: 'Sogn og Fjordane', CountyCode: '14', BoundingBoxNorth: '62.382396', BoundingBoxSouth: '60.675548', BoundingBoxEast: '8.322053', BoundingBoxWest: '4.087526', Municipalities: this.getMunicipalitiesInCounty('14') },
-                        @: { Name: 'Telemark', CountyCode: '08', BoundingBoxNorth: '60.188272', BoundingBoxSouth: '58.603311', BoundingBoxEast: '9.969765', BoundingBoxWest: '7.096288', Municipalities: this.getMunicipalitiesInCounty('08') },
-                        @: { Name: 'Troms', CountyCode: '19', BoundingBoxNorth: '70.703616', BoundingBoxSouth: '68.356014', BoundingBoxEast: '22.894466', BoundingBoxWest: '15.592542', Municipalities: this.getMunicipalitiesInCounty('19') },
-                        @: { Name: 'Trøndelag', CountyCode: '50', BoundingBoxNorth: '65.470175', BoundingBoxSouth: '63.180687', BoundingBoxEast: '14.325986', BoundingBoxWest: '9.699817', Municipalities: this.getMunicipalitiesInCounty('50') },
-                        @: { Name: 'Vest-Agder', CountyCode: '10', BoundingBoxNorth: '59.189687', BoundingBoxSouth: '57.759005', BoundingBoxEast: '8.37168', BoundingBoxWest: '6.149699', Municipalities: this.getMunicipalitiesInCounty('10') },
-                        @: { Name: 'Vestfold', CountyCode: '07', BoundingBoxNorth: '59.701938', BoundingBoxSouth: '58.720455', BoundingBoxEast: '10.67502', BoundingBoxWest: '9.755336', Municipalities: this.getMunicipalitiesInCounty('07') },
-                        @: { Name: 'Østfold', CountyCode: '01', BoundingBoxNorth: '59.790586', BoundingBoxSouth: '58.76096', BoundingBoxEast: '11.946004', BoundingBoxWest: '10.536679', Municipalities: this.getMunicipalitiesInCounty('01') }
                         }
 
 
