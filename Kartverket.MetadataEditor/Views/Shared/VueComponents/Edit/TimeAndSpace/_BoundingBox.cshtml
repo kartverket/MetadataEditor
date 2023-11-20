@@ -125,7 +125,7 @@
                     type: 'select',
                     showMap: false,
                     counties: [
-                        @if (DateTime.Today >= System.DateTime.Parse("1/1/2024 00:00:00"))
+                        @if (DateTime.Today >= System.DateTime.Parse("1/1/2024 00:00:00") || !string.IsNullOrEmpty(System.Web.Configuration.WebConfigurationManager.AppSettings["EnvironmentName"]))
                         {
                         @: { Name: 'Akershus', CountyCode: '32', BoundingBoxNorth: '60.605148', BoundingBoxSouth: '59.471882', BoundingBoxEast: '11.926978', BoundingBoxWest: '10.328467', Municipalities: this.getMunicipalitiesInCounty('32') },
                         @: { Name: 'Agder', CountyCode: '42', BoundingBoxNorth: '59.672687', BoundingBoxSouth: '57.759005', BoundingBoxEast: '9.668877', BoundingBoxWest: '6.149699', Municipalities: this.getMunicipalitiesInCounty('42') },
