@@ -68,13 +68,13 @@
                         <div class="row">
                             <label class="col-md-2 control-label">Rutenett</label>
                             <div class="col-md-10">
-                                <input type="text" name="CoverageGridUrl" value="@Model.CoverageGridUrl" class="form-control" />
+                                <input type="text" id="CoverageGridUrl" name="CoverageGridUrl" value="@Model.CoverageGridUrl" class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
                             <label class="col-md-2 control-label">Celle</label>
                             <div class="col-md-10">
-                                <input type="text" name="CoverageCellUrl" value="@Model.CoverageCellUrl" class="form-control" />
+                                <input type="text" id="CoverageCellUrl" name="CoverageCellUrl" value="@Model.CoverageCellUrl" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -198,6 +198,16 @@
                 } else if (this.coverageType.value == 'imageCoverage') {
                     computedCoverageUrl.value = this.computedThumbnailUrl;
                 }
+
+                if (this.coverageType.value !== 'mapserviceGeonorge')
+                {
+                    if (document.getElementById("CoverageGridUrl") !== null)
+                        document.getElementById("CoverageGridUrl").value = '';
+
+                    if (document.getElementById("CoverageCellUrl") !== null)
+                        document.getElementById("CoverageCellUrl").value = '';
+                }
+
                 return computedCoverageUrl;
             },
            computedThumbnailUrl: function () {
