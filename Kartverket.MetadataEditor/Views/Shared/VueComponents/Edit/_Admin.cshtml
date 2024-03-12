@@ -73,7 +73,7 @@
                             <div v-if="isIncluded(formElement)" class="row">
                                 <label class="col-md-3 control-label">{{ formElement.label }}</label>
                                 <div class="col-md-8">
-                                    <div is="field" v-bind:form-element="formElement"></div>
+                                    <component is="field" v-bind:form-element="formElement"></component>
                                 </div>
                                 <div class="col-md-1"></div>
                             </div>

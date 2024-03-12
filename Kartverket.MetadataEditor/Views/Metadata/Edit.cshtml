@@ -114,9 +114,11 @@
 <form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     <div id="vue-container">
         <ul class="nav nav-tabs">
-            <li is="tab" v-show="tab.display == true" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></li>
+            <component is="tab">
+                <li v-show="tab.display == true" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></li>
+            </component>
         </ul>
-        <div v-bind:is="tab.id" v-show="$store.getters['settingsSelectedTab'].id == tab.id" v-for="tab in $store.getters['settingsTabs']"></div>
+        <component v-bind:is="tab.id" v-show="$store.getters['settingsSelectedTab'].id == tab.id" v-for="tab in $store.getters['settingsTabs']"></component>
     </div>
 
     @Html.HiddenFor(m => m.Uuid)
@@ -666,25 +668,26 @@
 
 
     <script>
-        var vueModel = new Vue({
-            el: "#vue-container",
-            store: new Vuex.Store(Store),
-            data: {
-                model: @ViewModelJson,
-                viewBag: @ViewBagJson,
-                selectedValues: {
-                    timeAndSpace: {
-                        boundingBox: {
-                            areas: []
+        var store = Vuex.createStore(Store);
+        var app = Vue.createApp({
+            data() {
+                return {
+                    model: @ViewModelJson,
+                    viewBag: @ViewBagJson,
+                    selectedValues: {
+                        timeAndSpace: {
+                            boundingBox: {
+                                areas: []
+                            }
+                        },
+                        documents: {
+                            keywordsConcept: {
+                                concepts: []
+                            }
+                        },
+                        admin: {
+                            keywordsCatalogs: []
                         }
-                    },
-                    documents: {
-                        keywordsConcept: {
-                            concepts: []
-                        }
-                    },
-                    admin: {
-                        keywordsCatalogs: []
                     }
                 }
             },
@@ -737,6 +740,8 @@
                 Admin: Admin
             }
         });
+        app.use(store);
+        app.mount('#vue-container');
     </script>
     <script>
     function getMetadataForService(uuid) {

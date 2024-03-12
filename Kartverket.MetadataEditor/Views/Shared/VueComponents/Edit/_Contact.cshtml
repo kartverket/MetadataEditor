@@ -16,12 +16,12 @@
             <div class="panel-body">
                 <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
                 <div v-for="formElement in section.formElements">
-                    <div v-if="formElement.type == 'hidden'" is="field" v-bind:form-element="formElement"></div>
+                    <component v-if="formElement.type == 'hidden'" is="field" v-bind:form-element="formElement"></component>
                     <div v-else class="form-group has-feedback" v-bind:class="{required: formElement.required}">
                         <div class="row">
                             <label for="abstract" class="col-md-2 control-label">{{ formElement.label }}</label>
                             <div class="col-md-9">
-                                <div is="field" v-bind:form-element="formElement"></div>
+                                <component is="field" v-bind:form-element="formElement"></component>
                                 <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
                             </div>
                         </div>

@@ -7,7 +7,7 @@
             <label v-bind:for="topicCategory.id" class="col-md-2 control-label">@UI.TopicCategory</label>
             <div class="col-md-9">
                 <p v-if="topicCategory.helpText && topicCategory.helpText.active" class="help-text bg-success" v-html="topicCategory.helpText.content"></p>
-                <div is="field" v-bind:form-element="topicCategory"></div>
+                <component is="field" v-bind:form-element="topicCategory"></component>
             </div>
             <div v-if="topicCategory.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -16,11 +16,11 @@
             </div>
         </div>
 
-        <div is="keywords-section"
+        <component is="keywords-section"
              v-show="section.visible"
              v-bind:section="section"
              v-for="section in sections">
-        </div>
+        </component>
 
     </div>
 </script>

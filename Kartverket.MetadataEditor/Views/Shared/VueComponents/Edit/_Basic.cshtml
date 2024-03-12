@@ -8,7 +8,7 @@
                     <label class="col-md-2 control-label">{{ formElement.label }}</label>
                     <div class="col-md-9">
                         <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                        <div is="field" v-bind:form-element="formElement"></div>
+                        <component is="field" v-bind:form-element="formElement"></component>
                     </div>
                     <div v-if="formElement.helpText" class="col-md-1">
                         <p class="form-control-static">

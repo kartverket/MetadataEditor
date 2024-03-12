@@ -20,6 +20,7 @@
         computed: {
             active: function () {
                 var selectedTab = this.$store.getters['settingsSelectedTab'];
+                console.log(selectedTab);
                 return selectedTab.id == this.tab.id;
             },
             errors: function () {

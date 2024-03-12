@@ -28,7 +28,7 @@
                     <div v-bind:class="{'striped-list': selectedLanguage == 'all'}">
                         <div v-bind:class="{'list-item': selectedLanguage == 'all'}"
                              v-for="(keyword, index) in $store.getters['Keywords' + section.name]">
-                            <div v-if="section.multilingual"
+                            <component v-if="section.multilingual"
                                  is="multilingual-keyword"
                                  v-bind:selected-language="selectedLanguage"
                                  v-bind:keyword-name="section.name"
@@ -36,8 +36,8 @@
                                  v-bind:keyword-index="index"
                                  v-bind:keyword-value="keyword"
                                  v-bind:options="section.options !== undefined ? section.options : null">
-                            </div>
-                            <div v-else
+                            </component>
+                            <component v-else
                                  is="monolingual-keyword"
                                  v-bind:selected-language="selectedLanguage"
                                  v-bind:keyword-name="section.name"
@@ -45,7 +45,7 @@
                                  v-bind:keyword-index="index"
                                  v-bind:keyword-value="keyword"
                                  v-bind:options="section.options !== undefined ? section.options : null">
-                            </div>
+                            </component>
                         </div>
                     </div>
                 </div>

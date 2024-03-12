@@ -7,7 +7,7 @@
                 <label class="col-md-2 control-label">{{ formElement.label }}</label>
                 <div class="col-md-9">
                     <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                    <div is="field" v-bind:form-element="formElement"></div>
+                    <component is="field" v-bind:form-element="formElement"></component>
                 </div>
                 <div v-if="formElement.helpText" class="col-md-1">
                     <p class="form-control-static">
@@ -36,13 +36,13 @@
             </div>
         </div>
         <br />
-        <div is="keywords-section"
+        <component is="keywords-section"
              v-bind:section="section"
              v-for="section in sections">
-        </div>
-        <div is="keywords-administrative-units"></div>
-        <div is="bounding-box"></div>
-        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></div>
+        </component>
+        <component is="keywords-administrative-units"></component>
+        <component is="bounding-box"></component>
+        <component v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></component>
     </div>
 </script>
 
