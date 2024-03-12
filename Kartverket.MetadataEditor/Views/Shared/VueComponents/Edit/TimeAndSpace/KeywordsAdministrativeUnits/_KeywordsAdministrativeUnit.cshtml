@@ -65,7 +65,7 @@
         name: "KeywordsAdministrativeUnit",
         template: "#keywords-administrative-unit-template",
         props: ['keywordName', 'inputType', 'keywordIndex', 'keywordValue'],
-        data: function () {
+        data() {
             return {
                 name: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']',
                 inputValue: '',
@@ -252,7 +252,7 @@
                 return isAdded;
             }
         },
-        mounted: function () {
+        mounted() {
             if (this.keywordValue) {
                 this.selectKeywordOptionByValue(this.keywordValue);
             }

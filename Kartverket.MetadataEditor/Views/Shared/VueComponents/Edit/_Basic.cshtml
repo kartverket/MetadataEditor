@@ -3,20 +3,22 @@
 <script type="text/x-template" id="basic-template">
     <div>
         <div class="form-group has-feedback">
-            <div v-for="formElement in formElements" v-if="formElement.visible" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
-                <div class="row">
-                    <label class="col-md-2 control-label">{{ formElement.label }}</label>
-                    <div class="col-md-9">
-                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                        <div is="field" v-bind:form-element="formElement"></div>
-                    </div>
-                    <div v-if="formElement.helpText" class="col-md-1">
-                        <p class="form-control-static">
-                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
-                        </p>
+            <template v-for="formElement in formElements">
+                <div v-if="formElement.visible" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                    <div class="row">
+                        <label class="col-md-2 control-label">{{ formElement.label }}</label>
+                        <div class="col-md-9">
+                            <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                            <component is="field" v-bind:form-element="formElement"></component>
+                        </div>
+                        <div v-if="formElement.helpText" class="col-md-1">
+                            <p class="form-control-static">
+                                <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </div>
     </div>
 </script>
@@ -33,13 +35,13 @@
         components: {
             Field: Field
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Basic', fieldNames: this.fieldNames });
             this.$store.dispatch('getErrorsForTab', { tabName: 'Basic' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 fieldNames: ['Title', 'EnglishTitle', 'Language', 'ResourceReferenceCodespace', 'ResourceReferenceCode', 'Abstract', 'EnglishAbstract', 'HelpUrl', 'SpecificUsage', 'EnglishSpecificUsage'],

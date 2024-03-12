@@ -123,7 +123,7 @@
     var Coverage = {
         name: "coverage",
         template: "#coverage-template",
-        data: function () {
+        data() {
             return {
                 coverageType: {
                     name: '',
@@ -332,7 +332,7 @@
                 this.$store.commit('updateThumbnails', thumbnails);
             }
         },
-        mounted: function () {
+        mounted() {
             this.mapServiceType.value = this.getMapServiceType();
             var mapServiceUrl = this.getMapServiceUrl();
             if (mapServiceUrl != '')

@@ -8,7 +8,7 @@
             <label class="col-md-3 control-label">{{ formElements.useLimitations.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.useLimitations.helpText && formElements.useLimitations.helpText.active" class="help-text bg-success" v-html="formElements.useLimitations.helpText.content"></p>
-                <div is="field" v-bind:form-element="formElements.useLimitations"></div>
+                <component is="field" v-bind:form-element="formElements.useLimitations"></component>
             </div>
             <div v-if="formElements.useLimitations.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -22,7 +22,7 @@
             <label class="col-md-3 control-label">{{ formElements.accessConstraints.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.accessConstraints.helpText && formElements.accessConstraints.helpText.active" class="help-text bg-success" v-html="formElements.accessConstraints.helpText.content"></p>
-                <div is="field" v-bind:form-element="formElements.accessConstraints"></div>
+                <component is="field" v-bind:form-element="formElements.accessConstraints"></component>
             </div>
             <div v-if="formElements.accessConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -36,7 +36,7 @@
             <label class="col-md-3 control-label">{{ formElements.useConstraints.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.useConstraints.helpText && formElements.useConstraints.helpText.active" class="help-text bg-success" v-html="formElements.useConstraints.helpText.content"></p>
-                <div is="field" v-bind:form-element="formElements.useConstraints"></div>
+                <component is="field" v-bind:form-element="formElements.useConstraints"></component>
             </div>
             <div v-if="formElements.useConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -70,13 +70,13 @@
             @* OtherConstraintsLinkText *@
             <label class="col-md-3 control-label">{{ formElements.otherConstraintsLinkText.label }}</label>
             <div class="col-md-3">
-                <div is="field" v-bind:form-element="formElements.otherConstraintsLinkText"></div>
+                <component is="field" v-bind:form-element="formElements.otherConstraintsLinkText"></component>
             </div>
 
             @* OtherConstraintsLink *@
             <label class="col-md-1 control-label">{{ formElements.otherConstraintsLink.label }}</label>
             <div class="col-md-4">
-                <div is="field" v-bind:form-element="formElements.otherConstraintsLink"></div>
+                <component is="field" v-bind:form-element="formElements.otherConstraintsLink"></component>
             </div>
         </div>
 
@@ -85,7 +85,7 @@
             <label class="col-md-3 control-label">{{ formElements.otherConstraints.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.otherConstraints.helpText && formElements.otherConstraints.helpText.active" class="help-text bg-success" v-html="formElements.otherConstraints.helpText.content"></p>
-                <div is="field" v-bind:form-element="formElements.otherConstraints"></div>
+                <component is="field" v-bind:form-element="formElements.otherConstraints"></component>
             </div>
             <div v-if="formElements.otherConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -99,7 +99,7 @@
             <label class="col-md-3 control-label">{{ formElements.securityConstraints.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.securityConstraints.helpText && formElements.securityConstraints.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraints.helpText.content"></p>
-                <div is="field" v-bind:form-element="formElements.securityConstraints"></div>
+                <component is="field" v-bind:form-element="formElements.securityConstraints"></component>
             </div>
             <div v-if="formElements.useConstraints.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -113,7 +113,7 @@
             <label class="col-md-3 control-label">{{ formElements.securityConstraintsNote.label }}</label>
             <div class="col-md-8">
                 <p v-if="formElements.securityConstraintsNote.helpText && formElements.securityConstraintsNote.helpText.active" class="help-text bg-success" v-html="formElements.securityConstraintsNote.helpText.content"></p>
-                <div is="field" v-bind:form-element="formElements.securityConstraintsNote"></div>
+                <component is="field" v-bind:form-element="formElements.securityConstraintsNote"></component>
             </div>
             <div v-if="formElements.securityConstraintsNote.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -150,7 +150,7 @@
                 return this.$store.getters['UseConstraints'] == 'license';
             }
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Constraints', fieldNames: this.fieldNames });
             this.$store.dispatch('getErrorsForTab', { tabName: 'Constraints' }).then(function (errors) {
                 this.errors = errors;
