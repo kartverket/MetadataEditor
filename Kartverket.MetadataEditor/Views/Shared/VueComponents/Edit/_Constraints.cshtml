@@ -150,7 +150,7 @@
                 return this.$store.getters['UseConstraints'] == 'license';
             }
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Constraints', fieldNames: this.fieldNames });
             this.$store.dispatch('getErrorsForTab', { tabName: 'Constraints' }).then(function (errors) {
                 this.errors = errors;

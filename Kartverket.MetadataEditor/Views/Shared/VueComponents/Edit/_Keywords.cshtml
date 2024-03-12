@@ -35,12 +35,12 @@
             Field: Field,
             KeywordsSection: KeywordsSection
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('getErrorsForTab', { tabName: 'Keywords' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 topicCategory: {

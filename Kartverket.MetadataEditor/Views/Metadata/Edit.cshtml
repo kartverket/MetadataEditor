@@ -114,9 +114,7 @@
 <form action="@Url.Action("Edit", new { uuid = Model.Uuid })" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     <div id="vue-container">
         <ul class="nav nav-tabs">
-            <component is="tab">
-                <li v-show="tab.display == true" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></li>
-            </component>
+            <component is="tab" v-show="tab.display == true" v-for="tab in $store.getters['settingsTabs']" v-bind:tab="tab"></component>
         </ul>
         <component v-bind:is="tab.id" v-show="$store.getters['settingsSelectedTab'].id == tab.id" v-for="tab in $store.getters['settingsTabs']"></component>
     </div>
@@ -706,7 +704,7 @@
             created: function () {
                 this.setSelectedLanguage();
             },
-            mounted: function () {
+            mounted() {
                 this.$store.dispatch('getSelectedTab');
                 if (applicationEnvironment == "dev") {
                     for (var getter in this.$store.getters) {

@@ -26,10 +26,12 @@
             <label>{{ keywordsCatalogs.label }}</label>
             <div class="custom-select-list">
                 <div class="custom-select-list-input-container">
-                    <span v-if="isAdded(option.Value)" v-for="option in keywordsCatalogs.options" class="custom-select-list-selected">
-                        {{ option.Text }}
-                        <span v-on:click="removeKeyword(option.Value)" class="custom-select-list-remove-button"></span>
-                    </span>
+                    <template v-for="option in keywordsCatalogs.options">
+                        <span v-if="isAdded(option.Value)" class="custom-select-list-selected">
+                            {{ option.Text }}
+                            <span v-on:click="removeKeyword(option.Value)" class="custom-select-list-remove-button"></span>
+                        </span>
+                    </template>
                     <input type="text" class="custom-select-list-input" />
                 </div>
                 <div class="custom-select-list-dropdown-container">
@@ -105,14 +107,14 @@
         components: {
             Field: Field
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Admin', fieldNames: this.fieldNames });
             this.$store.dispatch('getErrorsForTab', { tabName: 'Admin' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
             initCustomSelectList();
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 fieldNames: [

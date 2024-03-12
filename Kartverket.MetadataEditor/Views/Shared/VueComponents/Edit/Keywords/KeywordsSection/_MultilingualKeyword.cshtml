@@ -83,7 +83,7 @@
         name: "MultilingualKeyword",
         template: "#multilingual-keyword-template",
         props: ['selectedLanguage', 'keywordName', 'inputType', 'keywordIndex', 'keywordValue', 'options'],
-        data: function () {
+        data() {
             return {
                 englishName: 'KeywordsEnglish' + '[' + this.keywordName + '_' + this.keywordValue + ']',
                 norwegianName: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']',

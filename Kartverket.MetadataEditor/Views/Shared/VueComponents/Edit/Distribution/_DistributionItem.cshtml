@@ -208,14 +208,14 @@
             Field: Field,
             distributionItemFormat: DistributionItemFormat
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Distribution', fieldNames: this.fieldNames });
             this.distributionItemFormats = this.distribution.Value.Formats;
             if (!this.distributionItemFormats.length) {
                 this.addDistributionFormat();
             }
         },
-        data: function () {
+        data() {
             return {
                 fieldNames: [
                     'DistributionsFormats[' + this.distributionIndex + '].Organization',

@@ -122,12 +122,12 @@
                 }
             }
         },
-        data: function () {
+        data() {
             return {
                 selectedLanguage: this.$store.getters['settingsSelectedLanguage']
             }
         },
-        mounted: function () {
+        mounted() {
             this.selectedLanguage = this.$store.getters['settingsSelectedLanguage']
         },
         methods: {
