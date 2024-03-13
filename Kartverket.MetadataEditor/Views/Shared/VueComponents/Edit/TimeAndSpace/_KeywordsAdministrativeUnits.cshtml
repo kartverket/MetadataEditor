@@ -13,12 +13,12 @@
         <div class="panel-body">
             <div v-if="$store.getters[getter] && $store.getters[getter].length">
                     <div v-for="(keyword, index) in $store.getters[getter]">
-                        <div is="keywords-administrative-unit"
+                        <component is="keywords-administrative-unit"
                              v-bind:keyword-name="name"
                              v-bind:inputType="type"
                              v-bind:keyword-index="index"
                              v-bind:keyword-value="keyword">
-                        </div>
+                        </component>
                     </div>
             </div>
             <div v-else>
@@ -41,7 +41,7 @@
         components: {
             KeywordsAdministrativeUnit: KeywordsAdministrativeUnit
         },
-        data: function () {
+        data() {
             return {
                 title: '@Html.Raw(UI.Metadata_KeywordsAdministrativeUnits_Label)',
                 name: 'AdministrativeUnits',

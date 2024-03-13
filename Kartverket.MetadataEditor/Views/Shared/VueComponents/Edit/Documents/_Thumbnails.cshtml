@@ -1,6 +1,6 @@
 ﻿<script type="text/x-template" id="thumbnails-template">
     <div v-if="$store.getters['Thumbnails']" class="striped-list">
-        <div is="thumbnail" v-show="image.Type !== 'dekningsoversikt'" v-bind:image-type="image.Type" v-bind:image-url="image.URL" v-bind:image-index="index" v-for="(image, index) in $store.getters['Thumbnails']"></div>
+        <component is="thumbnail" v-show="image.Type !== 'dekningsoversikt'" v-bind:image-type="image.Type" v-bind:image-url="image.URL" v-bind:image-index="index" v-for="(image, index) in $store.getters['Thumbnails']"></component>
     </div>
 </script>
 

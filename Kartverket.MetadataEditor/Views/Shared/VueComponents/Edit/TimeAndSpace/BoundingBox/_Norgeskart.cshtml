@@ -19,7 +19,7 @@
     var Norgeskart = {
         name: "Norgeskart",
         template: "#norgeskart-template",
-        data: function () {
+        data() {
             return {
                 conf: {
                     center_latitude: "7226208",
@@ -43,7 +43,7 @@
                 win.postMessage(JSON.stringify(msg), '*');
             }
         },
-        mounted: function () {
+        mounted() {
             this.boundingBox = {
                 BoundingBoxEast: null,
                 BoundingBoxNorth: null,
