@@ -134,7 +134,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
             ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + model.Uuid;
-            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(), "Key", "Value");
+            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(model.DistributionProtocol), "Key", "Value");
 
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 
@@ -291,7 +291,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         }
 
-        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols()
+        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols(string distributionProtocol)
         {
             Dictionary<string, string> dic = GetCodeList("94B5A165-7176-4F43-B6EC-1063F7ADE9EA");
 
@@ -299,13 +299,25 @@ namespace Kartverket.MetadataEditor.Controllers
             var keysToSelect = new List<string>
             {
                {"GEONORGE:FILEDOWNLOAD"},
-               {"GEONORGE:DOWNLOAD"},
                {"GEONORGE:OFFLINE"},
-               {"WWW:DOWNLOAD-1.0-http--download"},
-               {"W3C:REST"},
-               {"W3C:WS"},
-               {"WWW:LINK-1.0-http--link"},
+               {"WWW:DOWNLOAD-1.0-http--download"}
             };
+
+            // Preserve old selected value
+            if(distributionProtocol != null)
+            {
+                if (!keysToSelect.Contains(distributionProtocol))
+                {
+                    if(distributionProtocol == "GEONORGE:DOWNLOAD")
+                        keysToSelect.Add("GEONORGE:DOWNLOAD");
+                    if (distributionProtocol == "W3C:REST")
+                        keysToSelect.Add("W3C:REST");
+                    if (distributionProtocol == "W3C:WS")
+                        keysToSelect.Add("W3C:WS");
+                    if (distributionProtocol == "WWW:LINK-1.0-http--link")
+                        keysToSelect.Add("WWW:LINK-1.0-http--link");
+                }
+            }
 
             Dictionary<string, string> newDic = new Dictionary<string, string>();
             foreach (var key in keysToSelect)
