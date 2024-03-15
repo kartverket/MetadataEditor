@@ -68,7 +68,7 @@ namespace Kartverket.MetadataEditor.Models
         public DateTime? DateMetadataUpdated { get; set; }
 
         public string DistributionProtocol { get; set; }
-        [RequiredIf("IsDokDataset()", ErrorMessage = "URL til datasett er påkrevd for DOK-datasett")]
+        [RequiredIf("IsDokDataset()", ErrorMessage = "URL til nedlastingsside er påkrevd for DOK-datasett")]
         public string DistributionUrl { get; set; }
 
         [Required(ErrorMessage = "Oppdateringshyppighet er påkrevd")]
