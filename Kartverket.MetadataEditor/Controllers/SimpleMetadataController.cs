@@ -121,6 +121,51 @@ namespace Kartverket.MetadataEditor.Controllers
 
         }
 
+        public ActionResult List()
+        {
+            //todo: implement get simple metadata list from kartkatalogen
+            var model = GetListOfSimpleMetadata();
+            return View(model);
+        }
+
+        private object GetListOfSimpleMetadata()
+        {
+            MetadataIndexViewModel metadata = new MetadataIndexViewModel();
+
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/datasets-simple";
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(url);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            metadata.NumberOfRecordsReturned = (int)response["NumFound"];
+            metadata.MetadataItems = new List<MetadataItemViewModel>();
+
+            var results = response["Results"].OrderBy(x => x.SelectToken("Title")).ToList();
+
+            foreach (var item in results)
+            {
+                MetadataItemViewModel metadataItem = new MetadataItemViewModel();
+
+                JToken uuidToken = item["Uuid"];
+                string uuid = uuidToken?.ToString();
+
+                JToken organizationToken = item["Organization"];
+                string organization = organizationToken?.ToString();
+
+                JToken titleToken = item["Title"];
+                string title = titleToken?.ToString();
+
+                metadataItem.Uuid = uuid;
+                metadataItem.Organization = organization;
+                metadataItem.Title = title;
+
+
+                metadata.MetadataItems.Add(metadataItem);
+            }
+
+            return metadata;
+        }
 
         private void PrepareViewBagForEditing(SimpleMetadataViewModel model)
         {
