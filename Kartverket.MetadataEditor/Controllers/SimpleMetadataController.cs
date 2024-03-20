@@ -121,6 +121,51 @@ namespace Kartverket.MetadataEditor.Controllers
 
         }
 
+        public ActionResult List()
+        {
+            //todo: implement get simple metadata list from kartkatalogen
+            var model = GetListOfSimpleMetadata();
+            return View(model);
+        }
+
+        private object GetListOfSimpleMetadata()
+        {
+            MetadataIndexViewModel metadata = new MetadataIndexViewModel();
+
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/datasets-simple";
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(url);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            metadata.NumberOfRecordsReturned = (int)response["NumFound"];
+            metadata.MetadataItems = new List<MetadataItemViewModel>();
+
+            var results = response["Results"].OrderBy(x => x.SelectToken("Title")).ToList();
+
+            foreach (var item in results)
+            {
+                MetadataItemViewModel metadataItem = new MetadataItemViewModel();
+
+                JToken uuidToken = item["Uuid"];
+                string uuid = uuidToken?.ToString();
+
+                JToken organizationToken = item["Organization"];
+                string organization = organizationToken?.ToString();
+
+                JToken titleToken = item["Title"];
+                string title = titleToken?.ToString();
+
+                metadataItem.Uuid = uuid;
+                metadataItem.Organization = organization;
+                metadataItem.Title = title;
+
+
+                metadata.MetadataItems.Add(metadataItem);
+            }
+
+            return metadata;
+        }
 
         private void PrepareViewBagForEditing(SimpleMetadataViewModel model)
         {
@@ -134,7 +179,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
             ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + model.Uuid;
-            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(), "Key", "Value");
+            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(model.DistributionProtocol), "Key", "Value");
 
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 
@@ -291,7 +336,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         }
 
-        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols()
+        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols(string distributionProtocol)
         {
             Dictionary<string, string> dic = GetCodeList("94B5A165-7176-4F43-B6EC-1063F7ADE9EA");
 
@@ -299,13 +344,25 @@ namespace Kartverket.MetadataEditor.Controllers
             var keysToSelect = new List<string>
             {
                {"GEONORGE:FILEDOWNLOAD"},
-               {"GEONORGE:DOWNLOAD"},
                {"GEONORGE:OFFLINE"},
-               {"WWW:DOWNLOAD-1.0-http--download"},
-               {"W3C:REST"},
-               {"W3C:WS"},
-               {"WWW:LINK-1.0-http--link"},
+               {"WWW:DOWNLOAD-1.0-http--download"}
             };
+
+            // Preserve old selected value
+            if(distributionProtocol != null)
+            {
+                if (!keysToSelect.Contains(distributionProtocol))
+                {
+                    if(distributionProtocol == "GEONORGE:DOWNLOAD")
+                        keysToSelect.Add("GEONORGE:DOWNLOAD");
+                    if (distributionProtocol == "W3C:REST")
+                        keysToSelect.Add("W3C:REST");
+                    if (distributionProtocol == "W3C:WS")
+                        keysToSelect.Add("W3C:WS");
+                    if (distributionProtocol == "WWW:LINK-1.0-http--link")
+                        keysToSelect.Add("WWW:LINK-1.0-http--link");
+                }
+            }
 
             Dictionary<string, string> newDic = new Dictionary<string, string>();
             foreach (var key in keysToSelect)

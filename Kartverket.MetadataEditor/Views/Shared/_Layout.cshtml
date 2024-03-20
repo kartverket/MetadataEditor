@@ -99,6 +99,10 @@
                             {
                                 <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
                             }
+                            @if (principal != null && (principal.IsInRole(GeonorgeRoles.MetadataAdmin)))
+                            {
+                                <li class="tab"><a data-tab="list-enkle-metadata" href="@Url.Action("List", "SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> Enkle metadata</a></li>
+                            }
                             <li class="pull-right">
 
                                 @{
