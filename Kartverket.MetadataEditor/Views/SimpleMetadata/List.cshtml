@@ -5,6 +5,12 @@
 @{
     string css = "";
 }
+<div>
+    @foreach (var facet in Model.Facets.FacetResults)
+    {
+       <span><a href="/SimpleMetadata/List?organization=@facet.Name">@facet.Name</a> (@facet.Count)</span> 
+    }
+    </div>
 <div class="list-group panel panel-default metadata-list" style="border: none;">
     <div class="list-group-item panel-heading hidden-sm hidden-xs">
         <div class="row">
@@ -36,7 +42,7 @@
                         </div>
                         <div class="col-md-5 metadata-list-item-mobile-row">
                             <div class="visible-sm-inline-block visible-xs-inline-block"><label>@Resources.UI.Metadata_Organization</label></div>
-                            <span id="organization-@metadata.Uuid"><a href="/SimpleMetadata/List?organization=@metadata.Organization">@metadata.Organization</a></span>
+                            <span id="organization-@metadata.Uuid">@metadata.Organization</span>
                         </div>
                     </div>
                 </div>
