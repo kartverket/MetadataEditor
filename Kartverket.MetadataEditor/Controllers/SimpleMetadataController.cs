@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 using System.IO;
 using Kartverket.MetadataEditor.Models;
 using System;
@@ -121,27 +121,31 @@ namespace Kartverket.MetadataEditor.Controllers
 
         }
 
-        public ActionResult List()
+        [Authorize]
+        public ActionResult List(string organization = "")
         {
             //todo: implement get simple metadata list from kartkatalogen
-            var model = GetListOfSimpleMetadata();
+            var model = GetListOfSimpleMetadata(organization);
             return View(model);
         }
 
-        private object GetListOfSimpleMetadata()
+        private object GetListOfSimpleMetadata(string org = "")
         {
-            MetadataIndexViewModel metadata = new MetadataIndexViewModel();
+            SimpleMetadataModel model = new SimpleMetadataModel();
 
-            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/datasets-simple";
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/datasets-simple?organization=" + org;
+
             System.Net.WebClient c = new System.Net.WebClient();
             c.Encoding = System.Text.Encoding.UTF8;
             var data = c.DownloadString(url);
             var response = Newtonsoft.Json.Linq.JObject.Parse(data);
 
-            metadata.NumberOfRecordsReturned = (int)response["NumFound"];
-            metadata.MetadataItems = new List<MetadataItemViewModel>();
+            model.Metadata.NumberOfRecordsReturned = (int)response["NumFound"];
+            model.Metadata.MetadataItems = new List<MetadataItemViewModel>();
 
             var results = response["Results"].OrderBy(x => x.SelectToken("Title")).ToList();
+
+            var facets = response["Facets"];
 
             foreach (var item in results)
             {
@@ -161,10 +165,32 @@ namespace Kartverket.MetadataEditor.Controllers
                 metadataItem.Title = title;
 
 
-                metadata.MetadataItems.Add(metadataItem);
+                model.Metadata.MetadataItems.Add(metadataItem);
             }
 
-            return metadata;
+            var facet = new Facet("organization");
+            foreach (var item in facets)
+            {
+                if (item["Name"].ToString() == "organization")
+                {
+                    var resultFacet = item["FacetResults"];
+
+                    foreach (var facetResult in resultFacet)
+                    {
+                        var facetValue = new Facet.FacetValue();
+                        facetValue.Name = facetResult["Name"].ToString();
+                        string count = facetResult["Count"].ToString();
+                        facetValue.Count = int.Parse(count);
+                        if (facetValue.Count > 0)
+                            facet.FacetResults.Add(facetValue);
+                    }
+
+                }
+            }
+
+            model.Facets = facet;
+
+            return model;
         }
 
         private void PrepareViewBagForEditing(SimpleMetadataViewModel model)
@@ -626,4 +652,48 @@ namespace Kartverket.MetadataEditor.Controllers
 
     }
 
+    public class SimpleMetadataModel
+    {
+        public SimpleMetadataModel()
+        {
+            Metadata = new MetadataIndexViewModel();
+        }
+
+        public MetadataIndexViewModel Metadata { get; set; }
+        public Facet Facets { get; set; }
+    }
+
+    public class Facet
+    {
+        public string FacetField { get; set; }
+        public List<FacetValue> FacetResults { get; set; }
+
+        public class FacetValue
+        {
+            public string Name { get; set; }
+            public int Count { get; set; }
+
+            public FacetValue(KeyValuePair<string, int> facetValueResult)
+            {
+                Name = facetValueResult.Key;
+                Count = facetValueResult.Value;
+            }
+
+            public FacetValue()
+            {
+
+            }
+        }
+
+
+        public Facet()
+        {
+        }
+
+        public Facet(string key)
+        {
+            FacetField = key;
+            FacetResults = new List<FacetValue>();
+        }
+    }
 }

@@ -1,5 +1,5 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
-@model Kartverket.MetadataEditor.Models.MetadataIndexViewModel
+@model Kartverket.MetadataEditor.Controllers.SimpleMetadataModel
 @using Resources
 
 @{
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    @foreach (var metadata in Model.MetadataItems)
+    @foreach (var metadata in Model.Metadata.MetadataItems)
     {
         <div class="list-group-item metadata-list-item">
             <div class="row">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-md-5 metadata-list-item-mobile-row">
                             <div class="visible-sm-inline-block visible-xs-inline-block"><label>@Resources.UI.Metadata_Organization</label></div>
-                            <span id="organization-@metadata.Uuid">@metadata.Organization</span>
+                            <span id="organization-@metadata.Uuid"><a href="/SimpleMetadata/List?organization=@metadata.Organization">@metadata.Organization</a></span>
                         </div>
                     </div>
                 </div>
