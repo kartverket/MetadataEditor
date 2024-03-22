@@ -219,8 +219,8 @@
                 <optgroup label="Vestland" data-statenumber="46"></optgroup>
                 <optgroup label="Østfold" data-statenumber="31"></optgroup>
             </select>
-            <span class="input-group-btn" data-toggle="modal" data-target="#norgeskart">
-                <button onclick="event.preventDefault();" id="norgeskartLink" class="btn btn-fullheight"><span class="glyphicon glyphicon-globe"></span></button>
+            <span class="input-group-btn">
+                <button onclick="event.preventDefault(); showMap();" id="norgeskartLink" class="btn btn-fullheight"><span class="glyphicon glyphicon-globe"></span></button>
             </span>
         </div>
 
@@ -411,22 +411,16 @@
         </div>
     </div>
 </div>
-<div id="norgeskart" class="modal" tabindex="-1" role="dialog" aria-labelledby="norgeskart" aria-hidden="true">
-    <div class="modal-dialog" style="width: 75%;">
-        <div class="modal-content">
-            <div class="modal-header"></div>
-            <div class="modal-body">
-                <div id="viewer" role="main" style="height:100%">
-                    <div id="container">
-                        @*<p id="result"></p>*@
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Avbryt</button><button id="setcoordinates" onclick="setBoundingBoxAndPlaces();" type="button" class="btn btn-default" data-dismiss="modal">Legg til område</button>
-                </div>
-            </div>
+<div id="norgeskart" style="display: none;" class="custom-modal">
+    <div class="custom-modal-container">
+        <div id="container">
+            @*<p id="result"></p>*@
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="hideMap()">Avbryt</button><button id="setcoordinates" onclick="setBoundingBoxAndPlaces();hideMap()" type="button" class="btn btn-default" data-dismiss="modal">Legg til område</button>
         </div>
     </div>
+    
 </div>
 <script>
     var BBWest;
@@ -438,6 +432,15 @@
     var y1;
     var x2;
     var y2;
+
+    function showMap()
+    {
+        document.getElementById('norgeskart').style.display = 'block';
+    }
+
+    function hideMap() {
+        document.getElementById('norgeskart').style.display = 'none';
+    }
 
         function sendMessage(msg) {
             var win = document.getElementById("iframe").contentWindow;
@@ -506,7 +509,7 @@
 
         window.onload = function () {
             setTimeout(function () {
-                $("#container").html("<iframe src='@Html.SecureNorgeskartUrl()select-rect.html' id='iframe' name='iframe'></iframe>");
+                $("#container").html("<iframe src='@Html.SecureNorgeskartUrl()select-rect.html' id='iframe' name='iframe' style='height: 100%; width:50px; position:fixed'></iframe>");
             }, 1000);
         };
 
