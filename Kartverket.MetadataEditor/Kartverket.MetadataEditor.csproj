@@ -434,11 +434,6 @@
       <DependentUpon>UI.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Service References\no.geonorge.ws\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Util\GeoNetworkUtil.cs" />
     <Compile Include="Util\MyRequiredAttributeAdapter.cs" />
@@ -1029,18 +1024,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <None Include="Service References\no.geonorge.ws\configuration91.svcinfo" />
-    <None Include="Service References\no.geonorge.ws\configuration.svcinfo" />
-    <Content Include="Service References\no.geonorge.ws\Kartverket.MetadataEditor.no.geonorge.ws.kommuneSok1Response.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\no.geonorge.ws\Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Service References\no.geonorge.ws\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1105,7 +1088,6 @@
     <Content Include="Views\SimpleMetadata\Create.cshtml" />
     <Content Include="Views\SimpleMetadata\_Basic.cshtml" />
     <Content Include="Views\SimpleMetadata\_Optional.cshtml" />
-    <None Include="Service References\no.geonorge.ws\SokKomData.wsdl" />
     <Content Include="Views\SimpleMetadata\ConfirmDelete.cshtml" />
     <Content Include="Views\Shared\_SharedMenu.cshtml" />
     <Content Include="Views\SimpleMetadata\_Parent.cshtml" />
@@ -1194,9 +1176,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\no.geonorge.ws\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

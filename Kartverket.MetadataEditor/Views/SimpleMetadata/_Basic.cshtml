@@ -497,6 +497,7 @@
                         if (result.kode == 0) {
                             BBEast = result.ost;
                             BBNorth = result.nord;
+                            console.log(BBNorth);
                         }
                     }
                 );
@@ -527,7 +528,7 @@
                 document.getElementById('BoundingBoxEast').value = BBEast;
                 document.getElementById('BoundingBoxNorth').value = BBNorth;
 
-                $.getJSON("/api/places/" + y1 + "/" + x1 + "/" + y2 + "/" + x2 + "/84/23", function (result) {
+                $.getJSON("/api/places?nord=" + BBNorth + "&aust=" + BBEast, function (result) {
 
                     if (result.length != 0) {
                         $("#map-message").text("");
