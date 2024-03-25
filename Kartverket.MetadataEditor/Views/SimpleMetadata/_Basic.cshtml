@@ -442,6 +442,14 @@
         document.getElementById('norgeskart').style.display = 'none';
     }
 
+    function isJSON(str) {
+        try {
+            return (JSON.parse(str) && !!str);
+        } catch (e) {
+            return false;
+        }
+    }
+
         function sendMessage(msg) {
             var win = document.getElementById("iframe").contentWindow;
             win.postMessage(JSON.stringify(msg), '*');
@@ -458,6 +466,8 @@
         };
 
         window.addEventListener('message', function (e) {
+
+            if (isJSON(e.data)) {
             console.log(e.data);
             var msg = JSON.parse(e.data);
             if (msg.type === "mapInitialized") {
@@ -506,6 +516,7 @@
 
             }
             console.log(e.data);
+            }
         }, false);
 
         window.onload = function () {
