@@ -1,10 +1,16 @@
 ﻿@using Kartverket.MetadataEditor.Helpers
-@model Kartverket.MetadataEditor.Models.MetadataIndexViewModel
+@model Kartverket.MetadataEditor.Controllers.SimpleMetadataModel
 @using Resources
 
 @{
     string css = "";
 }
+<div>
+    @foreach (var facet in Model.Facets.FacetResults)
+    {
+       <span><a href="/SimpleMetadata/List?organization=@facet.Name">@facet.Name</a> (@facet.Count)</span> 
+    }
+    </div>
 <div class="list-group panel panel-default metadata-list" style="border: none;">
     <div class="list-group-item panel-heading hidden-sm hidden-xs">
         <div class="row">
@@ -22,7 +28,7 @@
             </div>
         </div>
     </div>
-    @foreach (var metadata in Model.MetadataItems)
+    @foreach (var metadata in Model.Metadata.MetadataItems)
     {
         <div class="list-group-item metadata-list-item">
             <div class="row">
