@@ -356,6 +356,9 @@
                         event.preventDefault();
 
                         console.log(data);
+
+                        showLoadingAnimation('Laster opp');
+
                         data.formData = {
                             "uuid": "@Model.Uuid"
                         };
@@ -383,9 +386,9 @@
                         $('#uploadDatasetStatus').attr('style', 'text-info');
                         $('#uploadDatasetStatus').text('Filen er lastet opp.');
                     }
+                    hideLoadingAnimation();
                 }
             });
-
 
 
             // keywords
