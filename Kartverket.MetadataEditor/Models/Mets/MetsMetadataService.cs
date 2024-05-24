@@ -11,6 +11,8 @@ using www.opengis.net;
 using System.Threading;
 using System.Web;
 using System.Web.Configuration;
+using Kartverket.MetadataEditor.Models.Translations;
+using System.Net.PeerToPeer;
 
 namespace Kartverket.MetadataEditor.Models.Mets
 {
@@ -39,7 +41,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                 var updateCount = await SynchronizeMetsMetadata(username).ConfigureAwait(false);
                 numberOfUpdatedMetadata += updateCount;
 
-                RemoveOldMetsMetadata(username); 
+                //RemoveOldMetsMetadata(username); 
 
             }
             catch (Exception ex) 
@@ -59,82 +61,12 @@ namespace Kartverket.MetadataEditor.Models.Mets
             return numberOfMetadataCreatedUpdated;
         }
 
+        string _userName = "";
+
         private async Task<int> UpdateMetsMetadata(string username)
         {
-            //todo handle nextRecord (only 10 returned) or use series or selected datasets
-
-            _geoNorge = new GeoNorge("", "", "https://data.csw.met.no/?");
-
-            var filters = new object[]
-                      {
-
-                    new BinaryLogicOpType()
-                        {
-                            Items = new object[]
-                                {
-                                    new PropertyIsLikeType
-                                    {
-                                        escapeChar = "\\",
-                                        singleChar = "_",
-                                        wildCard = "%",
-                                        PropertyName = new PropertyNameType {Text = new[] {"apiso:Title"}},
-                                        Literal = new LiteralType {Text = new[] { "%satellite%" }}
-                                    },
-                                    new PropertyIsLikeType
-                                    {
-                                        escapeChar = "\\",
-                                        singleChar = "_",
-                                        wildCard = "%",
-                                        PropertyName = new PropertyNameType {Text = new[] {"apiso:Type"}},
-                                        Literal = new LiteralType {Text = new[] { "series" }}
-                                    }
-                                },
-
-                                ItemsElementName = new ItemsChoiceType22[]
-                                    {
-                                        ItemsChoiceType22.PropertyIsLike, ItemsChoiceType22.PropertyIsLike
-                                    }
-                        },
-
-                      };
-
-            var filterNames = new ItemsChoiceType23[]
-                {
-                    ItemsChoiceType23.And
-                };
-
-
-            var res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 200, false, true);
-
-            _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
-
-            int numberOfItems = 0;
-
-            if (res != null && res.numberOfRecordsMatched != "0")
-            {
-                foreach (MD_Metadata_Type item in res.Items)
-                {
-                    MD_Metadata_Type existingMetadata = null;
-
-                    try
-                    {
-                        Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
-                        existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
-                    }
-                    catch { }
-
-                    if (existingMetadata == null)
-                    {
-                        var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
-                    }
-                    else
-                    {
-                        var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
-                    }
-
-                    numberOfItems++;
-                }
-            }
+            _userName = username;
+            return RunSearch(1);
 
             //NIVA
 
@@ -265,6 +197,112 @@ namespace Kartverket.MetadataEditor.Models.Mets
             //        }
             //    }
             //}
+        }
+
+        int numberOfItems = 0;
+        int limit = 10;
+
+        private int RunSearch(int startPosition)
+        {
+            Log.Info("Running search from start position: " + startPosition);
+            SearchResultsType res = null;
+            try
+            {
+                _geoNorge = new GeoNorge("", "", "https://data.csw.met.no/?");
+
+                var filters = new object[]
+                          {
+
+                    new BinaryLogicOpType()
+                        {
+                            Items = new object[]
+                                {
+                                    new PropertyIsLikeType
+                                    {
+                                        escapeChar = "\\",
+                                        singleChar = "_",
+                                        wildCard = "%",
+                                        PropertyName = new PropertyNameType {Text = new[] {"apiso:Title"}},
+                                        Literal = new LiteralType {Text = new[] { "%%" }}
+                                    },
+                                    new PropertyIsLikeType
+                                    {
+                                        escapeChar = "\\",
+                                        singleChar = "_",
+                                        wildCard = "%",
+                                        PropertyName = new PropertyNameType {Text = new[] {"apiso:Type"}},
+                                        Literal = new LiteralType {Text = new[] { "series" }}
+                                    }
+                                },
+
+                                ItemsElementName = new ItemsChoiceType22[]
+                                    {
+                                        ItemsChoiceType22.PropertyIsLike, ItemsChoiceType22.PropertyIsLike
+                                    }
+                        },
+
+                          };
+
+                var filterNames = new ItemsChoiceType23[]
+                    {
+                    ItemsChoiceType23.And
+                    };
+
+
+                res = _geoNorge.SearchWithFilters(filters, filterNames, startPosition, limit, false, true);
+
+                _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+                if (res != null && res.numberOfRecordsMatched != "0")
+                {
+                    foreach (MD_Metadata_Type item in res.Items)
+                    {
+                        MD_Metadata_Type existingMetadata = null;
+
+                        try
+                        {
+                            Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
+                            existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                        }
+                        catch(Exception exx) 
+                        { 
+                            Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx); 
+                        }
+
+                        if (existingMetadata == null)
+                        {
+                            var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                        }
+                        else
+                        {
+                            var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                        }
+
+                        numberOfItems++;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error in metadata from Geonetwork position: " + startPosition + " + "+ limit +".", exception);
+            }
+
+            int nextRecord;
+            int numberOfRecordsMatched;
+
+            nextRecord = int.Parse(res.nextRecord);
+            numberOfRecordsMatched = int.Parse(res.numberOfRecordsMatched);
+
+            int diff = numberOfRecordsMatched - nextRecord;
+            if(nextRecord + limit > numberOfRecordsMatched)
+            {
+                limit = diff;
+            }
+
+            if (nextRecord < numberOfRecordsMatched - 1) // -1 because bug in csw startPosition and maxRecords startPosition="21" maxRecords="2"
+            {
+                RunSearch(nextRecord);
+            }
 
             return numberOfItems;
         }
@@ -351,7 +389,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                                         singleChar = "_",
                                         wildCard = "%",
                                         PropertyName = new PropertyNameType {Text = new[] {"apiso:Title"}},
-                                        Literal = new LiteralType {Text = new[] { "%satellite%" }}
+                                        Literal = new LiteralType {Text = new[] { "%%" }}
                                     },
                                     new PropertyIsLikeType
                                     {
