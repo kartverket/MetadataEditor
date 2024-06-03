@@ -208,7 +208,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
             SearchResultsType res = null;
             try
             {
-                _geoNorge = new GeoNorge("", "", "https://data.csw.met.no/?");
+                _geoNorge = new GeoNorge("", "", WebConfigurationManager.AppSettings["MetUrl"]);
 
                 var filters = new object[]
                           {
@@ -374,7 +374,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                 }
             }
 
-            _geoNorge = new GeoNorge("", "", "https://data.csw.met.no/?");
+            _geoNorge = new GeoNorge("", "", WebConfigurationManager.AppSettings["MetUrl"]);
 
             filters = new object[]
                       {
