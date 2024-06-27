@@ -299,7 +299,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                 limit = diff;
             }
 
-            if (nextRecord < numberOfRecordsMatched - 1) // -1 because bug in csw startPosition and maxRecords startPosition="21" maxRecords="2"
+            if (nextRecord < numberOfRecordsMatched)
             {
                 RunSearch(nextRecord);
             }
