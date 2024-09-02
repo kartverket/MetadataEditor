@@ -51,6 +51,9 @@
         Language: function (state) {
             return state.model.Language;
         },
+        MetadataLanguage: function (state) {
+            return state.model.MetadataLanguage;
+        },
         ResourceReferenceCode: function (state) {
             return state.model.ResourceReferenceCode;
         },
@@ -355,8 +358,36 @@
         KeywordsAdministrativeUnits: function (state) {
             return state.model.KeywordsAdministrativeUnits;
         },
+        SelectedResolutionFormat: function (state) {
+            if (state.data.SelectedResolutionFormat) {
+
+                state.model.ResolutionScale = '';
+                state.model.ResolutionDistance = '';
+
+                return state.data.SelectedResolutionFormat;
+            }
+            else if (state.model.ResolutionScale?.trim()?.length) {
+                return "ResolutionScale";
+            } else if (state.model.ResolutionDistance?.toString().trim()?.length) {
+                return "ResolutionDistance";
+            } else {
+                return "ResolutionScale";
+            };
+        },
+        showSpatialResolution: function (state, getters) {
+            return getters.isDatasetOrSeries;
+        },
         ResolutionScale: function (state) {
             return state.model.ResolutionScale;
+        },
+        showResolutionScale: function (state, getters) {
+            return getters.SelectedResolutionFormat == 'ResolutionScale';
+        },
+        ResolutionDistance: function (state) {
+            return state.model.ResolutionDistance;
+        },
+        showResolutionDistance: function (state, getters) {
+            return getters.SelectedResolutionFormat == 'ResolutionDistance';
         },
         Status: function (state) {
             return state.model.Status;
@@ -436,10 +467,10 @@
             return state.model.QualitySpecificationResultInspireSpatialServiceTechnicalConformance;
         },
         showQualitySpecificationResultInspireSpatialServiceInteroperability: function (state, getters) {
-            return getters.isService && getters.isAccessPoint;
+            return getters.isService && getters.isAccessPoint && getters.isInspire;
         },
         showQualitySpecificationResultInspireSpatialServiceTechnicalConformance: function (state, getters) {
-            return getters.isService && getters.isAccessPoint;
+            return getters.isService && getters.isAccessPoint && (state.model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance != null && state.model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance !='');
         },
         QualitySpecificationResultInspireSpatialServiceConformance: function (state) {
             return state.model.QualitySpecificationResultInspireSpatialServiceConformance;
@@ -541,11 +572,17 @@
         isDatasetSeries: function (state) {
             return state.model.HierarchyLevel == 'series';
         },
+        isDatasetOrSeries: function (state, getters) {
+            return getters.isDataset || getters.isDatasetSeries;
+        },
         isSoftware: function (state) {
             return state.model.HierarchyLevel == 'software';
         },
         isService: function (state) {
             return state.model.HierarchyLevel == 'service';
+        },
+        showQualityQuantitativeResult: function (state, getters) {
+            return getters.isService && getters.isInspire;
         },
         isHarmonized: function (state) {
             return state.model.QualitySpecificationTitleInspireSpatialServiceConformance == 'harmonised';
@@ -608,6 +645,16 @@
                 });
             });
             return formatIsAdded && !getters['isService'];
+        },
+        isInspire: function (state, getters) {
+            var keyword = 'Inspire';
+            var isAdded = false;
+            if (getters['KeywordsNationalInitiative'] !== null) {
+                getters['KeywordsNationalInitiative'].forEach(function (addedKeyword) {
+                    if (keyword == addedKeyword) isAdded = true;
+                });
+            }
+            return isAdded;
         }
     }
 </script>

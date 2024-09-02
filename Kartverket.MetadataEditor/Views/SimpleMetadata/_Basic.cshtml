@@ -1,5 +1,9 @@
 ﻿@model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
+@using System.Security.Claims
+@using Geonorge.AuthLib.Common
+@using Kartverket.MetadataEditor.Util
 @using Resources
+@using Kartverket.MetadataEditor.Helpers
 <div class="form-group required has-feedback">
     @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
     <div class="col-md-9">
@@ -77,12 +81,12 @@
         </p>
         @if (!Model.IsSoftware())
         {
-            
-                <div class="input-group chosen-input-group input-group-omraade full-width">
-                    @Html.ListBox("KeywordsNationalTheme", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select form-control", @multiple = "multiple",  data_placeholder = "Velg " + UI.Metadata_KeywordsNationalTheme_Label })
-                    @Html.ValidationMessage("KeywordsNationalTheme", "Påkrevd")
-                </div>
-            
+
+            <div class="input-group chosen-input-group input-group-omraade full-width">
+                @Html.ListBox("KeywordsNationalTheme", ViewBag.NationalThemeValues as MultiSelectList, new { @class = "chosen-select form-control", @multiple = "multiple", data_placeholder = "Velg " + UI.Metadata_KeywordsNationalTheme_Label })
+                @Html.ValidationMessage("KeywordsNationalTheme", "Påkrevd")
+            </div>
+
         }
     </div>
     <div class="col-md-1">
@@ -114,7 +118,7 @@
                             <label class="checkbox-inline"><input type="checkbox" name="KeywordsNationalInitiative[@j]" value="@keyword.Value" />@keyword.Text</label>
                         }
                         @: <input type="hidden" name="KeywordsNationalInitiative[@j]" />
-                            j++;
+                        j++;
                     }
                     else
                     {
@@ -129,11 +133,11 @@
 
             @if (Model.OtherConstraintsAccess != null && Model.OtherConstraintsAccess.ToLower() == "no restrictions")
             {
-            <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" checked value="no restrictions" />Åpne data</label>
+                <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" checked value="no restrictions" />Åpne data</label>
             }
             else
             {
-            <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" value="no restrictions" />Åpne data</label>
+                <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" value="no restrictions" />Åpne data</label>
             }
 
         </div>
@@ -144,17 +148,11 @@
         </p>
     </div>
 </div>
-
-@{  bool IsAdmin = false;
+@{
     string displayDistributionProtocol = "hidden";
-    foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
+    if (ClaimsPrincipal.Current.IsInRole(GeonorgeRoles.MetadataAdmin) || ClaimsPrincipal.Current.IsInRole(GeonorgeRoles.MetadataManager))
     {
-        if (c.Value == "nd.metadata_admin")
-        {
-            IsAdmin = true;
-            displayDistributionProtocol = "";
-            break;
-        }
+        displayDistributionProtocol = "";
     }
 }
 
@@ -168,7 +166,7 @@
 </div>
 
 <div class="form-group required">
-    <label for="DistributionUrl" class="col-md-2 control-label">URL til datasett</label>
+    <label for="DistributionUrl" class="col-md-2 control-label">URL til nedlastingsside</label>
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-DistributionUrl" style="display: none">
             Fyll inn adresse til nedlastningsside/webside eller bruk "Last opp" for å laste opp et datasett.
@@ -201,34 +199,31 @@
     <div class="col-md-9">
         <p class="help-text bg-success" id="help-text-BoundingBox" style="display: none">Bruk forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i kartet.</p>
 
-            <div class="input-group chosen-input-group">
-                <select name="state" id="bboxState" multiple="multiple" class="form-control" data-placeholder="Velg område">
-                    <option></option>
-                    <option data-statenumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
-                    <optgroup label="Akershus" data-statenumber="02"></optgroup>
-                    <optgroup label="Aust-Agder" data-statenumber="09"></optgroup>
-                    <optgroup label="Buskerud" data-statenumber="06"></optgroup>
-                    <optgroup label="Finnmark" data-statenumber="20"></optgroup>
-                    <optgroup label="Hedmark" data-statenumber="04"></optgroup>
-                    <optgroup label="Hordaland" data-statenumber="12"></optgroup>
-                    <optgroup label="Møre og Romsdal" data-statenumber="15"></optgroup>
-                    <optgroup label="Nordland" data-statenumber="18"></optgroup>
-                    <optgroup label="Oppland" data-statenumber="05"></optgroup>
-                    <optgroup label="Oslo" data-statenumber="21"></optgroup>
-                    <optgroup label="Rogaland" data-statenumber="11"></optgroup>
-                    <optgroup label="Sogn og Fjordane" data-statenumber="14"></optgroup>
-                    <optgroup label="Telemark" data-statenumber="08"></optgroup>
-                    <optgroup label="Troms" data-statenumber="19"></optgroup>
-                    <optgroup label="Trøndelag" data-statenumber="50"></optgroup>
-                    <optgroup label="Vest-Agder" data-statenumber="10"></optgroup>
-                    <optgroup label="Vestfold" data-statenumber="07"></optgroup>
-                    <optgroup label="Østfold" data-statenumber="01"></optgroup>
-                </select>
-                <span class="input-group-btn" data-toggle="modal" data-target="#norgeskart">
-                    <button onclick="event.preventDefault();" id="norgeskartLink" class="btn btn-fullheight"><span class="glyphicon glyphicon-globe"></span></button>
-                </span>
-            </div>
-    
+        <div class="input-group chosen-input-group">
+            <select name="state" id="bboxState" multiple="multiple" class="form-control" data-placeholder="Velg område">
+                <option></option>
+                <option data-statenumber="00" data-north="72" data-south="57" data-east="33" data-west="2">Hele landet</option>
+                <optgroup label="Agder" data-statenumber="42"></optgroup>
+                <optgroup label="Akershus" data-statenumber="32"></optgroup>
+                <optgroup label="Buskerud" data-statenumber="33"></optgroup>
+                <optgroup label="Finnmark" data-statenumber="56"></optgroup>
+                <optgroup label="Innlandet" data-statenumber="34"></optgroup>
+                <optgroup label="Møre og Romsdal" data-statenumber="15"></optgroup>
+                <optgroup label="Nordland" data-statenumber="18"></optgroup>
+                <optgroup label="Oslo" data-statenumber="21"></optgroup>
+                <optgroup label="Rogaland" data-statenumber="11"></optgroup>
+                <optgroup label="Telemark" data-statenumber="40"></optgroup>
+                <optgroup label="Troms" data-statenumber="55"></optgroup>
+                <optgroup label="Trøndelag" data-statenumber="50"></optgroup>
+                <optgroup label="Vestfold" data-statenumber="39"></optgroup>
+                <optgroup label="Vestland" data-statenumber="46"></optgroup>
+                <optgroup label="Østfold" data-statenumber="31"></optgroup>
+            </select>
+            <span class="input-group-btn">
+                <button onclick="event.preventDefault(); showMap();" id="norgeskartLink" class="btn btn-fullheight"><span class="glyphicon glyphicon-globe"></span></button>
+            </span>
+        </div>
+
     </div>
     <div class="col-md-1">
         <p class="form-control-static">
@@ -245,13 +240,13 @@
     </select>
     <ul id="keywords-place">
         @for (int i = 0; i < Model.KeywordsPlace.Count; i++)
-            {
-                var keyword = Model.KeywordsPlace[i];
-        <li id="keywords-place-@i">
-            <span class="">@keyword</span>
-            <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>@UI.Delete</small></a>
-            <input type="hidden" name="KeywordsPlace[@i]" value="@keyword" />
-        </li>
+        {
+            var keyword = Model.KeywordsPlace[i];
+            <li id="keywords-place-@i">
+                <span class="">@keyword</span>
+                <a href="" class="keyword-delete" data-delete="keywords-place-@i"><small>@UI.Delete</small></a>
+                <input type="hidden" name="KeywordsPlace[@i]" value="@keyword" />
+            </li>
         }
     </ul>
     <div class="form-group">
@@ -309,14 +304,11 @@
 <div class="form-group">
     <div class="row">
         <div class="col-sm-1">
-            <div id="norgeskart" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="norgeskart" aria-hidden="true">
-                @Html.Partial("_Kart")
-            </div>
+
         </div>
         <div class="col-sm-8"><span id="map-message" class="field-validation-error"></span></div>
     </div>
 </div>
-
 
 
 <div class="clearfix"></div>
@@ -419,7 +411,164 @@
         </div>
     </div>
 </div>
+<div id="norgeskart" style="display: none;" class="custom-modal">
+    <div class="custom-modal-container">
+        <div id="container">
+            @*<p id="result"></p>*@
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="hideMap()">Avbryt</button><button id="setcoordinates" onclick="setBoundingBoxAndPlaces();hideMap()" type="button" class="btn btn-default" data-dismiss="modal">Legg til område</button>
+        </div>
+    </div>
+    
+</div>
 <script>
+    var BBWest;
+    var BBSouth;
+    var BBEast;
+    var BBNorth;
+
+    var x1;
+    var y1;
+    var x2;
+    var y2;
+
+    function showMap()
+    {
+        document.getElementById('norgeskart').style.display = 'block';
+    }
+
+    function hideMap() {
+        document.getElementById('norgeskart').style.display = 'none';
+    }
+
+    function isJSON(str) {
+        try {
+            return (JSON.parse(str) && !!str);
+        } catch (e) {
+            return false;
+        }
+    }
+
+        function sendMessage(msg) {
+            var win = document.getElementById("iframe").contentWindow;
+            win.postMessage(JSON.stringify(msg), '*');
+        }
+
+        conf = {
+            center_latitude: "7226208",
+            center_longitude: "378604",
+            grid_folder: "/sites/all/modules/custom/kms_widget/grid/",
+            koordinatsystem: "UTM32-EUREF89",
+            selection_type: "3525",
+            service_name: "fylker-utm32",
+            zoom_level: "4",
+        };
+
+        window.addEventListener('message', function (e) {
+
+            if (isJSON(e.data)) {
+            console.log(e.data);
+            var msg = JSON.parse(e.data);
+            if (msg.type === "mapInitialized") {
+                sendMessage({
+                    "cmd": "setCenter",
+                    "x": conf.center_longitude,
+                    "y": conf.center_latitude,
+                    "zoom": conf.zoom_level
+                });
+            } else {
+
+                if (msg.cmd === "setVisible") return;
+
+                var obj = msg;
+                if (obj.feature != null) {
+                    var coords = obj.feature.geometry.coordinates[0];
+                    var c1 = coords[0];
+                    var c2 = coords[1];
+                    var c3 = coords[2];
+                    var c4 = coords[3];
+
+                    x1 = c1[0];
+                    y1 = c1[1];
+                    x2 = c2[0];
+                    y2 = c3[1];
+
+
+                    $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x1 + '&nord=' + y1 + '&fra=23&til=84', function (result) {
+                        if (result.kode == 0) {
+                            BBWest = result.ost;
+                            BBSouth = result.nord;
+                        }
+                    }
+                    );
+
+                    $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x2 + '&nord=' + y2 + '&fra=23&til=84', function (result) {
+                        if (result.kode == 0) {
+                            BBEast = result.ost;
+                            BBNorth = result.nord;
+                            console.log(BBNorth);
+                        }
+                    }
+                );
+
+                }
+
+            }
+            console.log(e.data);
+            }
+        }, false);
+
+        window.onload = function () {
+            setTimeout(function () {
+                $("#container").html("<iframe src='@Html.SecureNorgeskartUrl()select-rect.html' id='iframe' name='iframe' style='height: 100%; width:50px; position:fixed'></iframe>");
+            }, 1000);
+        };
+
+
+    function setBoundingBoxAndPlaces() {
+            if (typeof BBWest != 'undefined') {
+
+                BBWest = BBWest.toFixed(4);
+                BBSouth = BBSouth.toFixed(4);
+                BBEast = BBEast.toFixed(4);
+                BBNorth = BBNorth.toFixed(4);
+
+                document.getElementById('BoundingBoxWest').value = BBWest;
+                document.getElementById('BoundingBoxSouth').value = BBSouth;
+                document.getElementById('BoundingBoxEast').value = BBEast;
+                document.getElementById('BoundingBoxNorth').value = BBNorth;
+
+                $.getJSON("/api/places?nord=" + BBNorth + "&aust=" + BBEast, function (result) {
+
+                    if (result.length != 0) {
+                        $("#map-message").text("");
+                        $("#keywords-place").empty();
+                        $('select#bboxState option').prop('selected', false);
+                        for (var r = 0; r < result.length; r++) {
+                            $("#keywords-place-text").val(result[r]);
+                            console.log(result[r]);
+                            $("#bboxState option:contains(" + result[r] + ")").attr('selected', 'selected');
+
+                            $("#keywords-place-add").click();
+                            $("#keywords-place-text").val('');
+                        }
+                        $("select#bboxState").trigger("chosen:updated");
+                    }
+                    else {
+                        $("#keywords-place").empty();
+                        $("#map-message").text("Fant ingen områder i kartet. Vennligst prøv et større område eller velg fast område ovenfor");
+                    }
+
+                })
+                .fail(function (jqXHR, textStatus, errorThrown)
+                {
+                    $("#keywords-place").empty();
+                    $("#map-message").text("Fant ingen områder i kartet. Vennligst prøv et større område eller velg fast område ovenfor");
+                });
+            }
+        }
+
 
 </script>
 

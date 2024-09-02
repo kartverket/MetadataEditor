@@ -14,21 +14,11 @@ namespace Kartverket.MetadataEditor
                "~/Content/temp.css"
                ));
 
-            bundles.Add(new StyleBundle("~/shared-partials-styles").Include(
-               "~/dist/vendor.css",
-               "~/dist/main.css"
-               ));
-
-            bundles.Add(new ScriptBundle("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts").Include(
+            bundles.Add(new ScriptBundle("~/bundle/js").Include(
                "~/Content/bower_components/kartverket-felleskomponenter/assets/js/vendor.min.js",
-               "~/Content/bower_components/vue/dist/vue.min.js",
-               "~/Content/bower_components/vuex/dist/vuex.min.js",
+               //"~/Content/bower_components/vue/dist/vue.min.js",
+               //"~/Content/bower_components/vuex/dist/vuex.min.js",
                "~/Content/bower_components/kartverket-felleskomponenter/assets/js/main.min.js"
-               ));
-
-            bundles.Add(new ScriptBundle("~/shared-partials-scripts").Include(
-               "~/dist/vendor.js",
-               "~/dist/main.js"
                ));
 
             bundles.Add(new ScriptBundle("~/Scripts/local-scripts").Include(
@@ -46,6 +36,11 @@ namespace Kartverket.MetadataEditor
                 "~/Scripts/geonorge-editor.js",
                 "~/Scripts/jquery.autosize.js"
            ));
+
+            bundles.Add(new ScriptBundle("~/node-modules/scripts").Include(
+               "~/node_modules/@kartverket/geonorge-web-components/MainNavigation.js",
+               "~/node_modules/@kartverket/geonorge-web-components/GeoNorgeFooter.js"
+            ));
 
             BundleTable.EnableOptimizations = true;
         }

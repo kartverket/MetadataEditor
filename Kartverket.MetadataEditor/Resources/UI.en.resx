@@ -326,10 +326,10 @@
     <value>In scope of Inspire Directive</value>
   </data>
   <data name="Metadata_Admin_KeywordNorgeDigitalt" xml:space="preserve">
-    <value>In scope of Norway digital agreement</value>
+    <value>In scope of Norway digital agreement:</value>
   </data>
   <data name="Metadata_Admin_KeywordsCatalogs" xml:space="preserve">
-    <value>Harvest to portals</value>
+    <value>Harvesting and cooperation</value>
   </data>
   <data name="Metadata_Admin_QualitySpecificationDate" xml:space="preserve">
     <value>Date</value>
@@ -998,7 +998,7 @@
     <value>Service technical spesification</value>
   </data>
   <data name="Metadata_CoverageType_MapserviceGeonorge" xml:space="preserve">
-    <value>Map service layer Geonorge</value>
+    <value>Coverage map Geonorge</value>
   </data>
   <data name="Metadata_KeywordsAdministrativeUnits_Label" xml:space="preserve">
     <value>Administrative units keywords</value>
@@ -1008,6 +1008,36 @@
 It is encouraged to use email addresses to groups and not to individuals, as well as not to provide names of individuals, but to specify unit or group that has professional responsibility or are responsible for the distribution.</value>
   </data>
   <data name="ErrorDuplicateDatasetName" xml:space="preserve">
-    <value>Dataset name is already registered</value>
+    <value>Dataset Id is already registered</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="AbstractEnglishRequired" xml:space="preserve">
+    <value>Description english is required field</value>
+  </data>
+  <data name="AbstractNorwegianRequired" xml:space="preserve">
+    <value>Description norwegian is required</value>
+  </data>
+  <data name="LanguageInMetadata" xml:space="preserve">
+    <value>Metadata language</value>
+  </data>
+  <data name="LanguageInMetadataHelp" xml:space="preserve">
+    <value>Default language for metadata</value>
+  </data>
+  <data name="TitleEnglishRequired" xml:space="preserve">
+    <value>Title english is required</value>
+  </data>
+  <data name="TitleNorweginRequired" xml:space="preserve">
+    <value>Title norwegian is required</value>
+  </data>
+  <data name="SpatialScope" xml:space="preserve">
+    <value>Spatial scope</value>
+  </data>
+  <data name="SpatialScopeHelp" xml:space="preserve">
+    <value>Administrative level that the data set intends to cover</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
   </data>
 </root>

@@ -1,4 +1,3 @@
-﻿using System.Configuration;
 using System.IO;
 using Kartverket.MetadataEditor.Models;
 using System;
@@ -12,18 +11,21 @@ using Resources;
 using log4net;
 using System.Net;
 using System.Reflection;
+using System.Security.Claims;
 using Newtonsoft.Json.Linq;
-using System.Threading;
-using Kartverket.Geonorge.Utilities.LogEntry;
 using System.Threading.Tasks;
+using Geonorge.AuthLib.Common;
 using Kartverket.MetadataEditor.Helpers;
 using Kartverket.MetadataEditor.Models.Translations;
 using Kartverket.MetadataEditor.Models.InspireCodelist;
+using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
+using System.Net.Mail;
+using System.Text;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
     [HandleError]
-    public class MetadataController : Controller
+    public class MetadataController : ControllerBase
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -43,20 +45,32 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             MetadataCreateViewModel model = new MetadataCreateViewModel
             {
-                MetadataContactName = GetSecurityClaim("urn:oid:1.3.6.1.4.1.5923.1.1.1.6"),
-                MetadataContactOrganization = GetSecurityClaim("organization"),
-                MetadataContactEmail = GetSecurityClaim("urn:oid:1.2.840.113549.1.9.1"),
+                MetadataContactOrganization = GetCurrentUserOrganizationName(),
+                AvailableTypeNames = GetTypeNames()
             };
 
             return View(model);
+        }
+
+        private Dictionary<string, string> GetTypeNames()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "series_thematic","series_thematic" },
+                { "series_historic","series_historic" },
+                { "series_geographic","series_geographic" },
+                { "series_collection","series_collection" },
+                { "series_time","series_time" }
+            };
         }
 
         [HttpPost]
         [Authorize]
         public ActionResult Create(MetadataCreateViewModel model)
         {
-            string organization = GetSecurityClaim("organization");
+            string organization = GetCurrentUserOrganizationName();
             model.MetadataContactOrganization = organization;
+            model.AvailableTypeNames = GetTypeNames();
             if (ModelState.IsValid)
             {
                 string username = GetUsername();
@@ -67,6 +81,15 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Authorize]
+        public ActionResult CopyMetadata(MetadataViewModel model)
+        {
+            string username = GetUsername();
+            string uuid = _metadataService.CopyMetadata(model.Uuid, username);
+            return RedirectToAction("Edit", new { uuid = uuid, metadatacreated = true });
+        }
+
         public ActionResult Index(MetadataMessages? message, string organization = "", string searchString = "", int offset = 1, int limit = 50)
         {
             ViewBag.StatusMessage =
@@ -75,21 +98,23 @@ namespace Kartverket.MetadataEditor.Controllers
 
             MetadataIndexViewModel model = new MetadataIndexViewModel();
 
-            if (User.Identity.IsAuthenticated)
+            if (User is ClaimsPrincipal principal && principal.IsAuthenticated())
             {
-                string userOrganization = GetSecurityClaim("organization");
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
-                {
-                    model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
-                    model.UserIsAdmin = true;
-                }
-                else
-                {
-                    model = _metadataService.SearchMetadata(userOrganization, searchString, offset, limit);
-                }
+                if (UserHasMetadataAdminRole() || UserHasEditorRole())
+                { 
+                    string userOrganization = principal.GetOrganizationName();
+                    if (principal.IsInRole(GeonorgeRoles.MetadataAdmin) || principal.IsInRole(GeonorgeRoles.MetadataManager))
+                    {
+                        model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
+                        model.UserIsAdmin = true;
+                    }
+                    else
+                    {
+                        model = _metadataService.SearchMetadata(userOrganization, searchString, offset, limit);
+                    }
 
-                model.UserOrganization = userOrganization;
+                    model.UserOrganization = userOrganization;
+                }
             }
 
             if (TempData["Message"] != null)
@@ -99,33 +124,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
             return View(model);
         }
-
-        private string GetUsername()
-        {
-            return GetSecurityClaim("username");
-        }
-
-        private string GetSecurityClaim(string type)
-        {
-            string result = null;
-            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
-                {
-                    result = claim.Value;
-                    break;
-                }
-            }
-
-            // bad hack, must fix BAAT
-            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
-            {
-                result = "Kartverket";
-            }
-
-            return result;
-        }
-
+        
 
         [HttpGet]
         [Authorize]
@@ -145,8 +144,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     ViewBag.LogEntries = await _metadataService.GetLogEntries(uuid);
 
                 MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                if (UserHasMetadataAdminRole())
                     model.ValidateAllRequirements = true;
 
                 if (HasAccessToMetadata(model))
@@ -182,11 +180,30 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private void PrepareViewBagForEditing(MetadataViewModel model)
         {
+            ViewBag.IsAdmin = "0";
+
+            if (UserHasMetadataAdminRole())
+            {
+                ViewBag.IsAdmin = "1";
+            }
+
             var namespaceValues = GetListOfNamespace(CultureHelper.GetCurrentCulture());
             if(!namespaceValues.ContainsKey(""))
                 namespaceValues.Add("", UI.NoneSelected);
             var NamespaceValuesSelect = new SelectList(namespaceValues, "Key", "Value", model.ResourceReferenceCodespace);
             ViewBag.NamespaceValues = NamespaceValuesSelect;
+
+            if(ViewBag.IsAdmin == "0")
+            {
+                Dictionary<string, string> nameSpace = new Dictionary<string, string>();
+                if(!string.IsNullOrEmpty(model.ResourceReferenceCodespace))
+                    nameSpace.Add(model.ResourceReferenceCodespace, model.ResourceReferenceCodespace);
+                else
+                    nameSpace.Add("", UI.NoneSelected);
+
+                NamespaceValuesSelect = new SelectList(nameSpace, "Key", "Value", model.ResourceReferenceCodespace);
+                ViewBag.NamespaceValues = NamespaceValuesSelect;
+            }
 
             ViewBag.TopicCategoryValues = new SelectList(GetListOfTopicCategories(CultureHelper.GetCurrentCulture()), "Key", "Value", model.TopicCategory);
             ViewBag.SpatialRepresentationValues = new SelectList(GetListOfSpatialRepresentations(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SpatialRepresentation);
@@ -212,8 +229,7 @@ namespace Kartverket.MetadataEditor.Controllers
                 System.Web.Configuration.WebConfigurationManager.AppSettings["EditorUrl"] + "thumbnails/";
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
-            var seoUrl = new SeoUrl("", model.Title);
-            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + seoUrl.Title + "/" + model.Uuid;
+            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + model.Uuid;
 
             Dictionary<string, string> OrganizationList = GetListOfOrganizations(CultureHelper.GetCurrentCulture());
 
@@ -259,6 +275,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.CatalogValues = new SelectList(GetListOfCatalogs(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(CultureHelper.GetCurrentCulture()), "Key", "Value");
             ViewBag.InspirePriorityDatasets = new SelectList(_metadataService.GetPriorityDatasets(), "Key", "Value");
+            ViewBag.InspireSpatialScopes = new SelectList(_metadataService.GetSpatialScopes(), "Key", "Value");
             ViewBag.TechnicalSpecifications = new SelectList(Technical.GetSpecifications, "Name", "Name");
             ViewBag.ServicePlatforms = new SelectList(GetListOfServicePlatforms(CultureHelper.GetCurrentCulture()), "Key", "Value");
 
@@ -284,6 +301,8 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.ProductspesificationValues = new SelectList(productspesifications, "Key", "Value", model.ProductSpecificationUrl);
 
             var orderingInstructions = GetSubRegister("metadata-kodelister/kartverket/norge-digitalt-tjenesteerklaering", model);
+            if (!orderingInstructions.ContainsKey(""))
+                orderingInstructions.Add("", " " + UI.NoneSelected);
             if (!string.IsNullOrEmpty(model.OrderingInstructions))
             {
                 KeyValuePair<string, string> orderingInstructionsSelected = new KeyValuePair<string, string>(model.OrderingInstructions, model.OrderingInstructions);
@@ -296,10 +315,26 @@ namespace Kartverket.MetadataEditor.Controllers
 
             var productSheets = GetRegister("produktark", model);
             productSheets.Add("", " " + UI.NoneSelected);
+            if (!string.IsNullOrEmpty(model.ProductSheetUrl))
+            {
+                KeyValuePair<string, string> prodsheetSelected = new KeyValuePair<string, string>(model.ProductSheetUrl, model.ProductSheetUrl);
+                if (!productSheets.ContainsKey(prodsheetSelected.Key))
+                {
+                    productSheets.Add(prodsheetSelected.Key, prodsheetSelected.Value);
+                }
+            }
             ViewBag.ProductsheetValues = new SelectList(productSheets, "Key", "Value", model.ProductSheetUrl);
 
             var legendDescriptions = GetRegister("tegneregler", model);
             legendDescriptions.Add("", " " + UI.NoneSelected);
+            if (!string.IsNullOrEmpty(model.LegendDescriptionUrl))
+            {
+                KeyValuePair<string, string> legendSelected = new KeyValuePair<string, string>(model.LegendDescriptionUrl, model.LegendDescriptionUrl);
+                if (!legendDescriptions.ContainsKey(legendSelected.Key))
+                {
+                    legendDescriptions.Add(legendSelected.Key, legendSelected.Value);
+                }
+            }
             ViewBag.LegendDescriptionValues = new SelectList(legendDescriptions, "Key", "Value", model.LegendDescriptionUrl);
 
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
@@ -308,18 +343,16 @@ namespace Kartverket.MetadataEditor.Controllers
 
             ViewBag.NewDistribution = false;
 
-            ViewBag.IsAdmin = "0";
-            string role = GetSecurityClaim("role");
-            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
-            {
-                ViewBag.IsAdmin = "1";
-            }
         }
 
         [HttpPost]
         [Authorize]
         public ActionResult Edit(string uuid, string action, MetadataViewModel model, string ignoreValidationError)
         {
+            if(action.Equals(UI.Copy))
+            {
+               return CopyMetadata(model);
+            }
             ValidateModel(model, ModelState);
 
             if (ignoreValidationError == "1" /*&& ViewBag.IsAdmin == "1"*/) 
@@ -432,8 +465,25 @@ namespace Kartverket.MetadataEditor.Controllers
                 ModelState["QualitySpecificationResultInspireSpatialServiceTechnicalConformance"].Errors.Clear();
         }
 
+        public static bool IsDoubleRealNumber(string valueToTest)
+        {
+            if (double.TryParse(valueToTest, out double d) && !Double.IsNaN(d) && !Double.IsInfinity(d))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private void ValidateModel(MetadataViewModel model, ModelStateDictionary modelstate)
         {
+            if(!string.IsNullOrWhiteSpace(model.ResolutionDistance))
+            {
+                model.ResolutionDistance = model.ResolutionDistance.Replace('.',',');
+                if (!IsDoubleRealNumber(model.ResolutionDistance))
+                    ModelState.AddModelError("ResolutionDistance", "Ugyldig tall");
+                model.ResolutionDistance = model.ResolutionDistance.Replace(',', '.');
+            }
             ValidQualityResult(model, modelstate);
 
             ViewBag.thumbnailMissingCSS = "";
@@ -448,6 +498,14 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 try
                 {
+                    var regex = @"^[A-Za-z0-9_\-\.]*$";
+                    var match = System.Text.RegularExpressions.Regex.Match(model.ResourceReferenceCode, regex, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+                    if (!match.Success)
+                    {
+                        ModelState.AddModelError("ResourceReferenceCode", "Ulovlig tegn");
+                    }
+
                     System.Net.WebClient c = new System.Net.WebClient();
                     c.Encoding = System.Text.Encoding.UTF8;
                     var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/valid-dataset-name?namespace=" + Server.UrlEncode(model.ResourceReferenceCodespace) + "&datasetName=" + Server.UrlEncode(model.ResourceReferenceCode) + "&uuid=" + model.Uuid);
@@ -553,13 +611,37 @@ namespace Kartverket.MetadataEditor.Controllers
         public Dictionary<string, string> GetListOfRestrictionValues(string culture = Culture.NorwegianCode)
         {
 
-            return GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57", culture);
+            var codeList = GetCodeList("D23E9F2F-66AB-427D-8AE4-5B6FD3556B57", culture);
+            var license = codeList.Where(k => k.Key == "license").FirstOrDefault();
 
+            Dictionary<string, string> useLimitations = new Dictionary<string, string>();
+            useLimitations.Add("", "");
+            useLimitations.Add(license.Key, license.Value);
+
+            return useLimitations;
         }
 
         public Dictionary<string, string> GetListOfRestrictionValuesAdjusted(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D", culture);
+            var codelist = GetCodeList("2BBCD2DF-C943-4D22-8E49-77D434C8A80D", culture);
+
+            var inspire = _metadataService.GetInspireAccessRestrictions(culture);
+
+            if(inspire.ContainsKey("https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"))
+                codelist["norway digital restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"];
+            if (inspire.ContainsKey("https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"))
+                codelist["restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
+            if (inspire.ContainsKey("https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"))
+                codelist["no restrictions"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
+
+            if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"))
+                codelist["norway digital restricted"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"];
+            if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"))
+                codelist["restricted"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
+            if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"))
+                codelist["no restrictions"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
+
+            return codelist;
 
         }
 
@@ -753,8 +835,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetRegister(string registername, MetadataViewModel model)
         {
-            string role = GetSecurityClaim("role");
-
             MemoryCacher memCacher = new MemoryCacher();
 
             var cache = memCacher.GetValue("registeritem-"+ registername);
@@ -800,7 +880,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
             foreach(var item in RegisterItems)
             {
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin") || model.HasAccess(item.Organization))
+                if (UserHasMetadataAdminRole() || model.HasAccess(item.Organization))
                 {
                     RegisterItemsForUser.Add(item.Id, item.Label);
                 }
@@ -814,9 +894,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetSubRegister(string registername, MetadataViewModel model)
         {
-            string role = GetSecurityClaim("role");
-
-
             MemoryCacher memCacher = new MemoryCacher();
 
             var cache = memCacher.GetValue("subregisteritem");
@@ -1020,9 +1097,11 @@ namespace Kartverket.MetadataEditor.Controllers
 
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
-            string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
+                if(RequireRequestDelete(model))
+                    return View("RequestDelete", model);
+                else
                 return View(model);
             } else {
                 return new HttpUnauthorizedResult();
@@ -1031,14 +1110,16 @@ namespace Kartverket.MetadataEditor.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Delete(string uuid)
+        public ActionResult Delete(string uuid, string comment)
         {
             MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
-            string role = GetSecurityClaim("role");
+            if(RequireRequestDelete(model))
+                return new HttpUnauthorizedResult();
+
             if (HasAccessToMetadata(model))
             {
-                _metadataService.DeleteMetadata(model, GetUsername());
+                _metadataService.DeleteMetadata(model, GetUsername(), comment);
 
                 TempData["Message"] = "Metadata med uuid " + uuid + " ble slettet.";
                 return RedirectToAction("Index");
@@ -1049,18 +1130,80 @@ namespace Kartverket.MetadataEditor.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult RequestDelete(string uuid, string title, string comment)
+        {
+            SendEmail(uuid, title, comment);
+            TempData["Message"] = "Sendt anmodning om å slette " + title;
+            return RedirectToAction("Index");
+        }
+
+        private void SendEmail(string uuid, string title, string comment)
+        {
+            var fromEmail = ClaimsPrincipal.Current.GetUserEmail();
+
+            var nameFull = ClaimsPrincipal.Current.GetUserFullName();
+
+            if (string.IsNullOrEmpty(fromEmail))
+                fromEmail = System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"];
+
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(System.Web.Configuration.WebConfigurationManager.AppSettings["WebmasterEmail"]));
+            message.From = new MailAddress(fromEmail);
+            message.Subject = "Anmodning om sletting av metadata  " + title;
+            StringBuilder b = new StringBuilder();
+            b.Append("Hei!<br/>\r\n");
+            b.Append("<p>Ønsker å slette metadata "+title+" med uuid: "+uuid+"</p>");
+            b.Append("Kommentar:<br/>\r\n");
+            b.Append(comment);
+            if(!string.IsNullOrEmpty(nameFull))
+                b.Append("<br/><br/>Mvh.<br/>" + nameFull);
+
+            message.Body = b.ToString();
+            message.IsBodyHtml = true;
+
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Host = System.Web.Configuration.WebConfigurationManager.AppSettings["SmtpHost"];
+
+                try
+                {
+                    smtp.Send(message);
+                }
+                catch (Exception excep)
+                {
+                    Log.Error(excep.Message);
+                    Log.Error(excep.InnerException);
+                    throw new Exception("Sending av epost feilet");
+                }
+                Log.Info("Send email to:" + message.To.ToString());
+                Log.Info("Subject:" + message.Subject);
+                Log.Info("Body:" + message.Body);
+            }
+
+        }
+
+        private bool RequireRequestDelete(MetadataViewModel model)
+        {
+            var created = model.DateCreated;
+            if(!UserHasMetadataAdminRole() && (created.HasValue && created.Value != DateTime.Today))
+                return true;
+
+            return false;
+        }
+
         private bool HasAccessToMetadata(MetadataViewModel model)
         {
-            string organization = GetSecurityClaim("organization");
-            string role = GetSecurityClaim("role");
-            bool isAdmin = !string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin");
-            return isAdmin || model.HasAccess(organization);
+            string organization = GetCurrentUserOrganizationName();
+            return UserHasMetadataAdminRole() || (UserHasEditorRole() && model.HasAccess(organization));
         }
 
         [Authorize]
         public ActionResult RegisterData()
         {
-            string organization = GetSecurityClaim("organization");
+            string organization = GetCurrentUserOrganizationName();
             ViewBag.RegisterOrganizationUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/search?facets[0]name=organization&facets[0]value=" + organization;
             return View();
         

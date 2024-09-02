@@ -7,10 +7,12 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using System.Reflection;
+using Kartverket.Geonorge.Utilities;
 using Kartverket.MetadataEditor.Models.Translations;
 using Newtonsoft.Json.Linq;
 using www.opengis.net;
 using Kartverket.MetadataEditor.Models.Rdf;
+using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -134,179 +136,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public void UpdateRegisterTranslations(string username, string uuid = null)
         {
-            string searchString = "";
-            if (!string.IsNullOrEmpty(uuid))
-                searchString = uuid;
-            System.Collections.Specialized.NameValueCollection settings = System.Web.Configuration.WebConfigurationManager.AppSettings;
-            string server = settings["GeoNetworkUrl"];
-            string usernameGeonetwork = settings["GeoNetworkUsername"];
-            string password = settings["GeoNetworkPassword"];
-            _geoNorge = new GeoNorgeAPI.GeoNorge(usernameGeonetwork, password, server);
-            _geoNorge.OnLogEventDebug += new GeoNorgeAPI.LogEventHandlerDebug(LogEventsDebug);
-            _geoNorge.OnLogEventError += new GeoNorgeAPI.LogEventHandlerError(LogEventsError);
-
-
-            inspireList = GetCodeListEnglish("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6");
-            nationalThemeList = GetCodeListEnglish("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
-            nationalInitiativeList = GetCodeListEnglish("37204B11-4802-44B6-80A1-519968BD072F");
-
-            Log.Info("Start batch update english translation");
-
-            try
-            {
-                SearchResultsType model = null;
-                int offset = 1;
-                int limit = 50;
-                model = _geoNorge.SearchIso(searchString, offset, limit, false);
-                Log.Info("Running search from position:" + offset);
-                foreach (var item in model.Items)
-                {
-                    var metadataItem = item as MD_Metadata_Type;
-                    string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
-                    UpdateEnglish(identifier, username);
-                }
-
-                int numberOfRecordsMatched = int.Parse(model.numberOfRecordsMatched);
-                int next = int.Parse(model.nextRecord);
-
-                while (next > 0 && next < numberOfRecordsMatched)
-                {
-                    Log.Info("Running search from position:" + next);
-                    model = _geoNorge.SearchIso(searchString, next, limit, false);
-
-                    foreach (var item in model.Items)
-                    {
-                        var metadataItem = item as MD_Metadata_Type;
-                        string identifier = metadataItem.fileIdentifier != null ? metadataItem.fileIdentifier.CharacterString : null;
-                        UpdateEnglish(identifier, username);
-                    }
-
-                    next = int.Parse(model.nextRecord);
-                    if (next == 0) break;
-                }
-
-                Log.Info("Finished batch update english translation");
-            }
-
-            catch (Exception ex)
-            {
-                Log.Error("Error batch update stopped for english translation: " + ex.Message);
-            }
-
-
-        }
-
-        private void UpdateEnglish(string uuid, string username)
-        {
-            try
-            {
-                Log.Info("Running batch update english translation for uuid: " + uuid);
-
-                SimpleMetadata metadata = new SimpleMetadata(_geoNorge.GetRecordByUuid(uuid));
-                MetadataViewModel model = _metadataService.GetMetadataModel(uuid);
-
-                if (metadata.ContactMetadata != null && !string.IsNullOrEmpty(metadata.ContactMetadata.Organization))
-                {
-                    var organization = GetOrganization(metadata.ContactMetadata.Organization);
-                    if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactMetadataOrganization = organization;
-                }
-
-                if (metadata.ContactOwner != null && !string.IsNullOrEmpty(metadata.ContactOwner.Organization))
-                {
-                    var organization = GetOrganization(metadata.ContactOwner.Organization);
-                    if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactOwnerOrganization = organization;
-                }
-
-                if (metadata.ContactPublisher != null && !string.IsNullOrEmpty(metadata.ContactPublisher.Organization))
-                {
-                    var organization = GetOrganization(metadata.ContactPublisher.Organization);
-                    if (!string.IsNullOrEmpty(organization))
-                        model.EnglishContactPublisherOrganization = organization;
-                }
-
-                var contactMetadata = model.ContactMetadata.ToSimpleContact();
-                if (!string.IsNullOrWhiteSpace(model.EnglishContactMetadataOrganization))
-                {
-                    contactMetadata.OrganizationEnglish = model.EnglishContactMetadataOrganization;
-                }
-                metadata.ContactMetadata = contactMetadata;
-
-                var contactPublisher = model.ContactPublisher.ToSimpleContact();
-                if (!string.IsNullOrWhiteSpace(model.EnglishContactPublisherOrganization))
-                {
-                    contactPublisher.OrganizationEnglish = model.EnglishContactPublisherOrganization;
-                }
-                metadata.ContactPublisher = contactPublisher;
-
-                var contactOwner = model.ContactOwner.ToSimpleContact();
-                if (!string.IsNullOrWhiteSpace(model.EnglishContactOwnerOrganization))
-                {
-                    contactOwner.OrganizationEnglish = model.EnglishContactOwnerOrganization;
-                }
-                metadata.ContactOwner = contactOwner;
-
-                var englishKeywords = model.KeywordsEnglish;
-
-                string keywordPrefix = "NationalTheme";
-                //Update keywords nationalTheme
-                foreach (var keyword in model.KeywordsNationalTheme)
-                {
-                    if (nationalThemeList.ContainsKey(keyword) && keyword != nationalThemeList[keyword])
-                    {
-                        var key = keywordPrefix + "_" + keyword;
-                        if (englishKeywords.ContainsKey(key))
-                            englishKeywords[key] = nationalThemeList[keyword];
-                        else
-                            englishKeywords.Add(key, nationalThemeList[keyword]);
-                    }
-                }
-
-                keywordPrefix = "NationalInitiative";
-                //Update keywords NationalInitiative
-                foreach (var keyword in model.KeywordsNationalInitiative)
-                {
-                    if (nationalInitiativeList.ContainsKey(keyword) && keyword != nationalInitiativeList[keyword])
-                    {
-                        var key = keywordPrefix + "_" + keyword;
-                        if (englishKeywords.ContainsKey(key))
-                            englishKeywords[key] = nationalInitiativeList[keyword];
-                        else
-                            englishKeywords.Add(key, nationalInitiativeList[keyword]);
-                    }
-                }
-
-                keywordPrefix = "Inspire";
-                //Update keywords Inspire
-                foreach (var keyword in model.KeywordsInspire)
-                {
-                    if (inspireList.ContainsKey(keyword) && keyword != inspireList[keyword])
-                    {
-                        var key = keywordPrefix + "_" + keyword;
-                        if (englishKeywords.ContainsKey(key))
-                            englishKeywords[key] = inspireList[keyword];
-                        else
-                            englishKeywords.Add(key, inspireList[keyword]);
-                    }
-                }
-
-                model.KeywordsEnglish = englishKeywords;
-                metadata.Keywords = model.GetAllKeywords();
-
-                metadata.RemoveUnnecessaryElements();
-                var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
-                if (transaction.TotalUpdated == "0")
-                    Log.Error("No records updated batch update english translation uuid: " + uuid);
-
-                Log.Info("Finished batch update english translation uuid: " + uuid);
-
-            }
-
-            catch (Exception ex)
-            {
-                Log.Error("Error batch update english translation: " + ex.Message);
-            }
+            _metadataService.UpdateRegisterTranslations(username, uuid);
         }
 
         int NumberOfUpdatedKeywordPlaceUris = 0;
@@ -395,7 +225,7 @@ namespace Kartverket.MetadataEditor.Models
                     {
 
                         metadata.RemoveUnnecessaryElements();
-                        var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), _metadataService.CreateAdditionalHeadersWithUsername(username));
+                        var transaction = _geoNorge.MetadataUpdate(metadata.GetMetadata(), GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username));
                         if (transaction.TotalUpdated == "0")
                             Log.Error("No records updated batch update keyword place/administrative units URI uuid: " + uuid);
 
@@ -503,9 +333,147 @@ namespace Kartverket.MetadataEditor.Models
                 UpdateLicense(username, deleteData);
             else if (metadatafield == "EnglishTexts")
                 UpdateEnglishTexts(username, deleteData, metadatafieldEnglish);
+            else if (metadatafield == "SpatialScope")
+                UpdateSpatialScope(username, deleteData);
+            else if (metadatafield == "ContactOwnerPositionName")
+                UpdateContactOwnerPositionName(username, deleteData);
 
             excelPackage.Dispose();
 
+        }
+
+        private void UpdateContactOwnerPositionName(string username, bool deleteData)
+        {
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            if (deleteData)
+            {
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveContactOwnerPositionName(uuidDelete, username);
+                }
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var contactOwnerPositionName = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(contactOwnerPositionName) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    SaveContactOwnerPositionName(uuid, contactOwnerPositionName, username);
+                }
+            }
+        }
+
+        private void SaveContactOwnerPositionName(string uuid, string contactOwnerPositionNameInfo, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+
+                metadata.ContactOwnerPositionName = contactOwnerPositionNameInfo;
+
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", ContactOwnerPositionName: " + contactOwnerPositionNameInfo);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        private void RemoveContactOwnerPositionName(string uuidDelete, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuidDelete);
+                if (!string.IsNullOrEmpty(metadata.ContactOwnerPositionName))
+                {
+                    metadata.ContactOwnerPositionName = "";
+                    _metadataService.SaveMetadataModel(metadata, username);
+
+                    Log.Info("Batch remove ContactOwnerPositionName, uuid: " + uuidDelete);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuidDelete, ex);
+            }
+        }
+
+        private void UpdateSpatialScope(string username, bool deleteData)
+        {
+            Dictionary<string, string> spatialScopes = _metadataService.GetSpatialScopes();
+
+            var start = workSheet.Dimension.Start;
+            var end = workSheet.Dimension.End;
+            if (deleteData)
+            {
+                for (int row = start.Row + 1; row <= end.Row; row++)
+                {
+                    var uuidDelete = workSheet.Cells[row, 1].Text;
+                    RemoveSpatialScope(uuidDelete, username);
+                }
+            }
+            for (int row = start.Row + 1; row <= end.Row; row++)
+            {
+                var spatialScope = workSheet.Cells[row, 2].Text;
+                var uuid = workSheet.Cells[row, 1].Text;
+
+                if (!string.IsNullOrWhiteSpace(spatialScope) && !string.IsNullOrWhiteSpace(uuid))
+                {
+                    if (spatialScopes.ContainsValue(spatialScope))
+                    {
+                        var spatialScopeInfo = spatialScopes.Where(s => s.Value == spatialScope).Select(s => s.Key).First();
+                        SaveSpatialScope(uuid, spatialScopeInfo, username);
+                    }
+                }
+            }
+        }
+
+        private void SaveSpatialScope(string uuid, string spatialScopeInfo, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
+                if (metadata.KeywordsSpatialScope != null && metadata.KeywordsSpatialScope.Count > 0)
+                {
+                    metadata.KeywordsSpatialScope.RemoveAt(0);
+                }
+                
+                metadata.KeywordsSpatialScope.Add(spatialScopeInfo);
+
+                _metadataService.SaveMetadataModel(metadata, username);
+
+                Log.Info("Batch update uuid: " + uuid + ", spatial scope: " + spatialScopeInfo);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuid, ex);
+            }
+        }
+
+        private void RemoveSpatialScope(string uuidDelete, string username)
+        {
+            try
+            {
+                MetadataViewModel metadata = _metadataService.GetMetadataModel(uuidDelete);
+                if(metadata.KeywordsSpatialScope != null && metadata.KeywordsSpatialScope.Count > 0) { 
+                    metadata.KeywordsSpatialScope.RemoveAt(0);
+                    _metadataService.SaveMetadataModel(metadata, username);
+
+                    Log.Info("Batch remove spatial scope, uuid: " + uuidDelete);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error getting metadata uuid=" + uuidDelete, ex);
+            }
         }
 
         private void UpdateLicense(string username, bool deleteData)
@@ -865,17 +833,17 @@ namespace Kartverket.MetadataEditor.Models
             try
             {
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
-                if(metadata.DistributionFormats.Count == 1 && string.IsNullOrEmpty(metadata.DistributionFormats[0].Name))
+                if(metadata.DistributionsFormats.Count == 1 && string.IsNullOrEmpty(metadata.DistributionsFormats[0].Name))
                 {
-                    metadata.DistributionFormats[0].Name = format;
-                    metadata.DistributionFormats[0].Version = version;
+                    metadata.DistributionsFormats[0].FormatName = format;
+                    metadata.DistributionsFormats[0].FormatVersion = version;
                 }
                 else
                 {
-                    var dsFormat = new SimpleDistributionFormat { Name = format, Version = version };
-                    var exists = metadata.DistributionFormats.Where(f => f.Name == format && f.Version == version).ToList().Count();
+                    var dsFormat = new SimpleDistribution { FormatName = format, FormatVersion = version };
+                    var exists = metadata.DistributionsFormats.Where(f => f.FormatName == format && f.FormatVersion == version).ToList().Count();
                     if (exists == 0)
-                        metadata.DistributionFormats.Add(dsFormat);
+                        metadata.DistributionsFormats.Add(dsFormat);
                 }
 
                 _metadataService.SaveMetadataModel(metadata, username);
@@ -895,8 +863,8 @@ namespace Kartverket.MetadataEditor.Models
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
                 if (metadata.ReferenceSystems == null)
                     metadata.ReferenceSystems = new List<SimpleReferenceSystem>();
-                var refSys = new SimpleReferenceSystem { CoordinateSystem = referencesystem, Namespace = "EPSG" };
-                var exists = metadata.ReferenceSystems.Where(r => r.CoordinateSystem == refSys.CoordinateSystem && r.Namespace == refSys.Namespace).ToList().Count();
+                var refSys = new SimpleReferenceSystem { CoordinateSystem = GeoNetworkUtil.GetCoordinatesystemText(referencesystem), CoordinateSystemLink = referencesystem };
+                var exists = metadata.ReferenceSystems.Where(r => r.CoordinateSystem == referencesystem || r.CoordinateSystemLink == referencesystem).ToList().Count();
                     if(exists == 0)
                     metadata.ReferenceSystems.Add(refSys);
 
@@ -948,7 +916,7 @@ namespace Kartverket.MetadataEditor.Models
             try
             {
                 MetadataViewModel metadata = _metadataService.GetMetadataModel(uuid);
-                metadata.DistributionFormats = new List<SimpleDistributionFormat>();
+                metadata.DistributionsFormats = new List<SimpleDistribution>();
                 _metadataService.SaveMetadataModel(metadata, username);
 
                 Log.Info("Batch remove Distributionformats, uuid: " + uuid);

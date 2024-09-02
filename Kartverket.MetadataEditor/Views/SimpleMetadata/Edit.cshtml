@@ -18,15 +18,67 @@
     @Html.HiddenFor(m => m.DateMetadataUpdated)
     @Html.HiddenFor(m => m.HierarchyLevel)
 
-    <div id="parentIdentifier" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
-        @Html.Partial("_Parent", Model)
+    <div id="parentIdentifier" class="modal" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
+        <div class="modal-dialog" style="width: 75%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Overordnet metadata for @Model.Title</h4>
+                    <div style="right: 5px; top: 5px; position:absolute;"><button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button></div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" id="searchmetadata" onkeydown="if (event.keyCode == 13) { getMetadataFreetext(document.getElementById('searchmetadata').value); return false; }" />
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="form-control" onclick="getMetadataFreetext(document.getElementById('searchmetadata').value);">Søk</button>
+                            <span id="searchInfo" style="color:red"></span>
+                        </div>
+                        <div class="col-sm-6"><b>Valgt overordnet metadata:</b></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <br />
+                            <div id="searchresultsDS">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="parentIdentifierDIV">
+                                @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
+                                {
+                                    <div id="parentIdentifier-@Model.ParentIdentifier.ToString()" class="row">
+                                        <input type="hidden" value="@Model.ParentIdentifier.ToString()" name="ParentIdentifier" />
+                                        <div class="col-sm-8">
+                                            <div id="title-@Model.ParentIdentifier.ToString()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 btn-group">
+                                            <a href="@Html.KartkatalogUrl()metadata/uuid/@Model.ParentIdentifier.ToString()" target="_blank" class="btn btn-default btn-xs">
+                                                <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-2 btn-group">
+                                            <a href="#" onclick="document.getElementById('parentIdentifier-@Model.ParentIdentifier.ToString()').parentNode.removeChild(document.getElementById('parentIdentifier-@Model.ParentIdentifier.ToString()'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     @section ActionMenu {
         <div class="btn-group">
             @if (Html.SimpleMetadataEnabled())
             {
-                <a href="@Url.Action("Edit", "Metadata", new { uuid = @Model.Uuid, editor = "standard" })" class="btn btn-sm btn-default" style="background-color:Highlight;">
+                <a href="@Url.Action("Edit", "Metadata", new { uuid = @Model.Uuid, editor = "standard" })" onclick="alert('Dersom du lagrer oppføringen i standard editor kan du ikke gå tilbake til enkle metadata')" class="btn btn-sm btn-default" style="background-color:Highlight;">
                     <span class="glyphicon glyphicon-share-alt"></span> Vis standard editor
                 </a>
             }
@@ -148,7 +200,7 @@
 
 
 </form>
-@{  bool IsAdmin = false;
+@{ bool IsAdmin = false;
     foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
     {
         if (c.Value == "nd.metadata_admin")
@@ -160,7 +212,7 @@
 }
 
 @section scripts {
-<script>
+    <script>
         $(function () {
 
             //  add warning sign to tabs containing input fields with error.
@@ -304,6 +356,9 @@
                         event.preventDefault();
 
                         console.log(data);
+
+                        showLoadingAnimation('Laster opp');
+
                         data.formData = {
                             "uuid": "@Model.Uuid"
                         };
@@ -331,9 +386,9 @@
                         $('#uploadDatasetStatus').attr('style', 'text-info');
                         $('#uploadDatasetStatus').text('Filen er lastet opp.');
                     }
+                    hideLoadingAnimation();
                 }
             });
-
 
 
             // keywords
@@ -459,5 +514,113 @@
 
         });
 
-</script>
-}
+    </script>
+    <script>
+
+    function getMetadata(uuid) {
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?listhidden=true&text=" + uuid, function (result) {
+
+
+            if (result.length != 0) {
+                if (result.Results.length != 0) {
+                    var title = result.Results[0].Title;
+                    $("#title-" + uuid).text(title);
+                }
+                else { $("#title-" + uuid).text("TITTEL MANGLER"); }
+            }
+
+            else {
+                $("#title-" + uuid).text("TITTEL MANGLER");
+            }
+
+        });
+    };
+
+
+    function getMetadataFreetext(searchStr) {
+
+        $('#searchresultsDS').empty();
+        $('#searchInfo').text('Fant ingen metadata');
+        if (searchStr == '') {
+            $('#searchInfo').text('Vennligst skriv inn søkeord');
+            return false;
+        }
+
+        var counter = 0;
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?listhidden=true&facets[0]name=type&facets[0]value=dataset&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataRow(result.Results[r]);
+                    }
+                    $('#searchInfo').text('');
+                }
+
+            }
+
+        });
+
+        $.getJSON("@System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"]api/search?listhidden=true&facets[0]name=type&facets[0]value=series&text=" + searchStr, function (result) {
+
+            if (result.length != 0) {
+
+                if (result.Results.length != 0) {
+                    for (r = counter ; r < result.Results.length; r++) {
+                        displayMetadataRow(result.Results[r]);
+                    }
+
+                    $('#searchInfo').text('');
+                }
+
+            }
+
+        });
+
+    };
+
+
+    function displayMetadataRow(result) {
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addParentIdentifier(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Velg' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        $('#searchresultsDS').append(div);
+    }
+
+    function addParentIdentifier(Uuid) {
+        var h = '<div id="parentIdentifier-' + Uuid + '" class="row">';
+        h += '<input type="hidden" value="' + Uuid + '" name="ParentIdentifier" />';
+
+        h += '<div class="col-sm-8">';
+
+        h += '<div id="title-' + Uuid + '">';
+        h += '<script>getMetadata(\'' + Uuid + '\'' + '\)\;\<\/script>';
+        h += '</div>';
+
+        h += '</div>';
+
+        h += '<div class="col-sm-2 btn-group">';
+        h += '<a href="@Html.KartkatalogUrl()metadata/uuid/' + Uuid + '" target="_blank" class="btn btn-default btn-xs">';
+        h += ' <span class="glyphicon glyphicon-share-alt"></span> Vis i katalog';
+        h += '   </a>';
+        h += '</div>';
+
+        h += '<div class="col-sm-2 btn-group">';
+        h += '<a href="#" onclick="document.getElementById(\'parentIdentifier-' + Uuid + '\').parentNode.removeChild(document.getElementById(\'parentIdentifier-' + Uuid + '\'));" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Slett</a>';
+        h += '</div>';
+
+        h += '</div>';
+        h += '<hr style="margin: 2px 2px 2px 2px" />';
+
+        $('#parentIdentifierDIV').html(h);
+        alert('Metadata ble lagt til');
+
+
+    }
+
+    </script>
+    @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
+    {
+        <script>getMetadata('@Model.ParentIdentifier.ToString()');</script>
+        }
+    }

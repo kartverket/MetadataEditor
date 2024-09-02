@@ -56,6 +56,16 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Resources.UI.AbstractEnglishRequired">
+            <summary>
+              Looks up a localized string similar to Beskrivelse engelsk er påkrevd.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.AbstractNorwegianRequired">
+            <summary>
+              Looks up a localized string similar to Beskrivelse norsk er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.AccessConstraintsRequired">
             <summary>
               Looks up a localized string similar to Tilgangsrestriksjoner er påkrevd.
@@ -134,6 +144,11 @@
         <member name="P:Resources.UI.ChooseFromMap">
             <summary>
               Looks up a localized string similar to Velg fra kart.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Comment">
+            <summary>
+              Looks up a localized string similar to Kommentar.
             </summary>
         </member>
         <member name="P:Resources.UI.Concepts">
@@ -215,6 +230,11 @@
         <member name="P:Resources.UI.ContainsOperationsURLHelp">
             <summary>
               Looks up a localized string similar to URL for å få tilgang til operasjonens grensesnitt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Copy">
+            <summary>
+              Looks up a localized string similar to Kopier.
             </summary>
         </member>
         <member name="P:Resources.UI.CreateMetadata">
@@ -329,7 +349,7 @@
         </member>
         <member name="P:Resources.UI.ErrorDuplicateDatasetName">
             <summary>
-              Looks up a localized string similar to Navn på datasett er allerede registrert.
+              Looks up a localized string similar to Datasett-ID er allerede registrert.
             </summary>
         </member>
         <member name="P:Resources.UI.ErrorInfo">
@@ -503,6 +523,11 @@
               Looks up a localized string similar to Grunngiving av tilgangsbegrensninger eller bruksbegrensninger i form av juridiske forhold eller andre begrensende faktorer. Her kan en henvise til lov, forskrift eller lignende..
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_SpatialResolution">
+            <summary>
+              Looks up a localized string similar to Denne oppgis som regel med målestokkstall for vektordata og som distanse for rasterdata og rutenettsdata, men en kan feks. gjerne legge inn at nøyaktighet er 2 meter på vegnett. “Målestokk” oppgis som heltall og “Distanse” oppgis som desimaltall med punktum som skilletegn.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_Status">
             <summary>
               Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
@@ -555,7 +580,7 @@
         </member>
         <member name="P:Resources.UI.HelpTextResourceReferenceCode">
             <summary>
-              Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt..
+              Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellomrom og spesialtegn. Understrek er tillatt..
             </summary>
         </member>
         <member name="P:Resources.UI.HelpTextResourceReferenceCodespace">
@@ -628,6 +653,16 @@
               Looks up a localized string similar to Angi språk som i hovedsak er benyttet i tekstfelt og kolonne-overskrifter i datasettet.
             </summary>
         </member>
+        <member name="P:Resources.UI.LanguageInMetadata">
+            <summary>
+              Looks up a localized string similar to Språk i metadata.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.LanguageInMetadataHelp">
+            <summary>
+              Looks up a localized string similar to Angi standard språk for metadata.
+            </summary>
+        </member>
         <member name="P:Resources.UI.LinkToDataset">
             <summary>
               Looks up a localized string similar to Koble til datasett.
@@ -680,7 +715,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_Admin_KeywordsCatalogs">
             <summary>
-              Looks up a localized string similar to Høsting til ulike samarbeid:.
+              Looks up a localized string similar to Høsting og samarbeid:.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_Admin_QualitySpecificationDate">
@@ -925,7 +960,7 @@
         </member>
         <member name="P:Resources.UI.Metadata_CoverageType_MapserviceGeonorge">
             <summary>
-              Looks up a localized string similar to Karttjenestelag Geonorge.
+              Looks up a localized string similar to Dekningskart Geonorge.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_CoverageType_Webpage">
@@ -1116,6 +1151,11 @@
         <member name="P:Resources.UI.Metadata_ReferenceSystems_Namespace_Label">
             <summary>
               Looks up a localized string similar to Koderom.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_ResolutionDistance_Label">
+            <summary>
+              Looks up a localized string similar to Oppløsning i meter.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_ResolutionScale_Label">
@@ -1443,6 +1483,16 @@
               Looks up a localized string similar to Representasjonsform.
             </summary>
         </member>
+        <member name="P:Resources.UI.SpatialScope">
+            <summary>
+              Looks up a localized string similar to Geografisk nivå.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpatialScopeHelp">
+            <summary>
+              Looks up a localized string similar to Administrativt nivå som datasettet har til hensikt å dekke.
+            </summary>
+        </member>
         <member name="P:Resources.UI.SpecifyAreas">
             <summary>
               Looks up a localized string similar to Angi områder.
@@ -1503,6 +1553,16 @@
               Looks up a localized string similar to Tid og rom.
             </summary>
         </member>
+        <member name="P:Resources.UI.TitleEnglishRequired">
+            <summary>
+              Looks up a localized string similar to Tittel engelsk er påkrevd felt.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.TitleNorweginRequired">
+            <summary>
+              Looks up a localized string similar to Tittel norsk er påkrevd felt.
+            </summary>
+        </member>
         <member name="P:Resources.UI.TopicCategory">
             <summary>
               Looks up a localized string similar to Tematisk hovedkategori.
@@ -1547,37 +1607,6 @@
             <summary>
               Looks up a localized string similar to WFS tjeneste.
             </summary>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String)">
-            <summary>
-            Upload thumbnail
-            </summary>
-            <param name="uuid">The identifier of the metadata</param>
-            <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.ValidateMetadata(System.String)">
-            <summary>
-            Validate metadata
-            </summary>
-            <param name="uuid">The identifier of the metadata</param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.GetPlaces(System.Double,System.Double,System.Double,System.Double,System.Int32,System.Int32)">
-            <summary>
-            Get list of places for coordinates
-            </summary>
-            <param name="nordmin">Minimum nord verdi for omskreven boks.</param>
-            <param name="austmin"> Minimum aust verdi for omskreven boks.</param>
-             <param name="nordmax">Maximum nord verdi for omskreven boks.</param>
-             <param name="austmax">Maximum nord verdi for omskreven boks.</param>
-             <param name="koordsysut">SOSI koordinat system for returnerte data. Må alltid være ulik 0.</param>
-             <param name="koordsysinn">SOSI koordinat system for søke data. Må være ulik 0 hvis austMin, austMax, nordMin eller nordMax er ulik 0.</param>
-        </member>
-        <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">
-            <summary>
-            Returns a MetadatViewModel of the metadata with the given uuid.
-            </summary>
-            <param name="uuid"></param>
-            <returns>A view model of the metadata or null if not any record with the given uuid is found</returns>
         </member>
         <member name="M:Kartverket.MetadataEditor.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
@@ -2056,6 +2085,33 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String)">
+            <summary>
+            Upload thumbnail
+            </summary>
+            <param name="uuid">The identifier of the metadata</param>
+            <param name="scaleImage">Scale to maxWidth=180 and maxHeight=1000 if set to true </param>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.ValidateMetadata(System.String)">
+            <summary>
+            Validate metadata
+            </summary>
+            <param name="uuid">The identifier of the metadata</param>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.GetPlaces(System.String,System.String)">
+            <summary>
+            Get list of places for coordinates
+            </summary>
+            <param name="nord">Nord verdi for boks.</param>
+            <param name="aust">Aust verdi for omskreven boks.</param>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Models.MetadataService.GetMetadataModel(System.String)">
+            <summary>
+            Returns a MetadatViewModel of the metadata with the given uuid.
+            </summary>
+            <param name="uuid"></param>
+            <returns>A view model of the metadata or null if not any record with the given uuid is found</returns>
+        </member>
         <member name="M:Kartverket.MetadataEditor.Helpers.CultureHelper.IsRighToLeft">
             <summary>
             Returns true if the language is a right-to-left language. Otherwise, false.
@@ -2073,56 +2129,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes.errorMsg">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes.ok">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KomSokRes.resultat">
-            <remarks/>
-        </member>
-        <member name="T:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.boxAmax">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.boxAmin">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.boxNmax">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.boxNmin">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.gaust">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.gnord">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.kNavn">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.kSenter">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.kommNr">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.senterA">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.senterN">
-            <remarks/>
-        </member>
-        <member name="P:Kartverket.MetadataEditor.no.geonorge.ws.KommuneData.ssbNr">
-            <remarks/>
+        <member name="M:Kartverket.MetadataEditor.Views.Home.HomeController.SignOutCallback">
+            <summary>
+            This is the action responding to the signout-callback-oidc route after logout at the identity provider
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

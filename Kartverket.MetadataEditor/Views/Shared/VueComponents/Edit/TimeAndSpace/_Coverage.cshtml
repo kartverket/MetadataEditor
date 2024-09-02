@@ -1,4 +1,4 @@
-﻿@using Resources
+@using Resources
 @model Kartverket.MetadataEditor.Models.MetadataViewModel
 
 <script type="text/x-template" id="coverage-template">
@@ -62,13 +62,19 @@
                         <div class="row">
                             <label class="col-md-2 control-label">Kommune</label>
                             <div class="col-md-10">
-                                <input type="text" name="CoverageUrl" value="@Model.CoverageUrl" class="form-control" />
+                                <input type="text" name="CoverageUrl" v-model="computedCoverageUrl.value" class="form-control" />
                             </div>
                         </div><br />
                         <div class="row">
                             <label class="col-md-2 control-label">Rutenett</label>
                             <div class="col-md-10">
-                                <input type="text" name="CoverageGridUrl" value="@Model.CoverageGridUrl" class="form-control" />
+                                <input type="text" id="CoverageGridUrl" name="CoverageGridUrl" value="@Model.CoverageGridUrl" class="form-control" />
+                            </div>
+                        </div><br />
+                        <div class="row">
+                            <label class="col-md-2 control-label">Celle</label>
+                            <div class="col-md-10">
+                                <input type="text" id="CoverageCellUrl" name="CoverageCellUrl" value="@Model.CoverageCellUrl" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -92,7 +98,7 @@
                 </div>
             </div>
             <div v-if="computedThumbnailUrl">
-                <h3>Valgt dekningskart</h3>
+                <h3>Valgt dekningskart-bildefil</h3>
                 <div class="striped-list">
                     <div class="list-item">
                         <div class="row">
@@ -102,6 +108,7 @@
                             <div class="col-sm-9">
                                 <p><b>Type:</b> {{ computedThumbnailType }}</p>
                                 <p><b>URL:</b> {{ computedThumbnailUrl }}</p>
+                                <button class="btn" v-on:click="removeFile">Fjern bildefil</button>
                             </div>
                         </div>
                     </div>
@@ -116,7 +123,7 @@
     var Coverage = {
         name: "coverage",
         template: "#coverage-template",
-        data: function () {
+        data() {
             return {
                 coverageType: {
                     name: '',
@@ -131,7 +138,7 @@
                     ]
                 },
                 url: {
-                    value: '',
+                    value: this.$root.model.CoverageUrl,
                     type: 'text',
                     fields: {
                         websiteUrl: {
@@ -179,8 +186,9 @@
                     value: 'test',
                     label: this.$root.model.CoverageUrl,
                     type: 'text'
-               };
-
+                };
+                if (this.coverageType.value == '')
+                    this.coverageType.value = 'webpage';
                 if (this.coverageType.value == 'webpage') {
                     computedCoverageUrl.value = this.url.value;
                 } else if (this.coverageType.value == 'mapservice') {
@@ -190,6 +198,16 @@
                 } else if (this.coverageType.value == 'imageCoverage') {
                     computedCoverageUrl.value = this.computedThumbnailUrl;
                 }
+
+                if (this.coverageType.value !== 'mapserviceGeonorge')
+                {
+                    if (document.getElementById("CoverageGridUrl") !== null)
+                        document.getElementById("CoverageGridUrl").value = '';
+
+                    if (document.getElementById("CoverageCellUrl") !== null)
+                        document.getElementById("CoverageCellUrl").value = '';
+                }
+
                 return computedCoverageUrl;
             },
            computedThumbnailUrl: function () {
@@ -214,15 +232,28 @@
                 var valueFromCoverageUrl = '';
                 var regexResult;
                 if ((regexResult = regex.exec(this.$root.model.CoverageUrl)) !== null) {
-                    regexResult.forEach(function (match, groupIndex) {
-                        valueFromCoverageUrl = match;
-                    });
+                    valueFromCoverageUrl = regexResult[regexResult.length - 1];
+                    if (valueFromCoverageUrl !== '') {
+                        return valueFromCoverageUrl;
+                    }
                 }
                 else if ((regexResult = regex.exec(this.$root.model.CoverageGridUrl)) !== null) {
-                    regexResult.forEach(function (match, groupIndex) {
+                    regexResult.some(function (match, groupIndex) {
                         valueFromCoverageUrl = match;
+                        if (valueFromCoverageUrl !== '') {
+                            return valueFromCoverageUrl;
+                        }
                     });
                 }
+                else if ((regexResult = regex.exec(this.$root.model.CoverageCellUrl)) !== null) {
+                    regexResult.some(function (match, groupIndex) {
+                        valueFromCoverageUrl = match;
+                        if (valueFromCoverageUrl !== '') {
+                            return valueFromCoverageUrl;
+                        }
+                    });
+                }
+
                 return valueFromCoverageUrl;
             },
             getMapServiceType: function () {
@@ -246,10 +277,10 @@
                 return this.getValueFromCoverageUrl(regex) !== '';
             },
             getSelectedCoverageType: function () {
-                if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
-                else if (this.isMapServiceGeonorge()) this.coverageType.value = 'mapserviceGeonorge';
+                if (this.isMapServiceGeonorge()) this.coverageType.value = 'mapserviceGeonorge';
                 else if (this.isMapService()) this.coverageType.value = 'mapservice';
-                else this.coverageType.value = 'webpage';
+                else if (this.coverageType.value = 'webpage');
+                else if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
             },
             initFileUpload: function () {
                 $("#" + this.coverageFile.id).fileupload({
@@ -285,11 +316,32 @@
                 event.preventDefault(),
                 this.thumbnailFileUploadData.request.submit();
             }
+            ,
+            removeFile: function (event) {
+                event.preventDefault();
+                var thumbnails = this.$root.model.Thumbnails;
+                for (var t = 0; t < thumbnails.length; t++)
+                {
+                    if (thumbnails[t].Type == "dekningsoversikt")
+                    {
+                        thumbnails.splice(t, 1);
+                        break;
+                    }
+                }
+                console.log(this.$root.model.Thumbnails);
+                this.$store.commit('updateThumbnails', thumbnails);
+            }
         },
-        mounted: function () {
+        mounted() {
             this.mapServiceType.value = this.getMapServiceType();
-            this.url.value = this.getMapServiceUrl();
-            this.mapServiceLayerName.value = this.getMapServiceLayerName();
+            var mapServiceUrl = this.getMapServiceUrl();
+            if (mapServiceUrl != '')
+                this.url.value = mapServiceUrl;
+            var layerName = this.getMapServiceLayerName();
+            if (layerName.substr(0, 7) == "@@LAYER:") {
+                layerName = layerName.substr(7, layerName.length - 7);
+            }
+            this.mapServiceLayerName.value = layerName;
             this.getSelectedCoverageType();
             this.initFileUpload();
         }

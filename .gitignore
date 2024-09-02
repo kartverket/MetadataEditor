@@ -174,3 +174,5 @@ $RECYCLE.BIN/
 node_modules/
  
 Kartverket\.MetadataEditor/Assemblies/Lucene\.Net\.dll
+
+\.idea/

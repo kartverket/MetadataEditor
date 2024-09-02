@@ -1,54 +1,147 @@
 ﻿@using Resources
 
-<script type="text/x-template" id="quality-template">
+<script type="text/x-template" id="resolution-section-template">
     <div>
-        <div class="form-group" v-if="formElement.visible" v-for="formElement in formElements">
-            <div class="row">
-                <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
-                <div class="col-md-8">
-                    <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                    <div is="field" v-bind:form-element="formElement"></div>
+        <div v-show="isVisible(section)" v-for="section in sections" class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11">
+                        <span class="required">{{ section.name }}</span>
+                    </div>
+                    <div class="col-md-1">
+                        <span v-on:click="section.helpText.active = !section.helpText.active" v-bind:class="{active: section.helpText.active}" class="badge help-text-toggle">?</span>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div v-if="formElement.helpText" class="col-md-1">
-                    <p class="form-control-static">
-                        <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
-                    </p>
+            </div>
+            <div class="panel-body">
+                <p v-if="section.helpText && section.helpText.active" class="help-text bg-success" v-html="section.helpText.content"></p>
+                <div v-show="isVisible(formElement)" v-for="formElement in section.formElements">
+                    <component v-if="formElement.type == 'hidden'" is="field" v-bind:form-element="formElement"></component>
+                    <div v-else class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                        <div class="row">
+                            <label for="abstract" class="col-md-2 control-label">{{ formElement.label }}</label>
+                            <div class="col-md-9">
+                                <component is="field" v-bind:form-element="formElement"></component>
+                                <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </script>
 
+<script type="text/x-template" id="quality-template">
+    <div>
+        <component is="Resolution"></component>
+        <template v-for="formElement in formElements">
+            <div class="form-group" v-if="isVisible(formElement)">
+                <div class="row">
+                    <label for="formElement.id" class="col-md-3 control-label">{{ formElement.label }}</label>
+                    <div class="col-md-8">
+                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                        <component is="field" v-bind:form-element="formElement"></component>
+                    </div>
+                    <div v-if="formElement.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</script>
+
+
+<script>
+    var Resolution = {
+        name: "ResolutionSection",
+        template: "#resolution-section-template",
+        components: {
+            Field: Field
+        },
+        props: ["section"],
+        data() {
+            return {
+                 sections: [
+                    {
+                        name: 'Romlig oppløsning',
+                        helpText: {
+                             active: true,
+                             content: '@Html.Raw(UI.Helptext_SpatialResolution)'
+                         },
+                         visibleGetter: 'showSpatialResolution',
+                         formElements: [
+                             {
+                                 name: 'SelectedResolutionFormat',
+                                 getter: 'SelectedResolutionFormat',
+                                 mutation: 'updateSelectedResolutionFormat',
+                                 label: 'Måleenhet',
+                                 type: 'radio',
+                                 required: false,
+                                 active: true,
+                                 options: [
+                                     { Text: '@Html.Raw(UI.Metadata_ResolutionScale_Label)', Value: 'ResolutionScale' },
+                                     { Text: '@Html.Raw(UI.Metadata_ResolutionDistance_Label)', Value: 'ResolutionDistance' }
+                                 ],
+                             },
+                            {
+                                name: 'ResolutionScale',
+                                getter: 'ResolutionScale',
+                                mutation: 'updateResolutionScale',
+                                label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
+                                type: 'text',
+                                visibleGetter: 'showResolutionScale'
+                             },
+                            {
+                                name: 'ResolutionDistance',
+                                getter: 'ResolutionDistance',
+                                mutation: 'updateResolutionDistance',
+                                label: '@Html.Raw(UI.Metadata_ResolutionDistance_Label)',
+                                type: 'text',
+                                visibleGetter: 'showResolutionDistance',
+                                required: false
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        methods: {
+            isVisible: function (formElement) {
+                if (formElement.visibleGetter !== undefined) {
+                    return this.$store.getters[formElement.visibleGetter] === true || this.$store.getters[formElement.visibleGetter] == 'true';
+                } else if (formElement.visible !== undefined) {
+                    return formElement.visible === true || formElement.visible == 'true';
+                } else {
+                    return true;
+                }
+            },
+        }
+    };
+</script>
+
+
 <script>
     var Quality = {
         name: "quality",
         template: "#quality-template",
         components: {
-            Field: Field
+            Field: Field,
+            Resolution: Resolution
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('getErrorsForTab', { tabName: 'Quality' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 formElements: {
-                    resolutionScale: {
-                        id: 'ResolutionScale',
-                        name: 'ResolutionScale',
-                        getter: 'ResolutionScale',
-                        mutation: 'updateResolutionScale',
-                        label: '@Html.Raw(UI.Metadata_ResolutionScale_Label)',
-                        type: 'text',
-                        required: false,
-                        visible: !this.$store.getters['isService'],
-                        helpText: {
-                            active: false,
-                            content: '@Html.Raw(UI.Helptext_ResolutionScale)'
-                        }
-                    },
                     status: {
                         id: 'Status',
                         name: 'Status',
@@ -95,7 +188,7 @@
                         label: '@Html.Raw(UI.Metadata_OrderingInstructions_Label)',
                         type: 'select',
                         required: false,
-                        visible: this.$store.getters['isService'],
+                        visibleGetter: 'isService',
                         options: this.$root.viewBag.OrderingInstructionsValues,
                         helpText: {
                             active: false,
@@ -110,7 +203,7 @@
                         label: '@UI.Availability',
                         type: 'text',
                         required: true,
-                        visible: this.$store.getters['isService'],
+                        visibleGetter: 'showQualityQuantitativeResult',
                         helpText: {
                             active: false,
                             content: '@UI.QualityQuantitativeResultAvailability'
@@ -124,7 +217,7 @@
                         label: '@UI.Capacity',
                         type: 'text',
                         required: true,
-                        visible: this.$store.getters['isService'],
+                        visibleGetter: 'showQualityQuantitativeResult',
                         helpText: {
                             active: false,
                             content: '@UI.QualityQuantitativeResultCapacity'
@@ -139,12 +232,23 @@
                         label: '@UI.Performance',
                         type: 'text',
                         required: true,
-                        visible: this.$store.getters['isService'],
+                        visibleGetter: 'showQualityQuantitativeResult',
                         helpText: {
                             active: false,
                             content: '@UI.QualityQuantitativeResultPerformance'
                         }
                     }
+                }
+            }
+        },
+        methods: {
+            isVisible: function (formElement) {
+                if (formElement.visibleGetter !== undefined) {
+                    return this.$store.getters[formElement.visibleGetter] === true || this.$store.getters[formElement.visibleGetter] == 'true';
+                } else if (formElement.visible !== undefined) {
+                    return formElement.visible === true || formElement.visible == 'true';
+                } else {
+                    return true;
                 }
             }
         }

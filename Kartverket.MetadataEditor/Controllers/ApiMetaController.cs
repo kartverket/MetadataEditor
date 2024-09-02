@@ -1,5 +1,4 @@
 ﻿using Kartverket.MetadataEditor.Models;
-using Kartverket.MetadataEditor.no.geonorge.ws;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ using System.Web.Http;
 namespace Kartverket.MetadataEditor.Controllers
 {
     
-    public class ApiMetaController : ApiController
+    public class ApiMetaController : ApiControllerBase
     {
         private IMetadataService _metadataService;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -123,8 +122,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                 if (model != null) 
                 {
-                    string role = GetSecurityClaim("role");
-                    if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                    if (UserHasMetadataAdminRole())
                         model.ValidateAllRequirements = true;
 
                     metadata.Uuid = model.Uuid;
@@ -208,48 +206,23 @@ namespace Kartverket.MetadataEditor.Controllers
         
         }
 
-        private string GetSecurityClaim(string type)
-        {
-            string result = null;
-            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
-                {
-                    result = claim.Value;
-                    break;
-                }
-            }
-
-            // bad hack, must fix BAAT
-            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
-            {
-                result = "Kartverket";
-            }
-
-            return result;
-        }
-
         /// <summary>
         /// Get list of places for coordinates
         /// </summary>
-        /// <param name="nordmin">Minimum nord verdi for omskreven boks.</param>
-        /// <param name="austmin"> Minimum aust verdi for omskreven boks.</param>
-        ///  <param name="nordmax">Maximum nord verdi for omskreven boks.</param>
-        ///  <param name="austmax">Maximum nord verdi for omskreven boks.</param>
-        ///  <param name="koordsysut">SOSI koordinat system for returnerte data. Må alltid være ulik 0.</param>
-        ///  <param name="koordsysinn">SOSI koordinat system for søke data. Må være ulik 0 hvis austMin, austMax, nordMin eller nordMax er ulik 0.</param>
-        [Route("api/places/{nordmin}/{austmin}/{nordmax}/{austmax}/{koordsysut}/{koordsysinn}")]
+        /// <param name="nord">Nord verdi for boks.</param>
+        /// <param name="aust">Aust verdi for omskreven boks.</param>
+        [Route("api/places")]
         [HttpGet]
-        public List<string> GetPlaces(double nordmin, double austmin, double nordmax, double austmax, int koordsysut, int koordsysinn)
+        public List<string> GetPlaces(string nord, string aust)
         {
-            KomDataService test = new KomDataService();
-            List<string> result = test.GetPlaces(nordmin, austmin, nordmax, austmax, koordsysut, koordsysinn);
+            KomDataService areas = new KomDataService();
+            List<string> result = areas.GetPlaces(nord, aust);
 
             return result;
         }
 
 
-        }
+    }
 
     public class Upload
     {

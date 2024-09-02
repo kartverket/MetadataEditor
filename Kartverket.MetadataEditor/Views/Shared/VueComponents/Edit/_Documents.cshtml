@@ -1,4 +1,4 @@
-﻿@using Resources
+@using Resources
 
 <script type="text/x-template" id="documents-template">
     <div>
@@ -21,7 +21,7 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ applicationSchema.label }}</label>
                 <div class="col-md-6">
-                    <div is="field" v-bind:form-element="applicationSchema"></div>
+                    <component is="field" v-bind:form-element="applicationSchema"></component>
                 </div>
                 <div class="col-md-2 text-right">
                     <span class="btn" v-on:click="loadConcepts()">@UI.Get</span>
@@ -77,7 +77,7 @@
                 <div class="col-md-4">
                     <div class="input-group">
                         <span class="input-group-addon">{{ productSpecificationOther.fields.url.label }}</span>
-                        <div is="field" v-bind:form-element="productSpecificationOther.fields.url"></div>
+                        <component is="field" v-bind:form-element="productSpecificationOther.fields.url"></component>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ productSheetUrl.label }}</label>
                 <div class="col-md-8">
-                    <div is="field" v-bind:form-element="productSheetUrl"></div>
+                    <component is="field" v-bind:form-element="productSheetUrl"></component>
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ legendDescriptionUrl.label }}</label>
                 <div class="col-md-8">
-                    <div is="field" v-bind:form-element="legendDescriptionUrl"></div>
+                    <component is="field" v-bind:form-element="legendDescriptionUrl"></component>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ productPageUrl.label }}</label>
                 <div class="col-md-8">
-                    <div is="field" v-bind:form-element="productPageUrl"></div>
+                    <component is="field" v-bind:form-element="productPageUrl"></component>
                 </div>
             </div>
         </div>
@@ -152,9 +152,9 @@
                     </div>
                 </div>
 
-                <div is="thumbnails"
+                <component is="thumbnails"
                      v-bind:new-images="thumbnailFileUploadData.response.result">
-                </div>
+                </component>
 
             </div>
         </div>
@@ -174,14 +174,14 @@
             Field: Field,
             Thumbnails: Thumbnails
         },
-        mounted: function () {
+        mounted() {
             initCustomSelectList();
             this.initFileUpload();
             this.$store.dispatch('getErrorsForTab', { tabName: 'Documents' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 productSpecificationUrl: {
@@ -386,7 +386,8 @@
             },
             setProductSpecificationAcceptedDate: function (productSpecificationUrl) {
                 var apiUrl = productSpecificationUrl;
-                apiUrl = apiUrl.replace("/register/", "/api/register/");
+                console.log(apiUrl);
+                apiUrl = apiUrl.replace("geonorge.no", "geonorge.no/api");
                 $.ajax({
                     headers: {
                         Accept: "application/json",
@@ -395,6 +396,9 @@
                     type: "GET",
                     url: apiUrl,
                     success: function (response) {
+                        if (response.draftDate && response.draftDate != "0001-01-01T00:00:00") {
+                            this.$store.commit('updateQualitySpecificationDateSosi', response.draftDate);
+                        }
                         if (response.dateAccepted && response.dateAccepted != "0001-01-01T00:00:00") {
                             this.$store.commit('updateQualitySpecificationDateSosi', response.dateAccepted);
                         }

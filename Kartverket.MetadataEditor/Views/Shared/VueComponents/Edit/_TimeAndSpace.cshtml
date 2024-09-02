@@ -2,27 +2,49 @@
 
 <script type="text/x-template" id="timeAndSpace-template">
     <div class="form-group has-feedback">
-        <div v-for="formElement in formElements" v-if="formElement.visible" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
-            <div class="row">
-                <label class="col-md-2 control-label">{{ formElement.label }}</label>
-                <div class="col-md-9">
-                    <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
-                    <div is="field" v-bind:form-element="formElement"></div>
-                </div>
-                <div v-if="formElement.helpText" class="col-md-1">
-                    <p class="form-control-static">
-                        <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
-                    </p>
+        <template v-for="formElement in formElements">
+            <div v-if="formElement.visible" class="form-group has-feedback" v-bind:class="{required: formElement.required}">
+                <div class="row">
+                    <label class="col-md-2 control-label">{{ formElement.label }}</label>
+                    <div class="col-md-9">
+                        <p v-if="formElement.helpText && formElement.helpText.active" class="help-text bg-success" v-html="formElement.helpText.content"></p>
+                        <component is="field" v-bind:form-element="formElement"></component>
+                    </div>
+                    <div v-if="formElement.helpText" class="col-md-1">
+                        <p class="form-control-static">
+                            <span v-on:click="formElement.helpText.active = !formElement.helpText.active" v-bind:class="{active: formElement.helpText.active}" class="badge help-text-toggle">?</span>
+                        </p>
+                    </div>
                 </div>
             </div>
+        </template>
+        <div class="row">
+            <label class="col-md-2 control-label">@UI.SpatialScope</label>
+            <div class="col-md-9">
+                <p id="spatialscopehelp" class="help-text bg-success" style="display:none">@UI.SpatialScopeHelp</p>
+                <div class="custom-select">
+                    <select name="KeywordsSpatialScope[0]" v-model="$root.model.KeywordsSpatialScope[0]" class="form-control">
+                        <option></option>
+                        <option v-for="option in $root.viewBag.InspireSpatialScopes" v-bind:value="option.Value">
+                            {{ option.Text }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <p class="form-control-static">
+                    <span class="badge help-text-toggle" onclick="$('#spatialscopehelp').toggle();">?</span>
+                </p>
+            </div>
         </div>
-        <div is="keywords-section"
+        <br />
+        <component is="keywords-section"
              v-bind:section="section"
              v-for="section in sections">
-        </div>
-        <div is="keywords-administrative-units"></div>
-        <div is="bounding-box"></div>
-        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></div>
+        </component>
+        <component is="keywords-administrative-units"></component>
+        <component is="bounding-box"></component>
+        <component v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></component>
     </div>
 </script>
 
@@ -49,13 +71,13 @@
                 this.$store.dispatch('updateField', value);
             }
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('initDatepicker');
             this.$store.dispatch('getErrorsForTab', { tabName: 'TimeAndSpace' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 formElements: [

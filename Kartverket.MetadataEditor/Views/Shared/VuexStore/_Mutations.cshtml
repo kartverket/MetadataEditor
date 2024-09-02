@@ -33,6 +33,9 @@
         updateLanguage: function (state, payload) {
             state.model.Language = payload;
         },
+        updateMetadataLanguage: function (state, payload) {
+            state.model.MetadataLanguage = payload;
+        },
         updateResourceReferenceCode: function (state, payload) {
             state.model.ResourceReferenceCode = payload;
         },
@@ -367,8 +370,14 @@
         updateKeywordsEnglish: function (state, payload) {
             state.model.KeywordsEnglish = payload;
         },
+        updateSelectedResolutionFormat: function (state, payload) {
+            state.data.SelectedResolutionFormat = payload;
+        },
         updateResolutionScale: function (state, payload) {
             state.model.ResolutionScale = payload;
+        },
+        updateResolutionDistance: function (state, payload) {
+            state.model.ResolutionDistance = payload;
         },
         updateStatus: function (state, payload) {
             state.model.Status = payload;
@@ -500,11 +509,11 @@
         },
         updateArrayValue: function (state, payload) {
             var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
-            Vue.set(state[stateProperty][payload.arrayName], payload.arrayIndex, payload.value);
+            state[stateProperty][payload.arrayName][payload.arrayIndex] = payload.value;
         },
         removeValueFromArray: function (state, payload) {
             var stateProperty = payload.stateProperty !== undefined ? payload.stateProperty : 'model';
-            Vue.delete(state[stateProperty][payload.arrayName], payload.arrayIndex);
+            state[stateProperty][payload.arrayName].splice(payload.arrayIndex, 1);
         },
         updateVisibleConformitySections: function (state, payload) {
             state.settings.visibleConformitySections = payload;

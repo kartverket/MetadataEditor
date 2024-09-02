@@ -11,17 +11,19 @@ namespace Kartverket.MetadataEditor.Models
         MetadataViewModel GetMetadataModel(string uuid);
         MetadataIndexViewModel SearchMetadata(string v1, string v2, int next, int limit);
         string CreateMetadata(MetadataCreateViewModel newMetadata, string username);
+        string CopyMetadata(string uuid, string username);
         void SaveMetadataModel(MetadataViewModel model, string username);
         List<WfsLayerViewModel> CreateMetadataForFeature(string uuid, List<WfsLayerViewModel> createMetadataForLayers, string[] keywords, string username);
         List<WmsLayerViewModel> CreateMetadataForLayers(string uuid, List<WmsLayerViewModel> createMetadataForLayers, string[] keywords, string username);
-        Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published="");
-        void DeleteMetadata(MetadataViewModel model, string user);
+        void DeleteMetadata(MetadataViewModel model, string user, string comment);
         Dictionary<DistributionGroup, Distribution> GetFormatDistributions(List<SimpleDistribution> distributionsFormats);
         Stream SaveMetadataAsXml(MetadataViewModel model);
         Task<List<LogEntry>> GetLogEntries(string uuid);
         Task<List<LogEntry>> GetLogEntriesLatest(int limitNumberOfEntries = 50, string operation = "");
 
         Dictionary<string, string> GetPriorityDatasets();
-        void UpdateRegisterTranslations(string v, string uuid);
+        Dictionary<string, string> GetSpatialScopes();
+        void UpdateRegisterTranslations(string username, string uuid);
+        Dictionary<string, string> GetInspireAccessRestrictions(string culture);
     }
 }

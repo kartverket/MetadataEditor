@@ -1,8 +1,11 @@
-﻿@using Kartverket.MetadataEditor.Helpers
+﻿@using System.Security.Claims
+@using Geonorge.AuthLib.Common
+@using Kartverket.MetadataEditor.Helpers
+@using Kartverket.MetadataEditor.Util
 @using Resources
 
 <!DOCTYPE html>
-<html>
+<html lang="@CultureHelper.GetCurrentCulture()">
 <head>
     <meta charset="utf-8" />
     <meta name="geonorge-version" content="@Html.ApplicationVersionNumber()" />
@@ -21,25 +24,45 @@
     <script>
         var validationUUIDs = [];
     </script>
+    <script>var environmentIsProduction = @(Html.EnvironmentName() == "" ? "true" : "false");</script>
     <script>
-        var applicationVersionNumber = '@Html.ApplicationVersionNumber()';
-        var applicationEnvironment = '@Html.EnvironmentName()';
+        if (environmentIsProduction) {
+            /* Matomo */
+            var _paq = window._paq = window._paq || [];
+            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function () {
+                var u = "https://analyse.kartverket.no/analyse/";
+                _paq.push(['setTrackerUrl', u + 'matomo.php']);
+                _paq.push(['setSiteId', '16']);
+                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+            })();
 
-        var cultureData = {
-            friendlyUrlEN: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))',
-            friendlyUrlNO: '@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url }))',
-            currentCulture: '@CultureHelper.GetCurrentCulture()'
-            };
-    </script>
 
-
-    @Scripts.Render("~/shared-partials-scripts")
+            /* Google Tag Manager */
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-MR2X5P');
+        }</script>
 </head>
-<body class="geonorge-container prototype  geonorge ng-scope">
+<body class="geonorge-container prototype geonorge ng-scope fixed-menu-margin">
     <div id="loading-animation" class="loading-animation" style="display: none;"></div>
 
-    @Html.Raw(File.ReadAllText(Server.MapPath("~/dist/partials/Header.html")))
-    @Styles.Render("~/shared-partials-styles")
+    <main-navigation environment="@Html.EnvironmentName()"
+                     signinurl="@Html.Raw(Url.Action("SignIn", "Home", new { ReturnUrl = Request.Url }))"
+                     signouturl="@Html.Raw(Url.Action("SignOut", "Home"))"
+                     isLoggedIn="@Request.IsAuthenticated.ToString().ToLower()"
+                     norwegianurl="@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.NorwegianCode, ReturnUrl = Request.Url }))"
+                     englishurl="@Html.Raw(Url.Action("SetCulture", "Home", new { culture = Kartverket.MetadataEditor.Models.Translations.Culture.EnglishCode, ReturnUrl = Request.Url }))"
+                     language="@CultureHelper.GetCurrentCulture()"></main-navigation>
+
     @Styles.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/css/styles")
 
 
@@ -62,6 +85,8 @@
                     }
                     else
                     {
+                        var principal = User as ClaimsPrincipal;
+
                         <ul class="nav nav-tabs link-tabs">
                             <li class="tab"><a data-tab="mine-metadata" href="@Url.Action("Index", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> @UI.MyMetadata_Label</a></li>
                             <li class="tab"><a data-tab="opprett-metadata" href="@Url.Action("Create", "Metadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateMetadata</a></li>
@@ -69,27 +94,38 @@
                             {
                                 <li class="tab"><a data-tab="opprett-enkle-metadata" href="@Url.Action("Create", "SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-plus-sign"></span> @UI.CreateSimpleMetadata_Label  </a></li>
                             }
-                            <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
+
+                            @if (principal != null && (principal.IsInRole(GeonorgeRoles.MetadataAdmin)))
+                            {
+                                <li class="tab"><a data-tab="batch-oppdatering" href="@Url.Action("Index", "Batch")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-cog"></span> Batch-oppdatering</a></li>
+                            }
+                            @if (principal != null && (principal.IsInRole(GeonorgeRoles.MetadataAdmin)))
+                            {
+                                <li class="tab"><a data-tab="list-enkle-metadata" href="@Url.Action("List", "SimpleMetadata")" class="show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-list-alt"></span> Enkle metadata</a></li>
+                            }
                             <li class="pull-right">
-                                @foreach (var c in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-                                {
-                                    if (c.Value == "nd.metadata_admin")
+
+                                @{
+                                    if (principal != null && principal.IsInRole(GeonorgeRoles.MetadataAdmin))
                                     {
                                         <a href="@Url.Action("ValidateAll", "Validator")" onclick="return clickAndDisable(this);" class="btn show-loading-animation" data-loading-message="Henter innhold"><span class="glyphicon glyphicon-envelope"></span> <span id="link-email-error">Send epost om feil</span></a>
-                                        <script>
-                                            function clickAndDisable(link) {
+                                        @section scripts {
+                                            <script>
+                                                function clickAndDisable(link) {
 
-                                                document.getElementById('link-email-error').innerText = 'Henter eposter, vennligst vent...';
-                                                if (link.className != "visited btn btn-sm btn-default") {
-                                                    link.className = "visited btn btn-sm btn-default";
-                                                    return true;
+                                                    document.getElementById('link-email-error').innerText =
+                                                        'Henter eposter, vennligst vent...';
+                                                    if (link.className != "visited btn btn-sm btn-default") {
+                                                        link.className = "visited btn btn-sm btn-default";
+                                                        return true;
+                                                    }
+
+                                                    return false;
                                                 }
-
-                                                return false;
-                                            }
-                                        </script>
-                                        break;
+                                            </script>
+                                        }
                                     }
+
                                 }
                             </li>
                         </ul>
@@ -110,7 +146,6 @@
                 <div id="savedOKMsg" class="alert alert-success">
                     @TempData["success"]
                 </div>
-                <script>function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }</script>
             }
             @if (TempData["failure"] != null)
             {
@@ -123,33 +158,34 @@
         </div>
     </div>
 
-    @if (CultureHelper.IsNorwegian())
-    {
-        @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer.min.cshtml");
-    }
-    else
-    {
-        @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Footer_eng.min.cshtml");
-    }
+    <geonorge-footer language="@CultureHelper.GetCurrentCulture()" version="@Html.ApplicationVersionNumber()" environment="@Html.EnvironmentName()" />
 
-    <script>
-        searchOption.loginUrl = '@Html.Raw(Url.Action("SignIn", "AuthServices", new { ReturnUrl = Request.Url }))';
-        searchOption.logoutUrl = '@Html.Raw(Url.Action("LogOut", "AuthServices"))';
-        searchOption.loggedIn = @Request.IsAuthenticated.ToString().ToLower();
-        searchOption.epiBaseUrl = '@Html.GeonorgeUrl()';
-        var orderItems = Cookies.get('orderitems');
-        if (orderItems && orderItems > 0) {
-            $('.downloads__count').show();
-            $('.downloads__count').text(orderItems);
-        }
-    </script>
-    @Scripts.Render("~/Content/bower_components/kartverket-felleskomponenter/assets/js/scripts")
+    <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vuex@4.1.0/dist/vuex.global.js"></script>
+    @Scripts.Render("~/bundle/js")
     @Scripts.Render("~/Scripts/local-scripts")
 
-    <!-- Script for polyfilling Promises on IE9 and 10 -->
-    <script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
-
-    @RenderPage("~/Content/bower_components/kartverket-felleskomponenter/assets/partials/_Analytics.min.cshtml")
+    <script>
+        function removeokmsg() { document.getElementById('savedOKMsg').style.visibility = 'hidden'; document.getElementById('savedOKMsg').style.display = 'none'; }
+    </script>
     @RenderSection("scripts", required: false)
+
+
+
+
+    @if (Html.EnvironmentName() == "dev" && HttpContext.Current.IsDebuggingEnabled)
+    {
+        var cp = (ClaimsPrincipal)User;
+        foreach (var claim in cp.Claims)
+        {
+            <!-- @claim.Type = @claim.Value -->
+        }
+
+    }
+    @Scripts.Render("~/node-modules/scripts")
+    @if (Html.EnvironmentName() == "")
+    {
+        <noscript><p><img src="https://analyse.kartverket.no/analyse/matomo.php?idsite=16&rec=1" style="border:0" alt="" /></p></noscript>
+    }
 </body>
 </html>

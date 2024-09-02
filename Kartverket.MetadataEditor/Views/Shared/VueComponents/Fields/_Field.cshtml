@@ -28,13 +28,13 @@
                     <div>
                         <span v-show="selectedLanguage == 'all'" class="form-element-badge">{{ $store.getters['settingsLanguages_' + language] }}</span>
                         <input v-if="formElement.type == 'text'" v-bind:name="binding.name" type="text" v-bind:readonly="readOnly" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})" class="form-control" />
-                        <div v-else-if="formElement.type == 'textarea'" is="textarea-field" v-bind:form-element="binding" v-bind:selected-language="selectedLanguage" v-bind:read-only="readOnly"></div>
+                        <component v-else-if="formElement.type == 'textarea'" is="textarea-field" v-bind:form-element="binding" v-bind:selected-language="selectedLanguage" v-bind:read-only="readOnly"></component>
                         <div v-else-if="formElement.type == 'select'" class="custom-select">
                             <select v-bind:name="binding.name" v-bind:readonly="readOnly" class="form-control" v-bind:value="$store.getters[binding.getter]" v-on:change="updateField({mutation: binding.mutation, value: $event.target.value})">
                                 <option v-for="option in formElement.options" v-bind:value="option.value">{{option.text}}</option>
                             </select>
                         </div>
-                        <div v-else-if="formElement.type == 'datepicker'" is="datepicker" v-bind:formElement="binding"></div>
+                        <component v-else-if="formElement.type == 'datepicker'" is="datepicker" v-bind:formElement="binding"></component>
                     </div>
                     <div v-if="errors">
                         <span v-if="errors[language]" v-for="error in errors[language]" class="field-validation-error">{{ error.ErrorMessage }}</span>
@@ -51,14 +51,14 @@
     <div v-else v-show="visible" class="form-group" v-bind:class="{'required': required, 'has-error': hasErrors()}">
         <div>
             <input v-if="formElement.type == 'text'" v-bind:name="formElement.name" type="text" v-bind:readonly="readOnly" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})" />
-            <div v-else-if="formElement.type == 'textarea'" is="textarea-field" v-bind:formElement="formElement" v-bind:selected-language="selectedLanguage" v-bind:read-only="readOnly"></div>
+            <component v-else-if="formElement.type == 'textarea'" is="textarea-field" v-bind:formElement="formElement" v-bind:selected-language="selectedLanguage" v-bind:read-only="readOnly"></component>
             <div v-else-if="formElement.type == 'select'" class="custom-select">
                 <select v-bind:name="formElement.name" v-bind:readonly="readOnly" class="form-control" v-bind:value="$store.getters[formElement.getter]" v-on:change="updateField({mutation: formElement.mutation, value: $event.target.value})">
                     <option v-for="option in formElement.options" v-bind:value="option.Value">{{option.Text}}</option>
                 </select>
             </div>
-            <div v-else-if="formElement.type == 'datepicker'" is="datepicker" v-bind:form-element="formElement"></div>
-            <div v-else-if="formElement.type == 'radio'" is="radio" v-bind:form-element="formElement"></div>
+            <component v-else-if="formElement.type == 'datepicker'" is="datepicker" v-bind:form-element="formElement"></component>
+            <component v-else-if="formElement.type == 'radio'" is="radio" v-bind:form-element="formElement"></component>
         </div>
         <div v-if="errors">
             <span v-for="error in errors" class="field-validation-error">{{ error.ErrorMessage }}</span>
@@ -122,12 +122,12 @@
                 }
             }
         },
-        data: function () {
+        data() {
             return {
                 selectedLanguage: this.$store.getters['settingsSelectedLanguage']
             }
         },
-        mounted: function () {
+        mounted() {
             this.selectedLanguage = this.$store.getters['settingsSelectedLanguage']
         },
         methods: {

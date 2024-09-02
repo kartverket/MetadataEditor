@@ -10,17 +10,17 @@
             <div class="row">
                 <label for="SpatialRepresentation" class="col-md-3 control-label">@UI.SpatialRepresentationType</label>
                 <div class="col-md-3">
-                    <div is="field" v-bind:form-element="spatialRepresentation"></div>
+                    <component is="field" v-bind:form-element="spatialRepresentation"></component>
                 </div>
             </div>
         </div>
-        <div is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $store.getters['FormatDistributions']"></div>
+        <component is="distribution-item" v-bind:distribution="distribution" v-bind:distribution-index="index" v-for="(distribution, index) in $store.getters['FormatDistributions']"></component>
 
         <span v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" v-on:click="$store.commit('addFormatDistributions');" class="btn">@UI.Button_Add_Distribution</span>
 
-        <div v-if="$store.getters['isService'] && $store.getters['isHarmonized']" is="contains-operations"></div>
+        <component v-if="$store.getters['isService'] && $store.getters['isHarmonized']" is="contains-operations"></component>
 
-        <div v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries'] || $store.getters['isService']" is="reference-systems"></div>
+        <component v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries'] || $store.getters['isService']" is="reference-systems"></component>
     </div>
 </script>
 
@@ -39,13 +39,13 @@
             DistributionItem: DistributionItem,
             ReferenceSystems: ReferenceSystems
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Distribution', fieldNames: this.fieldNames });
             this.$store.dispatch('getErrorsForTab', { tabName: 'Distribution' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 fieldNames: [

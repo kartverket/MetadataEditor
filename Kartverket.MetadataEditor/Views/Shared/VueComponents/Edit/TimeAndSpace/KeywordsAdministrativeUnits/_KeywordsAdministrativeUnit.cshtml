@@ -65,7 +65,7 @@
         name: "KeywordsAdministrativeUnit",
         template: "#keywords-administrative-unit-template",
         props: ['keywordName', 'inputType', 'keywordIndex', 'keywordValue'],
-        data: function () {
+        data() {
             return {
                 name: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']',
                 inputValue: '',
@@ -96,6 +96,11 @@
                     optionText = binding.enh_navn.value;
                     optionValue = binding.enh_navn.value + ' fylke|' + binding.uri.value;
                     areaType = 'fylke';
+                }
+                else if (binding.enh_type.value.indexOf('Nasjon') !== -1) { // Nasjon
+                    optionText = binding.enh_navn.value;
+                    optionValue = binding.enh_navn.value + ' |' + binding.uri.value;
+                    areaType = 'nasjon';
                 }
                 return {
                     Text: optionText,
@@ -190,6 +195,7 @@
                             if (data[keywordURI]) {
                                 data = data[keywordURI];
                                 var isMunicipality = this.convertApiTypesToBindingType(data['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']).value == 'http://rdf.kartverket.no/onto/adm_enhet_4.0.owl#Kommune';
+                                var isNasjon = this.convertApiTypesToBindingType(data['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']).value == 'http://rdf.kartverket.no/onto/adm_enhet_4.0.owl#Nasjon';
                                 if (!binding) {
                                     binding = {
                                         enh_navn: this.convertApiNamesToBindingName(data['http://www.w3.org/2004/02/skos/core#prefLabel']),
@@ -205,6 +211,10 @@
                                 if (isMunicipality) {
                                     var upper_enh = this.convertApiUpperItemsToBindingUpperItem(data['http://www.opengis.net/ont/geosparql#sfWithin'])
                                     this.selectKeywordOptionFromApi(upper_enh.value, binding);
+                                }
+                                else if (isNasjon) {
+                                    var option = this.convertBindingToOption(binding);
+                                    this.selectedOption = option;
                                 } else {
                                     var option = this.convertBindingToOption(binding);
                                     this.selectedOption = option;
@@ -242,7 +252,7 @@
                 return isAdded;
             }
         },
-        mounted: function () {
+        mounted() {
             if (this.keywordValue) {
                 this.selectKeywordOptionByValue(this.keywordValue);
             }

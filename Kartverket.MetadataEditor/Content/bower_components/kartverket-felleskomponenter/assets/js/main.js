@@ -84,47 +84,6 @@ $(document).ready(function() {
     });
 
 
-    // Geonorge logo
-    if ($("#geonorge-logo").length) {
-        $("#geonorge-logo a").prop("href", geonorgeUrl);
-        $("#geonorge-logo a img").prop("src", "/Content/bower_components/kartverket-felleskomponenter/assets/images/svg/geonorge_" + applicationEnvironment + "logo.svg");
-    }
-
-
-    //Version number
-    if ($("#applicationVersionNumber").length && applicationVersionNumber !== "") {
-        $("#applicationVersionNumber").html("Versjon " + applicationVersionNumber);
-    }
-
-
-    // Shopping cart
-    var downloadUrl = "https://kartkatalog.geonorge.no/nedlasting";
-    if (applicationEnvironment !== "") {
-        downloadUrl = "https://kartkatalog." + applicationEnvironment + ".geonorge.no/nedlasting";
-    }
-    $("#shopping-cart-url").prop("href", downloadUrl);
-
-
-    // MultiCulture
-    if (supportsMultiCulture && $("#container-user-menu").length) {
-        if (cultureData.currentCulture == "nb-NO" || cultureData.currentCulture == "nn-NO" || cultureData.currentCulture == "no") {
-            $("#container-user-menu").append("<a href='" + cultureData.urlSetCulture + "' class='geonorge-culture' title='English'> English</a>");
-        } else {
-            $("#container-user-menu").append("<a href='" + cultureData.urlSetCultureNorwegian + "' class='geonorge-culture'> Norsk</a>");
-        }
-    }
-
-    // Login
-    if (supportsLogin && $("#container-user-menu").length) {
-        $("#container-user-menu").append("<a href='" + geonorgeUrl + "kartdata/oppslagsverk/Brukernavn-og-passord/'>Ny bruker</a>");
-        if (authenticationData.isAuthenticated) {
-            $("#container-user-menu").append("<a href='" + authenticationData.urlActionSignOut + "' title='Logg ut " + authenticationData.userName + "'> Logg ut</a>");
-        } else {
-            $("#container-user-menu").append("<a href='" + authenticationData.urlActionSignIn + "'> Logg inn</a>");
-        }
-    }
-
-
 });
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -134,14 +93,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
     };
     $(".chosen-select").chosen(options);
     $("[data-toggle='tooltip']").tooltip({
-        trigger: 'hover'
+        trigger: 'hover',
+        position: { my: "center top", at: "center bottom+10" }
     });
-    $("li.has-error[data-toggle='tooltip']").tooltip("option", "position", { my: "center", at: "center bottom+30" });
+    $("li.has-error[data-toggle='tooltip']").tooltip("option", "position", { my: "center top", at: "center bottom+30" });
     $("li[data-toggle='tooltip']").mouseleave(function() {
         $(".ui-helper-hidden-accessible").remove();
     });
 
-    $(".ui-tooltip-element[data-toggle='tooltip']").tooltip("option", "position", { my: "center", at: "center bottom+25" });
+    $(".ui-tooltip-element[data-toggle='tooltip']").tooltip("option", "position", { my: "center top", at: "center bottom+25" });
     $(".ui-tooltip-element[data-toggle='tooltip']").mouseleave(function() {
         $(".ui-helper-hidden-accessible").remove();
     });
@@ -151,64 +111,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     doc.setAttribute('data-useragent', navigator.userAgent);
 });
 
-function setMainSearchUrl(urlSlug, environment){
-    environmentIsSet = false;
-    var environmentSlug = '';
-    if (typeof environment !== 'undefined'){
-        if (environment == 'dev' || environment == 'test' || environment == 'prod'){
-            environmentIsSet = true;
-            environmentSlug = environment == 'prod' ? '' : '.' + environment;
-        }else{
-            console.error("incorrect value for environment. Use 'dev', 'test' or 'prod'");
-        }
-    }
-    if (environmentIsSet){
-        searchOptions[environment].url = "//kartkatalog" + environmentSlug + ".geonorge.no/" + urlSlug;
-    }else{
-        searchOptions.dev.url = "//kartkatalog.dev.geonorge.no/" + urlSlug;
-        searchOptions.test.url = "//kartkatalog.test.geonorge.no/" + urlSlug;
-        searchOptions.prod.url = "//kartkatalog.geonorge.no/" + urlSlug;
-    }
-}
-
-function setMainSearchApiUrl(urlSlug, environment){
-    environmentIsSet = false;
-    var environmentSlug = '';
-    if (typeof environment !== 'undefined'){
-        if (environment == 'dev' || environment == 'test' || environment == 'prod'){
-            environmentIsSet = true;
-            environmentSlug = environment == 'prod' ? '' : '.' + environment;
-        }else{
-            console.error("incorrect value for environment. Use 'dev', 'test' or 'prod'");
-        }
-    }
-    if (environmentIsSet){
-        searchOptions[environment].api = "//kartkatalog" + environmentSlug + ".geonorge.no/api/" + urlSlug;
-    }else{
-        searchOptions.dev.api = "//kartkatalog.dev.geonorge.no/api/" + urlSlug;
-        searchOptions.test.api = "//kartkatalog.test.geonorge.no/api/" + urlSlug;
-        searchOptions.prod.api = "//kartkatalog.geonorge.no/api/" + urlSlug;
-    }
-}
-
-function setMainSearchPlaceholder(placeholder, environment) { 
-    environmentIsSet = false; 
-    var environmentSlug = ''; 
-    if (typeof environment !== 'undefined') { 
-        if (environment == 'dev' || environment == 'test' || environment == 'prod') { 
-            environmentIsSet = true; 
-        } else { 
-            console.error("incorrect value for environment. Use 'dev', 'test' or 'prod'"); 
-        } 
-    } 
-    if (environmentIsSet) { 
-        searchOptions[environment].searchPlaceholder = placeholder; 
-    } else { 
-        searchOptions.dev.searchPlaceholder = placeholder; 
-        searchOptions.test.searchPlaceholder = placeholder; 
-        searchOptions.prod.searchPlaceholder = placeholder; 
-    } 
-} 
 
 var baseurl = 'http://' + window.location.host;
 

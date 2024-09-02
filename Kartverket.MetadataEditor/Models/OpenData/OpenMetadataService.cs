@@ -9,6 +9,7 @@ using log4net;
 using System.Data.Entity;
 using www.opengis.net;
 using System.Threading;
+using System.Web;
 
 namespace Kartverket.MetadataEditor.Models.OpenData
 {
@@ -28,7 +29,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             _geoNorge = geoNorge;
         }
 
-        public async Task<int> SynchronizeMetadata(List<OpenMetadataEndpoint> endpoints)
+        public async Task<int> SynchronizeMetadata(List<OpenMetadataEndpoint> endpoints, string username)
         {
             Log.Info("Synching open metadata initiated");
 
@@ -40,30 +41,95 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             Log.Info("List of endpoints: ");
             endpoints.ForEach(e => Log.Info(e));
 
+            RemoveExistingOpenMetadata(username);
+
             var numberOfUpdatedMetadata = 0;
             foreach (var endPoint in endpoints)
             {
-                var updateCount = await SynchronizeMetadata(endPoint).ConfigureAwait(false);
-                numberOfUpdatedMetadata += updateCount;
+                try
+                {
+                    var updateCount = await SynchronizeMetadata(endPoint, username).ConfigureAwait(false);
+                    numberOfUpdatedMetadata += updateCount;
+                }
+                catch (Exception ex) 
+                {
+                    Log.Error($"Error openmetadata endpoint : {endPoint.Url} ", ex);
+                }
             }
 
             Log.Info("Number of metadata updated: " + numberOfUpdatedMetadata);
             return numberOfUpdatedMetadata;
         }
 
-        public async Task<int> SynchronizeMetadata(OpenMetadataEndpoint endpoint)
+        public async Task<int> SynchronizeMetadata(OpenMetadataEndpoint endpoint, string username)
         {
-            var openMetadata = await _metadataFetcher.FetchMetadataAsync(endpoint).ConfigureAwait(false);
+            var openMetadata = await _metadataFetcher.FetchMetadataAsync(endpoint).ConfigureAwait(false);               
 
             var numberOfMetadataCreatedUpdated = 0;
             foreach (var dataset in openMetadata.dataset)
-                if (CreateOrUpdateMetadata(dataset, endpoint))
+                if (CreateOrUpdateMetadata(dataset, endpoint, username))
                     numberOfMetadataCreatedUpdated++;
 
             return numberOfMetadataCreatedUpdated;
         }
 
-        private bool CreateOrUpdateMetadata(Dataset dataset, OpenMetadataEndpoint endpoint)
+        private void RemoveExistingOpenMetadata(string username)
+        {
+            var filters = new object[]
+            {
+                        new PropertyIsLikeType
+                            {
+                                escapeChar = "\\",
+                                singleChar = "_",
+                                wildCard = "%",
+                                PropertyName = new PropertyNameType {Text = new[] {"AnyText"}},
+                                Literal = new LiteralType {Text = new[] {"ISO19115:Fra openmetadata standard"}}
+                            }
+            };
+
+            var filterNames = new ItemsChoiceType23[]
+            {
+                 ItemsChoiceType23.PropertyIsLike,
+            };
+
+            SearchResultsType res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 400);
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (var item in res.Items)
+                {
+                    RecordType record = (RecordType)item;
+                    string uuid = "";
+                    string title = "";
+                    for (int i = 0; i < record.ItemsElementName.Length; i++)
+                    {
+                        var name = record.ItemsElementName[i];
+                        var value = record.Items[i].Text != null ? record.Items[i].Text[0] : null;
+
+                        if (name == ItemsChoiceType24.title)
+                        {
+                            title = value;
+                        }
+                        if (name == ItemsChoiceType24.identifier) {
+                            uuid = value;
+                        }
+                    }
+
+                    if(!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(uuid)) 
+                    {
+                        MetadataViewModel model = new MetadataViewModel();
+                        model.Uuid = uuid;
+                        model.Title = title;
+                        _metadataService.DeleteMetadata(model, username, "Openmetadata synchronize");
+                    }
+
+                }
+            }
+
+
+        }
+
+        private bool CreateOrUpdateMetadata(Dataset dataset, OpenMetadataEndpoint endpoint, string username)
         {
             string identifier = null;
             try
@@ -73,14 +139,14 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
                 if (metadataModel == null)
                 {
-                    InsertOpenMetadata(identifier, dataset, endpoint);
+                    InsertOpenMetadata(identifier, dataset, endpoint, username);
                     Log.Info(
                         $"Created metadata entry for open dataset: [identifier={identifier}, title={dataset.title}, organization={endpoint.OrganizationName}");
                     metadataModel = _metadataService.GetMetadataModel(identifier);
                 }
 
                 MapDatasetToMetadataViewModel(dataset, metadataModel, endpoint);
-                _metadataService.SaveMetadataModel(metadataModel, SecurityClaim.GetUsername());
+                _metadataService.SaveMetadataModel(metadataModel, username);
                 Log.Info(
                     $"Updated metadata entry for open dataset: [identifier={identifier}, title={metadataModel.Title}, organization={endpoint.OrganizationName}");
 
@@ -104,7 +170,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                                 URL = distributionWms.URL
                             });
 
-                        _metadataService.SaveMetadataModel(serviceModel, SecurityClaim.GetUsername());
+                        _metadataService.SaveMetadataModel(serviceModel, username);
                         Log.Info(
                         $"Updated service wms [uuid={serviceUuidForDataset}, title={serviceModel.Title} for metadata entry open dataset: [identifier={identifier}, title={metadataModel.Title}, organization={endpoint.OrganizationName}");
 
@@ -112,7 +178,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                     else
                     {
                         dataset.title = dataset.title + " - WMS";
-                        string uuid = InsertOpenMetadata(null, dataset, endpoint, "service");
+                        string uuid = InsertOpenMetadata(null, dataset, endpoint, username, "service");
                         var serviceModel = _metadataService.GetMetadataModel(uuid);
                         if(serviceModel != null)
                         {
@@ -131,7 +197,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                                 });
 
                             MapDatasetToMetadataViewModel(dataset, serviceModel, endpoint);
-                            _metadataService.SaveMetadataModel(serviceModel, SecurityClaim.GetUsername());
+                            _metadataService.SaveMetadataModel(serviceModel, username);
                         Log.Info(
                         $"Added service wms [uuid={uuid}, title={serviceModel.Title} for metadata entry open dataset: [identifier={identifier}, title={metadataModel.Title}, organization={endpoint.OrganizationName}");
                     }
@@ -212,7 +278,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             return distributionsFormats.Where(p => p.Protocol == "OGC:WMS").FirstOrDefault();
         }
 
-        private string InsertOpenMetadata(string identifier, Dataset dataset, OpenMetadataEndpoint openMetadataEndpoint, string type = "dataset")
+        private string InsertOpenMetadata(string identifier, Dataset dataset, OpenMetadataEndpoint openMetadataEndpoint, string username, string type = "dataset")
         {
             var newMetadata = new MetadataCreateViewModel();
             if(!string.IsNullOrEmpty(identifier))
@@ -225,7 +291,7 @@ namespace Kartverket.MetadataEditor.Models.OpenData
                     : dataset.publisher.name;
             newMetadata.MetadataContactName = dataset.contactPoint.fn;
             newMetadata.MetadataContactEmail = dataset.contactPoint.hasEmail.Replace("mailto:", "");
-            var uuid = _metadataService.CreateMetadata(newMetadata, SecurityClaim.GetUsername());
+            var uuid = _metadataService.CreateMetadata(newMetadata, username);
             Log.Info("Created open metadata uuid: " + uuid);
             return uuid;
         }
@@ -236,6 +302,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
         {
             if (string.IsNullOrEmpty(model.HierarchyLevel))
                 model.HierarchyLevel = "dataset";
+
+            model.MetadataStandard = "ISO19115:Fra openmetadata standard";
 
             model.Title = dataset.title;
             DateTime modified;
@@ -281,6 +349,8 @@ namespace Kartverket.MetadataEditor.Models.OpenData
             }
 
             model.AccessConstraints = "no restrictions";
+
+            model.MetadataStandard = "ISO19115:Fra openmetadata standard";
         }
 
         private List<SimpleDistribution> GetDistributionsFormats(Distribution[] distributions, string organization)
@@ -317,7 +387,16 @@ namespace Kartverket.MetadataEditor.Models.OpenData
 
         internal static string GetIdentifierFromUri(string identifier)
         {
-            return identifier.Split('/').Last();
+            var id = identifier.Split('/').Last();
+            if (id.Contains("?id="))
+            {
+                Uri myUri = new Uri(identifier);
+                string paramId = HttpUtility.ParseQueryString(myUri.Query).Get("id");
+                if (!string.IsNullOrEmpty(paramId))
+                    id = paramId;
+            }
+            return id;
         }
+
     }
 }

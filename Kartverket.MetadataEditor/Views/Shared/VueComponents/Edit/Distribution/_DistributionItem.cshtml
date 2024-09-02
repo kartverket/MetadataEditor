@@ -137,7 +137,7 @@
             <p v-if="formats.helpText && formats.helpText.active" class="help-text bg-success" v-html="formats.helpText.content"></p>
 
             <div class="striped-list">
-                <div class="list-item"
+                <component class="list-item"
                      is="distribution-item-format"
                      v-bind:format="distributionItemFormat"
                      v-bind:distribution-index="distributionIndex"
@@ -145,7 +145,7 @@
                      v-bind:format-options="distributionFormatsForSpatialRepresentations"
                      v-bind:key="distributionItemFormat.Name + distributionItemFormat.Version"
                      v-for="(distributionItemFormat, distributionItemFormatIndex) in distributionItemFormats">
-                </div>
+                </component>
             </div>
 
 
@@ -208,14 +208,14 @@
             Field: Field,
             distributionItemFormat: DistributionItemFormat
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Distribution', fieldNames: this.fieldNames });
             this.distributionItemFormats = this.distribution.Value.Formats;
             if (!this.distributionItemFormats.length) {
                 this.addDistributionFormat();
             }
         },
-        data: function () {
+        data() {
             return {
                 fieldNames: [
                     'DistributionsFormats[' + this.distributionIndex + '].Organization',

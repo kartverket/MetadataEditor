@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UI {
@@ -57,6 +57,24 @@ namespace Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse engelsk er påkrevd.
+        /// </summary>
+        public static string AbstractEnglishRequired {
+            get {
+                return ResourceManager.GetString("AbstractEnglishRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse norsk er påkrevd.
+        /// </summary>
+        public static string AbstractNorwegianRequired {
+            get {
+                return ResourceManager.GetString("AbstractNorwegianRequired", resourceCulture);
             }
         }
         
@@ -205,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kommentar.
+        /// </summary>
+        public static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Begreper.
         /// </summary>
         public static string Concepts {
@@ -346,6 +373,15 @@ namespace Resources {
         public static string ContainsOperationsURLHelp {
             get {
                 return ResourceManager.GetString("ContainsOperationsURLHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kopier.
+        /// </summary>
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
             }
         }
         
@@ -548,7 +584,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Navn på datasett er allerede registrert.
+        ///   Looks up a localized string similar to Datasett-ID er allerede registrert.
         /// </summary>
         public static string ErrorDuplicateDatasetName {
             get {
@@ -864,6 +900,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Denne oppgis som regel med målestokkstall for vektordata og som distanse for rasterdata og rutenettsdata, men en kan feks. gjerne legge inn at nøyaktighet er 2 meter på vegnett. “Målestokk” oppgis som heltall og “Distanse” oppgis som desimaltall med punktum som skilletegn.
+        /// </summary>
+        public static string Helptext_SpatialResolution {
+            get {
+                return ResourceManager.GetString("Helptext_SpatialResolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status for datasett eller datasett tjenesten opererer mot..
         /// </summary>
         public static string Helptext_Status {
@@ -954,7 +999,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellom og spesialtegn. Understrek er tillatt..
+        ///   Looks up a localized string similar to Teknisk navn for datasettet. Unngå mellomrom og spesialtegn. Understrek er tillatt..
         /// </summary>
         public static string HelpTextResourceReferenceCode {
             get {
@@ -1089,6 +1134,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Språk i metadata.
+        /// </summary>
+        public static string LanguageInMetadata {
+            get {
+                return ResourceManager.GetString("LanguageInMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angi standard språk for metadata.
+        /// </summary>
+        public static string LanguageInMetadataHelp {
+            get {
+                return ResourceManager.GetString("LanguageInMetadataHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Koble til datasett.
         /// </summary>
         public static string LinkToDataset {
@@ -1179,7 +1242,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Høsting til ulike samarbeid:.
+        ///   Looks up a localized string similar to Høsting og samarbeid:.
         /// </summary>
         public static string Metadata_Admin_KeywordsCatalogs {
             get {
@@ -1636,7 +1699,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karttjenestelag Geonorge.
+        ///   Looks up a localized string similar to Dekningskart Geonorge.
         /// </summary>
         public static string Metadata_CoverageType_MapserviceGeonorge {
             get {
@@ -1985,6 +2048,15 @@ namespace Resources {
         public static string Metadata_ReferenceSystems_Namespace_Label {
             get {
                 return ResourceManager.GetString("Metadata_ReferenceSystems_Namespace_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppløsning i meter.
+        /// </summary>
+        public static string Metadata_ResolutionDistance_Label {
+            get {
+                return ResourceManager.GetString("Metadata_ResolutionDistance_Label", resourceCulture);
             }
         }
         
@@ -2574,6 +2646,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geografisk nivå.
+        /// </summary>
+        public static string SpatialScope {
+            get {
+                return ResourceManager.GetString("SpatialScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrativt nivå som datasettet har til hensikt å dekke.
+        /// </summary>
+        public static string SpatialScopeHelp {
+            get {
+                return ResourceManager.GetString("SpatialScopeHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Angi områder.
         /// </summary>
         public static string SpecifyAreas {
@@ -2678,6 +2768,24 @@ namespace Resources {
         public static string TabTimeAndSpace {
             get {
                 return ResourceManager.GetString("TabTimeAndSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tittel engelsk er påkrevd felt.
+        /// </summary>
+        public static string TitleEnglishRequired {
+            get {
+                return ResourceManager.GetString("TitleEnglishRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tittel norsk er påkrevd felt.
+        /// </summary>
+        public static string TitleNorweginRequired {
+            get {
+                return ResourceManager.GetString("TitleNorweginRequired", resourceCulture);
             }
         }
         

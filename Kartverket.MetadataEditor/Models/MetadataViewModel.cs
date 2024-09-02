@@ -8,6 +8,8 @@ using Resources;
 using System.Linq;
 using Kartverket.MetadataEditor.Helpers;
 using Kartverket.MetadataEditor.Models.Translations;
+using Kartverket.Geonorge.Utilities;
+using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -27,6 +29,7 @@ namespace Kartverket.MetadataEditor.Models
             KeywordsConcept = new List<string>();
             KeywordsServiceType = new List<string>();
             KeywordsOther = new List<string>();
+            KeywordsSpatialScope = new List<string>();
             KeywordsEnglish = new Dictionary<string, string>();
             Thumbnails = new List<Thumbnail>();
             OperatesOn = new List<string>();
@@ -36,22 +39,24 @@ namespace Kartverket.MetadataEditor.Models
         
         public string Uuid { get; set; }
         public string HierarchyLevel { get; set; }
+        public string HierarchyLevelName { get; set; }
         public string ParentIdentifier { get; set; }
         public string MetadataStandard { get; set; }
 
-        [Required(ErrorMessage=null)]
+        [RequiredIf("IsNorwegianMetadata()", ErrorMessageResourceName = "TitleNorweginRequired", ErrorMessageResourceType = typeof(UI))]
         [Display(Name = "Metadata_Title", ResourceType = typeof(UI))]
         public string Title { get; set; }
 
         public string TitleFromSelectedLanguage { get; set; }
         [Display(Name = "Language", ResourceType = typeof(UI))]
         public string Language { get; set; } = "nor";
+        public string MetadataLanguage { get; set; } = "nor";
 
         //[Required(ErrorMessage = null)]
         [Display(Name = "Metadata_Purpose", ResourceType = typeof(UI))]
         public string Purpose { get; set; }
 
-        [Required]
+        [RequiredIf("IsNorwegianMetadata()", ErrorMessageResourceName = "AbstractNorwegianRequired", ErrorMessageResourceType = typeof(UI))]
         [Display(Name = "Metadata_Abstract", ResourceType = typeof(UI))]
         public string Abstract { get; set; }
 
@@ -70,6 +75,7 @@ namespace Kartverket.MetadataEditor.Models
         public List<String> KeywordsConcept { get; set; }
         public List<String> KeywordsServiceType { get; set; }
         public List<String> KeywordsOther { get; set; }
+        public List<String> KeywordsSpatialScope { get; set; }
         public Dictionary<string, string> KeywordsEnglish { get; set; }
 
         public string LegendDescriptionUrl { get; set; }
@@ -80,6 +86,7 @@ namespace Kartverket.MetadataEditor.Models
         public SimpleOnlineResource ProductSpecificationOther { get; set; }
         public string CoverageUrl { get; set; }
         public string CoverageGridUrl { get; set; }
+        public string CoverageCellUrl { get; set; }
         public string HelpUrl { get; set; }
 
         public List<Thumbnail> Thumbnails { get; set; }
@@ -214,6 +221,7 @@ namespace Kartverket.MetadataEditor.Models
         public string MaintenanceFrequency { get; set; }
         //[RequiredIf("!IsService()", ErrorMessage = "Målestokktall er påkrevd")]
         public string ResolutionScale { get; set; }
+        public string ResolutionDistance { get; set; }
 
         // constraints
         public string UseLimitations { get; set; }
@@ -247,7 +255,9 @@ namespace Kartverket.MetadataEditor.Models
         public DateTime? DateMetadataValidFrom { get; set; }
         public DateTime? DateMetadataValidTo { get; set; }
 
+        [RequiredIf("IsEnglishMetadata()", ErrorMessageResourceName = "TitleEnglishRequired", ErrorMessageResourceType = typeof(UI))]
         public string EnglishTitle { get; set; }
+        [RequiredIf("IsEnglishMetadata()", ErrorMessageResourceName = "AbstractEnglishRequired", ErrorMessageResourceType = typeof(UI))]
         public string EnglishAbstract { get; set; }
         public string EnglishPurpose { get; set; }
         public string EnglishSupplementalDescription { get; set; }
@@ -256,6 +266,7 @@ namespace Kartverket.MetadataEditor.Models
 
         public string EnglishContactMetadataOrganization { get; set; }
         public string EnglishContactPublisherOrganization { get; set; }
+        public string ContactOwnerPositionName { get; set; }
         public string EnglishContactOwnerOrganization { get; set; }
 
         public List<string> OperatesOn { get; set; }
@@ -345,6 +356,16 @@ namespace Kartverket.MetadataEditor.Models
             return QualitySpecificationTitleInspireSpatialServiceConformance == "interoperable";
         }
 
+        public bool IsNorwegianMetadata()
+        {
+            return MetadataLanguage == "nor";
+        }
+
+        public bool IsEnglishMetadata()
+        {
+            return MetadataLanguage == "eng";
+        }
+
         internal void FixThumbnailUrls()
         {
             foreach (var thumbnail in Thumbnails)
@@ -406,6 +427,7 @@ namespace Kartverket.MetadataEditor.Models
             allKeywords.AddRange(CreateKeywords(KeywordsConcept, "Concept", null , SimpleKeyword.THESAURUS_CONCEPT));
             allKeywords.AddRange(CreateKeywords(KeywordsServiceType, "ServiceType", null, SimpleKeyword.THESAURUS_SERVICE_TYPE));
             allKeywords.AddRange(CreateKeywords(KeywordsOther, "Other", null, null));
+            allKeywords.AddRange(CreateKeywords(KeywordsSpatialScope, "SpatialScope", null, SimpleKeyword.THESAURUS_SPATIAL_SCOPE));
             return allKeywords;
         }
 
@@ -441,16 +463,21 @@ namespace Kartverket.MetadataEditor.Models
 
             for (int r = 0; r < ReferenceSystems.Count; r++)
             {
-                SimpleReferenceSystem referenceSystem = new SimpleReferenceSystem();
-                referenceSystem.CoordinateSystem = ReferenceSystems[r].CoordinateSystem;
-                referenceSystem.Namespace = ReferenceSystems[r].Namespace;
-                referenceSystems.Add(referenceSystem);
+                if (!string.IsNullOrEmpty(ReferenceSystems[r]?.CoordinateSystem))
+                { 
+                    SimpleReferenceSystem referenceSystem = new SimpleReferenceSystem();
+                    referenceSystem.CoordinateSystem = GeoNetworkUtil.GetCoordinatesystemText(ReferenceSystems[r].CoordinateSystem);
+                    if(!string.IsNullOrEmpty(ReferenceSystems[r].CoordinateSystemLink))
+                        referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystemLink;
+                    else
+                        referenceSystem.CoordinateSystemLink = ReferenceSystems[r].CoordinateSystem;
+                    referenceSystems.Add(referenceSystem);
+                }
             }
 
             return referenceSystems;
 
         }
-
 
         internal bool HasAccess(string organization)
         {

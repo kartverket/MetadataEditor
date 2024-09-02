@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 using System.IO;
 using Kartverket.MetadataEditor.Models;
 using System;
@@ -18,7 +18,7 @@ using System.Text;
 namespace Kartverket.MetadataEditor.Controllers
 {
     [HandleError]
-    public class SimpleMetadataController : Controller
+    public class SimpleMetadataController : ControllerBase
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -35,9 +35,7 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             MetadataCreateViewModel model = new MetadataCreateViewModel
             {
-                MetadataContactName = GetSecurityClaim("urn:oid:1.3.6.1.4.1.5923.1.1.1.6"),
-                MetadataContactOrganization = GetSecurityClaim("organization"),
-                MetadataContactEmail = GetSecurityClaim("urn:oid:1.2.840.113549.1.9.1"),
+                MetadataContactOrganization = GetCurrentUserOrganizationName()
             };
 
             return View(model);
@@ -47,7 +45,7 @@ namespace Kartverket.MetadataEditor.Controllers
         [Authorize]
         public ActionResult Create(MetadataCreateViewModel model)
         {
-            string organization = GetSecurityClaim("organization");
+            string organization = GetCurrentUserOrganizationName();
             model.MetadataContactOrganization = organization;
             if (ModelState.IsValid)
             {
@@ -69,9 +67,8 @@ namespace Kartverket.MetadataEditor.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                string userOrganization = GetSecurityClaim("organization");
-                string role = GetSecurityClaim("role");
-                if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+                string userOrganization = GetCurrentUserOrganizationName();
+                if (UserHasMetadataAdminRole())
                 {
                     model = _metadataService.SearchMetadata(organization, searchString, offset, limit);
                     model.UserIsAdmin = true;
@@ -92,33 +89,6 @@ namespace Kartverket.MetadataEditor.Controllers
             return View(model);
         }
 
-        private string GetUsername()
-        {
-            return GetSecurityClaim("username");
-        }
-
-        private string GetSecurityClaim(string type)
-        {
-            string result = null;
-            foreach (var claim in System.Security.Claims.ClaimsPrincipal.Current.Claims)
-            {
-                if (claim.Type == type && !string.IsNullOrWhiteSpace(claim.Value))
-                {
-                    result = claim.Value;
-                    break;
-                }
-            }
-
-            // bad hack, must fix BAAT
-            if (!string.IsNullOrWhiteSpace(result) && type.Equals("organization") && result.Equals("Statens kartverk"))
-            {
-                result = "Kartverket";
-            }
-
-            return result;
-        }
-
-
         [HttpGet]
         [Authorize]
         public ActionResult Edit(string uuid)
@@ -129,7 +99,6 @@ namespace Kartverket.MetadataEditor.Controllers
             try
             {
                 SimpleMetadataViewModel model = _metadataService.GetMetadataModel(uuid);
-                string role = GetSecurityClaim("role");
                 if (HasAccessToMetadata(model))
                 {
                     PrepareViewBagForEditing(model);
@@ -152,6 +121,77 @@ namespace Kartverket.MetadataEditor.Controllers
 
         }
 
+        [Authorize]
+        public ActionResult List(string organization = "")
+        {
+            //todo: implement get simple metadata list from kartkatalogen
+            var model = GetListOfSimpleMetadata(organization);
+            return View(model);
+        }
+
+        private object GetListOfSimpleMetadata(string org = "")
+        {
+            SimpleMetadataModel model = new SimpleMetadataModel();
+
+            string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/datasets-simple?organization=" + org;
+
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            var data = c.DownloadString(url);
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            model.Metadata.NumberOfRecordsReturned = (int)response["NumFound"];
+            model.Metadata.MetadataItems = new List<MetadataItemViewModel>();
+
+            var results = response["Results"].OrderBy(x => x.SelectToken("Title")).ToList();
+
+            var facets = response["Facets"];
+
+            foreach (var item in results)
+            {
+                MetadataItemViewModel metadataItem = new MetadataItemViewModel();
+
+                JToken uuidToken = item["Uuid"];
+                string uuid = uuidToken?.ToString();
+
+                JToken organizationToken = item["Organization"];
+                string organization = organizationToken?.ToString();
+
+                JToken titleToken = item["Title"];
+                string title = titleToken?.ToString();
+
+                metadataItem.Uuid = uuid;
+                metadataItem.Organization = organization;
+                metadataItem.Title = title;
+
+
+                model.Metadata.MetadataItems.Add(metadataItem);
+            }
+
+            var facet = new Facet("organization");
+            foreach (var item in facets)
+            {
+                if (item["Name"].ToString() == "organization")
+                {
+                    var resultFacet = item["FacetResults"];
+
+                    foreach (var facetResult in resultFacet)
+                    {
+                        var facetValue = new Facet.FacetValue();
+                        facetValue.Name = facetResult["Name"].ToString();
+                        string count = facetResult["Count"].ToString();
+                        facetValue.Count = int.Parse(count);
+                        if (facetValue.Count > 0)
+                            facet.FacetResults.Add(facetValue);
+                    }
+
+                }
+            }
+
+            model.Facets = facet;
+
+            return model;
+        }
 
         private void PrepareViewBagForEditing(SimpleMetadataViewModel model)
         {
@@ -164,9 +204,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 System.Web.Configuration.WebConfigurationManager.AppSettings["DownloadDatasetUrl"];
             ViewBag.GeoNetworkViewUrl = GeoNetworkUtil.GetViewUrl(model.Uuid);
             ViewBag.GeoNetworkXmlDownloadUrl = GeoNetworkUtil.GetXmlDownloadUrl(model.Uuid);
-            var seoUrl = new SeoUrl("", model.Title);
-            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + seoUrl.Title + "/" + model.Uuid;
-            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(), "Key", "Value");
+            ViewBag.KartkatalogViewUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "Metadata/" + model.Uuid;
+            ViewBag.predefinedDistributionProtocols = new SelectList(GetListOfpredefinedDistributionProtocols(model.DistributionProtocol), "Key", "Value");
 
             Dictionary<string, string> OrganizationList = GetListOfOrganizations();
 
@@ -219,24 +258,20 @@ namespace Kartverket.MetadataEditor.Controllers
         public ActionResult Edit(string uuid, string action, SimpleMetadataViewModel model, string ignoreValidationError)
         {
             ViewBag.IsAdmin = "0";
-            string role = GetSecurityClaim("role");
-            if (!string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin"))
+            if (UserHasMetadataAdminRole())
             {
                 ViewBag.IsAdmin = "1";
             }
 
-
             if (ModelState.IsValid)
             {
-               
-                    SaveMetadataToCswServer(model);
-                    if (action.Equals(UI.Button_Validate))
-                    {
-                        ValidateMetadata(uuid);
-                    }
+                SaveMetadataToCswServer(model);
+                if (action.Equals(UI.Button_Validate))
+                {
+                    ValidateMetadata(uuid);
+                }
 
-                    return RedirectToAction("Edit", new { uuid = model.Uuid });
-               
+                return RedirectToAction("Edit", new { uuid = model.Uuid });
             }
             else
             {
@@ -327,7 +362,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         }
 
-        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols()
+        public Dictionary<string, string> GetListOfpredefinedDistributionProtocols(string distributionProtocol)
         {
             Dictionary<string, string> dic = GetCodeList("94B5A165-7176-4F43-B6EC-1063F7ADE9EA");
 
@@ -335,13 +370,25 @@ namespace Kartverket.MetadataEditor.Controllers
             var keysToSelect = new List<string>
             {
                {"GEONORGE:FILEDOWNLOAD"},
-               {"GEONORGE:DOWNLOAD"},
                {"GEONORGE:OFFLINE"},
-               {"WWW:DOWNLOAD-1.0-http--download"},
-               {"W3C:REST"},
-               {"W3C:WS"},
-               {"WWW:LINK-1.0-http--link"},
+               {"WWW:DOWNLOAD-1.0-http--download"}
             };
+
+            // Preserve old selected value
+            if(distributionProtocol != null)
+            {
+                if (!keysToSelect.Contains(distributionProtocol))
+                {
+                    if(distributionProtocol == "GEONORGE:DOWNLOAD")
+                        keysToSelect.Add("GEONORGE:DOWNLOAD");
+                    if (distributionProtocol == "W3C:REST")
+                        keysToSelect.Add("W3C:REST");
+                    if (distributionProtocol == "W3C:WS")
+                        keysToSelect.Add("W3C:WS");
+                    if (distributionProtocol == "WWW:LINK-1.0-http--link")
+                        keysToSelect.Add("WWW:LINK-1.0-http--link");
+                }
+            }
 
             Dictionary<string, string> newDic = new Dictionary<string, string>();
             foreach (var key in keysToSelect)
@@ -553,7 +600,6 @@ namespace Kartverket.MetadataEditor.Controllers
 
             SimpleMetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
-            string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
                 return View(model);
@@ -570,7 +616,6 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             SimpleMetadataViewModel model = _metadataService.GetMetadataModel(uuid);
 
-            string role = GetSecurityClaim("role");
             if (HasAccessToMetadata(model))
             {
                 _metadataService.DeleteMetadata(uuid, GetUsername());
@@ -586,16 +631,15 @@ namespace Kartverket.MetadataEditor.Controllers
 
         private bool HasAccessToMetadata(SimpleMetadataViewModel model)
         {
-            string organization = GetSecurityClaim("organization");
-            string role = GetSecurityClaim("role");
-            bool isAdmin = !string.IsNullOrWhiteSpace(role) && role.Equals("nd.metadata_admin");
+            string organization = GetCurrentUserOrganizationName();
+            bool isAdmin = UserHasMetadataAdminRole();
             return isAdmin || model.HasAccess(organization);
         }
 
         [Authorize]
         public ActionResult RegisterData()
         {
-            string organization = GetSecurityClaim("organization");
+            string organization = GetCurrentUserOrganizationName();
             ViewBag.RegisterOrganizationUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/search/organisasjon/" + organization;
             return View();
 
@@ -608,4 +652,48 @@ namespace Kartverket.MetadataEditor.Controllers
 
     }
 
+    public class SimpleMetadataModel
+    {
+        public SimpleMetadataModel()
+        {
+            Metadata = new MetadataIndexViewModel();
+        }
+
+        public MetadataIndexViewModel Metadata { get; set; }
+        public Facet Facets { get; set; }
+    }
+
+    public class Facet
+    {
+        public string FacetField { get; set; }
+        public List<FacetValue> FacetResults { get; set; }
+
+        public class FacetValue
+        {
+            public string Name { get; set; }
+            public int Count { get; set; }
+
+            public FacetValue(KeyValuePair<string, int> facetValueResult)
+            {
+                Name = facetValueResult.Key;
+                Count = facetValueResult.Value;
+            }
+
+            public FacetValue()
+            {
+
+            }
+        }
+
+
+        public Facet()
+        {
+        }
+
+        public Facet(string key)
+        {
+            FacetField = key;
+            FacetResults = new List<FacetValue>();
+        }
+    }
 }

@@ -32,7 +32,24 @@
                                     <label for="ReferenceSystems"><input type="radio" name="metadatafield" value="ReferenceSystems" id="ReferenceSystems" />Romlig referansesystem </label>
                                     <label for="License"><input type="radio" name="metadatafield" value="License" id="License" />Lisens </label>
                                     <label for="EnglishTexts"><input type="radio" name="metadatafield" value="EnglishTexts" id="EnglishTexts" />Engelske tekster </label>
+                                    <label for="SpatialScope"><input type="radio" name="metadatafield" value="SpatialScope" id="SpatialScope" />Spatial scope </label>
+                                    <label for="ContactOwnerPositionName"><input type="radio" name="metadatafield" value="ContactOwnerPositionName" id="ContactOwnerPositionName" />Spesifisering av eier av datasett/tjeneste/applikasjon</label>
                                     <br /><input type="checkbox" name="deleteData" checked="checked" value="true" />Slett eksisterende data
+                                </div>
+                            </div>
+                            <div id="SpatialScopeInfo" class="row table-responsive" style="display:none;">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <caption>Excel-ark skal ha følgende struktur for å oppdatere spatial scope/dekningsområde:</caption>
+                                        <thead><tr><th>uuid</th><th>spatial scope</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>European</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Global</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Local</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>National</td></tr>
+                                            <tr><td>532dfe74-6d00-43d5-aa1b-7d5d1991e83d</td><td>Regional</td></tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <div id="EnglishTextsInfo" class="row table-responsive" style="display:none;">
@@ -136,6 +153,21 @@
                                     </table>
                                 </div>
                             </div>
+                            <div id="ContactOwnerPositionNameInfo" class="row table-responsive" style="display:none;">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <caption>Excel-ark skal ha følgende struktur for å oppdatere spesifisering av eier av datasett/tjeneste/applikasjon:</caption>
+                                        <thead><tr><th>uuid</th><th>spesifisering av eier</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>6093c8a8-fa80-11e6-bc64-92361f002671</td><td>Kontaktpunkt Eiendom</td></tr>
+                                            <tr><td>6093c8a8-fa80-11e6-bc64-92361f002671</td><td>Kontaktpunkt Geodesi</td></tr>
+                                            <tr><td>6093c8a8-fa80-11e6-bc64-92361f002671</td><td>Kontaktpunkt Geonorge</td></tr>
+                                            <tr><td>6093c8a8-fa80-11e6-bc64-92361f002671</td><td>Kontaktpunkt Land</td></tr>
+                                            <tr><td>6093c8a8-fa80-11e6-bc64-92361f002671</td><td>Kontaktpunkt Sjø</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-9">
                                     <label for="batchfile">Excel fil:</label>
@@ -195,7 +227,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row hidden">
             <div class="col-md-12">
                 <div class="panel panel-default" style="">
                     <div class="panel-heading">Stedsnavn URI for nøkkelord geografisk område</div>
@@ -240,6 +272,38 @@
                                         <script>
                                             function clickOpenDataDisable(link) {
                                                 document.getElementById('update-metadata-open').innerText = 'Oppdaterer åpne metadata, vennligst vent...';
+                                                if (link.className != "visited btn btn-sm btn-default") {
+                                                    link.className = "visited btn btn-sm btn-default";
+                                                    return true;
+                                                }
+
+                                                return false;
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default" style="">
+                    <div class="panel-heading">csw.met</div>
+                    <div class="panel-body">
+                        <form action="@Url.Action("MetsData","Batch")" method="get" class="form-horizontal" role="form">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="row pull-right">
+                                        <button type="submit" onclick="return clickMetsDisable(this);" class="btn no-margin-bottom show-loading-animation" data-loading-message=""><span id="update-metadata-mets">Synkroniser csw.met</span></button>
+                                        
+                                        <script>
+                                            function clickMetsDisable(link) {
+                                                document.getElementById('update-metadata-mets').innerText = 'Oppdaterer csw.met, vennligst vent...';
                                                 if (link.className != "visited btn btn-sm btn-default") {
                                                     link.className = "visited btn btn-sm btn-default";
                                                     return true;
@@ -357,6 +421,9 @@ else
                 } else if (selectedField == "AccessConstraints") {
                     $("#AccessConstraintsInfo").show();
                 }
+                else if (selectedField == "SpatialScope") {
+                    $("#SpatialScopeInfo").show();
+                }
                 else if (selectedField == "KeywordsNationalInitiative") {
                     $("#KeywordsNationalInitiativeInfo").show();
                 }
@@ -375,6 +442,9 @@ else
                 else if (selectedField == "EnglishTexts") {
                     $("#EnglishTextsInfo").show();
                 }
+                else if (selectedField == "ContactOwnerPositionName") {
+                    $("#ContactOwnerPositionNameInfo").show();
+                }
             });
 
         });
@@ -389,6 +459,8 @@ else
             $("#ReferenceSystemsInfo").hide();
             $("#LicenseInfo").hide();
             $("#EnglishTextsInfo").hide();
+            $("#SpatialScopeInfo").hide();
+            $("#ContactOwnerPositionNameInfo").hide();
         }
 
 

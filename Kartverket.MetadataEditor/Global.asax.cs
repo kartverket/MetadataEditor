@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using ExpressiveAnnotations.Attributes;
-using ExpressiveAnnotations.MvcUnobtrusiveValidatorProvider.Validators;
 using Kartverket.MetadataEditor.Util;
 using System.Web.Http;
 using System;
@@ -13,14 +12,12 @@ using System.Reflection;
 using log4net;
 using System.Web;
 using Kartverket.MetadataEditor.Models.Translations;
-using Kartverket.MetadataEditor.App_Start;
-using Autofac;
 using System.Collections.Specialized;
 using System.Web.Helpers;
 using System.Security.Claims;
 using System.Data.Entity;
 using Kartverket.MetadataEditor.Models;
-using System.Net;
+using ExpressiveAnnotations.MvcUnobtrusive.Validators;
 
 namespace Kartverket.MetadataEditor
 {
@@ -35,8 +32,6 @@ namespace Kartverket.MetadataEditor
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            DependencyConfig.Configure(new ContainerBuilder());
 
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredIfValidator));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(AssertThatAttribute), typeof(AssertThatValidator));
@@ -64,6 +59,8 @@ namespace Kartverket.MetadataEditor
 
             Log.Error("Application error: " + ex.Message, ex);
         }
+
+        protected void Session_Start() { }
 
         protected void Application_BeginRequest()
         {

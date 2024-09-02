@@ -1,10 +1,23 @@
-@model Kartverket.MetadataEditor.Models.MetadataViewModel
+﻿@model Kartverket.MetadataEditor.Models.MetadataViewModel
 @using Resources
 
 
 <script type="text/x-template" id="admin-template">
     <div>
         @Html.Partial("_Log", Model)
+        <div>
+            <div>
+                <label for="ContactOwnerPositionName">Spesifisering av eier av datasett/tjeneste/applikasjon</label>
+                <select id="ContactOwnerPositionName" name="ContactOwnerPositionName">
+                    <option value=""></option>
+                    <option value="Kontaktpunkt Eiendom" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Eiendom"))>Kontaktpunkt Eiendom</option>
+                    <option value="Kontaktpunkt Geodesi" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Geodesi"))>Kontaktpunkt Geodesi</option>
+                    <option value="Kontaktpunkt Geonorge" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Geonorge"))>Kontaktpunkt Geonorge</option>
+                    <option value="Kontaktpunkt Land" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Land"))>Kontaktpunkt Land</option>
+                    <option value="@Html.Raw("Kontaktpunkt Sjø")" @(IsSelected(Model.ContactOwnerPositionName, "Kontaktpunkt Sjø"))>@Html.Raw("Kontaktpunkt Sjø")</option>
+                </select>
+            </div>
+        </div>
         <div v-if="!$store.getters['isSoftware']">
             <div v-for="formElement in checkboxes">
                 <input type="checkbox" v-bind:id="formElement.name" v-bind:disabled="!formElement.active?true:false" v-bind:checked="isAdded(formElement.value)" v-bind:value="formElement.value" v-on:change="toggleCheckbox(formElement.value)" />
@@ -13,10 +26,12 @@
             <label>{{ keywordsCatalogs.label }}</label>
             <div class="custom-select-list">
                 <div class="custom-select-list-input-container">
-                    <span v-if="isAdded(option.Value)" v-for="option in keywordsCatalogs.options" class="custom-select-list-selected">
-                        {{ option.Text }}
-                        <span v-on:click="removeKeyword(option.Value)" class="custom-select-list-remove-button"></span>
-                    </span>
+                    <template v-for="option in keywordsCatalogs.options">
+                        <span v-if="isAdded(option.Value)" class="custom-select-list-selected">
+                            {{ option.Text }}
+                            <span v-on:click="removeKeyword(option.Value)" class="custom-select-list-remove-button"></span>
+                        </span>
+                    </template>
                     <input type="text" class="custom-select-list-input" />
                 </div>
                 <div class="custom-select-list-dropdown-container">
@@ -60,7 +75,7 @@
                             <div v-if="isIncluded(formElement)" class="row">
                                 <label class="col-md-3 control-label">{{ formElement.label }}</label>
                                 <div class="col-md-8">
-                                    <div is="field" v-bind:form-element="formElement"></div>
+                                    <component is="field" v-bind:form-element="formElement"></component>
                                 </div>
                                 <div class="col-md-1"></div>
                             </div>
@@ -72,6 +87,19 @@
     </div>
 </script>
 
+@functions {
+    public static string IsSelected(string selectedValue, string value)
+    {
+        string selected = "";
+
+        if (selectedValue == value) {
+            selected = "selected";
+        }
+
+        return selected;
+    }
+}
+
 <script>
     var Admin = {
         name: "Admin",
@@ -79,14 +107,14 @@
         components: {
             Field: Field
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('registerErrorsForTab', { tabName: 'Admin', fieldNames: this.fieldNames });
             this.$store.dispatch('getErrorsForTab', { tabName: 'Admin' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
             initCustomSelectList();
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 fieldNames: [
@@ -156,7 +184,7 @@
                     type: 'select',
                     options: this.$store.getters['CatalogValues']
                 },
-                formElements: 
+                formElements:
                     {
                         qualitySpecificationTitleInspireSpatialServiceTechnicalConformance: {
                             id: 'QualitySpecificationTitleInspireSpatialServiceTechnicalConformance',
@@ -533,6 +561,10 @@
             }
         },
         methods: {
+            updateField: function (value) {
+                State.model.QualitySpecificationTitleInspireSpatialServiceTechnicalConformance = value.value;
+            },
+
             toggleCheckbox: function (keyword) {
                 if (this.isAdded(keyword)) {
                     this.removeKeyword(keyword);

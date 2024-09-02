@@ -5,7 +5,7 @@
                 <input v-bind:name="formElement.name"
                        type="radio"
                        v-bind:value="option.Value"
-                       v-bind:disabled="formElement.name != 'Language' && !formElement.active && selectedValue != option.Value ?true:false"
+                       v-bind:disabled="formElement.name != 'Language' && formElement.name != 'MetadataLanguage' && !formElement.active && selectedValue != option.Value ?true:false"
                        v-bind:checked="selectedValue == option.Value"
                        v-on:click="$parent.updateField({mutation: formElement.mutation, value: $event.target.value})" />
                 {{ option.Text }}

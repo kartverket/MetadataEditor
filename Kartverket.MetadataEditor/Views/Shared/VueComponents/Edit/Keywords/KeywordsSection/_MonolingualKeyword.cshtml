@@ -46,7 +46,7 @@
         name: "MonolingualKeyword",
         template: "#monolingual-keyword-template",
         props: ['selectedLanguage', 'keywordName', 'inputType', 'keywordIndex', 'keywordValue', 'options'],
-        data: function () {
+        data() {
             return {
                 name: 'Keywords' + this.keywordName + '[' + this.keywordIndex + ']',
                 active: false

@@ -3,16 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
 
 namespace Kartverket.MetadataEditor.Views.Home
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return RedirectToAction("Index", "Metadata");
-        }
+        //public ActionResult Index()
+        //{
+        //    return RedirectToAction("Index", "Metadata");
+        //}
         [Route("setculture/{culture}")]
         public ActionResult SetCulture(string culture, string ReturnUrl)
         {
@@ -53,6 +58,32 @@ namespace Kartverket.MetadataEditor.Views.Home
                 return Redirect(ReturnUrl);
             else
                 return RedirectToAction("Index");
+        }
+
+        public void SignIn()
+        {
+            var redirectUrl = Url.Action(nameof(Controllers.MetadataController.Index), "Metadata");
+            HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = redirectUrl },
+                OpenIdConnectAuthenticationDefaults.AuthenticationType);
+        }
+
+        public void SignOut()
+        {
+            var authenticationProperties = new AuthenticationProperties {RedirectUri = WebConfigurationManager.AppSettings["GeoID:PostLogoutRedirectUri"]};
+
+            HttpContext.GetOwinContext().Authentication.SignOut(
+                authenticationProperties,
+                OpenIdConnectAuthenticationDefaults.AuthenticationType,
+                CookieAuthenticationDefaults.AuthenticationType);
+        }
+
+        /// <summary>
+        /// This is the action responding to the signout-callback-oidc route after logout at the identity provider
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SignOutCallback()
+        {
+            return RedirectToAction(nameof(Controllers.MetadataController.Index), "Metadata");
         }
     }
 }

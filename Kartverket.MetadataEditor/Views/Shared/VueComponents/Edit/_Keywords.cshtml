@@ -3,11 +3,11 @@
 <script type="text/x-template" id="keywords-template">
     <div>
 
-        <div class="form-group">
+        <div class="form-group" v-show="topicCategory.visible">
             <label v-bind:for="topicCategory.id" class="col-md-2 control-label">@UI.TopicCategory</label>
             <div class="col-md-9">
                 <p v-if="topicCategory.helpText && topicCategory.helpText.active" class="help-text bg-success" v-html="topicCategory.helpText.content"></p>
-                <div is="field" v-bind:form-element="topicCategory"></div>
+                <component is="field" v-bind:form-element="topicCategory"></component>
             </div>
             <div v-if="topicCategory.helpText" class="col-md-1">
                 <p class="form-control-static">
@@ -16,11 +16,11 @@
             </div>
         </div>
 
-        <div is="keywords-section"
+        <component is="keywords-section"
              v-show="section.visible"
              v-bind:section="section"
              v-for="section in sections">
-        </div>
+        </component>
 
     </div>
 </script>
@@ -35,12 +35,12 @@
             Field: Field,
             KeywordsSection: KeywordsSection
         },
-        mounted: function () {
+        mounted() {
             this.$store.dispatch('getErrorsForTab', { tabName: 'Keywords' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
         },
-        data: function () {
+        data() {
             return {
                 errors: {},
                 topicCategory: {
@@ -50,7 +50,7 @@
                     mutation: 'updateTopicCategory',
                     label: '@Html.Raw(UI.Metadata_TopicCategory_Label)',
                     type: 'select',
-                    visible: true,
+                    visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                     helpText: {
                         active: false,
                         content: '@Html.Raw(UI.Helptext_TopicCategory)'
