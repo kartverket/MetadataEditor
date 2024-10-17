@@ -63,75 +63,20 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
         string _userName = "";
 
+
+
+        int numberOfItems = 0;
+        int limit = 10;
+
         private async Task<int> UpdateMetsMetadata(string username)
         {
             _userName = username;
-            return RunSearch(1);
 
-            //NIVA
+            numberOfItems = RunSearchNiva(1);
 
-            //_geoNorge = new GeoNorge("", "", "https://adc.csw.met.no/");
+            numberOfItems = numberOfItems + RunSearch(1);
 
-            //filters = new object[]
-            //{
-            //            new PropertyIsLikeType
-            //                {
-            //                    escapeChar = "\\",
-            //                    singleChar = "_",
-            //                    wildCard = "%",
-            //                    PropertyName = new PropertyNameType {Text = new[] {"apiso:OrganisationName"}},
-            //                    Literal = new LiteralType {Text = new[] {"NIVA"}}
-            //                }
-            //};
-
-            //filterNames = new ItemsChoiceType23[]
-            //{
-            //     ItemsChoiceType23.PropertyIsLike,
-            //};
-
-
-            //res = _geoNorge.SearchWithFilters(filters, filterNames, 1, 50, false, true);
-
-            //_geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
-
-            //if (res != null && res.numberOfRecordsMatched != "0")
-            //{
-            //    foreach (MD_Metadata_Type item in res.Items)
-            //    {
-            //        try
-            //        {
-            //            MD_Metadata_Type existingMetadata = null;
-
-            //            try
-            //            {
-            //                Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
-            //                existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
-            //            }
-            //            catch { }
-
-            //            SimpleMetadata simpleMetadata = new SimpleMetadata(item);
-            //            string organizationName = "Norsk institutt for vannforskning";
-            //            string organizationNameEnglish = "Research institute for water and the environment";
-            //            simpleMetadata.ContactMetadata = new SimpleContact { Organization = organizationName, Email = simpleMetadata.ContactMetadata.Email, Name = simpleMetadata.ContactMetadata.Name, Role = simpleMetadata.ContactMetadata.Role, PositionName = simpleMetadata.ContactMetadata.PositionName, OrganizationEnglish = organizationNameEnglish };
-            //            simpleMetadata.ContactOwner = new SimpleContact { Organization = organizationName, Email = simpleMetadata.ContactMetadata.Email, Name = simpleMetadata.ContactMetadata.Name, Role = "owner", PositionName = simpleMetadata.ContactMetadata.PositionName, OrganizationEnglish = organizationNameEnglish };
-
-            //            if (existingMetadata == null)
-            //            {
-            //                var trans = _geoNorge.MetadataInsert(simpleMetadata.GetMetadata(), Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
-            //            }
-            //            else
-            //            {
-            //                var trans = _geoNorge.MetadataUpdate(simpleMetadata.GetMetadata(), Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(username, "true"));
-            //            }
-
-            //            numberOfItems++;
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Log.Error(ex);
-            //        }
-            //    }
-            //}
+            return numberOfItems;
 
 
             ////NILU
@@ -199,9 +144,90 @@ namespace Kartverket.MetadataEditor.Models.Mets
             //}
         }
 
-        int numberOfItems = 0;
-        int limit = 10;
 
+        private int RunSearchNiva(int startPosition)
+        {
+            Log.Info("Running search from start position: " + startPosition);
+            SearchResultsType res = null;
+            try
+            {
+                _geoNorge = new GeoNorge("", "", "https://noiso-adc.csw.met.no/");
+
+                var filters = new object[]
+                {
+                        new PropertyIsLikeType
+                            {
+                                escapeChar = "\\",
+                                singleChar = "_",
+                                wildCard = "%",
+                                PropertyName = new PropertyNameType {Text = new[] {"apiso:AnyText"}},
+                                Literal = new LiteralType {Text = new[] {"%"}}
+                            }
+                };
+
+                var filterNames = new ItemsChoiceType23[]
+                {
+                 ItemsChoiceType23.PropertyIsLike,
+                };
+
+
+                res = _geoNorge.SearchWithFilters(filters, filterNames, startPosition, limit, false, true);
+
+                _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+                if (res != null && res.numberOfRecordsMatched != "0")
+                {
+                    foreach (MD_Metadata_Type item in res.Items)
+                    {
+                        MD_Metadata_Type existingMetadata = null;
+
+                        try
+                        {
+                            Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
+                            existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                        }
+                        catch (Exception exx)
+                        {
+                            Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx);
+                        }
+
+                        if (existingMetadata == null)
+                        {
+                            var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                        }
+                        else
+                        {
+                            var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                        }
+
+                        numberOfItems++;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error in metadata from Geonetwork position: " + startPosition + " + " + limit + ".", exception);
+            }
+
+            int nextRecord;
+            int numberOfRecordsMatched;
+
+            nextRecord = int.Parse(res.nextRecord);
+            numberOfRecordsMatched = int.Parse(res.numberOfRecordsMatched);
+
+            int diff = numberOfRecordsMatched - nextRecord;
+            if (nextRecord + limit > numberOfRecordsMatched)
+            {
+                limit = diff;
+            }
+
+            if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
+            {
+                RunSearchNiva(nextRecord);
+            }
+
+            return numberOfItems;
+        }
         private int RunSearch(int startPosition)
         {
             Log.Info("Running search from start position: " + startPosition);
@@ -299,7 +325,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                 limit = diff;
             }
 
-            if (nextRecord < numberOfRecordsMatched)
+            if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
             {
                 RunSearch(nextRecord);
             }
