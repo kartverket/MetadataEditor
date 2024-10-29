@@ -60,6 +60,7 @@ namespace Kartverket.MetadataEditor.Models
         public string ProcessHistory { get; set; }
 
         public string ProductPageUrl { get; set; }
+        public string LegendDescriptionUrl { get; set; }
 
         [Display(Name = "Metadata_DateUpdated", ResourceType = typeof(UI))]
         [DisplayFormat(NullDisplayText = "", ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]

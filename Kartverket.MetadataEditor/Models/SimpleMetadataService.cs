@@ -217,6 +217,7 @@ namespace Kartverket.MetadataEditor.Models
 
             // Translations
             model.TitleFromSelectedLanguage = model.TitleTranslated();
+            model.LegendDescriptionUrl = metadata.LegendDescriptionUrl;
             return model;
         }
 
@@ -376,7 +377,7 @@ namespace Kartverket.MetadataEditor.Models
                 OtherConstraintsAccess = !string.IsNullOrWhiteSpace(model.OtherConstraintsAccess) ? model.OtherConstraintsAccess : null
             };
 
-
+            metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
 
             SetDefaultValuesOnMetadata(metadata);
         }
