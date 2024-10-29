@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -248,6 +249,18 @@ namespace Kartverket.MetadataEditor.Controllers
 
 
             ViewBag.ValideringUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ValideringUrl"] + "api/metadata/" + model.Uuid;
+
+            var legendDescriptions = GetRegister("tegneregler", model);
+            legendDescriptions.Add("", " " + UI.NoneSelected);
+            if (!string.IsNullOrEmpty(model.LegendDescriptionUrl))
+            {
+                KeyValuePair<string, string> legendSelected = new KeyValuePair<string, string>(model.LegendDescriptionUrl, model.LegendDescriptionUrl);
+                if (!legendDescriptions.ContainsKey(legendSelected.Key))
+                {
+                    legendDescriptions.Add(legendSelected.Key, legendSelected.Value);
+                }
+            }
+            ViewBag.LegendDescriptionValues = new SelectList(legendDescriptions, "Key", "Value", model.LegendDescriptionUrl);
 
             ViewBag.Municipalities = new KomDataService().GetListOfMunicipalityOrganizations();
 
@@ -648,6 +661,64 @@ namespace Kartverket.MetadataEditor.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             Log.Error("Error", filterContext.Exception);
+        }
+
+        public Dictionary<string, string> GetRegister(string registername, SimpleMetadataViewModel model)
+        {
+            MemoryCacher memCacher = new MemoryCacher();
+
+            var cache = memCacher.GetValue("registeritem-" + registername);
+
+            List<RegisterItem> RegisterItems = new List<RegisterItem>();
+
+            if (cache != null)
+            {
+                RegisterItems = cache as List<RegisterItem>;
+            }
+
+            if (RegisterItems.Count < 1)
+            {
+
+                System.Net.WebClient c = new System.Net.WebClient();
+                c.Encoding = System.Text.Encoding.UTF8;
+                var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/register/" + registername);
+                var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                var items = response["containeditems"];
+
+                foreach (var item in items)
+                {
+                    var id = item["id"].ToString();
+                    var owner = item["owner"].ToString();
+                    string organization = item["owner"].ToString();
+
+                    var registerItem = new RegisterItem { Id = id, Label = item["label"].ToString(), Organization = organization };
+
+                    if (!RegisterItems.Contains(registerItem))
+                    {
+                        RegisterItems.Add(registerItem);
+                    }
+                }
+
+                var logLines = RegisterItems.Select(l => l.Id + ": " + l.Label);
+                memCacher.Set("registeritem-" + registername, RegisterItems, new DateTimeOffset(DateTime.Now.AddYears(1)));
+
+            }
+
+            Dictionary<string, string> RegisterItemsForUser = new Dictionary<string, string>();
+
+            foreach (var item in RegisterItems)
+            {
+                if (UserHasMetadataAdminRole() || model.HasAccess(item.Organization))
+                {
+                    RegisterItemsForUser.Add(item.Id, item.Label);
+                }
+
+            }
+
+            RegisterItemsForUser = RegisterItemsForUser.OrderBy(o => o.Value).ToDictionary(o => o.Key, o => o.Value);
+
+            return RegisterItemsForUser;
         }
 
     }
