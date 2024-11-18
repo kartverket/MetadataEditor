@@ -131,7 +131,7 @@
                 }
             }
 
-            @if (Model.OtherConstraintsAccess == "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations")
+            @if (Model.OtherConstraintsAccess == "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations" || Model.OtherConstraintsAccess == "no restrictions")
             {
                 <label class="checkbox-inline"><input type="checkbox" name="OtherConstraintsAccess" checked value="no restrictions" />Åpne data</label>
             }
