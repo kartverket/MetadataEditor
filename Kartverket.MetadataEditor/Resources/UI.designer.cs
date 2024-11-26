@@ -2466,6 +2466,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grad av FAIR dataleveranse.
+        /// </summary>
+        public static string QualityQuantitativeResultFairTitle {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultFairTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maksimal svartid for en vanlig forespørsel til tjenesten i en situasjon med lav belastning (oppgis i sekunder) (validering på heltal).
         /// </summary>
         public static string QualityQuantitativeResultPerformance {

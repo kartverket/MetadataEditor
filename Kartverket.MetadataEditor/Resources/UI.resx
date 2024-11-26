@@ -1055,4 +1055,7 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="QualityQuantitativeResultCoverageTitle" xml:space="preserve">
     <value>Geografisk dekning oppgitt i prosent</value>
   </data>
+  <data name="QualityQuantitativeResultFairTitle" xml:space="preserve">
+    <value>Grad av FAIR dataleveranse</value>
+  </data>
 </root>

@@ -1681,6 +1681,22 @@ namespace Kartverket.MetadataEditor.Models
                 });
             }
 
+            //preserve fair data
+            if (metadata.QualitySpecifications != null && metadata.QualitySpecifications.Count > 0)
+            {
+
+                var fair = metadata.QualitySpecifications.Where(f => f.Title == UI.QualityQuantitativeResultFairTitle).FirstOrDefault();
+                if (fair != null)
+                {
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = fair.Title,
+                        TitleLinkDescription = fair.TitleLinkDescription,
+                        QuantitativeResult = fair.QuantitativeResult
+                    });
+                }
+            }
+
             metadata.QualitySpecifications = qualityList;
 
             metadata.ProcessHistory = !string.IsNullOrWhiteSpace(model.ProcessHistory) ? model.ProcessHistory : " ";

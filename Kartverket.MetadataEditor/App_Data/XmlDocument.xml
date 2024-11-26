@@ -1383,6 +1383,11 @@
               Looks up a localized string similar to Geografisk dekning oppgitt i prosent.
             </summary>
         </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultFairTitle">
+            <summary>
+              Looks up a localized string similar to Grad av FAIR dataleveranse.
+            </summary>
+        </member>
         <member name="P:Resources.UI.QualityQuantitativeResultPerformance">
             <summary>
               Looks up a localized string similar to Maksimal svartid for en vanlig forespørsel til tjenesten i en situasjon med lav belastning (oppgis i sekunder) (validering på heltal).
