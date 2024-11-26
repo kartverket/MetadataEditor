@@ -214,6 +214,7 @@ namespace Kartverket.MetadataEditor.Models
         public int? QualityQuantitativeResultCapacity { get; set; }
         [RequiredIf("IsInspireSpatialServiceConformance()", ErrorMessageResourceName = "QuantitativeResultPerformanceRequired", ErrorMessageResourceType = typeof(UI))]
         public string QualityQuantitativeResultPerformance { get; set; }
+        public string QualityQuantitativeResultCoverage { get; set; }
 
         public string ProcessHistory { get; set; }
         [Required]

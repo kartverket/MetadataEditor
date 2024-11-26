@@ -524,6 +524,10 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         model.QualityQuantitativeResultPerformance = qualitySpecification.QuantitativeResult;
                     }
+                    else if (qualitySpecification.Title == UI.QualityQuantitativeResultCoverageTitle)
+                    {
+                        model.QualityQuantitativeResultCoverage = qualitySpecification.QuantitativeResult;
+                    }
                     else if (responsible == "sosi")
                     {
                         model.QualitySpecificationDateSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
@@ -1614,7 +1618,6 @@ namespace Kartverket.MetadataEditor.Models
                                 Responsible = "sds-performance"
                             });
                         }
-
                     }
                 }
                 if (SimpleMetadata.IsNetworkService(distributionProtocolService))
@@ -1666,6 +1669,16 @@ namespace Kartverket.MetadataEditor.Models
                         });
                     }
                 }
+            }
+
+            if (!string.IsNullOrEmpty(model.QualityQuantitativeResultCoverage))
+            {
+                qualityList.Add(new SimpleQualitySpecification
+                {
+                    Title = UI.QualityQuantitativeResultCoverageTitle,
+                    TitleLinkDescription = UI.QualityQuantitativeResultCoverageDescription,
+                    QuantitativeResult = model.QualityQuantitativeResultCoverage,
+                });
             }
 
             metadata.QualitySpecifications = qualityList;

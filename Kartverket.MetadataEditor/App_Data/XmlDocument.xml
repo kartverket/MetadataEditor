@@ -1373,6 +1373,16 @@
               Looks up a localized string similar to Nedre grense for maksimalt antall samtidige forespørsler som kan fullføres innenfor angitt responstid (validering på heltall).
             </summary>
         </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultCoverageDescription">
+            <summary>
+              Looks up a localized string similar to Datasettets faktiske kartlagte areal i forhold til datasettets spesifiserte utstrekning.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.QualityQuantitativeResultCoverageTitle">
+            <summary>
+              Looks up a localized string similar to Geografisk dekning oppgitt i prosent.
+            </summary>
+        </member>
         <member name="P:Resources.UI.QualityQuantitativeResultPerformance">
             <summary>
               Looks up a localized string similar to Maksimal svartid for en vanlig forespørsel til tjenesten i en situasjon med lav belastning (oppgis i sekunder) (validering på heltal).
