@@ -318,17 +318,6 @@ namespace Kartverket.MetadataEditor.Models
                 };
             }
 
-            string accessConstraintsSelected = "";
-            if (!string.IsNullOrEmpty(model.OtherConstraintsAccess))
-            {
-                if (model.OtherConstraintsAccess.ToLower() == "no restrictions")
-                {
-                    accessConstraintsSelected = "otherRestrictions";
-                }
-            }
-
-
-
             if (!string.IsNullOrWhiteSpace(model.MaintenanceFrequency))
                 metadata.MaintenanceFrequency = model.MaintenanceFrequency;
 
@@ -367,14 +356,57 @@ namespace Kartverket.MetadataEditor.Models
                     Protocol = model.DistributionProtocol
                 };
 
+            var accessConstraintsSelected = model.OtherConstraintsAccess;
+            string otherConstraintsAccess = model.OtherConstraintsAccess;
+
+            var accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations";
+            if (string.IsNullOrEmpty(accessConstraintsSelected))
+                accessConstraintsLink = null;
+
+            Dictionary<string, string> inspireAccessRestrictions = GetInspireAccessRestrictions();
+
+            if (!string.IsNullOrEmpty(accessConstraintsSelected))
+            {
+                if (accessConstraintsSelected.ToLower() == "no restrictions" || accessConstraintsSelected.ToLower() == "norway digital restricted")
+                {
+                    otherConstraintsAccess = accessConstraintsSelected;
+
+                    if (accessConstraintsSelected.ToLower() == "no restrictions")
+                        accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
+
+                    if (accessConstraintsSelected.ToLower() == "norway digital restricted")
+                    {
+                        accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d";
+                        accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
+                    }
+
+                }
+                else if (accessConstraintsSelected == "restricted")
+                {
+                    otherConstraintsAccess = null;
+                    accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
+                    accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
+                }
+            }
+
+            //if (string.IsNullOrEmpty(model.UseConstraints))
+            //{
+            //    model.OtherConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/noConditionsApply";
+            //    model.OtherConstraintsLinkText = "No conditions apply to access and use";
+            //}
 
             metadata.Constraints = new SimpleConstraints
             {
-                UseConstraints = "license",
-                OtherConstraints = !string.IsNullOrWhiteSpace(accessConstraintsSelected) ? accessConstraintsSelected : null,
-                OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
-                OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
-                OtherConstraintsAccess = !string.IsNullOrWhiteSpace(model.OtherConstraintsAccess) ? model.OtherConstraintsAccess : null
+                AccessConstraints = !string.IsNullOrWhiteSpace(accessConstraintsSelected) ? accessConstraintsSelected : "",
+                AccessConstraintsLink = accessConstraintsLink,
+                //OtherConstraintsLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
+                UseConstraintsLicenseLink = !string.IsNullOrWhiteSpace(model.OtherConstraintsLink) ? model.OtherConstraintsLink : null,
+                //OtherConstraintsLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
+                UseConstraintsLicenseLinkText = !string.IsNullOrWhiteSpace(model.OtherConstraintsLinkText) ? model.OtherConstraintsLinkText : null,
+               
+                //UseConstraints = !string.IsNullOrWhiteSpace(model.UseConstraints) ? "license" : "",
+                //UseLimitations = !string.IsNullOrWhiteSpace(model.UseLimitations) ? model.UseLimitations : "",
+                //OtherConstraintsAccess = !string.IsNullOrWhiteSpace(otherConstraintsAccess) ? otherConstraintsAccess : "",
             };
 
             metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
@@ -382,8 +414,37 @@ namespace Kartverket.MetadataEditor.Models
             SetDefaultValuesOnMetadata(metadata);
         }
 
-        
 
+        public Dictionary<string, string> GetInspireAccessRestrictions(string culture = "no")
+        {
+            System.Net.WebClient c = new System.Net.WebClient();
+            c.Encoding = System.Text.Encoding.UTF8;
+            c.Headers.Remove("Accept-Language");
+            c.Headers.Add("Accept-Language", culture);
+            var data = c.DownloadString(System.Web.Configuration.WebConfigurationManager.AppSettings["RegistryUrl"] + "api/metadata-kodelister/inspire-tilgangsrestriksjoner");
+            var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+            Dictionary<string, string> inspire = new Dictionary<string, string>();
+
+            var items = response["containeditems"];
+
+            foreach (var item in items)
+            {
+                var id = item["codevalue"].ToString();
+                id = id.Replace("https", "http");
+                string label = item["label"].ToString();
+                string status = item["status"].ToString();
+
+
+
+                if (status == "Gyldig" || status == "Valid")
+                {
+                    inspire.Add(id, label);
+                }
+            }
+
+            return inspire;
+        }
 
 
         private void SetDefaultValuesOnMetadata(SimpleMetadata metadata)
