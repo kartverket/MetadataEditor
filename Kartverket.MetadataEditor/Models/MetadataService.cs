@@ -1949,6 +1949,24 @@ namespace Kartverket.MetadataEditor.Models
                 case "REST-API":
                     serviceType = "other";
                     break;
+                case "OGC:OAPIF":
+                    serviceType = "download";
+                    break;
+                case "OGC:API-Maps":
+                    serviceType = "download";
+                    break;
+                case "OGC:API-Styles":
+                    serviceType = "download";
+                    break;
+                case "OGC:API-Tiles":
+                    serviceType = "download";
+                    break;
+                case "OGC:API-Coverages":
+                    serviceType = "download";
+                    break;
+                case "OGC:API-EDR":
+                    serviceType = "download";
+                    break;
             }
 
             return serviceType;
