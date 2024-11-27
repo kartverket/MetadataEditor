@@ -1953,13 +1953,13 @@ namespace Kartverket.MetadataEditor.Models
                     serviceType = "download";
                     break;
                 case "OGC:API-Maps":
-                    serviceType = "download";
+                    serviceType = "view";
                     break;
                 case "OGC:API-Styles":
-                    serviceType = "download";
+                    serviceType = "view";
                     break;
                 case "OGC:API-Tiles":
-                    serviceType = "download";
+                    serviceType = "view";
                     break;
                 case "OGC:API-Coverages":
                     serviceType = "download";
