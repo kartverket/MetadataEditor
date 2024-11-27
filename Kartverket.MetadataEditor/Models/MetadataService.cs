@@ -2486,6 +2486,24 @@ namespace Kartverket.MetadataEditor.Models
                 case "W3C:REST":
                     keyword = "infoFeatureAccessService";
                     break;
+                case "OGC:OAPIF":
+                    keyword = "infoFeatureAccessService";
+                    break;
+                case "OGC:API-Maps":
+                    keyword = "infoMapAccessService";
+                    break;
+                case "OGC:API-Styles":
+                    keyword = "infoMapAccessService";
+                    break;
+                case "OGC:API-Tiles":
+                    keyword = "infoMapAccessService";
+                    break;
+                case "OGC:API-Coverages":
+                    keyword = "infoCoverageAccessService";
+                    break;
+                case "OGC:API-EDR":
+                    keyword = "infoFeatureAccessService";
+                    break;
             }
 
             return keyword;
