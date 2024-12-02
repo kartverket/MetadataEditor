@@ -2457,7 +2457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geografisk dekning oppgitt i prosent.
+        ///   Looks up a localized string similar to Prosentvis dekning i forhold til datasettets utstrekning.
         /// </summary>
         public static string QualityQuantitativeResultCoverageTitle {
             get {
@@ -2466,7 +2466,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grad av FAIR dataleveranse.
+        ///   Looks up a localized string similar to Prosentvis oppfyllelse av FAIR-prinsipper.
         /// </summary>
         public static string QualityQuantitativeResultFairTitle {
             get {
