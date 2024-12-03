@@ -524,6 +524,10 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         model.QualityQuantitativeResultPerformance = qualitySpecification.QuantitativeResult;
                     }
+                    else if (qualitySpecification.Title == UI.QualityQuantitativeResultCoverageTitle)
+                    {
+                        model.QualityQuantitativeResultCoverage = qualitySpecification.QuantitativeResult;
+                    }
                     else if (responsible == "sosi")
                     {
                         model.QualitySpecificationDateSosi = (!string.IsNullOrWhiteSpace(qualitySpecification.Date)) ? DateTime.Parse(qualitySpecification.Date) : (DateTime?)null;
@@ -1614,7 +1618,6 @@ namespace Kartverket.MetadataEditor.Models
                                 Responsible = "sds-performance"
                             });
                         }
-
                     }
                 }
                 if (SimpleMetadata.IsNetworkService(distributionProtocolService))
@@ -1665,6 +1668,32 @@ namespace Kartverket.MetadataEditor.Models
                             Responsible = "inspire-networkservice"
                         });
                     }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(model.QualityQuantitativeResultCoverage))
+            {
+                qualityList.Add(new SimpleQualitySpecification
+                {
+                    Title = UI.QualityQuantitativeResultCoverageTitle,
+                    TitleLinkDescription = UI.QualityQuantitativeResultCoverageDescription,
+                    QuantitativeResult = model.QualityQuantitativeResultCoverage,
+                });
+            }
+
+            //preserve fair data
+            if (metadata.QualitySpecifications != null && metadata.QualitySpecifications.Count > 0)
+            {
+
+                var fair = metadata.QualitySpecifications.Where(f => f.Title == UI.QualityQuantitativeResultFairTitle).FirstOrDefault();
+                if (fair != null)
+                {
+                    qualityList.Add(new SimpleQualitySpecification
+                    {
+                        Title = fair.Title,
+                        TitleLinkDescription = fair.TitleLinkDescription,
+                        QuantitativeResult = fair.QuantitativeResult
+                    });
                 }
             }
 
@@ -1919,6 +1948,24 @@ namespace Kartverket.MetadataEditor.Models
                     break;
                 case "REST-API":
                     serviceType = "other";
+                    break;
+                case "OGC:OAPIF":
+                    serviceType = "download";
+                    break;
+                case "OGC:API-Maps":
+                    serviceType = "view";
+                    break;
+                case "OGC:API-Styles":
+                    serviceType = "view";
+                    break;
+                case "OGC:API-Tiles":
+                    serviceType = "view";
+                    break;
+                case "OGC:API-Coverages":
+                    serviceType = "download";
+                    break;
+                case "OGC:API-EDR":
+                    serviceType = "download";
                     break;
             }
 
@@ -2437,6 +2484,24 @@ namespace Kartverket.MetadataEditor.Models
                     keyword = "";
                     break;
                 case "W3C:REST":
+                    keyword = "infoFeatureAccessService";
+                    break;
+                case "OGC:OAPIF":
+                    keyword = "infoFeatureAccessService";
+                    break;
+                case "OGC:API-Maps":
+                    keyword = "infoMapAccessService";
+                    break;
+                case "OGC:API-Styles":
+                    keyword = "infoMapAccessService";
+                    break;
+                case "OGC:API-Tiles":
+                    keyword = "infoMapAccessService";
+                    break;
+                case "OGC:API-Coverages":
+                    keyword = "infoCoverageAccessService";
+                    break;
+                case "OGC:API-EDR":
                     keyword = "infoFeatureAccessService";
                     break;
             }

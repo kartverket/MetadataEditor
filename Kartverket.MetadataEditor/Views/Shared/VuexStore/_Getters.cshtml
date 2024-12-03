@@ -499,6 +499,9 @@
         QualityQuantitativeResultPerformance: function (state) {
             return state.model.QualityQuantitativeResultPerformance;
         },
+        QualityQuantitativeResultCoverage: function (state) {
+            return state.model.QualityQuantitativeResultCoverage;
+        },
         showQualitySpecificationResultInspireSpatialServiceConformance_Invocable: function (state, getters) {
             return getters.isService && getters.isAccessPoint && getters.QualitySpecificationTitleInspireSpatialServiceConformance == 'invocable';
         },

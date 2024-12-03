@@ -1049,4 +1049,13 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="Metadata_ResolutionDistance_Label" xml:space="preserve">
     <value>Oppløsning i meter</value>
   </data>
+  <data name="QualityQuantitativeResultCoverageDescription" xml:space="preserve">
+    <value>Datasettets faktiske kartlagte areal i forhold til datasettets spesifiserte utstrekning</value>
+  </data>
+  <data name="QualityQuantitativeResultCoverageTitle" xml:space="preserve">
+    <value>Prosentvis dekning i forhold til datasettets utstrekning</value>
+  </data>
+  <data name="QualityQuantitativeResultFairTitle" xml:space="preserve">
+    <value>Prosentvis oppfyllelse av FAIR-prinsipper</value>
+  </data>
 </root>

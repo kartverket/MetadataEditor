@@ -2448,6 +2448,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datasettets faktiske kartlagte areal i forhold til datasettets spesifiserte utstrekning.
+        /// </summary>
+        public static string QualityQuantitativeResultCoverageDescription {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultCoverageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prosentvis dekning i forhold til datasettets utstrekning.
+        /// </summary>
+        public static string QualityQuantitativeResultCoverageTitle {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultCoverageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prosentvis oppfyllelse av FAIR-prinsipper.
+        /// </summary>
+        public static string QualityQuantitativeResultFairTitle {
+            get {
+                return ResourceManager.GetString("QualityQuantitativeResultFairTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maksimal svartid for en vanlig forespørsel til tjenesten i en situasjon med lav belastning (oppgis i sekunder) (validering på heltal).
         /// </summary>
         public static string QualityQuantitativeResultPerformance {

@@ -237,6 +237,20 @@
                             active: false,
                             content: '@UI.QualityQuantitativeResultPerformance'
                         }
+                    },
+                    qualityQuantitativeResultCoverage: {
+                        id: 'QualityQuantitativeResultCoverage',
+                        name: 'QualityQuantitativeResultCoverage',
+                        getter: 'QualityQuantitativeResultCoverage',
+                        mutation: 'updateQualityQuantitativeResultCoverage',
+                        label: '@UI.QualityQuantitativeResultCoverageTitle',
+                        type: 'text',
+                        required: false,
+                        visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                        helpText: {
+                            active: false,
+                            content: '@UI.QualityQuantitativeResultCoverageDescription'
+                        }
                     }
                 }
             }
