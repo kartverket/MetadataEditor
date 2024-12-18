@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Configuration;
 using Kartverket.MetadataEditor.Models.Translations;
 using System.Net.PeerToPeer;
+using Arkitektum.GIS.Lib.SerializeUtil;
 
 namespace Kartverket.MetadataEditor.Models.Mets
 {
@@ -248,7 +249,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                     if (res.Items == null)
                     {
                         Log.Info("No items in response");
-                        Log.Info("Response: " + res.ToString());
+                        Log.Info(SerializeUtil.SerializeToString(res));
                         Log.Info("numberOfRecordsMatched: " + res.numberOfRecordsMatched);
                         return 0;
                     }
