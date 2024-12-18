@@ -249,6 +249,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                     {
                         Log.Info("No items in response");
                         Log.Info("Response: " + res.ToString());
+                        Log.Info("numberOfRecordsMatched: " + res.numberOfRecordsMatched);
                         return 0;
                     }
 
