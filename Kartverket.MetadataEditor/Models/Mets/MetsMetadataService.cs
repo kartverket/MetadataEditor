@@ -76,7 +76,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             numberOfItems = numberOfItems + RunSearch(1);
 
-            numberOfItems = RunSearchNina(1);
+            numberOfItems = numberOfItems + RunSearchNina(1);
 
             numberOfItems = numberOfItems + RunSearchNiva(1);
 
@@ -85,7 +85,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             ////NILU
 
-            //_geoNorge = new GeoNorge("", "", "https://adc.csw.met.no/");
+            //_geoNorge = new GeoNorge("", "", "http://adc.csw.met.no/");
 
             //filters = new object[]
             //{
@@ -219,7 +219,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
             SearchResultsType res = null;
             try
             {
-                _geoNorge = new GeoNorge("", "", "https://noiso-adc.csw.met.no/");
+                _geoNorge = new GeoNorge("", "", "http://noiso-adc.csw.met.no/");
 
                 var filters = new object[]
                 {
@@ -245,7 +245,6 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                 if (res != null && res.numberOfRecordsMatched != "0")
                 {
-
                     if (res.Items == null)
                     {
                         Log.Info("No items in response");
