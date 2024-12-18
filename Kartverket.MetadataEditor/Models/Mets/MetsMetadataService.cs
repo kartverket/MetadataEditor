@@ -76,9 +76,9 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             //numberOfItems = RunSearchNina(1);
 
-            //numberOfItems = numberOfItems + RunSearchNiva(1);
+            numberOfItems = numberOfItems + RunSearchNiva(1);
 
-            numberOfItems = numberOfItems + RunSearch(1);
+            //numberOfItems = numberOfItems + RunSearch(1);
 
             return numberOfItems;
 
@@ -245,6 +245,14 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                 if (res != null && res.numberOfRecordsMatched != "0")
                 {
+
+                    if (res.Items == null)
+                    {
+                        Log.Info("No items in response");
+                        Log.Info("Response: " + res.ToString());
+                        return 0;
+                    }
+
                     foreach (MD_Metadata_Type item in res.Items)
                     {
                         MD_Metadata_Type existingMetadata = null;
