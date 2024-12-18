@@ -72,9 +72,11 @@ namespace Kartverket.MetadataEditor.Models.Mets
         {
             _userName = username;
 
-            numberOfItems = RunSearchNina(1);
+            //numberOfItems = RunSearchSentinel(1);
 
-            numberOfItems = numberOfItems + RunSearchNiva(1);
+            //numberOfItems = RunSearchNina(1);
+
+            //numberOfItems = numberOfItems + RunSearchNiva(1);
 
             numberOfItems = numberOfItems + RunSearch(1);
 
@@ -387,6 +389,90 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             int diff = numberOfRecordsMatched - nextRecord;
             if(nextRecord + limit > numberOfRecordsMatched)
+            {
+                limit = diff;
+            }
+
+            if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
+            {
+                RunSearch(nextRecord);
+            }
+
+            return numberOfItems;
+        }
+
+        private int RunSearchSentinel(int startPosition)
+        {
+            Log.Info("Running search from start position: " + startPosition);
+            SearchResultsType res = null;
+            try
+            {
+                _geoNorge = new GeoNorge("", "", "https://nbs.csw.met.no/csw?");
+
+                var filters = new object[]
+{
+                        new PropertyIsLikeType
+                            {
+                                escapeChar = "\\",
+                                        singleChar = "_",
+                                        wildCard = "%",
+                                        PropertyName = new PropertyNameType {Text = new[] {"apiso:Type"}},
+                                        Literal = new LiteralType {Text = new[] { "series" }}
+                            }
+};
+
+                var filterNames = new ItemsChoiceType23[]
+                {
+                 ItemsChoiceType23.PropertyIsLike,
+                };
+
+
+                res = _geoNorge.SearchWithFilters(filters, filterNames, startPosition, limit, false, true);
+
+                _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+                if (res != null && res.numberOfRecordsMatched != "0")
+                {
+                    foreach (MD_Metadata_Type item in res.Items)
+                    {
+                        MD_Metadata_Type existingMetadata = null;
+
+                        try
+                        {
+                            Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
+                            existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                        }
+                        catch (Exception exx)
+                        {
+                            Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx);
+                        }
+
+                        if (existingMetadata == null)
+                        {
+                            var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                        }
+                        else
+                        {
+                            var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                        }
+
+                        numberOfItems++;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error in metadata from Geonetwork position: " + startPosition + " + " + limit + ".", exception);
+            }
+
+            int nextRecord;
+            int numberOfRecordsMatched;
+
+            nextRecord = int.Parse(res.nextRecord);
+            numberOfRecordsMatched = int.Parse(res.numberOfRecordsMatched);
+
+            int diff = numberOfRecordsMatched - nextRecord;
+            if (nextRecord + limit > numberOfRecordsMatched)
             {
                 limit = diff;
             }
