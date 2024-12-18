@@ -74,11 +74,11 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             //numberOfItems = RunSearchSentinel(1);
 
-            //numberOfItems = RunSearchNina(1);
+            numberOfItems = numberOfItems + RunSearch(1);
+
+            numberOfItems = RunSearchNina(1);
 
             numberOfItems = numberOfItems + RunSearchNiva(1);
-
-            //numberOfItems = numberOfItems + RunSearch(1);
 
             return numberOfItems;
 
