@@ -85,7 +85,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             ////NILU
 
-            //_geoNorge = new GeoNorge("", "", "http://adc.csw.met.no/");
+            //_geoNorge = new GeoNorge("", "", "https://adc.csw.met.no/");
 
             //filters = new object[]
             //{
@@ -219,7 +219,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
             SearchResultsType res = null;
             try
             {
-                _geoNorge = new GeoNorge("", "", "http://noiso-adc.csw.met.no/");
+                _geoNorge = new GeoNorge("", "", "https://noiso-adc.csw.met.no/");
 
                 var filters = new object[]
                 {
