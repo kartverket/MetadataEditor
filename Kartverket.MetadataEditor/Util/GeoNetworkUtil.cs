@@ -19,7 +19,7 @@ namespace Kartverket.MetadataEditor.Util
 
         public static string GetXmlDownloadUrl(string uuid)
         {
-            return string.Format("{0}srv/nor/xml_iso19139?uuid={1}", GetBaseUrl(), uuid);
+            return string.Format("{0}srv/nor/csw?service=CSW&request=GetRecordById&version=2.0.2&outputSchema=http://www.isotc211.org/2005/gmd&elementSetName=full&id={1}", GetBaseUrl(), uuid);
         }
         
         public static Dictionary<string, string> CreateAdditionalHeadersWithUsername(string username, string published = "")
