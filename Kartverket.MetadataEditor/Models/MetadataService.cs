@@ -1957,7 +1957,7 @@ namespace Kartverket.MetadataEditor.Models
                 case "REST-API":
                     serviceType = "other";
                     break;
-                case "OGC:OAPIF":
+                case "OGC:API-Features":
                     serviceType = "download";
                     break;
                 case "OGC:API-Maps":
@@ -2494,7 +2494,7 @@ namespace Kartverket.MetadataEditor.Models
                 case "W3C:REST":
                     keyword = "infoFeatureAccessService";
                     break;
-                case "OGC:OAPIF":
+                case "OGC:API-Features":
                     keyword = "infoFeatureAccessService";
                     break;
                 case "OGC:API-Maps":
