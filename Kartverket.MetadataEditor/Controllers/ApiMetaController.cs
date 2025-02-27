@@ -149,7 +149,7 @@ namespace Kartverket.MetadataEditor.Controllers
                     else
                     {                
 
-                    var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde");
+                    var thumb = model.Thumbnails.Where(t => t.Type == "thumbnail" || t.Type == "miniatyrbilde" || t.Type == "medium");
                     if (thumb.Count() == 0)
                         ModelState.AddModelError("ThumbnailMissing", "Det er påkrevd å fylle ut illustrasjonsbilde");
                     else if (thumb.Count() > 0)
