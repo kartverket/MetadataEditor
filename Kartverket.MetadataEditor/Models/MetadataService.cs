@@ -73,7 +73,7 @@ namespace Kartverket.MetadataEditor.Models
             {
                 if (!string.IsNullOrWhiteSpace(searchString))
                 {
-                    results = _geoNorge.SearchFreeTextWithOrganisationMetadataPointOfContact(searchString, organizationName, offset, limit);
+                    results = _geoNorge.SearchFreeTextWithOrganisationMetadataPointOfContact(searchString + "%", organizationName, offset, limit);
                 }
                 else
                 {
@@ -82,7 +82,7 @@ namespace Kartverket.MetadataEditor.Models
             }
             else
             {
-                results = _geoNorge.Search(searchString, offset, limit, true);
+                results = _geoNorge.Search(searchString + "%", offset, limit, true);
             }
             var model = ParseSearchResults(offset, limit, results);
             model.SearchOrganization = organizationName;
