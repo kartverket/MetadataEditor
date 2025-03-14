@@ -14,6 +14,7 @@ using System.Web.Configuration;
 using Kartverket.MetadataEditor.Models.Translations;
 using System.Net.PeerToPeer;
 using Arkitektum.GIS.Lib.SerializeUtil;
+using System.Windows.Media.Media3D;
 
 namespace Kartverket.MetadataEditor.Models.Mets
 {
@@ -77,6 +78,8 @@ namespace Kartverket.MetadataEditor.Models.Mets
             numberOfItems = numberOfItems + RunSearch(1);
 
             numberOfItems = numberOfItems + RunSearchNina(1);
+
+            limit = 200;
 
             numberOfItems = numberOfItems + RunSearchNiva(1);
 
