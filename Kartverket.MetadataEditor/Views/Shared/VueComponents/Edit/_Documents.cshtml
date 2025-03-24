@@ -1,5 +1,5 @@
 @using Resources
-
+@using Kartverket.MetadataEditor.Helpers
 <script type="text/x-template" id="documents-template">
     <div>
 
@@ -9,11 +9,21 @@
                 <div class="col-md-8">
                     <div class="form-group" v-bind:class="{'required': productSpecificationUrl.required}">
                         <div class="custom-select">
+                            <p v-if="productSpecificationUrl.helpText && productSpecificationUrl.helpText.active" class="help-text bg-success" v-html="productSpecificationUrl.helpText.content"></p>
                             <select v-bind:name="productSpecificationUrl.name" class="form-control" v-bind:value="$store.getters[productSpecificationUrl.getter]" v-on:change="updateProductSpecificationUrl">
                                 <option v-for="option in productSpecificationUrl.options" v-bind:value="option.Value">{{option.Text}}</option>
                             </select>
                         </div>
                     </div>
+                </div>
+                <div v-if="productSpecificationUrl.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="productSpecificationUrl.helpText.active = !productSpecificationUrl.helpText.active"
+                              v-bind:class="{active: productSpecificationUrl.helpText.active}"
+                              class="badge help-text-toggle">
+                            ?
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -141,7 +151,7 @@
                             <div class="col-md-7">
                                 <div class="input-group upload-input">
                                     <input v-if="thumbnailFileUploadData.request.fileName" v-model="thumbnailFileUploadData.request.fileName" class="form-control" disabled />
-                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id"/>
+                                    <input type="file" v-bind:id="thumbnails.fields.uploadThumbnailFile.id" />
                                     <span class="btn">@UI.SelectFile</span>
                                 </div>
                             </div>
@@ -153,7 +163,7 @@
                 </div>
 
                 <component is="thumbnails"
-                     v-bind:new-images="thumbnailFileUploadData.response.result">
+                           v-bind:new-images="thumbnailFileUploadData.response.result">
                 </component>
 
             </div>
@@ -167,6 +177,8 @@
 @Html.Partial("VueComponents/Edit/Documents/_Thumbnails")
 
 <script>
+    var environmentNameInUrl = '@Html.EnvironmentNameInUrl()';
+
     var Documents = {
         name: "documents",
         template: "#documents-template",
@@ -190,7 +202,11 @@
                     label: '@UI.DataProductSpecification',
                     type: 'select',
                     visible: !this.$store.getters['isSoftware'],
-                    options: this.$root.viewBag.ProductspesificationValues
+                    options: this.$root.viewBag.ProductspesificationValues,
+                    helpText: {
+                        active: false,
+                        content: 'Produktspesifikasjon opprettes i <a href="https://register' + environmentNameInUrl + '.geonorge.no/produktspesifikasjoner" target="_blank">register.geonorge.no/produktspesifikasjoner</a>'
+                    }
                 },
                 applicationSchema: {
                     name: 'ApplicationSchema',
@@ -203,7 +219,7 @@
                 keywordsConcept: {
                     name: 'KeywordsConcept',
                     getter: 'KeywordsConcept',
-                    value: this.$root.model.KeywordsConcept !== null ? this.$root.model.KeywordsConcept : [], 
+                    value: this.$root.model.KeywordsConcept !== null ? this.$root.model.KeywordsConcept : [],
                     label: '@UI.Concepts',
                     type: 'select',
                     visible: !this.$store.getters['isSoftware'],
