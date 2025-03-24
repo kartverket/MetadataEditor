@@ -31,10 +31,20 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ applicationSchema.label }}</label>
                 <div class="col-md-6">
+                    <p v-if="applicationSchema.helpText && applicationSchema.helpText.active" class="help-text bg-success" v-html="applicationSchema.helpText.content"></p>
                     <component is="field" v-bind:form-element="applicationSchema"></component>
                 </div>
                 <div class="col-md-2 text-right">
                     <span class="btn" v-on:click="loadConcepts()">@UI.Get</span>
+                </div>
+                <div v-if="applicationSchema.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="applicationSchema.helpText.active = !applicationSchema.helpText.active"
+                              v-bind:class="{active: applicationSchema.helpText.active}"
+                              class="badge help-text-toggle">
+                            ?
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -97,7 +107,17 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ productSheetUrl.label }}</label>
                 <div class="col-md-8">
+                    <p v-if="productSheetUrl.helpText && productSheetUrl.helpText.active" class="help-text bg-success" v-html="productSheetUrl.helpText.content"></p>
                     <component is="field" v-bind:form-element="productSheetUrl"></component>
+                </div>
+                <div v-if="productSheetUrl.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="productSheetUrl.helpText.active = !productSheetUrl.helpText.active"
+                              v-bind:class="{active: productSheetUrl.helpText.active}"
+                              class="badge help-text-toggle">
+                            ?
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -105,7 +125,17 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ legendDescriptionUrl.label }}</label>
                 <div class="col-md-8">
+                    <p v-if="legendDescriptionUrl.helpText && legendDescriptionUrl.helpText.active" class="help-text bg-success" v-html="legendDescriptionUrl.helpText.content"></p>
                     <component is="field" v-bind:form-element="legendDescriptionUrl"></component>
+                </div>
+                <div v-if="legendDescriptionUrl.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="legendDescriptionUrl.helpText.active = !legendDescriptionUrl.helpText.active"
+                              v-bind:class="{active: legendDescriptionUrl.helpText.active}"
+                              class="badge help-text-toggle">
+                            ?
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -215,6 +245,10 @@
                     label: '@UI.UMLmodel',
                     type: 'text',
                     visible: !this.$store.getters['isSoftware'],
+                    helpText: {
+                        active: false,
+                        content: 'Listen over begreper kan hentes fra uml-modell i objektkatalogen f.eks. <a href="https://objektkatalog.geonorge.no/Pakke/Index/EAPK_00338335_1357_4832_870C_3BABD8C80927" target="_blank">https://objektkatalog.geonorge.no/Pakke/Index/EAPK_00338335_1357_4832_870C_3BABD8C80927</a>'
+                    }
                 },
                 keywordsConcept: {
                     name: 'KeywordsConcept',
@@ -253,7 +287,11 @@
                     label: '@UI.ProductFactSheet',
                     type: 'select',
                     visible: !this.$store.getters['isSoftware'],
-                    options: this.$store.getters['ProductsheetValues']
+                    options: this.$store.getters['ProductsheetValues'],
+                    helpText: {
+                        active: false,
+                        content: 'Produktark opprettes i <a href="https://register' + environmentNameInUrl + '.geonorge.no/produktark" target="_blank">register.geonorge.no/produktark</a>'
+                    }
                 },
                 legendDescriptionUrl: {
                     name: 'LegendDescriptionUrl',
@@ -262,7 +300,11 @@
                     label: '@UI.Cartography',
                     type: 'select',
                     visible: !this.$store.getters['isSoftware'],
-                    options: this.$store.getters['LegendDescriptionValues']
+                    options: this.$store.getters['LegendDescriptionValues'],
+                    helpText: {
+                        active: false,
+                        content: 'Tegneregler opprettes i <a href="https://register' + environmentNameInUrl + '.geonorge.no/tegneregler" target="_blank">register.geonorge.no/tegneregler</a>'
+                    }
                 },
                 productPageUrl: {
                     name: 'ProductPageUrl',
