@@ -62,6 +62,17 @@ namespace Kartverket.MetadataEditor.Helpers
         {
             return WebConfigurationManager.AppSettings["EnvironmentName"];
         }
+
+        public static string EnvironmentNameInUrl(this HtmlHelper helper)
+        {
+            var environment = WebConfigurationManager.AppSettings["EnvironmentName"];
+
+            if(environment != "")
+                environment = "." + environment;
+
+            return environment;
+        }
+
         public static string WebmasterEmail(this HtmlHelper helper)
         {
             return WebConfigurationManager.AppSettings["WebmasterEmail"];
