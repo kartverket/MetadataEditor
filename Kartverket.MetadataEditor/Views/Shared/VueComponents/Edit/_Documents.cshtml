@@ -1,4 +1,4 @@
-@using Resources
+﻿@using Resources
 @using Kartverket.MetadataEditor.Helpers
 <script type="text/x-template" id="documents-template">
     <div>
@@ -85,6 +85,7 @@
 
         <div v-if="productSpecificationOther.visible" class="form-group">
             <div class="row">
+                <p v-if="productSpecificationOther.fields.url.helpText && productSpecificationOther.fields.url.helpText.active" class="help-text bg-success right" v-html="productSpecificationOther.fields.url.helpText.content"></p>
                 <label class="col-md-3 control-label">{{ productSpecificationOther.label }}</label>
                 <div class="col-md-4">
                     <div class="input-group">
@@ -99,6 +100,15 @@
                         <span class="input-group-addon">{{ productSpecificationOther.fields.url.label }}</span>
                         <component is="field" v-bind:form-element="productSpecificationOther.fields.url"></component>
                     </div>
+                </div>
+                <div v-if="productSpecificationOther.fields.url.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="productSpecificationOther.fields.url.helpText.active = !productSpecificationOther.fields.url.helpText.active"
+                              v-bind:class="{active: productSpecificationOther.fields.url.helpText.active}"
+                              class="badge help-text-toggle">
+                            ?
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -143,7 +153,17 @@
             <div class="row">
                 <label class="col-md-3 control-label">{{ productPageUrl.label }}</label>
                 <div class="col-md-8">
+                    <p v-if="productPageUrl.helpText && productPageUrl.helpText.active" class="help-text bg-success" v-html="productPageUrl.helpText.content"></p>
                     <component is="field" v-bind:form-element="productPageUrl"></component>
+                </div>
+                <div v-if="productPageUrl.helpText" class="col-md-1">
+                    <p class="form-control-static">
+                        <span v-on:click="productPageUrl.helpText.active = !productPageUrl.helpText.active"
+                              v-bind:class="{active: productPageUrl.helpText.active}"
+                              class="badge help-text-toggle">
+                            ?
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -235,7 +255,7 @@
                     options: this.$root.viewBag.ProductspesificationValues,
                     helpText: {
                         active: false,
-                        content: 'Produktspesifikasjon opprettes i <a href="https://register' + environmentNameInUrl + '.geonorge.no/produktspesifikasjoner" target="_blank">register.geonorge.no/produktspesifikasjoner</a>'
+                        content: 'Her lenker du til en etablert produktspesifikasjon. Hvis det er utarbeidet produktspesifikasjon som ligger i Geonorge produktspesifkasjonsregister, kan du velge den i nedtrekksmenyen. Det vil da bli etablert en hyperlenke til produktspesifikasjonen i metadataene. Produktspesifikasjoner skal publiseres på <a href="https://register' + environmentNameInUrl + '.geonorge.no/produktspesifikasjoner" target="_blank">register.geonorge.no/produktspesifikasjoner</a>.'
                     }
                 },
                 applicationSchema: {
@@ -247,7 +267,7 @@
                     visible: !this.$store.getters['isSoftware'],
                     helpText: {
                         active: false,
-                        content: 'Listen over begreper kan hentes fra uml-modell i objektkatalogen f.eks. <a href="https://objektkatalog.geonorge.no/Pakke/Index/EAPK_00338335_1357_4832_870C_3BABD8C80927" target="_blank">https://objektkatalog.geonorge.no/Pakke/Index/EAPK_00338335_1357_4832_870C_3BABD8C80927</a>'
+                        content: 'Her kan du lenke til begreper som er benyttet i datasettet. Hvis det finnes en datamodell (UML) i SOSI modellregister, kan URL til datasettet i Geonorge objektregister legges inn her. Liste med begreper som benyttes i datasettet kan da hentes ut og vil legge inn begrepene i metadaatene med lenke til objektregisteret som vil vise definisjoner av begrepet. Du har mulighet til å velge bort begreper som ikke gir mening for å forstå og bruke dataene. Eksempel på lenke: <a href="https://objektkatalog.geonorge.no/Pakke/Index/EAPK_00338335_1357_4832_870C_3BABD8C80927" target="_blank">https://objektkatalog.geonorge.no/Pakke/Index/EAPK_00338335_1357_4832_870C_3BABD8C80927</a>.'
                     }
                 },
                 keywordsConcept: {
@@ -276,7 +296,11 @@
                             getter: 'ProductSpecificationOtherURL',
                             mutation: 'updateProductSpecificationOtherURL',
                             label: 'URL',
-                            type: 'text'
+                            type: 'text',
+                            helpText: {
+                                active: false,
+                                content: 'Her kan du legge inn navn og lenke til produkspesifikasjon som ikke ligger i Geonorge-registeret. Det kan være en spesifikasjon som dataeier ikke har ansvaret for (feks. bransjestandard, internasjonal standard eller standard som avviker fra produktspesifikasjonsstandarden).'
+                            }
                         }
                     }
                 },
@@ -290,7 +314,7 @@
                     options: this.$store.getters['ProductsheetValues'],
                     helpText: {
                         active: false,
-                        content: 'Produktark opprettes i <a href="https://register' + environmentNameInUrl + '.geonorge.no/produktark" target="_blank">register.geonorge.no/produktark</a>'
+                        content: 'Her kan du lenke til utarbeidet produktark. Hvis det er utarbeidet produktark som er lagt inn i Geonorge produktarkregister, kan du velge det i nedtrekksmenyen. Det vil da bli lagt inn en hyperlenke til produktarket i metadataene. Produktark skal publiseres på <a href="https://register' + environmentNameInUrl + '.geonorge.no/produktark" target="_blank">register.geonorge.no/produktark</a>.'
                     }
                 },
                 legendDescriptionUrl: {
@@ -303,7 +327,7 @@
                     options: this.$store.getters['LegendDescriptionValues'],
                     helpText: {
                         active: false,
-                        content: 'Tegneregler opprettes i <a href="https://register' + environmentNameInUrl + '.geonorge.no/tegneregler" target="_blank">register.geonorge.no/tegneregler</a>'
+                        content: 'Her kan du lenke til tegneregler. Hvis det er utarbeidet tegneregler som er lagt inn i Geonorge tegneregelregister, kan du velge dem i nedtrekksmenyen.  Det vil da bli lagt inn en hyperlenke til tegnereglene i metadataene. Tegneregler skal publiseres på <a href="https://register' + environmentNameInUrl + '.geonorge.no/tegneregler" target="_blank">register.geonorge.no/tegneregler</a>.'
                     }
                 },
                 productPageUrl: {
@@ -313,6 +337,10 @@
                     label: '@UI.DataProductSiteUrl',
                     type: 'text',
                     visible: !this.$store.getters['isSoftware'],
+                    helpText: {
+                        active: false,
+                        content: 'Her kan du lenke til mer informasjon om datasettet på egne websider.'
+                    }
                 },
                 thumbnails: {
                     fields: {
