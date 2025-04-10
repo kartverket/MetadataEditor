@@ -68,12 +68,20 @@ namespace Kartverket.MetadataEditor.Models
 
         public MetadataIndexViewModel SearchMetadata(string organizationName, string searchString, int offset, int limit)
         {
+            var searchStringWithWildCard = searchString;
+            bool isUuid = searchString.Count(f => f == '-') == 4; //is most likely uuid
+
+            if (!isUuid)
+            {
+                searchStringWithWildCard = searchStringWithWildCard + "%";
+            }
+
             SearchResultsType results = null;
             if (!string.IsNullOrWhiteSpace(organizationName))
             {
                 if (!string.IsNullOrWhiteSpace(searchString))
                 {
-                    results = _geoNorge.SearchFreeTextWithOrganisationMetadataPointOfContact(searchString + "%", organizationName, offset, limit);
+                    results = _geoNorge.SearchFreeTextWithOrganisationMetadataPointOfContact(searchStringWithWildCard, organizationName, offset, limit);
                 }
                 else
                 {
@@ -82,7 +90,7 @@ namespace Kartverket.MetadataEditor.Models
             }
             else
             {
-                results = _geoNorge.Search(searchString + "%", offset, limit, true);
+                results = _geoNorge.Search(searchStringWithWildCard, offset, limit, true);
             }
             var model = ParseSearchResults(offset, limit, results);
             model.SearchOrganization = organizationName;
