@@ -69,9 +69,9 @@ namespace Kartverket.MetadataEditor.Models
         public MetadataIndexViewModel SearchMetadata(string organizationName, string searchString, int offset, int limit)
         {
             var searchStringWithWildCard = searchString;
-            bool isUuid = searchString.Count(f => f == '-') == 4; //is most likely uuid
+            bool useWildcard = searchString.Count(f => f == '-') > 0; //has exclude operator
 
-            if (!isUuid)
+            if (!useWildcard)
             {
                 searchStringWithWildCard = searchStringWithWildCard + "%";
             }
