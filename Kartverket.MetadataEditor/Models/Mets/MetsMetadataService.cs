@@ -78,6 +78,8 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             numberOfItems = numberOfItems + RunSearch(1);
 
+            limit = 200;
+
             numberOfItems = numberOfItems + RunSearchNina(1);
 
             limit = 200;
