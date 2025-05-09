@@ -9,6 +9,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
+using System.Net;
 
 namespace Kartverket.MetadataEditor.Views.Home
 {
@@ -69,6 +70,31 @@ namespace Kartverket.MetadataEditor.Views.Home
 
         public void SignOut()
         {
+            // Change loggedIn cookie
+            var cookie = Request.Cookies["_loggedIn"];
+
+            if (cookie != null)
+            {
+                cookie.Value = "false";   // update cookie value
+                //cookie.SameSite = SameSiteMode.Lax;
+                if (!Request.IsLocal)
+                    cookie.Domain = ".geonorge.no";
+
+                Response.Cookies.Set(cookie);
+            }
+            else
+            {
+                cookie = new HttpCookie("_loggedIn");
+                cookie.Value = "false";
+                //cookie.SameSite = SameSiteMode.Lax;
+
+                if (!Request.IsLocal)
+                    cookie.Domain = ".geonorge.no";
+
+                Response.Cookies.Add(cookie);
+            }
+
+
             var authenticationProperties = new AuthenticationProperties {RedirectUri = WebConfigurationManager.AppSettings["GeoID:PostLogoutRedirectUri"]};
 
             HttpContext.GetOwinContext().Authentication.SignOut(

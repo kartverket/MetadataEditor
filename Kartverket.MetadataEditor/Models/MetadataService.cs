@@ -68,12 +68,20 @@ namespace Kartverket.MetadataEditor.Models
 
         public MetadataIndexViewModel SearchMetadata(string organizationName, string searchString, int offset, int limit)
         {
+            var searchStringWithWildCard = searchString;
+            bool useWildcard = searchString.Count(f => f == '-') > 0; //has exclude operator
+
+            if (!useWildcard)
+            {
+                searchStringWithWildCard = searchStringWithWildCard + "%";
+            }
+
             SearchResultsType results = null;
             if (!string.IsNullOrWhiteSpace(organizationName))
             {
                 if (!string.IsNullOrWhiteSpace(searchString))
                 {
-                    results = _geoNorge.SearchFreeTextWithOrganisationMetadataPointOfContact(searchString, organizationName, offset, limit);
+                    results = _geoNorge.SearchFreeTextWithOrganisationMetadataPointOfContact(searchStringWithWildCard, organizationName, offset, limit);
                 }
                 else
                 {
@@ -82,7 +90,7 @@ namespace Kartverket.MetadataEditor.Models
             }
             else
             {
-                results = _geoNorge.Search(searchString, offset, limit, true);
+                results = _geoNorge.Search(searchStringWithWildCard, offset, limit, true);
             }
             var model = ParseSearchResults(offset, limit, results);
             model.SearchOrganization = organizationName;
@@ -1949,7 +1957,7 @@ namespace Kartverket.MetadataEditor.Models
                 case "REST-API":
                     serviceType = "other";
                     break;
-                case "OGC:OAPIF":
+                case "OGC:API-Features":
                     serviceType = "download";
                     break;
                 case "OGC:API-Maps":
@@ -2486,7 +2494,7 @@ namespace Kartverket.MetadataEditor.Models
                 case "W3C:REST":
                     keyword = "infoFeatureAccessService";
                     break;
-                case "OGC:OAPIF":
+                case "OGC:API-Features":
                     keyword = "infoFeatureAccessService";
                     break;
                 case "OGC:API-Maps":

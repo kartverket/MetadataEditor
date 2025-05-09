@@ -14,6 +14,7 @@ using System.Web.Configuration;
 using Kartverket.MetadataEditor.Models.Translations;
 using System.Net.PeerToPeer;
 using Arkitektum.GIS.Lib.SerializeUtil;
+using System.Windows.Media.Media3D;
 
 namespace Kartverket.MetadataEditor.Models.Mets
 {
@@ -22,13 +23,12 @@ namespace Kartverket.MetadataEditor.Models.Mets
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private IMetadataService _metadataService;
-        IGeoNorge _geoNorge;
+        private GeoNorge _geoNorge;
 
 
-        public MetsMetadataService(IMetadataService metadataService, IGeoNorge geoNorge)
+        public MetsMetadataService(IMetadataService metadataService)
         {
             _metadataService = metadataService;
-            _geoNorge = geoNorge;
         }
 
         public async Task<int> SynchronizeMetadata(string username)
@@ -77,7 +77,11 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             numberOfItems = numberOfItems + RunSearch(1);
 
+            limit = 200;
+
             numberOfItems = numberOfItems + RunSearchNina(1);
+
+            limit = 200;
 
             numberOfItems = numberOfItems + RunSearchNiva(1);
 
@@ -214,13 +218,22 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             return numberOfItems;
         }
+
+        private void LogEventsDebug(string log)
+        {
+
+            Log.Debug(log);
+        }
+
         private int RunSearchNiva(int startPosition)
         {
             Log.Info("Running search from start position: " + startPosition);
             SearchResultsType res = null;
             try
             {
+
                 _geoNorge = new GeoNorge("", "", "https://noiso-adc.csw.met.no/");
+                _geoNorge.OnLogEventDebug += new GeoNorgeAPI.LogEventHandlerDebug(LogEventsDebug);
 
                 var filters = new object[]
                 {
