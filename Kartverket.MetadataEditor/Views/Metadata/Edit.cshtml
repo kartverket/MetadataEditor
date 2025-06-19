@@ -3,9 +3,12 @@
 @using Resources
 @using Kartverket.MetadataEditor.Helpers
 @using Newtonsoft.Json;
+﻿@using System.Security.Claims
 
 @{
-    ViewBag.Title = @Resources.UI.EditMetadata;
+
+    var pageTitle = @Resources.UI.EditMetadata;
+    ViewBag.Title = @Model.TitleFromSelectedLanguage + " | " + pageTitle;
 
     JsonSerializerSettings settings = new JsonSerializerSettings();
     settings.ContractResolver = new DictionaryAsArrayResolver();
@@ -54,6 +57,8 @@
 
 
 
+<gn-shortcut-button environment="@Html.EnvironmentName()" language="no"></gn-shortcut-button>
+
 <div class="pull-right">
     <p class="text-right">
         <small>UUID: @Model.Uuid</small><br />
@@ -93,8 +98,8 @@
     </div>
 </div>
 
-<h3>@ViewBag.Title</h3>
-<h2>@Model.TitleFromSelectedLanguage</h2>
+<h3>@pageTitle</h3>
+<h1 class="h2">@Model.TitleFromSelectedLanguage</h1>
 
 @if (ViewBag.Saved == true)
 {
@@ -519,148 +524,148 @@
 
     }
 
-                            $(function () {
+    $(function () {
 
-                                    //  add warning sign to tabs containing input fields with error.
-                                    $('.input-validation-error').each(function () {
-                                        var inputElement = $(this);
-                                        var id = inputElement.closest(".tab-pane").attr('id');
-                                        var tabLink = $('ul.nav-tabs a[href="#' + id + '"]');
+            //  add warning sign to tabs containing input fields with error.
+            $('.input-validation-error').each(function () {
+                var inputElement = $(this);
+                var id = inputElement.closest(".tab-pane").attr('id');
+                var tabLink = $('ul.nav-tabs a[href="#' + id + '"]');
 
-                                        inputElement.closest('.form-group').addClass('has-error');
-                                        tabLink.parent().addClass("has-error");
+                inputElement.closest('.form-group').addClass('has-error');
+                tabLink.parent().addClass("has-error");
 
-                                        var warning = tabLink.parent().find('span.glyphicon-warning-sign');
-                                        if (warning.length == 0) {
-                                            tabLink.parent().attr('data-toggle', 'tooltip');
-                                            tabLink.parent().prop('title', 'Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet');
-                                        }
-                                    });
-
-
-                                // Check date not in future
-                                $("#DateUpdated").change(function (event) {
-                                    event.preventDefault();
-                                    var currentDate = new Date();
-                                    var selectedDateStr = $('#DateUpdated').val();
-                                    var selectedDateArr = selectedDateStr.split('.');
-                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                                    if (selectedDate > currentDate) {
-                                    alert('Dato kan ikke være i fremtiden');
-                                        $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                                    }
-                                });
-
-                                $("#DatePublished").change(function (event) {
-                                    event.preventDefault();
-                                    var currentDate = new Date();
-                                    var selectedDateStr = $('#DatePublished').val();
-                                    var selectedDateArr = selectedDateStr.split('.');
-                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                                    if (selectedDate > currentDate) {
-                                    alert('Dato kan ikke være i fremtiden');
-                                        $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                                    }
-                                });
-
-                                $("#DateCreated").change(function (event) {
-                                    event.preventDefault();
-                                    var currentDate = new Date();
-                                    var selectedDateStr = $('#DateCreated').val();
-                                    var selectedDateArr = selectedDateStr.split('.');
-                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                                    if (selectedDate > currentDate) {
-                                    alert('Dato kan ikke være i fremtiden');
-                                        $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                                    }
-                                });
-
-                                $("#DateMetadataValidFrom").change(function (event) {
-                                    event.preventDefault();
-                                    var selectedDateStr = $('#DateMetadataValidFrom').val();
-                                    var selectedDateArr = selectedDateStr.split('.');
-                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                                    var validToStr = $('#DateMetadataValidTo').val();
-                                    var validToArr = validToStr.split('.');
-                                    var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
-
-                                    if (ValidToDate < selectedDate) {
-                                    alert('Gyldig fra dato må være mindre enn gyldig til dato');
-                                        var newDate = new Date(ValidToDate);
-                                        newDate.setDate(newDate.getDate() - 1);
-                                        $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                                    }
-                                });
-
-                                $("#DateMetadataValidTo").change(function (event) {
-                                    event.preventDefault();
-                                    var selectedDateStr = $('#DateMetadataValidTo').val();
-                                    var selectedDateArr = selectedDateStr.split('.');
-                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                                    var validFromStr = $('#DateMetadataValidFrom').val();
-                                    var validFromArr = validFromStr.split('.');
-                                    var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
-
-                                    if (selectedDate < ValidFromDate) {
-                                    alert('Gyldig til dato må være større enn gyldig fra dato');
-                                        var newDate = new Date(ValidFromDate);
-                                        newDate.setDate(newDate.getDate() + 1);
-                                        $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
-                                    }
-                                });
-
-                                $("#QualitySpecificationDate").change(function (event) {
-                                    event.preventDefault();
-                                    var currentDate = new Date();
-                                    var selectedDateStr = $('#QualitySpecificationDate').val();
-                                    var selectedDateArr = selectedDateStr.split('.');
-                                    var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
-                                    if (selectedDate > currentDate) {
-                                    alert('Dato kan ikke være i fremtiden');
-                                        $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
-                                    }
-                                });
-                            });
-
-                            function removeReferenceSystem(refID) {
-                                var elem = document.getElementById("referenceRow" + refID);
-                                elem.parentNode.removeChild(elem);
-                                document.getElementById('ReferenceSystemsCount').value -= 1;
-                            };
+                var warning = tabLink.parent().find('span.glyphicon-warning-sign');
+                if (warning.length == 0) {
+                    tabLink.parent().attr('data-toggle', 'tooltip');
+                    tabLink.parent().prop('title', 'Skillearket inneholder feil og mangler som må rettes opp før innsending av skjemaet');
+                }
+            });
 
 
+        // Check date not in future
+        $("#DateUpdated").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#DateUpdated').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+            alert('Dato kan ikke være i fremtiden');
+                $('#DateUpdated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+            }
+        });
 
-                            function loadConcepts() {
-                                    $.ajax({
-                                        headers: {
-                                            Accept: "application/rdf+xml",
-                                            "Content-Type": "text/plain; charset=utf-8"
-                                        },
-                                        type: "GET",
-                                        url: $("#ApplicationSchema").val(),
-                                        success: setConcepts
-                                    });
-                            }
+        $("#DatePublished").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#DatePublished').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+            alert('Dato kan ikke være i fremtiden');
+                $('#DatePublished').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+            }
+        });
 
-                            function setConcepts(xml) {
-                                var conceptFound = false;
-                                $('#KeywordsConceptAlert').removeClass("alert alert-warning");
-                                $('#KeywordsConceptAlert').html("");
-                                $("#KeywordsConcept option").remove();
-                                $(xml).find("skos\\:Concept, Concept").each(function () {
-                                    var prefLabel = $(this).find("skos\\:prefLabel, prefLabel").text();
-                                    var about = $(this).attr("rdf:about");
-                                    $('#KeywordsConcept').append($("<option selected></option>")
-                                        .attr("value", prefLabel + "|" + about)
-                                        .text(prefLabel));
-                                    conceptFound = true;
-                                });
-                                $('#KeywordsConcept').trigger("chosen:updated");
-                                if (!conceptFound) {
-                                    $('#KeywordsConceptAlert').addClass("alert alert-warning");
-                                    $('#KeywordsConceptAlert').html("Fant ingen begreper");
-                                }
-                            }
+        $("#DateCreated").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#DateCreated').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+            alert('Dato kan ikke være i fremtiden');
+                $('#DateCreated').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+            }
+        });
+
+        $("#DateMetadataValidFrom").change(function (event) {
+            event.preventDefault();
+            var selectedDateStr = $('#DateMetadataValidFrom').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            var validToStr = $('#DateMetadataValidTo').val();
+            var validToArr = validToStr.split('.');
+            var ValidToDate = new Date(validToArr[2], validToArr[1] - 1, validToArr[0]);
+
+            if (ValidToDate < selectedDate) {
+            alert('Gyldig fra dato må være mindre enn gyldig til dato');
+                var newDate = new Date(ValidToDate);
+                newDate.setDate(newDate.getDate() - 1);
+                $('#DateMetadataValidFrom').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+            }
+        });
+
+        $("#DateMetadataValidTo").change(function (event) {
+            event.preventDefault();
+            var selectedDateStr = $('#DateMetadataValidTo').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            var validFromStr = $('#DateMetadataValidFrom').val();
+            var validFromArr = validFromStr.split('.');
+            var ValidFromDate = new Date(validFromArr[2], validFromArr[1] - 1, validFromArr[0]);
+
+            if (selectedDate < ValidFromDate) {
+            alert('Gyldig til dato må være større enn gyldig fra dato');
+                var newDate = new Date(ValidFromDate);
+                newDate.setDate(newDate.getDate() + 1);
+                $('#DateMetadataValidTo').val(newDate.getDate() + '.' + (newDate.getMonth() + 1) + '.' + newDate.getFullYear())
+            }
+        });
+
+        $("#QualitySpecificationDate").change(function (event) {
+            event.preventDefault();
+            var currentDate = new Date();
+            var selectedDateStr = $('#QualitySpecificationDate').val();
+            var selectedDateArr = selectedDateStr.split('.');
+            var selectedDate = new Date(selectedDateArr[2], selectedDateArr[1] - 1, selectedDateArr[0]);
+            if (selectedDate > currentDate) {
+            alert('Dato kan ikke være i fremtiden');
+                $('#QualitySpecificationDate').val(currentDate.getDate() + '.' + (currentDate.getMonth() + 1) + '.' + currentDate.getFullYear())
+            }
+        });
+    });
+
+    function removeReferenceSystem(refID) {
+        var elem = document.getElementById("referenceRow" + refID);
+        elem.parentNode.removeChild(elem);
+        document.getElementById('ReferenceSystemsCount').value -= 1;
+    };
+
+
+
+    function loadConcepts() {
+            $.ajax({
+                headers: {
+                    Accept: "application/rdf+xml",
+                    "Content-Type": "text/plain; charset=utf-8"
+                },
+                type: "GET",
+                url: $("#ApplicationSchema").val(),
+                success: setConcepts
+            });
+    }
+
+    function setConcepts(xml) {
+        var conceptFound = false;
+        $('#KeywordsConceptAlert').removeClass("alert alert-warning");
+        $('#KeywordsConceptAlert').html("");
+        $("#KeywordsConcept option").remove();
+        $(xml).find("skos\\:Concept, Concept").each(function () {
+            var prefLabel = $(this).find("skos\\:prefLabel, prefLabel").text();
+            var about = $(this).attr("rdf:about");
+            $('#KeywordsConcept').append($("<option selected></option>")
+                .attr("value", prefLabel + "|" + about)
+                .text(prefLabel));
+            conceptFound = true;
+        });
+        $('#KeywordsConcept').trigger("chosen:updated");
+        if (!conceptFound) {
+            $('#KeywordsConceptAlert').addClass("alert alert-warning");
+            $('#KeywordsConceptAlert').html("Fant ingen begreper");
+        }
+    }
 
     </script>
 
@@ -1023,6 +1028,7 @@
             $('#parentIdentifier').show();
         }
     }
+
     function removeParent(uuid) {
         $('input[name="ParentIdentifier"]').val('');
         $('#titleSeries-'+uuid).text('');
@@ -1049,5 +1055,28 @@
     {
         <script>getMetadataForSeries('@Model.ParentIdentifier');</script>
     }
+
+    @{
+        var cp = (ClaimsPrincipal)User;
+        var claim = cp.FindFirst("access_token");
+        var accessToken = claim != null ? claim.Value : null;
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@4.0.5/GnShortcutButton.js")"></script>
+
+    <script>
+        var accessToken = "@accessToken";
+        var GnShortcutButton = window.geonorge.GnShortcutButton.GnShortcutButton;
+
+        function getAuthToken() {
+            return accessToken;
+        }
+
+        if (accessToken) {
+            GnShortcutButton.setup("gn-shortcut-button", {
+                getAuthToken: getAuthToken
+            });
+        }
+    </script>
 }
 

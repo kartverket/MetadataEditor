@@ -1,23 +1,24 @@
 ﻿@model Kartverket.MetadataEditor.Models.SimpleMetadataViewModel
 @using Resources
 @using Kartverket.MetadataEditor.Helpers
+﻿@using System.Security.Claims
 @{
-    ViewBag.Title = @Resources.UI.EditMetadata;
+    var pageTitle = @Resources.UI.EditMetadata;
+    ViewBag.Title = @Model.TitleFromSelectedLanguage + " | " + pageTitle;
     bool showProductSheetGeneratorUrl = false;
     var ProductSheetGeneratorUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["ProductSheetGeneratorUrl"];
     if (ProductSheetGeneratorUrl != null && ProductSheetGeneratorUrl != "")
         showProductSheetGeneratorUrl = true;
 }
-
+<gn-shortcut-button environment="@Html.EnvironmentName()" language="no"></gn-shortcut-button>
 @section breadcrumb{
     <li>@Model.TitleFromSelectedLanguage</li>
 }
-
+<h1 class="h2">@Model.TitleFromSelectedLanguage</h1>
 <form action="@Url.Action("Edit")" method="post" class="form form-horizontal" role="form" onkeydown="@(TempData["success"] != null ? "removeokmsg();" : "" )">
     @Html.HiddenFor(m => m.Uuid)
     @Html.HiddenFor(m => m.DateMetadataUpdated)
     @Html.HiddenFor(m => m.HierarchyLevel)
-
     <div id="parentIdentifier" class="modal" tabindex="-1" role="dialog" aria-labelledby="parentIdentifier" aria-hidden="true">
         <div class="modal-dialog" style="width: 75%;">
             <div class="modal-content">
@@ -110,7 +111,6 @@
         </div>
     }
 
-
     <div class="pull-right">
         <p class="text-right">
             <small>UUID: @Model.Uuid</small><br />
@@ -146,9 +146,6 @@
         <div id="validationResults" style="display:inline-block; visibility:hidden; position:absolute; width: 400px; height: auto; z-index: 3; background-color: white; border: 1px solid black;">
         </div>
     </div>
-
-    <h3>@ViewBag.Title</h3>
-    <h2>@Model.TitleFromSelectedLanguage</h2>
 
     @if (ViewBag.Saved == true)
     {
@@ -622,5 +619,29 @@
     @if (!string.IsNullOrEmpty(Model.ParentIdentifier))
     {
         <script>getMetadata('@Model.ParentIdentifier.ToString()');</script>
-        }
     }
+}
+
+@{
+    var cp = (ClaimsPrincipal)User;
+    var claim = cp.FindFirst("access_token");
+    var accessToken = claim != null ? claim.Value : null;
+}
+
+<script src="https://cdn.jsdelivr.net/npm/@("@kartverket/geonorge-web-components@4.0.5/GnShortcutButton.js")"></script>
+
+<script>
+        var accessToken = "@accessToken";
+        var GnShortcutButton = window.geonorge.GnShortcutButton.GnShortcutButton;
+
+        function getAuthToken() {
+            return accessToken;
+        }
+
+        if (accessToken) {
+            GnShortcutButton.setup("gn-shortcut-button", {
+                getAuthToken: getAuthToken
+            });
+        }
+</script>
+}

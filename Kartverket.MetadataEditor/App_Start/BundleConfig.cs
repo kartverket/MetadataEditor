@@ -39,7 +39,8 @@ namespace Kartverket.MetadataEditor
 
             bundles.Add(new ScriptBundle("~/node-modules/scripts").Include(
                "~/node_modules/@kartverket/geonorge-web-components/MainNavigation.js",
-               "~/node_modules/@kartverket/geonorge-web-components/GeoNorgeFooter.js"
+               "~/node_modules/@kartverket/geonorge-web-components/GeoNorgeFooter.js",
+               "~/node_modules/@kartverket/geonorge-web-components/GnShortcutButton.js"
             ));
 
             BundleTable.EnableOptimizations = true;
