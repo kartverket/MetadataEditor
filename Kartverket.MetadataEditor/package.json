@@ -3,6 +3,6 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "@kartverket/geonorge-web-components": "^4.0.5"
+    "@kartverket/geonorge-web-components": "^4.0.7"
   }
 }
