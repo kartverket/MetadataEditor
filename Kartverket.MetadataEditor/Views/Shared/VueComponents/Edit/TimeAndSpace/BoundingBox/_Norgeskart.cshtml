@@ -81,17 +81,17 @@
                             var x2 = c2[0];
                             var y2 = c3[1];
 
-                            $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x1 + '&nord=' + y1 + '&fra=23&til=84', function (result) {
-                                if (result.kode == 0) {
-                                    this.boundingBox.BoundingBoxWest = result.ost.toFixed(4);
-                                    this.boundingBox.BoundingBoxSouth = result.nord.toFixed(4);
-                                }
+                            $.getJSON('@Html.GeonorgeWebserviceUrl()/transformering/v1/transformer?x=' + x1 + '&y=' + y1 + '&fra=25833&til=4326', function (result) {
+
+                                this.boundingBox.BoundingBoxWest = result.x.toFixed(4);
+                                this.boundingBox.BoundingBoxSouth = result.y.toFixed(4);
+        
                             }.bind(this));
-                            $.getJSON('@Html.GeonorgeWebserviceUrl()/transApi?ost=' + x2 + '&nord=' + y2 + '&fra=23&til=84', function (result) {
-                                if (result.kode == 0) {
-                                    this.boundingBox.BoundingBoxEast = result.ost.toFixed(4);
-                                    this.boundingBox.BoundingBoxNorth = result.nord.toFixed(4);
-                                }
+                            $.getJSON('@Html.GeonorgeWebserviceUrl()/transformering/v1/transformer?x=' + x2 + '&y=' + y2 + '&fra=25833&til=4326', function (result) {
+                                
+                                this.boundingBox.BoundingBoxEast = result.x.toFixed(4);
+                                this.boundingBox.BoundingBoxNorth = result.y.toFixed(4);
+
                             }.bind(this));
                         }
                     }
