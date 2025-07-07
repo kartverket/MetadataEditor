@@ -274,6 +274,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.NationalInitiativeValues = new SelectList(GetListOfNationalInitiative(), "Key", "Value");
             ViewBag.CatalogValues = new SelectList(GetListOfCatalogs(), "Key", "Value");
             ViewBag.InspireValues = new SelectList(GetListOfInspire(CultureHelper.GetCurrentCulture()), "Key", "Value");
+            ViewBag.HighValueDatasetCategoriesValues = new SelectList(GetListOfHighValueDatasetCategories(CultureHelper.GetCurrentCulture()), "Key", "Value");
             ViewBag.InspirePriorityDatasets = new SelectList(_metadataService.GetPriorityDatasets(), "Key", "Value");
             ViewBag.InspireSpatialScopes = new SelectList(_metadataService.GetSpatialScopes(), "Key", "Value");
             ViewBag.TechnicalSpecifications = new SelectList(Technical.GetSpecifications, "Name", "Name");
@@ -679,6 +680,17 @@ namespace Kartverket.MetadataEditor.Controllers
         public Dictionary<string, string> GetListOfInspire(string culture = Culture.NorwegianCode)
         {
             return GetCodeList("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6", culture);
+        }
+
+        public Dictionary<string, string> GetListOfHighValueDatasetCategories(string culture = Culture.NorwegianCode)
+        {
+            var codelist = GetCodeList("28353c06-43f6-4055-b3c2-aac367dcb95f", culture);
+            Dictionary<string, string> codelistWithKeyValue = new Dictionary<string, string>();
+            for (int i = 0; i < codelist.Count; i++)
+            {
+                codelistWithKeyValue.Add(codelist.ElementAt(i).Value + "|" + codelist.ElementAt(i).Key, codelist.ElementAt(i).Value);
+            }
+            return codelistWithKeyValue;
         }
 
         public Dictionary<string, string> GetListOfVectorFormats(string culture = Culture.NorwegianCode)

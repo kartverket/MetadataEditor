@@ -68,6 +68,7 @@ namespace Kartverket.MetadataEditor.Models
         public List<String> KeywordsPlace { get; set; }
         public List<String> KeywordsAdministrativeUnits { get; set; }
         public List<String> KeywordsInspire { get; set; }
+        public List<String> KeywordsHighValueDatasetCategories { get; set; }
         public List<String> KeywordsInspirePriorityDataset { get; set; }
         public List<String> KeywordsServiceTaxonomy { get; set; }
         public List<String> KeywordsNationalInitiative { get; set; }
@@ -409,6 +410,18 @@ namespace Kartverket.MetadataEditor.Models
                         Type = type,
                         EnglishKeyword = englishTranslation,
                     });
+
+                    if(thesaurus == SimpleKeyword.THESAURUS_HIGHVALUE_DATASET) 
+                    {
+                        output.Add(new SimpleKeyword
+                        {
+                            Keyword = "High-value datasett",
+                            KeywordLink = "http://data.europa.eu/eli/reg_impl/2023/138/oj",
+                            Thesaurus = null,
+                            Type = null,
+                            EnglishKeyword = "High-value dataset", //todo fix setting english keyword
+                        });
+                    }
                 }
             }
             return output;
@@ -418,6 +431,7 @@ namespace Kartverket.MetadataEditor.Models
         {
             List<SimpleKeyword> allKeywords = new List<SimpleKeyword>();
             allKeywords.AddRange(CreateKeywords(KeywordsInspire, "Inspire", null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1));
+            allKeywords.AddRange(CreateKeywords(KeywordsHighValueDatasetCategories, "HighValueDatasetCategories", null, SimpleKeyword.THESAURUS_HIGHVALUE_DATASET));
             allKeywords.AddRange(CreateKeywords(KeywordsInspirePriorityDataset, "InspirePriorityDataset", null, SimpleKeyword.THESAURUS_INSPIRE_PRIORITY_DATASET));
             allKeywords.AddRange(CreateKeywords(KeywordsNationalInitiative, "NationalInitiative", null, SimpleKeyword.THESAURUS_NATIONAL_INITIATIVE));
             allKeywords.AddRange(CreateKeywords(KeywordsNationalTheme, "NationalTheme", null, SimpleKeyword.THESAURUS_NATIONAL_THEME));

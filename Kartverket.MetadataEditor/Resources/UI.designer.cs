@@ -792,6 +792,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inndelinger brukt for å kategorisere High Value Data (HVD) definert i Open Data Directive (ODD).
+        /// </summary>
+        public static string Helptext_KeywordsHighValueCategories {
+            get {
+                return ResourceManager.GetString("Helptext_KeywordsHighValueCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste)..
         /// </summary>
         public static string Helptext_KeywordsInspire {
@@ -1850,6 +1859,15 @@ namespace Resources {
         public static string Metadata_KeywordsAdministrativeUnits_Label {
             get {
                 return ResourceManager.GetString("Metadata_KeywordsAdministrativeUnits_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High Value Data (HVD) kategorier.
+        /// </summary>
+        public static string Metadata_KeywordsHighValueCategories_Label {
+            get {
+                return ResourceManager.GetString("Metadata_KeywordsHighValueCategories_Label", resourceCulture);
             }
         }
         

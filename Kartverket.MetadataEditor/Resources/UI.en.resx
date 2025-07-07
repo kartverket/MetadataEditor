@@ -1040,4 +1040,10 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
   </data>
+  <data name="Helptext_KeywordsHighValueCategories" xml:space="preserve">
+    <value>Classifications used to categorize High Value Data (HVD) defined in the Open Data Directive (ODD)</value>
+  </data>
+  <data name="Metadata_KeywordsHighValueCategories_Label" xml:space="preserve">
+    <value>High Value Data (HVD) categories</value>
+  </data>
 </root>
