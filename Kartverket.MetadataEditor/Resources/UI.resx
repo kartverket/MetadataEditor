@@ -1058,4 +1058,10 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="QualityQuantitativeResultFairTitle" xml:space="preserve">
     <value>Prosentvis oppfyllelse av FAIR-prinsipper</value>
   </data>
+  <data name="Helptext_KeywordsHighValueCategories" xml:space="preserve">
+    <value>Inndelinger brukt for å kategorisere High Value Data (HVD) definert i Open Data Directive (ODD)</value>
+  </data>
+  <data name="Metadata_KeywordsHighValueCategories_Label" xml:space="preserve">
+    <value>High Value Data (HVD) kategorier</value>
+  </data>
 </root>

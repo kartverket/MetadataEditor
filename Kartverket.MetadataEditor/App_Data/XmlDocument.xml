@@ -463,6 +463,11 @@
               Looks up a localized string similar to Her må du laste opp stort bilde. Det lages automatisk et miniatyrbilde..
             </summary>
         </member>
+        <member name="P:Resources.UI.Helptext_KeywordsHighValueCategories">
+            <summary>
+              Looks up a localized string similar to Inndelinger brukt for å kategorisere High Value Data (HVD) definert i Open Data Directive (ODD).
+            </summary>
+        </member>
         <member name="P:Resources.UI.Helptext_KeywordsInspire">
             <summary>
               Looks up a localized string similar to Hvis datasettet inneholder data som inngår blant Inspire-datasettene, skal det refereres til GEMET – Inspire themes, version 1.0 og riktig tema. Det er ingen krav om at datasettet er komplett i henhold til en Inspire datasettspesifikasjon. (Egen kodeliste)..
@@ -1041,6 +1046,11 @@
         <member name="P:Resources.UI.Metadata_KeywordsAdministrativeUnits_Label">
             <summary>
               Looks up a localized string similar to Nøkkelord for administrative enheter.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.Metadata_KeywordsHighValueCategories_Label">
+            <summary>
+              Looks up a localized string similar to High Value Data (HVD) kategorier.
             </summary>
         </member>
         <member name="P:Resources.UI.Metadata_KeywordsInspire_Label">

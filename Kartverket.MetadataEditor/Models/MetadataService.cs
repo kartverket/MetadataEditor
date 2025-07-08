@@ -238,6 +238,7 @@ namespace Kartverket.MetadataEditor.Models
                 KeywordsNationalTheme = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_NATIONAL_THEME)),
                 KeywordsConcept = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_CONCEPT)),
                 KeywordsInspire = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_GEMET_INSPIRE_V1)),
+                KeywordsHighValueDatasetCategories = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_HIGHVALUE_DATASET)),
                 KeywordsInspirePriorityDataset = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_INSPIRE_PRIORITY_DATASET)),
                 KeywordsServiceTaxonomy = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICES_TAXONOMY)),
                 KeywordsServiceType = CreateListOfKeywords(SimpleKeyword.Filter(metadata.Keywords, null, SimpleKeyword.THESAURUS_SERVICE_TYPE)),
@@ -323,6 +324,16 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactPublisherOrganization = metadata.ContactPublisher != null ? metadata.ContactPublisher.OrganizationEnglish : null,
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
+
+            //Remove keyword high value dataset that are not used in the metadata editor, only for xml
+            if (model.KeywordsOther != null && model.KeywordsOther.Count > 0) 
+            {
+               var keyHigValueData = model.KeywordsOther.Where(k => k.Contains(SimpleKeyword.HIGHVALUE_DATASET_LINK)).FirstOrDefault();
+                if (keyHigValueData != null)
+                {
+                    model.KeywordsOther.Remove(keyHigValueData);
+                }
+            }
 
             if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("noLimitations"))
                 model.AccessConstraints = "no restrictions";

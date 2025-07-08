@@ -108,6 +108,18 @@
                         },
                         options: this.$store.getters['InspireValues']
                     },
+                    keywordsHighValueDatasetCategories: {
+                        title: '@Html.Raw(UI.Metadata_KeywordsHighValueCategories_Label)',
+                        name: 'HighValueDatasetCategories',
+                        type: 'filter-select',
+                        visible: true,
+                        multilingual: false,
+                        helpText: {
+                            active: false,
+                            content: '@Html.Raw(UI.Helptext_KeywordsHighValueCategories)'
+                        },
+                        options: this.$store.getters['HighValueDatasetCategoriesValues']
+                    },
                     keywordsInspirePriorityDataset: {
                         title: '@UI.EuPriorityDataset',
                         name: 'InspirePriorityDataset',
