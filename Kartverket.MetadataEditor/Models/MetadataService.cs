@@ -325,6 +325,16 @@ namespace Kartverket.MetadataEditor.Models
                 EnglishContactOwnerOrganization = metadata.ContactOwner != null ? metadata.ContactOwner.OrganizationEnglish : null,
             };
 
+            //Remove keyword high value dataset that are not used in the metadata editor, only for xml
+            if (model.KeywordsOther != null && model.KeywordsOther.Count > 0) 
+            {
+               var keyHigValueData = model.KeywordsOther.Where(k => k.Contains(SimpleKeyword.HIGHVALUE_DATASET_LINK)).FirstOrDefault();
+                if (keyHigValueData != null)
+                {
+                    model.KeywordsOther.Remove(keyHigValueData);
+                }
+            }
+
             if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("noLimitations"))
                 model.AccessConstraints = "no restrictions";
             else if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("INSPIRE_Directive_Article13_1d"))
