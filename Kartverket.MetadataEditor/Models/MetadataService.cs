@@ -649,6 +649,7 @@ namespace Kartverket.MetadataEditor.Models
         Dictionary<string, string> inspireList;
         Dictionary<string, string> nationalThemeList;
         Dictionary<string, string> nationalInitiativeList;
+        Dictionary<string, string> highValueDatasetCategoryList;
 
         public void UpdateRegisterTranslations(string username, string uuid = null)
         {
@@ -667,6 +668,7 @@ namespace Kartverket.MetadataEditor.Models
             inspireList = GetCodeListEnglish("E7E48BC6-47C6-4E37-BE12-08FB9B2FEDE6");
             nationalThemeList = GetCodeListEnglish("42CECF70-0359-49E6-B8FF-0D6D52EBC73F");
             nationalInitiativeList = GetCodeListEnglish("37204B11-4802-44B6-80A1-519968BD072F");
+            highValueDatasetCategoryList = GetCodeListEnglish("28353c06-43f6-4055-b3c2-aac367dcb95f");
 
             Log.Info("Start batch update english translation");
 
@@ -812,6 +814,21 @@ namespace Kartverket.MetadataEditor.Models
                                 englishKeywords[key] = inspireList[keyword];
                             else
                                 englishKeywords.Add(key, inspireList[keyword]);
+                        }
+                    }
+
+                    keywordPrefix = "HighValueDatasetCategories";
+                    //Update keywords HighValueDatasetCategories
+                    foreach (var keywordHighValue in model.KeywordsHighValueDatasetCategories)
+                    {
+                        var keyword = keywordHighValue.Split('|')[1];
+                        if (highValueDatasetCategoryList.ContainsKey(keyword) && keyword != highValueDatasetCategoryList[keyword])
+                        {
+                            var key = keywordPrefix + "_" + keyword;
+                            if (englishKeywords.ContainsKey(key))
+                                englishKeywords[key] = highValueDatasetCategoryList[keyword];
+                            else
+                                englishKeywords.Add(key, highValueDatasetCategoryList[keyword]);
                         }
                     }
 

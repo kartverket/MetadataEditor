@@ -401,6 +401,12 @@ namespace Kartverket.MetadataEditor.Models
                     {
                         englishTranslation = KeywordsEnglish[keyForEnglishTranslation];
                     }
+                    else if (KeywordsEnglish != null && !string.IsNullOrEmpty(keywordLink)) 
+                    {
+                        keyForEnglishTranslation = prefix + "_" + keywordLink;
+                        if(KeywordsEnglish.ContainsKey(keyForEnglishTranslation))
+                            englishTranslation = KeywordsEnglish[keyForEnglishTranslation];
+                    }
 
                     output.Add(new SimpleKeyword
                     {
@@ -419,7 +425,7 @@ namespace Kartverket.MetadataEditor.Models
                             KeywordLink = "http://data.europa.eu/eli/reg_impl/2023/138/oj",
                             Thesaurus = null,
                             Type = null,
-                            EnglishKeyword = "High-value dataset", //todo fix setting english keyword
+                            EnglishKeyword = "High-value dataset",
                         });
                     }
                 }
