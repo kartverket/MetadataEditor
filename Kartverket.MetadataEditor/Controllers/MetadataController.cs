@@ -684,7 +684,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfHighValueDatasetCategories(string culture = Culture.NorwegianCode)
         {
-            var codelist = GetCodeList("28353c06-43f6-4055-b3c2-aac367dcb95f", culture);
+            var codelist = GetCodeList("272113cf-1043-4fc7-aca6-5a34b63ed0cf", culture);
             Dictionary<string, string> codelistWithKeyValue = new Dictionary<string, string>();
             for (int i = 0; i < codelist.Count; i++)
             {
