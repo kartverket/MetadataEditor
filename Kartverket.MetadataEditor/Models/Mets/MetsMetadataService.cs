@@ -73,6 +73,10 @@ namespace Kartverket.MetadataEditor.Models.Mets
         {
             _userName = username;
 
+            numberOfItems = numberOfItems + RunSearchClimate(1);
+
+            limit = 200;
+
             //numberOfItems = RunSearchSentinel(1);
 
             numberOfItems = numberOfItems + RunSearch(1);
@@ -151,6 +155,73 @@ namespace Kartverket.MetadataEditor.Models.Mets
             //        }
             //    }
             //}
+        }
+
+        private int RunSearchClimate(int startPosition)
+        {
+            Log.Info("Running search from start position: " + startPosition);
+            SearchResultsType res = null;
+            try
+            {
+            var url = WebConfigurationManager.AppSettings["MetUrl"] + "SERVICE=CSW&VERSION=2.0.2&REQUEST=GetRecords&RESULTTYPE=results&TYPENAMES=csw:Record&ElementSetName=full&outputschema=http://www.isotc211.org/2005/gmd&CONSTRAINTLANGUAGE=CQL_TEXT&CONSTRAINT=apiso:Type%20like%20%27series%27&startPosition=" + startPosition + "&defaultPath=";
+            _geoNorge = new GeoNorge("", "", url);
+
+            res = _geoNorge.GetFromEndpointUrl();
+
+            _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (MD_Metadata_Type item in res.Items)
+                {
+                    MD_Metadata_Type existingMetadata = null;
+
+                    try
+                    {
+                        Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
+                        existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                    }
+                    catch (Exception exx)
+                    {
+                        Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx);
+                    }
+
+                    if (existingMetadata == null)
+                    {
+                        var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                    }
+                    else
+                    {
+                        var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                    }
+
+                    numberOfItems++;
+                }
+            }
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error in metadata from Geonetwork position: " + startPosition + " + " + limit + ".", exception);
+            }
+
+            int nextRecord;
+            int numberOfRecordsMatched;
+
+            nextRecord = int.Parse(res.nextRecord);
+            numberOfRecordsMatched = int.Parse(res.numberOfRecordsMatched);
+
+            int diff = numberOfRecordsMatched - nextRecord;
+            if (nextRecord + limit > numberOfRecordsMatched)
+            {
+                limit = diff;
+            }
+
+            if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
+            {
+                RunSearchClimate(nextRecord);
+            }
+
+            return numberOfItems;
         }
 
         private int RunSearchNina(int startPosition)
