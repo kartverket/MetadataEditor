@@ -73,7 +73,15 @@ namespace Kartverket.MetadataEditor.Models.Mets
         {
             _userName = username;
 
-            numberOfItems = numberOfItems + RunSearchClimate(1);
+            numberOfItems = numberOfItems + RunSearchClimateSeries(1);
+
+            limit = 200;
+
+            numberOfItems = numberOfItems + RunSearchClimateDatasets(WebConfigurationManager.AppSettings["ClimateSerieUuid1"], 1);
+
+            limit = 200;
+
+            numberOfItems = numberOfItems + RunSearchClimateDatasets(WebConfigurationManager.AppSettings["ClimateSerieUuid2"], 1);
 
             limit = 200;
 
@@ -157,7 +165,93 @@ namespace Kartverket.MetadataEditor.Models.Mets
             //}
         }
 
-        private int RunSearchClimate(int startPosition)
+        private int RunSearchClimateDatasets(string parentIdentifier, int startPosition)
+        {
+            Log.Info("Running search from start position: " + startPosition);
+            SearchResultsType res = null;
+            try
+            {
+                var url = WebConfigurationManager.AppSettings["MetUrl"] + "SERVICE=CSW&defaultPath=";
+                _geoNorge = new GeoNorge("", "", url);
+
+                var filters = new object[]
+                {
+                new PropertyIsLikeType
+                    {
+                        escapeChar = "\\",
+                        singleChar = "_",
+                        wildCard = "%",
+                        PropertyName = new PropertyNameType {Text = new[] {"apiso:ParentIdentifier"}},
+                        Literal = new LiteralType {Text = new[] {parentIdentifier}}
+                    }
+                };
+
+                var filterNames = new ItemsChoiceType23[]
+                {
+                 ItemsChoiceType23.PropertyIsLike,
+                };
+
+
+                res = _geoNorge.SearchWithFilters(filters, filterNames, startPosition, limit, false, true);
+
+
+                _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+                if (res != null && res.numberOfRecordsMatched != "0")
+                {
+                    foreach (MD_Metadata_Type item in res.Items)
+                    {
+                        MD_Metadata_Type existingMetadata = null;
+
+                        try
+                        {
+                            Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
+                            existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                        }
+                        catch (Exception exx)
+                        {
+                            Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx);
+                        }
+
+                        if (existingMetadata == null)
+                        {
+                            var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                        }
+                        else
+                        {
+                            var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                        }
+
+                        numberOfItems++;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error in metadata from Geonetwork position: " + startPosition + " + " + limit + ".", exception);
+            }
+
+            int nextRecord;
+            int numberOfRecordsMatched;
+
+            nextRecord = int.Parse(res.nextRecord);
+            numberOfRecordsMatched = int.Parse(res.numberOfRecordsMatched);
+
+            int diff = numberOfRecordsMatched - nextRecord;
+            if (nextRecord + limit > numberOfRecordsMatched)
+            {
+                limit = diff;
+            }
+
+            if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
+            {
+                RunSearchClimateDatasets(parentIdentifier, nextRecord);
+            }
+
+            return numberOfItems;
+        }
+
+        private int RunSearchClimateSeries(int startPosition)
         {
             Log.Info("Running search from start position: " + startPosition);
             SearchResultsType res = null;
@@ -218,7 +312,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
             {
-                RunSearchClimate(nextRecord);
+                RunSearchClimateSeries(nextRecord);
             }
 
             return numberOfItems;
