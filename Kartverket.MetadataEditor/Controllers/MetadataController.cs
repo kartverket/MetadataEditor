@@ -218,7 +218,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SecurityConstraints);
             ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(CultureHelper.GetCurrentCulture()), "Key", "Value", model.UseConstraints);
             ViewBag.LicenseTypesValues = new SelectList(GetListOfLicenseTypes(), "Key", "Value", model.OtherConstraintsLink);
-            if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && (model.OtherConstraintsAccess.ToLower() == "no restrictions" || model.OtherConstraintsAccess.ToLower() == "norway digital restricted"))
+            if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && (model.OtherConstraintsAccess.ToLower() == "no restrictions" || model.OtherConstraintsAccess.ToLower() == "norway digital restricted") || model.OtherConstraintsAccess.ToLower() == "privacy restricted"  )
             {
                 model.AccessConstraints = model.OtherConstraintsAccess;
             }
@@ -634,6 +634,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 codelist["restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
             if (inspire.ContainsKey("https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"))
                 codelist["no restrictions"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
+            if (inspire.ContainsKey("https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f"))
+                codelist["privacy restricted"] = inspire["https://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f"];
 
             if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"))
                 codelist["norway digital restricted"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1d"];
@@ -641,6 +643,8 @@ namespace Kartverket.MetadataEditor.Controllers
                 codelist["restricted"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b"];
             if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"))
                 codelist["no restrictions"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations"];
+            if (inspire.ContainsKey("http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f"))
+                codelist["privacy restricted"] = inspire["http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f"];
 
             return codelist;
 

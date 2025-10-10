@@ -342,6 +342,8 @@ namespace Kartverket.MetadataEditor.Models
                 model.AccessConstraints = "norway digital restricted";
             else if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("INSPIRE_Directive_Article13_1b"))
                 model.AccessConstraints = "restricted";
+            else if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("INSPIRE_Directive_Article13_1f"))
+                model.AccessConstraints = "privacy restricted";
 
             if (model.IsService())
                 model.Operations = metadata.ContainOperations;
@@ -1807,6 +1809,12 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     otherConstraintsAccess = null;
                     accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
+                    accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
+                }
+                else if (accessConstraintsSelected == "privacy restricted")
+                {
+                    otherConstraintsAccess = null;
+                    accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f";
                     accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
                 }
             }

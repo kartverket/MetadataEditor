@@ -212,7 +212,7 @@
     <value>Graphics overview</value>
   </data>
   <data name="Helptext_AccessConstraints" xml:space="preserve">
-    <value>&lt;b&gt; Open Data &lt;/b&gt;: Data available for download and usage. (green) &amp;nbsp; &lt;b&gt; Norway Digital Restricted &lt;/b&gt;: Data available only to participants in Norways digital collaboration (yellow). &lt;b&gt; Restricted data &lt;/b&gt;: Data not available for download (red).</value>
+    <value>&lt;b&gt; Open Data &lt;/b&gt;: Data available for download and usage. (green) &amp;nbsp; &lt;b&gt; Norway Digital Restricted &lt;/b&gt;: Data available only to participants in Norways digital collaboration (yellow). &lt;b&gt; Restricted data &lt;/b&gt;: Data not available for download (red).  &lt;b&gt;Privacy restricted &lt;/b&gt;: Access is restricted due to risk of breach of confidentiality with regard to personal data(red).</value>
   </data>
   <data name="Helptext_BoundingBox" xml:space="preserve">
     <value>Enter coordinate values for extent, or use pre-defined range names in the drop down list if the geographical data is valid for a specific county or a municipality. You can also enter the coordinates by using the "Select in map" button to define a rectangle in Norgeskart.</value>

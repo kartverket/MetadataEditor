@@ -387,6 +387,12 @@ namespace Kartverket.MetadataEditor.Models
                     accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
                     accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
                 }
+                else if (accessConstraintsSelected.ToLower() == "privacy restricted")
+                {
+                    otherConstraintsAccess = null;
+                    accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f";
+                    accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
+                }
             }
 
             //if (string.IsNullOrEmpty(model.UseConstraints))
