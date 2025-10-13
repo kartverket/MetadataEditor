@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -167,7 +167,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
         private int RunSearchClimateDatasets(string parentIdentifier, int startPosition)
         {
-            Log.Info("Running search from start position: " + startPosition);
+            Log.Info("Running search climate datasets from start position: " + startPosition);
             SearchResultsType res = null;
             try
             {
@@ -240,7 +240,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
             int diff = numberOfRecordsMatched - nextRecord;
             if (nextRecord + limit > numberOfRecordsMatched)
             {
-                limit = diff;
+                limit = diff + 1;
             }
 
             if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
@@ -253,7 +253,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
         private int RunSearchClimateSeries(int startPosition)
         {
-            Log.Info("Running search from start position: " + startPosition);
+            Log.Info("Running search climate series from start position: " + startPosition);
             SearchResultsType res = null;
             try
             {
