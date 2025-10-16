@@ -73,7 +73,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
         {
             _userName = username;
 
-            numberOfItems = numberOfItems + RunSearchClimateSeries(1);
+            //numberOfItems = numberOfItems + RunSearchClimateSeries(1);
 
             limit = 200;
 
