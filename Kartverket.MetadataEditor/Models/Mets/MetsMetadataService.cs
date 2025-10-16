@@ -212,17 +212,19 @@ namespace Kartverket.MetadataEditor.Models.Mets
                         {
                             Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx);
                         }
+                        if (item.hierarchyLevel[0].MD_ScopeCode.Value == "dataset") 
+                        { 
+                            if (existingMetadata == null)
+                            {
+                                var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                            }
+                            else
+                            {
+                                var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                            }
 
-                        if (existingMetadata == null)
-                        {
-                            var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                            numberOfItems++;
                         }
-                        else
-                        {
-                            var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
-                        }
-
-                        numberOfItems++;
                     }
                 }
             }
