@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -73,20 +73,31 @@ namespace Kartverket.MetadataEditor.Models.Mets
         {
             _userName = username;
 
-            //numberOfItems = RunSearchSentinel(1);
-
-            numberOfItems = numberOfItems + RunSearch(1);
+            //RunSearchClimateSeries(1);
 
             limit = 200;
 
-            numberOfItems = numberOfItems + RunSearchNina(1);
+            RunSearchClimateDatasets(WebConfigurationManager.AppSettings["ClimateSerieUuid1"], 1);
 
             limit = 200;
 
-            numberOfItems = numberOfItems + RunSearchNiva(1);
+            RunSearchClimateDatasets(WebConfigurationManager.AppSettings["ClimateSerieUuid2"], 1);
+
+            limit = 200;
+
+            //RunSearchSentinel(1);
+
+            //RunSearch(1); //series 
+
+            limit = 200;
+
+            RunSearchNina(1);
+
+            limit = 200;
+
+            RunSearchNiva(1);
 
             return numberOfItems;
-
 
             ////NILU
 
@@ -151,6 +162,161 @@ namespace Kartverket.MetadataEditor.Models.Mets
             //        }
             //    }
             //}
+        }
+
+        private int RunSearchClimateDatasets(string parentIdentifier, int startPosition)
+        {
+            Log.Info("Running search climate datasets from start position: " + startPosition);
+            SearchResultsType res = null;
+            try
+            {
+                var url = WebConfigurationManager.AppSettings["MetUrl"] + "SERVICE=CSW&defaultPath=";
+                _geoNorge = new GeoNorge("", "", url);
+
+                var filters = new object[]
+                {
+                new PropertyIsLikeType
+                    {
+                        escapeChar = "\\",
+                        singleChar = "_",
+                        wildCard = "%",
+                        PropertyName = new PropertyNameType {Text = new[] {"apiso:ParentIdentifier"}},
+                        Literal = new LiteralType {Text = new[] {parentIdentifier}}
+                    }
+                };
+
+                var filterNames = new ItemsChoiceType23[]
+                {
+                 ItemsChoiceType23.PropertyIsLike,
+                };
+
+
+                res = _geoNorge.SearchWithFilters(filters, filterNames, startPosition, limit, false, true);
+
+
+                _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+                if (res != null && res.numberOfRecordsMatched != "0")
+                {
+                    foreach (MD_Metadata_Type item in res.Items)
+                    {
+                        MD_Metadata_Type existingMetadata = null;
+
+                        try
+                        {
+                            Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
+                            existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                        }
+                        catch (Exception exx)
+                        {
+                            Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx);
+                        }
+                        if (item.hierarchyLevel[0].MD_ScopeCode.Value == "dataset") 
+                        { 
+                            if (existingMetadata == null)
+                            {
+                                var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                            }
+                            else
+                            {
+                                var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                            }
+
+                            numberOfItems++;
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error in metadata from Geonetwork position: " + startPosition + " + " + limit + ".", exception);
+            }
+
+            int nextRecord;
+            int numberOfRecordsMatched;
+
+            nextRecord = int.Parse(res.nextRecord);
+            numberOfRecordsMatched = int.Parse(res.numberOfRecordsMatched);
+
+            int diff = numberOfRecordsMatched - nextRecord;
+            if (nextRecord + limit > numberOfRecordsMatched)
+            {
+                limit = diff + 1;
+            }
+
+            if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
+            {
+                RunSearchClimateDatasets(parentIdentifier, nextRecord);
+            }
+
+            return numberOfItems;
+        }
+
+        private int RunSearchClimateSeries(int startPosition)
+        {
+            Log.Info("Running search climate series from start position: " + startPosition);
+            SearchResultsType res = null;
+            try
+            {
+            var url = WebConfigurationManager.AppSettings["MetUrl"] + "SERVICE=CSW&VERSION=2.0.2&REQUEST=GetRecords&RESULTTYPE=results&TYPENAMES=csw:Record&ElementSetName=full&outputschema=http://www.isotc211.org/2005/gmd&CONSTRAINTLANGUAGE=CQL_TEXT&CONSTRAINT=apiso:Type%20like%20%27series%27&startPosition=" + startPosition + "&defaultPath=";
+            _geoNorge = new GeoNorge("", "", url);
+
+            res = _geoNorge.GetFromEndpointUrl();
+
+            _geoNorge = new GeoNorge(WebConfigurationManager.AppSettings["GeoNetworkUsername"], WebConfigurationManager.AppSettings["GeoNetworkPassword"], WebConfigurationManager.AppSettings["GeoNetworkUrl"]);
+
+            if (res != null && res.numberOfRecordsMatched != "0")
+            {
+                foreach (MD_Metadata_Type item in res.Items)
+                {
+                    MD_Metadata_Type existingMetadata = null;
+
+                    try
+                    {
+                        Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
+                        existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
+                    }
+                    catch (Exception exx)
+                    {
+                        Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx);
+                    }
+
+                    if (existingMetadata == null)
+                    {
+                        var trans = _geoNorge.MetadataInsert(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                    }
+                    else
+                    {
+                        var trans = _geoNorge.MetadataUpdate(item, Kartverket.MetadataEditor.Util.GeoNetworkUtil.CreateAdditionalHeadersWithUsername(_userName, "true"));
+                    }
+
+                    numberOfItems++;
+                }
+            }
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error in metadata from Geonetwork position: " + startPosition + " + " + limit + ".", exception);
+            }
+
+            int nextRecord;
+            int numberOfRecordsMatched;
+
+            nextRecord = int.Parse(res.nextRecord);
+            numberOfRecordsMatched = int.Parse(res.numberOfRecordsMatched);
+
+            int diff = numberOfRecordsMatched - nextRecord;
+            if (nextRecord + limit > numberOfRecordsMatched)
+            {
+                limit = diff;
+            }
+
+            if (nextRecord > 0 && nextRecord < numberOfRecordsMatched)
+            {
+                RunSearchClimateSeries(nextRecord);
+            }
+
+            return numberOfItems;
         }
 
         private int RunSearchNina(int startPosition)

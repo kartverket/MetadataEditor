@@ -14,7 +14,7 @@
                 <div class="form-group has-feedback">
                     <div class="row">
                         <label class="col-md-2 control-label">{{ coverageType.label }}</label>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="custom-select">
                                 <select v-model="coverageType.value" name="CoverageType" class="form-control">
                                     <option v-bind:value="option.Value" v-for="option in coverageType.options">{{ option.Text }}</option>
@@ -27,6 +27,15 @@
                         <div class="row">
                             <label class="col-md-2 control-label">{{ url.fields.websiteUrl.label }}</label>
                             <div class="col-md-5">
+                                <input v-bind:type="url.type" v-model="url.value" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-show="coverageType.value == 'surveyAreaMap'">
+                        <div class="row">
+                            <label class="col-md-2 control-label">{{ url.fields.surveyAreaMapUrl.label }}</label>
+                            <div class="col-md-10">
                                 <input v-bind:type="url.type" v-model="url.value" class="form-control" />
                             </div>
                         </div>
@@ -134,6 +143,7 @@
                         { Text: '@Html.Raw(UI.Metadata_CoverageType_Webpage)', Value: 'webpage' },
                         { Text: '@Html.Raw(UI.Metadata_CoverageType_Mapservice)', Value: 'mapservice' },
                         { Text: '@Html.Raw(UI.Metadata_CoverageType_MapserviceGeonorge)', Value: 'mapserviceGeonorge' },
+                        { Text: 'Fullstendighetsdekningskart', Value: 'surveyAreaMap' },
                         { Text: '@Html.Raw(UI.Metadata_CoverageType_ImageCoverage)', Value: 'imageCoverage' }
                     ]
                 },
@@ -146,7 +156,10 @@
                         },
                         mapServiceUrl: {
                             label: '@Html.Raw(UI.Metadata_CoverageServiceMap_Url)',
-                        }
+                        },
+                        surveyAreaMapUrl: {
+                            label: 'URL',
+                        },
                     }
                 },
                 mapServiceType: {
@@ -191,7 +204,12 @@
                     this.coverageType.value = 'webpage';
                 if (this.coverageType.value == 'webpage') {
                     computedCoverageUrl.value = this.url.value;
-                } else if (this.coverageType.value == 'mapservice') {
+                }
+                else if (this.coverageType.value == 'surveyAreaMap') {
+                    computedCoverageUrl.name = "SurveyAreaMapUrl";
+                    computedCoverageUrl.value = this.url.value;
+                }
+                else if (this.coverageType.value == 'mapservice') {
                     computedCoverageUrl.value = 'TYPE:' + this.mapServiceType.value + '@@PATH:' + this.url.value + '@@LAYER:' + this.mapServiceLayerName.value;
                 } else if (this.coverageType.value == 'mapserviceGeonorge') {
                     computedCoverageUrl.value = 'TYPE:GEONORGE-WMS@@PATH:https://wms.geonorge.no/wms?@@LAYER:' + this.mapServiceLayerName.value;
@@ -279,6 +297,7 @@
             getSelectedCoverageType: function () {
                 if (this.isMapServiceGeonorge()) this.coverageType.value = 'mapserviceGeonorge';
                 else if (this.isMapService()) this.coverageType.value = 'mapservice';
+                else if (this.$root.model.SurveyAreaMapUrl !== null) this.coverageType.value = 'surveyAreaMap';
                 else if (this.coverageType.value = 'webpage');
                 else if (this.computedThumbnailUrl !== '') this.coverageType.value = 'imageCoverage';
             },

@@ -255,9 +255,10 @@ namespace Kartverket.MetadataEditor.Models
                 ProductSpecificationUrl = metadata.ProductSpecificationUrl,
                 ApplicationSchema = metadata.ApplicationSchema,
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
-                CoverageUrl = metadata.CoverageUrl,
+                CoverageUrl = !string.IsNullOrEmpty(metadata.SurveyAreaMapUrl) ? metadata.SurveyAreaMapUrl : metadata.CoverageUrl, //todo fix UI
                 CoverageGridUrl = metadata.CoverageGridUrl,
                 CoverageCellUrl = metadata.CoverageCellUrl,
+                SurveyAreaMapUrl = metadata.SurveyAreaMapUrl,
                 HelpUrl = metadata.HelpUrl,
 
                 Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails),
@@ -341,6 +342,8 @@ namespace Kartverket.MetadataEditor.Models
                 model.AccessConstraints = "norway digital restricted";
             else if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("INSPIRE_Directive_Article13_1b"))
                 model.AccessConstraints = "restricted";
+            else if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && model.OtherConstraintsAccess.Contains("INSPIRE_Directive_Article13_1f"))
+                model.AccessConstraints = "privacy restricted";
 
             if (model.IsService())
                 model.Operations = metadata.ContainOperations;
@@ -1234,10 +1237,14 @@ namespace Kartverket.MetadataEditor.Models
             metadata.ProductSheetUrl = model.ProductSheetUrl;
                 metadata.ProductPageUrl = model.ProductPageUrl;
                 metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
-            if (model.IsDataset() || model.IsDatasetSeries()) { 
-                metadata.CoverageUrl = model.CoverageUrl;
+            if (model.IsDataset() || model.IsDatasetSeries()) {
+                if (!string.IsNullOrEmpty(model.SurveyAreaMapUrl)) //todo fix UI
+                    metadata.CoverageUrl = null;
+                else
+                    metadata.CoverageUrl = model.CoverageUrl;
                 metadata.CoverageGridUrl = model.CoverageGridUrl;
                 metadata.CoverageCellUrl = model.CoverageCellUrl;
+                metadata.SurveyAreaMapUrl = model.SurveyAreaMapUrl;
             }
 
             metadata.HelpUrl = model.HelpUrl;
@@ -1802,6 +1809,12 @@ namespace Kartverket.MetadataEditor.Models
                 {
                     otherConstraintsAccess = null;
                     accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1b";
+                    accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
+                }
+                else if (accessConstraintsSelected == "privacy restricted")
+                {
+                    otherConstraintsAccess = null;
+                    accessConstraintsLink = "http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/INSPIRE_Directive_Article13_1f";
                     accessConstraintsSelected = inspireAccessRestrictions[accessConstraintsLink];
                 }
             }

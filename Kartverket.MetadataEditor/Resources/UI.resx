@@ -215,7 +215,7 @@
     <value>Illustrasjonsbilde</value>
   </data>
   <data name="Helptext_AccessConstraints" xml:space="preserve">
-    <value>&lt;b&gt;Åpne data&lt;/b&gt;: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn)&amp;nbsp;&lt;b&gt;Norge digital-begrenset&lt;/b&gt;: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). &lt;b&gt;Skjermede data&lt;/b&gt;: Data som ikke er tilgjengelige for nedlasting (rød).</value>
+    <value>&lt;b&gt;Åpne data&lt;/b&gt;: Data som er åpent tilgjengelig for nedlasting og bruk. (grønn)&amp;nbsp;&lt;b&gt;Norge digital-begrenset&lt;/b&gt;: Data som kun er fritt tilgjengelig for deltakere i Norge digitalt-samarbeidet (gul). &lt;b&gt;Skjermede data&lt;/b&gt;: Data som ikke er tilgjengelige for nedlasting (rød). &lt;b&gt;Personvern begrenset&lt;/b&gt;: Tilgang begrenses på grunn av fare for brudd på konfidensialitet med hensyn til personopplysninger (rød).</value>
   </data>
   <data name="Helptext_BoundingBox" xml:space="preserve">
     <value>Skriv inn koordinatverdier for utstrekning, eller bruk  forhåndsdefinerte områdenavn i nedtrekkslisten dersom de geografiske dataene gjelder for et bestemt fylke eller en kommune. Desimalskille er punktum. Du kan også angi koordinatene ved å bruke knappen "Angi i kartet" for å definere et rektangel i Norgeskart.</value>
