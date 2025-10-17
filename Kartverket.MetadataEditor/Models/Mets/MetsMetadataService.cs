@@ -87,7 +87,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
             //RunSearchSentinel(1);
 
-            RunSearch(1);
+            //RunSearch(1); //series 
 
             limit = 200;
 
