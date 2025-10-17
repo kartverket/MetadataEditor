@@ -73,32 +73,31 @@ namespace Kartverket.MetadataEditor.Models.Mets
         {
             _userName = username;
 
-            //numberOfItems = numberOfItems + RunSearchClimateSeries(1);
+            //RunSearchClimateSeries(1);
 
             limit = 200;
 
-            numberOfItems = numberOfItems + RunSearchClimateDatasets(WebConfigurationManager.AppSettings["ClimateSerieUuid1"], 1);
+            RunSearchClimateDatasets(WebConfigurationManager.AppSettings["ClimateSerieUuid1"], 1);
 
             limit = 200;
 
-            numberOfItems = numberOfItems + RunSearchClimateDatasets(WebConfigurationManager.AppSettings["ClimateSerieUuid2"], 1);
+            RunSearchClimateDatasets(WebConfigurationManager.AppSettings["ClimateSerieUuid2"], 1);
 
             limit = 200;
 
-            //numberOfItems = RunSearchSentinel(1);
+            //RunSearchSentinel(1);
 
-            numberOfItems = numberOfItems + RunSearch(1);
-
-            limit = 200;
-
-            numberOfItems = numberOfItems + RunSearchNina(1);
+            RunSearch(1);
 
             limit = 200;
 
-            numberOfItems = numberOfItems + RunSearchNiva(1);
+            RunSearchNina(1);
+
+            limit = 200;
+
+            RunSearchNiva(1);
 
             return numberOfItems;
-
 
             ////NILU
 
