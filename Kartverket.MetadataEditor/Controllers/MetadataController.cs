@@ -218,7 +218,7 @@ namespace Kartverket.MetadataEditor.Controllers
             ViewBag.SecurityConstraintValues = new SelectList(GetListOfClassificationValues(CultureHelper.GetCurrentCulture()), "Key", "Value", model.SecurityConstraints);
             ViewBag.UseConstraintValues = new SelectList(GetListOfRestrictionValues(CultureHelper.GetCurrentCulture()), "Key", "Value", model.UseConstraints);
             ViewBag.LicenseTypesValues = new SelectList(GetListOfLicenseTypes(), "Key", "Value", model.OtherConstraintsLink);
-            if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && (model.OtherConstraintsAccess.ToLower() == "no restrictions" || model.OtherConstraintsAccess.ToLower() == "norway digital restricted") || model.OtherConstraintsAccess.ToLower() == "privacy restricted"  )
+            if (!string.IsNullOrEmpty(model.OtherConstraintsAccess) && (model.OtherConstraintsAccess.ToLower() == "no restrictions" || model.OtherConstraintsAccess.ToLower() == "norway digital restricted" || model.OtherConstraintsAccess.ToLower() == "privacy restricted" ) )
             {
                 model.AccessConstraints = model.OtherConstraintsAccess;
             }
