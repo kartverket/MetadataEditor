@@ -85,7 +85,7 @@
       <HintPath>..\packages\Geonorge.AuthLib.NetFull.1.0.67\lib\net472\Geonorge.AuthLib.NetFull.dll</HintPath>
     </Reference>
     <Reference Include="GeoNorgeAPI, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GeoNorgeAPI.4.0.0\lib\netstandard2.0\GeoNorgeAPI.dll</HintPath>
+      <HintPath>..\packages\GeoNorgeAPI.4.0.2\lib\netstandard2.0\GeoNorgeAPI.dll</HintPath>
     </Reference>
     <Reference Include="Kartverket.Geonorge.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Kartverket.Geonorge.Utilities.1.0.64\lib\netstandard2.0\Kartverket.Geonorge.Utilities.dll</HintPath>
