@@ -170,7 +170,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
             SearchResultsType res = null;
             try
             {
-                var url = WebConfigurationManager.AppSettings["MetUrl"] + "SERVICE=CSW&defaultPath=";
+                var url = WebConfigurationManager.AppSettings["MetUrlADC"] + "SERVICE=CSW&defaultPath=";
                 _geoNorge = new GeoNorge("", "", url);
 
                 var filters = new object[]
@@ -258,7 +258,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
             SearchResultsType res = null;
             try
             {
-            var url = WebConfigurationManager.AppSettings["MetUrl"] + "SERVICE=CSW&VERSION=2.0.2&REQUEST=GetRecords&RESULTTYPE=results&TYPENAMES=csw:Record&ElementSetName=full&outputschema=http://www.isotc211.org/2005/gmd&CONSTRAINTLANGUAGE=CQL_TEXT&CONSTRAINT=apiso:Type%20like%20%27series%27&startPosition=" + startPosition + "&defaultPath=";
+            var url = WebConfigurationManager.AppSettings["MetUrlADC"] + "SERVICE=CSW&VERSION=2.0.2&REQUEST=GetRecords&RESULTTYPE=results&TYPENAMES=csw:Record&ElementSetName=full&outputschema=http://www.isotc211.org/2005/gmd&CONSTRAINTLANGUAGE=CQL_TEXT&CONSTRAINT=apiso:Type%20like%20%27series%27&startPosition=" + startPosition + "&defaultPath=";
             _geoNorge = new GeoNorge("", "", url);
 
             res = _geoNorge.GetFromEndpointUrl();
