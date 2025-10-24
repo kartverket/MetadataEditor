@@ -408,8 +408,8 @@ namespace Kartverket.MetadataEditor.Models.Mets
                                 escapeChar = "\\",
                                 singleChar = "_",
                                 wildCard = "%",
-                                PropertyName = new PropertyNameType {Text = new[] {"apiso:AnyText"}},
-                                Literal = new LiteralType {Text = new[] {"%"}}
+                                PropertyName = new PropertyNameType {Text = new[] {"apiso:OrganisationName"}},
+                                Literal = new LiteralType {Text = new[] {"Norwegian Institute for Water Research"}}
                             }
                 };
 
