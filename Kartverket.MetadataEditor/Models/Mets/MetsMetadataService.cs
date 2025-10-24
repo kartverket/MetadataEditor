@@ -439,6 +439,11 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                         try
                         {
+                            if(item.fileIdentifier.CharacterString == "no.met.adc:ceb8319c-5ebe-51cc-8359-959067daeadd" || item.fileIdentifier.CharacterString == "no.met.adc:ae988ee1-3369-5443-85f2-18359ae213e0")
+                            {
+                                Log.Info("Skipping climate series...");
+                                continue;
+                            }
                             Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
                             existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
                         }
