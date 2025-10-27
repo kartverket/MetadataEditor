@@ -321,7 +321,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
         private int RunSearchNina(int startPosition)
         {
-            Log.Info("Running search from start position: " + startPosition);
+            Log.Info("Running search nina from start position: " + startPosition);
             SearchResultsType res = null;
             //try
             //{
@@ -393,7 +393,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
         private int RunSearchNiva(int startPosition)
         {
-            Log.Info("Running search from start position: " + startPosition);
+            Log.Info("Running search niva from start position: " + startPosition);
             SearchResultsType res = null;
             try
             {
@@ -440,7 +440,7 @@ namespace Kartverket.MetadataEditor.Models.Mets
                         try
                         {
                             if(item.fileIdentifier.CharacterString == "no.met.adc:ceb8319c-5ebe-51cc-8359-959067daeadd" || item.fileIdentifier.CharacterString == "no.met.adc:ae988ee1-3369-5443-85f2-18359ae213e0")
-                            {
+                            { //todo can be removed later
                                 Log.Info("Skipping climate series...");
                                 continue;
                             }
