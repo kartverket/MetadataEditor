@@ -21,6 +21,7 @@ using Kartverket.MetadataEditor.Models.InspireCodelist;
 using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
 using System.Net.Mail;
 using System.Text;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 
 namespace Kartverket.MetadataEditor.Controllers
 {
@@ -135,6 +136,25 @@ namespace Kartverket.MetadataEditor.Controllers
 
             try
             {
+                if (Request.QueryString["metadatacreated"] == null)
+                {
+                    try { 
+                    string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadata/" + uuid;
+                    System.Net.WebClient c = new System.Net.WebClient();
+                    c.Encoding = System.Text.Encoding.UTF8;
+                    var data = c.DownloadString(url);
+                    var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                    var uuidResponse = response["Uuid"];
+                    if(uuidResponse == null)
+                        TempData["failure"] = UI.ErrorSearchIndex;
+                    }
+                    catch(Exception ex)
+                    {
+                        TempData["failure"] = UI.ErrorSearchIndex;
+                    }
+                }
+
                 ViewBag.DisplayLog = displayLog; ViewBag.DisplayLogLatest = displayLogLatest;
                 ViewBag.limitNumberOfEntries = limitNumberOfEntries;
                 ViewBag.operation = operation;

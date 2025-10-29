@@ -363,6 +363,11 @@
             &lt;p&gt;Du kan også rapportere feilen til &lt;a mailto:&quot;post@norgedigitalt.no&quot;&gt;post@norgedigitalt.no&lt;/a&gt;.&lt;/p&gt;.
              </summary>
         </member>
+        <member name="P:Resources.UI.ErrorSearchIndex">
+            <summary>
+              Looks up a localized string similar to Metadata-oppføringen finnes ikke i søke-indeks. Prøv å lagre oppføringen på nytt og sjekk etter en stund om du får treff i søket..
+            </summary>
+        </member>
         <member name="P:Resources.UI.EuPriorityDataset">
             <summary>
               Looks up a localized string similar to EU - prioriterte datasett.
