@@ -612,6 +612,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Metadata-oppføringen finnes ikke i søke-indeks. Prøv å lagre oppføringen på nytt og sjekk etter en stund om du får treff i søket..
+        /// </summary>
+        public static string ErrorSearchIndex {
+            get {
+                return ResourceManager.GetString("ErrorSearchIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EU - prioriterte datasett.
         /// </summary>
         public static string EuPriorityDataset {

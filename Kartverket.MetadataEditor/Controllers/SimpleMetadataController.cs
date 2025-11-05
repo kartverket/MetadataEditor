@@ -99,6 +99,26 @@ namespace Kartverket.MetadataEditor.Controllers
 
             try
             {
+                if (Request.QueryString["metadatacreated"] == null)
+                {
+                    try
+                    {
+                        string url = System.Web.Configuration.WebConfigurationManager.AppSettings["KartkatalogUrl"] + "api/metadata/" + uuid;
+                        System.Net.WebClient c = new System.Net.WebClient();
+                        c.Encoding = System.Text.Encoding.UTF8;
+                        var data = c.DownloadString(url);
+                        var response = Newtonsoft.Json.Linq.JObject.Parse(data);
+
+                        var uuidResponse = response["Uuid"];
+                        if (uuidResponse == null)
+                            TempData["failure"] = UI.ErrorSearchIndex;
+                    }
+                    catch (Exception ex)
+                    {
+                        TempData["failure"] = UI.ErrorSearchIndex;
+                    }
+                }
+
                 SimpleMetadataViewModel model = _metadataService.GetMetadataModel(uuid);
                 if (HasAccessToMetadata(model))
                 {
