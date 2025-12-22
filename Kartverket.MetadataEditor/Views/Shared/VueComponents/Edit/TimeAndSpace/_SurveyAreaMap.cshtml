@@ -1,4 +1,5 @@
 @using Resources
+@using Kartverket.MetadataEditor.Helpers
 @model Kartverket.MetadataEditor.Models.MetadataViewModel
 
 <script type="text/x-template" id="survey-area-map-template">
@@ -34,35 +35,44 @@
                 url: {
                     value: this.$root.model.SurveyAreaMapUrl,
                     type: 'text',
-                    fields: {
-                        jsonUrl: {
-                            label: 'Json-url',
-                        }
-                    }
+                    fields: { jsonUrl: { label: 'Json-url' } }
                 }
-
             }
         },
         computed: {
             computedSurveyAreaMapUrl: function () {
-                var computedSurveyAreaMapUrl = {
+                return {
                     name: 'SurveyAreaMapUrl',
-                    value: this.$root.model.SurveyAreaMapUrl,
-                    label: "Fullstendighetsdekningskart json-url",
+                    value: this.url.value,
+                    label: 'Fullstendighetsdekningskart json-url',
                     type: 'text'
                 };
-
-                computedSurveyAreaMapUrl.value = this.url.value;
-
-                return computedSurveyAreaMapUrl;
             }
-           
         },
         methods: {
-  
+            async checkUrlExists(url) {
+                try {
+                    const head = await fetch(url, { method: 'HEAD', mode: 'cors' });
+                    if (head.ok) return true;
+                    // Some servers reject HEAD; fallback to a light GET
+                    const get = await fetch(url, { method: 'GET', mode: 'cors' });
+                    return get.ok;
+                } catch (e) {
+                    console.warn('URL check failed', e);
+                    return false;
+                }
+            },
+            async ensureDefaultUrl() {
+                var datasetId = this.$root.model.ResourceReferenceCode;
+                if (datasetId && this.$root.model.SurveyAreaMapUrl && this.$root.model.SurveyAreaMapUrl.trim() !== '') return;
+                const defaultUrl = 'https://@(Html.EnvironmentName() == "dev" ? "test" : Html.EnvironmentName())nedlasting.geonorge.no/geonorge/Basisdata/DOKFullstendighetsdekningskart/Kartkatalogen/dekning_' + datasetId +'.geojson';
+                if (await this.checkUrlExists(defaultUrl)) {
+                    this.url.value = defaultUrl;
+                }
+            }
         },
         mounted() {
-
+            this.ensureDefaultUrl();
         }
     };
 </script>
