@@ -1,0 +1,70 @@
+@using Resources
+@model Kartverket.MetadataEditor.Models.MetadataViewModel
+
+<script type="text/x-template" id="survey-area-map-template">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">Fullstendighetsdekningskart</div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group has-feedback">
+                <div class="form-group has-feedback">
+                    <div class="row">
+                        <label class="col-md-2 control-label">{{ url.fields.jsonUrl.label }}</label>
+                        <div class="col-md-10">
+                            <input v-bind:type="url.type" v-model="url.value" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input v-bind:name="computedSurveyAreaMapUrl.name" type="hidden" v-model="computedSurveyAreaMapUrl.value" class="form-control" />
+        </div>
+    </div>
+</script>
+
+<script>
+    var Surveyareamap = {
+        name: "surveyareamap",
+        template: "#survey-area-map-template",
+        data() {
+            return {
+                url: {
+                    value: this.$root.model.SurveyAreaMapUrl,
+                    type: 'text',
+                    fields: {
+                        jsonUrl: {
+                            label: 'Json-url',
+                        }
+                    }
+                }
+
+            }
+        },
+        computed: {
+            computedSurveyAreaMapUrl: function () {
+                var computedSurveyAreaMapUrl = {
+                    name: 'SurveyAreaMapUrl',
+                    value: this.$root.model.SurveyAreaMapUrl,
+                    label: "Fullstendighetsdekningskart json-url",
+                    type: 'text'
+                };
+
+                computedSurveyAreaMapUrl.value = this.url.value;
+
+                return computedSurveyAreaMapUrl;
+            }
+           
+        },
+        methods: {
+  
+        },
+        mounted() {
+
+        }
+    };
+</script>
+
+

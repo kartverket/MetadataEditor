@@ -1215,6 +1215,7 @@
     <Content Include="Views\Metadata\RequestDelete.cshtml" />
     <Content Include="yarn.lock" />
     <Content Include="Views\SimpleMetadata\List.cshtml" />
+    <Content Include="Views\Shared\VueComponents\Edit\TimeAndSpace\_SurveyAreaMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

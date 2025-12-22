@@ -255,7 +255,7 @@ namespace Kartverket.MetadataEditor.Models
                 ProductSpecificationUrl = metadata.ProductSpecificationUrl,
                 ApplicationSchema = metadata.ApplicationSchema,
                 LegendDescriptionUrl = metadata.LegendDescriptionUrl,
-                CoverageUrl = !string.IsNullOrEmpty(metadata.SurveyAreaMapUrl) ? metadata.SurveyAreaMapUrl : metadata.CoverageUrl, //todo fix UI
+                CoverageUrl = metadata.CoverageUrl,
                 CoverageGridUrl = metadata.CoverageGridUrl,
                 CoverageCellUrl = metadata.CoverageCellUrl,
                 SurveyAreaMapUrl = metadata.SurveyAreaMapUrl,
@@ -1238,10 +1238,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.ProductPageUrl = model.ProductPageUrl;
                 metadata.LegendDescriptionUrl = model.LegendDescriptionUrl;
             if (model.IsDataset() || model.IsDatasetSeries()) {
-                if (!string.IsNullOrEmpty(model.SurveyAreaMapUrl)) //todo fix UI
-                    metadata.CoverageUrl = null;
-                else
-                    metadata.CoverageUrl = model.CoverageUrl;
+                metadata.CoverageUrl = model.CoverageUrl;
                 metadata.CoverageGridUrl = model.CoverageGridUrl;
                 metadata.CoverageCellUrl = model.CoverageCellUrl;
                 metadata.SurveyAreaMapUrl = model.SurveyAreaMapUrl;
