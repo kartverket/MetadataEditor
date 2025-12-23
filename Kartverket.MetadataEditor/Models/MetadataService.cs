@@ -259,6 +259,7 @@ namespace Kartverket.MetadataEditor.Models
                 CoverageGridUrl = metadata.CoverageGridUrl,
                 CoverageCellUrl = metadata.CoverageCellUrl,
                 SurveyAreaMapUrl = metadata.SurveyAreaMapUrl,
+                SurveyAreaMapUrlWms = metadata.SurveyAreaMapUrlWms,
                 HelpUrl = metadata.HelpUrl,
 
                 Thumbnails = Thumbnail.CreateFromList(metadata.Thumbnails),
@@ -1242,6 +1243,7 @@ namespace Kartverket.MetadataEditor.Models
                 metadata.CoverageGridUrl = model.CoverageGridUrl;
                 metadata.CoverageCellUrl = model.CoverageCellUrl;
                 metadata.SurveyAreaMapUrl = model.SurveyAreaMapUrl;
+                metadata.SurveyAreaMapUrlWms = model.SurveyAreaMapUrlWms;
             }
 
             metadata.HelpUrl = model.HelpUrl;

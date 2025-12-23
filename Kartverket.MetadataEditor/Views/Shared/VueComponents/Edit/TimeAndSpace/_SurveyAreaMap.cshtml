@@ -12,6 +12,7 @@
         </div>
         <div class="panel-body">
             <div class="form-group has-feedback">
+                <!-- Existing JSON URL -->
                 <div class="form-group has-feedback">
                     <div class="row">
                         <label class="col-md-2 control-label">{{ url.fields.jsonUrl.label }}</label>
@@ -20,8 +21,61 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- WMS service URL + load -->
+                <div class="form-group has-feedback">
+                    <div class="row">
+                        <label class="col-md-2 control-label">WMS service URL</label>
+                        <div class="col-md-10">
+                            <div class="input-group">
+                                <input type="text"
+                                       v-model="wms.serviceUrl"
+                                       class="form-control"
+                                       placeholder="https://.../wms?service=WMS"
+                                       v-on:keydown.enter.prevent />
+                                <span class="input-group-btn">
+                                    <button type="button"
+                                            class="btn"
+                                            v-on:click.prevent="loadWmsLayers">
+                                        Last lag
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WMS layer selector -->
+                <div class="form-group has-feedback" v-if="wms.layers.length">
+                    <div class="row">
+                        <label class="col-md-2 control-label">Layer</label>
+                        <div class="col-md-10">
+                            <div class="custom-select">
+                                <select class="form-control" v-model="wms.selectedLayer">
+                                    <option v-for="layer in wms.layers"
+                                            v-bind:key="layer.name"
+                                            v-bind:value="layer.name">
+                                        {{ layer.title || layer.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <input v-bind:name="computedSurveyAreaMapUrl.name" type="hidden" v-model="computedSurveyAreaMapUrl.value" class="form-control" />
+
+            <!-- Persist JSON url (existing pattern) -->
+            <input v-bind:name="computedSurveyAreaMapUrl.name"
+                   type="hidden"
+                   v-model="computedSurveyAreaMapUrl.value"
+                   class="form-control" />
+
+            <!-- Persist WMS value into $root.model.SurveyAreaMapUrlWms -->
+            <input name="SurveyAreaMapUrlWms"
+                   type="hidden"
+                   v-model="computedSurveyAreaMapUrlWms"
+                   class="form-control" />
         </div>
     </div>
 </script>
@@ -36,6 +90,11 @@
                     value: this.$root.model.SurveyAreaMapUrl,
                     type: 'text',
                     fields: { jsonUrl: { label: 'Json-url' } }
+                },
+                wms: {
+                    serviceUrl: '',
+                    selectedLayer: '',
+                    layers: []
                 }
             }
         },
@@ -47,14 +106,23 @@
                     label: 'Fullstendighetsdekningskart json-url',
                     type: 'text'
                 };
+            },
+            // Two-way bind to $root.model.SurveyAreaMapUrlWms
+            computedSurveyAreaMapUrlWms: {
+                get: function () {
+                    return this.$root.model.SurveyAreaMapUrlWms || '';
+                },
+                set: function (val) {
+                    this.$root.model.SurveyAreaMapUrlWms = val || '';
+                }
             }
         },
         methods: {
+            // --- preserved defaults logic ---
             async checkUrlExists(url) {
                 try {
                     const head = await fetch(url, { method: 'HEAD', mode: 'cors' });
                     if (head.ok) return true;
-                    // Some servers reject HEAD; fallback to a light GET
                     const get = await fetch(url, { method: 'GET', mode: 'cors' });
                     return get.ok;
                 } catch (e) {
@@ -65,16 +133,71 @@
             async ensureDefaultUrl() {
                 var datasetId = this.$root.model.ResourceReferenceCode;
                 if (datasetId && this.$root.model.SurveyAreaMapUrl && this.$root.model.SurveyAreaMapUrl.trim() !== '') return;
-                const defaultUrl = 'https://@(Html.EnvironmentName() == "dev" ? "test" : Html.EnvironmentName())nedlasting.geonorge.no/geonorge/Basisdata/DOKFullstendighetsdekningskart/Kartkatalogen/dekning_' + datasetId +'.geojson';
+                const defaultUrl = 'https://@(Html.EnvironmentName() == "dev" ? "test" : Html.EnvironmentName())nedlasting.geonorge.no/geonorge/Basisdata/DOKFullstendighetsdekningskart/Kartkatalogen/dekning_' + datasetId + '.geojson';
                 if (await this.checkUrlExists(defaultUrl)) {
                     this.url.value = defaultUrl;
                 }
+            },
+            // --- WMS helpers ---
+            normalizeGetCapabilities(raw) {
+                if (!raw) return '';
+                var url = raw.trim();
+                url = url.replace(/([?&])request=[^&]*/ig, '')
+                         .replace(/([?&])service=[^&]*/ig, '')
+                         .replace(/[?&]+$/g, '');
+                var sep = url.indexOf('?') >= 0 ? '&' : '?';
+                return url + sep + 'service=WMS&request=GetCapabilities';
+            },
+            async loadWmsLayers() {
+                var gcUrl = this.normalizeGetCapabilities(this.wms.serviceUrl);
+                if (!gcUrl) return;
+
+                try {
+                    const res = await fetch('/Wms/GetLayers?serviceUrl=' + encodeURIComponent(gcUrl), {
+                        method: 'GET',
+                        credentials: 'same-origin'
+                    });
+                    if (!res.ok) throw new Error('Feilet hente WMS layers');
+                    const data = await res.json();
+                    this.wms.layers = Array.isArray(data.layers) ? data.layers : [];
+                    if (!this.wms.selectedLayer && this.wms.layers.length) {
+                        this.wms.selectedLayer = this.wms.layers[0].name;
+                    }
+                } catch (e) {
+                    console.warn('Lasting WMS layers feilet', e);
+                    this.wms.layers = [];
+                    this.wms.selectedLayer = '';
+                }
+            },
+            formatWmsValue() {
+                var url = (this.wms.serviceUrl || '').trim();
+                var layer = (this.wms.selectedLayer || '').trim();
+                return (url && layer) ? ('TYPE:WMS@@PATH:' + url + '@@LAYER:' + layer) : (url || '');
+            },
+            syncWmsToModel() {
+                this.computedSurveyAreaMapUrlWms = this.formatWmsValue();
+            },
+            parseExistingWms(value) {
+                if (!value) return;
+                var m = /TYPE:WMS@@PATH:(.*?)@@LAYER:(.*)/.exec(value);
+                if (m && m.length === 3) {
+                    this.wms.serviceUrl = m[1];
+                    this.wms.selectedLayer = m[2];
+                } else {
+                    // Plain URL previously stored
+                    this.wms.serviceUrl = value;
+                }
             }
         },
+        watch: {
+            'wms.serviceUrl': function () { this.syncWmsToModel(); },
+            'wms.selectedLayer': function () { this.syncWmsToModel(); }
+        },
         mounted() {
-            this.ensureDefaultUrl();
+            this.ensureDefaultUrl(); // preserve your default JSON logic
+            this.parseExistingWms(this.$root.model.SurveyAreaMapUrlWms);
+            this.syncWmsToModel();
+            if (this.wms.serviceUrl) this.loadWmsLayers();
         }
     };
 </script>
-
-

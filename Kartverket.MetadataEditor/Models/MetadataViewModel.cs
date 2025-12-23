@@ -89,6 +89,7 @@ namespace Kartverket.MetadataEditor.Models
         public string CoverageGridUrl { get; set; }
         public string CoverageCellUrl { get; set; }
         public string SurveyAreaMapUrl { get; set; }
+        public string SurveyAreaMapUrlWms { get; set; }
         public string HelpUrl { get; set; }
 
         public List<Thumbnail> Thumbnails { get; set; }
