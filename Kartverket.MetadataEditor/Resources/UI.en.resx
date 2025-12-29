@@ -628,6 +628,9 @@
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="MetadataLastUpdated" xml:space="preserve">
+    <value>Metadata last updated</value>
+  </data>
   <data name="HelpTextAbstract" xml:space="preserve">
     <value>Enter what the service/dataset contains. What does the user find in this service/dataset.</value>
   </data>
@@ -648,9 +651,6 @@
   </data>
   <data name="HelpTextTitle" xml:space="preserve">
     <value>Name of metadata entry. The name should be short and consistent and describe the service / dataset as best as possible. General terms must be included in a professional context. The name should be identical to that used in any product specification. The name can also contain year and geographical area.</value>
-  </data>
-  <data name="MetadataLastUpdated" xml:space="preserve">
-    <value>Metadata last updated</value>
   </data>
   <data name="HelpTextDate" xml:space="preserve">
     <value>The dates refer to the data set or service itself, not metadata. At least one of the fields must be filled out. It is recommended as a minimum that "Date of last revision" is used. If the data is updated continuously, it keeps setting the date of establishment of data set/service ("Date of creation") or first publication of Data Set/Service ("Date of publication"). Time period ("Starting date" and "End date") data set is valid in is not mandatory if date is filled in in at least one of the other fields.</value>
@@ -691,21 +691,6 @@
   <data name="QualitySpecificationCustom" xml:space="preserve">
     <value>Other standard / custom documentation</value>
   </data>
-  <data name="SelectFile" xml:space="preserve">
-    <value>Select file</value>
-  </data>
-  <data name="South" xml:space="preserve">
-    <value>Sør</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>Upload</value>
-  </data>
-  <data name="West" xml:space="preserve">
-    <value>West</value>
-  </data>
-  <data name="LoggedOffMessage" xml:space="preserve">
-    <value>No metadata available. You must be logged in to edit your metadata.</value>
-  </data>
   <data name="QualitySpecificationResultNotSosiConformApplicationSchema" xml:space="preserve">
     <value>SOSI files are not according to application form</value>
   </data>
@@ -718,8 +703,23 @@
   <data name="QualitySpecificationResultSosiNotConformGmlApplicationSchema" xml:space="preserve">
     <value>GML files are not according to application form</value>
   </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="South" xml:space="preserve">
+    <value>Sør</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="West" xml:space="preserve">
+    <value>West</value>
+  </data>
   <data name="CreateMetadata" xml:space="preserve">
     <value>Create metadata</value>
+  </data>
+  <data name="LoggedOffMessage" xml:space="preserve">
+    <value>No metadata available. You must be logged in to edit your metadata.</value>
   </data>
   <data name="FreeText" xml:space="preserve">
     <value>Free text</value>
@@ -846,9 +846,6 @@
   </data>
   <data name="Metadata_Admin_QualitySpecificationResult_NotSet" xml:space="preserve">
     <value>The data is not evaluated according to the product specification</value>
-  </data>
-  <data name="NotSet" xml:space="preserve">
-    <value>Not set</value>
   </data>
   <data name="QualitySpecificationResultNotSetSosiConformApplicationSchema" xml:space="preserve">
     <value>SOSI files are not evaluated according to application form</value>
@@ -1048,5 +1045,11 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   </data>
   <data name="ErrorSearchIndex" xml:space="preserve">
     <value>The metadata entry is not found in the search index. Try saving the entry again and check after a while if you get a match in your search.</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="ErrorIllegalCharacter" xml:space="preserve">
+    <value>Illegal character</value>
   </data>
 </root>
