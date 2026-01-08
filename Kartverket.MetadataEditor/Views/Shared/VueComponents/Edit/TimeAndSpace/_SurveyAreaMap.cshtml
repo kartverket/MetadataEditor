@@ -31,14 +31,17 @@
                                 <input type="text"
                                        v-model="wms.serviceUrl"
                                        class="form-control"
-                                       placeholder="https://.../wms?service=WMS"
+                                       placeholder=""
                                        v-on:input="wms.errorMessage = ''"
-                                       v-on:keydown.enter.prevent />
+                                       v-on:keydown.enter.prevent
+                                       v-bind:disabled="wms.loading" />
                                 <span class="input-group-btn">
                                     <button type="button"
                                             class="btn"
-                                            v-on:click.prevent="loadWmsLayers">
-                                        Last lag
+                                            v-on:click.prevent="loadWmsLayers"
+                                            v-bind:disabled="wms.loading">
+                                        <span v-if="wms.loading">Laster...</span>
+                                        <span v-else>Last lag</span>
                                     </button>
                                 </span>
                             </div>
@@ -52,7 +55,9 @@
                         <label class="col-md-2 control-label">Lag</label>
                         <div class="col-md-10">
                             <div class="custom-select">
-                                <select class="form-control" v-model="wms.selectedLayer">
+                                <select class="form-control"
+                                        v-model="wms.selectedLayer"
+                                        v-bind:disabled="wms.loading">
                                     <option v-for="layer in wms.layers"
                                             v-bind:key="layer.name"
                                             v-bind:value="layer.name">
@@ -105,7 +110,8 @@
                     serviceUrl: '',
                     selectedLayer: '',
                     layers: [],
-                    errorMessage: ''
+                    errorMessage: '',
+                    loading: false
                 }
             }
         },
@@ -129,7 +135,6 @@
             }
         },
         methods: {
-            // --- preserved defaults logic ---
             async checkUrlExists(url) {
                 try {
                     const head = await fetch(url, { method: 'HEAD', mode: 'cors' });
@@ -149,7 +154,6 @@
                     this.url.value = defaultUrl;
                 }
             },
-            // --- WMS helpers ---
             normalizeGetCapabilities(raw) {
                 if (!raw) return '';
                 var url = raw.trim();
@@ -167,6 +171,7 @@
                     return;
                 }
 
+                this.wms.loading = true;
                 try {
                     const res = await fetch('/Wms/GetLayers?serviceUrl=' + encodeURIComponent(gcUrl), {
                         method: 'GET',
@@ -185,7 +190,6 @@
                         throw new Error('Ingen WMS-lag funnet');
                     }
 
-                    // preselect first
                     if (!this.wms.selectedLayer) {
                         this.wms.selectedLayer = this.wms.layers[0].name;
                     }
@@ -196,6 +200,8 @@
                     }
                     this.wms.layers = [];
                     this.wms.selectedLayer = '';
+                } finally {
+                    this.wms.loading = false;
                 }
             },
             formatWmsValue() {
@@ -213,7 +219,6 @@
                     this.wms.serviceUrl = m[1];
                     this.wms.selectedLayer = m[2];
                 } else {
-                    // Plain URL previously stored
                     this.wms.serviceUrl = value;
                 }
             }
@@ -223,7 +228,7 @@
             'wms.selectedLayer': function () { this.syncWmsToModel(); }
         },
         mounted() {
-            this.ensureDefaultUrl(); // preserve your default JSON logic
+            this.ensureDefaultUrl();
             this.parseExistingWms(this.$root.model.SurveyAreaMapUrlWms);
             this.syncWmsToModel();
             if (this.wms.serviceUrl) this.loadWmsLayers();

@@ -20,7 +20,7 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 using (var client = new HttpClient(new HttpClientHandler { AllowAutoRedirect = true }))
                 {
-                    client.Timeout = TimeSpan.FromSeconds(10);
+                    client.Timeout = TimeSpan.FromSeconds(120);
                     var resp = await client.GetAsync(serviceUrl);
                     resp.EnsureSuccessStatusCode();
 
