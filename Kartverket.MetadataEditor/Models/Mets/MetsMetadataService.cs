@@ -73,6 +73,10 @@ namespace Kartverket.MetadataEditor.Models.Mets
         {
             _userName = username;
 
+            limit = 200;
+
+            RunSearchNina(1);
+
             //RunSearchClimateSeries(1);
 
             limit = 200;
@@ -88,10 +92,6 @@ namespace Kartverket.MetadataEditor.Models.Mets
             //RunSearchSentinel(1);
 
             //RunSearch(1); //series 
-
-            limit = 200;
-
-            RunSearchNina(1);
 
             limit = 200;
 
@@ -323,9 +323,9 @@ namespace Kartverket.MetadataEditor.Models.Mets
         {
             Log.Info("Running search nina from start position: " + startPosition);
             SearchResultsType res = null;
-            //try
-            //{
-                _geoNorge = new GeoNorge("", "", "http://pycsw.nina.no/csw/?service=CSW&version=2.0.2&request=GetRecords&elementsetname=full&typenames=gmd:MD_Metadata&outputSchema=http://www.isotc211.org/2005/gmd&outputFormat=application/xml&resulttype=results&startPosition=" + startPosition);
+            try
+            {
+                _geoNorge = new GeoNorge("", "", "https://csw.nina.no/csw?service=CSW&version=2.0.2&request=GetRecords&elementsetname=full&typenames=gmd:MD_Metadata&outputSchema=http://www.isotc211.org/2005/gmd&outputFormat=application/xml&resulttype=results&startPosition=" + startPosition);
 
                 res = _geoNorge.GetFromEndpointUrl();
 
@@ -339,12 +339,12 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
                         try
                         {
-                            Log.Info("Harvest metadata for uuid: " + item.fileIdentifier.CharacterString);
+                            Log.Info("Harvest metadata for NINA uuid: " + item.fileIdentifier.CharacterString);
                             existingMetadata = _geoNorge.GetRecordByUuid(item.fileIdentifier.CharacterString);
                         }
                         catch (Exception exx)
                         {
-                            Log.Info("Error Harvest metadata for uuid: " + item.fileIdentifier.CharacterString, exx);
+                            Log.Info("Error Harvest metadata for NINA uuid: " + item.fileIdentifier.CharacterString, exx);
                         }
 
                         if (existingMetadata == null)
@@ -359,11 +359,11 @@ namespace Kartverket.MetadataEditor.Models.Mets
                         numberOfItems++;
                     }
                 }
-            //}
-            //catch (Exception exception)
-            //{
-            //    Log.Error("Error in metadata from Geonetwork position: " + startPosition + " + " + limit + ".", exception);
-            //}
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error in metadata from NINA position: " + startPosition + " + " + limit + ".", exception);
+            }
 
             int nextRecord;
             int numberOfRecordsMatched;
