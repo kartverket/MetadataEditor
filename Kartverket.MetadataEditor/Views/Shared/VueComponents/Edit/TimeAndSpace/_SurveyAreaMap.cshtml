@@ -151,6 +151,13 @@
                 if (datasetId && this.$root.model.SurveyAreaMapUrl && this.$root.model.SurveyAreaMapUrl.trim() !== '') return;
                 const defaultUrl = 'https://@(Html.EnvironmentName() == "dev" ? "test" : Html.EnvironmentName())nedlasting.geonorge.no/geonorge/Basisdata/DOKFullstendighetsdekningskart/Kartkatalogen/dekning_' + datasetId + '.geojson';
                 if (await this.checkUrlExists(defaultUrl)) {
+                    const el = document.getElementById('warning-info');
+                    console.log('hei');
+                    if (el) {
+                        el.innerText = 'Fullstendighetsdekningskart url funnet under tid og rom, vennligst lagre for \u00E5 beholde url : ' + defaultUrl;
+                        el.classList.remove('hidden');       // remove Bootstrap/utility hidden class if present
+                        el.style.display = 'block';          // ensure visible
+                    }
                     this.url.value = defaultUrl;
                 }
             },
