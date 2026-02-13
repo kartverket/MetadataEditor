@@ -262,7 +262,7 @@
                 return this.getValueFromCoverageUrl(regex);
             },
             getMapServiceUrl: function () {
-                var regex = /@@PATH:(.*)@@LAYER:/;
+                var regex = /@@PATH:(.*?)(?:@@LAYER:|$)/;
                 return this.getValueFromCoverageUrl(regex);
             },
             getMapServiceLayerName: function () {
@@ -270,7 +270,7 @@
                 return this.getValueFromCoverageUrl(regex);
             },
             isMapService: function () {
-                var regex = /TYPE:(.*)@@PATH(.*)@@LAYER:(.*)/;
+                var regex = /TYPE:(.*)@@PATH(.*)(?:@@LAYER:|$)/;
                 return this.getValueFromCoverageUrl(regex) !== '';
             },
             isMapServiceGeonorge: function () {
