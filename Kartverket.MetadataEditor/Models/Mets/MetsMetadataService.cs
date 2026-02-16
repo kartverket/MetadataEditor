@@ -1,20 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+using Arkitektum.GIS.Lib.SerializeUtil;
 using GeoNorgeAPI;
 using Kartverket.Geonorge.Utilities;
+using Kartverket.MetadataEditor.Models.Translations;
 using log4net;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
-using www.opengis.net;
+using System.Linq;
+using System.Net.Http;
+using System.Net.PeerToPeer;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
-using Kartverket.MetadataEditor.Models.Translations;
-using System.Net.PeerToPeer;
-using Arkitektum.GIS.Lib.SerializeUtil;
 using System.Windows.Media.Media3D;
+using www.opengis.net;
 
 namespace Kartverket.MetadataEditor.Models.Mets
 {
@@ -814,6 +816,6 @@ namespace Kartverket.MetadataEditor.Models.Mets
 
     public interface IMetsMetadataService
     {
-        Task<int> SynchronizeMetadata(string username);
+        Task<int> SynchronizeMetadata(string username);   
     }
 }

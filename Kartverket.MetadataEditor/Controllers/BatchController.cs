@@ -134,6 +134,19 @@ namespace Kartverket.MetadataEditor.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult UpdateSurveyAreaMapUrls()
+        {
+            if (!UserHasMetadataAdminRole())
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+
+            string username = GetUsername();
+
+            new Thread(() => _batchService.SynchronizeSurveyAreaMapUrls(username)).Start();
+            return RedirectToAction("Index");
+        }
+
         [Authorize]
         public ActionResult UpdateFormatOrganization()
         {
