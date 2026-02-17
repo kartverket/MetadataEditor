@@ -17,5 +17,7 @@ namespace Kartverket.MetadataEditor.Models
         void Update(HttpPostedFileBase file, string v, string metadatafield, bool deleteData, string metadatafieldEnglish);
         void UpdateFormatOrganization(string v);
         void UpdateKeywordServiceType(string v);
+
+        Task<int> SynchronizeSurveyAreaMapUrls(string username);
     }
 }

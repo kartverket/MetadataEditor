@@ -1067,4 +1067,7 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="ErrorSearchIndex" xml:space="preserve">
     <value>Metadata-oppføringen finnes ikke i søke-indeks. Prøv å lagre oppføringen på nytt og sjekk etter en stund om du får treff i søket.</value>
   </data>
+  <data name="ErrorIllegalCharacter" xml:space="preserve">
+    <value>Ulovlig verdi</value>
+  </data>
 </root>

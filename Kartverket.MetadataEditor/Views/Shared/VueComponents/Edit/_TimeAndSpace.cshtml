@@ -39,17 +39,19 @@
         </div>
         <br />
         <component is="keywords-section"
-             v-bind:section="section"
-             v-for="section in sections">
+                   v-bind:section="section"
+                   v-for="section in sections">
         </component>
         <component is="keywords-administrative-units"></component>
         <component is="bounding-box"></component>
         <component v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="coverage"></component>
+        <component v-if="$store.getters['isDataset'] || $store.getters['isDatasetSeries']" is="surveyareamap"></component>
     </div>
 </script>
 
 @Html.Partial("VueComponents/Edit/TimeAndSpace/_BoundingBox")
 @Html.Partial("VueComponents/Edit/TimeAndSpace/_Coverage")
+@Html.Partial("VueComponents/Edit/TimeAndSpace/_SurveyAreaMap")
 @Html.Partial("VueComponents/Edit/TimeAndSpace/_KeywordsAdministrativeUnits")
 
 
@@ -63,6 +65,7 @@
             Field: Field,
             BoundingBox: BoundingBox,
             Coverage: Coverage,
+            Surveyareamap: Surveyareamap,
             KeywordsSection: KeywordsSection,
             KeywordsAdministrativeUnits: KeywordsAdministrativeUnits
         },

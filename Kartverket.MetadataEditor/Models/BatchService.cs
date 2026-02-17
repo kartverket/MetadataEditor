@@ -1,18 +1,24 @@
-﻿using GeoNorgeAPI;
+﻿using Autofac.Features.Metadata;
+using GeoNorgeAPI;
+using Kartverket.Geonorge.Utilities;
 using Kartverket.MetadataEditor.Controllers;
+using Kartverket.MetadataEditor.Models.Rdf;
+using Kartverket.MetadataEditor.Models.Translations;
 using log4net;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.IO;
+using System.Linq;
+using System.Net.Http;
 using System.Reflection;
-using Kartverket.Geonorge.Utilities;
-using Kartverket.MetadataEditor.Models.Translations;
-using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
 using www.opengis.net;
-using Kartverket.MetadataEditor.Models.Rdf;
 using GeoNetworkUtil = Kartverket.MetadataEditor.Util.GeoNetworkUtil;
+using Uri = System.Uri;
 
 namespace Kartverket.MetadataEditor.Models
 {
@@ -501,6 +507,140 @@ namespace Kartverket.MetadataEditor.Models
                     if (listOfAllowedLicenses.ContainsKey(licenseUrl) && listOfAllowedLicenses.ContainsValue(licenseName))
                         SaveLicense(uuid, licenseName, licenseUrl, username);
                 }
+            }
+        }
+
+        public async Task<int> SynchronizeSurveyAreaMapUrls(string username)
+        {
+            Log.Info("Synching survey area maps");
+
+            var numberOfUpdatedMetadata = 0;
+
+            try
+            {
+                var environment = System.Web.Configuration.WebConfigurationManager.AppSettings["EnvironmentName"];
+                if (!string.IsNullOrEmpty(environment))
+                    environment = "test";
+
+                var url = "https://" + environment + "nedlasting.geonorge.no/geonorge/Basisdata/DOKFullstendighetsdekningskart/Kartkatalogen/";
+               
+                var surveyAreaMaps = await ListRemoteFilesAsync(url);
+                foreach (var mapUrl in surveyAreaMaps)
+                {
+                    var filename = Path.GetFileName(mapUrl);
+                    var datasetId = filename.Replace("dekning_","").Replace(".geojson", "");
+
+                    // Look up UUID by datasetId
+                    var uuid = await GetUuidByDatasetIdAsync(datasetId);
+                    if (string.IsNullOrEmpty(uuid))
+                    {
+                        Log.Warn($"No UUID found for datasetId: {datasetId}");
+                        continue;
+                    }
+
+                    var metadata = _metadataService.GetMetadataModel(uuid);
+                    if (metadata != null)
+                    {
+                        if (metadata.SurveyAreaMapUrl != mapUrl)
+                        {
+                            metadata.SurveyAreaMapUrl = mapUrl;
+                            _metadataService.SaveMetadataModel(metadata, username);
+                            Log.Info("Updated survey area map url for uuid: " + uuid);
+                        }
+                        else
+                        {
+                            Log.Info("Survey area map url already up to date for uuid: " + uuid);
+                        }
+                    }
+                    else
+                    {
+                        Log.Warn("No metadata found for uuid: " + uuid);
+                    }
+                }
+                numberOfUpdatedMetadata++;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Error survey area maps: ", ex);
+            }
+
+
+            Log.Info("Number of metadata updated survey area maps: " + numberOfUpdatedMetadata);
+            return numberOfUpdatedMetadata;
+        }
+
+        private async Task<string> GetUuidByDatasetIdAsync(string datasetId)
+        {
+            try
+            {
+                var environment = System.Web.Configuration.WebConfigurationManager.AppSettings["EnvironmentName"];
+                if (!string.IsNullOrEmpty(environment))
+                    environment = "."+ environment;
+
+                using (var http = new HttpClient())
+                {
+                    http.Timeout = TimeSpan.FromSeconds(30);
+
+                    var apiUrl = $"https://kartkatalog{environment}.geonorge.no/api/metadata-dataset-id?datasetId={datasetId}";
+                    Log.Info($"Looking up UUID for datasetId: {datasetId} using: {apiUrl}");
+
+                    var response = await http.GetAsync(apiUrl);
+                    response.EnsureSuccessStatusCode();
+
+                    var json = await response.Content.ReadAsStringAsync();
+                    var data = Newtonsoft.Json.Linq.JObject.Parse(json);
+
+                    return data["Uuid"]?.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Error looking up UUID for datasetId {datasetId}: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<List<string>> ListRemoteFilesAsync(string directoryUrl, CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrWhiteSpace(directoryUrl))
+                throw new ArgumentException("directoryUrl is required.", nameof(directoryUrl));
+
+            using (var http = new HttpClient())
+            {
+                http.Timeout = TimeSpan.FromSeconds(30);
+                var response = await http.GetAsync(directoryUrl, cancellationToken);
+                response.EnsureSuccessStatusCode();
+
+                var html = await response.Content.ReadAsStringAsync();
+
+                // Extract hrefs from anchor tags pointing to files within the same directory.
+                // This is a heuristic that works for typical Apache/IIS directory listings.
+                var hrefs = new List<string>();
+                var baseUri = new Uri(directoryUrl);
+                var rx = new Regex("<a\\s+href\\s*=\\s*\"(?<href>[^\"]+)\"", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+                foreach (Match m in rx.Matches(html))
+                {
+                    var href = m.Groups["href"].Value;
+                    if (string.IsNullOrWhiteSpace(href))
+                        continue;
+
+                    // Ignore parent directory links and anchors
+                    if (href.StartsWith("#") || href.StartsWith("?") || href.Equals("../", StringComparison.Ordinal))
+                        continue;
+
+                    // Build absolute URL
+                    Uri resolved;
+                    if (Uri.TryCreate(baseUri, href, out resolved))
+                    {
+                        // Optional: skip subfolders if you only want files
+                        // You can detect folders if they end with '/' in typical listings
+                        hrefs.Add(resolved.ToString());
+                    }
+                }
+
+                return hrefs;
             }
         }
 

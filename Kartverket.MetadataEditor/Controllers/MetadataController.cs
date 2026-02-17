@@ -376,7 +376,9 @@ namespace Kartverket.MetadataEditor.Controllers
             }
             ValidateModel(model, ModelState);
 
-            if (ignoreValidationError == "1" /*&& ViewBag.IsAdmin == "1"*/) 
+            var doNotAllowSaveIfBadValues = ModelState.Values.Any(v => v.Errors.Any(e => e.ErrorMessage?.Contains(UI.ErrorIllegalCharacter) == true) || v.Errors.Any(e => e.ErrorMessage?.Contains(UI.ErrorDuplicateDatasetName) == true));
+
+            if (ignoreValidationError == "1" && !doNotAllowSaveIfBadValues /*&& ViewBag.IsAdmin == "1"*/) 
             { 
                 foreach (var modelValue in ModelState.Values)
                 {
@@ -524,7 +526,7 @@ namespace Kartverket.MetadataEditor.Controllers
 
                     if (!match.Success)
                     {
-                        ModelState.AddModelError("ResourceReferenceCode", "Ulovlig tegn");
+                        ModelState.AddModelError("ResourceReferenceCode", UI.ErrorIllegalCharacter);
                     }
 
                     System.Net.WebClient c = new System.Net.WebClient();

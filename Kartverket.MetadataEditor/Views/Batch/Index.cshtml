@@ -300,10 +300,43 @@
                                 <div class="col-md-11">
                                     <div class="row pull-right">
                                         <button type="submit" onclick="return clickMetsDisable(this);" class="btn no-margin-bottom show-loading-animation" data-loading-message=""><span id="update-metadata-mets">Synkroniser csw.met</span></button>
-                                        
+
                                         <script>
                                             function clickMetsDisable(link) {
                                                 document.getElementById('update-metadata-mets').innerText = 'Oppdaterer csw.met, vennligst vent...';
+                                                if (link.className != "visited btn btn-sm btn-default") {
+                                                    link.className = "visited btn btn-sm btn-default";
+                                                    return true;
+                                                }
+
+                                                return false;
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default" style="">
+                    <div class="panel-heading">Fullstendighetsdekningskart</div>
+                    <div class="panel-body">
+                        <form action="@Url.Action("UpdateSurveyAreaMapUrls","Batch")" method="get" class="form-horizontal" role="form">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="row pull-right">
+                                        <button type="submit" onclick="return clickSurveyMapDisable(this);" class="btn no-margin-bottom show-loading-animation" data-loading-message=""><span id="update-metadata-survey-maps">Synkroniser urler for fullstendighetsdekningskart</span></button>
+
+                                        <script>
+                                            function clickSurveyMapDisable(link) {
+                                                document.getElementById('update-metadata-survey-maps').innerText = 'Oppdaterer fullstendighetsdekningskart, vennligst vent...';
                                                 if (link.className != "visited btn btn-sm btn-default") {
                                                     link.className = "visited btn btn-sm btn-default";
                                                     return true;
