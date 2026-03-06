@@ -55,7 +55,7 @@
             };
 
             window.addEventListener('message', function (e) {
-                if (e.origin !== undefined && e.origin == "https://norgeskart.no") {
+                if (e.origin !== undefined) {
                     var msg = JSON.parse(e.data);
                     if (msg.type === "mapInitialized") {
                         this.sendMessage({
