@@ -1046,10 +1046,10 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   <data name="ErrorSearchIndex" xml:space="preserve">
     <value>The metadata entry is not found in the search index. Try saving the entry again and check after a while if you get a match in your search.</value>
   </data>
-  <data name="NotSet" xml:space="preserve">
-    <value>Not set</value>
-  </data>
   <data name="ErrorIllegalCharacter" xml:space="preserve">
     <value>Illegal character</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>Not set</value>
   </data>
 </root>

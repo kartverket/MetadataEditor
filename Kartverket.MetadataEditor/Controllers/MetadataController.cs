@@ -435,6 +435,21 @@ namespace Kartverket.MetadataEditor.Controllers
                                 return View(model);
                             }
                         }
+                        if (model.IsDataset() || model.IsDatasetSeries()) 
+                        {
+                            if (string.IsNullOrWhiteSpace(model.ResolutionScale))
+                            {
+                                ModelState.AddModelError("ResolutionScale", UI.ResolutionRequired);
+                                PrepareViewBagForEditing(model);
+                                return View(model);
+                            }
+                            else if(!IsDoubleRealNumber(model.ResolutionDistance))
+                            {
+                                ModelState.AddModelError("ResolutionDistance", UI.ResolutionRequired);
+                                PrepareViewBagForEditing(model);
+                                return View(model);
+                            }
+                        }
                     }
 
                     SaveMetadataToCswServer(model);

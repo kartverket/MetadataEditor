@@ -1483,6 +1483,11 @@
               Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.
             </summary>
         </member>
+        <member name="P:Resources.UI.ResolutionRequired">
+            <summary>
+              Looks up a localized string similar to Romlig oppløsning er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Search">
             <summary>
               Looks up a localized string similar to Søk.

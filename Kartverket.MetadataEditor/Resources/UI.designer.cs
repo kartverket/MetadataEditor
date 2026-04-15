@@ -2646,6 +2646,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Romlig oppløsning er påkrevd.
+        /// </summary>
+        public static string ResolutionRequired {
+            get {
+                return ResourceManager.GetString("ResolutionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Søk.
         /// </summary>
         public static string Search {
