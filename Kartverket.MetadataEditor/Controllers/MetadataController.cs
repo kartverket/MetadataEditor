@@ -437,17 +437,19 @@ namespace Kartverket.MetadataEditor.Controllers
                         }
                         if (model.IsDataset() || model.IsDatasetSeries()) 
                         {
-                            if (string.IsNullOrWhiteSpace(model.ResolutionScale))
+                            if (string.IsNullOrWhiteSpace(model.ResolutionScale) && !IsDoubleRealNumber(model.ResolutionDistance))
                             {
+                                if (!IsDoubleRealNumber(model.ResolutionDistance))
+                                {
+                                    ModelState.AddModelError("ResolutionDistance", UI.ResolutionRequired);
+                                    PrepareViewBagForEditing(model);
+                                    return View(model);
+                                }
+                                else { 
                                 ModelState.AddModelError("ResolutionScale", UI.ResolutionRequired);
                                 PrepareViewBagForEditing(model);
                                 return View(model);
-                            }
-                            else if(!IsDoubleRealNumber(model.ResolutionDistance))
-                            {
-                                ModelState.AddModelError("ResolutionDistance", UI.ResolutionRequired);
-                                PrepareViewBagForEditing(model);
-                                return View(model);
+                                }
                             }
                         }
                     }
