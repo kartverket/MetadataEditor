@@ -441,7 +441,7 @@ namespace Kartverket.MetadataEditor.Controllers
                             {
                                 if (!IsDoubleRealNumber(model.ResolutionDistance))
                                 {
-                                    ModelState.AddModelError("ResolutionDistance", UI.ResolutionRequired);
+                                    ModelState.AddModelError("ResolutionScale", UI.ResolutionRequired);
                                     PrepareViewBagForEditing(model);
                                     return View(model);
                                 }
