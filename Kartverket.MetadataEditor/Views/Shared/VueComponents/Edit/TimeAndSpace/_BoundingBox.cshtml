@@ -4,7 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-11">@UI.GeographicExtent</div>
+                <div class="col-md-11"><span class="required">@UI.GeographicExtent</span></div>
                 <div v-if="helpText" class="col-md-1">
                     <span v-on:click="helpText.active = !helpText.active" v-bind:class="{active: helpText.active}" class="badge help-text-toggle">?</span>
                 </div>

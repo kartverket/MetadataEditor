@@ -435,23 +435,6 @@ namespace Kartverket.MetadataEditor.Controllers
                                 return View(model);
                             }
                         }
-                        if (model.IsDataset() || model.IsDatasetSeries()) 
-                        {
-                            if (string.IsNullOrWhiteSpace(model.ResolutionScale) && !IsDoubleRealNumber(model.ResolutionDistance))
-                            {
-                                if (!IsDoubleRealNumber(model.ResolutionDistance))
-                                {
-                                    ModelState.AddModelError("ResolutionScale", UI.ResolutionRequired);
-                                    PrepareViewBagForEditing(model);
-                                    return View(model);
-                                }
-                                else { 
-                                ModelState.AddModelError("ResolutionScale", UI.ResolutionRequired);
-                                PrepareViewBagForEditing(model);
-                                return View(model);
-                                }
-                            }
-                        }
                     }
 
                     SaveMetadataToCswServer(model);
@@ -524,6 +507,22 @@ namespace Kartverket.MetadataEditor.Controllers
                     ModelState.AddModelError("ResolutionDistance", "Ugyldig tall");
                 model.ResolutionDistance = model.ResolutionDistance.Replace(',', '.');
             }
+
+            if (model.IsDataset() || model.IsDatasetSeries())
+            {
+                if (string.IsNullOrWhiteSpace(model.ResolutionScale) && !IsDoubleRealNumber(model.ResolutionDistance))
+                {
+                    if (!IsDoubleRealNumber(model.ResolutionDistance))
+                    {
+                        ModelState.AddModelError("ResolutionScale", UI.ResolutionRequired);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("ResolutionScale", UI.ResolutionRequired);
+                    }
+                }
+            }
+
             ValidQualityResult(model, modelstate);
 
             ViewBag.thumbnailMissingCSS = "";
