@@ -922,9 +922,6 @@
   <data name="ReferenceSystemRequired" xml:space="preserve">
     <value>Det er påkrevd å fylle ut romlig referense system</value>
   </data>
-  <data name="SpatialRepresentationRequired" xml:space="preserve">
-    <value>Romlig datarepresentasjon er påkrevd</value>
-  </data>
   <data name="UseConstraintsRequired" xml:space="preserve">
     <value>Brukerrestriksjoner er påkrevd</value>
   </data>
@@ -1078,5 +1075,8 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   </data>
   <data name="SelectToSeeFormats" xml:space="preserve">
     <value>Velg for å vise format-liste</value>
+  </data>
+  <data name="SpatialRepresentationRequired" xml:space="preserve">
+    <value>Romlig representasjonsform er påkrevd</value>
   </data>
 </root>
