@@ -123,6 +123,7 @@ namespace Kartverket.MetadataEditor.Models
         public string SpecificUsage { get; set; }  // bruksområde
         public string ResourceIdentifierName { get; set; }  // teknisk navn
         public string TopicCategory { get; set; }
+        [RequiredIf("IsDataset() || IsDatasetSeries()", ErrorMessageResourceName = "SpatialRepresentationRequired", ErrorMessageResourceType = typeof(UI))]
         public string SpatialRepresentation { get; set; }
 
         public string DistributionFormatName { get; set; }

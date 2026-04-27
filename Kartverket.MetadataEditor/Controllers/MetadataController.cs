@@ -629,7 +629,9 @@ namespace Kartverket.MetadataEditor.Controllers
 
         public Dictionary<string, string> GetListOfSpatialRepresentations(string culture = Culture.NorwegianCode)
         {
-            return GetCodeList("4C54EB31-714E-4457-AF6A-44FE6DBE76C1", culture);
+            Dictionary<string, string> codeList = GetCodeList("4C54EB31-714E-4457-AF6A-44FE6DBE76C1", culture);
+            codeList = codeList.Prepend(new KeyValuePair<string, string>("", UI.SelectToSeeFormats)).ToDictionary(k => k.Key, v => v.Value);
+            return codeList;
         }
 
         public Dictionary<string, string> GetListOfMaintenanceFrequencyValues(string culture = Culture.NorwegianCode)

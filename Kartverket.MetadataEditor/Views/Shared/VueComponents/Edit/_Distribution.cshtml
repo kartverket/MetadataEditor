@@ -6,7 +6,7 @@
 
         </div>
 
-        <div v-if="spatialRepresentation.visible" class="form-group">
+        <div v-if="spatialRepresentation.visible" class="form-group required">
             <div class="row">
                 <label for="SpatialRepresentation" class="col-md-3 control-label">@UI.SpatialRepresentationType</label>
                 <div class="col-md-3">
@@ -58,6 +58,7 @@
                     mutation: 'updateSpatialRepresentation',
                     type: 'select',
                     visible: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
+                    required: this.$store.getters['isDataset'] || this.$store.getters['isDatasetSeries'],
                     options: this.$store.getters['SpatialRepresentationValues']
                 }
             };

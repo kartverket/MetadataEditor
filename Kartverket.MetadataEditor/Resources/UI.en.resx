@@ -916,6 +916,9 @@
   <data name="ReferenceSystemRequired" xml:space="preserve">
     <value>It is required to fill in spatial reference system</value>
   </data>
+  <data name="SpatialRepresentationRequired" xml:space="preserve">
+    <value>Spatial representation type is required</value>
+  </data>
   <data name="UseConstraintsRequired" xml:space="preserve">
     <value>User restrictions is required</value>
   </data>
@@ -1051,5 +1054,8 @@ It is encouraged to use email addresses to groups and not to individuals, as wel
   </data>
   <data name="NotSet" xml:space="preserve">
     <value>Not set</value>
+  </data>
+  <data name="SelectToSeeFormats" xml:space="preserve">
+    <value>Select to see formats</value>
   </data>
 </root>
