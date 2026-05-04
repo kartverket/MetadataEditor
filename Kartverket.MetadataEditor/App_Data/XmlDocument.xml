@@ -1483,6 +1483,11 @@
               Looks up a localized string similar to Det er påkrevd å fylle ut romlig referense system.
             </summary>
         </member>
+        <member name="P:Resources.UI.ResolutionRequired">
+            <summary>
+              Looks up a localized string similar to Romlig oppløsning er påkrevd.
+            </summary>
+        </member>
         <member name="P:Resources.UI.Search">
             <summary>
               Looks up a localized string similar to Søk.
@@ -1498,6 +1503,11 @@
               Looks up a localized string similar to Velg fil.
             </summary>
         </member>
+        <member name="P:Resources.UI.SelectToSeeFormats">
+            <summary>
+              Looks up a localized string similar to Velg for å vise format-liste.
+            </summary>
+        </member>
         <member name="P:Resources.UI.ShowingMetadata">
             <summary>
               Looks up a localized string similar to Viser metadata.
@@ -1511,6 +1521,11 @@
         <member name="P:Resources.UI.South">
             <summary>
               Looks up a localized string similar to Sør.
+            </summary>
+        </member>
+        <member name="P:Resources.UI.SpatialRepresentationRequired">
+            <summary>
+              Looks up a localized string similar to Romlig representasjonsform er påkrevd.
             </summary>
         </member>
         <member name="P:Resources.UI.SpatialRepresentationType">

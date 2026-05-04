@@ -2646,6 +2646,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Romlig oppløsning er påkrevd.
+        /// </summary>
+        public static string ResolutionRequired {
+            get {
+                return ResourceManager.GetString("ResolutionRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Søk.
         /// </summary>
         public static string Search {
@@ -2673,6 +2682,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Velg for å vise format-liste.
+        /// </summary>
+        public static string SelectToSeeFormats {
+            get {
+                return ResourceManager.GetString("SelectToSeeFormats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Viser metadata.
         /// </summary>
         public static string ShowingMetadata {
@@ -2696,6 +2714,15 @@ namespace Resources {
         public static string South {
             get {
                 return ResourceManager.GetString("South", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Romlig representasjonsform er påkrevd.
+        /// </summary>
+        public static string SpatialRepresentationRequired {
+            get {
+                return ResourceManager.GetString("SpatialRepresentationRequired", resourceCulture);
             }
         }
         

@@ -134,6 +134,7 @@
             Resolution: Resolution
         },
         mounted() {
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Quality', fieldNames: this.fieldNames });
             this.$store.dispatch('getErrorsForTab', { tabName: 'Quality' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
@@ -141,6 +142,7 @@
         data() {
             return {
                 errors: {},
+                fieldNames: ['ResolutionScale'],
                 formElements: {
                     status: {
                         id: 'Status',

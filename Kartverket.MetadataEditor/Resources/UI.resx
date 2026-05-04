@@ -1070,4 +1070,13 @@ Det oppfordres til å bruke e-postadresser til grupper og ikke til enkeltpersone
   <data name="ErrorIllegalCharacter" xml:space="preserve">
     <value>Ulovlig verdi</value>
   </data>
+  <data name="ResolutionRequired" xml:space="preserve">
+    <value>Romlig oppløsning er påkrevd</value>
+  </data>
+  <data name="SelectToSeeFormats" xml:space="preserve">
+    <value>Velg for å vise format-liste</value>
+  </data>
+  <data name="SpatialRepresentationRequired" xml:space="preserve">
+    <value>Romlig representasjonsform er påkrevd</value>
+  </data>
 </root>

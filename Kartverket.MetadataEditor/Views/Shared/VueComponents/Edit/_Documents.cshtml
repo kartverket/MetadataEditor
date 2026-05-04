@@ -239,6 +239,7 @@
         mounted() {
             initCustomSelectList();
             this.initFileUpload();
+            this.$store.dispatch('registerErrorsForTab', { tabName: 'Documents', fieldNames: this.fieldNames });
             this.$store.dispatch('getErrorsForTab', { tabName: 'Documents' }).then(function (errors) {
                 this.errors = errors;
             }.bind(this));
@@ -246,6 +247,7 @@
         data() {
             return {
                 errors: {},
+                fieldNames: ['thumbnailMissing'],
                 productSpecificationUrl: {
                     name: 'ProductSpecificationUrl',
                     getter: 'ProductSpecificationUrl',
