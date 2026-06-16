@@ -1,0 +1,35 @@
+name: Convert Draw.io to PNG
+
+on:
+  push:
+    paths:
+      - "/docs/*.drawio"
+      - ".github/workflows/drawio-to-png.yaml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Convert Draw.io files to SVG
+        uses: rlespinasse/drawio-export-action@v2
+        with:
+          format: png
+          files: |
+            docs/Metadataeditor.drawio
+          # Outputlocation relative to the drawio-file
+          output: .
+          remove-page-suffix: true
+
+      - name: Commit generated SVGs
+        if: github.actor != 'nektos/act'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update generated SVG diagrams"
