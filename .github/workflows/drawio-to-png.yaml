@@ -17,8 +17,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Convert Draw.io files to SVG
+      - name: Convert Draw.io files to png
         uses: rlespinasse/drawio-export-action@v2
         with:
           format: png
@@ -28,8 +30,8 @@ jobs:
           output: .
           remove-page-suffix: true
 
-      - name: Commit generated SVGs
+      - name: Commit generated pngs
         if: github.actor != 'nektos/act'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: update generated SVG diagrams"
+          commit_message: "chore: update generated png diagrams"
