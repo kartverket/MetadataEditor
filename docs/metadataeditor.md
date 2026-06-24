@@ -1,5 +1,4 @@
 # Metadataeditor
-Denne docspagen ble kopiert fra Confluence 16.06.2026. Confluence-siden var da sist redigert i 2023.
 
 ## Diagram
 
@@ -32,13 +31,3 @@ Kopier `settings.default.config` til `settings.config` og gjør endringer etter 
 
 
 Legg inn `GeoNetworkUsername`/`GeoNetworkPassword` og `WebserviceGeonorgeUsername`/`WebserviceGeonorgePassword` ved å hente verdier fra KeePass.
-
-## NuGet package source
-
-Editoren benytter NuGet-pakken `Kartverket.Geonorge.Utilities`. Denne må hentes ned direkte fra byggeserveren (TeamCity).
-
-Legg til en NuGet package source i Visual Studio:
-
-`http://bygg.dev.geonorge.no/guestAuth/app/nuget/v1/FeedService.svc/`
-
-![Nuget kilde](./nuget.png)
