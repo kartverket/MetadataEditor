@@ -10,9 +10,9 @@ Tilbyr brukeren enkel administrasjon av metadata som er registrert i GeoNetwork.
 
 ## Kjøremiljø
 
-- Dev: <http://editor.dev.geonorge.no/>
-- Test: <https://editor.test.geonorge.no/>
-- Prod: <https://editor.geonorge.no/>
+- Dev: http://editor.dev.geonorge.no
+- Test: https://editor.test.geonorge.no
+- Prod: https://editor.geonorge.no
 
 ## Teknisk
 
