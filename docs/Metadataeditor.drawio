@@ -1,197 +1,51 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <mxfile host="ac.draw.io">
-  <diagram id="-NEhVj8s8HgANlm_FTXh" name="Page-1">
-    <mxGraphModel
-            dx="1564"
-            dy="1224"
-            grid="1"
-            gridSize="10"
-            guides="1"
-            tooltips="1"
-            connect="1"
-            arrows="1"
-            fold="1"
-            page="1"
-            pageScale="1"
-            pageWidth="850"
-            pageHeight="1100"
-            background="#FFFFFF"
-            math="0"
-            shadow="0"
-        >
+  <diagram id="d_eg3JMI4_rl8BCiVg0a" name="Side-1">
+    <mxGraphModel dx="1377" dy="806" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="2" parent="0" value="Layer 0" />
-        <mxCell
-                    id="3"
-                    parent="2"
-                    style="swimlane;collapsible=0;fontStyle=0;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;strokeWidth=2;shadow=0;fillColor=#ffffff;strokeColor=#333333;startSize=26.4861;whiteSpace=wrap;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=211;"
-                    value="&lt;div style=&#39;width: 207.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; font-weight: bold; color: rgb(17, 85, 204); line-height: 20.5px;&quot;&gt;API-er&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="267"
-                        width="210"
-                        x="900"
-                        y="164.26223754882812"
-                        as="geometry"
-                    />
+        <mxCell id="3" parent="2" style="swimlane;collapsible=0;fontStyle=0;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;strokeWidth=2;shadow=0;fillColor=#ffffff;strokeColor=#333333;startSize=26.4861;whiteSpace=wrap;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=211;" value="&lt;div style=&#39;width: 207.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; font-weight: bold; color: rgb(17, 85, 204); line-height: 20.5px;&quot;&gt;API-er&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="157.24" width="210" x="900" y="262.76" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="4"
-                    parent="3"
-                    style="swimlane;collapsible=0;swimlaneLine=0;strokeWidth=2;shadow=0;fillColor=none;strokeColor=#333333;whiteSpace=wrap;html=1;fontStyle=0;verticalAlign=top;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=214;"
-                    value="&lt;div style=&#39;width: 207.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; text-decoration: none; line-height: 20.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="240.51390075683594"
-                        width="210"
-                        y="26.486099243164062"
-                        as="geometry"
-                    />
+        <mxCell id="4" parent="3" style="swimlane;collapsible=0;swimlaneLine=0;strokeWidth=2;shadow=0;fillColor=none;strokeColor=#333333;whiteSpace=wrap;html=1;fontStyle=0;verticalAlign=top;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=214;" value="&lt;div style=&#39;width: 207.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; text-decoration: none; line-height: 20.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130.75390000000002" width="210" y="26.4861" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="5"
-                    parent="2"
-                    style="swimlane;collapsible=0;fontStyle=0;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;strokeWidth=2;shadow=0;fillColor=#ffffff;strokeColor=#333333;startSize=26.4861;whiteSpace=wrap;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=143;"
-                    value="&lt;div style=&#39;width: 187.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; font-weight: bold; color: rgb(17, 85, 204); line-height: 20.5px;&quot;&gt;Register&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
+        <mxCell id="5" parent="2" style="swimlane;collapsible=0;fontStyle=0;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;strokeWidth=2;shadow=0;fillColor=#ffffff;strokeColor=#333333;startSize=26.4861;whiteSpace=wrap;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=143;" value="&lt;div style=&#39;width: 187.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; font-weight: bold; color: rgb(17, 85, 204); line-height: 20.5px;&quot;&gt;Register&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="760" width="190" x="20" y="20" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="6"
-                    parent="5"
-                    style="swimlane;collapsible=0;swimlaneLine=0;strokeWidth=2;shadow=0;fillColor=none;strokeColor=#333333;whiteSpace=wrap;html=1;fontStyle=0;verticalAlign=top;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=146;"
-                    value="&lt;div style=&#39;width: 187.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; text-decoration: none; line-height: 20.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="733.513916015625"
-                        width="190"
-                        y="26.486099243164062"
-                        as="geometry"
-                    />
+        <mxCell id="6" parent="5" style="swimlane;collapsible=0;swimlaneLine=0;strokeWidth=2;shadow=0;fillColor=none;strokeColor=#333333;whiteSpace=wrap;html=1;fontStyle=0;verticalAlign=top;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=146;" value="&lt;div style=&#39;width: 187.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; text-decoration: none; line-height: 20.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="733.513916015625" width="190" y="26.486099243164062" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="7"
-                    parent="2"
-                    style="shape=rect;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=10.0;spacingRight=6;whiteSpace=wrap;gliffyId=139;"
-                    value="&lt;div style=&#39;width: 189.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration:none; line-height: 0;&quot;&gt;&lt;span style=&quot;font-size: 24px; font-weight: bold; line-height: 27px;&quot;&gt;Metadata-editor&lt;/span&gt;&lt;br&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="124"
-                        width="200"
-                        x="395"
-                        y="238.37762451171875"
-                        as="geometry"
-                    />
+        <mxCell id="7" parent="2" style="shape=rect;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=10.0;spacingRight=6;whiteSpace=wrap;gliffyId=139;" value="&lt;div style=&#39;width: 189.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration:none; line-height: 0;&quot;&gt;&lt;span style=&quot;font-size: 24px; font-weight: bold; line-height: 27px;&quot;&gt;Metadata-editor&lt;/span&gt;&lt;br&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="124" width="200" x="395" y="238.37762451171875" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="8"
-                    edge="1"
-                    parent="2"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=148;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="8" edge="1" parent="2" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=148;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="73" relative="1" width="245" as="geometry">
             <Array as="points">
               <mxPoint x="289.99737548828125" y="183.3916015625" />
               <mxPoint x="289.99737548828125" y="300.37762451171875" />
               <mxPoint x="395" y="300.37762451171875" />
             </Array>
-            <mxPoint
-                            x="184.99472045898438"
-                            y="183.3916015625"
-                            as="sourcePoint"
-                        />
+            <mxPoint x="184.99472045898438" y="183.3916015625" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="9"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=158;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-weight: bold; line-height: 16.5px;&quot;&gt;Metadata-&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-weight: bold; line-height: 16.5px;&quot;&gt;kodelister&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 14px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="35"
-                        y="59.51049041748047"
-                        as="geometry"
-                    />
+        <mxCell id="9" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=158;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-weight: bold; line-height: 16.5px;&quot;&gt;Metadata-&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-weight: bold; line-height: 16.5px;&quot;&gt;kodelister&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 14px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="35" y="59.51049041748047" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="10"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=167;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Produkt-spesifikasjoner&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="35"
-                        y="148.88111877441406"
-                        as="geometry"
-                    />
+        <mxCell id="10" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=167;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Produkt-spesifikasjoner&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="35" y="148.88111877441406" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="11"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=170;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Produktark&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="35"
-                        y="238.2517547607422"
-                        as="geometry"
-                    />
+        <mxCell id="11" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=170;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Produktark&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="35" y="238.2517547607422" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="12"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=172;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Tegneregler&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="35"
-                        y="327.62237548828125"
-                        as="geometry"
-                    />
+        <mxCell id="12" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=172;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Tegneregler&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="35" y="327.62237548828125" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="13"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=174;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Objektregister&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="35"
-                        y="416.9930114746094"
-                        as="geometry"
-                    />
+        <mxCell id="13" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=174;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Objektregister&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="35" y="416.9930114746094" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="14"
-                    edge="1"
-                    parent="2"
-                    source="11"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=178;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="14" edge="1" parent="2" source="11" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=178;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="233" relative="1" width="249" as="geometry">
             <Array as="points">
               <mxPoint x="185" y="273.0069885253906" />
@@ -201,14 +55,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="15"
-                    edge="1"
-                    parent="2"
-                    source="12"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=181;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="15" edge="1" parent="2" source="12" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=181;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="336" relative="1" width="250" as="geometry">
             <Array as="points">
               <mxPoint x="185" y="362.37762451171875" />
@@ -218,14 +65,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="16"
-                    edge="1"
-                    parent="2"
-                    source="13"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=182;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="16" edge="1" parent="2" source="13" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=182;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="435" relative="1" width="236" as="geometry">
             <Array as="points">
               <mxPoint x="185" y="451.7482604980469" />
@@ -235,59 +75,16 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="17"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=184;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Organisasjoner&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="35"
-                        y="506.3636474609375"
-                        as="geometry"
-                    />
+        <mxCell id="17" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=184;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Organisasjoner&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="35" y="506.3636474609375" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="18"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=186;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;EPSG-koder&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="35"
-                        y="595.7342529296875"
-                        as="geometry"
-                    />
+        <mxCell id="18" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=186;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;EPSG-koder&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="35" y="595.7342529296875" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="19"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=190;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Navnerom&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="35"
-                        y="680"
-                        as="geometry"
-                    />
+        <mxCell id="19" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=190;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Navnerom&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="35" y="680" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="20"
-                    edge="1"
-                    parent="2"
-                    source="9"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=192;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="20" edge="1" parent="2" source="9" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=192;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="20" relative="1" width="238" as="geometry">
             <Array as="points">
               <mxPoint x="185" y="94.26573181152344" />
@@ -297,14 +94,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="21"
-                    edge="1"
-                    parent="2"
-                    source="17"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=194;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="21" edge="1" parent="2" source="17" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=194;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="270" relative="1" width="244" as="geometry">
             <Array as="points">
               <mxPoint x="185" y="541.118896484375" />
@@ -314,14 +104,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="22"
-                    edge="1"
-                    parent="2"
-                    source="18"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=196;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="22" edge="1" parent="2" source="18" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=196;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="363" relative="1" width="243" as="geometry">
             <Array as="points">
               <mxPoint x="185" y="630.489501953125" />
@@ -331,14 +114,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="23"
-                    edge="1"
-                    parent="2"
-                    source="19"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=197;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="23" edge="1" parent="2" source="19" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=197;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="444" relative="1" width="237" as="geometry">
             <Array as="points">
               <mxPoint x="185" y="714.7552490234375" />
@@ -348,23 +124,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="24"
-                    parent="2"
-                    style="shape=rect;shadow=0;strokeWidth=3;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.6;spacingRight=6;whiteSpace=wrap;gliffyId=198;"
-                    value="&lt;div style=&#39;width: 121.8px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;GeoNetwork&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
+        <mxCell id="24" parent="2" style="shape=rect;shadow=0;strokeWidth=3;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.6;spacingRight=6;whiteSpace=wrap;gliffyId=198;" value="&lt;div style=&#39;width: 121.8px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;GeoNetwork&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="130" x="430" y="20" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="25"
-                    edge="1"
-                    parent="2"
-                    source="24"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=203;edgeStyle=orthogonalEdgeStyle;"
-                    target="27"
-                >
+        <mxCell id="25" edge="1" parent="2" source="24" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=203;edgeStyle=orthogonalEdgeStyle;" target="27">
           <mxGeometry height="161" relative="1" width="4" as="geometry">
             <Array as="points">
               <mxPoint x="495" y="90" />
@@ -374,113 +137,25 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="26"
-                    parent="2"
-                    style="shape=rhombus;perimeter=rhombusPerimeter;shadow=0;strokeWidth=2;fillColor=#0B599F;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.0;spacingRight=6;whiteSpace=wrap;gliffyId=200;"
-                    value="&lt;div style=&#39;width: 73.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 12px; font-family: Arial; text-decoration: none; color: rgb(255, 255, 255); line-height: 14px;&quot;&gt;CSW&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="70"
-                        width="80"
-                        x="455"
-                        y="113.63636016845703"
-                        as="geometry"
-                    />
+        <mxCell id="26" parent="2" style="shape=rhombus;perimeter=rhombusPerimeter;shadow=0;strokeWidth=2;fillColor=#0B599F;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.0;spacingRight=6;whiteSpace=wrap;gliffyId=200;" value="&lt;div style=&#39;width: 73.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 12px; font-family: Arial; text-decoration: none; color: rgb(255, 255, 255); line-height: 14px;&quot;&gt;CSW&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="80" x="455" y="113.63636016845703" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="27"
-                    parent="2"
-                    style="shape=rect;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=7.8;spacingRight=6;whiteSpace=wrap;gliffyId=206;"
-                    value="&lt;div style=&#39;width: 83.4px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 14px;&quot;&gt;Geonorge-API&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="55"
-                        width="90"
-                        x="450"
-                        y="210.7517547607422"
-                        as="geometry"
-                    />
+        <mxCell id="27" parent="2" style="shape=rect;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=7.8;spacingRight=6;whiteSpace=wrap;gliffyId=206;" value="&lt;div style=&#39;width: 83.4px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 14px;&quot;&gt;Geonorge-API&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="55" width="90" x="450" y="210.7517547607422" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="28"
-                    parent="2"
-                    style="shape=rect;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=7.0;spacingRight=6;whiteSpace=wrap;gliffyId=208;"
-                    value="&lt;div style=&#39;width: 45.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 14px;&quot;&gt;API&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="30"
-                        width="50"
-                        x="310"
-                        y="282.7622375488281"
-                        as="geometry"
-                    />
+        <mxCell id="28" parent="2" style="shape=rect;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=7.0;spacingRight=6;whiteSpace=wrap;gliffyId=208;" value="&lt;div style=&#39;width: 45.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 14px;&quot;&gt;API&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="50" x="310" y="282.7622375488281" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="29"
-                    parent="2"
-                    style="shape=parallelogram;perimeter=parallelogramPerimeter;shadow=0;strokeWidth=2;fillColor=#cfe2f3;strokeColor=#1c4587;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.888889;spacingRight=6;whiteSpace=wrap;gliffyId=216;"
-                    value="&lt;div style=&#39;width: 121.22222px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;Administrative enheter&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;LOD&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="70"
-                        width="130"
-                        x="947"
-                        y="212.27622985839844"
-                        as="geometry"
-                    />
+        <mxCell id="30" parent="2" style="shape=parallelogram;perimeter=parallelogramPerimeter;shadow=0;strokeWidth=2;fillColor=#cfe2f3;strokeColor=#1c4587;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.888889;spacingRight=6;whiteSpace=wrap;gliffyId=221;" value="&lt;div style=&#39;width: 121.22222px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px; line-height: 0;&quot;&gt;&lt;span style=&quot;font-weight: bold; line-height: 16.5px;&quot;&gt;Koordinat-transformasjon&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="130" x="935" y="314.6398620605469" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="30"
-                    parent="2"
-                    style="shape=parallelogram;perimeter=parallelogramPerimeter;shadow=0;strokeWidth=2;fillColor=#cfe2f3;strokeColor=#1c4587;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.888889;spacingRight=6;whiteSpace=wrap;gliffyId=221;"
-                    value="&lt;div style=&#39;width: 121.22222px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px; line-height: 0;&quot;&gt;&lt;span style=&quot;font-weight: bold; line-height: 16.5px;&quot;&gt;Koordinat-transformasjon&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="70"
-                        width="130"
-                        x="935"
-                        y="314.6398620605469"
-                        as="geometry"
-                    />
-        </mxCell>
-        <mxCell
-                    id="31"
-                    parent="2"
-                    style="shape=internalStorage;dx=10;dy=10;shadow=0;strokeWidth=2;fillColor=#FFFFFF;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=top;align=center;spacingLeft=9.076923;spacingRight=6;spacingTop=1.0;spacingBottom=8;whiteSpace=wrap;gliffyId=223;"
-                    value="&lt;div style=&#39;width: 190.84616px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;Fil-lagring&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
+        <mxCell id="31" parent="2" style="shape=internalStorage;dx=10;dy=10;shadow=0;strokeWidth=2;fillColor=#FFFFFF;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=top;align=center;spacingLeft=9.076923;spacingRight=6;spacingTop=1.0;spacingBottom=8;whiteSpace=wrap;gliffyId=223;" value="&lt;div style=&#39;width: 190.84616px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;Fil-lagring&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="150" width="200" x="335" y="605" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="32"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=9.0;spacingRight=6;whiteSpace=wrap;gliffyId=226;"
-                    value="&lt;div style=&#39;width: 141.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;- Dekningskart&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;- Miniatyr-bilder&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="89"
-                        width="150"
-                        x="367.5"
-                        y="657.2447509765625"
-                        as="geometry"
-                    />
+        <mxCell id="32" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=9.0;spacingRight=6;whiteSpace=wrap;gliffyId=226;" value="&lt;div style=&#39;width: 141.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;- Dekningskart&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;- Miniatyr-bilder&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="89" width="150" x="367.5" y="657.2447509765625" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="33"
-                    edge="1"
-                    parent="2"
-                    source="7"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=229;edgeStyle=orthogonalEdgeStyle;"
-                    target="30"
-                >
+        <mxCell id="33" edge="1" parent="2" source="7" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=229;edgeStyle=orthogonalEdgeStyle;" target="30">
           <mxGeometry height="105" relative="1" width="415" as="geometry">
             <Array as="points">
               <mxPoint x="595" y="300.37762451171875" />
@@ -490,46 +165,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="34"
-                    parent="2"
-                    style="shape=rect;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.6;spacingRight=6;whiteSpace=wrap;gliffyId=218;"
-                    value="&lt;div style=&#39;width: 121.8px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; text-decoration: none; color: rgb(8, 35, 63); line-height: 16.5px;&quot;&gt;Geonorgeskart&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; text-decoration: none; color: rgb(8, 35, 63); line-height: 16.5px;&quot;&gt;- dynamic map&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="70"
-                        width="130"
-                        x="715"
-                        y="262.7622375488281"
-                        as="geometry"
-                    />
+        <mxCell id="34" parent="2" style="shape=rect;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.6;spacingRight=6;whiteSpace=wrap;gliffyId=218;" value="&lt;div style=&#39;width: 121.8px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; text-decoration: none; color: rgb(8, 35, 63); line-height: 16.5px;&quot;&gt;Geonorgeskart&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; text-decoration: none; color: rgb(8, 35, 63); line-height: 16.5px;&quot;&gt;- dynamic map&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="130" x="715" y="262.7622375488281" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="35"
-                    edge="1"
-                    parent="2"
-                    source="29"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=232;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
-          <mxGeometry height="156" relative="1" width="338" as="geometry">
-            <Array as="points">
-              <mxPoint x="947" y="247.27622985839844" />
-              <mxPoint x="665.5" y="247.27622985839844" />
-              <mxPoint x="665.5" y="274.6963806152344" />
-              <mxPoint x="595" y="274.6963806152344" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell
-                    id="36"
-                    edge="1"
-                    parent="2"
-                    source="7"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=236;edgeStyle=orthogonalEdgeStyle;"
-                    target="31"
-                >
+        <mxCell id="36" edge="1" parent="2" source="7" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=236;edgeStyle=orthogonalEdgeStyle;" target="31">
           <mxGeometry height="152" relative="1" width="3" as="geometry">
             <Array as="points">
               <mxPoint x="453.5786437988281" y="362.37762451171875" />
@@ -539,58 +178,16 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="37"
-                    parent="2"
-                    style="swimlane;collapsible=0;fontStyle=0;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;strokeWidth=2;shadow=0;fillColor=#ffffff;strokeColor=#333333;startSize=26.4861;whiteSpace=wrap;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=237;"
-                    value="&lt;div style=&#39;width: 207.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; font-weight: bold; color: rgb(17, 85, 204); line-height: 20.5px;&quot;&gt;Inspire-register&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="129"
-                        width="210"
-                        x="900"
-                        y="466.7342529296875"
-                        as="geometry"
-                    />
+        <mxCell id="37" parent="2" style="swimlane;collapsible=0;fontStyle=0;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;strokeWidth=2;shadow=0;fillColor=#ffffff;strokeColor=#333333;startSize=26.4861;whiteSpace=wrap;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=237;" value="&lt;div style=&#39;width: 207.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; font-weight: bold; color: rgb(17, 85, 204); line-height: 20.5px;&quot;&gt;Inspire-register&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="129" width="210" x="900" y="466.7342529296875" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="38"
-                    parent="37"
-                    style="swimlane;collapsible=0;swimlaneLine=0;strokeWidth=2;shadow=0;fillColor=none;strokeColor=#333333;whiteSpace=wrap;html=1;fontStyle=0;verticalAlign=top;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=240;"
-                    value="&lt;div style=&#39;width: 207.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; text-decoration: none; line-height: 20.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="102.51390075683594"
-                        width="210"
-                        y="26.486099243164062"
-                        as="geometry"
-                    />
+        <mxCell id="38" parent="37" style="swimlane;collapsible=0;swimlaneLine=0;strokeWidth=2;shadow=0;fillColor=none;strokeColor=#333333;whiteSpace=wrap;html=1;fontStyle=0;verticalAlign=top;align=center;spacingLeft=0.0;spacingRight=0;spacingTop=-4.0;spacingBottom=3;whiteSpace=wrap;gliffyId=240;" value="&lt;div style=&#39;width: 207.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 18px; font-family: Arial; text-decoration: none; line-height: 20.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="102.51390075683594" width="210" y="26.486099243164062" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="39"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=242;"
-                    value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Metadata &lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;code list&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="69.51049041748047"
-                        width="150"
-                        x="930"
-                        y="506.3636474609375"
-                        as="geometry"
-                    />
+        <mxCell id="39" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.307693;spacingRight=6;whiteSpace=wrap;gliffyId=242;" value="&lt;div style=&#39;width: 142.38461px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;Metadata &lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size: 14px; font-family: Arial; font-weight: bold; line-height: 16.5px;&quot;&gt;code list&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="69.51049041748047" width="150" x="930" y="506.3636474609375" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="40"
-                    edge="1"
-                    parent="2"
-                    source="39"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=244;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="40" edge="1" parent="2" source="39" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=none;startFill=0;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=244;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="72" relative="1" width="387" as="geometry">
             <Array as="points">
               <mxPoint x="930" y="541.118896484375" />
@@ -600,38 +197,13 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="41"
-                    parent="2"
-                    style="shape=internalStorage;dx=10;dy=10;shadow=0;strokeWidth=2;fillColor=#FFFFFF;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=top;align=center;spacingLeft=9.076923;spacingRight=6;spacingTop=1.0;spacingBottom=8;whiteSpace=wrap;gliffyId=251;"
-                    value="&lt;div style=&#39;width: 190.84616px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;Logging&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
+        <mxCell id="41" parent="2" style="shape=internalStorage;dx=10;dy=10;shadow=0;strokeWidth=2;fillColor=#FFFFFF;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=top;align=center;spacingLeft=9.076923;spacingRight=6;spacingTop=1.0;spacingBottom=8;whiteSpace=wrap;gliffyId=251;" value="&lt;div style=&#39;width: 190.84616px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;Logging&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="150" width="200" x="610" y="605" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="42"
-                    parent="2"
-                    style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=9.0;spacingRight=6;whiteSpace=wrap;gliffyId=249;"
-                    value="&lt;div style=&#39;width: 141.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;- Loggfiler&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
-          <mxGeometry
-                        height="89"
-                        width="150"
-                        x="642.5"
-                        y="657.2447509765625"
-                        as="geometry"
-                    />
+        <mxCell id="42" parent="2" style="shape=mxgraph.flowchart.multi-document;shadow=0;strokeWidth=2;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=9.0;spacingRight=6;whiteSpace=wrap;gliffyId=249;" value="&lt;div style=&#39;width: 141.0px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;- Loggfiler&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="89" width="150" x="642.5" y="657.2447509765625" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="43"
-                    edge="1"
-                    parent="2"
-                    source="7"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=254;edgeStyle=orthogonalEdgeStyle;"
-                    target="41"
-                >
+        <mxCell id="43" edge="1" parent="2" source="7" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=254;edgeStyle=orthogonalEdgeStyle;" target="41">
           <mxGeometry height="160" relative="1" width="193" as="geometry">
             <Array as="points">
               <mxPoint x="536.42138671875" y="362.37762451171875" />
@@ -641,32 +213,13 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="44"
-                    parent="2"
-                    style="shape=rect;shadow=0;strokeWidth=3;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.6;spacingRight=6;whiteSpace=wrap;gliffyId=261;"
-                    value="&lt;div style=&#39;width: 121.8px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;BAAT&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
+        <mxCell id="44" parent="2" style="shape=rect;shadow=0;strokeWidth=3;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.6;spacingRight=6;whiteSpace=wrap;gliffyId=261;" value="&lt;div style=&#39;width: 121.8px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;BAAT&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="130" x="780" y="20" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="45"
-                    parent="2"
-                    style="shape=rect;shadow=0;strokeWidth=3;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.6;spacingRight=6;whiteSpace=wrap;gliffyId=263;"
-                    value="&lt;div style=&#39;width: 121.8px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;GeoID&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;"
-                    vertex="1"
-                >
+        <mxCell id="45" parent="2" style="shape=rect;shadow=0;strokeWidth=3;fillColor=#DDE6F1;strokeColor=#0B599F;opacity=100.0;html=1;nl2Br=0;verticalAlign=middle;align=center;spacingLeft=8.6;spacingRight=6;whiteSpace=wrap;gliffyId=263;" value="&lt;div style=&#39;width: 121.8px;height:auto;word-break: break-word;&#39;&gt;&lt;div align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:14px;font-family:Arial;font-weight:bold;text-decoration:none;color:#08233f; line-height: 0;&quot;&gt;&lt;span style=&quot;text-decoration: none; line-height: 16.5px;&quot;&gt;GeoID&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="130" x="610" y="20" as="geometry" />
         </mxCell>
-        <mxCell
-                    id="46"
-                    edge="1"
-                    parent="2"
-                    source="45"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=265;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="46" edge="1" parent="2" source="45" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=265;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="150" relative="1" width="108" as="geometry">
             <Array as="points">
               <mxPoint x="675" y="90" />
@@ -676,14 +229,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell
-                    id="47"
-                    edge="1"
-                    parent="2"
-                    source="44"
-                    style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=266;edgeStyle=orthogonalEdgeStyle;"
-                    target="7"
-                >
+        <mxCell id="47" edge="1" parent="2" source="44" style="shape=filledEdge;strokeWidth=2;strokeColor=#0B599F;fillColor=none;startArrow=block;startFill=1;startSize=6;endArrow=block;endFill=1;endSize=6;rounded=0;gliffyId=266;edgeStyle=orthogonalEdgeStyle;" target="7">
           <mxGeometry height="152" relative="1" width="280" as="geometry">
             <Array as="points">
               <mxPoint x="845" y="90" />
