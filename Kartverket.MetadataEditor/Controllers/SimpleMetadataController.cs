@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Kartverket.MetadataEditor.Helpers;
 using Kartverket.MetadataEditor.Util;
 using Resources;
 using log4net;
@@ -53,6 +54,14 @@ namespace Kartverket.MetadataEditor.Controllers
                 string username = GetUsername();
                 string uuid = _metadataService.CreateMetadata(model, username);
                 Log.Info(string.Format("Created new metadata: {0} [uuid = {1}] for user: {2} on behalf of {3} ", model.Title, uuid, username, organization));
+                TelemetryHelper.Capture(TempData, "metadataeditor_created", new Dictionary<string, object>
+                {
+                    { "editor", "simple" },
+                    { "type", model.Type },
+                    { "type_name", model.TypeName },
+                    { "metadata_language", model.MetadataLanguage },
+                    { "source", "new" }
+                });
                 return RedirectToAction("Edit", new { uuid = uuid, metadatacreated = true });
             }
             return View(model);
@@ -85,6 +94,22 @@ namespace Kartverket.MetadataEditor.Controllers
             if (TempData["Message"] != null)
             {
                 ViewBag.Message = TempData["Message"];
+            }
+
+            // Only for an actual search, and only for its first page - the paging links carry the
+            // search parameters along, and would otherwise record the same search once per page.
+            if (offset <= 1 && (!string.IsNullOrWhiteSpace(searchString) || !string.IsNullOrWhiteSpace(organization)))
+            {
+                TelemetryHelper.Capture(TempData, "metadataeditor_search", new Dictionary<string, object>
+                {
+                    { "editor", "simple" },
+                    { "search_term", TelemetryHelper.SanitizeSearchTerm(searchString) },
+                    { "has_search_term", !string.IsNullOrWhiteSpace(searchString) },
+                    { "organization_filter", !string.IsNullOrWhiteSpace(organization) },
+                    { "result_count", model.TotalNumberOfRecords },
+                    { "has_results", model.TotalNumberOfRecords > 0 },
+                    { "user_is_admin", model.UserIsAdmin }
+                });
             }
 
             return View(model);
@@ -304,6 +329,14 @@ namespace Kartverket.MetadataEditor.Controllers
                     ValidateMetadata(uuid);
                 }
 
+                TelemetryHelper.Capture(TempData, "metadataeditor_saved", new Dictionary<string, object>
+                {
+                    { "editor", "simple" },
+                    { "type", model.HierarchyLevel },
+                    { "metadata_standard", model.MetadataStandard },
+                    { "validated", action.Equals(UI.Button_Validate) }
+                });
+
                 return RedirectToAction("Edit", new { uuid = model.Uuid });
             }
             else
@@ -312,6 +345,20 @@ namespace Kartverket.MetadataEditor.Controllers
                                         .SelectMany(x => x.Errors)
                                         .Select(x => x.ErrorMessage));
                 Log.Debug("Model for " + uuid + " is not valid: " + messages);
+
+                // Only the names of the offending fields, never the messages - some of those quote
+                // what was entered. The simple editor has no "ignore errors" option, so unlike the
+                // full editor there is nothing to record about bypassing validation.
+                var invalidFields = TelemetryHelper.InvalidFieldNames(ModelState);
+
+                TelemetryHelper.Capture(TempData, "metadataeditor_save_failed", new Dictionary<string, object>
+                {
+                    { "editor", "simple" },
+                    { "type", model.HierarchyLevel },
+                    { "metadata_standard", model.MetadataStandard },
+                    { "invalid_fields", invalidFields },
+                    { "invalid_field_count", invalidFields.Count }
+                });
             }
 
             PrepareViewBagForEditing(model);
@@ -652,6 +699,13 @@ namespace Kartverket.MetadataEditor.Controllers
             if (HasAccessToMetadata(model))
             {
                 _metadataService.DeleteMetadata(uuid, GetUsername());
+
+                TelemetryHelper.Capture(TempData, "metadataeditor_delete_requested", new Dictionary<string, object>
+                {
+                    { "editor", "simple" },
+                    { "type", model.HierarchyLevel },
+                    { "deletion_mode", "deleted" }
+                });
 
                 TempData["Message"] = "Metadata med uuid " + uuid + " ble slettet.";
                 return RedirectToAction("Index");

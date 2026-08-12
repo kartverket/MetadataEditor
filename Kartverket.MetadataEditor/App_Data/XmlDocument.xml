@@ -2135,6 +2135,12 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:Kartverket.MetadataEditor.Controllers.MetadataController.CaptureSaveFailed(Kartverket.MetadataEditor.Models.MetadataViewModel,System.String)">
+            <summary>
+            Records a save the editor was not allowed to complete. Only the names of the offending
+            fields go out, never the messages - some of those quote what was entered.
+            </summary>
+        </member>
         <member name="M:Kartverket.MetadataEditor.Controllers.ApiMetaController.UploadThumbnail(System.String)">
             <summary>
             Upload thumbnail
@@ -2178,6 +2184,75 @@
             Returns default culture name which is the first name decalared (e.g. en-US)
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Helpers.HtmlHelperExtensions.PostHogAutocapture(System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Captures a $autocapture event for every click and input in addition to the events in
+            Scripts/posthog-tracking.js. Off unless configured - those events carry the text of
+            whatever was clicked, and in the editor that text is metadata being written.
+            </summary>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Helpers.HtmlHelperExtensions.PostHogDisableSessionRecording(System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Session replay records the rendered page. Every page in the editor is authenticated and
+            shows the user's name and email, so this stays disabled unless configured otherwise.
+            </summary>
+        </member>
+        <member name="T:Kartverket.MetadataEditor.Helpers.TelemetryHelper">
+             <summary>
+             Queues analytics events on the server and hands them to the browser through TempData,
+             where Scripts/posthog-tracking.js captures them. Events are recorded from the action that
+             succeeded, not from a form submit, so a failed validation does not count as a save - and
+             TempData carries the event across the redirect the POST actions end with.
+            
+             Nothing user identifying goes into an event. The editor is authenticated and every page
+             carries the user's name and email, so only the shape of what was done is captured.
+             </summary>
+        </member>
+        <member name="F:Kartverket.MetadataEditor.Helpers.TelemetryHelper.MaxSearchTermLength">
+            <summary>
+            Real search terms are short. Longer input is pasted content, which is where personal
+            data realistically ends up.
+            </summary>
+        </member>
+        <member name="F:Kartverket.MetadataEditor.Helpers.TelemetryHelper.NationalIdentityNumber">
+            <summary>Fødselsnummer and D-nummer, also written as 6 digits + space + 5.</summary>
+        </member>
+        <member name="F:Kartverket.MetadataEditor.Helpers.TelemetryHelper.CollectionIndex">
+            <summary>Index of a collection entry in a model state key, as in "Distributions[3].Protocol".</summary>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Helpers.TelemetryHelper.Capture(System.Web.Mvc.TempDataDictionary,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Queues an event for the next page the browser renders. Several events can be queued
+            for the same page - a delete redirects to the metadata list, which may queue an event
+            of its own.
+            </summary>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Helpers.TelemetryHelper.TakeQueuedEvents(System.Web.Mvc.TempDataDictionary)">
+            <summary>
+            The queued events as JSON, or an empty string when there are none. Reading removes
+            them, so an event is captured once and not again on the following page.
+            </summary>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Helpers.TelemetryHelper.SanitizeSearchTerm(System.String)">
+            <summary>
+            Returns the search term normalised for analytics, or an empty string when it must not
+            be captured. An empty result means "no term recorded", not "empty search".
+            </summary>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Helpers.TelemetryHelper.InvalidFieldNames(System.Web.Mvc.ModelStateDictionary)">
+            <summary>
+            The names of the fields that blocked a save, sorted and without duplicates. Field names
+            are schema names and safe to record - the error messages are not, because some of them
+            quote what the user entered. Collection indexes are collapsed, so a bad protocol on the
+            fourth distribution reports as "DistributionsFormats[].Protocol" rather than as a value
+            of its own; that also keeps the list bounded by the form rather than by the data.
+            </summary>
+        </member>
+        <member name="M:Kartverket.MetadataEditor.Helpers.TelemetryHelper.QueuedEvents(System.Web.Mvc.TempDataDictionary)">
+            <summary>
+            Peeks at what is already queued, so appending does not consume the entry.
+            </summary>
         </member>
         <member name="M:Kartverket.MetadataEditor.Views.Home.HomeController.SignOutCallback">
             <summary>

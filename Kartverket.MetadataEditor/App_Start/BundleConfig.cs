@@ -34,7 +34,8 @@ namespace Kartverket.MetadataEditor
                 "~/Scripts/jQuery.FileUpload/jquery.fileupload.js",
                 "~/Scripts/bootstrap-filestyle.js",
                 "~/Scripts/geonorge-editor.js",
-                "~/Scripts/jquery.autosize.js"
+                "~/Scripts/jquery.autosize.js",
+                "~/Scripts/posthog-tracking.js"
            ));
 
             bundles.Add(new ScriptBundle("~/node-modules/scripts").Include(

@@ -488,7 +488,7 @@
 
 
     function displayMetadataRow(result) {
-    var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addOperatesOn(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+    var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addOperatesOn(\'' + result.Uuid + '\')" data-link-type="operates_on" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
     $('#searchresultsDS').append(div);
     }
 
@@ -797,7 +797,7 @@
 
 
     function displayMetadataServiceRow(result) {
-        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="setParentIdentifier(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Velg' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="setParentIdentifier(\'' + result.Uuid + '\')" data-link-type="parent_service" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Velg' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
         $('#searchresultsService').append(div);
     }
 
@@ -903,7 +903,7 @@
 
 
         function displayMetadataRowCrossReference(result) {
-        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addCrossReference(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="addCrossReference(\'' + result.Uuid + '\')" data-link-type="cross_reference" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Legg til' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
         $('#searchresultsDS').append(div);
     }
 
@@ -992,7 +992,7 @@
 
 
     function displayMetadataSeriesRow(result) {
-        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="setParentIdentifier(\'' + result.Uuid + '\')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Velg' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
+        var div = '<div class="row"><div class="col-sm-10">' + result.Title + ', ' + result.Organization + '</div> <div class="col-sm-2"> <a onclick="setParentIdentifier(\'' + result.Uuid + '\')" data-link-type="parent_series" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus-sign"></span> Velg' + '</a> </div> </div> <hr style="margin: 2px 2px 2px 2px" />';
         $('#searchresultsSeries').append(div);
     }
 
