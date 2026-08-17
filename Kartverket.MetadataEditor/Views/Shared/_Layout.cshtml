@@ -46,6 +46,26 @@
                         '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', 'GTM-MR2X5P');
         }</script>
+
+    @if (Html.EnvironmentName() == "" && !string.IsNullOrEmpty(Html.PostHogApiKey()))
+    {
+        <script>
+            !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ji Yi init fn mn Hr pn bn cn capture calculateEventProperties Sn register register_once register_for_session unregister unregister_for_session In getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync Mn identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty Cn xn createPersonProfile setInternalOrTestUser Tn hn Pn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing debug Ur wt getPageViewId captureTraceFeedback captureTraceMetric an".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+            posthog.init('@Html.Raw(HttpUtility.JavaScriptStringEncode(Html.PostHogApiKey()))', {
+                api_host: '@Html.Raw(HttpUtility.JavaScriptStringEncode(Html.PostHogApiHost()))', // managed reverse proxy domain
+                ui_host: '@Html.Raw(HttpUtility.JavaScriptStringEncode(Html.PostHogUiHost()))', // necessary because of the proxy, this way links point back to PostHog properly
+                defaults: '2026-05-30',
+                person_profiles: 'identified_only', // the editor never calls identify, so no profiles are created
+                autocapture: @(Html.PostHogAutocapture() ? "true" : "false"), // true also captures every click, with the text of the clicked element
+                disable_session_recording: @(Html.PostHogDisableSessionRecording() ? "true" : "false") // replay records the page, which here always includes name and email
+            });
+
+            // The Geonorge apps share one PostHog project. Event names are prefixed per app, but
+            // that does not cover $pageview and the other events PostHog captures itself - this
+            // property is attached to every event, so the apps can be told apart throughout.
+            posthog.register({ app: 'metadataeditor' });
+        </script>
+    }
 </head>
 @{
     dynamic userInfo = new System.Dynamic.ExpandoObject();
@@ -199,6 +219,16 @@
     </div>
 
     <geonorge-footer language="@CultureHelper.GetCurrentCulture()" version="@Html.ApplicationVersionNumber()" environment="@Html.EnvironmentName()" />
+
+    @* Events queued by the controllers, read by Scripts/posthog-tracking.js. Rendered even when
+       PostHog is off - the script then finds no posthog object and does nothing. *@
+    @{
+        var queuedTelemetryEvents = TelemetryHelper.TakeQueuedEvents(TempData);
+    }
+    @if (!string.IsNullOrEmpty(queuedTelemetryEvents))
+    {
+        <div id="posthog-events" data-events="@queuedTelemetryEvents" hidden></div>
+    }
 
     <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.js"></script>
     <script src="https://unpkg.com/vuex@4.1.0/dist/vuex.global.js"></script>

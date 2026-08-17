@@ -77,6 +77,14 @@ namespace Kartverket.MetadataEditor.Controllers
                 string username = GetUsername();
                 string uuid = _metadataService.CreateMetadata(model, username);
                 Log.Info(string.Format("Created new metadata: {0} [uuid = {1}] for user: {2} on behalf of {3} ", model.Title, uuid, username, organization));
+                TelemetryHelper.Capture(TempData, "metadataeditor_created", new Dictionary<string, object>
+                {
+                    { "editor", "full" },
+                    { "type", model.Type },
+                    { "type_name", model.TypeName },
+                    { "metadata_language", model.MetadataLanguage },
+                    { "source", "new" }
+                });
                 return RedirectToAction("Edit", new { uuid = uuid, metadatacreated = true });
             }
             return View(model);
@@ -88,6 +96,14 @@ namespace Kartverket.MetadataEditor.Controllers
         {
             string username = GetUsername();
             string uuid = _metadataService.CopyMetadata(model.Uuid, username);
+            TelemetryHelper.Capture(TempData, "metadataeditor_created", new Dictionary<string, object>
+            {
+                { "editor", "full" },
+                { "type", model.HierarchyLevel },
+                { "type_name", model.HierarchyLevelName },
+                { "metadata_language", model.MetadataLanguage },
+                { "source", "copy" }
+            });
             return RedirectToAction("Edit", new { uuid = uuid, metadatacreated = true });
         }
 
@@ -123,9 +139,25 @@ namespace Kartverket.MetadataEditor.Controllers
                 ViewBag.Message = TempData["Message"];
             }
 
+            // Only for an actual search, and only for its first page - the paging links carry the
+            // search parameters along, and would otherwise record the same search once per page.
+            if (offset <= 1 && (!string.IsNullOrWhiteSpace(searchString) || !string.IsNullOrWhiteSpace(organization)))
+            {
+                TelemetryHelper.Capture(TempData, "metadataeditor_search", new Dictionary<string, object>
+                {
+                    { "editor", "full" },
+                    { "search_term", TelemetryHelper.SanitizeSearchTerm(searchString) },
+                    { "has_search_term", !string.IsNullOrWhiteSpace(searchString) },
+                    { "organization_filter", !string.IsNullOrWhiteSpace(organization) },
+                    { "result_count", model.TotalNumberOfRecords },
+                    { "has_results", model.TotalNumberOfRecords > 0 },
+                    { "user_is_admin", model.UserIsAdmin }
+                });
+            }
+
             return View(model);
         }
-        
+
 
         [HttpGet]
         [Authorize]
@@ -431,6 +463,7 @@ namespace Kartverket.MetadataEditor.Controllers
                             if (distro.Key.Protocol == null)
                             {
                                 ModelState.AddModelError("distributionProtocolMissing", UI.DistributionProtocolMissing);
+                                CaptureSaveFailed(model, ignoreValidationError);
                                 PrepareViewBagForEditing(model);
                                 return View(model);
                             }
@@ -443,6 +476,16 @@ namespace Kartverket.MetadataEditor.Controllers
                         ValidateMetadata(uuid);
                     }
 
+                    TelemetryHelper.Capture(TempData, "metadataeditor_saved", new Dictionary<string, object>
+                    {
+                        { "editor", "full" },
+                        { "type", model.HierarchyLevel },
+                        { "type_name", model.HierarchyLevelName },
+                        { "metadata_standard", model.MetadataStandard },
+                        { "validated", action.Equals(UI.Button_Validate) },
+                        { "validation_ignored", ignoreValidationError == "1" }
+                    });
+
                     return RedirectToAction("Edit", new { uuid = model.Uuid });
                 }
             }
@@ -452,10 +495,31 @@ namespace Kartverket.MetadataEditor.Controllers
                                         .SelectMany(x => x.Errors)
                                         .Select(x => x.ErrorMessage));
                 Log.Debug("Model for " + uuid + " is not valid: " + messages);
+
+                CaptureSaveFailed(model, ignoreValidationError);
             }
 
             PrepareViewBagForEditing(model);
             return View(model);
+        }
+
+        /// <summary>
+        /// Records a save the editor was not allowed to complete. Only the names of the offending
+        /// fields go out, never the messages - some of those quote what was entered.
+        /// </summary>
+        private void CaptureSaveFailed(MetadataViewModel model, string ignoreValidationError)
+        {
+            var invalidFields = TelemetryHelper.InvalidFieldNames(ModelState);
+
+            TelemetryHelper.Capture(TempData, "metadataeditor_save_failed", new Dictionary<string, object>
+            {
+                { "editor", "full" },
+                { "type", model.HierarchyLevel },
+                { "metadata_standard", model.MetadataStandard },
+                { "invalid_fields", invalidFields },
+                { "invalid_field_count", invalidFields.Count },
+                { "validation_ignored", ignoreValidationError == "1" }
+            });
         }
 
         private void ValidQualityResult(MetadataViewModel model, ModelStateDictionary ModelState)
@@ -1177,6 +1241,13 @@ namespace Kartverket.MetadataEditor.Controllers
             {
                 _metadataService.DeleteMetadata(model, GetUsername(), comment);
 
+                TelemetryHelper.Capture(TempData, "metadataeditor_delete_requested", new Dictionary<string, object>
+                {
+                    { "editor", "full" },
+                    { "type", model.HierarchyLevel },
+                    { "deletion_mode", "deleted" }
+                });
+
                 TempData["Message"] = "Metadata med uuid " + uuid + " ble slettet.";
                 return RedirectToAction("Index");
             }
@@ -1191,6 +1262,15 @@ namespace Kartverket.MetadataEditor.Controllers
         public ActionResult RequestDelete(string uuid, string title, string comment)
         {
             SendEmail(uuid, title, comment);
+
+            // No model is loaded here, so the metadata type is not known - the email request is
+            // sent by editors who lack delete rights, which is what makes this worth separating.
+            TelemetryHelper.Capture(TempData, "metadataeditor_delete_requested", new Dictionary<string, object>
+            {
+                { "editor", "full" },
+                { "deletion_mode", "email_request" }
+            });
+
             TempData["Message"] = "Sendt anmodning om å slette " + title;
             return RedirectToAction("Index");
         }

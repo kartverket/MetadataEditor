@@ -1,4 +1,5 @@
-﻿using Kartverket.MetadataEditor.Models;
+﻿using Kartverket.MetadataEditor.Helpers;
+using Kartverket.MetadataEditor.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -74,7 +75,19 @@ namespace Kartverket.MetadataEditor.Controllers
             }
             string username = GetUsername();
             List<WfsLayerViewModel> newlyCreatedLayerMetadata = _metadataService.CreateMetadataForFeature(uuid, createMetadataForLayers, keywords, username);
-            
+
+            // Creates dataset metadata in bulk without going through MetadataController.Create, so
+            // it would otherwise be invisible. The service URL is left out - it can be a host that
+            // is not public.
+            TelemetryHelper.Capture(TempData, "metadataeditor_service_layers_created", new Dictionary<string, object>
+            {
+                { "editor", "full" },
+                { "service_type", "wfs" },
+                { "layer_count", newlyCreatedLayerMetadata != null ? newlyCreatedLayerMetadata.Count : 0 },
+                { "selected_layer_count", selectedLayers != null ? selectedLayers.Length : 0 },
+                { "keyword_count", keywords != null ? keywords.Length : 0 }
+            });
+
             WfsServiceLayerViewModel model = new WfsServiceLayerViewModel
             {
                 Metadata = metadata,

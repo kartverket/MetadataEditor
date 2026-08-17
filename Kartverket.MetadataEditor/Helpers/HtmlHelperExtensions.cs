@@ -82,5 +82,45 @@ namespace Kartverket.MetadataEditor.Helpers
         {
             return Boolean.Parse(WebConfigurationManager.AppSettings["SupportsMultiCulture"]); ;
         }
+
+        public static string PostHogApiKey(this HtmlHelper helper)
+        {
+            return WebConfigurationManager.AppSettings["PostHog:ApiKey"];
+        }
+
+        public static string PostHogApiHost(this HtmlHelper helper)
+        {
+            return WebConfigurationManager.AppSettings["PostHog:ApiHost"];
+        }
+
+        public static string PostHogUiHost(this HtmlHelper helper)
+        {
+            return WebConfigurationManager.AppSettings["PostHog:UiHost"];
+        }
+
+        /// <summary>
+        /// Captures a $autocapture event for every click and input in addition to the events in
+        /// Scripts/posthog-tracking.js. Off unless configured - those events carry the text of
+        /// whatever was clicked, and in the editor that text is metadata being written.
+        /// </summary>
+        public static bool PostHogAutocapture(this HtmlHelper helper)
+        {
+            return BoolSetting("PostHog:Autocapture", false);
+        }
+
+        /// <summary>
+        /// Session replay records the rendered page. Every page in the editor is authenticated and
+        /// shows the user's name and email, so this stays disabled unless configured otherwise.
+        /// </summary>
+        public static bool PostHogDisableSessionRecording(this HtmlHelper helper)
+        {
+            return BoolSetting("PostHog:DisableSessionRecording", true);
+        }
+
+        private static bool BoolSetting(string key, bool fallback)
+        {
+            bool value;
+            return Boolean.TryParse(WebConfigurationManager.AppSettings[key], out value) ? value : fallback;
+        }
     }
 }

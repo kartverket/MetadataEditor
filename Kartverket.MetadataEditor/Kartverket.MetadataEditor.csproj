@@ -453,6 +453,7 @@
     </Compile>
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\TelemetryHelper.cs" />
     <Compile Include="Models\BatchService.cs" />
     <Compile Include="Models\InspireCodelist\Inspire.cs" />
     <Compile Include="Models\DictionaryAsArrayResolver.cs" />
@@ -989,6 +990,7 @@
     <Content Include="Scripts\jquery-ui-1.13.2.js" />
     <Content Include="Scripts\jquery-ui-1.13.2.min.js" />
     <Content Include="Scripts\jquery.autosize.js" />
+    <Content Include="Scripts\posthog-tracking.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jQuery.FileUpload\cors\jquery.postmessage-transport.js" />
     <Content Include="Scripts\jQuery.FileUpload\cors\jquery.xdr-transport.js" />
