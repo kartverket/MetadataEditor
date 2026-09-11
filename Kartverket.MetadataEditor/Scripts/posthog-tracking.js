@@ -9,11 +9,18 @@
 // or user identity.
 
 $(function () {
-    if (typeof posthog === 'undefined') return;
-
     captureQueuedEvents();
     captureThumbnailUploads();
     captureMetadataLinking();
+
+    // PostHog is only loaded once the visitor has accepted analytics cookies in CookieYes, which
+    // can happen after this runs - so every event checks for it instead of bailing out up front.
+    // Without consent there is no posthog object and nothing is sent.
+    function capture(name, properties) {
+        if (typeof posthog === 'undefined') return;
+
+        posthog.capture(name, properties);
+    }
 
     // Thumbnail uploads go through jQuery.FileUpload, which uses $.ajax, so they surface as global
     // ajax events. Bound here rather than in the Vue components' done: callbacks, of which there is
@@ -26,7 +33,7 @@ $(function () {
             // A rejected file type still answers 200 with status ErrorWrongContent, so the outcome
             // has to come from the body. How often editors pick an unsupported file is worth
             // knowing, so those are recorded rather than dropped.
-            posthog.capture('metadataeditor_thumbnail_uploaded', {
+            capture('metadataeditor_thumbnail_uploaded', {
                 variant: endpoint,
                 accepted: !!(data && data.status === 'OK')
             });
@@ -44,7 +51,7 @@ $(function () {
     // them, since they do not exist when this runs.
     function captureMetadataLinking() {
         $(document).on('click', '[data-link-type]', function () {
-            posthog.capture('metadataeditor_metadata_linked', {
+            capture('metadataeditor_metadata_linked', {
                 link_type: $(this).attr('data-link-type')
             });
         });
@@ -57,7 +64,7 @@ $(function () {
         var events = parseEvents(container.getAttribute('data-events'));
         for (var i = 0; i < events.length; i++) {
             if (events[i] && events[i].name) {
-                posthog.capture(events[i].name, events[i].properties || {});
+                capture(events[i].name, events[i].properties || {});
             }
         }
     }
